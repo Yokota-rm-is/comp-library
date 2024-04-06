@@ -23,22 +23,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/warshall-floyd.hpp
     title: graph/warshall-floyd.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/dualsegmenttree.hpp
     title: structure/dualsegmenttree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/kruskal.hpp
     title: structure/kruskal.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/lazysegmenttree.hpp
     title: structure/lazysegmenttree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/segmenttree.hpp
     title: structure/segmenttree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/unionfind.hpp
     title: structure/unionfind.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.hpp
     title: structure/weighted-unionfind.hpp
   _extendedVerifiedWith:
@@ -54,54 +54,54 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
     title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/kruskal/aoj-grl-2-a.test.cpp
     title: test/graph/kruskal/aoj-grl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
     title: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
     title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
     title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -646,7 +646,7 @@ data:
   - graph/edge.hpp
   - graph/dijkstra.hpp
   timestamp: '2024-04-07 02:07:29+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp

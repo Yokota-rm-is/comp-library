@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.hpp
     title: base.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.hpp
     title: structure/weighted-unionfind.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_B&
@@ -348,7 +348,7 @@ data:
   path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   requiredBy: []
   timestamp: '2024-04-07 03:41:58+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
 layout: document

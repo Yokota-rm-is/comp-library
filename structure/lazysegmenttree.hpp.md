@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.hpp
     title: base.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1
@@ -693,7 +693,7 @@ data:
   path: structure/lazysegmenttree.hpp
   requiredBy: []
   timestamp: '2024-04-07 04:57:24+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp

@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.hpp
     title: base.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
     title: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
     title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -606,7 +606,7 @@ data:
   path: structure/segmenttree.hpp
   requiredBy: []
   timestamp: '2024-04-07 04:57:24+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
