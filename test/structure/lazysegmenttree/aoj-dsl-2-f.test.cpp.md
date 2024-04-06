@@ -4,17 +4,22 @@ data:
   - icon: ':question:'
     path: base.hpp
     title: base.hpp
+  - icon: ':x:'
+    path: structure/lazysegmenttree.hpp
+    title: structure/lazysegmenttree.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-    title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  _isVerificationFailed: false
-  _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _extendedVerifiedWith: []
+  _isVerificationFailed: true
+  _pathExtension: cpp
+  _verificationStatusIcon: ':x:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F&
+    links:
+    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F&
+  bundledCode: "#line 1 \"test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp\"\n\
+    #define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F&\"\
+    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -275,73 +280,229 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/warshall-floyd.hpp\"\
-    \n\ntemplate<typename Weight = long long>\nstruct WarshallFloyd {\n    long long\
-    \ V;\n    vector<vector<Weight>> cost{};\n    vector<vector<long long>> prev{};\n\
-    \    bool directed_;\n\n    WarshallFloyd(long long V, bool directed) : V(V),\
-    \ directed_(directed) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        cost.assign(V, vector<Weight>(V,\
-    \ inf64));\n        prev.assign(V, vector<long long>(V, -1));\n\n        rep(i,\
-    \ V) cost[i][i] = 0;\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n \
-    \   WarshallFloyd(vector<vector<long long>> A) : V(A.size()), cost(A), directed_(true)\
-    \  {\n        prev.assign(A.size(), vector<long long>(A.size(), -1));\n      \
-    \  rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    void connect(long long u,\
-    \ long long v, Weight w) {\n        cost[u][v] = w;\n        if (!directed_) cost[v][u]\
-    \ = w;\n    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n\
-    \    void warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n \
-    \               if (cost[i][k] >= inf64) continue;\n\n                rep(j, V)\
-    \ {\n                    if (cost[k][j] >= inf64) continue;\n\n              \
-    \      if(chmin(cost[i][j], cost[i][k] + cost[k][j])) {\n                    \
-    \    prev[i][j] = prev[k][j];\n                    }\n                }\n    \
-    \        }\n        }\n    }\n\n    Weight dist(long long from, long long to)\
-    \ {\n        return cost[from][to];\n    }\n\n    vector<Weight> dist_from(long\
-    \ long from) {\n        vector<Weight> ans;\n\n        rep(i, V) ans.push_back(cost[from][i]);\n\
-    \n        return ans;\n    }\n\n    vector<long long> path(long long from, long\
-    \ long to) {\n        vector<long long> p;\n        p.push_back(to);\n\n     \
-    \   while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
-    \ true;\n\n        return false;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\ntemplate<typename Weight = long\
-    \ long>\nstruct WarshallFloyd {\n    long long V;\n    vector<vector<Weight>>\
-    \ cost{};\n    vector<vector<long long>> prev{};\n    bool directed_;\n\n    WarshallFloyd(long\
-    \ long V, bool directed) : V(V), directed_(directed) { //\u6700\u521D\u306F\u5168\
-    \u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\u671F\u5316\n   \
-    \     cost.assign(V, vector<Weight>(V, inf64));\n        prev.assign(V, vector<long\
-    \ long>(V, -1));\n\n        rep(i, V) cost[i][i] = 0;\n        rep(i, V) rep(j,\
-    \ V) prev[i][j] = i;\n    }\n\n    WarshallFloyd(vector<vector<long long>> A)\
-    \ : V(A.size()), cost(A), directed_(true)  {\n        prev.assign(A.size(), vector<long\
-    \ long>(A.size(), -1));\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n\
-    \    void connect(long long u, long long v, Weight w) {\n        cost[u][v] =\
-    \ w;\n        if (!directed_) cost[v][u] = w;\n    }\n\n    void operator() ()\
-    \ {\n        warshall_floyd();\n    }\n\n    void warshall_floyd() {\n       \
-    \ rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k] >= inf64)\
-    \ continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
-    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
-    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
-    \           }\n                }\n            }\n        }\n    }\n\n    Weight\
-    \ dist(long long from, long long to) {\n        return cost[from][to];\n    }\n\
-    \n    vector<Weight> dist_from(long long from) {\n        vector<Weight> ans;\n\
-    \n        rep(i, V) ans.push_back(cost[from][i]);\n\n        return ans;\n   \
-    \ }\n\n    vector<long long> path(long long from, long long to) {\n        vector<long\
-    \ long> p;\n        p.push_back(to);\n\n        while (p.back() != from) {\n \
-    \           p.push_back(prev[from][p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    bool has_negative_cycle() {\n \
-    \       rep(i, V) if (cost[i][i] < 0) return true;\n\n        return false;\n\
-    \    }\n};"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.hpp\"\
+    \n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
+    // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
+    \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
+    \ RSQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1\n\
+    // RMQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1\n\
+    // RSQ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1\n\
+    \ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n  \
+    \  long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1, long\
+    \ long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n\
+    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
+    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
+    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
+    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T>& node) {\n\
+    \        return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
+    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
+    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
+    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
+    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
+    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
+    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
+    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
+    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
+    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
+    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
+    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
+    \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
+    };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
+    \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
+    \  return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
+    \        T value = min(x.value, y.value);\n        long long index = (y.value\
+    \ < x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n\
+    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
+    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    struct Sum: Operation<T> {\n    using S = Node<T>;\n\n    Sum(): _e(T()) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = x.value + y.value;\n        long\
+    \ long index = -1;\n        long long size = x.size + y.size;\n        long long\
+    \ coeff = size;\n\n        S ret(value, index, size, coeff);\n\n        return\
+    \ ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul:\
+    \ Operation<T> {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e()\
+    \ override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = x.value * y.value;\n        long long index\
+    \ = -1;\n        long long size = x.size + y.size;\n        long long coeff =\
+    \ 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n   \
+    \ }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct GCD\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    GCD(): _e(T(0)) {};\n\n    T\
+    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = gcd(x.value, y.value);\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct LCM\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    LCM(): _e(T(1)) {};\n\n    T\
+    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = lcm(x.value, y.value);\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Mapping\
+    \ {\n    using S = Node<T>;\n\n    Mapping() {};\n\n    virtual F id() = 0;\n\n\
+    \    void operator() (S &x, const F f) {\n        if (f == id()) return;\n\n \
+    \       map(x, f);\n    }\n\n    void composition(F &f, const F s) {\n       \
+    \ if (f == id()) {\n            f = s;\n            return;\n        };\n    \
+    \    if (s == id()) return;\n\n        com(f, s);\n    }\n\n    virtual void map(S\
+    \ &x, const F f) = 0;\n    virtual void com(F &f, const F s) = 0;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct Add: Mapping<T, F> {\n    using S = Node<T>;\n\n    Add():\
+    \ _id(F(0)) {};\n\n    F id() override {\n        return _id;\n    }\n\n    void\
+    \ map(S &x, const F f) override {\n        x.value += f * x.coeff;\n    }\n\n\
+    \    void com(F &f, const F s) override {\n        f += s;\n    }\n\nprivate:\n\
+    \    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Multiply: Mapping<T,\
+    \ F> {\n    using S = Node<T>;\n\n    Multiply(): _id(F(1)) {};\n\n    F id()\
+    \ override {\n        return _id;\n    }\n\n    void map(S &x, const F f) override\
+    \ {\n        x.value *= f;\n    }\n\n    void com(F &f, const F s) override {\n\
+    \        f *= s;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename\
+    \ G>\nstruct Affine: Mapping<T, pair<G, G>> {\n    using S = Node<T>;\n    using\
+    \ F = pair<G, G>;\n\n    Affine(): _id(F(1, 0)) {};\n\n    F id() override {\n\
+    \        return _id;\n    }\n\n    void map(S &x, const F f) override {\n    \
+    \    x.value = f.first * x.value + f.second * x.coeff;\n    }\n\n    void com(F\
+    \ &f, const F s) override {\n        f.first *= s.first;\n        f.second *=\
+    \ s.first;\n        f.second += s.second;\n    }\n\nprivate:\n    F _id;\n};\n\
+    \ntemplate<typename T, typename F>\nstruct Set: Mapping<T, F> {\n    using S =\
+    \ Node<T>;\n\n    Set(): _id(numeric_limits<F>::min()) {};\n\n    F id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F f) override {\n\
+    \        x.value = T(f) * x.coeff;\n    }\n\n    void com(F &f, const F s) override\
+    \ {\n        f = s;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T>\n\
+    struct Set<T, string>: Mapping<T, string> {\n    using S = Node<T>;\n    using\
+    \ F = string;\n\n    Set(): _id(F()) {};\n\n    F id() override {\n        return\
+    \ _id;\n    }\n\n    void map(S &x, const F f) override {\n        x.value = T(f);\n\
+    \    }\n\n    void com(F &f, const F s) override {\n        f = s;\n    }\n\n\
+    private:\n    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Flip: Mapping<T,\
+    \ F> {\n    using S = Node<T>;\n\n    Flip(): _id(F()) {};\n\n    F id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F f) override {\n\
+    \        if (f) {\n            x.value ^= 1;\n        }\n    }\n\n    void com(F\
+    \ &f, const F s) override {\n        f ^= s;\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, \n    typename F,\n    template<class, class> class\
+    \ _mapping, \n    template<class> class _op>\nstruct LazySegmentTree {\n    using\
+    \ S = Node<T>;\n\n    long long N, _N, height;\n\n    vector<S> node;\n    vector<F>\
+    \ lazy;\n    _op<T> op;\n    _mapping<T, F> mapping;\n\n    LazySegmentTree(long\
+    \ long n) : _N(n), op(), mapping() {\n        vector<T> v(n, op.e());\n      \
+    \  init(v);\n    }\n\n    LazySegmentTree(long long n, T a) : _N(n), op(), mapping()\
+    \ {\n        vector<T> v(n, a);\n        init(v);\n    }\n\n    LazySegmentTree(vector<T>\
+    \ &v) : _N(v.size()), op(), mapping() {\n        init(v);\n    }\n\n    void init(vector<T>\
+    \ &v) {\n        _N = v.size();\n        height = 1;\n        N = 1;\n\n     \
+    \   while (N < _N) {\n            N *= 2;\n            height++;\n        }\n\
+    \        \n        node.resize(2 * N, S(op.e()));\n        lazy.resize(N, mapping.id());\n\
+    \n        rep(i, N) {\n            if (i < _N) node[i + N] = S(v[i], i, 1, 1);\n\
+    \            else node[i + N] = S(op.e());\n        }\n        repd(i, 1, N) update(i);\n\
+    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
+    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply(long long\
+    \ p, F f) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
+    \        repd(i, 1, height) push(k >> i);\n        mapping(node[k], f);\n    \
+    \    rep(i, 1, height) update(k >> i);\n    }\n\n    // \u534A\u958B\u533A\u9593\
+    [l, r)\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n\
+    \    // l, r\u3068\u3082\u306B0-indexed\n    void apply(long long l, long long\
+    \ r, F f) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n\
+    \        r += N;\n\n        repd(i, 1, height) {\n            if (((l >> i) <<\
+    \ i) != l) push(l >> i);\n            if (((r >> i) << i) != r) push((r - 1) >>\
+    \ i);\n        }\n\n        long long l2 = l, r2 = r;\n        while (l2 < r2)\
+    \ {\n            if (l2 & 1) all_apply(l2++, f);\n            if (r2 & 1) all_apply(--r2,\
+    \ f);\n            l2 >>= 1;\n            r2 >>= 1;\n        }\n\n        rep(i,\
+    \ 1, height) {\n            if (((l >> i) << i) != l) update(l >> i);\n      \
+    \      if (((r >> i) << i) != r) update((r - 1) >> i);\n        }\n    }\n\n \
+    \   S get(long long p) {\n        assert(0 <= p and p < _N);\n\n        long long\
+    \ k = p + N;\n        repd(i, 1, height) push(k >> i);\n        return node[k];\n\
+    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u3092\
+    \u8FD4\u3059\n    // l, r\u3068\u3082\u306B0-indexed\n    S prod(long long l,\
+    \ long long r) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l +=\
+    \ N;\n        r += N;\n\n        repd(i, 1, height) {\n            if (((l >>\
+    \ i) << i) != l) push(l >> i);\n            if (((r >> i) << i) != r) push((r\
+    \ - 1) >> i);\n        }\n\n        S sml(op.e()), smr(op.e());\n        while\
+    \ (l < r) {\n            if (l & 1) sml = op(sml, node[l++]);\n            if\
+    \ (r & 1) smr = op(node[--r], smr);\n            l >>= 1;\n            r >>= 1;\n\
+    \        }\n\n        return op(sml, smr);\n    }\n\n    S prod_all() {\n    \
+    \    return node[1];\n    }\n\n    // \u5DE6\u7AEF\u3092l\u306B\u56FA\u5B9A\u3057\
+    \u305F\u5834\u5408\u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r - 1])))\
+    \ = true\u3068\u306A\u308B\u6700\u5927\u306Er\u3092\u8FD4\u3059\n    // g(node[l])\
+    \ = false\u306E\u5834\u5408\uFF0Cl\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593\
+    [l, l)\u3068\u306A\u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // l = N\u306E\u5834\
+    \u5408\uFF0CN\u3092\u8FD4\u3059\n    template <class G>\n    long long max_right(long\
+    \ long l, G g) {\n        assert(0 <= l && l <= _N);\n        assert(g(S(op.e())));\n\
+    \n        if (l == _N) return _N;\n        l += N;\n        repd(i, 1, height)\
+    \ push(l >> i);\n        \n        S sm(op.e());\n        do {\n            while\
+    \ (l % 2 == 0) l >>= 1;\n\n            if (!g(op(sm, node[l]))) {\n          \
+    \      while (l < N) {\n                    push(l);\n\n                    l\
+    \ *= 2;\n                    if (g(op(sm, node[l]))) {\n                     \
+    \   sm = op(sm, node[l]);\n                        l++;\n                    }\n\
+    \                }\n                return l - N;\n            }\n\n         \
+    \   sm = op(sm, node[l]);\n            l++;\n\n        } while ((l & -l) != l);\n\
+    \n        return _N;\n    }\n\n    // \u53F3\u7AEF\u3092r - 1\u306B\u56FA\u5B9A\
+    \u3057\u305F\u5834\u5408\u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r\
+    \ - 1]))) = true\u3068\u306A\u308B\u6700\u5C0F\u306El\u3092\u8FD4\u3059\n    //\
+    \ g(node[r - 1]) = false\u306E\u5834\u5408\uFF0Cr\u3092\u8FD4\u3059 (\u534A\u958B\
+    \u533A\u9593[r, r)\u3068\u306A\u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // r\
+    \ = 0\u306E\u5834\u5408\uFF0C0\u3092\u8FD4\u3059\n    template <class G>\n   \
+    \ long long min_left(long long r, G g) {\n        assert(0 <= r && r <= _N);\n\
+    \        assert(g(S(op.e())));\n\n        if (r == 0) return 0;\n\n        r +=\
+    \ N;\n        \n        repd(i, 1, height) push((r - 1) >> i);\n\n        S sm(op.e());\n\
+    \n        do {\n            r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n\
+    \            \n            if (!g(op(node[r], sm))) {\n                while (r\
+    \ < N) {\n                    push(r);\n                    r = (2 * r + 1);\n\
+    \n                    if (g(op(node[r], sm))) {\n                        sm =\
+    \ op(node[r], sm);\n                        r--;\n                    }\n    \
+    \            }\n                return r + 1 - N;\n            }\n\n         \
+    \   sm = op(node[r], sm);\n\n        } while ((r & -r) != r);\n\n        return\
+    \ 0;\n    }\n\n    friend ostream& operator << (ostream& os, LazySegmentTree&\
+    \ seg) {\n        os << \"node\" << endl;\n        long long h = 1;\n        rep(i,\
+    \ 1, seg.node.size()) {\n            if (seg.node[i].value == seg.op.e()) os <<\
+    \ \"e \";\n            else os << seg.node[i] << \" \";\n\n            if (i ==\
+    \ (1 << h) - 1) {\n                os << endl;\n                h++;\n       \
+    \     }\n        }\n        os << endl;\n\n        os << \"lazy\" << endl;\n \
+    \       h = 1;\n        rep(i, 1, seg.N) {\n            if (seg.lazy[i] == seg.mapping.id())\
+    \ os << \"id \";\n            else os << seg.lazy[i] << \" \";\n            if\
+    \ (i == (1 << h) - 1) {\n                os << endl;\n                h++;\n \
+    \           }\n        }\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
+    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
+    \        return os;\n    }\n\nprivate:\n    // k\u756A\u76EE\u306E\u30CE\u30FC\
+    \u30C9\u306E\u5024\u3092\u5B50\u306E\u5024\u3067\u66F4\u65B0\n    void update(long\
+    \ long k) {\n        assert(1 <= k and k <= N - 1);\n\n        node[k] = op(node[k\
+    \ * 2], node[k * 2 + 1]);\n    }\n\n    void all_apply(long long k, F f) {\n \
+    \       mapping(node[k], f);\n        if (k < N) mapping.composition(lazy[k],\
+    \ f);\n    }\n\n    // k\u756A\u76EE\u306E\u30CE\u30FC\u30C9\u3092\u5B50\u306B\
+    \u4F1D\u642C\n    void push(long long k) {\n        assert(1 <= k and k <= N *\
+    \ 2 - 1);\n\n        all_apply(2 * k, lazy[k]);\n        all_apply(2 * k + 1,\
+    \ lazy[k]);\n\n        lazy[k] = mapping.id();\n    }\n};\n\ntemplate<typename\
+    \ T = long long, typename F = long long> using RangeAddRangeSum = LazySegmentTree<T,\
+    \ F, Add, Sum>;\ntemplate<typename T = long long, typename F = long long> using\
+    \ RangeAddRangeMin = LazySegmentTree<T, F, Add, Min>;\ntemplate<typename T = long\
+    \ long, typename F = long long> using RangeAddRangeMax = LazySegmentTree<T, F,\
+    \ Add, Max>;\n\ntemplate<typename T = long long, typename F = long long> using\
+    \ RangeSetRangeSum = LazySegmentTree<T, F, Set, Sum>;\ntemplate<typename T = long\
+    \ long, typename F = long long> using RangeSetRangeMin = LazySegmentTree<T, F,\
+    \ Set, Min>;\ntemplate<typename T = long long, typename F = long long> using RangeSetRangeMax\
+    \ = LazySegmentTree<T, F, Set, Max>;\n#line 4 \"test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp\"\
+    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    RangeSetRangeMin<ll,\
+    \ ll> tree(n, (1ll << 31) - 1);\n    while (q--) {\n        ll t;\n        cin\
+    \ >> t;\n\n        if (t == 0) {\n            ll s, t, x;\n            cin >>\
+    \ s >> t >> x;\n            tree.apply(s, t + 1, x);\n        }\n        else\
+    \ {\n            ll s, t;\n            cin >> s >> t;\n            cout << tree.prod(s,\
+    \ t + 1) << endl;\n        }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F&\"\
+    \n\n#include \"../../../structure/lazysegmenttree.hpp\"\n\nint main() {\n    ll\
+    \ n, q;\n    cin >> n >> q;\n\n    RangeSetRangeMin<ll, ll> tree(n, (1ll << 31)\
+    \ - 1);\n    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t\
+    \ == 0) {\n            ll s, t, x;\n            cin >> s >> t >> x;\n        \
+    \    tree.apply(s, t + 1, x);\n        }\n        else {\n            ll s, t;\n\
+    \            cin >> s >> t;\n            cout << tree.prod(s, t + 1) << endl;\n\
+    \        }\n    }\n\n    return 0;\n}"
   dependsOn:
+  - structure/lazysegmenttree.hpp
   - base.hpp
-  isVerificationFile: false
-  path: graph/warshall-floyd.hpp
+  isVerificationFile: true
+  path: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-documentation_of: graph/warshall-floyd.hpp
+  timestamp: '2024-04-07 04:57:24+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
+  verifiedWith: []
+documentation_of: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
 layout: document
 redirect_from:
-- /library/graph/warshall-floyd.hpp
-- /library/graph/warshall-floyd.hpp.html
-title: graph/warshall-floyd.hpp
+- /verify/test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
+- /verify/test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp.html
+title: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
 ---

@@ -23,6 +23,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/warshall-floyd.hpp
     title: graph/warshall-floyd.hpp
+  - icon: ':x:'
+    path: structure/dualsegmenttree.hpp
+    title: structure/dualsegmenttree.hpp
+  - icon: ':x:'
+    path: structure/kruskal.hpp
+    title: structure/kruskal.hpp
+  - icon: ':x:'
+    path: structure/lazysegmenttree.hpp
+    title: structure/lazysegmenttree.hpp
+  - icon: ':x:'
+    path: structure/segmenttree.hpp
+    title: structure/segmenttree.hpp
+  - icon: ':x:'
+    path: structure/unionfind.hpp
+    title: structure/unionfind.hpp
+  - icon: ':x:'
+    path: structure/weighted-unionfind.hpp
+    title: structure/weighted-unionfind.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -36,12 +54,54 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
     title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
+  - icon: ':x:'
+    path: test/graph/kruskal/aoj-grl-2-a.test.cpp
+    title: test/graph/kruskal/aoj-grl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+    title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+  - icon: ':x:'
+    path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+    title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  - icon: ':x:'
+    path: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
+    title: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
+  - icon: ':x:'
+    path: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+    title: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+  - icon: ':x:'
+    path: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
+    title: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
+  - icon: ':x:'
+    path: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
+    title: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
+  - icon: ':x:'
+    path: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
+    title: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
+  - icon: ':x:'
+    path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
+    title: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
+  - icon: ':x:'
+    path: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
+    title: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
+  - icon: ':x:'
+    path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+    title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - icon: ':x:'
+    path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+    title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - icon: ':x:'
+    path: test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+    title: test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - icon: ':x:'
+    path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+    title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -572,6 +632,12 @@ data:
   isVerificationFile: false
   path: base.hpp
   requiredBy:
+  - structure/lazysegmenttree.hpp
+  - structure/weighted-unionfind.hpp
+  - structure/dualsegmenttree.hpp
+  - structure/kruskal.hpp
+  - structure/unionfind.hpp
+  - structure/segmenttree.hpp
   - graph/bellman-ford.hpp
   - graph/warshall-floyd.hpp
   - graph/stamp.hpp
@@ -580,8 +646,22 @@ data:
   - graph/edge.hpp
   - graph/dijkstra.hpp
   timestamp: '2024-04-07 02:07:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
+  - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  - test/graph/kruskal/aoj-grl-2-a.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp

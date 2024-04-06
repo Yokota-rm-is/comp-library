@@ -6,12 +6,15 @@ data:
     title: base.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-    title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+    title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+  - icon: ':x:'
+    path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+    title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -275,73 +278,196 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/warshall-floyd.hpp\"\
-    \n\ntemplate<typename Weight = long long>\nstruct WarshallFloyd {\n    long long\
-    \ V;\n    vector<vector<Weight>> cost{};\n    vector<vector<long long>> prev{};\n\
-    \    bool directed_;\n\n    WarshallFloyd(long long V, bool directed) : V(V),\
-    \ directed_(directed) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        cost.assign(V, vector<Weight>(V,\
-    \ inf64));\n        prev.assign(V, vector<long long>(V, -1));\n\n        rep(i,\
-    \ V) cost[i][i] = 0;\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n \
-    \   WarshallFloyd(vector<vector<long long>> A) : V(A.size()), cost(A), directed_(true)\
-    \  {\n        prev.assign(A.size(), vector<long long>(A.size(), -1));\n      \
-    \  rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    void connect(long long u,\
-    \ long long v, Weight w) {\n        cost[u][v] = w;\n        if (!directed_) cost[v][u]\
-    \ = w;\n    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n\
-    \    void warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n \
-    \               if (cost[i][k] >= inf64) continue;\n\n                rep(j, V)\
-    \ {\n                    if (cost[k][j] >= inf64) continue;\n\n              \
-    \      if(chmin(cost[i][j], cost[i][k] + cost[k][j])) {\n                    \
-    \    prev[i][j] = prev[k][j];\n                    }\n                }\n    \
-    \        }\n        }\n    }\n\n    Weight dist(long long from, long long to)\
-    \ {\n        return cost[from][to];\n    }\n\n    vector<Weight> dist_from(long\
-    \ long from) {\n        vector<Weight> ans;\n\n        rep(i, V) ans.push_back(cost[from][i]);\n\
-    \n        return ans;\n    }\n\n    vector<long long> path(long long from, long\
-    \ long to) {\n        vector<long long> p;\n        p.push_back(to);\n\n     \
-    \   while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
-    \ true;\n\n        return false;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\ntemplate<typename Weight = long\
-    \ long>\nstruct WarshallFloyd {\n    long long V;\n    vector<vector<Weight>>\
-    \ cost{};\n    vector<vector<long long>> prev{};\n    bool directed_;\n\n    WarshallFloyd(long\
-    \ long V, bool directed) : V(V), directed_(directed) { //\u6700\u521D\u306F\u5168\
-    \u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\u671F\u5316\n   \
-    \     cost.assign(V, vector<Weight>(V, inf64));\n        prev.assign(V, vector<long\
-    \ long>(V, -1));\n\n        rep(i, V) cost[i][i] = 0;\n        rep(i, V) rep(j,\
-    \ V) prev[i][j] = i;\n    }\n\n    WarshallFloyd(vector<vector<long long>> A)\
-    \ : V(A.size()), cost(A), directed_(true)  {\n        prev.assign(A.size(), vector<long\
-    \ long>(A.size(), -1));\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n\
-    \    void connect(long long u, long long v, Weight w) {\n        cost[u][v] =\
-    \ w;\n        if (!directed_) cost[v][u] = w;\n    }\n\n    void operator() ()\
-    \ {\n        warshall_floyd();\n    }\n\n    void warshall_floyd() {\n       \
-    \ rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k] >= inf64)\
-    \ continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
-    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
-    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
-    \           }\n                }\n            }\n        }\n    }\n\n    Weight\
-    \ dist(long long from, long long to) {\n        return cost[from][to];\n    }\n\
-    \n    vector<Weight> dist_from(long long from) {\n        vector<Weight> ans;\n\
-    \n        rep(i, V) ans.push_back(cost[from][i]);\n\n        return ans;\n   \
-    \ }\n\n    vector<long long> path(long long from, long long to) {\n        vector<long\
-    \ long> p;\n        p.push_back(to);\n\n        while (p.back() != from) {\n \
-    \           p.push_back(prev[from][p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    bool has_negative_cycle() {\n \
-    \       rep(i, V) if (cost[i][i] < 0) return true;\n\n        return false;\n\
-    \    }\n};"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/dualsegmenttree.hpp\"\
+    \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long time;\n\n\
+    \    Node(T v, long long t = -1) : value(v), time(t) {};\n\n    bool operator<\
+    \ (const Node &other) const {\n        return value < other.value;\n    }\n\n\
+    \    operator T() const {\n        return value;\n    }\n    \n    friend ostream&\
+    \ operator << (ostream &os, const Node<T> &node) {\n        return os << node.value;\n\
+    \    }\n};\n\ntemplate<typename S, typename T>\nstruct Mapping {\n    using F\
+    \ = Node<T>;\n\n    Mapping() {};\n\n    virtual T id() = 0;\n\n    void operator()\
+    \ (S &x, const F &f) {\n        if (f == id()) return;\n\n        map(x, f);\n\
+    \    }\n\n    void composition(F &f, const F &s) {\n        if (f == id()) {\n\
+    \            f = s;\n            return;\n        };\n        if (s == id()) return;\n\
+    \n        com(f, s);\n    }\n\n    virtual void map(S &x, const F &f) = 0;\n \
+    \   virtual void com(F &f, const F &s) = 0;\n};\n\ntemplate<typename S, typename\
+    \ T>\nstruct Add: Mapping<S, T> {\n    using F = Node<T>;\n\n    Add(): _id(T(0))\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        x += f.value;\n    }\n\n    void com(F &f, const\
+    \ F &s) override {\n        f.value += s.value;\n    }\n\nprivate:\n    T _id;\n\
+    };\n\ntemplate<typename S, typename T>\nstruct Multiply: Mapping<S, T> {\n   \
+    \ using F = Node<T>;\n\n    Multiply(): _id(T(1)) {};\n\n    T id() override {\n\
+    \        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n   \
+    \     x *= f.value;\n    }\n\n    void com(F &f, const F &s) override {\n    \
+    \    f.value *= s.value;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
+    \ S, typename T>\nstruct Set: Mapping<S, T> {\n    using F = Node<T>;\n\n    Set():\
+    \ _id(numeric_limits<T>::min()) {};\n\n    T id() override {\n        return _id;\n\
+    \    }\n\n    void map(S &x, const F &f) override {\n        x = S(f.value);\n\
+    \    }\n\n    void com(F &f, const F &s) override {\n        if (f.time < s.time)\
+    \ f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S>\nstruct Set<S,\
+    \ string>: Mapping<S, string> {\n    using T = string;\n    using F = Node<T>;\n\
+    \n    Set(): _id(T()) {};\n\n    T id() override {\n        return _id;\n    }\n\
+    \n    void map(S &x, const F &f) override {\n        x = T(f.value);\n    }\n\n\
+    \    void com(F &f, const F &s) override {\n        if (f.time < s.time) f = s;\n\
+    \    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct\
+    \ Chmin: Mapping<S, T> {\n    using F = Node<T>;\n\n    Chmin(): _id(numeric_limits<T>::max())\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        if (x > T(f.value)) x = T(f.value);\n    }\n\
+    \n    void com(F &f, const F &s) override {\n        if (f.value > s.value) f\
+    \ = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\n\
+    struct Chmax: Mapping<S, T> {\n    using F = Node<T>;\n\n    Chmax(): _id(numeric_limits<T>::min())\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        if (x < T(f.value)) x = T(f.value);\n    }\n\
+    \n    void com(F &f, const F &s) override {\n        if (f.value < s.value) f\
+    \ = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\n\
+    struct Flip: Mapping<S, T> {\n    using F = Node<T>;\n\n    Flip(): _id(T()) {};\n\
+    \n    T id() override {\n        return _id;\n    }\n\n    void map(S &x, const\
+    \ F &f) override {\n        if (f.value) x = ~x;\n    }\n\n    void com(F &f,\
+    \ const F &s) override {\n        f = s;\n    }\n\nprivate:\n    T _id;\n};\n\n\
+    template<typename S, \n    typename T,\n    template<class, class> class _mapping>\n\
+    struct DualSegmentTree {\n    using F = Node<T>;\n\n    long long N, _N, height;\n\
+    \n    vector<S> v;\n    vector<F> node;\n    _mapping<S, T> mapping;\n\n    long\
+    \ long time;\n\n    DualSegmentTree(ll n) : _N(n), mapping(), time(0) {\n    \
+    \    v(n, mapping.id());\n        init();\n    }\n\n    DualSegmentTree(ll n,\
+    \ S a) : _N(n), v(n, a), mapping(), time(0) {\n        init();\n    }\n\n    DualSegmentTree(vector<S>\
+    \ &A) : _N(v.size()), v(A), mapping(), time(0) {\n        init();\n    }\n\n \
+    \   void init() {\n        _N = v.size();\n        height = 1;\n        N = 1;\n\
+    \n        while (N < _N) {\n            N *= 2;\n            height++;\n     \
+    \   }\n        \n        node.resize(N * 2, F(mapping.id()));\n    }\n\n    //\
+    \ p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067\
+    mapping\n    // p\u306F0-indexed\n    void apply(long long p, T f) {\n       \
+    \ apply_with_time(p, f, time++);\n    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\
+    \u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n\
+    \    void apply_with_time(long long p, T f, long long t) {\n        assert(0 <=\
+    \ p and p < _N);\n\n        long long k = p + N;\n        mapping.composition(node[k],\
+    \ F(f, t));\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\
+    \u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // l, r\u3068\u3082\u306B\
+    0-indexed\n    void apply(long long l, long long r, T f) {\n        apply_with_time(l,\
+    \ r, f, time++);\n    }\n\n    void apply_with_time(long long l, long long r,\
+    \ T f, long long t) {\n        assert(0 <= l && l <= r && r <= _N);\n\n      \
+    \  l += N;\n        r += N;\n\n        while (l < r) {\n            if (l & 1)\
+    \ mapping.composition(node[l++], F(f, t));\n            if (r & 1) mapping.composition(node[--r],\
+    \ F(f, t));\n            l >>= 1;\n            r >>= 1;\n        }\n    }\n\n\
+    \    S get(long long p) {\n        assert(0 <= p and p < _N);\n\n        long\
+    \ long k = p + N;\n        F f(mapping.id());\n\n        repd(i, height) mapping.composition(f,\
+    \ node[k >> i]);\n\n        S ret = v[p];\n        mapping(ret, f);\n        return\
+    \ ret;\n    }\n\n    friend ostream& operator << (ostream& os, DualSegmentTree&\
+    \ seg) {\n        os << \"v\" << endl;\n        rep(i, seg._N) {\n           \
+    \ os << seg.v[i] << \" \";\n        }\n        os << endl;\n\n        os << \"\
+    node\" << endl;\n        ll h = 1;\n        rep(i, 1, seg.node.size()) {\n   \
+    \         if (seg.node[i].value == seg.mapping.id()) os << \"id \";\n        \
+    \    else os << seg.node[i] << \" \";\n\n            if (i == (1 << h) - 1) {\n\
+    \                os << endl;\n                h++;\n            }\n        }\n\
+    \        os << endl;\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
+    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
+    \        return os;\n    }\n};\n\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeAddPointGet = DualSegmentTree<S, T, Add>;\ntemplate<typename\
+    \ S = long long, typename T = long long> using RangeSetPointGet = DualSegmentTree<S,\
+    \ T, Set>;\ntemplate<typename S = long long, typename T = long long> using RangeChminPointGet\
+    \ = DualSegmentTree<S, T, Chmin>;\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;\n"
+  code: "#pragma once\n#include \"../base.hpp\"\n\ntemplate<typename T>\nstruct Node\
+    \ {\n    T value;\n    long long time;\n\n    Node(T v, long long t = -1) : value(v),\
+    \ time(t) {};\n\n    bool operator< (const Node &other) const {\n        return\
+    \ value < other.value;\n    }\n\n    operator T() const {\n        return value;\n\
+    \    }\n    \n    friend ostream& operator << (ostream &os, const Node<T> &node)\
+    \ {\n        return os << node.value;\n    }\n};\n\ntemplate<typename S, typename\
+    \ T>\nstruct Mapping {\n    using F = Node<T>;\n\n    Mapping() {};\n\n    virtual\
+    \ T id() = 0;\n\n    void operator() (S &x, const F &f) {\n        if (f == id())\
+    \ return;\n\n        map(x, f);\n    }\n\n    void composition(F &f, const F &s)\
+    \ {\n        if (f == id()) {\n            f = s;\n            return;\n     \
+    \   };\n        if (s == id()) return;\n\n        com(f, s);\n    }\n\n    virtual\
+    \ void map(S &x, const F &f) = 0;\n    virtual void com(F &f, const F &s) = 0;\n\
+    };\n\ntemplate<typename S, typename T>\nstruct Add: Mapping<S, T> {\n    using\
+    \ F = Node<T>;\n\n    Add(): _id(T(0)) {};\n\n    T id() override {\n        return\
+    \ _id;\n    }\n\n    void map(S &x, const F &f) override {\n        x += f.value;\n\
+    \    }\n\n    void com(F &f, const F &s) override {\n        f.value += s.value;\n\
+    \    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct\
+    \ Multiply: Mapping<S, T> {\n    using F = Node<T>;\n\n    Multiply(): _id(T(1))\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        x *= f.value;\n    }\n\n    void com(F &f, const\
+    \ F &s) override {\n        f.value *= s.value;\n    }\n\nprivate:\n    T _id;\n\
+    };\n\ntemplate<typename S, typename T>\nstruct Set: Mapping<S, T> {\n    using\
+    \ F = Node<T>;\n\n    Set(): _id(numeric_limits<T>::min()) {};\n\n    T id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
+    \        x = S(f.value);\n    }\n\n    void com(F &f, const F &s) override {\n\
+    \        if (f.time < s.time) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
+    \ S>\nstruct Set<S, string>: Mapping<S, string> {\n    using T = string;\n   \
+    \ using F = Node<T>;\n\n    Set(): _id(T()) {};\n\n    T id() override {\n   \
+    \     return _id;\n    }\n\n    void map(S &x, const F &f) override {\n      \
+    \  x = T(f.value);\n    }\n\n    void com(F &f, const F &s) override {\n     \
+    \   if (f.time < s.time) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
+    \ S, typename T>\nstruct Chmin: Mapping<S, T> {\n    using F = Node<T>;\n\n  \
+    \  Chmin(): _id(numeric_limits<T>::max()) {};\n\n    T id() override {\n     \
+    \   return _id;\n    }\n\n    void map(S &x, const F &f) override {\n        if\
+    \ (x > T(f.value)) x = T(f.value);\n    }\n\n    void com(F &f, const F &s) override\
+    \ {\n        if (f.value > s.value) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\
+    \ntemplate<typename S, typename T>\nstruct Chmax: Mapping<S, T> {\n    using F\
+    \ = Node<T>;\n\n    Chmax(): _id(numeric_limits<T>::min()) {};\n\n    T id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
+    \        if (x < T(f.value)) x = T(f.value);\n    }\n\n    void com(F &f, const\
+    \ F &s) override {\n        if (f.value < s.value) f = s;\n    }\n\nprivate:\n\
+    \    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct Flip: Mapping<S, T>\
+    \ {\n    using F = Node<T>;\n\n    Flip(): _id(T()) {};\n\n    T id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
+    \        if (f.value) x = ~x;\n    }\n\n    void com(F &f, const F &s) override\
+    \ {\n        f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S,\
+    \ \n    typename T,\n    template<class, class> class _mapping>\nstruct DualSegmentTree\
+    \ {\n    using F = Node<T>;\n\n    long long N, _N, height;\n\n    vector<S> v;\n\
+    \    vector<F> node;\n    _mapping<S, T> mapping;\n\n    long long time;\n\n \
+    \   DualSegmentTree(ll n) : _N(n), mapping(), time(0) {\n        v(n, mapping.id());\n\
+    \        init();\n    }\n\n    DualSegmentTree(ll n, S a) : _N(n), v(n, a), mapping(),\
+    \ time(0) {\n        init();\n    }\n\n    DualSegmentTree(vector<S> &A) : _N(v.size()),\
+    \ v(A), mapping(), time(0) {\n        init();\n    }\n\n    void init() {\n  \
+    \      _N = v.size();\n        height = 1;\n        N = 1;\n\n        while (N\
+    \ < _N) {\n            N *= 2;\n            height++;\n        }\n        \n \
+    \       node.resize(N * 2, F(mapping.id()));\n    }\n\n    // p\u756A\u76EE\u306E\
+    \u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F\
+    0-indexed\n    void apply(long long p, T f) {\n        apply_with_time(p, f, time++);\n\
+    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
+    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply_with_time(long\
+    \ long p, T f, long long t) {\n        assert(0 <= p and p < _N);\n\n        long\
+    \ long k = p + N;\n        mapping.composition(node[k], F(f, t));\n    }\n\n \
+    \   // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\
+    \u3057\u3066\uFF0Cf\u3067mapping\n    // l, r\u3068\u3082\u306B0-indexed\n   \
+    \ void apply(long long l, long long r, T f) {\n        apply_with_time(l, r, f,\
+    \ time++);\n    }\n\n    void apply_with_time(long long l, long long r, T f, long\
+    \ long t) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n\
+    \        r += N;\n\n        while (l < r) {\n            if (l & 1) mapping.composition(node[l++],\
+    \ F(f, t));\n            if (r & 1) mapping.composition(node[--r], F(f, t));\n\
+    \            l >>= 1;\n            r >>= 1;\n        }\n    }\n\n    S get(long\
+    \ long p) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
+    \        F f(mapping.id());\n\n        repd(i, height) mapping.composition(f,\
+    \ node[k >> i]);\n\n        S ret = v[p];\n        mapping(ret, f);\n        return\
+    \ ret;\n    }\n\n    friend ostream& operator << (ostream& os, DualSegmentTree&\
+    \ seg) {\n        os << \"v\" << endl;\n        rep(i, seg._N) {\n           \
+    \ os << seg.v[i] << \" \";\n        }\n        os << endl;\n\n        os << \"\
+    node\" << endl;\n        ll h = 1;\n        rep(i, 1, seg.node.size()) {\n   \
+    \         if (seg.node[i].value == seg.mapping.id()) os << \"id \";\n        \
+    \    else os << seg.node[i] << \" \";\n\n            if (i == (1 << h) - 1) {\n\
+    \                os << endl;\n                h++;\n            }\n        }\n\
+    \        os << endl;\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
+    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
+    \        return os;\n    }\n};\n\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeAddPointGet = DualSegmentTree<S, T, Add>;\ntemplate<typename\
+    \ S = long long, typename T = long long> using RangeSetPointGet = DualSegmentTree<S,\
+    \ T, Set>;\ntemplate<typename S = long long, typename T = long long> using RangeChminPointGet\
+    \ = DualSegmentTree<S, T, Chmin>;\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;"
   dependsOn:
   - base.hpp
   isVerificationFile: false
-  path: graph/warshall-floyd.hpp
+  path: structure/dualsegmenttree.hpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-07 04:57:24+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-documentation_of: graph/warshall-floyd.hpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+documentation_of: structure/dualsegmenttree.hpp
 layout: document
 redirect_from:
-- /library/graph/warshall-floyd.hpp
-- /library/graph/warshall-floyd.hpp.html
-title: graph/warshall-floyd.hpp
+- /library/structure/dualsegmenttree.hpp
+- /library/structure/dualsegmenttree.hpp.html
+title: structure/dualsegmenttree.hpp
 ---

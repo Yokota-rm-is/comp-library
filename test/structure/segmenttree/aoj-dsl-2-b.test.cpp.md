@@ -4,17 +4,22 @@ data:
   - icon: ':question:'
     path: base.hpp
     title: base.hpp
+  - icon: ':x:'
+    path: structure/segmenttree.hpp
+    title: structure/segmenttree.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-    title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  _isVerificationFailed: false
-  _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _extendedVerifiedWith: []
+  _isVerificationFailed: true
+  _pathExtension: cpp
+  _verificationStatusIcon: ':x:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&
+    links:
+    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&
+  bundledCode: "#line 1 \"test/structure/segmenttree/aoj-dsl-2-b.test.cpp\"\n#define\
+    \ PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&\"\
+    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -275,73 +280,194 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/warshall-floyd.hpp\"\
-    \n\ntemplate<typename Weight = long long>\nstruct WarshallFloyd {\n    long long\
-    \ V;\n    vector<vector<Weight>> cost{};\n    vector<vector<long long>> prev{};\n\
-    \    bool directed_;\n\n    WarshallFloyd(long long V, bool directed) : V(V),\
-    \ directed_(directed) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        cost.assign(V, vector<Weight>(V,\
-    \ inf64));\n        prev.assign(V, vector<long long>(V, -1));\n\n        rep(i,\
-    \ V) cost[i][i] = 0;\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n \
-    \   WarshallFloyd(vector<vector<long long>> A) : V(A.size()), cost(A), directed_(true)\
-    \  {\n        prev.assign(A.size(), vector<long long>(A.size(), -1));\n      \
-    \  rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    void connect(long long u,\
-    \ long long v, Weight w) {\n        cost[u][v] = w;\n        if (!directed_) cost[v][u]\
-    \ = w;\n    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n\
-    \    void warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n \
-    \               if (cost[i][k] >= inf64) continue;\n\n                rep(j, V)\
-    \ {\n                    if (cost[k][j] >= inf64) continue;\n\n              \
-    \      if(chmin(cost[i][j], cost[i][k] + cost[k][j])) {\n                    \
-    \    prev[i][j] = prev[k][j];\n                    }\n                }\n    \
-    \        }\n        }\n    }\n\n    Weight dist(long long from, long long to)\
-    \ {\n        return cost[from][to];\n    }\n\n    vector<Weight> dist_from(long\
-    \ long from) {\n        vector<Weight> ans;\n\n        rep(i, V) ans.push_back(cost[from][i]);\n\
-    \n        return ans;\n    }\n\n    vector<long long> path(long long from, long\
-    \ long to) {\n        vector<long long> p;\n        p.push_back(to);\n\n     \
-    \   while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
-    \ true;\n\n        return false;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\ntemplate<typename Weight = long\
-    \ long>\nstruct WarshallFloyd {\n    long long V;\n    vector<vector<Weight>>\
-    \ cost{};\n    vector<vector<long long>> prev{};\n    bool directed_;\n\n    WarshallFloyd(long\
-    \ long V, bool directed) : V(V), directed_(directed) { //\u6700\u521D\u306F\u5168\
-    \u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\u671F\u5316\n   \
-    \     cost.assign(V, vector<Weight>(V, inf64));\n        prev.assign(V, vector<long\
-    \ long>(V, -1));\n\n        rep(i, V) cost[i][i] = 0;\n        rep(i, V) rep(j,\
-    \ V) prev[i][j] = i;\n    }\n\n    WarshallFloyd(vector<vector<long long>> A)\
-    \ : V(A.size()), cost(A), directed_(true)  {\n        prev.assign(A.size(), vector<long\
-    \ long>(A.size(), -1));\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n\
-    \    void connect(long long u, long long v, Weight w) {\n        cost[u][v] =\
-    \ w;\n        if (!directed_) cost[v][u] = w;\n    }\n\n    void operator() ()\
-    \ {\n        warshall_floyd();\n    }\n\n    void warshall_floyd() {\n       \
-    \ rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k] >= inf64)\
-    \ continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
-    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
-    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
-    \           }\n                }\n            }\n        }\n    }\n\n    Weight\
-    \ dist(long long from, long long to) {\n        return cost[from][to];\n    }\n\
-    \n    vector<Weight> dist_from(long long from) {\n        vector<Weight> ans;\n\
-    \n        rep(i, V) ans.push_back(cost[from][i]);\n\n        return ans;\n   \
-    \ }\n\n    vector<long long> path(long long from, long long to) {\n        vector<long\
-    \ long> p;\n        p.push_back(to);\n\n        while (p.back() != from) {\n \
-    \           p.push_back(prev[from][p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    bool has_negative_cycle() {\n \
-    \       rep(i, V) if (cost[i][i] < 0) return true;\n\n        return false;\n\
-    \    }\n};"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/segmenttree.hpp\"\
+    \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n\
+    \    long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1,\
+    \ long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\
+    \n    bool operator< (const Node &other) const {\n        return value < other.value;\n\
+    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
+    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
+    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T>& node) {\n\
+    \        return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
+    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
+    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
+    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
+    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
+    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
+    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
+    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
+    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
+    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
+    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
+    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
+    \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
+    };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
+    \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
+    \  return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
+    \        T value = min(x.value, y.value);\n        long long index = (y.value\
+    \ < x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n\
+    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
+    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    struct Sum: Operation<T> {\n    using S = Node<T>;\n\n    Sum(): _e(T()) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = x.value + y.value;\n        long\
+    \ long index = -1;\n        long long size = x.size + y.size;\n        long long\
+    \ coeff = size;\n\n        S ret(value, index, size, coeff);\n\n        return\
+    \ ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul:\
+    \ Operation<T> {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e()\
+    \ override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = x.value * y.value;\n        long long index\
+    \ = -1;\n        long long size = x.size + y.size;\n        long long coeff =\
+    \ 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n   \
+    \ }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct GCD\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    GCD(): _e(T(0)) {};\n\n    T\
+    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = gcd(x.value, y.value);\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct LCM\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    LCM(): _e(T(1)) {};\n\n    T\
+    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = lcm(x.value, y.value);\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct\
+    \ Mapping {\n    using S = Node<T>;\n\n    Mapping() {};\n\n    virtual F id()\
+    \ = 0;\n\n    void operator() (S &x, const F f) {\n        if (f == id()) return;\n\
+    \n        map(x, f);\n    }\n\n    virtual void map(S &x, const F f) = 0;\n};\n\
+    \ntemplate<typename T, typename F>\nstruct Add: Mapping<T, F> {\n    using S =\
+    \ Node<T>;\n\n    Add(): _id(F(0)) {};\n\n    F id() override {\n        return\
+    \ _id;\n    }\n\n    void map(S &x, const F f) override {\n        x.value +=\
+    \ f;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename F>\n\
+    struct Multiply: Mapping<T, F> {\n    using S = Node<T>;\n\n    Multiply(): _id(F(1))\
+    \ {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F f) override {\n        x.value *= f;\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, typename G>\nstruct Affine: Mapping<T, pair<G, G>>\
+    \ {\n    using S = Node<T>;\n    using F = pair<G, G>;\n\n    Affine(): _id(F(1,\
+    \ 0)) {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S\
+    \ &x, const F f) override {\n        x.value = f.first * x.value + f.second;\n\
+    \    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct\
+    \ Set: Mapping<T, F> {\n    using S = Node<T>;\n\n    Set(): _id(numeric_limits<F>::min())\
+    \ {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F f) override { \n        x.value = T(f);\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, typename F>\nstruct Chmin: Mapping<T, F> {\n    using\
+    \ S = Node<T>;\n\n    Chmin(): _id(numeric_limits<F>::max()) {};\n\n    F id()\
+    \ override {\n        return _id;\n    }\n\n    void map(S &x, const F f) override\
+    \ {\n        if (x.value > T(f)) x.value = T(f);\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, typename F>\nstruct Chmax: Mapping<T, F> {\n    using\
+    \ S = Node<T>;\n\n    Chmax(): _id(numeric_limits<F>::min()) {};\n\n    F id()\
+    \ override {\n        return _id;\n    }\n\n    void map(S &x, const F f) override\
+    \ {\n        if (x.value < T(f)) x.value = T(f);\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, typename F>\nstruct Flip: Mapping<T, F> {\n    using\
+    \ S = Node<T>;\n\n    Flip(): _id(F()) {};\n\n    F id() override {\n        return\
+    \ _id;\n    }\n\n    void map(S &x, const F f) override {\n        if (f) x.value\
+    \ = ~x.value;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, \n  \
+    \  typename F,\n    template<class, class> class _mapping,\n    template<class>\
+    \ class _op>\nstruct SegmentTree {\n    using S = Node<T>;\n\n    long long N,\
+    \ _N, height;\n\n    vector<S> node;\n    vector<F> lazy;\n    _op<T> op;\n  \
+    \  _mapping<T, F> mapping;\n\n    SegmentTree(ll _N) : _N(_N), op(), mapping()\
+    \ {\n        vector<T> v(_N, op.e());\n        init(v);\n    }\n\n    SegmentTree(ll\
+    \ _N, T a) : _N(_N), op(), mapping() {\n        vector<T> v(_N, a);\n        init(v);\n\
+    \    }\n\n    SegmentTree(vector<T> &v) : _N(v.size()), op(), mapping() {\n  \
+    \      init(v);\n    }\n\n    void init(vector<T> &v) {\n        _N = v.size();\n\
+    \        height = 1;\n        N = 1;\n\n        while (N < _N) {\n           \
+    \ N *= 2;\n            height++;\n        }\n\n        node.resize(2 * N, S(op.e()));\n\
+    \n        rep(i, N) {\n            if (i < _N) node[i + N] = S(v[i], i, 1, 1);\n\
+    \            else node[i + N] = S(op.e());\n        }\n        repd(i, 1, N) update(i);\n\
+    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
+    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply(long long\
+    \ p, F f) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
+    \        mapping(node[k], f);\n        rep(i, 1, height) update(k >> i);\n   \
+    \ }\n\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\n      \
+    \  long long k = p + N;\n        return node[k];\n    }\n\n    // \u534A\u958B\
+    \u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u3092\u8FD4\u3059\n    // l,\
+    \ r\u3068\u3082\u306B0-indexed\n    S prod(long long l, long long r) {\n     \
+    \   assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n        r += N;\n\
+    \n        S sml(op.e(), 0), smr(op.e(), 0);\n        while (l < r) {\n       \
+    \     if (l & 1) sml = op(sml, node[l++]);\n            if (r & 1) smr = op(node[--r],\
+    \ smr);\n            l >>= 1;\n            r >>= 1;\n        }\n\n        return\
+    \ op(sml, smr);\n    }\n\n    S prod_all() {\n        return node[1];\n    }\n\
+    \n    // \u5DE6\u7AEF\u3092l\u306B\u56FA\u5B9A\u3057\u305F\u5834\u5408\u306E\uFF0C\
+    g(prod(op(node[l], node[l + 1], ..., node[r - 1]))) = true\u3068\u306A\u308B\u6700\
+    \u5927\u306Er\u3092\u8FD4\u3059\n    // g(node[l]) = false\u306E\u5834\u5408\uFF0C\
+    l\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593[l, l)\u3068\u306A\u308A\uFF0C\u89E3\
+    \u306F\u306A\u3044)\n    // l = N\u306E\u5834\u5408\uFF0CN\u3092\u8FD4\u3059\n\
+    \    template <class G>\n    long long max_right(long long l, G g) {\n       \
+    \ assert(0 <= l && l <= _N);\n        assert(g(S(op.e(), 0)));\n\n        if (l\
+    \ == _N) return _N;\n        l += N;\n        \n        S sm(op.e(), 0);\n   \
+    \     do {\n            while (l % 2 == 0) l >>= 1;\n\n            if (!g(op(sm,\
+    \ node[l]))) {\n                while (l < N) {\n                    l *= 2;\n\
+    \                    if (g(op(sm, node[l]))) {\n                        sm = op(sm,\
+    \ node[l]);\n                        l++;\n                    }\n           \
+    \     }\n                return l - N;\n            }\n\n            sm = op(sm,\
+    \ node[l]);\n            l++;\n\n        } while ((l & -l) != l);\n\n        return\
+    \ _N;\n    }\n\n    // \u53F3\u7AEF\u3092r - 1\u306B\u56FA\u5B9A\u3057\u305F\u5834\
+    \u5408\u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r - 1]))) = true\u3068\
+    \u306A\u308B\u6700\u5C0F\u306El\u3092\u8FD4\u3059\n    // g(node[r - 1]) = false\u306E\
+    \u5834\u5408\uFF0Cr\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593[r, r)\u3068\u306A\
+    \u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // r = 0\u306E\u5834\u5408\uFF0C0\u3092\
+    \u8FD4\u3059\n    template <class G>\n    long long min_left(long long r, G g)\
+    \ {\n        assert(0 <= r && r <= _N);\n        assert(g(S(op.e(), 0)));\n\n\
+    \        if (r == 0) return 0;\n\n        r += N;\n\n        S sm(op.e(), 0);\n\
+    \n        do {\n            r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n\
+    \            \n            if (!g(op(node[r], sm))) {\n                while (r\
+    \ < N) {\n                    r = (2 * r + 1);\n\n                    if (g(op(node[r],\
+    \ sm))) {\n                        sm = op(node[r], sm);\n                   \
+    \     r--;\n                    }\n                }\n                return r\
+    \ + 1 - N;\n            }\n\n            sm = op(node[r], sm);\n\n        } while\
+    \ ((r & -r) != r);\n\n        return 0;\n    }\n\n    friend ostream& operator\
+    \ << (ostream& os, SegmentTree& seg) {\n        os << \"node\" << endl;\n    \
+    \    ll h = 1;\n        rep(i, 1, seg.node.size()) {\n            if (seg.node[i].value\
+    \ == seg.op.e()) os << \"e \";\n            else os << seg.node[i] << \" \";\n\
+    \n            if (i == (1 << h) - 1) {\n                os << endl;\n        \
+    \        h++;\n            }\n        }\n        os << endl;\n\n        return\
+    \ os;\n    }\n\nprivate:\n    // k\u756A\u76EE\u306E\u30CE\u30FC\u30C9\u306E\u5024\
+    \u3092\u5B50\u306E\u5024\u3067\u66F4\u65B0\n    void update(long long k) {\n \
+    \       assert(1 <= k and k <= N - 1);\n\n        node[k] = op(node[k * 2], node[k\
+    \ * 2 + 1]);\n    }\n};\n\ntemplate<typename T, typename F> using PointAddRangeSum\
+    \ = SegmentTree<T, F, Add, Sum>;\ntemplate<typename T, typename F> using PointAddRangeMin\
+    \ = SegmentTree<T, F, Add, Min>;\ntemplate<typename T, typename F> using PointAddRangeMax\
+    \ = SegmentTree<T, F, Add, Max>;\n\ntemplate<typename T, typename F> using PointSetRangeSum\
+    \ = SegmentTree<T, F, Set, Sum>;\ntemplate<typename T, typename F> using PointSetRangeMin\
+    \ = SegmentTree<T, F, Set, Min>;\ntemplate<typename T, typename F> using PointSetRangeMax\
+    \ = SegmentTree<T, F, Set, Max>;\n\ntemplate<typename T, typename F> using PointChminRangeSum\
+    \ = SegmentTree<T, F, Chmin, Sum>;\ntemplate<typename T, typename F> using PointChminRangeMin\
+    \ = SegmentTree<T, F, Chmin, Min>;\ntemplate<typename T, typename F> using PointChminRangeMax\
+    \ = SegmentTree<T, F, Chmin, Max>;\n\ntemplate<typename T, typename F> using PointChmaxRangeSum\
+    \ = SegmentTree<T, F, Chmax, Sum>;\ntemplate<typename T, typename F> using PointChmaxRangeMin\
+    \ = SegmentTree<T, F, Chmax, Min>;\ntemplate<typename T, typename F> using PointChmaxRangeMax\
+    \ = SegmentTree<T, F, Chmax, Max>;\n\n#line 4 \"test/structure/segmenttree/aoj-dsl-2-b.test.cpp\"\
+    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    PointAddRangeSum<ll,\
+    \ ll> tree(n, 0);\n    while (q--) {\n        ll t;\n        cin >> t;\n\n   \
+    \     if (t == 0) {\n            ll x, y;\n            cin >> x >> y;\n      \
+    \      tree.apply(x - 1, y);\n        }\n        else {\n            ll x, y;\n\
+    \            cin >> x >> y;\n            cout << tree.prod(x - 1, y) << endl;\n\
+    \        }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&\"\
+    \n\n#include \"../../../structure/segmenttree.hpp\"\n\nint main() {\n    ll n,\
+    \ q;\n    cin >> n >> q;\n\n    PointAddRangeSum<ll, ll> tree(n, 0);\n    while\
+    \ (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n       \
+    \     ll x, y;\n            cin >> x >> y;\n            tree.apply(x - 1, y);\n\
+    \        }\n        else {\n            ll x, y;\n            cin >> x >> y;\n\
+    \            cout << tree.prod(x - 1, y) << endl;\n        }\n    }\n\n    return\
+    \ 0;\n}"
   dependsOn:
+  - structure/segmenttree.hpp
   - base.hpp
-  isVerificationFile: false
-  path: graph/warshall-floyd.hpp
+  isVerificationFile: true
+  path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-documentation_of: graph/warshall-floyd.hpp
+  timestamp: '2024-04-07 04:57:24+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
+  verifiedWith: []
+documentation_of: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
 layout: document
 redirect_from:
-- /library/graph/warshall-floyd.hpp
-- /library/graph/warshall-floyd.hpp.html
-title: graph/warshall-floyd.hpp
+- /verify/test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+- /verify/test/structure/segmenttree/aoj-dsl-2-b.test.cpp.html
+title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
 ---
