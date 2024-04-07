@@ -24,6 +24,9 @@ data:
     path: graph/warshall-floyd.hpp
     title: graph/warshall-floyd.hpp
   - icon: ':heavy_check_mark:'
+    path: structure/bit.hpp
+    title: structure/bit.hpp
+  - icon: ':heavy_check_mark:'
     path: structure/dualsegmenttree.hpp
     title: structure/dualsegmenttree.hpp
   - icon: ':heavy_check_mark:'
@@ -60,6 +63,24 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/aoj-dsl-2-e.test.cpp
+    title: test/structure/bit/aoj-dsl-2-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/aoj-dsl-2-g.test.cpp
+    title: test/structure/bit/aoj-dsl-2-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/atcoder-abc338-e.test.cpp
+    title: test/structure/bit/atcoder-abc338-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/atcoder-abc340-e.test.cpp
+    title: test/structure/bit/atcoder-abc340-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/atcoder-arc033-c.test.cpp
+    title: test/structure/bit/atcoder-arc033-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+    title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
@@ -637,6 +658,7 @@ data:
   - structure/dualsegmenttree.hpp
   - structure/kruskal.hpp
   - structure/unionfind.hpp
+  - structure/bit.hpp
   - structure/segmenttree.hpp
   - graph/bellman-ford.hpp
   - graph/warshall-floyd.hpp
@@ -650,6 +672,12 @@ data:
   verifiedWith:
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/bit/aoj-dsl-2-g.test.cpp
+  - test/structure/bit/atcoder-arc033-c.test.cpp
+  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/atcoder-abc338-e.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
