@@ -2,24 +2,6 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: dp/bitdp.cpp
-    title: dp/bitdp.cpp
-  - icon: ':warning:'
-    path: dp/ketadp.cpp
-    title: dp/ketadp.cpp
-  - icon: ':warning:'
-    path: dp/tsp.cpp
-    title: dp/tsp.cpp
-  - icon: ':warning:'
-    path: geometry/point.cpp
-    title: geometry/point.cpp
-  - icon: ':warning:'
-    path: geometry/polyomino.cpp
-    title: geometry/polyomino.cpp
-  - icon: ':warning:'
-    path: geometry/rectangle.cpp
-    title: geometry/rectangle.cpp
   - icon: ':heavy_check_mark:'
     path: graph/bellman-ford.cpp
     title: graph/bellman-ford.cpp
@@ -32,73 +14,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/dijkstra.cpp
     title: graph/dijkstra.cpp
-  - icon: ':warning:'
-    path: graph/edge.cpp
-    title: graph/edge.cpp
-  - icon: ':warning:'
-    path: graph/graph.cpp
-    title: graph/graph.cpp
-  - icon: ':warning:'
-    path: graph/stamp.cpp
-    title: graph/stamp.cpp
   - icon: ':heavy_check_mark:'
     path: graph/warshall-floyd.cpp
     title: graph/warshall-floyd.cpp
   - icon: ':heavy_check_mark:'
-    path: grid/grid-bfs.cpp
-    title: grid/grid-bfs.cpp
-  - icon: ':warning:'
-    path: grid/grid-dfs.cpp
-    title: grid/grid-dfs.cpp
-  - icon: ':warning:'
-    path: grid/grid.cpp
-    title: grid/grid.cpp
-  - icon: ':warning:'
-    path: hash/hash61.cpp
-    title: hash/hash61.cpp
-  - icon: ':warning:'
-    path: hash/hash_mod.cpp
-    title: hash/hash_mod.cpp
-  - icon: ':warning:'
-    path: heuristic/timer.cpp
-    title: heuristic/timer.cpp
-  - icon: ':warning:'
-    path: math/binomial_coeff.cpp
-    title: math/binomial_coeff.cpp
-  - icon: ':warning:'
-    path: math/eratosthenes.cpp
-    title: math/eratosthenes.cpp
-  - icon: ':warning:'
-    path: math/is_prime.cpp
-    title: math/is_prime.cpp
-  - icon: ':warning:'
-    path: mystd/mylist.cpp
-    title: mystd/mylist.cpp
-  - icon: ':warning:'
-    path: mystd/mymultiset.cpp
-    title: mystd/mymultiset.cpp
-  - icon: ':warning:'
-    path: mystd/mypair.cpp
-    title: mystd/mypair.cpp
-  - icon: ':warning:'
-    path: mystd/mytuple.cpp
-    title: mystd/mytuple.cpp
-  - icon: ':warning:'
-    path: other/cumulative_sum.cpp
-    title: other/cumulative_sum.cpp
-  - icon: ':warning:'
-    path: other/cumulative_sum_2d.cpp
-    title: other/cumulative_sum_2d.cpp
-  - icon: ':warning:'
-    path: other/doubling.cpp
-    title: other/doubling.cpp
-  - icon: ':warning:'
-    path: search/bitzentansaku.cpp
-    title: search/bitzentansaku.cpp
-  - icon: ':warning:'
-    path: search/exhaustive_search.cpp
-    title: search/exhaustive_search.cpp
-  - icon: ':question:'
     path: structure/bit.cpp
     title: structure/bit.cpp
   - icon: ':heavy_check_mark:'
@@ -119,15 +38,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
-  - icon: ':warning:'
-    path: utils/combination.hpp
-    title: utils/combination.hpp
-  - icon: ':warning:'
-    path: utils/compress.hpp
-    title: utils/compress.hpp
-  - icon: ':warning:'
-    path: utils/permutation.hpp
-    title: utils/permutation.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -145,18 +55,15 @@ data:
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-    title: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-e.test.cpp
     title: test/structure/bit/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-g.test.cpp
     title: test/structure/bit/aoj-dsl-2-g.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/bit/atcoder-abc338-e.test.cpp
     title: test/structure/bit/atcoder-abc338-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/bit/atcoder-abc340-e.test.cpp
     title: test/structure/bit/atcoder-abc340-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -207,9 +114,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -740,26 +647,6 @@ data:
   isVerificationFile: false
   path: base.cpp
   requiredBy:
-  - other/doubling.cpp
-  - other/cumulative_sum_2d.cpp
-  - other/cumulative_sum.cpp
-  - search/bitzentansaku.cpp
-  - search/exhaustive_search.cpp
-  - heuristic/timer.cpp
-  - hash/hash_mod.cpp
-  - hash/hash61.cpp
-  - utils/combination.hpp
-  - utils/permutation.hpp
-  - utils/compress.hpp
-  - dp/tsp.cpp
-  - dp/bitdp.cpp
-  - dp/ketadp.cpp
-  - geometry/point.cpp
-  - geometry/rectangle.cpp
-  - geometry/polyomino.cpp
-  - grid/grid-dfs.cpp
-  - grid/grid.cpp
-  - grid/grid-bfs.cpp
   - structure/kruskal.cpp
   - structure/lazysegmenttree.cpp
   - structure/segmenttree.cpp
@@ -767,25 +654,14 @@ data:
   - structure/weighted-unionfind.cpp
   - structure/bit.cpp
   - structure/unionfind.cpp
-  - math/eratosthenes.cpp
-  - math/is_prime.cpp
-  - math/binomial_coeff.cpp
-  - graph/edge.cpp
   - graph/bfs.cpp
   - graph/dijkstra.cpp
   - graph/warshall-floyd.cpp
   - graph/bellman-ford.cpp
-  - graph/stamp.cpp
-  - graph/graph.cpp
   - graph/dfs.cpp
-  - mystd/mypair.cpp
-  - mystd/mymultiset.cpp
-  - mystd/mylist.cpp
-  - mystd/mytuple.cpp
   timestamp: '2024-04-15 23:51:04+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
   - test/structure/kruskal/aoj-grl-2-a.test.cpp

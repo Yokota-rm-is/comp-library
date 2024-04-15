@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: structure/bit.cpp
     title: structure/bit.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc338/tasks/abc338_e
@@ -377,7 +377,7 @@ data:
   path: test/structure/bit/atcoder-abc338-e.test.cpp
   requiredBy: []
   timestamp: '2024-04-15 23:53:20+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/atcoder-abc338-e.test.cpp
 layout: document

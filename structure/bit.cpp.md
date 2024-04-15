@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -12,10 +12,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-g.test.cpp
     title: test/structure/bit/aoj-dsl-2-g.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/bit/atcoder-abc338-e.test.cpp
     title: test/structure/bit/atcoder-abc338-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/bit/atcoder-abc340-e.test.cpp
     title: test/structure/bit/atcoder-abc340-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -24,9 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
     title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://atcoder.jp/contests/abc338/submissions/49762794
@@ -457,7 +457,7 @@ data:
   path: structure/bit.cpp
   requiredBy: []
   timestamp: '2024-04-15 23:53:20+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
   - test/structure/bit/aoj-dsl-2-g.test.cpp
