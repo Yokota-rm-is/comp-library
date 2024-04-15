@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/warshall-floyd.hpp
-    title: graph/warshall-floyd.hpp
+    path: graph/warshall-floyd.cpp
+    title: graph/warshall-floyd.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -19,7 +19,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&
   bundledCode: "#line 1 \"test/graph/warshall-floyd/aoj-grl-1-c.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&\"\
-    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -280,7 +280,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/warshall-floyd.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/warshall-floyd.cpp\"\
     \n\ntemplate<typename Weight = long long>\nstruct WarshallFloyd {\n    long long\
     \ V;\n    vector<vector<Weight>> cost{};\n    vector<vector<long long>> prev{};\n\
     \    bool directed_;\n\n    WarshallFloyd(long long V, bool directed) : V(V),\
@@ -316,7 +316,7 @@ data:
     \     \n            if (j < V - 1) cout << \" \";\n        }\n        cout <<\
     \ endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&\"\
-    \n\n#include \"../../../graph/warshall-floyd.hpp\"\n\nint main() {\n    ll V,\
+    \n\n#include \"../../../graph/warshall-floyd.cpp\"\n\nint main() {\n    ll V,\
     \ E;\n    cin >> V >> E;\n\n    WarshallFloyd<ll> tree(V, true);\n    rep(i, E)\
     \ {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        tree.connect(s,\
     \ t, d);\n    }\n\n    tree();\n    if (tree.has_negative_cycle()) {\n       \
@@ -326,12 +326,12 @@ data:
     \    if (j < V - 1) cout << \" \";\n        }\n        cout << endl;\n    }\n\n\
     \    return 0;\n}"
   dependsOn:
-  - graph/warshall-floyd.hpp
-  - base.hpp
+  - graph/warshall-floyd.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
+  timestamp: '2024-04-15 23:52:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp

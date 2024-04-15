@@ -1,41 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-e.test.cpp
-    title: test/structure/bit/aoj-dsl-2-e.test.cpp
+    path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+    title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-g.test.cpp
-    title: test/structure/bit/aoj-dsl-2-g.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc338-e.test.cpp
-    title: test/structure/bit/atcoder-abc338-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc340-e.test.cpp
-    title: test/structure/bit/atcoder-abc340-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-arc033-c.test.cpp
-    title: test/structure/bit/atcoder-arc033-c.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-    title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+    path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+    title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links:
-    - https://atcoder.jp/contests/abc338/submissions/49762794
-    - https://atcoder.jp/contests/abc340/submissions/50186254
-    - https://atcoder.jp/contests/arc033/submissions/50520345
-    - https://atcoder.jp/contests/chokudai_S001/submissions/49757613
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -296,179 +278,196 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.hpp\"\
-    \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/dualsegmenttree.cpp\"\
+    \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long time;\n\n\
+    \    Node(T v, long long t = -1) : value(v), time(t) {};\n\n    bool operator<\
+    \ (const Node &other) const {\n        return value < other.value;\n    }\n\n\
+    \    operator T() const {\n        return value;\n    }\n    \n    friend ostream&\
+    \ operator << (ostream &os, const Node<T> &node) {\n        return os << node.value;\n\
+    \    }\n};\n\ntemplate<typename S, typename T>\nstruct Mapping {\n    using F\
+    \ = Node<T>;\n\n    Mapping() {};\n\n    virtual T id() = 0;\n\n    void operator()\
+    \ (S &x, const F &f) {\n        if (f == id()) return;\n\n        map(x, f);\n\
+    \    }\n\n    void composition(F &f, const F &s) {\n        if (f == id()) {\n\
+    \            f = s;\n            return;\n        };\n        if (s == id()) return;\n\
+    \n        com(f, s);\n    }\n\n    virtual void map(S &x, const F &f) = 0;\n \
+    \   virtual void com(F &f, const F &s) = 0;\n};\n\ntemplate<typename S, typename\
+    \ T>\nstruct Add: Mapping<S, T> {\n    using F = Node<T>;\n\n    Add(): _id(T(0))\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        x += f.value;\n    }\n\n    void com(F &f, const\
+    \ F &s) override {\n        f.value += s.value;\n    }\n\nprivate:\n    T _id;\n\
+    };\n\ntemplate<typename S, typename T>\nstruct Multiply: Mapping<S, T> {\n   \
+    \ using F = Node<T>;\n\n    Multiply(): _id(T(1)) {};\n\n    T id() override {\n\
+    \        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n   \
+    \     x *= f.value;\n    }\n\n    void com(F &f, const F &s) override {\n    \
+    \    f.value *= s.value;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
+    \ S, typename T>\nstruct Set: Mapping<S, T> {\n    using F = Node<T>;\n\n    Set():\
+    \ _id(numeric_limits<T>::min()) {};\n\n    T id() override {\n        return _id;\n\
+    \    }\n\n    void map(S &x, const F &f) override {\n        x = S(f.value);\n\
+    \    }\n\n    void com(F &f, const F &s) override {\n        if (f.time < s.time)\
+    \ f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S>\nstruct Set<S,\
+    \ string>: Mapping<S, string> {\n    using T = string;\n    using F = Node<T>;\n\
+    \n    Set(): _id(T()) {};\n\n    T id() override {\n        return _id;\n    }\n\
+    \n    void map(S &x, const F &f) override {\n        x = T(f.value);\n    }\n\n\
+    \    void com(F &f, const F &s) override {\n        if (f.time < s.time) f = s;\n\
+    \    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct\
+    \ Chmin: Mapping<S, T> {\n    using F = Node<T>;\n\n    Chmin(): _id(numeric_limits<T>::max())\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        if (x > T(f.value)) x = T(f.value);\n    }\n\
+    \n    void com(F &f, const F &s) override {\n        if (f.value > s.value) f\
+    \ = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\n\
+    struct Chmax: Mapping<S, T> {\n    using F = Node<T>;\n\n    Chmax(): _id(numeric_limits<T>::min())\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        if (x < T(f.value)) x = T(f.value);\n    }\n\
+    \n    void com(F &f, const F &s) override {\n        if (f.value < s.value) f\
+    \ = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\n\
+    struct Flip: Mapping<S, T> {\n    using F = Node<T>;\n\n    Flip(): _id(T()) {};\n\
+    \n    T id() override {\n        return _id;\n    }\n\n    void map(S &x, const\
+    \ F &f) override {\n        if (f.value) x = ~x;\n    }\n\n    void com(F &f,\
+    \ const F &s) override {\n        f = s;\n    }\n\nprivate:\n    T _id;\n};\n\n\
+    template<typename S, \n    typename T,\n    template<class, class> class _mapping>\n\
+    struct DualSegmentTree {\n    using F = Node<T>;\n\n    long long N, _N, height;\n\
+    \n    vector<S> v;\n    vector<F> node;\n    _mapping<S, T> mapping;\n\n    long\
+    \ long time;\n\n    DualSegmentTree(ll n) : _N(n), mapping(), time(0) {\n    \
+    \    v(n, mapping.id());\n        init();\n    }\n\n    DualSegmentTree(ll n,\
+    \ S a) : _N(n), v(n, a), mapping(), time(0) {\n        init();\n    }\n\n    DualSegmentTree(vector<S>\
+    \ &A) : _N(v.size()), v(A), mapping(), time(0) {\n        init();\n    }\n\n \
+    \   void init() {\n        _N = v.size();\n        height = 1;\n        N = 1;\n\
+    \n        while (N < _N) {\n            N *= 2;\n            height++;\n     \
+    \   }\n        \n        node.resize(N * 2, F(mapping.id()));\n    }\n\n    //\
+    \ p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067\
+    mapping\n    // p\u306F0-indexed\n    void apply(long long p, T f) {\n       \
+    \ apply_with_time(p, f, time++);\n    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\
+    \u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n\
+    \    void apply_with_time(long long p, T f, long long t) {\n        assert(0 <=\
+    \ p and p < _N);\n\n        long long k = p + N;\n        mapping.composition(node[k],\
+    \ F(f, t));\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\
+    \u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // l, r\u3068\u3082\u306B\
+    0-indexed\n    void apply(long long l, long long r, T f) {\n        apply_with_time(l,\
+    \ r, f, time++);\n    }\n\n    void apply_with_time(long long l, long long r,\
+    \ T f, long long t) {\n        assert(0 <= l && l <= r && r <= _N);\n\n      \
+    \  l += N;\n        r += N;\n\n        while (l < r) {\n            if (l & 1)\
+    \ mapping.composition(node[l++], F(f, t));\n            if (r & 1) mapping.composition(node[--r],\
+    \ F(f, t));\n            l >>= 1;\n            r >>= 1;\n        }\n    }\n\n\
+    \    S get(long long p) {\n        assert(0 <= p and p < _N);\n\n        long\
+    \ long k = p + N;\n        F f(mapping.id());\n\n        repd(i, height) mapping.composition(f,\
+    \ node[k >> i]);\n\n        S ret = v[p];\n        mapping(ret, f);\n        return\
+    \ ret;\n    }\n\n    friend ostream& operator << (ostream& os, DualSegmentTree&\
+    \ seg) {\n        os << \"v\" << endl;\n        rep(i, seg._N) {\n           \
+    \ os << seg.v[i] << \" \";\n        }\n        os << endl;\n\n        os << \"\
+    node\" << endl;\n        ll h = 1;\n        rep(i, 1, seg.node.size()) {\n   \
+    \         if (seg.node[i].value == seg.mapping.id()) os << \"id \";\n        \
+    \    else os << seg.node[i] << \" \";\n\n            if (i == (1 << h) - 1) {\n\
+    \                os << endl;\n                h++;\n            }\n        }\n\
+    \        os << endl;\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
+    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
+    \        return os;\n    }\n};\n\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeAddPointGet = DualSegmentTree<S, T, Add>;\ntemplate<typename\
+    \ S = long long, typename T = long long> using RangeSetPointGet = DualSegmentTree<S,\
+    \ T, Set>;\ntemplate<typename S = long long, typename T = long long> using RangeChminPointGet\
+    \ = DualSegmentTree<S, T, Chmin>;\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct Node\
+    \ {\n    T value;\n    long long time;\n\n    Node(T v, long long t = -1) : value(v),\
+    \ time(t) {};\n\n    bool operator< (const Node &other) const {\n        return\
+    \ value < other.value;\n    }\n\n    operator T() const {\n        return value;\n\
+    \    }\n    \n    friend ostream& operator << (ostream &os, const Node<T> &node)\
+    \ {\n        return os << node.value;\n    }\n};\n\ntemplate<typename S, typename\
+    \ T>\nstruct Mapping {\n    using F = Node<T>;\n\n    Mapping() {};\n\n    virtual\
+    \ T id() = 0;\n\n    void operator() (S &x, const F &f) {\n        if (f == id())\
+    \ return;\n\n        map(x, f);\n    }\n\n    void composition(F &f, const F &s)\
+    \ {\n        if (f == id()) {\n            f = s;\n            return;\n     \
+    \   };\n        if (s == id()) return;\n\n        com(f, s);\n    }\n\n    virtual\
+    \ void map(S &x, const F &f) = 0;\n    virtual void com(F &f, const F &s) = 0;\n\
+    };\n\ntemplate<typename S, typename T>\nstruct Add: Mapping<S, T> {\n    using\
+    \ F = Node<T>;\n\n    Add(): _id(T(0)) {};\n\n    T id() override {\n        return\
+    \ _id;\n    }\n\n    void map(S &x, const F &f) override {\n        x += f.value;\n\
+    \    }\n\n    void com(F &f, const F &s) override {\n        f.value += s.value;\n\
+    \    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct\
+    \ Multiply: Mapping<S, T> {\n    using F = Node<T>;\n\n    Multiply(): _id(T(1))\
+    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
+    \ const F &f) override {\n        x *= f.value;\n    }\n\n    void com(F &f, const\
+    \ F &s) override {\n        f.value *= s.value;\n    }\n\nprivate:\n    T _id;\n\
+    };\n\ntemplate<typename S, typename T>\nstruct Set: Mapping<S, T> {\n    using\
+    \ F = Node<T>;\n\n    Set(): _id(numeric_limits<T>::min()) {};\n\n    T id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
+    \        x = S(f.value);\n    }\n\n    void com(F &f, const F &s) override {\n\
+    \        if (f.time < s.time) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
+    \ S>\nstruct Set<S, string>: Mapping<S, string> {\n    using T = string;\n   \
+    \ using F = Node<T>;\n\n    Set(): _id(T()) {};\n\n    T id() override {\n   \
+    \     return _id;\n    }\n\n    void map(S &x, const F &f) override {\n      \
+    \  x = T(f.value);\n    }\n\n    void com(F &f, const F &s) override {\n     \
+    \   if (f.time < s.time) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
+    \ S, typename T>\nstruct Chmin: Mapping<S, T> {\n    using F = Node<T>;\n\n  \
+    \  Chmin(): _id(numeric_limits<T>::max()) {};\n\n    T id() override {\n     \
+    \   return _id;\n    }\n\n    void map(S &x, const F &f) override {\n        if\
+    \ (x > T(f.value)) x = T(f.value);\n    }\n\n    void com(F &f, const F &s) override\
+    \ {\n        if (f.value > s.value) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\
+    \ntemplate<typename S, typename T>\nstruct Chmax: Mapping<S, T> {\n    using F\
+    \ = Node<T>;\n\n    Chmax(): _id(numeric_limits<T>::min()) {};\n\n    T id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
+    \        if (x < T(f.value)) x = T(f.value);\n    }\n\n    void com(F &f, const\
+    \ F &s) override {\n        if (f.value < s.value) f = s;\n    }\n\nprivate:\n\
+    \    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct Flip: Mapping<S, T>\
+    \ {\n    using F = Node<T>;\n\n    Flip(): _id(T()) {};\n\n    T id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
+    \        if (f.value) x = ~x;\n    }\n\n    void com(F &f, const F &s) override\
+    \ {\n        f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S,\
+    \ \n    typename T,\n    template<class, class> class _mapping>\nstruct DualSegmentTree\
+    \ {\n    using F = Node<T>;\n\n    long long N, _N, height;\n\n    vector<S> v;\n\
+    \    vector<F> node;\n    _mapping<S, T> mapping;\n\n    long long time;\n\n \
+    \   DualSegmentTree(ll n) : _N(n), mapping(), time(0) {\n        v(n, mapping.id());\n\
+    \        init();\n    }\n\n    DualSegmentTree(ll n, S a) : _N(n), v(n, a), mapping(),\
+    \ time(0) {\n        init();\n    }\n\n    DualSegmentTree(vector<S> &A) : _N(v.size()),\
+    \ v(A), mapping(), time(0) {\n        init();\n    }\n\n    void init() {\n  \
+    \      _N = v.size();\n        height = 1;\n        N = 1;\n\n        while (N\
+    \ < _N) {\n            N *= 2;\n            height++;\n        }\n        \n \
+    \       node.resize(N * 2, F(mapping.id()));\n    }\n\n    // p\u756A\u76EE\u306E\
+    \u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F\
+    0-indexed\n    void apply(long long p, T f) {\n        apply_with_time(p, f, time++);\n\
+    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
+    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply_with_time(long\
+    \ long p, T f, long long t) {\n        assert(0 <= p and p < _N);\n\n        long\
+    \ long k = p + N;\n        mapping.composition(node[k], F(f, t));\n    }\n\n \
+    \   // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\
+    \u3057\u3066\uFF0Cf\u3067mapping\n    // l, r\u3068\u3082\u306B0-indexed\n   \
+    \ void apply(long long l, long long r, T f) {\n        apply_with_time(l, r, f,\
+    \ time++);\n    }\n\n    void apply_with_time(long long l, long long r, T f, long\
+    \ long t) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n\
+    \        r += N;\n\n        while (l < r) {\n            if (l & 1) mapping.composition(node[l++],\
+    \ F(f, t));\n            if (r & 1) mapping.composition(node[--r], F(f, t));\n\
+    \            l >>= 1;\n            r >>= 1;\n        }\n    }\n\n    S get(long\
+    \ long p) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
+    \        F f(mapping.id());\n\n        repd(i, height) mapping.composition(f,\
+    \ node[k >> i]);\n\n        S ret = v[p];\n        mapping(ret, f);\n        return\
+    \ ret;\n    }\n\n    friend ostream& operator << (ostream& os, DualSegmentTree&\
+    \ seg) {\n        os << \"v\" << endl;\n        rep(i, seg._N) {\n           \
+    \ os << seg.v[i] << \" \";\n        }\n        os << endl;\n\n        os << \"\
+    node\" << endl;\n        ll h = 1;\n        rep(i, 1, seg.node.size()) {\n   \
+    \         if (seg.node[i].value == seg.mapping.id()) os << \"id \";\n        \
+    \    else os << seg.node[i] << \" \";\n\n            if (i == (1 << h) - 1) {\n\
+    \                os << endl;\n                h++;\n            }\n        }\n\
+    \        os << endl;\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
+    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
+    \        return os;\n    }\n};\n\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeAddPointGet = DualSegmentTree<S, T, Add>;\ntemplate<typename\
+    \ S = long long, typename T = long long> using RangeSetPointGet = DualSegmentTree<S,\
+    \ T, Set>;\ntemplate<typename S = long long, typename T = long long> using RangeChminPointGet\
+    \ = DualSegmentTree<S, T, Chmin>;\ntemplate<typename S = long long, typename T\
+    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;"
   dependsOn:
-  - base.hpp
+  - base.cpp
   isVerificationFile: false
-  path: structure/bit.hpp
+  path: structure/dualsegmenttree.cpp
   requiredBy: []
-  timestamp: '2024-04-07 13:22:55+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-documentation_of: structure/bit.hpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+documentation_of: structure/dualsegmenttree.cpp
 layout: document
 redirect_from:
-- /library/structure/bit.hpp
-- /library/structure/bit.hpp.html
-title: structure/bit.hpp
+- /library/structure/dualsegmenttree.cpp
+- /library/structure/dualsegmenttree.cpp.html
+title: structure/dualsegmenttree.cpp
 ---

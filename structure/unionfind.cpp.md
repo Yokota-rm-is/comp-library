@@ -1,41 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
-    path: graph/bellman-ford.hpp
-    title: graph/bellman-ford.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/bfs.hpp
-    title: graph/bfs.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/dfs.hpp
-    title: graph/dfs.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/dijkstra.hpp
-    title: graph/dijkstra.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-    title: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/graph/bfs/aoj-alds1-11-c.test.cpp
-    title: test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/graph/dfs/aoj-alds1-11-b.test.cpp
-    title: test/graph/dfs/aoj-alds1-11-b.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
-    title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
+    path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+    title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -296,48 +275,97 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/edge.hpp\"\n\
-    \ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n \
-    \   long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n   \
-    \ long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\ntemplate<class Weight = long long,\
-    \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
-    \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
-    \ Cap flow;\n    \n    explicit Edge(long long u = -1, long long v = -1, Weight\
-    \ w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w),\
-    \ cap(c), id(i), rev(r), flow(0) {};\n\n    bool operator < (const Edge& other)\
-    \ const {\n        if (from == other.from) {\n            if (to == other.to)\
-    \ return weight < other.weight;\n            else return to < other.to;\n    \
-    \    }\n        else return from < other.from;\n    }\n\n    friend ostream& operator\
-    \ << (ostream& os, const Edge& edge) {\n        return os << edge.to;\n    }\n\
-    };"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.cpp\"\
+    \n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{}; // par[i]:\
+    \ i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642\
+    )\n    map<long long, set<long long>> cc;\n\n    explicit UnionFind(long long\
+    \ V) : V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
+    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n\
+    \        }\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
+    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
+    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
+    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
+    \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
+    \ unite(long long x, long long y, long long w = 0) {\n        long long rx = find(x);\
+    \ //x\u306E\u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092\
+    ry\n        if (rx == ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
+    (=\u540C\u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n\
+    \        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\
+    \u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\
+    \u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry]) {\n         \
+    \   swap(rx, ry);\n            w = -w;\n        }\n\n        par[rx] += par[ry];\
+    \ // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068\
+    y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\
+    \u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\
+    \n        cc[rx].insert(cc[ry].begin(), cc[ry].end());\n        cc.erase(ry);\n\
+    \n        return true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\
+    \u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n\
+    \    bool is_same(long long x, long long y) { \n        return find(x) == find(y);\n\
+    \    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\
+    \u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\n    long long size(long long x) {\n\
+    \        long long rx = find(x);\n        return -par[rx];\n    }\n\n    bool\
+    \ is_connected() {\n        long long rx = find(0);\n        return -par[rx] ==\
+    \ V;\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\
+    \u8981\u7D20\u3092\u8FD4\u3059\n    set<long long> members(long long x) {\n  \
+    \      long long rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\
+    \u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    set<long long> roots() {\n\
+    \        set<long long> ret;\n        fore(p, cc) {\n            ret.insert(p.first);\n\
+    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
+    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
+    \ cc.size();\n    }\n\n    map<long long, set<long long>> all_group_members()\
+    \ {\n        return cc;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct UnionFind {\n    long long\
+    \ V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7\
+    \ or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    map<long long, set<long\
+    \ long>> cc;\n\n    explicit UnionFind(long long V) : V(V), par(V, -1) { //\u6700\
+    \u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\
+    \u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n        }\n \
+    \   }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long long\
+    \ x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\
+    \u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n        if\
+    \ (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n        return\
+    \ par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool unite(long\
+    \ long x, long long y, long long w = 0) {\n        long long rx = find(x); //x\u306E\
+    \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n    \
+    \    if (rx == ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\
+    \u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n      \
+    \  // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\
+    \u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\
+    \u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx,\
+    \ ry);\n            w = -w;\n        }\n\n        par[rx] += par[ry]; // rx\u306E\
+    \u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\
+    \u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\
+    \uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
+    \ cc[ry].end());\n        cc.erase(ry);\n\n        return true;\n    }\n\n   \
+    \ // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\
+    \u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x, long long\
+    \ y) { \n        return find(x) == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\
+    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\
+    \u3059\n    long long size(long long x) {\n        long long rx = find(x);\n \
+    \       return -par[rx];\n    }\n\n    bool is_connected() {\n        long long\
+    \ rx = find(0);\n        return -par[rx] == V;\n    }\n\n    // x\u304C\u6240\u5C5E\
+    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\u8FD4\u3059\n   \
+    \ set<long long> members(long long x) {\n        long long rx = find(x);\n   \
+    \     return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\u914D\u5217\u3092\
+    \u8FD4\u3059\n    set<long long> roots() {\n        set<long long> ret;\n    \
+    \    fore(p, cc) {\n            ret.insert(p.first);\n        }\n        \n  \
+    \      return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\
+    \u3092\u8FD4\u3059\n    long long group_count() {\n        return cc.size();\n\
+    \    }\n\n    map<long long, set<long long>> all_group_members() {\n        return\
+    \ cc;\n    }\n};"
   dependsOn:
-  - base.hpp
+  - base.cpp
   isVerificationFile: false
-  path: graph/edge.hpp
-  requiredBy:
-  - graph/bellman-ford.hpp
-  - graph/dfs.hpp
-  - graph/bfs.hpp
-  - graph/dijkstra.hpp
-  timestamp: '2024-04-07 02:07:29+09:00'
+  path: structure/unionfind.cpp
+  requiredBy: []
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
-documentation_of: graph/edge.hpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+documentation_of: structure/unionfind.cpp
 layout: document
 redirect_from:
-- /library/graph/edge.hpp
-- /library/graph/edge.hpp.html
-title: graph/edge.hpp
+- /library/structure/unionfind.cpp
+- /library/structure/unionfind.cpp.html
+title: structure/unionfind.cpp
 ---

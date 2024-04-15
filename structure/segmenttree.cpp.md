@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -13,11 +13,11 @@ data:
     path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
     title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -278,7 +278,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/segmenttree.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/segmenttree.cpp\"\
     \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n\
     \    long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1,\
     \ long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\
@@ -439,7 +439,7 @@ data:
     \ = SegmentTree<T, F, Chmax, Sum>;\ntemplate<typename T, typename F> using PointChmaxRangeMin\
     \ = SegmentTree<T, F, Chmax, Min>;\ntemplate<typename T, typename F> using PointChmaxRangeMax\
     \ = SegmentTree<T, F, Chmax, Max>;\n\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\ntemplate<typename T>\nstruct Node\
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct Node\
     \ {\n    T value;\n    long long index;\n    long long size;\n    long long coeff;\n\
     \n    Node(T v, long long i = -1, long long s = 0, long long c = 1) : value(v),\
     \ index(i), size(s), coeff(c) {};\n\n    bool operator< (const Node &other) const\
@@ -601,19 +601,19 @@ data:
     \ = SegmentTree<T, F, Chmax, Min>;\ntemplate<typename T, typename F> using PointChmaxRangeMax\
     \ = SegmentTree<T, F, Chmax, Max>;\n\n"
   dependsOn:
-  - base.hpp
+  - base.cpp
   isVerificationFile: false
-  path: structure/segmenttree.hpp
+  path: structure/segmenttree.cpp
   requiredBy: []
-  timestamp: '2024-04-07 04:57:24+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
-documentation_of: structure/segmenttree.hpp
+documentation_of: structure/segmenttree.cpp
 layout: document
 redirect_from:
-- /library/structure/segmenttree.hpp
-- /library/structure/segmenttree.hpp.html
-title: structure/segmenttree.hpp
+- /library/structure/segmenttree.cpp
+- /library/structure/segmenttree.cpp.html
+title: structure/segmenttree.cpp
 ---

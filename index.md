@@ -3,55 +3,49 @@ data:
   libraryCategories:
   - name: .
     pages:
-    - icon: ':heavy_check_mark:'
-      path: base.hpp
-      title: base.hpp
+    - icon: ':question:'
+      path: base.cpp
+      title: base.cpp
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
-      path: graph/bellman-ford.hpp
-      title: graph/bellman-ford.hpp
+      path: graph/bellman-ford.cpp
+      title: graph/bellman-ford.cpp
     - icon: ':heavy_check_mark:'
-      path: graph/bfs.hpp
-      title: graph/bfs.hpp
+      path: graph/bfs.cpp
+      title: graph/bfs.cpp
     - icon: ':heavy_check_mark:'
-      path: graph/dfs.hpp
-      title: graph/dfs.hpp
+      path: graph/dfs.cpp
+      title: graph/dfs.cpp
     - icon: ':heavy_check_mark:'
-      path: graph/dijkstra.hpp
-      title: graph/dijkstra.hpp
+      path: graph/dijkstra.cpp
+      title: graph/dijkstra.cpp
     - icon: ':heavy_check_mark:'
-      path: graph/edge.hpp
-      title: graph/edge.hpp
-    - icon: ':heavy_check_mark:'
-      path: graph/stamp.hpp
-      title: graph/stamp.hpp
-    - icon: ':heavy_check_mark:'
-      path: graph/warshall-floyd.hpp
-      title: graph/warshall-floyd.hpp
+      path: graph/warshall-floyd.cpp
+      title: graph/warshall-floyd.cpp
   - name: structure
     pages:
+    - icon: ':question:'
+      path: structure/bit.cpp
+      title: structure/bit.cpp
     - icon: ':heavy_check_mark:'
-      path: structure/bit.hpp
-      title: structure/bit.hpp
+      path: structure/dualsegmenttree.cpp
+      title: structure/dualsegmenttree.cpp
     - icon: ':heavy_check_mark:'
-      path: structure/dualsegmenttree.hpp
-      title: structure/dualsegmenttree.hpp
+      path: structure/kruskal.cpp
+      title: structure/kruskal.cpp
     - icon: ':heavy_check_mark:'
-      path: structure/kruskal.hpp
-      title: structure/kruskal.hpp
+      path: structure/lazysegmenttree.cpp
+      title: structure/lazysegmenttree.cpp
     - icon: ':heavy_check_mark:'
-      path: structure/lazysegmenttree.hpp
-      title: structure/lazysegmenttree.hpp
+      path: structure/segmenttree.cpp
+      title: structure/segmenttree.cpp
     - icon: ':heavy_check_mark:'
-      path: structure/segmenttree.hpp
-      title: structure/segmenttree.hpp
+      path: structure/unionfind.cpp
+      title: structure/unionfind.cpp
     - icon: ':heavy_check_mark:'
-      path: structure/unionfind.hpp
-      title: structure/unionfind.hpp
-    - icon: ':heavy_check_mark:'
-      path: structure/weighted-unionfind.hpp
-      title: structure/weighted-unionfind.hpp
+      path: structure/weighted-unionfind.cpp
+      title: structure/weighted-unionfind.cpp
   verificationCategories:
   - name: test/graph/bellman-ford
     pages:
@@ -73,11 +67,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
       title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - name: test/graph/kruskal
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/graph/kruskal/aoj-grl-2-a.test.cpp
-      title: test/graph/kruskal/aoj-grl-2-a.test.cpp
   - name: test/graph/warshall-floyd
     pages:
     - icon: ':heavy_check_mark:'
@@ -91,10 +80,10 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/bit/aoj-dsl-2-g.test.cpp
       title: test/structure/bit/aoj-dsl-2-g.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/structure/bit/atcoder-abc338-e.test.cpp
       title: test/structure/bit/atcoder-abc338-e.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/structure/bit/atcoder-abc340-e.test.cpp
       title: test/structure/bit/atcoder-abc340-e.test.cpp
     - icon: ':heavy_check_mark:'
@@ -111,6 +100,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
       title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  - name: test/structure/kruskal
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/kruskal/aoj-grl-2-a.test.cpp
+      title: test/structure/kruskal/aoj-grl-2-a.test.cpp
   - name: test/structure/lazysegmenttree
     pages:
     - icon: ':heavy_check_mark:'

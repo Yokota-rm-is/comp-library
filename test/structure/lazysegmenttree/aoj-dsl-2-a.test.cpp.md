@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/lazysegmenttree.hpp
-    title: structure/lazysegmenttree.hpp
+    path: structure/lazysegmenttree.cpp
+    title: structure/lazysegmenttree.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -19,7 +19,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&
   bundledCode: "#line 1 \"test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp\"\n\
     #define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&\"\
-    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -280,7 +280,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.cpp\"\
     \n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
     // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
     \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
@@ -483,7 +483,7 @@ data:
     \ x, y;\n            cin >> x >> y;\n            cout << tree.prod(x, y + 1) <<\
     \ endl;\n        }\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&\"\
-    \n\n#include \"../../../structure/lazysegmenttree.hpp\"\n\nint main() {\n    ll\
+    \n\n#include \"../../../structure/lazysegmenttree.cpp\"\n\nint main() {\n    ll\
     \ n, q;\n    cin >> n >> q;\n\n    RangeSetRangeMin<ll, ll> tree(n, (1ll << 31)\
     \ - 1);\n    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t\
     \ == 0) {\n            ll x, y;\n            cin >> x >> y;\n            tree.apply(x,\
@@ -491,12 +491,12 @@ data:
     \ y;\n            cout << tree.prod(x, y + 1) << endl;\n        }\n    }\n\n \
     \   return 0;\n}"
   dependsOn:
-  - structure/lazysegmenttree.hpp
-  - base.hpp
+  - structure/lazysegmenttree.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 04:57:24+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp

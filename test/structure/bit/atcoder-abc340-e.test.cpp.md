@@ -1,38 +1,37 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/bit.hpp
-    title: structure/bit.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
+  - icon: ':question:'
+    path: structure/bit.cpp
+    title: structure/bit.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    IGNORE: ''
-    IGNORE_IF_GCC: ''
+    PROBLEM: https://atcoder.jp/contests/abc340/tasks/abc340_e
     links:
     - https://atcoder.jp/contests/abc340/tasks/abc340_e
   bundledCode: "#line 1 \"test/structure/bit/atcoder-abc340-e.test.cpp\"\n#define\
-    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc340/tasks/abc340_e\"\
-    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    \ PROBLEM \"https://atcoder.jp/contests/abc340/tasks/abc340_e\"\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -281,7 +280,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
     \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
     // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
     // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
@@ -358,7 +357,7 @@ data:
     x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
     \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
     \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n#line 5 \"test/structure/bit/atcoder-abc340-e.test.cpp\"\
+    \        }\n    }\n};\n#line 4 \"test/structure/bit/atcoder-abc340-e.test.cpp\"\
     \n\nint main() {\n    long long N;\n    cin >> N;\n    long long M;\n    cin >>\
     \ M;\n    vector<long long> A(N);\n    for(int i = 0 ; i < N ; ++i){\n       \
     \ cin >> A[i];\n    }\n    vector<long long> B(M);\n    for(int i = 0 ; i < M\
@@ -368,10 +367,10 @@ data:
     \            ball %= N;\n        }\n\n        bit.add_circular(start, start +\
     \ ball, 1);\n    }\n\n    vll ans(N);\n    rep(i, N) ans[i] = bit.get(i);\n\n\
     \    cout << ans << endl;\n\n    return 0;\n}\n"
-  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc340/tasks/abc340_e\"\
-    \n\n#include \"../../../structure/bit.hpp\"\n\nint main() {\n    long long N;\n\
-    \    cin >> N;\n    long long M;\n    cin >> M;\n    vector<long long> A(N);\n\
-    \    for(int i = 0 ; i < N ; ++i){\n        cin >> A[i];\n    }\n    vector<long\
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc340/tasks/abc340_e\"\n\n\
+    #include \"../../../structure/bit.cpp\"\n\nint main() {\n    long long N;\n  \
+    \  cin >> N;\n    long long M;\n    cin >> M;\n    vector<long long> A(N);\n \
+    \   for(int i = 0 ; i < N ; ++i){\n        cin >> A[i];\n    }\n    vector<long\
     \ long> B(M);\n    for(int i = 0 ; i < M ; ++i){\n        cin >> B[i];\n    }\n\
     \n    BIT bit(A);\n    rep(i, M) {\n        ll ball = bit.get(B[i]);\n       \
     \ bit.add(B[i], -ball);\n        ll start = B[i] + 1;\n\n        if (ball >= N)\
@@ -380,13 +379,13 @@ data:
     \    rep(i, N) ans[i] = bit.get(i);\n\n    cout << ans << endl;\n\n    return\
     \ 0;\n}"
   dependsOn:
-  - structure/bit.hpp
-  - base.hpp
+  - structure/bit.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/structure/bit/atcoder-abc340-e.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 13:22:55+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-04-15 23:53:20+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/bit/atcoder-abc340-e.test.cpp
 layout: document

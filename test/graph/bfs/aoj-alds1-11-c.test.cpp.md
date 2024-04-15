@@ -1,15 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/bfs.hpp
-    title: graph/bfs.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/edge.hpp
-    title: graph/edge.hpp
+    path: graph/bfs.cpp
+    title: graph/bfs.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -22,7 +19,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_C
   bundledCode: "#line 1 \"test/graph/bfs/aoj-alds1-11-c.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_C\"\n\n\
-    #line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    #line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -283,58 +280,57 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/edge.hpp\"\n\
-    \ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n \
-    \   long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n   \
-    \ long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/bfs.cpp\"\n\n\
+    template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
+    \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
+    \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
+    \ u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long\
+    \ r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\n\
+    \    bool operator < (const Edge& other) const {\n        if (from == other.from)\
     \ {\n            if (to == other.to) return weight < other.weight;\n         \
     \   else return to < other.to;\n        }\n        else return from < other.from;\n\
     \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n#line 4 \"graph/bfs.hpp\"\n\nstruct\
-    \ BFS {\n    long long V;\n    bool directed_;\n    vector<vector<Edge<>>> G;\n\
-    \    vector<bool> seen;\n    vector<long long> prev;\n    vector<long long> depth;\n\
-    \n    BFS(long long N, bool directed) : V(N), directed_(directed), G(V){\n   \
-    \     init();\n    };\n    \n    void init() {\n        seen.assign(V, false);\n\
-    \        prev.assign(V, -1);\n        depth.assign(V, inf64);\n    }\n    \n \
-    \   void connect(long long from, long long to) {\n        assert(0 <= from and\
-    \ from < V);\n        assert(0 <= to and to < V);\n\n        if (directed_) {\n\
-    \            G[from].emplace_back(from, to);\n        }\n        else {\n    \
-    \        G[from].emplace_back(from, to);\n            G[to].emplace_back(to, from);\n\
-    \        }\n    }\n\n    void operator() (long long start) {\n        bfs(start);\n\
-    \    }\n\n    void bfs_all() {\n        rep(i, V) {\n            if (seen[i])\
-    \ continue;\n            bfs(i);\n        }\n    }\n\n    void bfs(long long start)\
-    \ {\n        assert(0 <= start and start < V);\n\n        queue<long long> que;\n\
-    \n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
-    \u30FC\u30C9\u3068\u3059\u308B)\n        seen[start] = true;\n        depth[start]\
-    \ = 0;\n        que.push(start); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\
-    \u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\
-    \u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
-    \ {\n            long long now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\
-    \u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\
-    \n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\
-    \u3066\u8ABF\u3079\u308B\n            fore(edge, G[now]) {\n                long\
-    \ long next = edge.to;\n                if (seen[next]) continue; // \u3059\u3067\
-    \u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\
-    \u3044\n                seen[next] = true;\n\n                // \u65B0\u305F\u306A\
-    \u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\
-    \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n   \
-    \             depth[next] = depth[now] + 1;\n                prev[next] = now;\n\
-    \                que.push(next);\n            }\n        }\n    }\n\n    long\
-    \ long find_diameter() {\n        long long ret = 0;\n\n        rep(i, V) {\n\
-    \            if (seen[i]) continue;\n            bfs(i);\n            long long\
-    \ u = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\n  \
-    \          init();\n            bfs(u);\n            long long v = distance(depth.begin(),\
-    \ max_element(depth.begin(), depth.end()));\n            \n            chmax(ret,\
-    \ depth[v]);\n            init();\n        }\n\n        return ret;\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to];\n    }\n\n    vector<long long> path_to(long long to)\
-    \ {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n   \
-    \     p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n           \
-    \ p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n};\n#line 4 \"test/graph/bfs/aoj-alds1-11-c.test.cpp\"\
+    \        return os << edge.to;\n    }\n};\n\nstruct BFS {\n    long long V;\n\
+    \    bool directed_;\n    vector<vector<Edge<>>> G;\n    vector<bool> seen;\n\
+    \    vector<long long> prev;\n    vector<long long> depth;\n\n    BFS(long long\
+    \ N, bool directed) : V(N), directed_(directed), G(V){\n        init();\n    };\n\
+    \    \n    void init() {\n        seen.assign(V, false);\n        prev.assign(V,\
+    \ -1);\n        depth.assign(V, inf64);\n    }\n    \n    void connect(long long\
+    \ from, long long to) {\n        assert(0 <= from and from < V);\n        assert(0\
+    \ <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
+    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
+    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
+    \ (long long start) {\n        bfs(start);\n    }\n\n    void bfs_all() {\n  \
+    \      rep(i, V) {\n            if (seen[i]) continue;\n            bfs(i);\n\
+    \        }\n    }\n\n    void bfs(long long start) {\n        assert(0 <= start\
+    \ and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\u6761\
+    \u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B\
+    )\n        seen[start] = true;\n        depth[start] = 0;\n        que.push(start);\
+    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
+    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
+    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
+    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
+    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
+    \              if (seen[next]) continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\
+    \u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\n               \
+    \ seen[next] = true;\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\
+    \u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\
+    \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
+    \ = depth[now] + 1;\n                prev[next] = now;\n                que.push(next);\n\
+    \            }\n        }\n    }\n\n    long long find_diameter() {\n        long\
+    \ long ret = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n \
+    \           bfs(i);\n            long long u = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n\n            init();\n            bfs(u);\n            long\
+    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
+    \            \n            chmax(ret, depth[v]);\n            init();\n      \
+    \  }\n\n        return ret;\n    }\n\n    bool reach_at(long long to) {\n    \
+    \    assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n    vector<long\
+    \ long> path_to(long long to) {\n        assert(0 <= to and to < V);\n\n     \
+    \   vector<long long> p;\n        p.push_back(to);\n\n        while (prev[p.back()]\
+    \ != -1) {\n            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n};\n#line 4 \"test/graph/bfs/aoj-alds1-11-c.test.cpp\"\
     \n\nint main() {\n    ll V;\n    cin >> V;\n\n    BFS tree(V, true);\n    rep(i,\
     \ V) {\n        ll u, k;\n        cin >> u >> k;\n\n        rep(j, k) {\n    \
     \        ll v;\n            cin >> v;\n            tree.connect(u - 1, v - 1);\n\
@@ -342,7 +338,7 @@ data:
     \ == inf64) cout << i + 1 << \" \" << -1 << endl;\n       else cout << i + 1 <<\
     \ \" \" << tree.depth[i] << endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_C\"\
-    \n\n#include \"../../../graph/bfs.hpp\"\n\nint main() {\n    ll V;\n    cin >>\
+    \n\n#include \"../../../graph/bfs.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
     \ V;\n\n    BFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
     \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
     \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree(0);\n\n\
@@ -350,13 +346,12 @@ data:
     \ -1 << endl;\n       else cout << i + 1 << \" \" << tree.depth[i] << endl;\n\
     \    }\n\n    return 0;\n}"
   dependsOn:
-  - graph/bfs.hpp
-  - base.hpp
-  - graph/edge.hpp
+  - graph/bfs.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/graph/bfs/aoj-alds1-11-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
+  timestamp: '2024-04-15 23:52:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/bfs/aoj-alds1-11-c.test.cpp

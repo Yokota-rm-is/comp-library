@@ -3,47 +3,41 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: graph/bellman-ford.hpp
-    title: graph/bellman-ford.hpp
+    path: graph/bellman-ford.cpp
+    title: graph/bellman-ford.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/bfs.hpp
-    title: graph/bfs.hpp
+    path: graph/bfs.cpp
+    title: graph/bfs.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/dfs.hpp
-    title: graph/dfs.hpp
+    path: graph/dfs.cpp
+    title: graph/dfs.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/dijkstra.hpp
-    title: graph/dijkstra.hpp
+    path: graph/dijkstra.cpp
+    title: graph/dijkstra.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/edge.hpp
-    title: graph/edge.hpp
+    path: graph/warshall-floyd.cpp
+    title: graph/warshall-floyd.cpp
+  - icon: ':question:'
+    path: structure/bit.cpp
+    title: structure/bit.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/stamp.hpp
-    title: graph/stamp.hpp
+    path: structure/dualsegmenttree.cpp
+    title: structure/dualsegmenttree.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/warshall-floyd.hpp
-    title: graph/warshall-floyd.hpp
+    path: structure/kruskal.cpp
+    title: structure/kruskal.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/bit.hpp
-    title: structure/bit.hpp
+    path: structure/lazysegmenttree.cpp
+    title: structure/lazysegmenttree.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/dualsegmenttree.hpp
-    title: structure/dualsegmenttree.hpp
+    path: structure/segmenttree.cpp
+    title: structure/segmenttree.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/kruskal.hpp
-    title: structure/kruskal.hpp
+    path: structure/unionfind.cpp
+    title: structure/unionfind.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/lazysegmenttree.hpp
-    title: structure/lazysegmenttree.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/segmenttree.hpp
-    title: structure/segmenttree.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/unionfind.hpp
-    title: structure/unionfind.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/weighted-unionfind.hpp
-    title: structure/weighted-unionfind.hpp
+    path: structure/weighted-unionfind.cpp
+    title: structure/weighted-unionfind.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -58,9 +52,6 @@ data:
     path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
     title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/graph/kruskal/aoj-grl-2-a.test.cpp
-    title: test/graph/kruskal/aoj-grl-2-a.test.cpp
-  - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   - icon: ':heavy_check_mark:'
@@ -69,10 +60,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-g.test.cpp
     title: test/structure/bit/aoj-dsl-2-g.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/bit/atcoder-abc338-e.test.cpp
     title: test/structure/bit/atcoder-abc338-e.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/bit/atcoder-abc340-e.test.cpp
     title: test/structure/bit/atcoder-abc340-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -87,6 +78,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/kruskal/aoj-grl-2-a.test.cpp
+    title: test/structure/kruskal/aoj-grl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
@@ -120,12 +114,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  _isVerificationFailed: false
-  _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _isVerificationFailed: true
+  _pathExtension: cpp
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -651,27 +645,26 @@ data:
     \ x) { return __builtin_popcountll(x); }\n#endif"
   dependsOn: []
   isVerificationFile: false
-  path: base.hpp
+  path: base.cpp
   requiredBy:
-  - structure/lazysegmenttree.hpp
-  - structure/weighted-unionfind.hpp
-  - structure/dualsegmenttree.hpp
-  - structure/kruskal.hpp
-  - structure/unionfind.hpp
-  - structure/bit.hpp
-  - structure/segmenttree.hpp
-  - graph/bellman-ford.hpp
-  - graph/warshall-floyd.hpp
-  - graph/stamp.hpp
-  - graph/dfs.hpp
-  - graph/bfs.hpp
-  - graph/edge.hpp
-  - graph/dijkstra.hpp
-  timestamp: '2024-04-07 02:07:29+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  - structure/kruskal.cpp
+  - structure/lazysegmenttree.cpp
+  - structure/segmenttree.cpp
+  - structure/dualsegmenttree.cpp
+  - structure/weighted-unionfind.cpp
+  - structure/bit.cpp
+  - structure/unionfind.cpp
+  - graph/bfs.cpp
+  - graph/dijkstra.cpp
+  - graph/warshall-floyd.cpp
+  - graph/bellman-ford.cpp
+  - graph/dfs.cpp
+  timestamp: '2024-04-15 23:51:04+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
   - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
   - test/structure/bit/aoj-dsl-2-g.test.cpp
   - test/structure/bit/atcoder-arc033-c.test.cpp
@@ -689,16 +682,15 @@ data:
   - test/structure/unionfind/aoj-dsl-1-a.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-  - test/graph/kruskal/aoj-grl-2-a.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
   - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-documentation_of: base.hpp
+documentation_of: base.cpp
 layout: document
 redirect_from:
-- /library/base.hpp
-- /library/base.hpp.html
-title: base.hpp
+- /library/base.cpp
+- /library/base.cpp.html
+title: base.cpp
 ---

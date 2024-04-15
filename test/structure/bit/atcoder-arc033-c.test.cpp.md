@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/bit.hpp
-    title: structure/bit.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
+  - icon: ':question:'
+    path: structure/bit.cpp
+    title: structure/bit.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -20,7 +20,7 @@ data:
     - https://atcoder.jp/contests/arc033/tasks/arc033_3
   bundledCode: "#line 1 \"test/structure/bit/atcoder-arc033-c.test.cpp\"\n#define\
     \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/arc033/tasks/arc033_3\"\
-    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -281,7 +281,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
     \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
     // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
     // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
@@ -367,7 +367,7 @@ data:
     \     ll index = tree.lower_bound(x);\n            cout << index << endl;\n  \
     \          tree.add(index, -1);\n        }\n    } \n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/arc033/tasks/arc033_3\"\
-    \n\n#include \"../../../structure/bit.hpp\"\n\nint main() {\n    long long Q;\n\
+    \n\n#include \"../../../structure/bit.cpp\"\n\nint main() {\n    long long Q;\n\
     \    cin >> Q;\n    vector<long long> T(Q);\n    vector<long long> X(Q);\n   \
     \ for(int i = 0 ; i < Q ; ++i){\n        cin >> T[i];\n        cin >> X[i];\n\
     \    }\n\n    BIT tree(max(X) + 1);\n    rep(i, Q) {\n        long long t = T[i],\
@@ -376,12 +376,12 @@ data:
     \            cout << index << endl;\n            tree.add(index, -1);\n      \
     \  }\n    } \n\n    return 0;\n}"
   dependsOn:
-  - structure/bit.hpp
-  - base.hpp
+  - structure/bit.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/structure/bit/atcoder-arc033-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 13:22:55+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/atcoder-arc033-c.test.cpp

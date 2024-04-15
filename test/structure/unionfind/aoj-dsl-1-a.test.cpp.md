@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/unionfind.hpp
-    title: structure/unionfind.hpp
+    path: structure/unionfind.cpp
+    title: structure/unionfind.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -19,7 +19,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&
   bundledCode: "#line 1 \"test/structure/unionfind/aoj-dsl-1-a.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&\"\
-    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -280,7 +280,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.cpp\"\
     \n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{}; // par[i]:\
     \ i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642\
     )\n    map<long long, set<long long>> cc;\n\n    explicit UnionFind(long long\
@@ -326,19 +326,19 @@ data:
     \            cout << tree.is_same(x, y) << endl;\n        }\n    }\n\n    return\
     \ 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&\"\
-    \n\n#include \"../../../structure/unionfind.hpp\"\n\nint main() {\n    ll n, q;\n\
+    \n\n#include \"../../../structure/unionfind.cpp\"\n\nint main() {\n    ll n, q;\n\
     \    cin >> n >> q;\n\n    UnionFind tree(n);\n    while (q--) {\n        ll t;\n\
     \        cin >> t;\n\n        if (t == 0) {\n            ll x, y;\n          \
     \  cin >> x >> y;\n            tree.unite(x, y);\n        }\n        else {\n\
     \            ll x, y;\n            cin >> x >> y;\n            cout << tree.is_same(x,\
     \ y) << endl;\n        }\n    }\n\n    return 0;\n}"
   dependsOn:
-  - structure/unionfind.hpp
-  - base.hpp
+  - structure/unionfind.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 03:41:58+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/unionfind/aoj-dsl-1-a.test.cpp

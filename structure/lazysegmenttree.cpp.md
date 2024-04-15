@@ -1,9 +1,9 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -25,7 +25,7 @@ data:
     path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
     title: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
@@ -35,7 +35,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1
     - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1
     - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -296,7 +296,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.cpp\"\
     \n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
     // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
     \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
@@ -492,7 +492,7 @@ data:
     \ long, typename F = long long> using RangeSetRangeMin = LazySegmentTree<T, F,\
     \ Set, Min>;\ntemplate<typename T = long long, typename F = long long> using RangeSetRangeMax\
     \ = LazySegmentTree<T, F, Set, Max>;\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
+  code: "#pragma once\n#include \"../base.cpp\"\n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
     // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
     \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
     \ RSQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1\n\
@@ -688,11 +688,11 @@ data:
     \ Set, Min>;\ntemplate<typename T = long long, typename F = long long> using RangeSetRangeMax\
     \ = LazySegmentTree<T, F, Set, Max>;"
   dependsOn:
-  - base.hpp
+  - base.cpp
   isVerificationFile: false
-  path: structure/lazysegmenttree.hpp
+  path: structure/lazysegmenttree.cpp
   requiredBy: []
-  timestamp: '2024-04-07 04:57:24+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
@@ -701,10 +701,10 @@ data:
   - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
-documentation_of: structure/lazysegmenttree.hpp
+documentation_of: structure/lazysegmenttree.cpp
 layout: document
 redirect_from:
-- /library/structure/lazysegmenttree.hpp
-- /library/structure/lazysegmenttree.hpp.html
-title: structure/lazysegmenttree.hpp
+- /library/structure/lazysegmenttree.cpp
+- /library/structure/lazysegmenttree.cpp.html
+title: structure/lazysegmenttree.cpp
 ---

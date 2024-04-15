@@ -1,18 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/dfs.hpp
-    title: graph/dfs.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/edge.hpp
-    title: graph/edge.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/stamp.hpp
-    title: graph/stamp.hpp
+    path: graph/dfs.cpp
+    title: graph/dfs.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -25,7 +19,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
   bundledCode: "#line 1 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\n\n\
-    #line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    #line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -286,54 +280,53 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/edge.hpp\"\n\
-    \ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n \
-    \   long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n   \
-    \ long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
+    template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
+    \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
+    \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
+    \ u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long\
+    \ r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\n\
+    \    bool operator < (const Edge& other) const {\n        if (from == other.from)\
     \ {\n            if (to == other.to) return weight < other.weight;\n         \
     \   else return to < other.to;\n        }\n        else return from < other.from;\n\
     \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n#line 3 \"graph/stamp.hpp\"\n\nstruct\
-    \ Stamp {\n    long long index;\n    long long time;\n    explicit Stamp(long\
-    \ long i = 0, long long t = -1) : index(i), time(t) {};\n\n    bool operator<(const\
-    \ Stamp& right) const {\n        return time < right.time;\n    }\n\n    friend\
-    \ ostream& operator << (ostream& os, const Stamp& stamp) {\n        return os\
-    \ << \"(\" << stamp.time << \", \" << stamp.index << \")\";\n    }\n};\n#line\
-    \ 5 \"graph/dfs.hpp\"\n\nstruct DFS {\n    long long V;\n    bool directed_;\n\
-    \    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n    vector<Stamp>\
-    \ pre_order, post_order;\n    long long time;\n    bool has_cycle;\n    vector<long\
-    \ long> descendants;\n\n    DFS(long long N, bool directed) : V(N), directed_(directed),\
-    \ G(V) {\n        init();\n    };\n    \n    void init() {\n        time = 0;\n\
-    \        has_cycle = false;\n\n        seen.assign(V, false);\n        done.assign(V,\
-    \ false);\n        descendants.assign(V, 0);\n    }\n    \n    void connect(long\
-    \ long from, long long to) {\n        assert(0 <= from and from < V);\n      \
-    \  assert(0 <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n};\n#line 4 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\
-    \n\nint main() {\n    ll V;\n    cin >> V;\n\n    DFS tree(V, true);\n    rep(i,\
-    \ V) {\n        ll u, k;\n        cin >> u >> k;\n\n        rep(j, k) {\n    \
-    \        ll v;\n            cin >> v;\n            tree.connect(u - 1, v - 1);\n\
-    \        }\n    }\n\n    tree.dfs_all();\n\n    vector<pll> ans(V);\n    rep(i,\
-    \ V) {\n       ans[tree.pre_order[i].index].first = tree.pre_order[i].time;\n\
-    \       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n    }\n\
-    \n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1 << \" \"\
-    \ << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
+    \        return os << edge.to;\n    }\n};\n\nstruct Stamp {\n    long long index;\n\
+    \    long long time;\n    explicit Stamp(long long i = 0, long long t = -1) :\
+    \ index(i), time(t) {};\n\n    bool operator<(const Stamp& right) const {\n  \
+    \      return time < right.time;\n    }\n\n    friend ostream& operator << (ostream&\
+    \ os, const Stamp& stamp) {\n        return os << \"(\" << stamp.time << \", \"\
+    \ << stamp.index << \")\";\n    }\n};\n\nstruct DFS {\n    long long V;\n    bool\
+    \ directed_;\n    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n\
+    \    vector<Stamp> pre_order, post_order;\n    long long time;\n    bool has_cycle;\n\
+    \    vector<long long> descendants;\n\n    DFS(long long N, bool directed) : V(N),\
+    \ directed_(directed), G(V) {\n        init();\n    };\n    \n    void init()\
+    \ {\n        time = 0;\n        has_cycle = false;\n\n        seen.assign(V, false);\n\
+    \        done.assign(V, false);\n        descendants.assign(V, 0);\n    }\n  \
+    \  \n    void connect(long long from, long long to) {\n        assert(0 <= from\
+    \ and from < V);\n        assert(0 <= to and to < V);\n\n        if (directed_)\
+    \ {\n            G[from].emplace_back(from, to);\n        }\n        else {\n\
+    \            G[from].emplace_back(from, to);\n            G[to].emplace_back(to,\
+    \ from);\n        }\n    }\n\n    void operator() (long long start) {\n      \
+    \  dfs(start);\n    }\n\n    void dfs_all() {\n        rep(i, V) {\n         \
+    \   if (seen[i]) continue;\n            dfs(i);\n        }\n    }\n\n    void\
+    \ dfs(long long now) {\n        assert(0 <= now and now < V);\n\n        seen[now]\
+    \ = true;\n        pre_order.emplace_back(now, time++);\n\n        fore(edge,\
+    \ G[now]) {\n            long long next = edge.to;\n\n            if (seen[next])\
+    \ {\n                if (!done[next]) has_cycle = true;\n                continue;\n\
+    \            }\n\n            dfs(next);\n\n            descendants[now] += descendants[next]\
+    \ + 1;\n        }\n\n        done[now] = true;\n        post_order.emplace_back(now,\
+    \ time++);\n    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to\
+    \ and to < V);\n\n        return seen[to] or done[to];\n    }\n};\n#line 4 \"\
+    test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
+    \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
+    \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
+    \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
+    \n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
+    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
+    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
+    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\
-    \n\n#include \"../../../graph/dfs.hpp\"\n\nint main() {\n    ll V;\n    cin >>\
+    \n\n#include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
     \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
     \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
     \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
@@ -342,14 +335,12 @@ data:
     \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
     \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}"
   dependsOn:
-  - graph/dfs.hpp
-  - base.hpp
-  - graph/edge.hpp
-  - graph/stamp.hpp
+  - graph/dfs.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/graph/dfs/aoj-alds1-11-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
+  timestamp: '2024-04-15 23:52:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dfs/aoj-alds1-11-b.test.cpp

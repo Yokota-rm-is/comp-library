@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/segmenttree.hpp
-    title: structure/segmenttree.hpp
+    path: structure/segmenttree.cpp
+    title: structure/segmenttree.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -19,7 +19,7 @@ data:
     - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&
   bundledCode: "#line 1 \"test/structure/segmenttree/aoj-dsl-2-b.test.cpp\"\n#define\
     \ PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&\"\
-    \n\n#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -280,7 +280,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/segmenttree.hpp\"\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/segmenttree.cpp\"\
     \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n\
     \    long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1,\
     \ long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\
@@ -448,7 +448,7 @@ data:
     \            cin >> x >> y;\n            cout << tree.prod(x - 1, y) << endl;\n\
     \        }\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&\"\
-    \n\n#include \"../../../structure/segmenttree.hpp\"\n\nint main() {\n    ll n,\
+    \n\n#include \"../../../structure/segmenttree.cpp\"\n\nint main() {\n    ll n,\
     \ q;\n    cin >> n >> q;\n\n    PointAddRangeSum<ll, ll> tree(n, 0);\n    while\
     \ (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n       \
     \     ll x, y;\n            cin >> x >> y;\n            tree.apply(x - 1, y);\n\
@@ -456,12 +456,12 @@ data:
     \            cout << tree.prod(x - 1, y) << endl;\n        }\n    }\n\n    return\
     \ 0;\n}"
   dependsOn:
-  - structure/segmenttree.hpp
-  - base.hpp
+  - structure/segmenttree.cpp
+  - base.cpp
   isVerificationFile: true
   path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-07 04:57:24+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/segmenttree/aoj-dsl-2-b.test.cpp

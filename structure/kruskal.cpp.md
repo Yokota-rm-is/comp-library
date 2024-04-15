@@ -1,26 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: base.hpp
-    title: base.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/edge.hpp
-    title: graph/edge.hpp
-  - icon: ':heavy_check_mark:'
-    path: graph/stamp.hpp
-    title: graph/stamp.hpp
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/graph/dfs/aoj-alds1-11-b.test.cpp
-    title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+    path: test/structure/kruskal/aoj-grl-2-a.test.cpp
+    title: test/structure/kruskal/aoj-grl-2-a.test.cpp
   _isVerificationFailed: false
-  _pathExtension: hpp
+  _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"base.hpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -281,82 +275,102 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/edge.hpp\"\n\
-    \ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n \
-    \   long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n   \
-    \ long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n#line 3 \"graph/stamp.hpp\"\n\nstruct\
-    \ Stamp {\n    long long index;\n    long long time;\n    explicit Stamp(long\
-    \ long i = 0, long long t = -1) : index(i), time(t) {};\n\n    bool operator<(const\
-    \ Stamp& right) const {\n        return time < right.time;\n    }\n\n    friend\
-    \ ostream& operator << (ostream& os, const Stamp& stamp) {\n        return os\
-    \ << \"(\" << stamp.time << \", \" << stamp.index << \")\";\n    }\n};\n#line\
-    \ 5 \"graph/dfs.hpp\"\n\nstruct DFS {\n    long long V;\n    bool directed_;\n\
-    \    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n    vector<Stamp>\
-    \ pre_order, post_order;\n    long long time;\n    bool has_cycle;\n    vector<long\
-    \ long> descendants;\n\n    DFS(long long N, bool directed) : V(N), directed_(directed),\
-    \ G(V) {\n        init();\n    };\n    \n    void init() {\n        time = 0;\n\
-    \        has_cycle = false;\n\n        seen.assign(V, false);\n        done.assign(V,\
-    \ false);\n        descendants.assign(V, 0);\n    }\n    \n    void connect(long\
-    \ long from, long long to) {\n        assert(0 <= from and from < V);\n      \
-    \  assert(0 <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.hpp\"\n#include \"edge.hpp\"\n#include \"\
-    stamp.hpp\"\n\nstruct DFS {\n    long long V;\n    bool directed_;\n    vector<vector<Edge<>>>\
-    \ G;\n    vector<bool> seen, done;\n\n    vector<Stamp> pre_order, post_order;\n\
-    \    long long time;\n    bool has_cycle;\n    vector<long long> descendants;\n\
-    \n    DFS(long long N, bool directed) : V(N), directed_(directed), G(V) {\n  \
-    \      init();\n    };\n    \n    void init() {\n        time = 0;\n        has_cycle\
-    \ = false;\n\n        seen.assign(V, false);\n        done.assign(V, false);\n\
-    \        descendants.assign(V, 0);\n    }\n    \n    void connect(long long from,\
-    \ long long to) {\n        assert(0 <= from and from < V);\n        assert(0 <=\
-    \ to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n};"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/kruskal.cpp\"\
+    \n\nstruct WeightPriorityEdge {\n    long long from;\n    long long to;\n    long\
+    \ long weight;\n    \n    explicit WeightPriorityEdge(long long s, long long t,\
+    \ long long w = 0) : from(s), to(t), weight(w) {};\n\n    bool operator< (const\
+    \ WeightPriorityEdge& other) const {\n        if (weight == other.weight) {\n\
+    \            if (from == other.from) return to < other.to;\n            else return\
+    \ from < other.from;\n        }\n        else return weight < other.weight;\n\
+    \    }\n};\n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{};\
+    \ // par[i]: i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\
+    \u306E\u6642)\n\n    vector<WeightPriorityEdge> edges;\n\n    explicit UnionFind(long\
+    \ long V) : V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\
+    \u3042\u308B\u3068\u3057\u3066\u521D\u671F\u5316\n    }\n\n    // x\u306E\u6839\
+    \u3092\u8FD4\u3059\n    long long find(long long x) { // \u30C7\u30FC\u30BFx\u304C\
+    \u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\u5E30\u3067\u5F97\u308B\uFF1A\
+    root(x) = {x\u306E\u6728\u306E\u6839}\n        if (par[x] < 0) return x;\n\n \
+    \       long long rx = find(par[x]);\n        return par[x] = rx;\n    }\n\n \
+    \   // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\
+    \u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x,\
+    \ long long y) { \n        return find(x) == find(y);\n    }\n\n    // x\u304C\
+    \u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\
+    \u3092\u8FD4\u3059\n    long long size(long long x) {\n        long long rx =\
+    \ find(x);\n        return -par[rx];\n    }\n\n    bool is_connected() {\n   \
+    \     long long rx = find(0);\n        return -par[rx] == V;\n    }\n\n    //\
+    \ kruskal\u7528 \n    void add_edge(long long u, long long v, long long w) {\n\
+    \        edges.emplace_back(u, v, w);\n    }\n    \n    // \u7121\u5411\u6700\u5C0F\
+    \u5168\u57DF\u6728\u306E\u30B3\u30B9\u30C8\u3092\u6C42\u3081\u308B\n    long long\
+    \ kruskal() {\n        sort(edges.begin(), edges.end());\n\n        long long\
+    \ sum = 0;\n        fore(e, edges) {\n            if (is_same(e.from, e.to)) continue;\n\
+    \n            unite(e.from, e.to, e.weight);\n            sum += e.weight;\n \
+    \       }\n\n        return sum;\n    }\n\nprivate:\n    // x\u3068y\u3092\u9023\
+    \u7D50\n    bool unite(long long x, long long y, long long w = 0) {\n        long\
+    \ long rx = find(x); //x\u306E\u6839\u3092rx\n        long long ry = find(y);\
+    \ //y\u306E\u6839\u3092ry\n        if (rx == ry) return false; //x\u3068y\u306E\
+    \u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\
+    \u306E\u307E\u307E\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\
+    \n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
+    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry])\
+    \ {\n            swap(rx, ry);\n            w = -w;\n        }\n\n        par[rx]\
+    \ += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par[ry]\
+    \ = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\
+    \u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\
+    \u3064\u3051\u308B\n\n        return true;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct WeightPriorityEdge {\n \
+    \   long long from;\n    long long to;\n    long long weight;\n    \n    explicit\
+    \ WeightPriorityEdge(long long s, long long t, long long w = 0) : from(s), to(t),\
+    \ weight(w) {};\n\n    bool operator< (const WeightPriorityEdge& other) const\
+    \ {\n        if (weight == other.weight) {\n            if (from == other.from)\
+    \ return to < other.to;\n            else return from < other.from;\n        }\n\
+    \        else return weight < other.weight;\n    }\n};\n\nstruct UnionFind {\n\
+    \    long long V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\
+    \u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n\n    vector<WeightPriorityEdge>\
+    \ edges;\n\n    explicit UnionFind(long long V) : V(V), par(V, -1) { //\u6700\u521D\
+    \u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\u671F\
+    \u5316\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
+    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
+    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
+    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
+    \     return par[x] = rx;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\
+    \u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n\
+    \    bool is_same(long long x, long long y) { \n        return find(x) == find(y);\n\
+    \    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\
+    \u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\n    long long size(long long x) {\n\
+    \        long long rx = find(x);\n        return -par[rx];\n    }\n\n    bool\
+    \ is_connected() {\n        long long rx = find(0);\n        return -par[rx] ==\
+    \ V;\n    }\n\n    // kruskal\u7528 \n    void add_edge(long long u, long long\
+    \ v, long long w) {\n        edges.emplace_back(u, v, w);\n    }\n    \n    //\
+    \ \u7121\u5411\u6700\u5C0F\u5168\u57DF\u6728\u306E\u30B3\u30B9\u30C8\u3092\u6C42\
+    \u3081\u308B\n    long long kruskal() {\n        sort(edges.begin(), edges.end());\n\
+    \n        long long sum = 0;\n        fore(e, edges) {\n            if (is_same(e.from,\
+    \ e.to)) continue;\n\n            unite(e.from, e.to, e.weight);\n           \
+    \ sum += e.weight;\n        }\n\n        return sum;\n    }\n\nprivate:\n    //\
+    \ x\u3068y\u3092\u9023\u7D50\n    bool unite(long long x, long long y, long long\
+    \ w = 0) {\n        long long rx = find(x); //x\u306E\u6839\u3092rx\n        long\
+    \ long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx == ry) return false;\
+    \ //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\u306B\u3042\u308B\
+    )\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\u30B5\u30A4\u30BA\
+    \u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\
+    \u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n     \
+    \   if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n            w = -w;\n\
+    \        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\
+    \u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\
+    \u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092\
+    x\u306E\u6839rx\u306B\u3064\u3051\u308B\n\n        return true;\n    }\n};"
   dependsOn:
-  - base.hpp
-  - graph/edge.hpp
-  - graph/stamp.hpp
+  - base.cpp
   isVerificationFile: false
-  path: graph/dfs.hpp
+  path: structure/kruskal.cpp
   requiredBy: []
-  timestamp: '2024-04-07 02:07:29+09:00'
+  timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
-documentation_of: graph/dfs.hpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+documentation_of: structure/kruskal.cpp
 layout: document
 redirect_from:
-- /library/graph/dfs.hpp
-- /library/graph/dfs.hpp.html
-title: graph/dfs.hpp
+- /library/structure/kruskal.cpp
+- /library/structure/kruskal.cpp.html
+title: structure/kruskal.cpp
 ---
