@@ -4,53 +4,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
+  - icon: ':heavy_check_mark:'
+    path: grid/grid-dfs.cpp
+    title: grid/grid-dfs.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-e.test.cpp
-    title: test/structure/bit/aoj-dsl-2-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-g.test.cpp
-    title: test/structure/bit/aoj-dsl-2-g.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc338-e.test.cpp
-    title: test/structure/bit/atcoder-abc338-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc340-e.test.cpp
-    title: test/structure/bit/atcoder-abc340-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-arc033-c.test.cpp
-    title: test/structure/bit/atcoder-arc033-c.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-    title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-    title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    IGNORE: ''
+    IGNORE_IF_GCC: ''
     links:
-    - https://atcoder.jp/contests/abc338/submissions/49762794
-    - https://atcoder.jp/contests/abc340/submissions/50186254
-    - https://atcoder.jp/contests/arc033/submissions/50520345
-    - https://atcoder.jp/contests/chokudai_S001/submissions/49757613
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    - https://atcoder.jp/contests/atc001/submissions/52418686
+    - https://atcoder.jp/contests/atc001/tasks/dfs_a
+  bundledCode: "#line 1 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\n#define\
+    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\n\
+    // https://atcoder.jp/contests/atc001/submissions/52418686\n\n#line 2 \"base.cpp\"\
+    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -299,180 +283,148 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
-    \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"grid/grid-dfs.cpp\"\
+    \n\nstruct Coordinate {\n    long long y, x;\n\n    Coordinate(long long y_ =\
+    \ 0, long long x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n        return\
+    \ sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate\
+    \ &other) {\n        return Coordinate(y - other.y, x - other.x).euclid();\n \
+    \   }\n\n    long long manhattan() {\n        return abs(y) + abs(x);\n    }\n\
+    \n    long long manhattan_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char\
+    \ c) {\n        assert(c == 'R' or c == 'L' or c == 'U' or c == 'D');\n      \
+    \  Coordinate ret(y, x);\n\n        if (c == 'D') ++ret.y;\n        if (c == 'U')\
+    \ --ret.y;\n        if (c == 'R') ++ret.x;\n        if (c == 'L') --ret.x;\n\n\
+    \        return ret;\n    }\n\n    char dir2char() {\n        assert(manhattan()\
+    \ == 1);\n\n        char ret;\n        if (x > 0) ret = 'R';\n        if (x <\
+    \ 0) ret = 'L';\n        if (y > 0) ret = 'D';\n        if (y < 0) ret = 'U';\n\
+    \n        return ret;\n    }\n\n    char dir2char(Coordinate next) {\n       \
+    \ Coordinate dir = next - *this;\n        return dir.dir2char();\n    }\n\n  \
+    \  Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n    }\n\n\
+    \    Coordinate operator+ (const Coordinate &other) {\n        return Coordinate(y,\
+    \ x) += other;\n    }\n\n    Coordinate operator- (const Coordinate &other) {\n\
+    \        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate operator+\
+    \ (const long long &a) {\n        return Coordinate(y, x) += a;\n    }\n\n   \
+    \ Coordinate operator- (const long long &a) {\n        return Coordinate(y, x)\
+    \ -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n        return\
+    \ Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long long &a)\
+    \ {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
+    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
+    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
+    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
+    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
+    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
+    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
+    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
+    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
+    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
+    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
+    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
+    \ *this;\n    }\n\n    bool operator== (const Coordinate &other) {\n        return\
+    \ y == other.y and x == other.x;\n    }\n\n    bool operator!= (const Coordinate\
+    \ &other) {\n        return y != other.y or x != other.x;\n    }\n\n    bool operator<\
+    \ (const Coordinate &other) {\n        if (y == other.y) {\n            return\
+    \ x < other.x;\n        }\n        else return y < other.y;\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, const Coordinate& p) {\n        return os\
+    \ << \"(\" << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\n\
+    struct Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\
+    \n    Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
+    \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
+    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
+    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
+    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
+    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
+    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
+    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
+    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
+    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
+    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
+    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
+    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
+    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
+    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
+    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
+    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
+    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
+    \   char obj = '#';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h,\
+    \ string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()),\
+    \ vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n        return vs[y][x];\n\
+    \    }\n\n    char& operator() (const Coordinate& p) {\n        return vs[p.y][p.x];\n\
+    \    }\n\n    bool is_obj(size_t y, size_t x) {\n        return vs[y][x] == obj;\n\
+    \    }\n\n    bool is_obj(const Coordinate& p) {\n        return vs[p.y][p.x]\
+    \ == obj;\n    }\n\n    bool is_out(long long y, long long x) {\n        return\
+    \ y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate&\
+    \ p) {\n        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n\
+    \    string& operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, Field& field) {\n        rep(i, field.H)\
+    \ {\n            os << field[i] << endl;\n        }\n        return os;\n    }\n\
+    };\n\nstruct GridDFS {\n    long long H, W;\n    Field field;\n    Grid<bool>\
+    \ seen;\n    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
+    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
+    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
+    \ Coordinate(-1, -1)\n    };\n    vector<char> path;\n\n    char s = 's';\n  \
+    \  char g = 'g';\n    char t = 't';\n    char obs = '#';\n    Coordinate start\
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
+    \ / 2;\n    long long group;\n\n    GridDFS(long long n) : H(n), W(n), field(n,\
+    \ n) {\n        init();\n    };\n\n    GridDFS(long long h, long long w) : H(h),\
+    \ W(w), field(h, w) {\n        init();\n    };\n\n    GridDFS(vector<string> vs)\
+    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n    };\n\
+    \n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n \
+    \   }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n  \
+    \      rep(y, H) rep(x, W) {\n                char c = field(y, x);\n        \
+    \        if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
+    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
+    \       start = Coordinate(y, x);\n                }\n                if (c ==\
+    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
+    \   }\n            }\n    }\n\n    long long dfs_all() {\n        rep(y, H) rep(x,\
+    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
+    \            if (field.is_obj(now)) continue;\n\n            dfs(now);\n     \
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    void dfs()\
+    \ {\n        assert(start.y != -1);\n        dfs(start);\n    }\n\n    void dfs(Coordinate\
+    \ now) {\n        seen(now) = true;\n\n        rep(i, dirs.size()) {\n       \
+    \     Coordinate next = now + dirs[i];\n\n            if (field.is_out(next))\
+    \ continue;\n            if (field.is_obj(next)) continue;\n            if (seen(next))\
+    \ continue;\n\n            path.push_back(dirs[i].dir2char());\n            dfs(next);\n\
+    \            path.push_back(dirs[(i + 2) % 4].dir2char());\n        }\n    }\n\
+    \n    vector<Coordinate> spiral_search() {\n        Coordinate now(0, 0);\n  \
+    \      ll idx = 0;\n        Coordinate dir = dirs[idx];\n        vector<Coordinate>\
+    \ ret;\n\n        rep(i, H * W) {\n            seen(now) = true;\n           \
+    \ ret.push_back(now);\n\n            // \u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\
+    \u304F\n\n            Coordinate next = now + dir;\n            if (field.is_out(next)\
+    \ or seen(next)) {\n                ++idx;\n                idx %= 4;\n      \
+    \          dir = dirs[idx];\n            }\n            now += dir;\n        }\n\
+    \        return ret;\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
+    \    }\n\n    bool reach(Coordinate to) {\n        return seen(to);\n    }\n\n\
+    \    bool operator== (GridDFS &other) {\n        if (H != other.H or W != other.W)\
+    \ return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n\
+    \            if (field(y, x) != other.field(y, x)) return false;\n        }\n\n\
+    \        return true;\n    }\n\n    friend ostream& operator << (ostream &os,\
+    \ GridDFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n#line\
+    \ 6 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\n\nint main() {\n    ll H,\
+    \ W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n    grid.input();\n\n   \
+    \ grid.dfs();\n\n    cout << YesNo(grid.reach_goal()) << endl;\n\n    return 0;\n\
+    }\n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\
+    \n// https://atcoder.jp/contests/atc001/submissions/52418686\n\n#include \"../../../grid/grid-dfs.cpp\"\
+    \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
+    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.reach_goal())\
+    \ << endl;\n\n    return 0;\n}"
   dependsOn:
+  - grid/grid-dfs.cpp
   - base.cpp
-  isVerificationFile: false
-  path: structure/bit.cpp
+  isVerificationFile: true
+  path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:53:20+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-documentation_of: structure/bit.cpp
+  timestamp: '2024-04-16 03:13:41+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
 layout: document
 redirect_from:
-- /library/structure/bit.cpp
-- /library/structure/bit.cpp.html
-title: structure/bit.cpp
+- /verify/test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+- /verify/test/grid/grid-dfs/atcoder-atc001-a.test.cpp.html
+title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
 ---

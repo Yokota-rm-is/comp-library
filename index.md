@@ -23,6 +23,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/warshall-floyd.cpp
       title: graph/warshall-floyd.cpp
+  - name: grid
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: grid/grid-bfs.cpp
+      title: grid/grid-bfs.cpp
+    - icon: ':heavy_check_mark:'
+      path: grid/grid-dfs.cpp
+      title: grid/grid-dfs.cpp
   - name: structure
     pages:
     - icon: ':heavy_check_mark:'
@@ -57,6 +65,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/bfs/aoj-alds1-11-c.test.cpp
       title: test/graph/bfs/aoj-alds1-11-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/bfs/atcoder-abc270-c.test.cpp
+      title: test/graph/bfs/atcoder-abc270-c.test.cpp
   - name: test/graph/dfs
     pages:
     - icon: ':heavy_check_mark:'
@@ -67,11 +78,30 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
       title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
+      title: test/graph/dijkstra/atcoder-abc270-c.test.cpp
   - name: test/graph/warshall-floyd
     pages:
     - icon: ':heavy_check_mark:'
       path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
       title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - name: test/grid/grid-bfs
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+      title: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+      title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - name: test/grid/grid-dfs
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+      title: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+      title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - name: test/structure/bit
     pages:
     - icon: ':heavy_check_mark:'
@@ -92,6 +122,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
       title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+      title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
   - name: test/structure/dualsegmenttree
     pages:
     - icon: ':heavy_check_mark:'

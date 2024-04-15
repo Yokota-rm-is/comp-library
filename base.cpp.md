@@ -18,6 +18,12 @@ data:
     path: graph/warshall-floyd.cpp
     title: graph/warshall-floyd.cpp
   - icon: ':heavy_check_mark:'
+    path: grid/grid-bfs.cpp
+    title: grid/grid-bfs.cpp
+  - icon: ':heavy_check_mark:'
+    path: grid/grid-dfs.cpp
+    title: grid/grid-dfs.cpp
+  - icon: ':heavy_check_mark:'
     path: structure/bit.cpp
     title: structure/bit.cpp
   - icon: ':heavy_check_mark:'
@@ -46,14 +52,32 @@ data:
     path: test/graph/bfs/aoj-alds1-11-c.test.cpp
     title: test/graph/bfs/aoj-alds1-11-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/graph/bfs/atcoder-abc270-c.test.cpp
+    title: test/graph/bfs/atcoder-abc270-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
     title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
+    title: test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+    title: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+    title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+    title: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+    title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-e.test.cpp
     title: test/structure/bit/aoj-dsl-2-e.test.cpp
@@ -72,6 +96,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
     title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+    title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
@@ -647,6 +674,8 @@ data:
   isVerificationFile: false
   path: base.cpp
   requiredBy:
+  - grid/grid-dfs.cpp
+  - grid/grid-bfs.cpp
   - structure/kruskal.cpp
   - structure/lazysegmenttree.cpp
   - structure/segmenttree.cpp
@@ -662,9 +691,14 @@ data:
   timestamp: '2024-04-15 23:51:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
   - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
   - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
   - test/structure/bit/aoj-dsl-2-g.test.cpp
   - test/structure/bit/atcoder-arc033-c.test.cpp
@@ -682,7 +716,9 @@ data:
   - test/structure/unionfind/aoj-dsl-1-a.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   - test/graph/dfs/aoj-alds1-11-b.test.cpp

@@ -4,53 +4,34 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
+  - icon: ':heavy_check_mark:'
+    path: graph/dijkstra.cpp
+    title: graph/dijkstra.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-e.test.cpp
-    title: test/structure/bit/aoj-dsl-2-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-g.test.cpp
-    title: test/structure/bit/aoj-dsl-2-g.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc338-e.test.cpp
-    title: test/structure/bit/atcoder-abc338-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc340-e.test.cpp
-    title: test/structure/bit/atcoder-abc340-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-arc033-c.test.cpp
-    title: test/structure/bit/atcoder-arc033-c.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-    title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-    title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc270/tasks/abc270_c
     links:
-    - https://atcoder.jp/contests/abc338/submissions/49762794
-    - https://atcoder.jp/contests/abc340/submissions/50186254
-    - https://atcoder.jp/contests/arc033/submissions/50520345
-    - https://atcoder.jp/contests/chokudai_S001/submissions/49757613
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    - https://atcoder.jp/contests/abc270/tasks/abc270_c
+  bundledCode: "#line 1 \"test/graph/dijkstra/atcoder-abc270-c.test.cpp\"\n#define\
+    \ PROBLEM \"https://atcoder.jp/contests/abc270/tasks/abc270_c\"\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -299,180 +280,70 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
-    \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dijkstra.cpp\"\
+    \n\ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n\
+    \    long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n  \
+    \  long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
+    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
+    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
+    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
+    \ {\n            if (to == other.to) return weight < other.weight;\n         \
+    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
+    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
+    \        return os << edge.to;\n    }\n};\n\ntemplate<class Weight = long long>\n\
+    struct Dijkstra {\n    long long V;\n    bool directed_;\n    vector<vector<Edge<Weight>>>\
+    \ G;\n    vector<bool> done;\n    vector<long long> prev;\n    vector<Weight>\
+    \ cost;\n    \n    Dijkstra(long long N, bool directed) : V(N), directed_(directed),\
+    \ G(V) {\n        init();\n    };\n    \n    void init() {\n        done.assign(V,\
+    \ false);\n        prev.assign(V, -1);\n        cost.assign(V, inf64);\n    }\n\
+    \    \n    void connect(long long from, long long to, Weight weight) {\n     \
+    \   assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n \
+    \       if (directed_) {\n            G[from].emplace_back(from, to, weight);\n\
+    \        }\n        else {\n            G[from].emplace_back(from, to, weight);\n\
+    \            G[to].emplace_back(to, from, weight);\n        }\n    }\n\n    void\
+    \ operator() (long long start) {\n        dijkstra(start);\n    }\n\n    void\
+    \ dijkstra(long long start) {\n        assert(0 <= start and start < V);\n\n \
+    \       priority_queue<pair<long long, long long>, vector<pair<long long, long\
+    \ long>>, greater<>> que;\n\n        cost[start] = 0;\n        \n        que.emplace(cost[start],\
+    \ start);\n        while (!que.empty()) {\n            long long now = que.top().second;\n\
+    \            que.pop();\n\n            if (done[now]) continue;  // now\u304C\u78BA\
+    \u5B9A\u6E08\u3060\u3063\u305F\u3089\u98DB\u3070\u3059\n            done[now]\
+    \ = true;   // now\u3092\u521D\u3081\u3066\u30AD\u30E5\u30FC\u304B\u3089\u53D6\
+    \u308A\u51FA\u3057\u305F\u3089\u6700\u5C0F\u3068\u3057\u3066\u78BA\u5B9A\n\n \
+    \           fore(edge, G[now]) {\n                long long next = edge.to;\n\
+    \                if (chmin(cost[next], cost[now] + edge.weight)) {\n         \
+    \           prev[next] = now;\n                    que.emplace(cost[next], next);\n\
+    \                }\n            }\n        }\n    }\n\n    bool reach_at(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n\n        return done[to];\n\
+    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
+    \ and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n \
+    \       while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    };\n#line 4 \"test/graph/dijkstra/atcoder-abc270-c.test.cpp\"\n\nint main() {\n\
+    \    ll N, X, Y;\n    cin >> N >> X >> Y;\n\n    Dijkstra tree(N, false);\n  \
+    \  rep(i, N - 1) {\n        ll u, v;\n        cin >> u >> v;\n\n        tree.connect(u\
+    \ - 1, v - 1, 1);\n    }\n\n    tree(X - 1);\n\n    auto ans = tree.path_to(Y\
+    \ - 1);\n    fore(a, ans) ++a;\n\n    cout << ans << endl;\n\n    return 0;\n\
+    }\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc270/tasks/abc270_c\"\n\n\
+    #include \"../../../graph/dijkstra.cpp\"\n\nint main() {\n    ll N, X, Y;\n  \
+    \  cin >> N >> X >> Y;\n\n    Dijkstra tree(N, false);\n    rep(i, N - 1) {\n\
+    \        ll u, v;\n        cin >> u >> v;\n\n        tree.connect(u - 1, v - 1,\
+    \ 1);\n    }\n\n    tree(X - 1);\n\n    auto ans = tree.path_to(Y - 1);\n    fore(a,\
+    \ ans) ++a;\n\n    cout << ans << endl;\n\n    return 0;\n}"
   dependsOn:
+  - graph/dijkstra.cpp
   - base.cpp
-  isVerificationFile: false
-  path: structure/bit.cpp
+  isVerificationFile: true
+  path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:53:20+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-documentation_of: structure/bit.cpp
+  timestamp: '2024-04-16 03:13:58+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/graph/dijkstra/atcoder-abc270-c.test.cpp
 layout: document
 redirect_from:
-- /library/structure/bit.cpp
-- /library/structure/bit.cpp.html
-title: structure/bit.cpp
+- /verify/test/graph/dijkstra/atcoder-abc270-c.test.cpp
+- /verify/test/graph/dijkstra/atcoder-abc270-c.test.cpp.html
+title: test/graph/dijkstra/atcoder-abc270-c.test.cpp
 ---

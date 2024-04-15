@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/bfs/aoj-alds1-11-c.test.cpp
     title: test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/bfs/atcoder-abc270-c.test.cpp
+    title: test/graph/bfs/atcoder-abc270-c.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -385,6 +388,7 @@ data:
   timestamp: '2024-04-15 23:52:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
 documentation_of: graph/bfs.cpp
 layout: document
