@@ -14,24 +14,24 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
+    PROBLEM: https://atcoder.jp/contests/abc327/tasks/abc327_d
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
-  bundledCode: "#line 1 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\n\n\
-    #line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    - https://atcoder.jp/contests/abc327/tasks/abc327_d
+  bundledCode: "#line 1 \"test/graph/dfs/atcoder-abc327-d.test.cpp\"\n#define PROBLEM\
+    \ \"https://atcoder.jp/contests/abc327/tasks/abc327_d\"\n\n#line 2 \"base.cpp\"\
+    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -331,36 +331,33 @@ data:
     \n                    st.push(next);\n                }\n            }\n\n   \
     \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
     \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n\
-    #line 4 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n\
-    \    cin >> V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n\
-    \        cin >> u >> k;\n\n        rep(j, k) {\n            ll v;\n          \
-    \  cin >> v;\n            tree.connect(u - 1, v - 1);\n        }\n    }\n\n  \
-    \  tree.dfs_all();\n\n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\
-    \n\n#include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
-    \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
-    \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
-    \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
-    \n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}"
+    #line 4 \"test/graph/dfs/atcoder-abc327-d.test.cpp\"\n\nint main() {\n    ll N,\
+    \ M;\n    cin >> N >> M;\n\n    vector<ll> A(M), B(M);\n    rep(i, M) {\n    \
+    \    ll a;\n        cin >> a;\n        --a;\n        A[i] = a;\n    }\n    rep(i,\
+    \ M) {\n        ll b;\n        cin >> b;\n        --b;\n        B[i] = b;\n  \
+    \  }\n\n    DFS graph(N, false);\n    rep(i, M) {\n        graph.connect(A[i],\
+    \ B[i]);\n    }\n\n    cout << YesNo(graph.is_bipartite()) << endl;\n\n    return\
+    \ 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc327/tasks/abc327_d\"\n\n\
+    #include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll N, M;\n    cin >>\
+    \ N >> M;\n\n    vector<ll> A(M), B(M);\n    rep(i, M) {\n        ll a;\n    \
+    \    cin >> a;\n        --a;\n        A[i] = a;\n    }\n    rep(i, M) {\n    \
+    \    ll b;\n        cin >> b;\n        --b;\n        B[i] = b;\n    }\n\n    DFS\
+    \ graph(N, false);\n    rep(i, M) {\n        graph.connect(A[i], B[i]);\n    }\n\
+    \n    cout << YesNo(graph.is_bipartite()) << endl;\n\n    return 0;\n}"
   dependsOn:
   - graph/dfs.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  path: test/graph/dfs/atcoder-abc327-d.test.cpp
   requiredBy: []
   timestamp: '2024-04-18 20:31:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/graph/dfs/aoj-alds1-11-b.test.cpp
+documentation_of: test/graph/dfs/atcoder-abc327-d.test.cpp
 layout: document
 redirect_from:
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp.html
-title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+- /verify/test/graph/dfs/atcoder-abc327-d.test.cpp
+- /verify/test/graph/dfs/atcoder-abc327-d.test.cpp.html
+title: test/graph/dfs/atcoder-abc327-d.test.cpp
 ---

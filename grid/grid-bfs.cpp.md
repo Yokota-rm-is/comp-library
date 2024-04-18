@@ -587,8 +587,8 @@ data:
   timestamp: '2024-04-16 03:13:41+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
 documentation_of: grid/grid-bfs.cpp
 layout: document
 redirect_from:

@@ -318,17 +318,19 @@ data:
     \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
     \ = depth[now] + 1;\n                prev[next] = now;\n                que.push(next);\n\
     \            }\n        }\n    }\n\n    long long find_diameter() {\n        long\
-    \ long ret = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n \
-    \           bfs(i);\n            long long u = distance(depth.begin(), max_element(depth.begin(),\
-    \ depth.end()));\n\n            init();\n            bfs(u);\n            long\
-    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
-    \            \n            chmax(ret, depth[v]);\n            init();\n      \
-    \  }\n\n        return ret;\n    }\n\n    bool reach_at(long long to) {\n    \
-    \    assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n    vector<long\
-    \ long> path_to(long long to) {\n        assert(0 <= to and to < V);\n\n     \
-    \   vector<long long> p;\n        p.push_back(to);\n\n        while (prev[p.back()]\
-    \ != -1) {\n            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};\n"
+    \ long ret = 0;\n        vector<bool> done(V, false);\n\n        rep(i, V) {\n\
+    \            if (done[i]) continue;\n            bfs(i);\n            long long\
+    \ u = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\n  \
+    \          init();\n            bfs(u);\n            long long v = distance(depth.begin(),\
+    \ max_element(depth.begin(), depth.end()));\n            \n            chmax(ret,\
+    \ depth[v]);\n            rep(i, V) {\n                if (seen[i]) done[i] =\
+    \ true;\n            }\n            init();\n        }\n\n        return ret;\n\
+    \    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\
+    \n        return seen[to];\n    }\n\n    vector<long long> path_to(long long to)\
+    \ {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n   \
+    \     p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n           \
+    \ p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
+    \n        return p;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
     \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
     \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
@@ -368,24 +370,25 @@ data:
     \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n   \
     \             depth[next] = depth[now] + 1;\n                prev[next] = now;\n\
     \                que.push(next);\n            }\n        }\n    }\n\n    long\
-    \ long find_diameter() {\n        long long ret = 0;\n\n        rep(i, V) {\n\
-    \            if (seen[i]) continue;\n            bfs(i);\n            long long\
-    \ u = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\n  \
-    \          init();\n            bfs(u);\n            long long v = distance(depth.begin(),\
-    \ max_element(depth.begin(), depth.end()));\n            \n            chmax(ret,\
-    \ depth[v]);\n            init();\n        }\n\n        return ret;\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to];\n    }\n\n    vector<long long> path_to(long long to)\
-    \ {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n   \
-    \     p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n           \
-    \ p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n};"
+    \ long find_diameter() {\n        long long ret = 0;\n        vector<bool> done(V,\
+    \ false);\n\n        rep(i, V) {\n            if (done[i]) continue;\n       \
+    \     bfs(i);\n            long long u = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n\n            init();\n            bfs(u);\n            long\
+    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
+    \            \n            chmax(ret, depth[v]);\n            rep(i, V) {\n  \
+    \              if (seen[i]) done[i] = true;\n            }\n            init();\n\
+    \        }\n\n        return ret;\n    }\n\n    bool reach_at(long long to) {\n\
+    \        assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n  \
+    \  vector<long long> path_to(long long to) {\n        assert(0 <= to and to <\
+    \ V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n        while\
+    \ (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n       \
+    \ }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/bfs.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:52:19+09:00'
+  timestamp: '2024-04-18 20:31:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/bfs/atcoder-abc270-c.test.cpp

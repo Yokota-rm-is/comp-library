@@ -4,22 +4,20 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
-    path: graph/dfs.cpp
-    title: graph/dfs.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/aoj-grl-4-b.test.cpp
+    title: test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/atcoder-abc223-d.test.cpp
+    title: test/graph/topological-sort/atcoder-abc223-d.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
-    links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
-  bundledCode: "#line 1 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\n\n\
-    #line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -280,87 +278,98 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
-    template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
-    \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
-    \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
-    \ u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long\
-    \ r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\n\
-    \    bool operator < (const Edge& other) const {\n        if (from == other.from)\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/topological-sort.cpp\"\
+    \n\ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n\
+    \    long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n  \
+    \  long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
+    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
+    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
+    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
     \ {\n            if (to == other.to) return weight < other.weight;\n         \
     \   else return to < other.to;\n        }\n        else return from < other.from;\n\
     \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\nstruct Stamp {\n    long long index;\n\
-    \    long long time;\n    explicit Stamp(long long i = 0, long long t = -1) :\
-    \ index(i), time(t) {};\n\n    bool operator<(const Stamp& right) const {\n  \
-    \      return time < right.time;\n    }\n\n    friend ostream& operator << (ostream&\
-    \ os, const Stamp& stamp) {\n        return os << \"(\" << stamp.time << \", \"\
-    \ << stamp.index << \")\";\n    }\n};\n\nstruct DFS {\n    long long V;\n    bool\
-    \ directed_;\n    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n\
-    \    vector<Stamp> pre_order, post_order;\n    long long time;\n    bool has_cycle;\n\
-    \    vector<long long> descendants;\n\n    vector<long long> colors;\n\n    DFS(long\
-    \ long N, bool directed) : V(N), directed_(directed), G(V) {\n        init();\n\
-    \    };\n    \n    void init() {\n        time = 0;\n        has_cycle = false;\n\
-    \n        seen.assign(V, false);\n        done.assign(V, false);\n        descendants.assign(V,\
-    \ 0);\n        colors.assign(V, -1);\n    }\n    \n    void connect(long long\
-    \ from, long long to) {\n        assert(0 <= from and from < V);\n        assert(0\
-    \ <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n    \
-    \    ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\
-    \n            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
-    \ long> st;\n            st.push(i);\n\n            while (!st.empty()) {\n  \
-    \              ll now = st.top();\n                st.pop();\n\n             \
-    \   long long next_color;\n                if (colors[now] % 2 == 0) next_color\
-    \ = colors[now] + 1;\n                else next_color = colors[now] - 1;\n\n \
-    \               fore(edge, G[now]) {\n                    long long next = edge.to;\n\
-    \n                    if (colors[next] == -1) colors[next] = next_color;\n   \
-    \                 else if (colors[next] != next_color) return false;\n\n     \
-    \               if (seen[next]) continue;\n                    seen[next] = true;\n\
-    \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n\
-    #line 4 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n\
-    \    cin >> V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n\
-    \        cin >> u >> k;\n\n        rep(j, k) {\n            ll v;\n          \
-    \  cin >> v;\n            tree.connect(u - 1, v - 1);\n        }\n    }\n\n  \
-    \  tree.dfs_all();\n\n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\
-    \n\n#include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
-    \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
-    \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
-    \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
-    \n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}"
+    \        return os << edge.to;\n    }\n};\n\ntemplate <typename T = long long>\n\
+    struct TopologicalSort {\n    long long V;\n    vector<vector<Edge<T>>> G, rG;\n\
+    \    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
+    \n    TopologicalSort(long long N) : V(N), G(V), rG(V) {\n        init();\n  \
+    \  };\n    \n    void init() {\n        seen.assign(V, false);\n        prev.assign(V,\
+    \ -1);\n        maximum_cost.assign(V, -1);\n    }\n    \n    void connect(long\
+    \ long from, long long to, T weight = 1) {\n        assert(0 <= from and from\
+    \ < V);\n        assert(0 <= to and to < V);\n\n        G[from].emplace_back(from,\
+    \ to, weight);\n        rG[to].emplace_back(to, from, weight);\n    }\n\n    vector<long\
+    \ long> operator() () {\n        return topological_sort();\n    }\n\n    vector<long\
+    \ long> topological_sort() {\n        std::vector<long long> indegrees(V);\n\n\
+    \        rep(i, V) {\n            indegrees[i] = rG[i].size();\n        }\n\n\
+    \        priority_queue<ll, vector<ll>, greater<>> que;\n\n        rep(i, V) {\n\
+    \            if (indegrees[i] == 0) {\n                que.push(i);\n        \
+    \        maximum_cost[i] = 0;\n            }\n        }\n\n        vector<long\
+    \ long> ret;\n\n        while (!que.empty()) {\n            long long now = que.top();\
+    \ \n            que.pop();\n\n            ret.push_back(now);\n\n            fore(edge,\
+    \ G[now]) {\n                long long next = edge.to;\n\n                if (--indegrees[next]\
+    \ == 0) {\n                    que.push(next);\n                }\n\n        \
+    \        if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n \
+    \                   prev[next] = now;\n                }\n            }\n    \
+    \    }\n\n        if ((long long)ret.size() != V) return {};\n\n        return\
+    \ ret;\n    }\n\n    vector<long long> path_to(long long to) {\n        assert(0\
+    \ <= to and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\
+    \n        while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    vector<long long> get_longest_path() {\n        vector<long long> ret;\n\
+    \n        ll goal = distance(maximum_cost.begin(), max_element(maximum_cost.begin(),\
+    \ maximum_cost.end()));\n\n        return path_to(goal);\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
+    \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
+    \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
+    \ Cap flow;\n    \n    explicit Edge(long long u = -1, long long v = -1, Weight\
+    \ w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w),\
+    \ cap(c), id(i), rev(r), flow(0) {};\n\n    bool operator < (const Edge& other)\
+    \ const {\n        if (from == other.from) {\n            if (to == other.to)\
+    \ return weight < other.weight;\n            else return to < other.to;\n    \
+    \    }\n        else return from < other.from;\n    }\n\n    friend ostream& operator\
+    \ << (ostream& os, const Edge& edge) {\n        return os << edge.to;\n    }\n\
+    };\n\ntemplate <typename T = long long>\nstruct TopologicalSort {\n    long long\
+    \ V;\n    vector<vector<Edge<T>>> G, rG;\n    vector<bool> seen;\n    vector<long\
+    \ long> prev;\n    vector<T> maximum_cost;\n\n    TopologicalSort(long long N)\
+    \ : V(N), G(V), rG(V) {\n        init();\n    };\n    \n    void init() {\n  \
+    \      seen.assign(V, false);\n        prev.assign(V, -1);\n        maximum_cost.assign(V,\
+    \ -1);\n    }\n    \n    void connect(long long from, long long to, T weight =\
+    \ 1) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to\
+    \ < V);\n\n        G[from].emplace_back(from, to, weight);\n        rG[to].emplace_back(to,\
+    \ from, weight);\n    }\n\n    vector<long long> operator() () {\n        return\
+    \ topological_sort();\n    }\n\n    vector<long long> topological_sort() {\n \
+    \       std::vector<long long> indegrees(V);\n\n        rep(i, V) {\n        \
+    \    indegrees[i] = rG[i].size();\n        }\n\n        priority_queue<ll, vector<ll>,\
+    \ greater<>> que;\n\n        rep(i, V) {\n            if (indegrees[i] == 0) {\n\
+    \                que.push(i);\n                maximum_cost[i] = 0;\n        \
+    \    }\n        }\n\n        vector<long long> ret;\n\n        while (!que.empty())\
+    \ {\n            long long now = que.top(); \n            que.pop();\n\n     \
+    \       ret.push_back(now);\n\n            fore(edge, G[now]) {\n            \
+    \    long long next = edge.to;\n\n                if (--indegrees[next] == 0)\
+    \ {\n                    que.push(next);\n                }\n\n              \
+    \  if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n       \
+    \             prev[next] = now;\n                }\n            }\n        }\n\
+    \n        if ((long long)ret.size() != V) return {};\n\n        return ret;\n\
+    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
+    \ and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n \
+    \       while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    vector<long long> get_longest_path() {\n        vector<long long> ret;\n\
+    \n        ll goal = distance(maximum_cost.begin(), max_element(maximum_cost.begin(),\
+    \ maximum_cost.end()));\n\n        return path_to(goal);\n    }\n};"
   dependsOn:
-  - graph/dfs.cpp
   - base.cpp
-  isVerificationFile: true
-  path: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  isVerificationFile: false
+  path: graph/topological-sort.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:31:40+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  timestamp: '2024-04-18 20:32:08+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+documentation_of: graph/topological-sort.cpp
 layout: document
 redirect_from:
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp.html
-title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+- /library/graph/topological-sort.cpp
+- /library/graph/topological-sort.cpp.html
+title: graph/topological-sort.cpp
 ---

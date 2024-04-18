@@ -15,6 +15,12 @@ data:
     path: graph/dijkstra.cpp
     title: graph/dijkstra.cpp
   - icon: ':heavy_check_mark:'
+    path: graph/scc.cpp
+    title: graph/scc.cpp
+  - icon: ':heavy_check_mark:'
+    path: graph/topological-sort.cpp
+    title: graph/topological-sort.cpp
+  - icon: ':heavy_check_mark:'
     path: graph/warshall-floyd.cpp
     title: graph/warshall-floyd.cpp
   - icon: ':heavy_check_mark:'
@@ -23,6 +29,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: grid/grid-dfs.cpp
     title: grid/grid-dfs.cpp
+  - icon: ':warning:'
+    path: heuristic/timer.cpp
+    title: heuristic/timer.cpp
+  - icon: ':warning:'
+    path: math/eratosthenes.cpp
+    title: math/eratosthenes.cpp
+  - icon: ':heavy_check_mark:'
+    path: math/is_prime.cpp
+    title: math/is_prime.cpp
+  - icon: ':heavy_check_mark:'
+    path: math/prime_factorization.cpp
+    title: math/prime_factorization.cpp
+  - icon: ':warning:'
+    path: mystd/mylist.cpp
+    title: mystd/mylist.cpp
+  - icon: ':warning:'
+    path: mystd/mymultiset.cpp
+    title: mystd/mymultiset.cpp
+  - icon: ':warning:'
+    path: mystd/mypair.cpp
+    title: mystd/mypair.cpp
+  - icon: ':warning:'
+    path: mystd/mytuple.cpp
+    title: mystd/mytuple.cpp
   - icon: ':heavy_check_mark:'
     path: structure/bit.cpp
     title: structure/bit.cpp
@@ -44,6 +74,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
+  - icon: ':heavy_check_mark:'
+    path: tree/tree-dp.cpp
+    title: tree/tree-dp.cpp
+  - icon: ':heavy_check_mark:'
+    path: tree/tree.cpp
+    title: tree/tree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -58,11 +94,23 @@ data:
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/graph/dfs/atcoder-abc327-d.test.cpp
+    title: test/graph/dfs/atcoder-abc327-d.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
     title: test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
     title: test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/scc/aoj-grl-3-c.test.cpp
+    title: test/graph/scc/aoj-grl-3-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/aoj-grl-4-b.test.cpp
+    title: test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/atcoder-abc223-d.test.cpp
+    title: test/graph/topological-sort/atcoder-abc223-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
@@ -78,6 +126,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
     title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/math/is_prime/atcoder-abc149-c.test.cpp
+    title: test/math/is_prime/atcoder-abc149-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+    title: test/math/prime_factorization/atcoder-abc324-b.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-e.test.cpp
     title: test/structure/bit/aoj-dsl-2-e.test.cpp
@@ -141,6 +195,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+    title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/tree/tree/aoj-grl-5-a.test.cpp
+    title: test/tree/tree/aoj-grl-5-a.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -674,55 +734,75 @@ data:
   isVerificationFile: false
   path: base.cpp
   requiredBy:
-  - grid/grid-dfs.cpp
-  - grid/grid-bfs.cpp
-  - structure/kruskal.cpp
+  - mystd/mypair.cpp
+  - mystd/mytuple.cpp
+  - mystd/mymultiset.cpp
+  - mystd/mylist.cpp
   - structure/lazysegmenttree.cpp
-  - structure/segmenttree.cpp
-  - structure/dualsegmenttree.cpp
-  - structure/weighted-unionfind.cpp
   - structure/bit.cpp
   - structure/unionfind.cpp
-  - graph/bfs.cpp
+  - structure/dualsegmenttree.cpp
+  - structure/segmenttree.cpp
+  - structure/weighted-unionfind.cpp
+  - structure/kruskal.cpp
+  - graph/bellman-ford.cpp
+  - graph/topological-sort.cpp
   - graph/dijkstra.cpp
   - graph/warshall-floyd.cpp
-  - graph/bellman-ford.cpp
   - graph/dfs.cpp
+  - graph/scc.cpp
+  - graph/bfs.cpp
+  - grid/grid-bfs.cpp
+  - grid/grid-dfs.cpp
+  - heuristic/timer.cpp
+  - math/is_prime.cpp
+  - math/prime_factorization.cpp
+  - math/eratosthenes.cpp
+  - tree/tree-dp.cpp
+  - tree/tree.cpp
   timestamp: '2024-04-15 23:51:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
-  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
-  - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
-  - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
-  - test/structure/kruskal/aoj-grl-2-a.test.cpp
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   - test/structure/unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-  - test/graph/bfs/atcoder-abc270-c.test.cpp
-  - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-g.test.cpp
+  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/bit/atcoder-abc338-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/atcoder-arc033-c.test.cpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
+  - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
+  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   - test/graph/dijkstra/atcoder-abc270-c.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
   - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
+  - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/math/is_prime/atcoder-abc149-c.test.cpp
+  - test/math/prime_factorization/atcoder-abc324-b.test.cpp
+  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - test/tree/tree/aoj-grl-5-a.test.cpp
 documentation_of: base.cpp
 layout: document
 redirect_from:

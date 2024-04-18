@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: graph/dfs.cpp
-    title: graph/dfs.cpp
+    path: tree/tree.cpp
+    title: tree/tree.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,24 +14,24 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
+    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
-  bundledCode: "#line 1 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\n\n\
-    #line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&
+  bundledCode: "#line 1 \"test/tree/tree/aoj-grl-5-a.test.cpp\"\n#define PROBLEM \"\
+    https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&\"\n\n#line\
+    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -280,7 +280,7 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"tree/tree.cpp\"\n\n\
     template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
     \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
     \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
@@ -290,77 +290,82 @@ data:
     \ {\n            if (to == other.to) return weight < other.weight;\n         \
     \   else return to < other.to;\n        }\n        else return from < other.from;\n\
     \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\nstruct Stamp {\n    long long index;\n\
-    \    long long time;\n    explicit Stamp(long long i = 0, long long t = -1) :\
-    \ index(i), time(t) {};\n\n    bool operator<(const Stamp& right) const {\n  \
-    \      return time < right.time;\n    }\n\n    friend ostream& operator << (ostream&\
-    \ os, const Stamp& stamp) {\n        return os << \"(\" << stamp.time << \", \"\
-    \ << stamp.index << \")\";\n    }\n};\n\nstruct DFS {\n    long long V;\n    bool\
-    \ directed_;\n    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n\
-    \    vector<Stamp> pre_order, post_order;\n    long long time;\n    bool has_cycle;\n\
-    \    vector<long long> descendants;\n\n    vector<long long> colors;\n\n    DFS(long\
-    \ long N, bool directed) : V(N), directed_(directed), G(V) {\n        init();\n\
-    \    };\n    \n    void init() {\n        time = 0;\n        has_cycle = false;\n\
-    \n        seen.assign(V, false);\n        done.assign(V, false);\n        descendants.assign(V,\
-    \ 0);\n        colors.assign(V, -1);\n    }\n    \n    void connect(long long\
-    \ from, long long to) {\n        assert(0 <= from and from < V);\n        assert(0\
-    \ <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n    \
-    \    ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\
-    \n            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
-    \ long> st;\n            st.push(i);\n\n            while (!st.empty()) {\n  \
-    \              ll now = st.top();\n                st.pop();\n\n             \
-    \   long long next_color;\n                if (colors[now] % 2 == 0) next_color\
-    \ = colors[now] + 1;\n                else next_color = colors[now] - 1;\n\n \
-    \               fore(edge, G[now]) {\n                    long long next = edge.to;\n\
-    \n                    if (colors[next] == -1) colors[next] = next_color;\n   \
-    \                 else if (colors[next] != next_color) return false;\n\n     \
-    \               if (seen[next]) continue;\n                    seen[next] = true;\n\
-    \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n\
-    #line 4 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n\
-    \    cin >> V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n\
-    \        cin >> u >> k;\n\n        rep(j, k) {\n            ll v;\n          \
-    \  cin >> v;\n            tree.connect(u - 1, v - 1);\n        }\n    }\n\n  \
-    \  tree.dfs_all();\n\n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\
-    \n\n#include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
-    \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
-    \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
-    \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
-    \n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}"
+    \        return os << edge.to;\n    }\n};\n\ntemplate <typename T = long long>\n\
+    struct Tree {\n    long long V;\n    vector<vector<Edge<T>>> G;\n    vector<bool>\
+    \ seen;\n    vector<long long> prev;\n    vector<T> depth;\n\n    vector<vector<long\
+    \ long>> doubling;\n    long long log;\n    bool lca_init_done;\n\n    Tree(long\
+    \ long N) : V(N), G(V){\n        init();\n    };\n    \n    void init() {\n  \
+    \      seen.assign(V, false);\n        prev.assign(V, -1);\n        depth.assign(V,\
+    \ inf64);\n\n        lca_init_done = false;\n\n        log = 1;\n        while\
+    \ ((1ll << log) <= V) ++log;\n\n        doubling.assign(log, vector<long long>(V,\
+    \ -1));\n    }\n    \n    void connect(long long from, long long to, T weight)\
+    \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
+    \ V);\n\n        G[from].emplace_back(from, to, weight);\n        G[to].emplace_back(to,\
+    \ from, weight);\n    }\n\n    void bfs(long long start) {\n        assert(0 <=\
+    \ start and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\
+    \u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\
+    \u308B)\n        seen[start] = true;\n        depth[start] = 0;\n        que.push(start);\
+    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
+    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
+    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
+    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
+    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
+    \              if (seen[next]) continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\
+    \u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\n               \
+    \ seen[next] = true;\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\
+    \u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\
+    \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
+    \ = depth[now] + edge.weight;\n                prev[next] = now;\n           \
+    \     que.push(next);\n            }\n        }\n    }\n\n    void lca_init(long\
+    \ long root) {\n        assert(0 <= root and root < V);\n\n        bfs(root);\n\
+    \n        rep(k, log - 1) {\n            rep(v, V) {\n                if (doubling[k][v]\
+    \ >= 0) {\n                    doubling[k + 1][v] = doubling[k][doubling[k][v]];\n\
+    \                }\n            }\n        }\n\n        lca_init_done = true;\n\
+    \    }\n\n    // lca_init\u5F8C\u306Bu\u3068v\u306E\u6700\u5C0F\u5171\u901A\u7956\
+    \u5148\u3092\u8FD4\u3059\n    long long lca(long long u, long long v) {\n    \
+    \    assert(lca_init_done);\n        assert(0 <= u and u < V);\n        assert(0\
+    \ <= v and v < V);\n\n        if (depth[u] < depth[v]) swap(u, v);\n\n       \
+    \ rep(k, log) {\n            if ((depth[u] - depth[v]) >> k & 1) {\n         \
+    \       u = doubling[k][u];\n            }\n        }\n\n        if (u == v) return\
+    \ u;\n        \n        repd(k, log - 1) {\n            if (doubling[k][u] !=\
+    \ doubling[k][v]) {\n                u = doubling[k][u];\n                v =\
+    \ doubling[k][v];\n            }\n        }\n\n        return doubling.front()[u];\n\
+    \    }\n\n    // lca_init\u5F8C\u306Bu\u3068v\u306E\u8DDD\u96E2\u3092\u8FD4\u3059\
+    \n    long long get_dist(long long u, long long v) {\n        assert(lca_init_done);\n\
+    \        assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n\n    \
+    \    return depth[u] + depth[v] - 2 * depth[lca(u, v)];\n    }\n\n    // lca_init\u5F8C\
+    \u306Bu\u3068v\u3092\u7D50\u3076\u30D1\u30B9\u4E0A\u306Ba\u304C\u3042\u308B\u304B\
+    \u8FD4\u3059\n    bool is_on_path(long long u, long long v, long long a) {\n \
+    \       assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n       \
+    \ assert(0 <= a and a < V);\n        assert(lca_init_done);\n\n        return\
+    \ get_dist(u, a) + get_dist(a, v) == get_dist(u, v);\n    }\n\n    long long find_diameter()\
+    \ {\n        bfs(0);\n        long long u = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n\n        init();\n        bfs(u);\n        long long v = distance(depth.begin(),\
+    \ max_element(depth.begin(), depth.end()));\n\n        return depth[v];\n    }\n\
+    };\n#line 4 \"test/tree/tree/aoj-grl-5-a.test.cpp\"\n\nint main() {\n    ll n;\n\
+    \    cin >> n;\n\n    Tree tree(n);\n    rep(i, n - 1) {\n        ll s, t, w;\n\
+    \        cin >> s >> t >> w;\n\n        tree.connect(s, t, w);\n    }\n\n    cout\
+    \ << tree.find_diameter() << endl;\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&\"\
+    \n\n#include \"../../../tree/tree.cpp\"\n\nint main() {\n    ll n;\n    cin >>\
+    \ n;\n\n    Tree tree(n);\n    rep(i, n - 1) {\n        ll s, t, w;\n        cin\
+    \ >> s >> t >> w;\n\n        tree.connect(s, t, w);\n    }\n\n    cout << tree.find_diameter()\
+    \ << endl;\n\n    return 0;\n}"
   dependsOn:
-  - graph/dfs.cpp
+  - tree/tree.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  path: test/tree/tree/aoj-grl-5-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:31:40+09:00'
+  timestamp: '2024-04-18 20:29:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/graph/dfs/aoj-alds1-11-b.test.cpp
+documentation_of: test/tree/tree/aoj-grl-5-a.test.cpp
 layout: document
 redirect_from:
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp.html
-title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+- /verify/test/tree/tree/aoj-grl-5-a.test.cpp
+- /verify/test/tree/tree/aoj-grl-5-a.test.cpp.html
+title: test/tree/tree/aoj-grl-5-a.test.cpp
 ---

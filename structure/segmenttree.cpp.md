@@ -608,8 +608,8 @@ data:
   timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
 documentation_of: structure/segmenttree.cpp
 layout: document
 redirect_from:

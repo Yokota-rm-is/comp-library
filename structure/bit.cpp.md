@@ -462,13 +462,13 @@ data:
   timestamp: '2024-04-15 23:53:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-g.test.cpp
   - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
   - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
   - test/structure/bit/atcoder-abc338-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/atcoder-arc033-c.test.cpp
 documentation_of: structure/bit.cpp
 layout: document
 redirect_from:

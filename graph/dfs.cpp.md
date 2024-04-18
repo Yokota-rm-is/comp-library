@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/dfs/atcoder-abc327-d.test.cpp
+    title: test/graph/dfs/atcoder-abc327-d.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -293,25 +296,39 @@ data:
     \ << stamp.index << \")\";\n    }\n};\n\nstruct DFS {\n    long long V;\n    bool\
     \ directed_;\n    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n\
     \    vector<Stamp> pre_order, post_order;\n    long long time;\n    bool has_cycle;\n\
-    \    vector<long long> descendants;\n\n    DFS(long long N, bool directed) : V(N),\
-    \ directed_(directed), G(V) {\n        init();\n    };\n    \n    void init()\
-    \ {\n        time = 0;\n        has_cycle = false;\n\n        seen.assign(V, false);\n\
-    \        done.assign(V, false);\n        descendants.assign(V, 0);\n    }\n  \
-    \  \n    void connect(long long from, long long to) {\n        assert(0 <= from\
-    \ and from < V);\n        assert(0 <= to and to < V);\n\n        if (directed_)\
-    \ {\n            G[from].emplace_back(from, to);\n        }\n        else {\n\
-    \            G[from].emplace_back(from, to);\n            G[to].emplace_back(to,\
-    \ from);\n        }\n    }\n\n    void operator() (long long start) {\n      \
-    \  dfs(start);\n    }\n\n    void dfs_all() {\n        rep(i, V) {\n         \
-    \   if (seen[i]) continue;\n            dfs(i);\n        }\n    }\n\n    void\
-    \ dfs(long long now) {\n        assert(0 <= now and now < V);\n\n        seen[now]\
-    \ = true;\n        pre_order.emplace_back(now, time++);\n\n        fore(edge,\
-    \ G[now]) {\n            long long next = edge.to;\n\n            if (seen[next])\
-    \ {\n                if (!done[next]) has_cycle = true;\n                continue;\n\
-    \            }\n\n            dfs(next);\n\n            descendants[now] += descendants[next]\
-    \ + 1;\n        }\n\n        done[now] = true;\n        post_order.emplace_back(now,\
-    \ time++);\n    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        return seen[to] or done[to];\n    }\n};\n"
+    \    vector<long long> descendants;\n\n    vector<long long> colors;\n\n    DFS(long\
+    \ long N, bool directed) : V(N), directed_(directed), G(V) {\n        init();\n\
+    \    };\n    \n    void init() {\n        time = 0;\n        has_cycle = false;\n\
+    \n        seen.assign(V, false);\n        done.assign(V, false);\n        descendants.assign(V,\
+    \ 0);\n        colors.assign(V, -1);\n    }\n    \n    void connect(long long\
+    \ from, long long to) {\n        assert(0 <= from and from < V);\n        assert(0\
+    \ <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
+    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
+    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
+    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
+    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
+    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
+    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
+    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
+    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
+    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
+    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
+    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
+    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
+    \      return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n    \
+    \    ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\
+    \n            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
+    \ long> st;\n            st.push(i);\n\n            while (!st.empty()) {\n  \
+    \              ll now = st.top();\n                st.pop();\n\n             \
+    \   long long next_color;\n                if (colors[now] % 2 == 0) next_color\
+    \ = colors[now] + 1;\n                else next_color = colors[now] - 1;\n\n \
+    \               fore(edge, G[now]) {\n                    long long next = edge.to;\n\
+    \n                    if (colors[next] == -1) colors[next] = next_color;\n   \
+    \                 else if (colors[next] != next_color) return false;\n\n     \
+    \               if (seen[next]) continue;\n                    seen[next] = true;\n\
+    \n                    st.push(next);\n                }\n            }\n\n   \
+    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
+    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
     \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
     \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
@@ -330,34 +347,49 @@ data:
     \    }\n};\n\nstruct DFS {\n    long long V;\n    bool directed_;\n    vector<vector<Edge<>>>\
     \ G;\n    vector<bool> seen, done;\n\n    vector<Stamp> pre_order, post_order;\n\
     \    long long time;\n    bool has_cycle;\n    vector<long long> descendants;\n\
-    \n    DFS(long long N, bool directed) : V(N), directed_(directed), G(V) {\n  \
-    \      init();\n    };\n    \n    void init() {\n        time = 0;\n        has_cycle\
-    \ = false;\n\n        seen.assign(V, false);\n        done.assign(V, false);\n\
-    \        descendants.assign(V, 0);\n    }\n    \n    void connect(long long from,\
-    \ long long to) {\n        assert(0 <= from and from < V);\n        assert(0 <=\
-    \ to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n};"
+    \n    vector<long long> colors;\n\n    DFS(long long N, bool directed) : V(N),\
+    \ directed_(directed), G(V) {\n        init();\n    };\n    \n    void init()\
+    \ {\n        time = 0;\n        has_cycle = false;\n\n        seen.assign(V, false);\n\
+    \        done.assign(V, false);\n        descendants.assign(V, 0);\n        colors.assign(V,\
+    \ -1);\n    }\n    \n    void connect(long long from, long long to) {\n      \
+    \  assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n  \
+    \      if (directed_) {\n            G[from].emplace_back(from, to);\n       \
+    \ }\n        else {\n            G[from].emplace_back(from, to);\n           \
+    \ G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator() (long\
+    \ long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n        rep(i,\
+    \ V) {\n            if (seen[i]) continue;\n            dfs(i);\n        }\n \
+    \   }\n\n    void dfs(long long now) {\n        assert(0 <= now and now < V);\n\
+    \n        seen[now] = true;\n        pre_order.emplace_back(now, time++);\n\n\
+    \        fore(edge, G[now]) {\n            long long next = edge.to;\n\n     \
+    \       if (seen[next]) {\n                if (!done[next]) has_cycle = true;\n\
+    \                continue;\n            }\n\n            dfs(next);\n\n      \
+    \      descendants[now] += descendants[next] + 1;\n        }\n\n        done[now]\
+    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach_at(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to] or\
+    \ done[to];\n    }\n\n    bool is_bipartite() {\n        ll color = 0;\n\n   \
+    \     rep(i, V) {\n            if (seen[i]) continue;\n\n            seen[i] =\
+    \ true;\n            colors[i] = color;\n\n            stack<long long> st;\n\
+    \            st.push(i);\n\n            while (!st.empty()) {\n              \
+    \  ll now = st.top();\n                st.pop();\n\n                long long\
+    \ next_color;\n                if (colors[now] % 2 == 0) next_color = colors[now]\
+    \ + 1;\n                else next_color = colors[now] - 1;\n\n               \
+    \ fore(edge, G[now]) {\n                    long long next = edge.to;\n\n    \
+    \                if (colors[next] == -1) colors[next] = next_color;\n        \
+    \            else if (colors[next] != next_color) return false;\n\n          \
+    \          if (seen[next]) continue;\n                    seen[next] = true;\n\
+    \n                    st.push(next);\n                }\n            }\n\n   \
+    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
+    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/dfs.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:52:19+09:00'
+  timestamp: '2024-04-18 20:31:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/dfs/atcoder-abc327-d.test.cpp
 documentation_of: graph/dfs.cpp
 layout: document
 redirect_from:

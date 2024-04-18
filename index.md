@@ -21,6 +21,12 @@ data:
       path: graph/dijkstra.cpp
       title: graph/dijkstra.cpp
     - icon: ':heavy_check_mark:'
+      path: graph/scc.cpp
+      title: graph/scc.cpp
+    - icon: ':heavy_check_mark:'
+      path: graph/topological-sort.cpp
+      title: graph/topological-sort.cpp
+    - icon: ':heavy_check_mark:'
       path: graph/warshall-floyd.cpp
       title: graph/warshall-floyd.cpp
   - name: grid
@@ -31,6 +37,36 @@ data:
     - icon: ':heavy_check_mark:'
       path: grid/grid-dfs.cpp
       title: grid/grid-dfs.cpp
+  - name: heuristic
+    pages:
+    - icon: ':warning:'
+      path: heuristic/timer.cpp
+      title: heuristic/timer.cpp
+  - name: math
+    pages:
+    - icon: ':warning:'
+      path: math/eratosthenes.cpp
+      title: math/eratosthenes.cpp
+    - icon: ':heavy_check_mark:'
+      path: math/is_prime.cpp
+      title: math/is_prime.cpp
+    - icon: ':heavy_check_mark:'
+      path: math/prime_factorization.cpp
+      title: math/prime_factorization.cpp
+  - name: mystd
+    pages:
+    - icon: ':warning:'
+      path: mystd/mylist.cpp
+      title: mystd/mylist.cpp
+    - icon: ':warning:'
+      path: mystd/mymultiset.cpp
+      title: mystd/mymultiset.cpp
+    - icon: ':warning:'
+      path: mystd/mypair.cpp
+      title: mystd/mypair.cpp
+    - icon: ':warning:'
+      path: mystd/mytuple.cpp
+      title: mystd/mytuple.cpp
   - name: structure
     pages:
     - icon: ':heavy_check_mark:'
@@ -54,6 +90,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/weighted-unionfind.cpp
       title: structure/weighted-unionfind.cpp
+  - name: tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: tree/tree-dp.cpp
+      title: tree/tree-dp.cpp
+    - icon: ':heavy_check_mark:'
+      path: tree/tree.cpp
+      title: tree/tree.cpp
   verificationCategories:
   - name: test/graph/bellman-ford
     pages:
@@ -73,6 +117,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dfs/aoj-alds1-11-b.test.cpp
       title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/dfs/atcoder-abc327-d.test.cpp
+      title: test/graph/dfs/atcoder-abc327-d.test.cpp
   - name: test/graph/dijkstra
     pages:
     - icon: ':heavy_check_mark:'
@@ -81,6 +128,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
       title: test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - name: test/graph/scc
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/graph/scc/aoj-grl-3-c.test.cpp
+      title: test/graph/scc/aoj-grl-3-c.test.cpp
+  - name: test/graph/topological-sort
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/graph/topological-sort/aoj-grl-4-b.test.cpp
+      title: test/graph/topological-sort/aoj-grl-4-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/topological-sort/atcoder-abc223-d.test.cpp
+      title: test/graph/topological-sort/atcoder-abc223-d.test.cpp
   - name: test/graph/warshall-floyd
     pages:
     - icon: ':heavy_check_mark:'
@@ -102,6 +162,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
       title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - name: test/math/is_prime
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/math/is_prime/atcoder-abc149-c.test.cpp
+      title: test/math/is_prime/atcoder-abc149-c.test.cpp
+  - name: test/math/prime_factorization
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+      title: test/math/prime_factorization/atcoder-abc324-b.test.cpp
   - name: test/structure/bit
     pages:
     - icon: ':heavy_check_mark:'
@@ -179,5 +249,15 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
       title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - name: test/tree/tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/tree/aoj-grl-5-a.test.cpp
+      title: test/tree/tree/aoj-grl-5-a.test.cpp
+  - name: test/tree/tree-dp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+      title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
 layout: toppage
 ---

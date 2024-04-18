@@ -4,22 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
-    path: graph/dfs.cpp
-    title: graph/dfs.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
-    links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B
-  bundledCode: "#line 1 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\n\n\
-    #line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -280,87 +272,150 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
-    template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
-    \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
-    \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
-    \ u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long\
-    \ r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\n\
-    \    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\nstruct Stamp {\n    long long index;\n\
-    \    long long time;\n    explicit Stamp(long long i = 0, long long t = -1) :\
-    \ index(i), time(t) {};\n\n    bool operator<(const Stamp& right) const {\n  \
-    \      return time < right.time;\n    }\n\n    friend ostream& operator << (ostream&\
-    \ os, const Stamp& stamp) {\n        return os << \"(\" << stamp.time << \", \"\
-    \ << stamp.index << \")\";\n    }\n};\n\nstruct DFS {\n    long long V;\n    bool\
-    \ directed_;\n    vector<vector<Edge<>>> G;\n    vector<bool> seen, done;\n\n\
-    \    vector<Stamp> pre_order, post_order;\n    long long time;\n    bool has_cycle;\n\
-    \    vector<long long> descendants;\n\n    vector<long long> colors;\n\n    DFS(long\
-    \ long N, bool directed) : V(N), directed_(directed), G(V) {\n        init();\n\
-    \    };\n    \n    void init() {\n        time = 0;\n        has_cycle = false;\n\
-    \n        seen.assign(V, false);\n        done.assign(V, false);\n        descendants.assign(V,\
-    \ 0);\n        colors.assign(V, -1);\n    }\n    \n    void connect(long long\
-    \ from, long long to) {\n        assert(0 <= from and from < V);\n        assert(0\
-    \ <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
-    \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
-    \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
-    \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n    \
-    \    ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\
-    \n            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
-    \ long> st;\n            st.push(i);\n\n            while (!st.empty()) {\n  \
-    \              ll now = st.top();\n                st.pop();\n\n             \
-    \   long long next_color;\n                if (colors[now] % 2 == 0) next_color\
-    \ = colors[now] + 1;\n                else next_color = colors[now] - 1;\n\n \
-    \               fore(edge, G[now]) {\n                    long long next = edge.to;\n\
-    \n                    if (colors[next] == -1) colors[next] = next_color;\n   \
-    \                 else if (colors[next] != next_color) return false;\n\n     \
-    \               if (seen[next]) continue;\n                    seen[next] = true;\n\
-    \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n\
-    #line 4 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n\
-    \    cin >> V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n\
-    \        cin >> u >> k;\n\n        rep(j, k) {\n            ll v;\n          \
-    \  cin >> v;\n            tree.connect(u - 1, v - 1);\n        }\n    }\n\n  \
-    \  tree.dfs_all();\n\n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_11_B\"\
-    \n\n#include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
-    \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
-    \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
-    \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
-    \n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
-    \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
-    \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
-    \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/eratosthenes.cpp\"\
+    \n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\nstruct Eratosthenes\
+    \ {\n    long long N;\n    // \u30C6\u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\
+    \n    // \u6574\u6570 i \u3092\u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\
+    \u6570\n    vector<long long> min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\
+    \u6570\u5024\n    vector<long long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\
+    \u30E9\u30AF\u30BF\u3067\u7BE9\u3092\u56DE\u3059\n    explicit Eratosthenes(long\
+    \ long N) : N(N), is_prime(N + 1, true), min_factor(N + 1, -1), mobius(N + 1,\
+    \ 1) {\n        // 1 \u306F\u4E88\u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\
+    \u304A\u304F\n        is_prime[1] = false;\n        min_factor[1] = 1;\n\n   \
+    \     construct();\n    }\n\n    // O(N loglogN)\n    void construct() {\n   \
+    \     // \u7BE9\n        rep(p, 2, N + 1) {\n            // \u3059\u3067\u306B\
+    \u5408\u6210\u6570\u3067\u3042\u308B\u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\
+    \u3059\u308B\n            if (!is_prime[p]) continue;\n\n            // p \u306B\
+    \u3064\u3044\u3066\u306E\u60C5\u5831\u66F4\u65B0\n            min_factor[p] =\
+    \ p;\n            mobius[p] = -1;\n\n            // p \u4EE5\u5916\u306E p \u306E\
+    \u500D\u6570\u304B\u3089\u7D20\u6570\u30E9\u30D9\u30EB\u3092\u5265\u596A\n   \
+    \         for (long long q = p * 2; q <= N; q += p) {\n                // q \u306F\
+    \u5408\u6210\u6570\u306A\u306E\u3067\u3075\u308B\u3044\u843D\u3068\u3059\n   \
+    \             is_prime[q] = false;\n\n                // q \u306F p \u3067\u5272\
+    \u308A\u5207\u308C\u308B\u65E8\u3092\u66F4\u65B0\n                if (min_factor[q]\
+    \ == -1) min_factor[q] = p;\n                if ((q / p) % p == 0) mobius[q] =\
+    \ 0;\n                else mobius[q] *= -1;\n            }\n        }\n    }\n\
+    \n    // \u9AD8\u901F\u7D20\u56E0\u6570\u5206\u89E3 O(logN)\n    // pair (\u7D20\
+    \u56E0\u5B50, \u6307\u6570) \u306E vector \u3092\u8FD4\u3059\n    vector<pair<long\
+    \ long, long long>> factorize(long long n) {\n        vector<pair<long long, long\
+    \ long>> res;\n        while (n > 1) {\n            long long p = min_factor[n];\n\
+    \            long long exp = 0;\n\n            // n \u3067\u5272\u308A\u5207\u308C\
+    \u308B\u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n   \
+    \             n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
+    \ exp);\n        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\
+    \u5217\u6319 O(sigma(n))\n    vector<long long> divisors(long long n) {\n    \
+    \    vector<long long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\
+    \u89E3 (\u30E1\u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n        auto pf = factorize(n);\n\
+    \n        // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            rep(i,\
+    \ res.size()) {\n                long long v = 1;\n                rep(j, p.second)\
+    \ {\n                    v *= p.first;\n                    res.push_back(res[i]\
+    \ * v);\n                }\n            }\n        }\n        return res;\n  \
+    \  }\n\n    // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n    // \u5165\u529B\
+    \ f \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001F \u306B\u306A\u308B\
+    \n    vector<long long> fast_zeta(vector<long long> f) {\n        vector<long\
+    \ long> F(N);\n        rep(i, N) F[i] = f[i];\n\n        // \u5404\u7D20\u6570\
+    \ p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5927\u304D\u3044\u5EA7\u6A19\
+    \ (k * p) \u304B\u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u3078\u3068\u8DB3\u3057\
+    \u8FBC\u3080\n        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\
+    \n            // \u5EA7\u6A19\u304C\u5927\u304D\u3044\u65B9\u3092\u8D77\u70B9\u3068\
+    \u3057\u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\n            for (long long k\
+    \ = (N - 1) / p; k >= 1; --k) {\n                F[k] += F[k * p];\n         \
+    \   }\n        }\n\n        return F;\n    }\n\n    // \u9AD8\u901F\u30E1\u30D3\
+    \u30A6\u30B9\u5909\u63DB\n    // \u5165\u529B F \u304C in-place \u306B\u66F4\u65B0\
+    \u3055\u308C\u3066\u3001f \u306B\u306A\u308B\n    vector<long long> fast_mobius(vector<long\
+    \ long> F) {\n        vector<long long> f(N);\n        rep(i, N) f[i] = F[i];\n\
+    \n        // \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5C0F\
+    \u3055\u3044\u5EA7\u6A19 (k) \u304B\u3089\u5927\u304D\u3044\u5EA7\u6A19 (k * p)\
+    \ \u3092\u5F15\u3044\u3066\u3044\u304F\n        rep(p, 2, N) {\n            if\
+    \ (!is_prime[p]) continue;\n\n            // \u5EA7\u6A19\u304C\u5C0F\u3055\u3044\
+    \u65B9\u3092\u8D77\u70B9\u3068\u3057\u3066\u5DEE\u5206\u3092\u3068\u308B\n   \
+    \         for (long long k = 1; k * p < N; ++k) {\n                f[k] -= f[k\
+    \ * p];\n            }\n        }\n\n        return f;\n    }\n\n    // \u6DFB\
+    \u5B57 GCD \u7573\u307F\u8FBC\u307F\n    vector<long long> gcd_conv(const vector<long\
+    \ long>& f, const vector<long long>& g) {\n        vector<long long> F(N), G(N),\
+    \ H(N);\n\n        // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n        F =\
+    \ fast_zeta(f);\n        G = fast_zeta(g);\n\n        // H \u3092\u6C42\u3081\u308B\
+    \n        rep(i, 1, N) H[i] = F[i] * G[i];\n\n        // \u9AD8\u901F\u30E1\u30D3\
+    \u30A6\u30B9\u5909\u63DB\n        fast_mobius(H);\n\n        return H;\n    }\n\
+    };\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\
+    \u30CD\u30B9\u306E\u7BE9\nstruct Eratosthenes {\n    long long N;\n    // \u30C6\
+    \u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\n    // \u6574\u6570 i \u3092\
+    \u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long long>\
+    \ min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n    vector<long\
+    \ long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\u30E9\u30AF\u30BF\u3067\u7BE9\
+    \u3092\u56DE\u3059\n    explicit Eratosthenes(long long N) : N(N), is_prime(N\
+    \ + 1, true), min_factor(N + 1, -1), mobius(N + 1, 1) {\n        // 1 \u306F\u4E88\
+    \u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\u304A\u304F\n        is_prime[1]\
+    \ = false;\n        min_factor[1] = 1;\n\n        construct();\n    }\n\n    //\
+    \ O(N loglogN)\n    void construct() {\n        // \u7BE9\n        rep(p, 2, N\
+    \ + 1) {\n            // \u3059\u3067\u306B\u5408\u6210\u6570\u3067\u3042\u308B\
+    \u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\u3059\u308B\n            if (!is_prime[p])\
+    \ continue;\n\n            // p \u306B\u3064\u3044\u3066\u306E\u60C5\u5831\u66F4\
+    \u65B0\n            min_factor[p] = p;\n            mobius[p] = -1;\n\n      \
+    \      // p \u4EE5\u5916\u306E p \u306E\u500D\u6570\u304B\u3089\u7D20\u6570\u30E9\
+    \u30D9\u30EB\u3092\u5265\u596A\n            for (long long q = p * 2; q <= N;\
+    \ q += p) {\n                // q \u306F\u5408\u6210\u6570\u306A\u306E\u3067\u3075\
+    \u308B\u3044\u843D\u3068\u3059\n                is_prime[q] = false;\n\n     \
+    \           // q \u306F p \u3067\u5272\u308A\u5207\u308C\u308B\u65E8\u3092\u66F4\
+    \u65B0\n                if (min_factor[q] == -1) min_factor[q] = p;\n        \
+    \        if ((q / p) % p == 0) mobius[q] = 0;\n                else mobius[q]\
+    \ *= -1;\n            }\n        }\n    }\n\n    // \u9AD8\u901F\u7D20\u56E0\u6570\
+    \u5206\u89E3 O(logN)\n    // pair (\u7D20\u56E0\u5B50, \u6307\u6570) \u306E vector\
+    \ \u3092\u8FD4\u3059\n    vector<pair<long long, long long>> factorize(long long\
+    \ n) {\n        vector<pair<long long, long long>> res;\n        while (n > 1)\
+    \ {\n            long long p = min_factor[n];\n            long long exp = 0;\n\
+    \n            // n \u3067\u5272\u308A\u5207\u308C\u308B\u9650\u308A\u5272\u308B\
+    \n            while (min_factor[n] == p) {\n                n /= p;\n        \
+    \        ++exp;\n            }\n            res.emplace_back(p, exp);\n      \
+    \  }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\u5217\u6319\
+    \ O(sigma(n))\n    vector<long long> divisors(long long n) {\n        vector<long\
+    \ long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\u89E3 (\u30E1\
+    \u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n        auto pf = factorize(n);\n\n   \
+    \     // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            rep(i, res.size())\
+    \ {\n                long long v = 1;\n                rep(j, p.second) {\n  \
+    \                  v *= p.first;\n                    res.push_back(res[i] * v);\n\
+    \                }\n            }\n        }\n        return res;\n    }\n\n \
+    \   // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n    // \u5165\u529B f \u304C\
+    \ in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001F \u306B\u306A\u308B\n  \
+    \  vector<long long> fast_zeta(vector<long long> f) {\n        vector<long long>\
+    \ F(N);\n        rep(i, N) F[i] = f[i];\n\n        // \u5404\u7D20\u6570 p \u8EF8\
+    \u306B\u5BFE\u3057\u3066\n        // \u5927\u304D\u3044\u5EA7\u6A19 (k * p) \u304B\
+    \u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u3078\u3068\u8DB3\u3057\u8FBC\u3080\n\
+    \        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\n         \
+    \   // \u5EA7\u6A19\u304C\u5927\u304D\u3044\u65B9\u3092\u8D77\u70B9\u3068\u3057\
+    \u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\n            for (long long k = (N\
+    \ - 1) / p; k >= 1; --k) {\n                F[k] += F[k * p];\n            }\n\
+    \        }\n\n        return F;\n    }\n\n    // \u9AD8\u901F\u30E1\u30D3\u30A6\
+    \u30B9\u5909\u63DB\n    // \u5165\u529B F \u304C in-place \u306B\u66F4\u65B0\u3055\
+    \u308C\u3066\u3001f \u306B\u306A\u308B\n    vector<long long> fast_mobius(vector<long\
+    \ long> F) {\n        vector<long long> f(N);\n        rep(i, N) f[i] = F[i];\n\
+    \n        // \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5C0F\
+    \u3055\u3044\u5EA7\u6A19 (k) \u304B\u3089\u5927\u304D\u3044\u5EA7\u6A19 (k * p)\
+    \ \u3092\u5F15\u3044\u3066\u3044\u304F\n        rep(p, 2, N) {\n            if\
+    \ (!is_prime[p]) continue;\n\n            // \u5EA7\u6A19\u304C\u5C0F\u3055\u3044\
+    \u65B9\u3092\u8D77\u70B9\u3068\u3057\u3066\u5DEE\u5206\u3092\u3068\u308B\n   \
+    \         for (long long k = 1; k * p < N; ++k) {\n                f[k] -= f[k\
+    \ * p];\n            }\n        }\n\n        return f;\n    }\n\n    // \u6DFB\
+    \u5B57 GCD \u7573\u307F\u8FBC\u307F\n    vector<long long> gcd_conv(const vector<long\
+    \ long>& f, const vector<long long>& g) {\n        vector<long long> F(N), G(N),\
+    \ H(N);\n\n        // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n        F =\
+    \ fast_zeta(f);\n        G = fast_zeta(g);\n\n        // H \u3092\u6C42\u3081\u308B\
+    \n        rep(i, 1, N) H[i] = F[i] * G[i];\n\n        // \u9AD8\u901F\u30E1\u30D3\
+    \u30A6\u30B9\u5909\u63DB\n        fast_mobius(H);\n\n        return H;\n    }\n\
+    };"
   dependsOn:
-  - graph/dfs.cpp
   - base.cpp
-  isVerificationFile: true
-  path: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  isVerificationFile: false
+  path: math/eratosthenes.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:31:40+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-04-18 21:00:54+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/graph/dfs/aoj-alds1-11-b.test.cpp
+documentation_of: math/eratosthenes.cpp
 layout: document
 redirect_from:
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp
-- /verify/test/graph/dfs/aoj-alds1-11-b.test.cpp.html
-title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+- /library/math/eratosthenes.cpp
+- /library/math/eratosthenes.cpp.html
+title: math/eratosthenes.cpp
 ---

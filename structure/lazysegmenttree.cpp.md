@@ -697,10 +697,10 @@ data:
   verifiedWith:
   - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
 documentation_of: structure/lazysegmenttree.cpp
 layout: document
 redirect_from:
