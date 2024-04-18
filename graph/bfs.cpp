@@ -99,9 +99,10 @@ struct BFS {
 
     long long find_diameter() {
         long long ret = 0;
+        vector<bool> done(V, false);
 
         rep(i, V) {
-            if (seen[i]) continue;
+            if (done[i]) continue;
             bfs(i);
             long long u = distance(depth.begin(), max_element(depth.begin(), depth.end()));
 
@@ -110,6 +111,9 @@ struct BFS {
             long long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));
             
             chmax(ret, depth[v]);
+            rep(i, V) {
+                if (seen[i]) done[i] = true;
+            }
             init();
         }
 
