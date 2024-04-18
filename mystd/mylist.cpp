@@ -1,3 +1,4 @@
+#pragma once
 #include "../base.cpp"
 
 template <typename T>
