@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: tree/tree-dp.cpp
-    title: tree-dp
+    path: tree/tree-bfs.cpp
+    title: tree-bfs
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,12 +14,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&
+    PROBLEM: https://atcoder.jp/contests/abc209/tasks/abc209_d
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&
-  bundledCode: "#line 1 \"test/tree/tree-dp/aoj-grl-5-b.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&\"\n\n#line\
-    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    - https://atcoder.jp/contests/abc209/tasks/abc209_d
+  bundledCode: "#line 1 \"test/tree/tree-bfs/atcoder-abc209-d.test.cpp\"\n#define\
+    \ PROBLEM \"https://atcoder.jp/contests/abc209/tasks/abc209_d\"\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
     #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
@@ -280,72 +280,105 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"tree/tree-dp.cpp\"\
-    \n\n/**\n * @brief tree-dp\n * @docs docs/tree/tree-dp.md\n*/\ntemplate <typename\
-    \ Weight = long long, typename DP = long long>\nstruct TreeDP {\n    struct Edge\
-    \ {\n        long long from;\n        long long to;\n        Weight weight;\n\
-    \        long long rev;\n        \n        explicit Edge(long long u = -1, long\
-    \ long v = -1, Weight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r)\
-    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
-    \ == other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"tree/tree-bfs.cpp\"\
+    \n\n/**\n * @brief tree-bfs\n * @docs docs/tree/tree-bfs.md\n*/\ntemplate <typename\
+    \ T = long long>\nstruct TreeBFS {\n    struct Edge {\n        long long from;\n\
+    \        long long to;\n        T weight;\n        \n        explicit Edge(long\
+    \ long u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n\
+    \        bool operator < (const Edge& other) const {\n            if (from ==\
+    \ other.from) {\n                if (to == other.to) return weight < other.weight;\n\
     \                else return to < other.to;\n            }\n            else return\
     \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
     \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
-    \n    long long V;\n    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n  \
-    \  // \u5168\u65B9\u4F4D\u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP>\
-    \ prod_all;\n    long long root;\n\n    TreeDP(long long N) : V(N), G(V){\n  \
-    \      init();\n    };\n\n    DP id() {\n        return 0;\n    }\n\n    DP merge(DP\
-    \ x, DP y) {\n        return max(x, y);\n    }\n\n    DP put_edge(DP x, Edge&\
-    \ edge) {\n        return x + (DP)edge.weight;\n    }\n\n    DP put_vertex(DP\
-    \ x, long long v) {\n        return x;\n    }\n    \n    void init() {\n     \
-    \   seen.assign(V, false);\n\n        dp.resize(V);\n        prod_all.assign(V,\
-    \ id());\n    }\n    \n    void connect(long long from, long long to, Weight weight\
-    \ = 1) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and\
-    \ to < V);\n\n        long long from_id = G[from].size();\n        long long to_id\
-    \ = G[to].size();\n\n        G[from].emplace_back(from, to, weight, to_id);\n\
-    \        G[to].emplace_back(to, from, weight, from_id);\n\n        dp[from].push_back(id());\n\
-    \        dp[to].push_back(id());\n    }\n\n    DP build(long long root_) {\n \
-    \       root = root_;\n        return dfs(root);\n    }\n\n    vector<DP> reroot()\
-    \ {\n        prod(root, id());\n\n        return prod_all;\n    }\n\n    DP dfs(long\
-    \ long now) {\n        assert(0 <= now and now < V);\n\n        DP ret = id();\n\
-    \n        seen[now] = true;\n\n        rep(i, G[now].size()) {\n            Edge\
-    \ edge = G[now][i];\n            long long next = edge.to;\n\n            if (seen[next])\
-    \ continue;\n\n            dp[now][i] = dfs(next);\n            ret = merge(ret,\
-    \ put_edge(dp[now][i], edge));\n        }\n\n        return put_vertex(ret, now);\n\
-    \    }\n\n    void prod(long long now, const DP& dp_p, Edge e = Edge()) {\n  \
-    \      long long deg = G[now].size();\n\n        if (e.rev != -1) dp[now][e.rev]\
-    \ = dp_p;\n\n        vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());\n\
-    \n        rep(i, deg) {\n            Edge edge = G[now][i];\n            prod_l[i\
-    \ + 1] = merge(prod_l[i], put_edge(dp[now][i], edge));\n        }\n\n        repd(i,\
-    \ deg) {\n            Edge edge = G[now][i];\n            prod_r[i] = merge(prod_r[i\
-    \ + 1], put_edge(dp[now][i], edge));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
-    \ now);\n\n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n  \
-    \          Edge edge = G[now][i];\n            long long child = edge.to;\n  \
-    \          prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n\
-    \        }\n    }\n};\n#line 4 \"test/tree/tree-dp/aoj-grl-5-b.test.cpp\"\n\n\
-    int main() {\n    ll n;\n    cin >> n;\n\n    TreeDP tree(n);\n    rep(i, n -\
-    \ 1) {\n        ll s, t, w;\n        cin >> s >> t >> w;\n\n        tree.connect(s,\
-    \ t, w);\n    }\n\n    tree.build(0);\n    auto ans = tree.reroot();\n\n    rep(i,\
-    \ n) {\n        cout << ans[i] << endl;;\n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&\"\
-    \n\n#include \"../../../tree/tree-dp.cpp\"\n\nint main() {\n    ll n;\n    cin\
-    \ >> n;\n\n    TreeDP tree(n);\n    rep(i, n - 1) {\n        ll s, t, w;\n   \
-    \     cin >> s >> t >> w;\n\n        tree.connect(s, t, w);\n    }\n\n    tree.build(0);\n\
-    \    auto ans = tree.reroot();\n\n    rep(i, n) {\n        cout << ans[i] << endl;;\n\
-    \    }\n\n    return 0;\n}"
+    \n    long long V;\n    vector<vector<Edge>> G;\n    vector<bool> seen;\n    vector<long\
+    \ long> prev;\n    vector<long long> depth;\n    vector<T> cost;\n\n    vector<vector<long\
+    \ long>> doubling;\n    long long log;\n    bool lca_init_done;\n\n    TreeBFS(long\
+    \ long N) : V(N), G(V){\n        init();\n    };\n    \n    void init() {\n  \
+    \      seen.assign(V, false);\n        prev.assign(V, -1);\n        depth.assign(V,\
+    \ inf64);\n        cost.assign(V, inf64);\n\n        lca_init_done = false;\n\n\
+    \        log = 1;\n        while ((1ll << log) < V) ++log;\n\n        doubling.assign(log,\
+    \ vector<long long>(V, -1));\n    }\n    \n    void connect(long long from, long\
+    \ long to, T weight) {\n        assert(0 <= from and from < V);\n        assert(0\
+    \ <= to and to < V);\n\n        G[from].emplace_back(from, to, weight);\n    \
+    \    G[to].emplace_back(to, from, weight);\n    }\n\n    void bfs(long long start)\
+    \ {\n        assert(0 <= start and start < V);\n\n        queue<long long> que;\n\
+    \n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
+    \u30FC\u30C9\u3068\u3059\u308B)\n        seen[start] = true;\n        depth[start]\
+    \ = 0;\n        cost[start] = 0;\n        que.push(start); // noq \u3092\u6A59\
+    \u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\
+    \u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046\
+    )\n        while (!que.empty()) {\n            long long now = que.front(); //\
+    \ \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
+    \u3059\n            que.pop();\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\
+    \u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            fore(edge,\
+    \ G[now]) {\n                long long next = edge.to;\n                if (seen[next])\
+    \ continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\
+    \u63A2\u7D22\u3057\u306A\u3044\n                seen[next] = true;\n\n       \
+    \         // \u65B0\u305F\u306A\u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\
+    \u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\
+    \u8FFD\u52A0\u3059\u308B\n                depth[next] = depth[now] + 1;\n    \
+    \            cost[next] = cost[now] + edge.weight;\n                prev[next]\
+    \ = now;\n                que.push(next);\n            }\n        }\n    }\n\n\
+    \    long long find_diameter() {\n        long long ret = 0;\n        vector<bool>\
+    \ done(V, false);\n\n        rep(i, V) {\n            if (done[i]) continue;\n\
+    \            bfs(i);\n            long long u = distance(cost.begin(), max_element(cost.begin(),\
+    \ cost.end()));\n\n            init();\n            bfs(u);\n            long\
+    \ long v = distance(cost.begin(), max_element(cost.begin(), cost.end()));\n  \
+    \          \n            chmax(ret, cost[v]);\n            rep(i, V) {\n     \
+    \           if (seen[i]) done[i] = true;\n            }\n            init();\n\
+    \        }\n\n        return ret;\n    }\n\n    void lca_init(long long root)\
+    \ {\n        assert(0 <= root and root < V);\n\n        bfs(root);\n\n       \
+    \ rep(i, V) {\n            doubling[0][i] = prev[i];\n        }\n\n        rep(k,\
+    \ log - 1) {\n            rep(v, V) {\n                if (doubling[k][v] >= 0)\
+    \ {\n                    doubling[k + 1][v] = doubling[k][doubling[k][v]];\n \
+    \               }\n            }\n        }\n\n        lca_init_done = true;\n\
+    \    }\n\n    // lca_init\u5F8C\u306B\u5B9F\u884C\n    // u\u3068v\u306E\u6700\
+    \u5C0F\u5171\u901A\u7956\u5148\u3092\u8FD4\u3059\n    long long lca(long long\
+    \ u, long long v) {\n        assert(lca_init_done);\n        assert(0 <= u and\
+    \ u < V);\n        assert(0 <= v and v < V);\n\n        if (depth[u] < depth[v])\
+    \ swap(u, v);\n\n        rep(k, log) {\n            if ((depth[u] - depth[v])\
+    \ >> k & 1) {\n                u = doubling[k][u];\n            }\n        }\n\
+    \n        if (u == v) return u;\n        \n        repd(k, log - 1) {\n      \
+    \      if (doubling[k][u] != doubling[k][v]) {\n                u = doubling[k][u];\n\
+    \                v = doubling[k][v];\n            }\n        }\n\n        return\
+    \ doubling.front()[u];\n    }\n\n    // lca_init\u5F8C\u306B\u5B9F\u884C\n   \
+    \ // u\u3068v\u306E\u8DDD\u96E2\u3092\u8FD4\u3059\n    long long get_dist(long\
+    \ long u, long long v) {\n        assert(lca_init_done);\n        assert(0 <=\
+    \ u and u < V);\n        assert(0 <= v and v < V);\n\n        return depth[u]\
+    \ + depth[v] - 2 * depth[lca(u, v)];\n    }\n\n    // lca_init\u5F8C\u306B\u5B9F\
+    \u884C\n    // u\u3068v\u3092\u7D50\u3076\u30D1\u30B9\u4E0A\u306Ba\u304C\u3042\
+    \u308B\u304B\u8FD4\u3059\n    bool is_on_path(long long u, long long v, long long\
+    \ a) {\n        assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n\
+    \        assert(0 <= a and a < V);\n        assert(lca_init_done);\n\n       \
+    \ return get_dist(u, a) + get_dist(a, v) == get_dist(u, v);\n    }\n\n\n};\n#line\
+    \ 4 \"test/tree/tree-bfs/atcoder-abc209-d.test.cpp\"\n\nint main() {\n    ll N,\
+    \ Q;\n    cin >> N >> Q;\n\n    TreeBFS tree(N);\n    rep(i, N - 1) {\n      \
+    \  ll a, b;\n        cin >> a >> b;\n\n        tree.connect(a - 1, b - 1, 1);\n\
+    \    }\n\n    tree.lca_init(0);\n\n    while (Q--) {\n        ll c, d;\n     \
+    \   cin >> c >> d;\n\n        if (tree.get_dist(c - 1, d - 1) % 2 == 0) {\n  \
+    \          cout << \"Town\" << endl;\n        }\n        else cout << \"Road\"\
+    \ << endl;\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc209/tasks/abc209_d\"\n\n\
+    #include \"../../../tree/tree-bfs.cpp\"\n\nint main() {\n    ll N, Q;\n    cin\
+    \ >> N >> Q;\n\n    TreeBFS tree(N);\n    rep(i, N - 1) {\n        ll a, b;\n\
+    \        cin >> a >> b;\n\n        tree.connect(a - 1, b - 1, 1);\n    }\n\n \
+    \   tree.lca_init(0);\n\n    while (Q--) {\n        ll c, d;\n        cin >> c\
+    \ >> d;\n\n        if (tree.get_dist(c - 1, d - 1) % 2 == 0) {\n            cout\
+    \ << \"Town\" << endl;\n        }\n        else cout << \"Road\" << endl;\n  \
+    \  }\n\n    return 0;\n}\n"
   dependsOn:
-  - tree/tree-dp.cpp
+  - tree/tree-bfs.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  path: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 17:07:31+09:00'
+  timestamp: '2024-04-20 16:45:20+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+documentation_of: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
 layout: document
 redirect_from:
-- /verify/test/tree/tree-dp/aoj-grl-5-b.test.cpp
-- /verify/test/tree/tree-dp/aoj-grl-5-b.test.cpp.html
-title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+- /verify/test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+- /verify/test/tree/tree-bfs/atcoder-abc209-d.test.cpp.html
+title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
 ---

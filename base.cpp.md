@@ -75,11 +75,11 @@ data:
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
   - icon: ':heavy_check_mark:'
-    path: tree/tree-dp.cpp
-    title: tree/tree-dp.cpp
+    path: tree/tree-bfs.cpp
+    title: tree-bfs
   - icon: ':heavy_check_mark:'
-    path: tree/tree.cpp
-    title: tree/tree.cpp
+    path: tree/tree-dp.cpp
+    title: tree-dp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -129,6 +129,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+    title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
     title: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
@@ -205,11 +208,17 @@ data:
     path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/tree/tree-bfs/aoj-grl-5-a.test.cpp
+    title: test/tree/tree-bfs/aoj-grl-5-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+    title: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+    title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
     title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/tree/tree/aoj-grl-5-a.test.cpp
-    title: test/tree/tree/aoj-grl-5-a.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -767,8 +776,8 @@ data:
   - math/is_prime.cpp
   - math/prime_factorization.cpp
   - math/eratosthenes.cpp
+  - tree/tree-bfs.cpp
   - tree/tree-dp.cpp
-  - tree/tree.cpp
   timestamp: '2024-04-15 23:51:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
@@ -808,13 +817,16 @@ data:
   - test/graph/dfs/atcoder-abc327-d.test.cpp
   - test/graph/scc/aoj-grl-3-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   - test/math/is_prime/atcoder-abc149-c.test.cpp
   - test/math/prime_factorization/atcoder-abc324-b.test.cpp
+  - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+  - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
   - test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  - test/tree/tree/aoj-grl-5-a.test.cpp
 documentation_of: base.cpp
 layout: document
 redirect_from:

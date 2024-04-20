@@ -93,11 +93,11 @@ data:
   - name: tree
     pages:
     - icon: ':heavy_check_mark:'
-      path: tree/tree-dp.cpp
-      title: tree/tree-dp.cpp
+      path: tree/tree-bfs.cpp
+      title: tree-bfs
     - icon: ':heavy_check_mark:'
-      path: tree/tree.cpp
-      title: tree/tree.cpp
+      path: tree/tree-dp.cpp
+      title: tree-dp
   verificationCategories:
   - name: test/graph/bellman-ford
     pages:
@@ -163,6 +163,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
       title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+      title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - name: test/grid/grid-dfs
     pages:
     - icon: ':heavy_check_mark:'
@@ -258,11 +261,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
       title: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  - name: test/tree/tree
+  - name: test/tree/tree-bfs
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/tree/tree/aoj-grl-5-a.test.cpp
-      title: test/tree/tree/aoj-grl-5-a.test.cpp
+      path: test/tree/tree-bfs/aoj-grl-5-a.test.cpp
+      title: test/tree/tree-bfs/aoj-grl-5-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+      title: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+      title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   - name: test/tree/tree-dp
     pages:
     - icon: ':heavy_check_mark:'

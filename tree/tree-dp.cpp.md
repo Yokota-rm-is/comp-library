@@ -13,6 +13,8 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/tree/tree-dp.md
+    document_title: tree-dp
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -276,55 +278,13 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"tree/tree-dp.cpp\"\
-    \n\ntemplate <typename Weight = long long, typename DP = long long>\nstruct TreeDP\
-    \ {\n    struct Edge {\n        long long from;\n        long long to;\n     \
-    \   Weight weight;\n        long long rev;\n        \n        explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long r = -1) : from(u), to(v),\
-    \ weight(w), rev(r) {};\n\n        bool operator < (const Edge& other) const {\n\
-    \            if (from == other.from) {\n                if (to == other.to) return\
-    \ weight < other.weight;\n                else return to < other.to;\n       \
-    \     }\n            else return from < other.from;\n        }\n\n        friend\
-    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
-    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
-    \ G;\n    vector<bool> seen;\n\n    // \u5168\u65B9\u4F4D\u6728dp\u7528\n    vector<vector<DP>>\
-    \ dp;\n    vector<DP> prod_all;\n    long long root;\n\n    TreeDP(long long N)\
-    \ : V(N), G(V){\n        init();\n    };\n\n    DP id() {\n        return 0;\n\
-    \    }\n\n    DP merge(DP x, DP y) {\n        return max(x, y);\n    }\n\n   \
-    \ DP put_edge(DP x, Edge& edge) {\n        return x + (DP)edge.weight;\n    }\n\
-    \n    DP put_vertex(DP x, long long v) {\n        return x;\n    }\n    \n   \
-    \ void init() {\n        seen.assign(V, false);\n\n        dp.resize(V);\n   \
-    \     prod_all.assign(V, id());\n    }\n    \n    void connect(long long from,\
-    \ long long to, Weight weight = 1) {\n        assert(0 <= from and from < V);\n\
-    \        assert(0 <= to and to < V);\n\n        long long from_id = G[from].size();\n\
-    \        long long to_id = G[to].size();\n\n        G[from].emplace_back(from,\
-    \ to, weight, to_id);\n        G[to].emplace_back(to, from, weight, from_id);\n\
-    \n        dp[from].push_back(id());\n        dp[to].push_back(id());\n    }\n\n\
-    \    DP build(long long root_) {\n        root = root_;\n        return dfs(root);\n\
-    \    }\n\n    vector<DP> reroot() {\n        prod(root, id());\n\n        return\
-    \ prod_all;\n    }\n\n    DP dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        DP ret = id();\n\n        seen[now] = true;\n\n       \
-    \ rep(i, G[now].size()) {\n            Edge edge = G[now][i];\n            long\
-    \ long next = edge.to;\n\n            if (seen[next]) continue;\n\n          \
-    \  dp[now][i] = dfs(next);\n            ret = merge(ret, put_edge(dp[now][i],\
-    \ edge));\n        }\n\n        return put_vertex(ret, now);\n    }\n\n    void\
-    \ prod(long long now, const DP& dp_p, Edge e = Edge()) {\n        long long deg\
-    \ = G[now].size();\n\n        if (e.rev != -1) dp[now][e.rev] = dp_p;\n\n    \
-    \    vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());\n\n        rep(i,\
-    \ deg) {\n            Edge edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i],\
-    \ put_edge(dp[now][i], edge));\n        }\n\n        repd(i, deg) {\n        \
-    \    Edge edge = G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
-    \ edge));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(), now);\n\
-    \n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n           \
-    \ Edge edge = G[now][i];\n            long long child = edge.to;\n           \
-    \ prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n     \
-    \   }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename Weight = long\
-    \ long, typename DP = long long>\nstruct TreeDP {\n    struct Edge {\n       \
-    \ long long from;\n        long long to;\n        Weight weight;\n        long\
-    \ long rev;\n        \n        explicit Edge(long long u = -1, long long v = -1,\
-    \ Weight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n\
-    \        bool operator < (const Edge& other) const {\n            if (from ==\
-    \ other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \n\n/**\n * @brief tree-dp\n * @docs docs/tree/tree-dp.md\n*/\ntemplate <typename\
+    \ Weight = long long, typename DP = long long>\nstruct TreeDP {\n    struct Edge\
+    \ {\n        long long from;\n        long long to;\n        Weight weight;\n\
+    \        long long rev;\n        \n        explicit Edge(long long u = -1, long\
+    \ long v = -1, Weight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r)\
+    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
+    \ == other.from) {\n                if (to == other.to) return weight < other.weight;\n\
     \                else return to < other.to;\n            }\n            else return\
     \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
     \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
@@ -359,13 +319,56 @@ data:
     \ now);\n\n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n  \
     \          Edge edge = G[now][i];\n            long long child = edge.to;\n  \
     \          prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n\
-    \        }\n    }\n};"
+    \        }\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief tree-dp\n * @docs\
+    \ docs/tree/tree-dp.md\n*/\ntemplate <typename Weight = long long, typename DP\
+    \ = long long>\nstruct TreeDP {\n    struct Edge {\n        long long from;\n\
+    \        long long to;\n        Weight weight;\n        long long rev;\n     \
+    \   \n        explicit Edge(long long u = -1, long long v = -1, Weight w = 1,\
+    \ long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n        bool operator\
+    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
+    \           if (to == other.to) return weight < other.weight;\n              \
+    \  else return to < other.to;\n            }\n            else return from < other.from;\n\
+    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
+    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
+    \    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n    // \u5168\u65B9\u4F4D\
+    \u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP> prod_all;\n    long\
+    \ long root;\n\n    TreeDP(long long N) : V(N), G(V){\n        init();\n    };\n\
+    \n    DP id() {\n        return 0;\n    }\n\n    DP merge(DP x, DP y) {\n    \
+    \    return max(x, y);\n    }\n\n    DP put_edge(DP x, Edge& edge) {\n       \
+    \ return x + (DP)edge.weight;\n    }\n\n    DP put_vertex(DP x, long long v) {\n\
+    \        return x;\n    }\n    \n    void init() {\n        seen.assign(V, false);\n\
+    \n        dp.resize(V);\n        prod_all.assign(V, id());\n    }\n    \n    void\
+    \ connect(long long from, long long to, Weight weight = 1) {\n        assert(0\
+    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        long\
+    \ long from_id = G[from].size();\n        long long to_id = G[to].size();\n\n\
+    \        G[from].emplace_back(from, to, weight, to_id);\n        G[to].emplace_back(to,\
+    \ from, weight, from_id);\n\n        dp[from].push_back(id());\n        dp[to].push_back(id());\n\
+    \    }\n\n    DP build(long long root_) {\n        root = root_;\n        return\
+    \ dfs(root);\n    }\n\n    vector<DP> reroot() {\n        prod(root, id());\n\n\
+    \        return prod_all;\n    }\n\n    DP dfs(long long now) {\n        assert(0\
+    \ <= now and now < V);\n\n        DP ret = id();\n\n        seen[now] = true;\n\
+    \n        rep(i, G[now].size()) {\n            Edge edge = G[now][i];\n      \
+    \      long long next = edge.to;\n\n            if (seen[next]) continue;\n\n\
+    \            dp[now][i] = dfs(next);\n            ret = merge(ret, put_edge(dp[now][i],\
+    \ edge));\n        }\n\n        return put_vertex(ret, now);\n    }\n\n    void\
+    \ prod(long long now, const DP& dp_p, Edge e = Edge()) {\n        long long deg\
+    \ = G[now].size();\n\n        if (e.rev != -1) dp[now][e.rev] = dp_p;\n\n    \
+    \    vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());\n\n        rep(i,\
+    \ deg) {\n            Edge edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i],\
+    \ put_edge(dp[now][i], edge));\n        }\n\n        repd(i, deg) {\n        \
+    \    Edge edge = G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
+    \ edge));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(), now);\n\
+    \n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n           \
+    \ Edge edge = G[now][i];\n            long long child = edge.to;\n           \
+    \ prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n     \
+    \   }\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: tree/tree-dp.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 17:07:31+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/tree/tree-dp/aoj-grl-5-b.test.cpp
@@ -374,5 +377,18 @@ layout: document
 redirect_from:
 - /library/tree/tree-dp.cpp
 - /library/tree/tree-dp.cpp.html
-title: tree/tree-dp.cpp
+title: tree-dp
 ---
+# TreeDP
+## 概要
+木DP，全方位木dpを行う．
+
+## 使い方
+* `TreeDP(N)`: サイズ`N`で初期化する．
+* `id()`: 【要設定】単位元
+* `merge(x, y)`: 【要設定】マージする関数
+* `put_edge(x, edge)`: 【要設定】辺を追加する関数
+* `put_vertex(x, v)`: 【要設定】頂点を追加する関数
+* `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．
+* `build(root)`: ノード`root`を根とする木DPを行い，ノード`root`を根とした場合の値を返す．計算量$O(N)$ (`merge`, `put_edge`, `put_vertex`が$O(1)$である場合)
+* `reroot()`: `build(root)`実行後に実行する．全方位木DPを行い，各ノードを根とした場合の値の配列を返す．計算量$O(N)$ (`merge`, `put_edge`, `put_vertex`が$O(1)$である場合)

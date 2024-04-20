@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: tree/tree-dp.cpp
-    title: tree-dp
+    path: grid/grid-bfs.cpp
+    title: grid/grid-bfs.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,12 +14,15 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&
+    IGNORE: ''
+    IGNORE_IF_GCC: ''
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&
-  bundledCode: "#line 1 \"test/tree/tree-dp/aoj-grl-5-b.test.cpp\"\n#define PROBLEM\
-    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&\"\n\n#line\
-    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    - https://atcoder.jp/contests/arc005/submissions/52537951
+    - https://atcoder.jp/contests/arc005/tasks/arc005_3
+  bundledCode: "#line 1 \"test/grid/grid-bfs/atcoder-arc005-c.test.cpp\"\n#define\
+    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/arc005/tasks/arc005_3\"\
+    \n// https://atcoder.jp/contests/arc005/submissions/52537951\n\n#line 2 \"base.cpp\"\
+    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
     #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
@@ -280,72 +283,186 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"tree/tree-dp.cpp\"\
-    \n\n/**\n * @brief tree-dp\n * @docs docs/tree/tree-dp.md\n*/\ntemplate <typename\
-    \ Weight = long long, typename DP = long long>\nstruct TreeDP {\n    struct Edge\
-    \ {\n        long long from;\n        long long to;\n        Weight weight;\n\
-    \        long long rev;\n        \n        explicit Edge(long long u = -1, long\
-    \ long v = -1, Weight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r)\
-    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
-    \ == other.from) {\n                if (to == other.to) return weight < other.weight;\n\
-    \                else return to < other.to;\n            }\n            else return\
-    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
-    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
-    \n    long long V;\n    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n  \
-    \  // \u5168\u65B9\u4F4D\u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP>\
-    \ prod_all;\n    long long root;\n\n    TreeDP(long long N) : V(N), G(V){\n  \
-    \      init();\n    };\n\n    DP id() {\n        return 0;\n    }\n\n    DP merge(DP\
-    \ x, DP y) {\n        return max(x, y);\n    }\n\n    DP put_edge(DP x, Edge&\
-    \ edge) {\n        return x + (DP)edge.weight;\n    }\n\n    DP put_vertex(DP\
-    \ x, long long v) {\n        return x;\n    }\n    \n    void init() {\n     \
-    \   seen.assign(V, false);\n\n        dp.resize(V);\n        prod_all.assign(V,\
-    \ id());\n    }\n    \n    void connect(long long from, long long to, Weight weight\
-    \ = 1) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and\
-    \ to < V);\n\n        long long from_id = G[from].size();\n        long long to_id\
-    \ = G[to].size();\n\n        G[from].emplace_back(from, to, weight, to_id);\n\
-    \        G[to].emplace_back(to, from, weight, from_id);\n\n        dp[from].push_back(id());\n\
-    \        dp[to].push_back(id());\n    }\n\n    DP build(long long root_) {\n \
-    \       root = root_;\n        return dfs(root);\n    }\n\n    vector<DP> reroot()\
-    \ {\n        prod(root, id());\n\n        return prod_all;\n    }\n\n    DP dfs(long\
-    \ long now) {\n        assert(0 <= now and now < V);\n\n        DP ret = id();\n\
-    \n        seen[now] = true;\n\n        rep(i, G[now].size()) {\n            Edge\
-    \ edge = G[now][i];\n            long long next = edge.to;\n\n            if (seen[next])\
-    \ continue;\n\n            dp[now][i] = dfs(next);\n            ret = merge(ret,\
-    \ put_edge(dp[now][i], edge));\n        }\n\n        return put_vertex(ret, now);\n\
-    \    }\n\n    void prod(long long now, const DP& dp_p, Edge e = Edge()) {\n  \
-    \      long long deg = G[now].size();\n\n        if (e.rev != -1) dp[now][e.rev]\
-    \ = dp_p;\n\n        vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());\n\
-    \n        rep(i, deg) {\n            Edge edge = G[now][i];\n            prod_l[i\
-    \ + 1] = merge(prod_l[i], put_edge(dp[now][i], edge));\n        }\n\n        repd(i,\
-    \ deg) {\n            Edge edge = G[now][i];\n            prod_r[i] = merge(prod_r[i\
-    \ + 1], put_edge(dp[now][i], edge));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
-    \ now);\n\n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n  \
-    \          Edge edge = G[now][i];\n            long long child = edge.to;\n  \
-    \          prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n\
-    \        }\n    }\n};\n#line 4 \"test/tree/tree-dp/aoj-grl-5-b.test.cpp\"\n\n\
-    int main() {\n    ll n;\n    cin >> n;\n\n    TreeDP tree(n);\n    rep(i, n -\
-    \ 1) {\n        ll s, t, w;\n        cin >> s >> t >> w;\n\n        tree.connect(s,\
-    \ t, w);\n    }\n\n    tree.build(0);\n    auto ans = tree.reroot();\n\n    rep(i,\
-    \ n) {\n        cout << ans[i] << endl;;\n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&\"\
-    \n\n#include \"../../../tree/tree-dp.cpp\"\n\nint main() {\n    ll n;\n    cin\
-    \ >> n;\n\n    TreeDP tree(n);\n    rep(i, n - 1) {\n        ll s, t, w;\n   \
-    \     cin >> s >> t >> w;\n\n        tree.connect(s, t, w);\n    }\n\n    tree.build(0);\n\
-    \    auto ans = tree.reroot();\n\n    rep(i, n) {\n        cout << ans[i] << endl;;\n\
-    \    }\n\n    return 0;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"grid/grid-bfs.cpp\"\
+    \n\nstruct Coordinate {\n    long long y, x;\n\n    Coordinate(long long y_ =\
+    \ 0, long long x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n        return\
+    \ sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate\
+    \ &other) {\n        return Coordinate(y - other.y, x - other.x).euclid();\n \
+    \   }\n\n    long long manhattan() {\n        return abs(y) + abs(x);\n    }\n\
+    \n    long long manhattan_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char\
+    \ c) {\n        assert(c == 'R' or c == 'L' or c == 'U' or c == 'D');\n      \
+    \  Coordinate ret(y, x);\n\n        if (c == 'D') ++ret.y;\n        if (c == 'U')\
+    \ --ret.y;\n        if (c == 'R') ++ret.x;\n        if (c == 'L') --ret.x;\n\n\
+    \        return ret;\n    }\n\n    char dir2char() {\n        assert(manhattan()\
+    \ == 1);\n\n        char ret;\n        if (x > 0) ret = 'R';\n        if (x <\
+    \ 0) ret = 'L';\n        if (y > 0) ret = 'D';\n        if (y < 0) ret = 'U';\n\
+    \n        return ret;\n    }\n\n    char dir2char(Coordinate next) {\n       \
+    \ Coordinate dir = next - *this;\n        return dir.dir2char();\n    }\n\n  \
+    \  Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n    }\n\n\
+    \    Coordinate operator+ (const Coordinate &other) {\n        return Coordinate(y,\
+    \ x) += other;\n    }\n\n    Coordinate operator- (const Coordinate &other) {\n\
+    \        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate operator+\
+    \ (const long long &a) {\n        return Coordinate(y, x) += a;\n    }\n\n   \
+    \ Coordinate operator- (const long long &a) {\n        return Coordinate(y, x)\
+    \ -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n        return\
+    \ Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long long &a)\
+    \ {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
+    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
+    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
+    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
+    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
+    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
+    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
+    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
+    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
+    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
+    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
+    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
+    \ *this;\n    }\n\n    bool operator== (const Coordinate &other) {\n        return\
+    \ y == other.y and x == other.x;\n    }\n\n    bool operator!= (const Coordinate\
+    \ &other) {\n        return y != other.y or x != other.x;\n    }\n\n    bool operator<\
+    \ (const Coordinate &other) {\n        if (y == other.y) {\n            return\
+    \ x < other.x;\n        }\n        else return y < other.y;\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, const Coordinate& p) {\n        return os\
+    \ << \"(\" << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\n\
+    struct Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\
+    \n    Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
+    \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
+    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
+    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
+    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
+    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
+    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
+    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
+    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
+    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
+    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
+    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
+    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
+    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
+    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
+    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
+    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
+    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
+    \   char obj = '#';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h,\
+    \ string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()),\
+    \ vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n        return vs[y][x];\n\
+    \    }\n\n    char& operator() (const Coordinate& p) {\n        return vs[p.y][p.x];\n\
+    \    }\n\n    bool is_obj(size_t y, size_t x) {\n        return vs[y][x] == obj;\n\
+    \    }\n\n    bool is_obj(const Coordinate& p) {\n        return vs[p.y][p.x]\
+    \ == obj;\n    }\n\n    bool is_out(long long y, long long x) {\n        return\
+    \ y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate&\
+    \ p) {\n        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n\
+    \    string& operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, Field& field) {\n        rep(i, field.H)\
+    \ {\n            os << field[i] << endl;\n        }\n        return os;\n    }\n\
+    };\n\nstruct GridBFS {\n    long long H, W;\n    Field field;\n    Grid<bool>\
+    \ seen;\n    Grid<long long> cost;\n    Grid<Coordinate> prev;\n    vector<Coordinate>\
+    \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char obs = '#';\n\
+    \    Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long\
+    \ long inf = INF64 / 2;\n    long long group;\n\n    GridBFS(long long n) : H(n),\
+    \ W(n), field(n, n) {\n        init();\n    };\n\n    GridBFS(long long h, long\
+    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridBFS(vector<string>\
+    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
+    \ };\n\n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n\
+    \        cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
+    \    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n \
+    \       rep(y, H) rep(x, W) {\n                char c = field(y, x);\n       \
+    \         if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
+    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
+    \       start = Coordinate(y, x);\n                }\n                if (c ==\
+    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
+    \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
+    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
+    \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
+    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
+    \   }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
+    \ and !field.is_obj(now));\n\n        queue<Coordinate> que;\n\n        // \u521D\
+    \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
+    \u3059\u308B)\n        seen(now) = true;\n        cost(now) = 0;\n\n        que.push(now);\
+    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            now = que.front();\
+    \ // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
+    \u3059\n            que.pop();\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\
+    \u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
+    \ {\n                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
+    \ continue;\n                if (field.is_obj(next)) continue;\n             \
+    \   if (seen(next)) continue;\n\n                seen(next) = true;\n        \
+    \        cost(next) = cost(now) + 1;\n                prev(next) = now;\n    \
+    \            que.push(next);\n            }\n        }\n    }\n\n    void bfs01(Coordinate\
+    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
+    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\u9802\
+    \u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\
+    \u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while\
+    \ (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\
+    \u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
+    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
+    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
+    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
+    \ next = now + dirs[i];\n                if (field.is_out(next)) continue;\n \
+    \               if(seen(next)) continue;\n\n                ll c = 0; \n     \
+    \           if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\
+    \u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                if\
+    \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
+    \                    \n                    if (c == 0) que.push_front(next);\n\
+    \                    else que.push_back(next);\n                }\n          \
+    \  }\n        }\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
+    \    }\n\n    bool reach(Coordinate to) {\n        assert(!field.is_out(to) and\
+    \ !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long dist(Coordinate\
+    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        return\
+    \ cost(to);\n    }\n\n    vector<Coordinate> path(Coordinate from, Coordinate\
+    \ to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n      \
+    \  assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n  \
+    \      return path_to(to);\n    }\n\n    vector<Coordinate> path_to_goal() {\n\
+    \        return path_to(goal);\n    }\n\n    vector<Coordinate> path_to(Coordinate\
+    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
+    \ (!reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    string char_path_to_goal() {\n        return char_path_to(goal);\n    }\n\
+    \n    string char_path_to(Coordinate to) {\n        assert(!field.is_out(to) and\
+    \ !field.is_obj(to));\n        if (!reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = path_to(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
+    \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
+    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
+    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
+    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
+    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n\
+    #line 6 \"test/grid/grid-bfs/atcoder-arc005-c.test.cpp\"\n\nint main() {\n   \
+    \ ll H, W;\n    cin >> H >> W;\n\n    GridBFS grid(H, W);\n    grid.input();\n\
+    \n    grid.bfs01(grid.start);\n    ll ans = (grid.dist(grid.goal) <= 2);\n\n \
+    \   cout << YESNO(ans) << endl;\n\n    return 0;\n}\n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/arc005/tasks/arc005_3\"\
+    \n// https://atcoder.jp/contests/arc005/submissions/52537951\n\n#include \"../../../grid/grid-bfs.cpp\"\
+    \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridBFS grid(H, W);\n\
+    \    grid.input();\n\n    grid.bfs01(grid.start);\n    ll ans = (grid.dist(grid.goal)\
+    \ <= 2);\n\n    cout << YESNO(ans) << endl;\n\n    return 0;\n}"
   dependsOn:
-  - tree/tree-dp.cpp
+  - grid/grid-bfs.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 17:07:31+09:00'
+  timestamp: '2024-04-20 17:49:40+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+documentation_of: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
 layout: document
 redirect_from:
-- /verify/test/tree/tree-dp/aoj-grl-5-b.test.cpp
-- /verify/test/tree/tree-dp/aoj-grl-5-b.test.cpp.html
-title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
+- /verify/test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+- /verify/test/grid/grid-bfs/atcoder-arc005-c.test.cpp.html
+title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
 ---

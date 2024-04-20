@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+    title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -378,9 +381,10 @@ data:
     \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
     \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
     \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
-    \       ++group;\n        }\n\n        return group;\n    }\n\n    void bfs()\
-    \ {\n        bfs(start);\n    }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now)\
-    \ and !field.is_obj(now));\n        queue<Coordinate> que;\n\n        // \u521D\
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
+    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
+    \   }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
+    \ and !field.is_obj(now));\n\n        queue<Coordinate> que;\n\n        // \u521D\
     \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
     \u3059\u308B)\n        seen(now) = true;\n        cost(now) = 0;\n\n        que.push(now);\
     \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
@@ -394,41 +398,47 @@ data:
     \   if (seen(next)) continue;\n\n                seen(next) = true;\n        \
     \        cost(next) = cost(now) + 1;\n                prev(next) = now;\n    \
     \            que.push(next);\n            }\n        }\n    }\n\n    void bfs01(Coordinate\
-    \ now) {\n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6\
-    \ (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n\
-    \        cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\
-    \u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\
-    \u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n  \
-    \      while (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\
-    \u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n         \
-    \   que.pop_front();\n\n            if (seen(now)) continue;\n            seen(now)\
-    \ = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\
-    \u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n    \
-    \            Coordinate next = now + dirs[i];\n                if (field.is_out(next))\
-    \ continue;\n                if(seen(next)) continue;\n\n                ll c\
-    \ = 0; \n                if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\
-    \u30B9\u30C8\u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n      \
-    \          if (chmin(cost(next), cost(now) + c)) {\n                    prev(next)\
-    \ = now;\n                    \n                    if (c == 0) que.push_front(next);\n\
+    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
+    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\u9802\
+    \u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\
+    \u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while\
+    \ (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\
+    \u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
+    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
+    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
+    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
+    \ next = now + dirs[i];\n                if (field.is_out(next)) continue;\n \
+    \               if(seen(next)) continue;\n\n                ll c = 0; \n     \
+    \           if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\
+    \u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                if\
+    \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
+    \                    \n                    if (c == 0) que.push_front(next);\n\
     \                    else que.push_back(next);\n                }\n          \
     \  }\n        }\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
-    \    }\n\n    bool reach(Coordinate to) {\n        return seen(to);\n    }\n\n\
-    \    long long dist(Coordinate p) {\n        return cost(p);\n    }\n\n    vector<Coordinate>\
-    \ path(Coordinate from, Coordinate to) {\n        bfs(from);\n        return path_to(to);\n\
-    \    }\n\n    vector<Coordinate> path_to_goal() {\n        return path_to(goal);\n\
-    \    }\n\n    vector<Coordinate> path_to(Coordinate to) {\n        vector<Coordinate>\
-    \ p;\n        p.push_back(to);\n\n        while (prev(p.back()) != Coordinate(-1,\
-    \ -1)) {\n            p.push_back(prev(p.back()));\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    string char_path_to_goal() {\n\
-    \        return char_path_to(goal);\n    }\n\n    string char_path_to(Coordinate\
-    \ to) {\n        vector<Coordinate> path = path_to(to);\n\n        string ret;\n\
-    \        rep(i, path.size() - 1) {\n            ret += path[i].dir2char(path[i\
-    \ + 1]);\n        }\n\n        return ret;\n    }\n\n    bool operator== (GridBFS\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridBFS& grid) {\n   \
-    \     return os << grid.field << endl;\n    }\n};\n"
+    \    }\n\n    bool reach(Coordinate to) {\n        assert(!field.is_out(to) and\
+    \ !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long dist(Coordinate\
+    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        return\
+    \ cost(to);\n    }\n\n    vector<Coordinate> path(Coordinate from, Coordinate\
+    \ to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n      \
+    \  assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n  \
+    \      return path_to(to);\n    }\n\n    vector<Coordinate> path_to_goal() {\n\
+    \        return path_to(goal);\n    }\n\n    vector<Coordinate> path_to(Coordinate\
+    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
+    \ (!reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    string char_path_to_goal() {\n        return char_path_to(goal);\n    }\n\
+    \n    string char_path_to(Coordinate to) {\n        assert(!field.is_out(to) and\
+    \ !field.is_obj(to));\n        if (!reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = path_to(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
+    \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
+    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
+    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
+    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
+    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\nstruct Coordinate {\n    long long\
     \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
     \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
@@ -528,9 +538,10 @@ data:
     \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
     \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
     \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
-    \       ++group;\n        }\n\n        return group;\n    }\n\n    void bfs()\
-    \ {\n        bfs(start);\n    }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now)\
-    \ and !field.is_obj(now));\n        queue<Coordinate> que;\n\n        // \u521D\
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
+    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
+    \   }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
+    \ and !field.is_obj(now));\n\n        queue<Coordinate> que;\n\n        // \u521D\
     \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
     \u3059\u308B)\n        seen(now) = true;\n        cost(now) = 0;\n\n        que.push(now);\
     \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
@@ -544,50 +555,57 @@ data:
     \   if (seen(next)) continue;\n\n                seen(next) = true;\n        \
     \        cost(next) = cost(now) + 1;\n                prev(next) = now;\n    \
     \            que.push(next);\n            }\n        }\n    }\n\n    void bfs01(Coordinate\
-    \ now) {\n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6\
-    \ (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n\
-    \        cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\
-    \u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\
-    \u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n  \
-    \      while (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\
-    \u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n         \
-    \   que.pop_front();\n\n            if (seen(now)) continue;\n            seen(now)\
-    \ = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\
-    \u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n    \
-    \            Coordinate next = now + dirs[i];\n                if (field.is_out(next))\
-    \ continue;\n                if(seen(next)) continue;\n\n                ll c\
-    \ = 0; \n                if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\
-    \u30B9\u30C8\u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n      \
-    \          if (chmin(cost(next), cost(now) + c)) {\n                    prev(next)\
-    \ = now;\n                    \n                    if (c == 0) que.push_front(next);\n\
+    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
+    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\u9802\
+    \u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\
+    \u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while\
+    \ (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\
+    \u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
+    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
+    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
+    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
+    \ next = now + dirs[i];\n                if (field.is_out(next)) continue;\n \
+    \               if(seen(next)) continue;\n\n                ll c = 0; \n     \
+    \           if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\
+    \u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                if\
+    \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
+    \                    \n                    if (c == 0) que.push_front(next);\n\
     \                    else que.push_back(next);\n                }\n          \
     \  }\n        }\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
-    \    }\n\n    bool reach(Coordinate to) {\n        return seen(to);\n    }\n\n\
-    \    long long dist(Coordinate p) {\n        return cost(p);\n    }\n\n    vector<Coordinate>\
-    \ path(Coordinate from, Coordinate to) {\n        bfs(from);\n        return path_to(to);\n\
-    \    }\n\n    vector<Coordinate> path_to_goal() {\n        return path_to(goal);\n\
-    \    }\n\n    vector<Coordinate> path_to(Coordinate to) {\n        vector<Coordinate>\
-    \ p;\n        p.push_back(to);\n\n        while (prev(p.back()) != Coordinate(-1,\
-    \ -1)) {\n            p.push_back(prev(p.back()));\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    string char_path_to_goal() {\n\
-    \        return char_path_to(goal);\n    }\n\n    string char_path_to(Coordinate\
-    \ to) {\n        vector<Coordinate> path = path_to(to);\n\n        string ret;\n\
-    \        rep(i, path.size() - 1) {\n            ret += path[i].dir2char(path[i\
-    \ + 1]);\n        }\n\n        return ret;\n    }\n\n    bool operator== (GridBFS\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridBFS& grid) {\n   \
-    \     return os << grid.field << endl;\n    }\n};"
+    \    }\n\n    bool reach(Coordinate to) {\n        assert(!field.is_out(to) and\
+    \ !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long dist(Coordinate\
+    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        return\
+    \ cost(to);\n    }\n\n    vector<Coordinate> path(Coordinate from, Coordinate\
+    \ to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n      \
+    \  assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n  \
+    \      return path_to(to);\n    }\n\n    vector<Coordinate> path_to_goal() {\n\
+    \        return path_to(goal);\n    }\n\n    vector<Coordinate> path_to(Coordinate\
+    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
+    \ (!reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    string char_path_to_goal() {\n        return char_path_to(goal);\n    }\n\
+    \n    string char_path_to(Coordinate to) {\n        assert(!field.is_out(to) and\
+    \ !field.is_obj(to));\n        if (!reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = path_to(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
+    \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
+    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
+    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
+    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
+    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: grid/grid-bfs.cpp
   requiredBy: []
-  timestamp: '2024-04-16 03:13:41+09:00'
+  timestamp: '2024-04-20 17:49:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
 documentation_of: grid/grid-bfs.cpp
 layout: document
