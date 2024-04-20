@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief ダイクストラ法
+ * @docs docs/graph/dijkstra.md
+*/
 template<class T = long long>
 struct Dijkstra {
     struct Edge {
@@ -82,7 +86,7 @@ struct Dijkstra {
         }
     }
 
-    bool reach_at(long long to) {
+    bool reach(long long to) {
         assert(0 <= to and to < V);
 
         return done[to];
