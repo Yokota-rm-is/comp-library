@@ -89,7 +89,7 @@ struct BIT {
         else return sum(r) - sum(l);
     }
 
-    T sum_circular(long long l, long long r, T x) {
+    T sum_circular(long long l, long long r) {
         assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);
         if (l <= r and r <= _N) return sum(l, r);
         
