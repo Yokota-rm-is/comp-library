@@ -16,6 +16,8 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/graph/dijkstra.md
+    document_title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -279,7 +281,8 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dijkstra.cpp\"\
-    \n\ntemplate<class T = long long>\nstruct Dijkstra {\n    struct Edge {\n    \
+    \n\n/**\n * @brief \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\n * @docs docs/graph/dijkstra.md\n\
+    */\ntemplate<class T = long long>\nstruct Dijkstra {\n    struct Edge {\n    \
     \    long long from;\n        long long to;\n        T weight;\n        \n   \
     \     explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v),\
     \ weight(w) {};\n\n        bool operator < (const Edge& other) const {\n     \
@@ -309,25 +312,26 @@ data:
     \                long long next = edge.to;\n                if (chmin(cost[next],\
     \ cost[now] + edge.weight)) {\n                    prev[next] = now;\n       \
     \             que.emplace(cost[next], next);\n                }\n            }\n\
-    \        }\n    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        vector<long long>\
-    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
-    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class T = long long>\n\
-    struct Dijkstra {\n    struct Edge {\n        long long from;\n        long long\
-    \ to;\n        T weight;\n        \n        explicit Edge(long long u = -1, long\
-    \ long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           if (to == other.to) return weight < other.weight;\n              \
-    \  else return to < other.to;\n            }\n            else return from < other.from;\n\
-    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
-    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
-    \    bool directed_;\n    vector<vector<Edge>> G;\n    vector<bool> done;\n  \
-    \  vector<long long> prev;\n    vector<T> cost;\n    \n    Dijkstra(long long\
-    \ N, bool directed) : V(N), directed_(directed), G(V) {\n        init();\n   \
-    \ };\n    \n    void init() {\n        done.assign(V, false);\n        prev.assign(V,\
+    \        }\n    }\n\n    bool reach(long long to) {\n        assert(0 <= to and\
+    \ to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!reach(to)) return\
+    \ {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n        while\
+    \ (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n       \
+    \ }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief \u30C0\u30A4\u30AF\
+    \u30B9\u30C8\u30E9\u6CD5\n * @docs docs/graph/dijkstra.md\n*/\ntemplate<class\
+    \ T = long long>\nstruct Dijkstra {\n    struct Edge {\n        long long from;\n\
+    \        long long to;\n        T weight;\n        \n        explicit Edge(long\
+    \ long u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n\
+    \        bool operator < (const Edge& other) const {\n            if (from ==\
+    \ other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \                else return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    long long V;\n    bool directed_;\n    vector<vector<Edge>> G;\n    vector<bool>\
+    \ done;\n    vector<long long> prev;\n    vector<T> cost;\n    \n    Dijkstra(long\
+    \ long N, bool directed) : V(N), directed_(directed), G(V) {\n        init();\n\
+    \    };\n    \n    void init() {\n        done.assign(V, false);\n        prev.assign(V,\
     \ -1);\n        cost.assign(V, inf64);\n    }\n    \n    void connect(long long\
     \ from, long long to, T weight) {\n        assert(0 <= from and from < V);\n \
     \       assert(0 <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
@@ -346,18 +350,18 @@ data:
     \             long long next = edge.to;\n                if (chmin(cost[next],\
     \ cost[now] + edge.weight)) {\n                    prev[next] = now;\n       \
     \             que.emplace(cost[next], next);\n                }\n            }\n\
-    \        }\n    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        vector<long long>\
-    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
-    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};"
+    \        }\n    }\n\n    bool reach(long long to) {\n        assert(0 <= to and\
+    \ to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!reach(to)) return\
+    \ {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n        while\
+    \ (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n       \
+    \ }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/dijkstra.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:48:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/dijkstra/atcoder-abc270-c.test.cpp
@@ -367,5 +371,15 @@ layout: document
 redirect_from:
 - /library/graph/dijkstra.cpp
 - /library/graph/dijkstra.cpp.html
-title: graph/dijkstra.cpp
+title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
 ---
+# ダイクストラ法
+## 概要
+グラフ上でダイクストラ法を行う．
+
+## 使い方
+* `Dijkstra(N, directed)`: サイズ`N`で初期化する．有向辺，無向辺を`directed`で設定する．
+* `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
+* `dijkstra(start)`: ノード`start`からダイクストラ法を実行する．計算量$O(|E|\log{|V|})$
+* `reach(to)`: `dijkstra(start)`実行後に実行する．ノード`to`へ到達可能か判定する．
+* `path_to(to)`: `dijkstra(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．

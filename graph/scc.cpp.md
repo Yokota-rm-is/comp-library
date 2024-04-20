@@ -13,6 +13,8 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/graph/scc.md
+    document_title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -276,8 +278,9 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/scc.cpp\"\n\n\
-    struct SCC {\n    struct Edge {\n        long long from;\n        long long to;\n\
-    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    /**\n * @brief \u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3\n * @docs docs/graph/scc.md\n\
+    */\nstruct SCC {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
     \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
     \   if (from == other.from) {\n                return to < other.to;\n       \
     \     }\n            else return from < other.from;\n        }\n\n        friend\
@@ -317,15 +320,16 @@ data:
     \ = group;\n\n        fore(edge, rG[now]) {\n            long long next = edge.to;\n\
     \            if (roots[next] != -1) continue;\n            dfs_reverse(next, group);\n\
     \        }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct SCC {\n    struct Edge {\n\
-    \        long long from;\n        long long to;\n        \n        explicit Edge(long\
-    \ long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           return to < other.to;\n            }\n            else return from\
-    \ < other.from;\n        }\n\n        friend ostream& operator << (ostream& os,\
-    \ const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\n\
-    \    struct Stamp {\n        long long index;\n        long long time;\n     \
-    \   explicit Stamp(long long i = 0, long long t = -1) : index(i), time(t) {};\n\
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief \u5F37\u9023\u7D50\
+    \u6210\u5206\u5206\u89E3\n * @docs docs/graph/scc.md\n*/\nstruct SCC {\n    struct\
+    \ Edge {\n        long long from;\n        long long to;\n        \n        explicit\
+    \ Edge(long long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool\
+    \ operator < (const Edge& other) const {\n            if (from == other.from)\
+    \ {\n                return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    struct Stamp {\n        long long index;\n        long long time;\n    \
+    \    explicit Stamp(long long i = 0, long long t = -1) : index(i), time(t) {};\n\
     \n        bool operator<(const Stamp& right) const {\n            return time\
     \ < right.time;\n        }\n\n        friend ostream& operator << (ostream& os,\
     \ const Stamp& stamp) {\n            return os << \"(\" << stamp.time << \", \"\
@@ -364,7 +368,7 @@ data:
   isVerificationFile: false
   path: graph/scc.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:58:01+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/scc/aoj-grl-3-c.test.cpp
@@ -373,5 +377,14 @@ layout: document
 redirect_from:
 - /library/graph/scc.cpp
 - /library/graph/scc.cpp.html
-title: graph/scc.cpp
+title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
 ---
+# 強連結成分分解
+## 概要
+グラフ上で強連結成分分解を行う．
+
+## 使い方
+* `SCC(N)`: サイズ`N`で初期化する．
+* `connect(from, to)`: ノード`from`からノード`to`へ辺を張る．
+* `find_scc()`: 強連結成分分解を行う．計算量$O(|V|+|E|)$
+* `is_same(u, v)`: `find_scc()`実行後に実行する．ノード`u`とノード`v`が同じ成分に含まれるか判定する．

@@ -6,7 +6,7 @@ data:
     title: base.cpp
   - icon: ':heavy_check_mark:'
     path: graph/dfs.cpp
-    title: graph/dfs.cpp
+    title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -281,8 +281,9 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
-    struct DFS {\n    struct Edge {\n        long long from;\n        long long to;\n\
-    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    /**\n * @brief DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/dfs.md\n\
+    */\nstruct DFS {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
     \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
     \   if (from == other.from) {\n                return to < other.to;\n       \
     \     }\n            else return from < other.from;\n        }\n\n        friend\
@@ -313,7 +314,7 @@ data:
     \       if (seen[next]) {\n                if (!done[next]) has_cycle = true;\n\
     \                continue;\n            }\n\n            dfs(next);\n\n      \
     \      descendants[now] += descendants[next] + 1;\n        }\n\n        done[now]\
-    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach_at(long\
+    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach(long\
     \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to] or\
     \ done[to];\n    }\n\n    bool is_bipartite() {\n        ll color = 0;\n\n   \
     \     rep(i, V) {\n            if (seen[i]) continue;\n\n            seen[i] =\
@@ -327,15 +328,14 @@ data:
     \            else if (colors[next] != next_color) return false;\n\n          \
     \          if (seen[next]) continue;\n                    seen[next] = true;\n\
     \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n\
-    #line 4 \"test/graph/dfs/atcoder-abc327-d.test.cpp\"\n\nint main() {\n    ll N,\
-    \ M;\n    cin >> N >> M;\n\n    vector<ll> A(M), B(M);\n    rep(i, M) {\n    \
-    \    ll a;\n        cin >> a;\n        --a;\n        A[i] = a;\n    }\n    rep(i,\
-    \ M) {\n        ll b;\n        cin >> b;\n        --b;\n        B[i] = b;\n  \
-    \  }\n\n    DFS graph(N, false);\n    rep(i, M) {\n        graph.connect(A[i],\
-    \ B[i]);\n    }\n\n    cout << YesNo(graph.is_bipartite()) << endl;\n\n    return\
-    \ 0;\n}\n"
+    \         color += 2;\n        }\n\n        return true;\n    }\n};\n#line 4 \"\
+    test/graph/dfs/atcoder-abc327-d.test.cpp\"\n\nint main() {\n    ll N, M;\n   \
+    \ cin >> N >> M;\n\n    vector<ll> A(M), B(M);\n    rep(i, M) {\n        ll a;\n\
+    \        cin >> a;\n        --a;\n        A[i] = a;\n    }\n    rep(i, M) {\n\
+    \        ll b;\n        cin >> b;\n        --b;\n        B[i] = b;\n    }\n\n\
+    \    DFS graph(N, false);\n    rep(i, M) {\n        graph.connect(A[i], B[i]);\n\
+    \    }\n\n    cout << YesNo(graph.is_bipartite()) << endl;\n\n    return 0;\n\
+    }\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc327/tasks/abc327_d\"\n\n\
     #include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll N, M;\n    cin >>\
     \ N >> M;\n\n    vector<ll> A(M), B(M);\n    rep(i, M) {\n        ll a;\n    \
@@ -349,7 +349,7 @@ data:
   isVerificationFile: true
   path: test/graph/dfs/atcoder-abc327-d.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:17:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dfs/atcoder-abc327-d.test.cpp

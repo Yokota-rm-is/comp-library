@@ -16,6 +16,8 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/graph/dfs.md
+    document_title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -279,8 +281,9 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
-    struct DFS {\n    struct Edge {\n        long long from;\n        long long to;\n\
-    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    /**\n * @brief DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/dfs.md\n\
+    */\nstruct DFS {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
     \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
     \   if (from == other.from) {\n                return to < other.to;\n       \
     \     }\n            else return from < other.from;\n        }\n\n        friend\
@@ -311,7 +314,7 @@ data:
     \       if (seen[next]) {\n                if (!done[next]) has_cycle = true;\n\
     \                continue;\n            }\n\n            dfs(next);\n\n      \
     \      descendants[now] += descendants[next] + 1;\n        }\n\n        done[now]\
-    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach_at(long\
+    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach(long\
     \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to] or\
     \ done[to];\n    }\n\n    bool is_bipartite() {\n        ll color = 0;\n\n   \
     \     rep(i, V) {\n            if (seen[i]) continue;\n\n            seen[i] =\
@@ -325,17 +328,17 @@ data:
     \            else if (colors[next] != next_color) return false;\n\n          \
     \          if (seen[next]) continue;\n                    seen[next] = true;\n\
     \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct DFS {\n    struct Edge {\n\
-    \        long long from;\n        long long to;\n        \n        explicit Edge(long\
-    \ long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           return to < other.to;\n            }\n            else return from\
-    \ < other.from;\n        }\n\n        friend ostream& operator << (ostream& os,\
-    \ const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\n\
-    \    struct Stamp {\n        long long index;\n        long long time;\n     \
-    \   explicit Stamp(long long i = 0, long long t = -1) : index(i), time(t) {};\n\
+    \         color += 2;\n        }\n\n        return true;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief DFS(\u6DF1\u3055\
+    \u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/dfs.md\n*/\nstruct DFS {\n    struct\
+    \ Edge {\n        long long from;\n        long long to;\n        \n        explicit\
+    \ Edge(long long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool\
+    \ operator < (const Edge& other) const {\n            if (from == other.from)\
+    \ {\n                return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    struct Stamp {\n        long long index;\n        long long time;\n    \
+    \    explicit Stamp(long long i = 0, long long t = -1) : index(i), time(t) {};\n\
     \n        bool operator<(const Stamp& right) const {\n            return time\
     \ < right.time;\n        }\n\n        friend ostream& operator << (ostream& os,\
     \ const Stamp& stamp) {\n            return os << \"(\" << stamp.time << \", \"\
@@ -360,10 +363,10 @@ data:
     \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
     \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
     \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach_at(long long to) {\n        assert(0 <= to and to < V);\n\n  \
-    \      return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n    \
-    \    ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\
-    \n            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
+    \    bool reach(long long to) {\n        assert(0 <= to and to < V);\n\n     \
+    \   return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n       \
+    \ ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\n\
+    \            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
     \ long> st;\n            st.push(i);\n\n            while (!st.empty()) {\n  \
     \              ll now = st.top();\n                st.pop();\n\n             \
     \   long long next_color;\n                if (colors[now] % 2 == 0) next_color\
@@ -373,14 +376,13 @@ data:
     \                 else if (colors[next] != next_color) return false;\n\n     \
     \               if (seen[next]) continue;\n                    seen[next] = true;\n\
     \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};"
+    \         color += 2;\n        }\n\n        return true;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/dfs.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:17:58+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
@@ -390,5 +392,16 @@ layout: document
 redirect_from:
 - /library/graph/dfs.cpp
 - /library/graph/dfs.cpp.html
-title: graph/dfs.cpp
+title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
 ---
+# DFS
+## 概要
+グラフ上でDFSを行う．
+
+## 使い方
+* `DFS(N, directed)`: サイズ`N`で初期化する．有向辺，無向辺を`directed`で設定する．
+* `connect(from, to)`: ノード`from`からノード`to`へ辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
+* `dfs_all()`: 全てのノード`i`に対して`seen[i] = true`となるまで`dfs(i)`を実行する．
+* `dfs(start)`: ノード`start`からdfsを実行する．計算量$O(|V|+|E|)$
+* `reach(to)`: `dfs(start)`実行後に実行する．ノード`to`へ到達可能かを判定する．
+* `is_bipartite()`: 二部グラフかどうかを判定する．

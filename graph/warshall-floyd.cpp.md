@@ -13,6 +13,8 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/graph/warshall-floyd.md
+    document_title: "\u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -276,32 +278,8 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/warshall-floyd.cpp\"\
-    \n\ntemplate<typename T = long long>\nstruct WarshallFloyd {\n    long long V;\n\
-    \    vector<vector<T>> cost{};\n    vector<vector<long long>> prev{};\n    bool\
-    \ directed_;\n\n    WarshallFloyd(long long V, bool directed) : V(V), directed_(directed)\
-    \ { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\
-    \u3066\u521D\u671F\u5316\n        cost.assign(V, vector<T>(V, inf64));\n     \
-    \   prev.assign(V, vector<long long>(V, -1));\n\n        rep(i, V) cost[i][i]\
-    \ = 0;\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    WarshallFloyd(vector<vector<long\
-    \ long>> A) : V(A.size()), cost(A), directed_(true)  {\n        prev.assign(A.size(),\
-    \ vector<long long>(A.size(), -1));\n        rep(i, V) rep(j, V) prev[i][j] =\
-    \ i;\n    }\n\n    void connect(long long u, long long v, T w) {\n        cost[u][v]\
-    \ = w;\n        if (!directed_) cost[v][u] = w;\n    }\n\n    void operator()\
-    \ () {\n        warshall_floyd();\n    }\n\n    void warshall_floyd() {\n    \
-    \    rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k] >= inf64)\
-    \ continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
-    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
-    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
-    \           }\n                }\n            }\n        }\n    }\n\n    T dist(long\
-    \ long from, long long to) {\n        return cost[from][to];\n    }\n\n    vector<T>\
-    \ dist_from(long long from) {\n        vector<T> ans;\n\n        rep(i, V) ans.push_back(cost[from][i]);\n\
-    \n        return ans;\n    }\n\n    vector<long long> path(long long from, long\
-    \ long to) {\n        vector<long long> p;\n        p.push_back(to);\n\n     \
-    \   while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
-    \ true;\n\n        return false;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T = long long>\n\
+    \n\n/**\n * @brief \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5\
+    \n * @docs docs/graph/warshall-floyd.md\n*/\ntemplate<typename T = long long>\n\
     struct WarshallFloyd {\n    long long V;\n    vector<vector<T>> cost{};\n    vector<vector<long\
     \ long>> prev{};\n    bool directed_;\n\n    WarshallFloyd(long long V, bool directed)\
     \ : V(V), directed_(directed) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\
@@ -310,20 +288,61 @@ data:
     \ V) cost[i][i] = 0;\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n \
     \   WarshallFloyd(vector<vector<long long>> A) : V(A.size()), cost(A), directed_(true)\
     \  {\n        prev.assign(A.size(), vector<long long>(A.size(), -1));\n      \
-    \  rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    void connect(long long u,\
-    \ long long v, T w) {\n        cost[u][v] = w;\n        if (!directed_) cost[v][u]\
-    \ = w;\n    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n\
-    \    void warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n \
-    \               if (cost[i][k] >= inf64) continue;\n\n                rep(j, V)\
-    \ {\n                    if (cost[k][j] >= inf64) continue;\n\n              \
-    \      if(chmin(cost[i][j], cost[i][k] + cost[k][j])) {\n                    \
-    \    prev[i][j] = prev[k][j];\n                    }\n                }\n    \
-    \        }\n        }\n    }\n\n    T dist(long long from, long long to) {\n \
-    \       return cost[from][to];\n    }\n\n    vector<T> dist_from(long long from)\
-    \ {\n        vector<T> ans;\n\n        rep(i, V) ans.push_back(cost[from][i]);\n\
-    \n        return ans;\n    }\n\n    vector<long long> path(long long from, long\
-    \ long to) {\n        vector<long long> p;\n        p.push_back(to);\n\n     \
-    \   while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
+    \  rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    void connect(long long from,\
+    \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
+    \ assert(0 <= to and to < V);\n\n        cost[from][to] = weight;\n        if\
+    \ (!directed_) cost[to][from] = weight;\n    }\n\n    void operator() () {\n \
+    \       warshall_floyd();\n    }\n\n    void warshall_floyd() {\n        rep(k,\
+    \ V) {\n            rep(i, V) {\n                if (cost[i][k] >= inf64) continue;\n\
+    \n                rep(j, V) {\n                    if (cost[k][j] >= inf64) continue;\n\
+    \n                    if(chmin(cost[i][j], cost[i][k] + cost[k][j])) {\n     \
+    \                   prev[i][j] = prev[k][j];\n                    }\n        \
+    \        }\n            }\n        }\n    }\n\n    bool reach(long long from,\
+    \ long long to) {\n        assert(0 <= from and from < V);\n        assert(0 <=\
+    \ to and to < V);\n\n        return cost[from][to] < inf64;\n    }\n\n    T dist(long\
+    \ long from, long long to) {\n        assert(0 <= from and from < V);\n      \
+    \  assert(0 <= to and to < V);\n\n        return cost[from][to];\n    }\n\n  \
+    \  vector<T> dist_from(long long from) {\n        assert(0 <= from and from <\
+    \ V);\n\n        vector<T> ret;\n\n        rep(i, V) ret.push_back(cost[from][i]);\n\
+    \n        return ret;\n    }\n\n    vector<long long> path(long long from, long\
+    \ long to) {\n        assert(0 <= from and from < V);\n        assert(0 <= to\
+    \ and to < V);\n\n        if (!reach(from, to)) return {};\n\n        vector<long\
+    \ long> p;\n        p.push_back(to);\n\n        while (p.back() != from) {\n \
+    \           p.push_back(prev[from][p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n\n    bool has_negative_cycle() {\n \
+    \       rep(i, V) if (cost[i][i] < 0) return true;\n\n        return false;\n\
+    \    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief \u30EF\u30FC\u30B7\
+    \u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5\n * @docs docs/graph/warshall-floyd.md\n\
+    */\ntemplate<typename T = long long>\nstruct WarshallFloyd {\n    long long V;\n\
+    \    vector<vector<T>> cost{};\n    vector<vector<long long>> prev{};\n    bool\
+    \ directed_;\n\n    WarshallFloyd(long long V, bool directed) : V(V), directed_(directed)\
+    \ { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\
+    \u3066\u521D\u671F\u5316\n        cost.assign(V, vector<T>(V, inf64));\n     \
+    \   prev.assign(V, vector<long long>(V, -1));\n\n        rep(i, V) cost[i][i]\
+    \ = 0;\n        rep(i, V) rep(j, V) prev[i][j] = i;\n    }\n\n    WarshallFloyd(vector<vector<long\
+    \ long>> A) : V(A.size()), cost(A), directed_(true)  {\n        prev.assign(A.size(),\
+    \ vector<long long>(A.size(), -1));\n        rep(i, V) rep(j, V) prev[i][j] =\
+    \ i;\n    }\n\n    void connect(long long from, long long to, T weight) {\n  \
+    \      assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
+    \        cost[from][to] = weight;\n        if (!directed_) cost[to][from] = weight;\n\
+    \    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n    void\
+    \ warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n         \
+    \       if (cost[i][k] >= inf64) continue;\n\n                rep(j, V) {\n  \
+    \                  if (cost[k][j] >= inf64) continue;\n\n                    if(chmin(cost[i][j],\
+    \ cost[i][k] + cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n\
+    \                    }\n                }\n            }\n        }\n    }\n\n\
+    \    bool reach(long long from, long long to) {\n        assert(0 <= from and\
+    \ from < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
+    \ < inf64;\n    }\n\n    T dist(long long from, long long to) {\n        assert(0\
+    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        return\
+    \ cost[from][to];\n    }\n\n    vector<T> dist_from(long long from) {\n      \
+    \  assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
+    \ V) ret.push_back(cost[from][i]);\n\n        return ret;\n    }\n\n    vector<long\
+    \ long> path(long long from, long long to) {\n        assert(0 <= from and from\
+    \ < V);\n        assert(0 <= to and to < V);\n\n        if (!reach(from, to))\
+    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
+    \     while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
     \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
     \ true;\n\n        return false;\n    }\n};"
@@ -332,7 +351,7 @@ data:
   isVerificationFile: false
   path: graph/warshall-floyd.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:54:11+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
@@ -341,5 +360,18 @@ layout: document
 redirect_from:
 - /library/graph/warshall-floyd.cpp
 - /library/graph/warshall-floyd.cpp.html
-title: graph/warshall-floyd.cpp
+title: "\u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5"
 ---
+# ワーシャルフロイド法
+## 概要
+グラフ上でワーシャルフロイド法を行う．
+
+## 使い方
+* `WarshallFloyd(N, directed)`: サイズ`N`で初期化する．有向辺，無向辺を`directed`で設定する．
+* `WarshallFloyd(A)`: 隣接行列`A`で初期化する．
+* `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
+* `warshall_floyd()`: ワーシャルフロイド法を実行する．計算量$O(|V|^3)$
+* `dist(from, to)`: `warshall_floyd()`実行後に実行する．ノード`from`からノード`to`へのコストを返す．到達不能な場合，`inf64`を返す．
+* `dist_from(from)`: `warshall_floyd()`実行後に実行する．ノード`from`から全てのノードへのコストを格納した配列を返す．到達不能なノードのコストは`inf64`となる．
+* `path(from, to)`: `warshall_floyd()`実行後に実行する．ノード`from`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
+* `has_negative_cycle()`: `warshall_floyd()`実行後に実行する．負の閉路の有無を判定する．

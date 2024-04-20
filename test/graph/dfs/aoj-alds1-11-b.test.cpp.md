@@ -6,7 +6,7 @@ data:
     title: base.cpp
   - icon: ':heavy_check_mark:'
     path: graph/dfs.cpp
-    title: graph/dfs.cpp
+    title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -281,8 +281,9 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dfs.cpp\"\n\n\
-    struct DFS {\n    struct Edge {\n        long long from;\n        long long to;\n\
-    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    /**\n * @brief DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/dfs.md\n\
+    */\nstruct DFS {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
     \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
     \   if (from == other.from) {\n                return to < other.to;\n       \
     \     }\n            else return from < other.from;\n        }\n\n        friend\
@@ -313,7 +314,7 @@ data:
     \       if (seen[next]) {\n                if (!done[next]) has_cycle = true;\n\
     \                continue;\n            }\n\n            dfs(next);\n\n      \
     \      descendants[now] += descendants[next] + 1;\n        }\n\n        done[now]\
-    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach_at(long\
+    \ = true;\n        post_order.emplace_back(now, time++);\n    }\n\n    bool reach(long\
     \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to] or\
     \ done[to];\n    }\n\n    bool is_bipartite() {\n        ll color = 0;\n\n   \
     \     rep(i, V) {\n            if (seen[i]) continue;\n\n            seen[i] =\
@@ -327,13 +328,12 @@ data:
     \            else if (colors[next] != next_color) return false;\n\n          \
     \          if (seen[next]) continue;\n                    seen[next] = true;\n\
     \n                    st.push(next);\n                }\n            }\n\n   \
-    \         color += 2;\n        }\n\n        return true;\n    }\n\n    bool is_same_color(long\
-    \ long u, long long v) {\n        return colors[u] == colors[v];\n    }\n};\n\
-    #line 4 \"test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n\
-    \    cin >> V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n\
-    \        cin >> u >> k;\n\n        rep(j, k) {\n            ll v;\n          \
-    \  cin >> v;\n            tree.connect(u - 1, v - 1);\n        }\n    }\n\n  \
-    \  tree.dfs_all();\n\n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
+    \         color += 2;\n        }\n\n        return true;\n    }\n};\n#line 4 \"\
+    test/graph/dfs/aoj-alds1-11-b.test.cpp\"\n\nint main() {\n    ll V;\n    cin >>\
+    \ V;\n\n    DFS tree(V, true);\n    rep(i, V) {\n        ll u, k;\n        cin\
+    \ >> u >> k;\n\n        rep(j, k) {\n            ll v;\n            cin >> v;\n\
+    \            tree.connect(u - 1, v - 1);\n        }\n    }\n\n    tree.dfs_all();\n\
+    \n    vector<pll> ans(V);\n    rep(i, V) {\n       ans[tree.pre_order[i].index].first\
     \ = tree.pre_order[i].time;\n       ans[tree.post_order[i].index].second = tree.post_order[i].time;\n\
     \    }\n\n    rep(i, V) {\n        cout << i + 1 << \" \" << ans[i].first + 1\
     \ << \" \" << ans[i].second + 1 << endl; \n    }\n\n    return 0;\n}\n"
@@ -352,7 +352,7 @@ data:
   isVerificationFile: true
   path: test/graph/dfs/aoj-alds1-11-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:17:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dfs/aoj-alds1-11-b.test.cpp

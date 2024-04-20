@@ -12,10 +12,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/topological-sort/atcoder-abc223-d.test.cpp
     title: test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/atcoder-dp-g.test.cpp
+    title: test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+    title: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/graph/topological-sort.md
+    document_title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -279,43 +287,8 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/topological-sort.cpp\"\
-    \n\ntemplate <typename T = long long>\nstruct TopologicalSort {\n    struct Edge\
-    \ {\n        long long from;\n        long long to;\n        T weight;\n     \
-    \   \n        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
-    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
-    \            if (from == other.from) {\n                if (to == other.to) return\
-    \ weight < other.weight;\n                else return to < other.to;\n       \
-    \     }\n            else return from < other.from;\n        }\n\n        friend\
-    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
-    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
-    \ G, rG;\n    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
-    \n    TopologicalSort(long long N) : V(N), G(V), rG(V) {\n        init();\n  \
-    \  };\n    \n    void init() {\n        seen.assign(V, false);\n        prev.assign(V,\
-    \ -1);\n        maximum_cost.assign(V, -1);\n    }\n    \n    void connect(long\
-    \ long from, long long to, T weight = 1) {\n        assert(0 <= from and from\
-    \ < V);\n        assert(0 <= to and to < V);\n\n        G[from].emplace_back(from,\
-    \ to, weight);\n        rG[to].emplace_back(to, from, weight);\n    }\n\n    vector<long\
-    \ long> operator() () {\n        return topological_sort();\n    }\n\n    vector<long\
-    \ long> topological_sort() {\n        std::vector<long long> indegrees(V);\n\n\
-    \        rep(i, V) {\n            indegrees[i] = rG[i].size();\n        }\n\n\
-    \        priority_queue<ll, vector<ll>, greater<>> que;\n\n        rep(i, V) {\n\
-    \            if (indegrees[i] == 0) {\n                que.push(i);\n        \
-    \        maximum_cost[i] = 0;\n            }\n        }\n\n        vector<long\
-    \ long> ret;\n\n        while (!que.empty()) {\n            long long now = que.top();\
-    \ \n            que.pop();\n\n            ret.push_back(now);\n\n            fore(edge,\
-    \ G[now]) {\n                long long next = edge.to;\n\n                if (--indegrees[next]\
-    \ == 0) {\n                    que.push(next);\n                }\n\n        \
-    \        if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n \
-    \                   prev[next] = now;\n                }\n            }\n    \
-    \    }\n\n        if ((long long)ret.size() != V) return {};\n\n        return\
-    \ ret;\n    }\n\n    vector<long long> path_to(long long to) {\n        assert(0\
-    \ <= to and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\
-    \n        while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    vector<long long> get_longest_path() {\n        vector<long long> ret;\n\
-    \n        ll goal = distance(maximum_cost.begin(), max_element(maximum_cost.begin(),\
-    \ maximum_cost.end()));\n\n        return path_to(goal);\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T = long long>\n\
+    \n\n/**\n * @brief \u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8\n *\
+    \ @docs docs/graph/topological-sort.md\n*/\ntemplate <typename T = long long>\n\
     struct TopologicalSort {\n    struct Edge {\n        long long from;\n       \
     \ long long to;\n        T weight;\n        \n        explicit Edge(long long\
     \ u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n     \
@@ -325,12 +298,13 @@ data:
     \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
     \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
     \n    long long V;\n    vector<vector<Edge>> G, rG;\n    vector<bool> seen;\n\
-    \    vector<long long> prev;\n    vector<T> maximum_cost;\n\n    TopologicalSort(long\
-    \ long N) : V(N), G(V), rG(V) {\n        init();\n    };\n    \n    void init()\
-    \ {\n        seen.assign(V, false);\n        prev.assign(V, -1);\n        maximum_cost.assign(V,\
-    \ -1);\n    }\n    \n    void connect(long long from, long long to, T weight =\
-    \ 1) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to\
-    \ < V);\n\n        G[from].emplace_back(from, to, weight);\n        rG[to].emplace_back(to,\
+    \    vector<long long> prev;\n    vector<T> maximum_cost;\n    bool has_cycle;\n\
+    \n    TopologicalSort(long long N) : V(N), G(V), rG(V) {\n        init();\n  \
+    \  };\n    \n    void init() {\n        has_cycle = false;\n        seen.assign(V,\
+    \ false);\n        prev.assign(V, -1);\n        maximum_cost.assign(V, -1);\n\
+    \    }\n    \n    void connect(long long from, long long to, T weight) {\n   \
+    \     assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
+    \        G[from].emplace_back(from, to, weight);\n        rG[to].emplace_back(to,\
     \ from, weight);\n    }\n\n    vector<long long> operator() () {\n        return\
     \ topological_sort();\n    }\n\n    vector<long long> topological_sort() {\n \
     \       std::vector<long long> indegrees(V);\n\n        rep(i, V) {\n        \
@@ -344,22 +318,65 @@ data:
     \ {\n                    que.push(next);\n                }\n\n              \
     \  if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n       \
     \             prev[next] = now;\n                }\n            }\n        }\n\
-    \n        if ((long long)ret.size() != V) return {};\n\n        return ret;\n\
-    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n \
-    \       while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    vector<long long> get_longest_path() {\n        vector<long long> ret;\n\
-    \n        ll goal = distance(maximum_cost.begin(), max_element(maximum_cost.begin(),\
-    \ maximum_cost.end()));\n\n        return path_to(goal);\n    }\n};"
+    \n        if ((long long)ret.size() != V) {\n            has_cycle = true;\n \
+    \           return {};\n        }\n\n        return ret;\n    }\n\n    vector<long\
+    \ long> path_to(long long to) {\n        assert(0 <= to and to < V);\n\n     \
+    \   vector<long long> p;\n        p.push_back(to);\n\n        while (prev[p.back()]\
+    \ != -1) {\n            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n\n    vector<long long> get_longest_path()\
+    \ {\n        vector<long long> ret;\n\n        ll goal = distance(maximum_cost.begin(),\
+    \ max_element(maximum_cost.begin(), maximum_cost.end()));\n\n        return path_to(goal);\n\
+    \    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief \u30C8\u30DD\u30ED\
+    \u30B8\u30AB\u30EB\u30BD\u30FC\u30C8\n * @docs docs/graph/topological-sort.md\n\
+    */\ntemplate <typename T = long long>\nstruct TopologicalSort {\n    struct Edge\
+    \ {\n        long long from;\n        long long to;\n        T weight;\n     \
+    \   \n        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
+    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
+    \            if (from == other.from) {\n                if (to == other.to) return\
+    \ weight < other.weight;\n                else return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
+    \ G, rG;\n    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
+    \    bool has_cycle;\n\n    TopologicalSort(long long N) : V(N), G(V), rG(V) {\n\
+    \        init();\n    };\n    \n    void init() {\n        has_cycle = false;\n\
+    \        seen.assign(V, false);\n        prev.assign(V, -1);\n        maximum_cost.assign(V,\
+    \ -1);\n    }\n    \n    void connect(long long from, long long to, T weight)\
+    \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
+    \ V);\n\n        G[from].emplace_back(from, to, weight);\n        rG[to].emplace_back(to,\
+    \ from, weight);\n    }\n\n    vector<long long> operator() () {\n        return\
+    \ topological_sort();\n    }\n\n    vector<long long> topological_sort() {\n \
+    \       std::vector<long long> indegrees(V);\n\n        rep(i, V) {\n        \
+    \    indegrees[i] = rG[i].size();\n        }\n\n        priority_queue<ll, vector<ll>,\
+    \ greater<>> que;\n\n        rep(i, V) {\n            if (indegrees[i] == 0) {\n\
+    \                que.push(i);\n                maximum_cost[i] = 0;\n        \
+    \    }\n        }\n\n        vector<long long> ret;\n\n        while (!que.empty())\
+    \ {\n            long long now = que.top(); \n            que.pop();\n\n     \
+    \       ret.push_back(now);\n\n            fore(edge, G[now]) {\n            \
+    \    long long next = edge.to;\n\n                if (--indegrees[next] == 0)\
+    \ {\n                    que.push(next);\n                }\n\n              \
+    \  if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n       \
+    \             prev[next] = now;\n                }\n            }\n        }\n\
+    \n        if ((long long)ret.size() != V) {\n            has_cycle = true;\n \
+    \           return {};\n        }\n\n        return ret;\n    }\n\n    vector<long\
+    \ long> path_to(long long to) {\n        assert(0 <= to and to < V);\n\n     \
+    \   vector<long long> p;\n        p.push_back(to);\n\n        while (prev[p.back()]\
+    \ != -1) {\n            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n\n    vector<long long> get_longest_path()\
+    \ {\n        vector<long long> ret;\n\n        ll goal = distance(maximum_cost.begin(),\
+    \ max_element(maximum_cost.begin(), maximum_cost.end()));\n\n        return path_to(goal);\n\
+    \    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/topological-sort.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 14:43:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
   - test/graph/topological-sort/atcoder-abc223-d.test.cpp
   - test/graph/topological-sort/aoj-grl-4-b.test.cpp
 documentation_of: graph/topological-sort.cpp
@@ -367,5 +384,15 @@ layout: document
 redirect_from:
 - /library/graph/topological-sort.cpp
 - /library/graph/topological-sort.cpp.html
-title: graph/topological-sort.cpp
+title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
 ---
+# トポロジカルソート
+## 概要
+グラフ上でトポロジカルソートを行う．
+
+## 使い方
+* `TopologicalSort(N)`: サイズ`N`で初期化する．
+* `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．
+* `topological_sort()`: トポロジカルソートを行う．計算量$O(|V|+|E|)$
+* `path_to(to)`: `topological_sort()`実行後に実行する．ノード`u`までの経路を出力する．経路は`topological_sort()`内の`prev`の更新に基づく．
+* `get_longest_path()`: グラフ内の最も経路の長い(コストが大きい)経路を返す．

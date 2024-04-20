@@ -13,6 +13,8 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
+    _deprecated_at_docs: docs/graph/bellman-ford.md
+    document_title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -276,45 +278,11 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/bellman-ford.cpp\"\
-    \n\ntemplate<class T = long long>\nstruct BellmanFord {\n    struct Edge {\n \
-    \       long long from;\n        long long to;\n        T weight;\n        \n\
-    \        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
-    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
-    \            if (from == other.from) {\n                if (to == other.to) return\
-    \ weight < other.weight;\n                else return to < other.to;\n       \
-    \     }\n            else return from < other.from;\n        }\n\n        friend\
-    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
-    \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
-    \  vector<long long> prev;\n    vector<T> cost;\n    vector<Edge> edges;\n\n \
-    \   BellmanFord(long long N, bool directed) : V(N), directed_(directed) {\n  \
-    \      init();\n    };\n    \n    void init() {\n        prev.assign(V, -1);\n\
-    \        cost.assign(V, inf64);\n    }\n    \n    void connect(long long from,\
-    \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
-    \ assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
-    \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
-    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
-    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
-    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
-    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
-    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
-    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
-    \   prev[e.to] = e.from;\n                    changed = true;\n              \
-    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
-    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
-    \                    if (cost[e.from] == inf64) continue;\n\n                \
-    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
-    \                        cost[e.to] = -inf64;\n                    }\n       \
-    \         }\n            }\n        }\n    }\n\n    bool has_negative_cycle()\
-    \ {\n        rep(i, V) {\n            if (cost[i] == -inf64) return true;\n  \
-    \      }\n        return false;\n    }\n\n    vector<long long> path_to(long long\
-    \ to) {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n\
-    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
-    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class T = long long>\n\
-    struct BellmanFord {\n    struct Edge {\n        long long from;\n        long\
-    \ long to;\n        T weight;\n        \n        explicit Edge(long long u = -1,\
-    \ long long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool operator\
+    \n\n/**\n * @brief \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\n *\
+    \ @docs docs/graph/bellman-ford.md\n*/\ntemplate<class T = long long>\nstruct\
+    \ BellmanFord {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        T weight;\n        \n        explicit Edge(long long u = -1, long\
+    \ long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool operator\
     \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
     \           if (to == other.to) return weight < other.weight;\n              \
     \  else return to < other.to;\n            }\n            else return from < other.from;\n\
@@ -339,19 +307,60 @@ data:
     \                    if (cost[e.from] == inf64) continue;\n\n                \
     \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
     \                        cost[e.to] = -inf64;\n                    }\n       \
-    \         }\n            }\n        }\n    }\n\n    bool has_negative_cycle()\
-    \ {\n        rep(i, V) {\n            if (cost[i] == -inf64) return true;\n  \
-    \      }\n        return false;\n    }\n\n    vector<long long> path_to(long long\
-    \ to) {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n\
+    \         }\n            }\n        }\n    }\n\n    bool reach(long long to) {\n\
+    \        assert(0 <= to and to < V);\n\n        return cost[to] < inf64;\n   \
+    \ }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to and\
+    \ to < V);\n        if (!reach(to)) return {};\n\n        vector<long long> p;\n\
     \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
     \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n};"
+    \n        return p;\n    }\n\n    bool has_negative_cycle() {\n        rep(i,\
+    \ V) {\n            if (cost[i] == -inf64) return true;\n        }\n        return\
+    \ false;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief \u30D9\u30EB\u30DE\
+    \u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\n * @docs docs/graph/bellman-ford.md\n*/\n\
+    template<class T = long long>\nstruct BellmanFord {\n    struct Edge {\n     \
+    \   long long from;\n        long long to;\n        T weight;\n        \n    \
+    \    explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v),\
+    \ weight(w) {};\n\n        bool operator < (const Edge& other) const {\n     \
+    \       if (from == other.from) {\n                if (to == other.to) return\
+    \ weight < other.weight;\n                else return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
+    \  vector<long long> prev;\n    vector<T> cost;\n    vector<Edge> edges;\n\n \
+    \   BellmanFord(long long N, bool directed) : V(N), directed_(directed) {\n  \
+    \      init();\n    };\n    \n    void init() {\n        prev.assign(V, -1);\n\
+    \        cost.assign(V, inf64);\n    }\n    \n    void connect(long long from,\
+    \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
+    \ assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
+    \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
+    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
+    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
+    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
+    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
+    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
+    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
+    \   prev[e.to] = e.from;\n                    changed = true;\n              \
+    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
+    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
+    \                    if (cost[e.from] == inf64) continue;\n\n                \
+    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
+    \                        cost[e.to] = -inf64;\n                    }\n       \
+    \         }\n            }\n        }\n    }\n\n    bool reach(long long to) {\n\
+    \        assert(0 <= to and to < V);\n\n        return cost[to] < inf64;\n   \
+    \ }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to and\
+    \ to < V);\n        if (!reach(to)) return {};\n\n        vector<long long> p;\n\
+    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
+    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
+    \n        return p;\n    }\n\n    bool has_negative_cycle() {\n        rep(i,\
+    \ V) {\n            if (cost[i] == -inf64) return true;\n        }\n        return\
+    \ false;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/bellman-ford.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:48:47+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -360,5 +369,16 @@ layout: document
 redirect_from:
 - /library/graph/bellman-ford.cpp
 - /library/graph/bellman-ford.cpp.html
-title: graph/bellman-ford.cpp
+title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
 ---
+# ベルマンフォード法
+## 概要
+グラフ上でベルマンフォード法を行う．
+
+## 使い方
+* `BellmanFord(N, directed)`: サイズ`N`で初期化する．有向辺，無向辺を`directed`で設定する．
+* `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
+* `bellman_ford(start)`: ノード`start`からベルマンフォード法を実行する．計算量$O(|E||V|)$
+* `reach(to)`: `bellman_ford(start)`実行後に実行する．ノード`to`へ到達可能か判定する．
+* `path_to(to)`: `bellman_ford(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
+* `has_negative_cycle()`: `bellman_ford(start)`実行後に実行する．負の閉路の有無を返す．

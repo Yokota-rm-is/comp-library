@@ -308,12 +308,12 @@ data:
     \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
     \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
     \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
+    \ long long r) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n\
+    \        if (l <= r and r <= _N) return sum(l, r);\n        \n        if (r >\
+    \ _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n    }\n\n  \
+    \  // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\
+    \u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n       \
+    \ \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
     \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
     \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
     \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
@@ -372,7 +372,7 @@ data:
   isVerificationFile: true
   path: test/structure/bit/aoj-dsl-2-g.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:19:43+09:00'
+  timestamp: '2024-04-20 11:54:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/aoj-dsl-2-g.test.cpp

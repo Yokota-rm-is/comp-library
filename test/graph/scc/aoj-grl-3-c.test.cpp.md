@@ -6,7 +6,7 @@ data:
     title: base.cpp
   - icon: ':heavy_check_mark:'
     path: graph/scc.cpp
-    title: graph/scc.cpp
+    title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -281,8 +281,9 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/scc.cpp\"\n\n\
-    struct SCC {\n    struct Edge {\n        long long from;\n        long long to;\n\
-    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    /**\n * @brief \u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3\n * @docs docs/graph/scc.md\n\
+    */\nstruct SCC {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
     \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
     \   if (from == other.from) {\n                return to < other.to;\n       \
     \     }\n            else return from < other.from;\n        }\n\n        friend\
@@ -340,7 +341,7 @@ data:
   isVerificationFile: true
   path: test/graph/scc/aoj-grl-3-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:58:01+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/scc/aoj-grl-3-c.test.cpp

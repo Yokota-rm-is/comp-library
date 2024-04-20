@@ -6,7 +6,7 @@ data:
     title: base.cpp
   - icon: ':heavy_check_mark:'
     path: graph/dijkstra.cpp
-    title: graph/dijkstra.cpp
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -281,7 +281,8 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dijkstra.cpp\"\
-    \n\ntemplate<class T = long long>\nstruct Dijkstra {\n    struct Edge {\n    \
+    \n\n/**\n * @brief \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\n * @docs docs/graph/dijkstra.md\n\
+    */\ntemplate<class T = long long>\nstruct Dijkstra {\n    struct Edge {\n    \
     \    long long from;\n        long long to;\n        T weight;\n        \n   \
     \     explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v),\
     \ weight(w) {};\n\n        bool operator < (const Edge& other) const {\n     \
@@ -311,17 +312,18 @@ data:
     \                long long next = edge.to;\n                if (chmin(cost[next],\
     \ cost[now] + edge.weight)) {\n                    prev[next] = now;\n       \
     \             que.emplace(cost[next], next);\n                }\n            }\n\
-    \        }\n    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        vector<long long>\
-    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
-    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};\n#line 4 \"test/graph/dijkstra/aoj-grl-1-a.test.cpp\"\
-    \n\nint main() {\n    ll V, E, r;\n    cin >> V >> E >> r;\n\n    Dijkstra<ll>\
-    \ tree(V, true);\n    rep(i, E) {\n        ll s, t, d;\n        cin >> s >> t\
-    \ >> d;\n\n        tree.connect(s, t, d);\n    }\n\n    tree(r);\n    rep(i, V)\
-    \ {\n        if (tree.cost[i] == inf64) cout << \"INF\" << endl;\n        else\
-    \ cout << tree.cost[i] << endl;\n    }\n\n    return 0;\n}\n"
+    \        }\n    }\n\n    bool reach(long long to) {\n        assert(0 <= to and\
+    \ to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!reach(to)) return\
+    \ {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n        while\
+    \ (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n       \
+    \ }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n};\n\
+    #line 4 \"test/graph/dijkstra/aoj-grl-1-a.test.cpp\"\n\nint main() {\n    ll V,\
+    \ E, r;\n    cin >> V >> E >> r;\n\n    Dijkstra<ll> tree(V, true);\n    rep(i,\
+    \ E) {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        tree.connect(s,\
+    \ t, d);\n    }\n\n    tree(r);\n    rep(i, V) {\n        if (tree.cost[i] ==\
+    \ inf64) cout << \"INF\" << endl;\n        else cout << tree.cost[i] << endl;\n\
+    \    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&\"\
     \n\n#include \"../../../graph/dijkstra.cpp\"\n\nint main() {\n    ll V, E, r;\n\
     \    cin >> V >> E >> r;\n\n    Dijkstra<ll> tree(V, true);\n    rep(i, E) {\n\
@@ -335,7 +337,7 @@ data:
   isVerificationFile: true
   path: test/graph/dijkstra/aoj-grl-1-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:18:57+09:00'
+  timestamp: '2024-04-20 12:48:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dijkstra/aoj-grl-1-a.test.cpp

@@ -290,18 +290,19 @@ data:
     \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
     \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
     \  vector<vector<Edge>> G;\n    vector<bool> seen;\n    vector<long long> prev;\n\
-    \    vector<long long> depth;\n\n    BFS(long long N, bool directed) : V(N), directed_(directed),\
-    \ G(V){\n        init();\n    };\n    \n    void init() {\n        seen.assign(V,\
-    \ false);\n        prev.assign(V, -1);\n        depth.assign(V, inf64);\n    }\n\
-    \    \n    void connect(long long from, long long to) {\n        assert(0 <= from\
-    \ and from < V);\n        assert(0 <= to and to < V);\n\n        if (directed_)\
-    \ {\n            G[from].emplace_back(from, to);\n        }\n        else {\n\
-    \            G[from].emplace_back(from, to);\n            G[to].emplace_back(to,\
-    \ from);\n        }\n    }\n\n    void operator() (long long start) {\n      \
-    \  bfs(start);\n    }\n\n    void bfs_all() {\n        rep(i, V) {\n         \
-    \   if (seen[i]) continue;\n            bfs(i);\n        }\n    }\n\n    void\
-    \ bfs(long long start) {\n        assert(0 <= start and start < V);\n\n      \
-    \  queue<long long> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9\
+    \    vector<long long> depth;\n    long long group;\n\n    BFS(long long N, bool\
+    \ directed) : V(N), directed_(directed), G(V){\n        init();\n    };\n    \n\
+    \    void init() {\n        group = 0;\n        seen.assign(V, false);\n     \
+    \   prev.assign(V, -1);\n        depth.assign(V, inf64);\n    }\n    \n    void\
+    \ connect(long long from, long long to) {\n        assert(0 <= from and from <\
+    \ V);\n        assert(0 <= to and to < V);\n\n        if (directed_) {\n     \
+    \       G[from].emplace_back(from, to);\n        }\n        else {\n         \
+    \   G[from].emplace_back(from, to);\n            G[to].emplace_back(to, from);\n\
+    \        }\n    }\n\n    void operator() (long long start) {\n        bfs(start);\n\
+    \    }\n\n    void bfs_all() {\n        rep(i, V) {\n            if (seen[i])\
+    \ continue;\n            bfs(i);\n            ++group;\n        }\n    }\n\n \
+    \   void bfs(long long start) {\n        assert(0 <= start and start < V);\n\n\
+    \        queue<long long> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9\
     \ start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n        seen[start]\
     \ = true;\n        depth[start] = 0;\n        que.push(start); // noq \u3092\u6A59\
     \u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\
@@ -317,18 +318,19 @@ data:
     \u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\
     \u8FFD\u52A0\u3059\u308B\n                depth[next] = depth[now] + 1;\n    \
     \            prev[next] = now;\n                que.push(next);\n            }\n\
-    \        }\n    }\n\n    long long find_diameter() {\n        long long ret =\
-    \ 0;\n        vector<bool> done(V, false);\n\n        rep(i, V) {\n          \
-    \  if (done[i]) continue;\n            bfs(i);\n            long long u = distance(depth.begin(),\
-    \ max_element(depth.begin(), depth.end()));\n\n            init();\n         \
-    \   bfs(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
-    \ depth.end()));\n            \n            chmax(ret, depth[v]);\n          \
-    \  rep(i, V) {\n                if (seen[i]) done[i] = true;\n            }\n\
-    \            init();\n        }\n\n        return ret;\n    }\n\n    bool reach(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to];\n\
-    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n \
-    \       while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n    }\n\n    long long count_cc() {\n        return group;\n    }\n\
+    \n    long long find_diameter() {\n        long long ret = 0;\n        vector<bool>\
+    \ done(V, false);\n\n        rep(i, V) {\n            if (done[i]) continue;\n\
+    \            bfs(i);\n            long long u = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n\n            init();\n            bfs(u);\n            long\
+    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
+    \            \n            chmax(ret, depth[v]);\n            rep(i, V) {\n  \
+    \              if (seen[i]) done[i] = true;\n            }\n            init();\n\
+    \        }\n\n        return ret;\n    }\n\n    bool reach(long long to) {\n \
+    \       assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n   \
+    \ vector<long long> path_to(long long to) {\n        assert(0 <= to and to < V);\n\
+    \        if (!reach(to)) return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\
+    \n        while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
     };\n#line 4 \"test/graph/bfs/atcoder-abc270-c.test.cpp\"\n\nint main() {\n   \
     \ ll N, X, Y;\n    cin >> N >> X >> Y;\n\n    BFS tree(N, false);\n    rep(i,\
@@ -347,7 +349,7 @@ data:
   isVerificationFile: true
   path: test/graph/bfs/atcoder-abc270-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 11:48:27+09:00'
+  timestamp: '2024-04-20 12:48:47+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/bfs/atcoder-abc270-c.test.cpp

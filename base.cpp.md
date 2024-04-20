@@ -4,25 +4,25 @@ data:
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
     path: graph/bellman-ford.cpp
-    title: graph/bellman-ford.cpp
+    title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
   - icon: ':heavy_check_mark:'
     path: graph/bfs.cpp
     title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
   - icon: ':heavy_check_mark:'
     path: graph/dfs.cpp
-    title: graph/dfs.cpp
+    title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
   - icon: ':heavy_check_mark:'
     path: graph/dijkstra.cpp
-    title: graph/dijkstra.cpp
+    title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
   - icon: ':heavy_check_mark:'
     path: graph/scc.cpp
-    title: graph/scc.cpp
+    title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
   - icon: ':heavy_check_mark:'
     path: graph/topological-sort.cpp
-    title: graph/topological-sort.cpp
+    title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
   - icon: ':heavy_check_mark:'
     path: graph/warshall-floyd.cpp
-    title: graph/warshall-floyd.cpp
+    title: "\u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5"
   - icon: ':heavy_check_mark:'
     path: grid/grid-bfs.cpp
     title: grid/grid-bfs.cpp
@@ -91,6 +91,9 @@ data:
     path: test/graph/bfs/atcoder-abc270-c.test.cpp
     title: test/graph/bfs/atcoder-abc270-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/graph/bfs/atcoder-abc284-c.test.cpp
+    title: test/graph/bfs/atcoder-abc284-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
   - icon: ':heavy_check_mark:'
@@ -111,6 +114,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/topological-sort/atcoder-abc223-d.test.cpp
     title: test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/atcoder-dp-g.test.cpp
+    title: test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+    title: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
@@ -787,10 +796,13 @@ data:
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   - test/graph/dijkstra/atcoder-abc270-c.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
   - test/graph/topological-sort/atcoder-abc223-d.test.cpp
   - test/graph/topological-sort/aoj-grl-4-b.test.cpp
   - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   - test/graph/bfs/atcoder-abc270-c.test.cpp
+  - test/graph/bfs/atcoder-abc284-c.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
   - test/graph/dfs/atcoder-abc327-d.test.cpp
