@@ -21,9 +21,12 @@ struct WarshallFloyd {
         rep(i, V) rep(j, V) prev[i][j] = i;
     }
 
-    void connect(long long u, long long v, T w) {
-        cost[u][v] = w;
-        if (!directed_) cost[v][u] = w;
+    void connect(long long from, long long to, T weight) {
+        assert(0 <= from and from < V);
+        assert(0 <= to and to < V);
+
+        cost[from][to] = weight;
+        if (!directed_) cost[to][from] = weight;
     }
 
     void operator() () {
@@ -46,19 +49,36 @@ struct WarshallFloyd {
         }
     }
 
+    bool reach(long long from, long long to) {
+        assert(0 <= from and from < V);
+        assert(0 <= to and to < V);
+
+        return cost[from][to] < inf64;
+    }
+
     T dist(long long from, long long to) {
+        assert(0 <= from and from < V);
+        assert(0 <= to and to < V);
+
         return cost[from][to];
     }
 
     vector<T> dist_from(long long from) {
-        vector<T> ans;
+        assert(0 <= from and from < V);
 
-        rep(i, V) ans.push_back(cost[from][i]);
+        vector<T> ret;
 
-        return ans;
+        rep(i, V) ret.push_back(cost[from][i]);
+
+        return ret;
     }
 
     vector<long long> path(long long from, long long to) {
+        assert(0 <= from and from < V);
+        assert(0 <= to and to < V);
+        
+        if (!reach(from, to)) return {};
+
         vector<long long> p;
         p.push_back(to);
 
