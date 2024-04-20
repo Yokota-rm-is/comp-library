@@ -94,6 +94,7 @@ struct Dijkstra {
 
     vector<long long> path_to(long long to) {
         assert(0 <= to and to < V);
+        if (!reach(to)) return {};
 
         vector<long long> p;
         p.push_back(to);
