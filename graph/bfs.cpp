@@ -30,12 +30,14 @@ struct BFS {
     vector<bool> seen;
     vector<long long> prev;
     vector<long long> depth;
+    long long group;
 
     BFS(long long N, bool directed) : V(N), directed_(directed), G(V){
         init();
     };
     
     void init() {
+        group = 0;
         seen.assign(V, false);
         prev.assign(V, -1);
         depth.assign(V, inf64);
@@ -62,6 +64,7 @@ struct BFS {
         rep(i, V) {
             if (seen[i]) continue;
             bfs(i);
+            ++group;
         }
     }
 
@@ -92,6 +95,10 @@ struct BFS {
                 que.push(next);
             }
         }
+    }
+
+    long long count_cc() {
+        return group;
     }
 
     long long find_diameter() {
