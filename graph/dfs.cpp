@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief DFS(深さ優先探索)
+ * @docs docs/graph/dfs.md
+*/
 struct DFS {
     struct Edge {
         long long from;
@@ -107,7 +111,7 @@ struct DFS {
         post_order.emplace_back(now, time++);
     }
 
-    bool reach_at(long long to) {
+    bool reach(long long to) {
         assert(0 <= to and to < V);
 
         return seen[to] or done[to];
@@ -150,9 +154,5 @@ struct DFS {
         }
 
         return true;
-    }
-
-    bool is_same_color(long long u, long long v) {
-        return colors[u] == colors[v];
     }
 };
