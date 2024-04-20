@@ -31,7 +31,8 @@ struct TreeBFS {
     vector<vector<Edge>> G;
     vector<bool> seen;
     vector<long long> prev;
-    vector<T> depth;
+    vector<long long> depth;
+    vector<T> cost;
 
     vector<vector<long long>> doubling;
     long long log;
@@ -45,11 +46,12 @@ struct TreeBFS {
         seen.assign(V, false);
         prev.assign(V, -1);
         depth.assign(V, inf64);
+        cost.assign(V, inf64);
 
         lca_init_done = false;
 
         log = 1;
-        while ((1ll << log) <= V) ++log;
+        while ((1ll << log) < V) ++log;
 
         doubling.assign(log, vector<long long>(V, -1));
     }
@@ -70,6 +72,7 @@ struct TreeBFS {
         // 初期条件 (頂点 start を初期ノードとする)
         seen[start] = true;
         depth[start] = 0;
+        cost[start] = 0;
         que.push(start); // noq を橙色頂点にする
 
         // BFS 開始 (キューが空になるまで探索を行う)
@@ -84,7 +87,8 @@ struct TreeBFS {
                 seen[next] = true;
 
                 // 新たな白色頂点 nv について距離情報を更新してキューに追加する
-                depth[next] = depth[now] + edge.weight;
+                depth[next] = depth[now] + 1;
+                cost[next] = cost[now] + edge.weight;
                 prev[next] = now;
                 que.push(next);
             }
@@ -98,13 +102,13 @@ struct TreeBFS {
         rep(i, V) {
             if (done[i]) continue;
             bfs(i);
-            long long u = distance(depth.begin(), max_element(depth.begin(), depth.end()));
+            long long u = distance(cost.begin(), max_element(cost.begin(), cost.end()));
 
             init();
             bfs(u);
-            long long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));
+            long long v = distance(cost.begin(), max_element(cost.begin(), cost.end()));
             
-            chmax(ret, depth[v]);
+            chmax(ret, cost[v]);
             rep(i, V) {
                 if (seen[i]) done[i] = true;
             }
@@ -118,6 +122,10 @@ struct TreeBFS {
         assert(0 <= root and root < V);
 
         bfs(root);
+
+        rep(i, V) {
+            doubling[0][i] = prev[i];
+        }
 
         rep(k, log - 1) {
             rep(v, V) {
