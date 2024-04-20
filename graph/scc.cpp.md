@@ -276,67 +276,61 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/scc.cpp\"\n\n\
-    template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
-    \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
-    \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
-    \ u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long\
-    \ r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\n\
-    \    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\nstruct Stamp {\n    long long index;\n\
-    \    long long time;\n    explicit Stamp(long long i = 0, long long t = -1) :\
-    \ index(i), time(t) {};\n\n    bool operator<(const Stamp& right) const {\n  \
-    \      return time < right.time;\n    }\n\n    friend ostream& operator << (ostream&\
-    \ os, const Stamp& stamp) {\n        return os << \"(\" << stamp.time << \", \"\
-    \ << stamp.index << \")\";\n    }\n};\n\nstruct SCC {\n    long long V;\n    vector<vector<Edge<>>>\
-    \ G, rG;\n    vector<bool> seen, done;\n    vector<long long> roots;\n\n    vector<Stamp>\
-    \ pre_order, post_order;\n    long long pre_time, post_time;\n\n    vector<set<long\
-    \ long>> scc;\n\n    SCC(long long N) : V(N), G(V), rG(V) {\n        init();\n\
-    \    };\n    \n    void init() {\n        pre_time = 0;\n        post_time = 0;\n\
-    \n        seen.assign(V, false);\n        done.assign(V, false);\n        roots.assign(V,\
-    \ -1);\n    }\n    \n    void connect(long long from, long long to) {\n      \
-    \  assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n  \
-    \      G[from].emplace_back(from, to);\n        rG[to].emplace_back(to, from);\n\
-    \    }\n\n    long long operator() () {\n        return find_scc();\n    }\n\n\
-    \    long long find_scc() {\n        rep(i, V) {\n            if (seen[i]) continue;\n\
-    \            dfs(i);\n        }\n\n        vector<long long> v(V);\n        rep(i,\
-    \ V) {\n            v[post_order[i].time] = post_order[i].index;\n        }\n\
-    \        reverse(v);\n        \n        fore(index, v) {\n            if (roots[index]\
-    \ != -1) continue;\n            dfs_reverse(index, index);\n        }\n\n    \
-    \    map<long long, set<long long>> m;\n\n        rep(i, roots.size()) {\n   \
-    \         m[roots[i]].insert(i);\n        }\n\n        fore(p, m) {\n        \
-    \    set<long long> s_i = p.second;\n            scc.push_back(s_i);\n       \
-    \ }\n\n        return (long long)scc.size();\n    }\n\n    bool is_same(long long\
-    \ u, long long v) {\n        assert(0 <= u and u < V);\n        assert(0 <= v\
-    \ and v < V);\n        \n        return roots[u] == roots[v];\n    }\n\nprivate:\n\
-    \    void dfs(long long now) {\n        assert(0 <= now and now < V);\n\n    \
-    \    seen[now] = true;\n        pre_order.emplace_back(now, pre_time++);\n\n \
-    \       fore(edge, G[now]) {\n            long long next = edge.to;\n        \
-    \    if (seen[next]) continue;\n            dfs(next);\n        }\n\n        done[now]\
-    \ = true;\n        post_order.emplace_back(now, post_time++);\n    }\n\n    void\
-    \ dfs_reverse(long long now, long long group) {\n        roots[now] = group;\n\
-    \n        fore(edge, rG[now]) {\n            long long next = edge.to;\n     \
-    \       if (roots[next] != -1) continue;\n            dfs_reverse(next, group);\n\
+    struct SCC {\n    struct Edge {\n        long long from;\n        long long to;\n\
+    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
+    \   if (from == other.from) {\n                return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    struct Stamp {\n        long long index;\n\
+    \        long long time;\n        explicit Stamp(long long i = 0, long long t\
+    \ = -1) : index(i), time(t) {};\n\n        bool operator<(const Stamp& right)\
+    \ const {\n            return time < right.time;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Stamp& stamp) {\n            return\
+    \ os << \"(\" << stamp.time << \", \" << stamp.index << \")\";\n        }\n  \
+    \  };\n\n    long long V;\n    vector<vector<Edge>> G, rG;\n    vector<bool> seen,\
+    \ done;\n    vector<long long> roots;\n\n    vector<Stamp> pre_order, post_order;\n\
+    \    long long pre_time, post_time;\n\n    vector<set<long long>> scc;\n\n   \
+    \ SCC(long long N) : V(N), G(V), rG(V) {\n        init();\n    };\n    \n    void\
+    \ init() {\n        pre_time = 0;\n        post_time = 0;\n\n        seen.assign(V,\
+    \ false);\n        done.assign(V, false);\n        roots.assign(V, -1);\n    }\n\
+    \    \n    void connect(long long from, long long to) {\n        assert(0 <= from\
+    \ and from < V);\n        assert(0 <= to and to < V);\n\n        G[from].emplace_back(from,\
+    \ to);\n        rG[to].emplace_back(to, from);\n    }\n\n    long long operator()\
+    \ () {\n        return find_scc();\n    }\n\n    long long find_scc() {\n    \
+    \    rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n  \
+    \      }\n\n        vector<long long> v(V);\n        rep(i, V) {\n           \
+    \ v[post_order[i].time] = post_order[i].index;\n        }\n        reverse(v);\n\
+    \        \n        fore(index, v) {\n            if (roots[index] != -1) continue;\n\
+    \            dfs_reverse(index, index);\n        }\n\n        map<long long, set<long\
+    \ long>> m;\n\n        rep(i, roots.size()) {\n            m[roots[i]].insert(i);\n\
+    \        }\n\n        fore(p, m) {\n            set<long long> s_i = p.second;\n\
+    \            scc.push_back(s_i);\n        }\n\n        return (long long)scc.size();\n\
+    \    }\n\n    bool is_same(long long u, long long v) {\n        assert(0 <= u\
+    \ and u < V);\n        assert(0 <= v and v < V);\n        \n        return roots[u]\
+    \ == roots[v];\n    }\n\nprivate:\n    void dfs(long long now) {\n        assert(0\
+    \ <= now and now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
+    \ pre_time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
+    \            if (seen[next]) continue;\n            dfs(next);\n        }\n\n\
+    \        done[now] = true;\n        post_order.emplace_back(now, post_time++);\n\
+    \    }\n\n    void dfs_reverse(long long now, long long group) {\n        roots[now]\
+    \ = group;\n\n        fore(edge, rG[now]) {\n            long long next = edge.to;\n\
+    \            if (roots[next] != -1) continue;\n            dfs_reverse(next, group);\n\
     \        }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
-    \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
-    \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
-    \ Cap flow;\n    \n    explicit Edge(long long u = -1, long long v = -1, Weight\
-    \ w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w),\
-    \ cap(c), id(i), rev(r), flow(0) {};\n\n    bool operator < (const Edge& other)\
-    \ const {\n        if (from == other.from) {\n            if (to == other.to)\
-    \ return weight < other.weight;\n            else return to < other.to;\n    \
-    \    }\n        else return from < other.from;\n    }\n\n    friend ostream& operator\
-    \ << (ostream& os, const Edge& edge) {\n        return os << edge.to;\n    }\n\
-    };\n\nstruct Stamp {\n    long long index;\n    long long time;\n    explicit\
-    \ Stamp(long long i = 0, long long t = -1) : index(i), time(t) {};\n\n    bool\
-    \ operator<(const Stamp& right) const {\n        return time < right.time;\n \
-    \   }\n\n    friend ostream& operator << (ostream& os, const Stamp& stamp) {\n\
-    \        return os << \"(\" << stamp.time << \", \" << stamp.index << \")\";\n\
-    \    }\n};\n\nstruct SCC {\n    long long V;\n    vector<vector<Edge<>>> G, rG;\n\
-    \    vector<bool> seen, done;\n    vector<long long> roots;\n\n    vector<Stamp>\
+  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct SCC {\n    struct Edge {\n\
+    \        long long from;\n        long long to;\n        \n        explicit Edge(long\
+    \ long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool operator\
+    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
+    \           return to < other.to;\n            }\n            else return from\
+    \ < other.from;\n        }\n\n        friend ostream& operator << (ostream& os,\
+    \ const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\n\
+    \    struct Stamp {\n        long long index;\n        long long time;\n     \
+    \   explicit Stamp(long long i = 0, long long t = -1) : index(i), time(t) {};\n\
+    \n        bool operator<(const Stamp& right) const {\n            return time\
+    \ < right.time;\n        }\n\n        friend ostream& operator << (ostream& os,\
+    \ const Stamp& stamp) {\n            return os << \"(\" << stamp.time << \", \"\
+    \ << stamp.index << \")\";\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
+    \ G, rG;\n    vector<bool> seen, done;\n    vector<long long> roots;\n\n    vector<Stamp>\
     \ pre_order, post_order;\n    long long pre_time, post_time;\n\n    vector<set<long\
     \ long>> scc;\n\n    SCC(long long N) : V(N), G(V), rG(V) {\n        init();\n\
     \    };\n    \n    void init() {\n        pre_time = 0;\n        post_time = 0;\n\
@@ -370,7 +364,7 @@ data:
   isVerificationFile: false
   path: graph/scc.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:28:58+09:00'
+  timestamp: '2024-04-20 11:18:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/scc/aoj-grl-3-c.test.cpp

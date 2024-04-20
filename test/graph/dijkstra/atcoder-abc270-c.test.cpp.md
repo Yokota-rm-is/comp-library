@@ -281,50 +281,47 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/dijkstra.cpp\"\
-    \n\ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n\
-    \    long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n  \
-    \  long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\ntemplate<class Weight = long long>\n\
-    struct Dijkstra {\n    long long V;\n    bool directed_;\n    vector<vector<Edge<Weight>>>\
-    \ G;\n    vector<bool> done;\n    vector<long long> prev;\n    vector<Weight>\
-    \ cost;\n    \n    Dijkstra(long long N, bool directed) : V(N), directed_(directed),\
+    \n\ntemplate<class T = long long>\nstruct Dijkstra {\n    struct Edge {\n    \
+    \    long long from;\n        long long to;\n        T weight;\n        \n   \
+    \     explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v),\
+    \ weight(w) {};\n\n        bool operator < (const Edge& other) const {\n     \
+    \       if (from == other.from) {\n                if (to == other.to) return\
+    \ weight < other.weight;\n                else return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
+    \  vector<vector<Edge>> G;\n    vector<bool> done;\n    vector<long long> prev;\n\
+    \    vector<T> cost;\n    \n    Dijkstra(long long N, bool directed) : V(N), directed_(directed),\
     \ G(V) {\n        init();\n    };\n    \n    void init() {\n        done.assign(V,\
     \ false);\n        prev.assign(V, -1);\n        cost.assign(V, inf64);\n    }\n\
-    \    \n    void connect(long long from, long long to, Weight weight) {\n     \
-    \   assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n \
-    \       if (directed_) {\n            G[from].emplace_back(from, to, weight);\n\
-    \        }\n        else {\n            G[from].emplace_back(from, to, weight);\n\
-    \            G[to].emplace_back(to, from, weight);\n        }\n    }\n\n    void\
-    \ operator() (long long start) {\n        dijkstra(start);\n    }\n\n    void\
-    \ dijkstra(long long start) {\n        assert(0 <= start and start < V);\n\n \
-    \       priority_queue<pair<long long, long long>, vector<pair<long long, long\
-    \ long>>, greater<>> que;\n\n        cost[start] = 0;\n        \n        que.emplace(cost[start],\
-    \ start);\n        while (!que.empty()) {\n            long long now = que.top().second;\n\
-    \            que.pop();\n\n            if (done[now]) continue;  // now\u304C\u78BA\
-    \u5B9A\u6E08\u3060\u3063\u305F\u3089\u98DB\u3070\u3059\n            done[now]\
-    \ = true;   // now\u3092\u521D\u3081\u3066\u30AD\u30E5\u30FC\u304B\u3089\u53D6\
-    \u308A\u51FA\u3057\u305F\u3089\u6700\u5C0F\u3068\u3057\u3066\u78BA\u5B9A\n\n \
-    \           fore(edge, G[now]) {\n                long long next = edge.to;\n\
-    \                if (chmin(cost[next], cost[now] + edge.weight)) {\n         \
-    \           prev[next] = now;\n                    que.emplace(cost[next], next);\n\
-    \                }\n            }\n        }\n    }\n\n    bool reach_at(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        return done[to];\n\
-    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n \
-    \       while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    };\n#line 4 \"test/graph/dijkstra/atcoder-abc270-c.test.cpp\"\n\nint main() {\n\
-    \    ll N, X, Y;\n    cin >> N >> X >> Y;\n\n    Dijkstra tree(N, false);\n  \
-    \  rep(i, N - 1) {\n        ll u, v;\n        cin >> u >> v;\n\n        tree.connect(u\
-    \ - 1, v - 1, 1);\n    }\n\n    tree(X - 1);\n\n    auto ans = tree.path_to(Y\
-    \ - 1);\n    fore(a, ans) ++a;\n\n    cout << ans << endl;\n\n    return 0;\n\
-    }\n"
+    \    \n    void connect(long long from, long long to, T weight) {\n        assert(0\
+    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        if (directed_)\
+    \ {\n            G[from].emplace_back(from, to, weight);\n        }\n        else\
+    \ {\n            G[from].emplace_back(from, to, weight);\n            G[to].emplace_back(to,\
+    \ from, weight);\n        }\n    }\n\n    void operator() (long long start) {\n\
+    \        dijkstra(start);\n    }\n\n    void dijkstra(long long start) {\n   \
+    \     assert(0 <= start and start < V);\n\n        priority_queue<pair<long long,\
+    \ long long>, vector<pair<long long, long long>>, greater<>> que;\n\n        cost[start]\
+    \ = 0;\n        \n        que.emplace(cost[start], start);\n        while (!que.empty())\
+    \ {\n            long long now = que.top().second;\n            que.pop();\n\n\
+    \            if (done[now]) continue;  // now\u304C\u78BA\u5B9A\u6E08\u3060\u3063\
+    \u305F\u3089\u98DB\u3070\u3059\n            done[now] = true;   // now\u3092\u521D\
+    \u3081\u3066\u30AD\u30E5\u30FC\u304B\u3089\u53D6\u308A\u51FA\u3057\u305F\u3089\
+    \u6700\u5C0F\u3068\u3057\u3066\u78BA\u5B9A\n\n            fore(edge, G[now]) {\n\
+    \                long long next = edge.to;\n                if (chmin(cost[next],\
+    \ cost[now] + edge.weight)) {\n                    prev[next] = now;\n       \
+    \             que.emplace(cost[next], next);\n                }\n            }\n\
+    \        }\n    }\n\n    bool reach_at(long long to) {\n        assert(0 <= to\
+    \ and to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n\n        vector<long long>\
+    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
+    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n};\n#line 4 \"test/graph/dijkstra/atcoder-abc270-c.test.cpp\"\
+    \n\nint main() {\n    ll N, X, Y;\n    cin >> N >> X >> Y;\n\n    Dijkstra tree(N,\
+    \ false);\n    rep(i, N - 1) {\n        ll u, v;\n        cin >> u >> v;\n\n \
+    \       tree.connect(u - 1, v - 1, 1);\n    }\n\n    tree(X - 1);\n\n    auto\
+    \ ans = tree.path_to(Y - 1);\n    fore(a, ans) ++a;\n\n    cout << ans << endl;\n\
+    \n    return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc270/tasks/abc270_c\"\n\n\
     #include \"../../../graph/dijkstra.cpp\"\n\nint main() {\n    ll N, X, Y;\n  \
     \  cin >> N >> X >> Y;\n\n    Dijkstra tree(N, false);\n    rep(i, N - 1) {\n\
@@ -337,7 +334,7 @@ data:
   isVerificationFile: true
   path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-16 03:13:58+09:00'
+  timestamp: '2024-04-20 11:18:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dijkstra/atcoder-abc270-c.test.cpp

@@ -281,16 +281,11 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
-    \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
+    \n\ntemplate<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n\
+    \    vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n\
+    \    }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n   \
+    \     rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n\
+    \        init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
     \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
     \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
     \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
@@ -377,7 +372,7 @@ data:
   isVerificationFile: true
   path: test/structure/bit/aoj-dsl-2-e.test.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:53:20+09:00'
+  timestamp: '2024-04-20 11:19:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/aoj-dsl-2-e.test.cpp

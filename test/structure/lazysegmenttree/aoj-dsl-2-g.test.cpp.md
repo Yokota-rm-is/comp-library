@@ -281,16 +281,10 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.cpp\"\
-    \n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
-    // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
-    \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
-    \ RSQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1\n\
-    // RMQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1\n\
-    // RSQ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1\n\
-    \ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n  \
-    \  long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1, long\
-    \ long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n\
-    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
+    \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n\
+    \    long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1,\
+    \ long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\
+    \n    bool operator< (const Node &other) const {\n        return value < other.value;\n\
     \    }\n\n    bool operator== (const T other) const {\n        return value ==\
     \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
     \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
@@ -496,7 +490,7 @@ data:
   isVerificationFile: true
   path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:53:20+09:00'
+  timestamp: '2024-04-20 11:19:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp

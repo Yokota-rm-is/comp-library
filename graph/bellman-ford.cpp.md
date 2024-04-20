@@ -276,74 +276,70 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/bellman-ford.cpp\"\
-    \n\ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n\
-    \    long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n  \
-    \  long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\ntemplate<class Weight = long long>\n\
-    struct BellmanFord {\n    long long V;\n    bool directed_;\n    vector<long long>\
-    \ prev;\n    vector<Weight> cost;\n    vector<Edge<Weight>> edges;\n\n    BellmanFord(long\
-    \ long N, bool directed) : V(N), directed_(directed) {\n        init();\n    };\n\
-    \    \n    void init() {\n        prev.assign(V, -1);\n        cost.assign(V,\
-    \ inf64);\n    }\n    \n    void connect(long long from, long long to, Weight\
-    \ weight) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and\
-    \ to < V);\n\n        edges.emplace_back(from, to, weight);\n        if (!directed_)\
-    \ edges.emplace_back(to, from, weight);\n    }\n\n    void operator() (long long\
-    \ start) {\n        bellman_ford(start);\n    }\n\n    void bellman_ford(long\
-    \ long start) {\n        assert(0 <= start and start < V);\n\n        bool changed\
-    \ = false;\n        cost[start] = 0;\n\n        rep(i, V) {\n            changed\
-    \ = false;\n\n            fore(e, edges) {\n                if (cost[e.from] ==\
-    \ inf64) continue;\n\n                Weight c = cost[e.from] + e.weight;\n  \
-    \              if (chmin(cost[e.to], c)) {\n                    prev[e.to] = e.from;\n\
-    \                    changed = true;\n                }\n            }\n\n   \
-    \         if (!changed) break;\n        }\n\n        if (changed) {\n        \
-    \    rep(i, V) {\n                fore(e, edges) {\n                    if (cost[e.from]\
-    \ == inf64) continue;\n\n                    Weight c = cost[e.from] + e.weight;\n\
-    \                    if (c < cost[e.to]) {\n                        cost[e.to]\
-    \ = -inf64;\n                    }\n                }\n            }\n       \
-    \ }\n    }\n\n    bool has_negative_cycle() {\n        rep(i, V) {\n         \
-    \   if (cost[i] == -inf64) return true;\n        }\n        return false;\n  \
-    \  }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n\n        vector<long long> p;\n        p.push_back(to);\n\n \
-    \       while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    };\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
-    \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
-    \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
-    \ Cap flow;\n    \n    explicit Edge(long long u = -1, long long v = -1, Weight\
-    \ w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w),\
-    \ cap(c), id(i), rev(r), flow(0) {};\n\n    bool operator < (const Edge& other)\
-    \ const {\n        if (from == other.from) {\n            if (to == other.to)\
-    \ return weight < other.weight;\n            else return to < other.to;\n    \
-    \    }\n        else return from < other.from;\n    }\n\n    friend ostream& operator\
-    \ << (ostream& os, const Edge& edge) {\n        return os << edge.to;\n    }\n\
-    };\n\ntemplate<class Weight = long long>\nstruct BellmanFord {\n    long long\
-    \ V;\n    bool directed_;\n    vector<long long> prev;\n    vector<Weight> cost;\n\
-    \    vector<Edge<Weight>> edges;\n\n    BellmanFord(long long N, bool directed)\
-    \ : V(N), directed_(directed) {\n        init();\n    };\n    \n    void init()\
-    \ {\n        prev.assign(V, -1);\n        cost.assign(V, inf64);\n    }\n    \n\
-    \    void connect(long long from, long long to, Weight weight) {\n        assert(0\
-    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        edges.emplace_back(from,\
-    \ to, weight);\n        if (!directed_) edges.emplace_back(to, from, weight);\n\
-    \    }\n\n    void operator() (long long start) {\n        bellman_ford(start);\n\
-    \    }\n\n    void bellman_ford(long long start) {\n        assert(0 <= start\
-    \ and start < V);\n\n        bool changed = false;\n        cost[start] = 0;\n\
-    \n        rep(i, V) {\n            changed = false;\n\n            fore(e, edges)\
-    \ {\n                if (cost[e.from] == inf64) continue;\n\n                Weight\
-    \ c = cost[e.from] + e.weight;\n                if (chmin(cost[e.to], c)) {\n\
-    \                    prev[e.to] = e.from;\n                    changed = true;\n\
-    \                }\n            }\n\n            if (!changed) break;\n      \
-    \  }\n\n        if (changed) {\n            rep(i, V) {\n                fore(e,\
-    \ edges) {\n                    if (cost[e.from] == inf64) continue;\n\n     \
-    \               Weight c = cost[e.from] + e.weight;\n                    if (c\
-    \ < cost[e.to]) {\n                        cost[e.to] = -inf64;\n            \
-    \        }\n                }\n            }\n        }\n    }\n\n    bool has_negative_cycle()\
+    \n\ntemplate<class T = long long>\nstruct BellmanFord {\n    struct Edge {\n \
+    \       long long from;\n        long long to;\n        T weight;\n        \n\
+    \        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
+    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
+    \            if (from == other.from) {\n                if (to == other.to) return\
+    \ weight < other.weight;\n                else return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
+    \  vector<long long> prev;\n    vector<T> cost;\n    vector<Edge> edges;\n\n \
+    \   BellmanFord(long long N, bool directed) : V(N), directed_(directed) {\n  \
+    \      init();\n    };\n    \n    void init() {\n        prev.assign(V, -1);\n\
+    \        cost.assign(V, inf64);\n    }\n    \n    void connect(long long from,\
+    \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
+    \ assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
+    \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
+    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
+    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
+    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
+    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
+    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
+    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
+    \   prev[e.to] = e.from;\n                    changed = true;\n              \
+    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
+    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
+    \                    if (cost[e.from] == inf64) continue;\n\n                \
+    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
+    \                        cost[e.to] = -inf64;\n                    }\n       \
+    \         }\n            }\n        }\n    }\n\n    bool has_negative_cycle()\
+    \ {\n        rep(i, V) {\n            if (cost[i] == -inf64) return true;\n  \
+    \      }\n        return false;\n    }\n\n    vector<long long> path_to(long long\
+    \ to) {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n\
+    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
+    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
+    \n        return p;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class T = long long>\n\
+    struct BellmanFord {\n    struct Edge {\n        long long from;\n        long\
+    \ long to;\n        T weight;\n        \n        explicit Edge(long long u = -1,\
+    \ long long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool operator\
+    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
+    \           if (to == other.to) return weight < other.weight;\n              \
+    \  else return to < other.to;\n            }\n            else return from < other.from;\n\
+    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
+    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
+    \    bool directed_;\n    vector<long long> prev;\n    vector<T> cost;\n    vector<Edge>\
+    \ edges;\n\n    BellmanFord(long long N, bool directed) : V(N), directed_(directed)\
+    \ {\n        init();\n    };\n    \n    void init() {\n        prev.assign(V,\
+    \ -1);\n        cost.assign(V, inf64);\n    }\n    \n    void connect(long long\
+    \ from, long long to, T weight) {\n        assert(0 <= from and from < V);\n \
+    \       assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
+    \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
+    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
+    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
+    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
+    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
+    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
+    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
+    \   prev[e.to] = e.from;\n                    changed = true;\n              \
+    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
+    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
+    \                    if (cost[e.from] == inf64) continue;\n\n                \
+    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
+    \                        cost[e.to] = -inf64;\n                    }\n       \
+    \         }\n            }\n        }\n    }\n\n    bool has_negative_cycle()\
     \ {\n        rep(i, V) {\n            if (cost[i] == -inf64) return true;\n  \
     \      }\n        return false;\n    }\n\n    vector<long long> path_to(long long\
     \ to) {\n        assert(0 <= to and to < V);\n\n        vector<long long> p;\n\
@@ -355,7 +351,7 @@ data:
   isVerificationFile: false
   path: graph/bellman-ford.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:52:19+09:00'
+  timestamp: '2024-04-20 11:18:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp

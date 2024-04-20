@@ -31,13 +31,7 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links:
-    - https://atcoder.jp/contests/abc338/submissions/49762794
-    - https://atcoder.jp/contests/abc340/submissions/50186254
-    - https://atcoder.jp/contests/arc033/submissions/50520345
-    - https://atcoder.jp/contests/chokudai_S001/submissions/49757613
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232
+    links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -300,16 +294,11 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
-    \n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
+    \n\ntemplate<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n\
+    \    vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n\
+    \    }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n   \
+    \     rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n\
+    \        init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
     \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
     \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
     \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
@@ -377,52 +366,47 @@ data:
     \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
     \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
     \        }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\n// verify\n// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225\n\
-    // RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232\n\
-    // lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345\n// invension:\
-    \ https://atcoder.jp/contests/chokudai_S001/submissions/49757613\n// is_overlapped:\
-    \ https://atcoder.jp/contests/abc338/submissions/49762794\n// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254\n\
-    template<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n  \
-    \  vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n \
-    \   }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n    \
-    \    rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n \
-    \       init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2\
-    \ * _N);\n        if (l <= r and r <= _N) return sum(l, r);\n        \n      \
-    \  if (r > _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n  \
-    \  }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \        \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class T = long long>\n\
+    struct BIT {\n    long long N, _N, height;\n    vector<T> bit0, bit1;\n\n    BIT(long\
+    \ long n): _N(n) {\n        init();\n    }\n\n    BIT(const vector<T> &A): _N(A.size())\
+    \ {\n        init();\n\n        rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long\
+    \ long n, T a): _N(n) {\n        init();\n\n        rep(i, _N) add(i, a);\n  \
+    \  }\n\n    void init() {\n        N = 1;\n        height = 1;\n        while\
+    \ (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n        }\n\n\
+    \        bit0.assign(N + 1, 0);\n        bit1.assign(N + 1, 0);\n    }\n\n   \
+    \ // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long\
+    \ long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(bit0, p, x);\n\
+    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\
+    \u3048\u308B\n    void add(long long l, long long r, T x) {\n        assert(0\
+    \ <= l and l <= r and r <= _N);\n\n        if (l == r) return;\n\n        add(bit0,\
+    \ l, -x * l);\n        add(bit0, r, x * r);\n        add(bit1, l, x);\n      \
+    \  add(bit1, r, -x);\n    }\n\n    void add_circular(long long l, long long r,\
+    \ T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n   \
+    \     if (l <= r and r <= _N) {\n            add(l, r, x);\n            return;\n\
+    \        }\n        \n        if (r > _N) r -= _N;\n        \n        add(l, _N,\
+    \ x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092\
+    x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0 <= p and\
+    \ p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n    }\n\n    // \u534A\
+    \u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\
+    \n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n        return\
+    \ sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
+    \ r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
+    \ l, long long r) {\n        assert(0 <= l and l <= r and r <= _N);\n\n      \
+    \  if (l == r) return 0;\n        else return sum(r) - sum(l);\n    }\n\n    T\
+    \ sum_circular(long long l, long long r, T x) {\n        assert(0 <= l and l <=\
+    \ _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) return sum(l,\
+    \ r);\n        \n        if (r > _N) r -= _N;\n        \n        return sum(l,\
+    \ _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\
+    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
+    \ p and p < _N);\n        \n        return sum(p + 1) - sum(p);\n    }\n\n   \
+    \ long long lower_bound(T x) {\n        assert(x >= 0);\n\n        ll right =\
+    \ 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long len = N; len >\
+    \ 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right + len]\
+    \ + (sum1 + bit1[right + len]) * (right + len) < x) {\n                right +=\
+    \ len;\n                sum0 += bit0[right];\n                sum1 += bit1[right];\n\
+    \            }\n        }\n\n        return right;\n    }  \n\n    long long upper_bound(T\
+    \ x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\
+    \n    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
     \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
     \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
     \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
@@ -459,7 +443,7 @@ data:
   isVerificationFile: false
   path: structure/bit.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:53:20+09:00'
+  timestamp: '2024-04-20 11:19:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/bit/atcoder-abc340-e.test.cpp

@@ -279,18 +279,16 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/topological-sort.cpp\"\
-    \n\ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n\
-    \    long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n  \
-    \  long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\ntemplate <typename T = long long>\n\
-    struct TopologicalSort {\n    long long V;\n    vector<vector<Edge<T>>> G, rG;\n\
-    \    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
+    \n\ntemplate <typename T = long long>\nstruct TopologicalSort {\n    struct Edge\
+    \ {\n        long long from;\n        long long to;\n        T weight;\n     \
+    \   \n        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
+    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
+    \            if (from == other.from) {\n                if (to == other.to) return\
+    \ weight < other.weight;\n                else return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
+    \ G, rG;\n    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
     \n    TopologicalSort(long long N) : V(N), G(V), rG(V) {\n        init();\n  \
     \  };\n    \n    void init() {\n        seen.assign(V, false);\n        prev.assign(V,\
     \ -1);\n        maximum_cost.assign(V, -1);\n    }\n    \n    void connect(long\
@@ -317,21 +315,19 @@ data:
     \n    vector<long long> get_longest_path() {\n        vector<long long> ret;\n\
     \n        ll goal = distance(maximum_cost.begin(), max_element(maximum_cost.begin(),\
     \ maximum_cost.end()));\n\n        return path_to(goal);\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
-    \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
-    \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
-    \ Cap flow;\n    \n    explicit Edge(long long u = -1, long long v = -1, Weight\
-    \ w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w),\
-    \ cap(c), id(i), rev(r), flow(0) {};\n\n    bool operator < (const Edge& other)\
-    \ const {\n        if (from == other.from) {\n            if (to == other.to)\
-    \ return weight < other.weight;\n            else return to < other.to;\n    \
-    \    }\n        else return from < other.from;\n    }\n\n    friend ostream& operator\
-    \ << (ostream& os, const Edge& edge) {\n        return os << edge.to;\n    }\n\
-    };\n\ntemplate <typename T = long long>\nstruct TopologicalSort {\n    long long\
-    \ V;\n    vector<vector<Edge<T>>> G, rG;\n    vector<bool> seen;\n    vector<long\
-    \ long> prev;\n    vector<T> maximum_cost;\n\n    TopologicalSort(long long N)\
-    \ : V(N), G(V), rG(V) {\n        init();\n    };\n    \n    void init() {\n  \
-    \      seen.assign(V, false);\n        prev.assign(V, -1);\n        maximum_cost.assign(V,\
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T = long long>\n\
+    struct TopologicalSort {\n    struct Edge {\n        long long from;\n       \
+    \ long long to;\n        T weight;\n        \n        explicit Edge(long long\
+    \ u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n     \
+    \   bool operator < (const Edge& other) const {\n            if (from == other.from)\
+    \ {\n                if (to == other.to) return weight < other.weight;\n     \
+    \           else return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    long long V;\n    vector<vector<Edge>> G, rG;\n    vector<bool> seen;\n\
+    \    vector<long long> prev;\n    vector<T> maximum_cost;\n\n    TopologicalSort(long\
+    \ long N) : V(N), G(V), rG(V) {\n        init();\n    };\n    \n    void init()\
+    \ {\n        seen.assign(V, false);\n        prev.assign(V, -1);\n        maximum_cost.assign(V,\
     \ -1);\n    }\n    \n    void connect(long long from, long long to, T weight =\
     \ 1) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to\
     \ < V);\n\n        G[from].emplace_back(from, to, weight);\n        rG[to].emplace_back(to,\
@@ -361,7 +357,7 @@ data:
   isVerificationFile: false
   path: graph/topological-sort.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:32:08+09:00'
+  timestamp: '2024-04-20 11:18:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/topological-sort/atcoder-abc223-d.test.cpp

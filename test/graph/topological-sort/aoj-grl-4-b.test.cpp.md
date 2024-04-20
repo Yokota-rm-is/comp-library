@@ -282,18 +282,16 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"graph/topological-sort.cpp\"\
-    \n\ntemplate<class Weight = long long, class Cap = long long>\nstruct Edge {\n\
-    \    long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n  \
-    \  long long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long\
-    \ long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long\
-    \ long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\
-    \n    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\ntemplate <typename T = long long>\n\
-    struct TopologicalSort {\n    long long V;\n    vector<vector<Edge<T>>> G, rG;\n\
-    \    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
+    \n\ntemplate <typename T = long long>\nstruct TopologicalSort {\n    struct Edge\
+    \ {\n        long long from;\n        long long to;\n        T weight;\n     \
+    \   \n        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
+    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
+    \            if (from == other.from) {\n                if (to == other.to) return\
+    \ weight < other.weight;\n                else return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
+    \ G, rG;\n    vector<bool> seen;\n    vector<long long> prev;\n    vector<T> maximum_cost;\n\
     \n    TopologicalSort(long long N) : V(N), G(V), rG(V) {\n        init();\n  \
     \  };\n    \n    void init() {\n        seen.assign(V, false);\n        prev.assign(V,\
     \ -1);\n        maximum_cost.assign(V, -1);\n    }\n    \n    void connect(long\
@@ -337,7 +335,7 @@ data:
   isVerificationFile: true
   path: test/graph/topological-sort/aoj-grl-4-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:32:08+09:00'
+  timestamp: '2024-04-20 11:18:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/topological-sort/aoj-grl-4-b.test.cpp

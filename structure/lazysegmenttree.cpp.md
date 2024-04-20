@@ -28,13 +28,7 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1
-    - https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1
+    links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -297,16 +291,10 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/lazysegmenttree.cpp\"\
-    \n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
-    // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
-    \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
-    \ RSQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1\n\
-    // RMQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1\n\
-    // RSQ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1\n\
-    \ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n  \
-    \  long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1, long\
-    \ long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n\
-    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
+    \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n\
+    \    long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1,\
+    \ long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\
+    \n    bool operator< (const Node &other) const {\n        return value < other.value;\n\
     \    }\n\n    bool operator== (const T other) const {\n        return value ==\
     \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
     \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
@@ -492,35 +480,30 @@ data:
     \ long, typename F = long long> using RangeSetRangeMin = LazySegmentTree<T, F,\
     \ Set, Min>;\ntemplate<typename T = long long, typename F = long long> using RangeSetRangeMax\
     \ = LazySegmentTree<T, F, Set, Max>;\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\n// verify\n// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1\n\
-    // RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1\n// RMQ\
-    \ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1\n//\
-    \ RSQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1\n\
-    // RMQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1\n\
-    // RSQ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1\n\
-    \ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n  \
-    \  long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1, long\
-    \ long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n\
-    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
-    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
-    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
-    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T>& node) {\n\
-    \        return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
-    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
-    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
-    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
-    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
-    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
-    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
-    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
-    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
-    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
-    struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
-    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
-    \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
-    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
-    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct Node\
+    \ {\n    T value;\n    long long index;\n    long long size;\n    long long coeff;\n\
+    \n    Node(T v, long long i = -1, long long s = 0, long long c = 1) : value(v),\
+    \ index(i), size(s), coeff(c) {};\n\n    bool operator< (const Node &other) const\
+    \ {\n        return value < other.value;\n    }\n\n    bool operator== (const\
+    \ T other) const {\n        return value == other;\n    }\n\n    bool operator!=\
+    \ (const T other) const {\n        return value != other;\n    }\n\n    operator\
+    \ T() const {\n        return value;\n    }\n\n    friend ostream& operator <<\
+    \ (ostream &os, const Node<T>& node) {\n        return os << node.value;\n   \
+    \ }\n};\n\ntemplate<typename T>\nstruct Operation {\n    using S = Node<T>;\n\n\
+    \    Operation() {};\n\n    virtual T e() = 0;\n\n    virtual S operator() (const\
+    \ S& x, const S& y) = 0;\n};\n\ntemplate<typename T = long long>\nstruct NoOperation\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    NoOperation(): _e(T()) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        if (x == e()) return y;\n        else if\
+    \ (y == e()) return x;\n\n        T value = x.value;\n        long long index\
+    \ = -1;\n        long long size = x.size + y.size;\n        long long coeff =\
+    \ 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n   \
+    \ }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Max : Operation<T>\
+    \ {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min()) {};\n\n\
+    \    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = max(x.value, y.value);\n      \
+    \  long long index = (y.value > x.value ? y.index : x.index);\n        long long\
+    \ size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
     \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
     };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
     \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
@@ -692,7 +675,7 @@ data:
   isVerificationFile: false
   path: structure/lazysegmenttree.cpp
   requiredBy: []
-  timestamp: '2024-04-15 23:53:20+09:00'
+  timestamp: '2024-04-20 11:19:43+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp

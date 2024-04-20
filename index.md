@@ -13,7 +13,7 @@ data:
       title: graph/bellman-ford.cpp
     - icon: ':heavy_check_mark:'
       path: graph/bfs.cpp
-      title: graph/bfs.cpp
+      title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
     - icon: ':heavy_check_mark:'
       path: graph/dfs.cpp
       title: graph/dfs.cpp

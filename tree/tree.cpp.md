@@ -276,26 +276,24 @@ data:
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
     \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"tree/tree.cpp\"\n\n\
-    template<class Weight = long long, class Cap = long long>\nstruct Edge {\n   \
-    \ long long from;\n    long long to;\n    Weight weight;\n    Cap cap;\n    long\
-    \ long id;\n    long long rev;\n    Cap flow;\n    \n    explicit Edge(long long\
-    \ u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long\
-    \ r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};\n\n\
-    \    bool operator < (const Edge& other) const {\n        if (from == other.from)\
-    \ {\n            if (to == other.to) return weight < other.weight;\n         \
-    \   else return to < other.to;\n        }\n        else return from < other.from;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, const Edge& edge) {\n\
-    \        return os << edge.to;\n    }\n};\n\ntemplate <typename T = long long>\n\
-    struct Tree {\n    long long V;\n    vector<vector<Edge<T>>> G;\n    vector<bool>\
-    \ seen;\n    vector<long long> prev;\n    vector<T> depth;\n\n    vector<vector<long\
-    \ long>> doubling;\n    long long log;\n    bool lca_init_done;\n\n    Tree(long\
-    \ long N) : V(N), G(V){\n        init();\n    };\n    \n    void init() {\n  \
-    \      seen.assign(V, false);\n        prev.assign(V, -1);\n        depth.assign(V,\
-    \ inf64);\n\n        lca_init_done = false;\n\n        log = 1;\n        while\
-    \ ((1ll << log) <= V) ++log;\n\n        doubling.assign(log, vector<long long>(V,\
-    \ -1));\n    }\n    \n    void connect(long long from, long long to, T weight)\
-    \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
-    \ V);\n\n        G[from].emplace_back(from, to, weight);\n        G[to].emplace_back(to,\
+    template <typename T = long long>\nstruct Tree {\n    struct Edge {\n        long\
+    \ long from;\n        long long to;\n        T weight;\n        \n        explicit\
+    \ Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w)\
+    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
+    \ == other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \                else return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    long long V;\n    vector<vector<Edge>> G;\n    vector<bool> seen;\n    vector<long\
+    \ long> prev;\n    vector<T> depth;\n\n    vector<vector<long long>> doubling;\n\
+    \    long long log;\n    bool lca_init_done;\n\n    Tree(long long N) : V(N),\
+    \ G(V){\n        init();\n    };\n    \n    void init() {\n        seen.assign(V,\
+    \ false);\n        prev.assign(V, -1);\n        depth.assign(V, inf64);\n\n  \
+    \      lca_init_done = false;\n\n        log = 1;\n        while ((1ll << log)\
+    \ <= V) ++log;\n\n        doubling.assign(log, vector<long long>(V, -1));\n  \
+    \  }\n    \n    void connect(long long from, long long to, T weight) {\n     \
+    \   assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n \
+    \       G[from].emplace_back(from, to, weight);\n        G[to].emplace_back(to,\
     \ from, weight);\n    }\n\n    void bfs(long long start) {\n        assert(0 <=\
     \ start and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\
     \u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\
@@ -340,18 +338,16 @@ data:
     \ depth.end()));\n\n        init();\n        bfs(u);\n        long long v = distance(depth.begin(),\
     \ max_element(depth.begin(), depth.end()));\n\n        return depth[v];\n    }\n\
     };\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class Weight = long long,\
-    \ class Cap = long long>\nstruct Edge {\n    long long from;\n    long long to;\n\
-    \    Weight weight;\n    Cap cap;\n    long long id;\n    long long rev;\n   \
-    \ Cap flow;\n    \n    explicit Edge(long long u = -1, long long v = -1, Weight\
-    \ w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w),\
-    \ cap(c), id(i), rev(r), flow(0) {};\n\n    bool operator < (const Edge& other)\
-    \ const {\n        if (from == other.from) {\n            if (to == other.to)\
-    \ return weight < other.weight;\n            else return to < other.to;\n    \
-    \    }\n        else return from < other.from;\n    }\n\n    friend ostream& operator\
-    \ << (ostream& os, const Edge& edge) {\n        return os << edge.to;\n    }\n\
-    };\n\ntemplate <typename T = long long>\nstruct Tree {\n    long long V;\n   \
-    \ vector<vector<Edge<T>>> G;\n    vector<bool> seen;\n    vector<long long> prev;\n\
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T = long long>\n\
+    struct Tree {\n    struct Edge {\n        long long from;\n        long long to;\n\
+    \        T weight;\n        \n        explicit Edge(long long u = -1, long long\
+    \ v = -1, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool operator <\
+    \ (const Edge& other) const {\n            if (from == other.from) {\n       \
+    \         if (to == other.to) return weight < other.weight;\n                else\
+    \ return to < other.to;\n            }\n            else return from < other.from;\n\
+    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
+    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
+    \    vector<vector<Edge>> G;\n    vector<bool> seen;\n    vector<long long> prev;\n\
     \    vector<T> depth;\n\n    vector<vector<long long>> doubling;\n    long long\
     \ log;\n    bool lca_init_done;\n\n    Tree(long long N) : V(N), G(V){\n     \
     \   init();\n    };\n    \n    void init() {\n        seen.assign(V, false);\n\
@@ -410,7 +406,7 @@ data:
   isVerificationFile: false
   path: tree/tree.cpp
   requiredBy: []
-  timestamp: '2024-04-18 20:29:54+09:00'
+  timestamp: '2024-04-20 11:18:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/tree/tree/aoj-grl-5-a.test.cpp
