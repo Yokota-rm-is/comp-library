@@ -1,8 +1,12 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief tree-bfs
+ * @docs docs/tree/tree-bfs.md
+*/
 template <typename T = long long>
-struct Tree {
+struct TreeBFS {
     struct Edge {
         long long from;
         long long to;
@@ -33,7 +37,7 @@ struct Tree {
     long long log;
     bool lca_init_done;
 
-    Tree(long long N) : V(N), G(V){
+    TreeBFS(long long N) : V(N), G(V){
         init();
     };
     
@@ -87,6 +91,29 @@ struct Tree {
         }
     }
 
+    long long find_diameter() {
+        long long ret = 0;
+        vector<bool> done(V, false);
+
+        rep(i, V) {
+            if (done[i]) continue;
+            bfs(i);
+            long long u = distance(depth.begin(), max_element(depth.begin(), depth.end()));
+
+            init();
+            bfs(u);
+            long long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));
+            
+            chmax(ret, depth[v]);
+            rep(i, V) {
+                if (seen[i]) done[i] = true;
+            }
+            init();
+        }
+
+        return ret;
+    }
+
     void lca_init(long long root) {
         assert(0 <= root and root < V);
 
@@ -103,7 +130,8 @@ struct Tree {
         lca_init_done = true;
     }
 
-    // lca_init後にuとvの最小共通祖先を返す
+    // lca_init後に実行
+    // uとvの最小共通祖先を返す
     long long lca(long long u, long long v) {
         assert(lca_init_done);
         assert(0 <= u and u < V);
@@ -129,7 +157,8 @@ struct Tree {
         return doubling.front()[u];
     }
 
-    // lca_init後にuとvの距離を返す
+    // lca_init後に実行
+    // uとvの距離を返す
     long long get_dist(long long u, long long v) {
         assert(lca_init_done);
         assert(0 <= u and u < V);
@@ -138,7 +167,8 @@ struct Tree {
         return depth[u] + depth[v] - 2 * depth[lca(u, v)];
     }
 
-    // lca_init後にuとvを結ぶパス上にaがあるか返す
+    // lca_init後に実行
+    // uとvを結ぶパス上にaがあるか返す
     bool is_on_path(long long u, long long v, long long a) {
         assert(0 <= u and u < V);
         assert(0 <= v and v < V);
@@ -148,14 +178,5 @@ struct Tree {
         return get_dist(u, a) + get_dist(a, v) == get_dist(u, v);
     }
 
-    long long find_diameter() {
-        bfs(0);
-        long long u = distance(depth.begin(), max_element(depth.begin(), depth.end()));
 
-        init();
-        bfs(u);
-        long long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));
-
-        return depth[v];
-    }
 };
