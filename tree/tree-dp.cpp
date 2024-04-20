@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief tree-dp
+ * @docs docs/tree/tree-dp.md
+*/
 template <typename Weight = long long, typename DP = long long>
 struct TreeDP {
     struct Edge {
