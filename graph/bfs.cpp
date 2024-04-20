@@ -1,35 +1,28 @@
 #pragma once
 #include "../base.cpp"
 
-template<class Weight = long long, class Cap = long long>
-struct Edge {
-    long long from;
-    long long to;
-    Weight weight;
-    Cap cap;
-    long long id;
-    long long rev;
-    Cap flow;
-    
-    explicit Edge(long long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};
-
-    bool operator < (const Edge& other) const {
-        if (from == other.from) {
-            if (to == other.to) return weight < other.weight;
-            else return to < other.to;
-        }
-        else return from < other.from;
-    }
-
-    friend ostream& operator << (ostream& os, const Edge& edge) {
-        return os << edge.to;
-    }
-};
-
 struct BFS {
+    struct Edge {
+        long long from;
+        long long to;
+        
+        explicit Edge(long long u = -1, long long v = -1) : from(u), to(v) {};
+
+        bool operator < (const Edge& other) const {
+            if (from == other.from) {
+                return to < other.to;
+            }
+            else return from < other.from;
+        }
+
+        friend ostream& operator << (ostream& os, const Edge& edge) {
+            return os << edge.to;
+        }
+    };
+
     long long V;
     bool directed_;
-    vector<vector<Edge<>>> G;
+    vector<vector<Edge>> G;
     vector<bool> seen;
     vector<long long> prev;
     vector<long long> depth;

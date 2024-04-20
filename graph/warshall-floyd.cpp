@@ -1,15 +1,15 @@
 #pragma once
 #include "../base.cpp"
 
-template<typename Weight = long long>
+template<typename T = long long>
 struct WarshallFloyd {
     long long V;
-    vector<vector<Weight>> cost{};
+    vector<vector<T>> cost{};
     vector<vector<long long>> prev{};
     bool directed_;
 
     WarshallFloyd(long long V, bool directed) : V(V), directed_(directed) { //最初は全てが根であるとして初期化
-        cost.assign(V, vector<Weight>(V, inf64));
+        cost.assign(V, vector<T>(V, inf64));
         prev.assign(V, vector<long long>(V, -1));
 
         rep(i, V) cost[i][i] = 0;
@@ -21,7 +21,7 @@ struct WarshallFloyd {
         rep(i, V) rep(j, V) prev[i][j] = i;
     }
 
-    void connect(long long u, long long v, Weight w) {
+    void connect(long long u, long long v, T w) {
         cost[u][v] = w;
         if (!directed_) cost[v][u] = w;
     }
@@ -46,12 +46,12 @@ struct WarshallFloyd {
         }
     }
 
-    Weight dist(long long from, long long to) {
+    T dist(long long from, long long to) {
         return cost[from][to];
     }
 
-    vector<Weight> dist_from(long long from) {
-        vector<Weight> ans;
+    vector<T> dist_from(long long from) {
+        vector<T> ans;
 
         rep(i, V) ans.push_back(cost[from][i]);
 

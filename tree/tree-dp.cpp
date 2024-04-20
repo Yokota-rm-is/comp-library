@@ -1,35 +1,31 @@
 #pragma once
 #include "../base.cpp"
 
-template<class Weight = long long, class Cap = long long>
-struct Edge {
-    long long from;
-    long long to;
-    Weight weight;
-    Cap cap;
-    long long id;
-    long long rev;
-    Cap flow;
-    
-    explicit Edge(long long u = -1, long long v = -1, Weight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};
-
-    bool operator < (const Edge& other) const {
-        if (from == other.from) {
-            if (to == other.to) return weight < other.weight;
-            else return to < other.to;
-        }
-        else return from < other.from;
-    }
-
-    friend ostream& operator << (ostream& os, const Edge& edge) {
-        return os << edge.to;
-    }
-};
-
 template <typename Weight = long long, typename DP = long long>
 struct TreeDP {
+    struct Edge {
+        long long from;
+        long long to;
+        Weight weight;
+        long long rev;
+        
+        explicit Edge(long long u = -1, long long v = -1, Weight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};
+
+        bool operator < (const Edge& other) const {
+            if (from == other.from) {
+                if (to == other.to) return weight < other.weight;
+                else return to < other.to;
+            }
+            else return from < other.from;
+        }
+
+        friend ostream& operator << (ostream& os, const Edge& edge) {
+            return os << edge.to;
+        }
+    };
+
     long long V;
-    vector<vector<Edge<Weight>>> G;
+    vector<vector<Edge>> G;
     vector<bool> seen;
 
     // 全方位木dp用
@@ -49,7 +45,7 @@ struct TreeDP {
         return max(x, y);
     }
 
-    DP put_edge(DP x, Edge<Weight>& edge) {
+    DP put_edge(DP x, Edge& edge) {
         return x + (DP)edge.weight;
     }
 
@@ -97,7 +93,7 @@ struct TreeDP {
         seen[now] = true;
 
         rep(i, G[now].size()) {
-            Edge<Weight> edge = G[now][i];
+            Edge edge = G[now][i];
             long long next = edge.to;
 
             if (seen[next]) continue;
@@ -109,7 +105,7 @@ struct TreeDP {
         return put_vertex(ret, now);
     }
 
-    void prod(long long now, const DP& dp_p, Edge<Weight> e = Edge<Weight>()) {
+    void prod(long long now, const DP& dp_p, Edge e = Edge()) {
         long long deg = G[now].size();
 
         if (e.rev != -1) dp[now][e.rev] = dp_p;
@@ -117,12 +113,12 @@ struct TreeDP {
         vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());
 
         rep(i, deg) {
-            Edge<Weight> edge = G[now][i];
+            Edge edge = G[now][i];
             prod_l[i + 1] = merge(prod_l[i], put_edge(dp[now][i], edge));
         }
 
         repd(i, deg) {
-            Edge<Weight> edge = G[now][i];
+            Edge edge = G[now][i];
             prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i], edge));
         }
 
@@ -131,7 +127,7 @@ struct TreeDP {
         rep(i, deg) {
             if (i == e.rev) continue;
 
-            Edge<Weight> edge = G[now][i];
+            Edge edge = G[now][i];
             long long child = edge.to;
             prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);
         }

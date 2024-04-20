@@ -1,35 +1,30 @@
 #pragma once
 #include "../base.cpp"
 
-template<class Weight = long long, class Cap = long long>
-struct Edge {
-    long long from;
-    long long to;
-    Weight weight;
-    Cap cap;
-    long long id;
-    long long rev;
-    Cap flow;
-    
-    explicit Edge(long long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};
-
-    bool operator < (const Edge& other) const {
-        if (from == other.from) {
-            if (to == other.to) return weight < other.weight;
-            else return to < other.to;
-        }
-        else return from < other.from;
-    }
-
-    friend ostream& operator << (ostream& os, const Edge& edge) {
-        return os << edge.to;
-    }
-};
-
 template <typename T = long long>
 struct TopologicalSort {
+    struct Edge {
+        long long from;
+        long long to;
+        T weight;
+        
+        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};
+
+        bool operator < (const Edge& other) const {
+            if (from == other.from) {
+                if (to == other.to) return weight < other.weight;
+                else return to < other.to;
+            }
+            else return from < other.from;
+        }
+
+        friend ostream& operator << (ostream& os, const Edge& edge) {
+            return os << edge.to;
+        }
+    };
+
     long long V;
-    vector<vector<Edge<T>>> G, rG;
+    vector<vector<Edge>> G, rG;
     vector<bool> seen;
     vector<long long> prev;
     vector<T> maximum_cost;

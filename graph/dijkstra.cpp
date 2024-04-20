@@ -1,39 +1,34 @@
 #pragma once
 #include "../base.cpp"
 
-template<class Weight = long long, class Cap = long long>
-struct Edge {
-    long long from;
-    long long to;
-    Weight weight;
-    Cap cap;
-    long long id;
-    long long rev;
-    Cap flow;
-    
-    explicit Edge(long long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};
-
-    bool operator < (const Edge& other) const {
-        if (from == other.from) {
-            if (to == other.to) return weight < other.weight;
-            else return to < other.to;
-        }
-        else return from < other.from;
-    }
-
-    friend ostream& operator << (ostream& os, const Edge& edge) {
-        return os << edge.to;
-    }
-};
-
-template<class Weight = long long>
+template<class T = long long>
 struct Dijkstra {
+    struct Edge {
+        long long from;
+        long long to;
+        T weight;
+        
+        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};
+
+        bool operator < (const Edge& other) const {
+            if (from == other.from) {
+                if (to == other.to) return weight < other.weight;
+                else return to < other.to;
+            }
+            else return from < other.from;
+        }
+
+        friend ostream& operator << (ostream& os, const Edge& edge) {
+            return os << edge.to;
+        }
+    };
+
     long long V;
     bool directed_;
-    vector<vector<Edge<Weight>>> G;
+    vector<vector<Edge>> G;
     vector<bool> done;
     vector<long long> prev;
-    vector<Weight> cost;
+    vector<T> cost;
     
     Dijkstra(long long N, bool directed) : V(N), directed_(directed), G(V) {
         init();
@@ -45,7 +40,7 @@ struct Dijkstra {
         cost.assign(V, inf64);
     }
     
-    void connect(long long from, long long to, Weight weight) {
+    void connect(long long from, long long to, T weight) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 

@@ -1,38 +1,33 @@
 #pragma once
 #include "../base.cpp"
 
-template<class Weight = long long, class Cap = long long>
-struct Edge {
-    long long from;
-    long long to;
-    Weight weight;
-    Cap cap;
-    long long id;
-    long long rev;
-    Cap flow;
-    
-    explicit Edge(long long u = -1, long long v = -1, Weight w = 1, long long i = -1, Cap c = 0, long long r = -1) : from(u), to(v), weight(w), cap(c), id(i), rev(r), flow(0) {};
-
-    bool operator < (const Edge& other) const {
-        if (from == other.from) {
-            if (to == other.to) return weight < other.weight;
-            else return to < other.to;
-        }
-        else return from < other.from;
-    }
-
-    friend ostream& operator << (ostream& os, const Edge& edge) {
-        return os << edge.to;
-    }
-};
-
-template<class Weight = long long>
+template<class T = long long>
 struct BellmanFord {
+    struct Edge {
+        long long from;
+        long long to;
+        T weight;
+        
+        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v), weight(w) {};
+
+        bool operator < (const Edge& other) const {
+            if (from == other.from) {
+                if (to == other.to) return weight < other.weight;
+                else return to < other.to;
+            }
+            else return from < other.from;
+        }
+
+        friend ostream& operator << (ostream& os, const Edge& edge) {
+            return os << edge.to;
+        }
+    };
+
     long long V;
     bool directed_;
     vector<long long> prev;
-    vector<Weight> cost;
-    vector<Edge<Weight>> edges;
+    vector<T> cost;
+    vector<Edge> edges;
 
     BellmanFord(long long N, bool directed) : V(N), directed_(directed) {
         init();
@@ -43,7 +38,7 @@ struct BellmanFord {
         cost.assign(V, inf64);
     }
     
-    void connect(long long from, long long to, Weight weight) {
+    void connect(long long from, long long to, T weight) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 
@@ -67,7 +62,7 @@ struct BellmanFord {
             fore(e, edges) {
                 if (cost[e.from] == inf64) continue;
 
-                Weight c = cost[e.from] + e.weight;
+                T c = cost[e.from] + e.weight;
                 if (chmin(cost[e.to], c)) {
                     prev[e.to] = e.from;
                     changed = true;
@@ -82,7 +77,7 @@ struct BellmanFord {
                 fore(e, edges) {
                     if (cost[e.from] == inf64) continue;
 
-                    Weight c = cost[e.from] + e.weight;
+                    T c = cost[e.from] + e.weight;
                     if (c < cost[e.to]) {
                         cost[e.to] = -inf64;
                     }
