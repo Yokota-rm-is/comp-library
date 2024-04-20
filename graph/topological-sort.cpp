@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief トポロジカルソート
+ * @docs docs/graph/topological-sort.md
+*/
 template <typename T = long long>
 struct TopologicalSort {
     struct Edge {
@@ -28,18 +32,20 @@ struct TopologicalSort {
     vector<bool> seen;
     vector<long long> prev;
     vector<T> maximum_cost;
+    bool has_cycle;
 
     TopologicalSort(long long N) : V(N), G(V), rG(V) {
         init();
     };
     
     void init() {
+        has_cycle = false;
         seen.assign(V, false);
         prev.assign(V, -1);
         maximum_cost.assign(V, -1);
     }
     
-    void connect(long long from, long long to, T weight = 1) {
+    void connect(long long from, long long to, T weight) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 
@@ -88,7 +94,10 @@ struct TopologicalSort {
             }
         }
 
-        if ((long long)ret.size() != V) return {};
+        if ((long long)ret.size() != V) {
+            has_cycle = true;
+            return {};
+        }
 
         return ret;
     }
