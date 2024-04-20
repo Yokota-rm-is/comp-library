@@ -1,14 +1,6 @@
 #pragma once
 #include "../base.cpp"
 
-// verify
-// RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936932#1
-// RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936951#1
-// RMQ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936958#1
-// RSQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936963#1
-// RMQ and RAQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936971#1
-// RSQ and RUQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8936978#1
-
 template<typename T>
 struct Node {
     T value;

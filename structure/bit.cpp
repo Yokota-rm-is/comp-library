@@ -1,13 +1,6 @@
 #pragma once
 #include "../base.cpp"
 
-// verify
-// RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830225
-// RAQ & RSQ: https://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=8830232
-// lower_bound: https://atcoder.jp/contests/arc033/submissions/50520345
-// invension: https://atcoder.jp/contests/chokudai_S001/submissions/49757613
-// is_overlapped: https://atcoder.jp/contests/abc338/submissions/49762794
-// add_circular: https://atcoder.jp/contests/abc340/submissions/50186254
 template<class T = long long>
 struct BIT {
     long long N, _N, height;
