@@ -11,7 +11,7 @@ int main() {
         ll A, B;
         cin >> A >> B;
 
-        tree.connect(A - 1, B - 1);
+        tree.connect(A - 1, B - 1, 1);
     }
 
     auto ans = tree();

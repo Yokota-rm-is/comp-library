@@ -12,7 +12,7 @@ int main() {
         ll s, t;
         cin >> s >> t;
 
-        tree.connect(s, t);
+        tree.connect(s, t, 1);
     }
 
     auto ans = tree();
