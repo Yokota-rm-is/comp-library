@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief ワーシャルフロイド法
+ * @docs docs/graph/warshall-floyd.md
+*/
 template<typename T = long long>
 struct WarshallFloyd {
     long long V;
@@ -76,7 +80,7 @@ struct WarshallFloyd {
     vector<long long> path(long long from, long long to) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
-        
+
         if (!reach(from, to)) return {};
 
         vector<long long> p;
