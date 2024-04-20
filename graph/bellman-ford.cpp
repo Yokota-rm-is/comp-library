@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief ベルマンフォード法
+ * @docs docs/graph/bellman-ford.md
+*/
 template<class T = long long>
 struct BellmanFord {
     struct Edge {
@@ -86,11 +90,10 @@ struct BellmanFord {
         }
     }
 
-    bool has_negative_cycle() {
-        rep(i, V) {
-            if (cost[i] == -inf64) return true;
-        }
-        return false;
+    bool reach(long long to) {
+        assert(0 <= to and to < V);
+
+        return cost[to] < inf64;
     }
 
     vector<long long> path_to(long long to) {
@@ -106,5 +109,12 @@ struct BellmanFord {
         reverse(p.begin(), p.end());
 
         return p;
+    }
+
+    bool has_negative_cycle() {
+        rep(i, V) {
+            if (cost[i] == -inf64) return true;
+        }
+        return false;
     }
 };
