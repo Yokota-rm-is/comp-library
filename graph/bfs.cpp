@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief BFS(幅優先探索)
+ * @docs docs/graph/bfs.md
+*/
 struct BFS {
     struct Edge {
         long long from;
@@ -113,7 +117,7 @@ struct BFS {
         return ret;
     }
 
-    bool reach_at(long long to) {
+    bool reach(long long to) {
         assert(0 <= to and to < V);
 
         return seen[to];
