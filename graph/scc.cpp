@@ -1,6 +1,10 @@
 #pragma once
 #include "../base.cpp"
 
+/**
+ * @brief 強連結成分分解
+ * @docs docs/graph/scc.md
+*/
 struct SCC {
     struct Edge {
         long long from;
