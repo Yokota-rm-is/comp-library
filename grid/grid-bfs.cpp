@@ -335,12 +335,17 @@ struct GridBFS {
         return group;
     }
 
+    long long count_cc() {
+        return group;
+    }
+
     void bfs() {
         bfs(start);
     }
 
     void bfs(Coordinate now) {
-        assert(!seen(now) and !field.is_obj(now));
+        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));
+
         queue<Coordinate> que;
 
         // 初期条件 (頂点 start を初期ノードとする)
@@ -371,6 +376,8 @@ struct GridBFS {
     }
 
     void bfs01(Coordinate now) {
+        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));
+
         deque<Coordinate> que;
 
         // 初期条件 (頂点 start を初期ノードとする)
@@ -410,14 +417,20 @@ struct GridBFS {
     }
 
     bool reach(Coordinate to) {
+        assert(!field.is_out(to) and !field.is_obj(to));
+
         return seen(to);
     }
 
-    long long dist(Coordinate p) {
-        return cost(p);
+    long long dist(Coordinate to) {
+        assert(!field.is_out(to) and !field.is_obj(to));
+        return cost(to);
     }
 
     vector<Coordinate> path(Coordinate from, Coordinate to) {
+        assert(!field.is_out(from) and !field.is_obj(from));
+        assert(!field.is_out(to) and !field.is_obj(to));
+
         bfs(from);
         return path_to(to);
     }
@@ -427,6 +440,9 @@ struct GridBFS {
     }
 
     vector<Coordinate> path_to(Coordinate to) {
+        assert(!field.is_out(to) and !field.is_obj(to));
+        if (!reach(to)) return {};
+
         vector<Coordinate> p;
         p.push_back(to);
 
@@ -444,6 +460,9 @@ struct GridBFS {
     }
 
     string char_path_to(Coordinate to) {
+        assert(!field.is_out(to) and !field.is_obj(to));
+        if (!reach(to)) return {};
+
         vector<Coordinate> path = path_to(to);
 
         string ret;

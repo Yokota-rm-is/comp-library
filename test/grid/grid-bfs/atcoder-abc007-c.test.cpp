@@ -1,6 +1,6 @@
 #define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc007/tasks/abc007_3"
-// https://atcoder.jp/contests/abc007/submissions/52418706
+// https://atcoder.jp/contests/abc007/submissions/52538110
 
 #include "../../../grid/grid-bfs.cpp"
 
