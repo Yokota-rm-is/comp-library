@@ -45,16 +45,16 @@ data:
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << #a << \": \"; dump(a); cerr << endl;};\n\
-    #define DUMP2(a, b) if (DEBUG) {DUMP1(a); DUMP1(b)};\n#define DUMP3(a, b, c) if\
-    \ (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a);\
-    \ DUMP3(b, c, d)};\n#define DUMP5(a, b, c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b,\
-    \ c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP5, DUMP4, DUMP3,\
-    \ DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll = long long;\nusing\
-    \ ull = unsigned long long;\nusing vll = vector<ll>;\nusing setll = set<ll>;\n\
-    using mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename T> using\
-    \ vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\nusing\
-    \ vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
+    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
+    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
+    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
+    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
+    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
+    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
+    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
+    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
+    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
@@ -258,25 +258,27 @@ data:
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
     \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
     \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline string zero_padding(string N, long long\
-    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
-    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
-    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
-    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
-    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
-    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
-    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
-    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
-    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
-    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
-    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
-    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
-    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
-    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
-    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\u4FC2\
-    \nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\nlong\
-    \ long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
+    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
+    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
+    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
+    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
+    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
+    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
+    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
+    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
+    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
+    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
+    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
+    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
+    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
+    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
+    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
+    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
+    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
+    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
+    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
+    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
+    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
@@ -353,7 +355,7 @@ data:
   isVerificationFile: true
   path: test/graph/bfs/aoj-alds1-11-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-20 12:48:47+09:00'
+  timestamp: '2024-04-23 03:27:08+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/bfs/aoj-alds1-11-c.test.cpp

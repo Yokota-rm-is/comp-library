@@ -278,6 +278,9 @@ data:
   - name: test/structure/splay-tree
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
+      title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
       title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - name: test/structure/unionfind
