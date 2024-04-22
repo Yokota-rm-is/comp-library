@@ -59,7 +59,7 @@ bool DEBUG = false;
 
 // for debug
 #define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...) name
-#define DUMP1(a) if (DEBUG) {cerr << #a << ": "; dump(a); cerr << endl;};
+#define DUMP1(a) if (DEBUG) {cerr << "line: " << __LINE__ << ", " << #a << ": "; dump(a); cerr << endl;};
 #define DUMP2(a, b) if (DEBUG) {DUMP1(a); DUMP1(b)};
 #define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};
 #define DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};
@@ -290,6 +290,8 @@ inline string to_lower(string& S) { return boost::to_lower_copy(S);}
 #endif
 inline bool is_lower(char c) { return (c >= 'a') and (c <= 'z');}
 inline bool is_upper(char c) { return (c >= 'A') and (c <= 'Z');}
+inline char to_upper(char c) { if (is_upper(c)) return c; else return c + 'A' - 'a';}
+inline char to_lower(char c) { if (is_lower(c)) return c; else return c + 'a' - 'A';}
 inline string zero_padding(string N, long long width) {
     stringstream ss;
     ss << setw(width) << setfill('0') << N;
