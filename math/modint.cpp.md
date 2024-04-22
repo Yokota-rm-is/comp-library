@@ -4,34 +4,29 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
-    path: math/prime_factorization.cpp
-    title: math/prime_factorization.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+    title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc324/tasks/abc324_b
-    links:
-    - https://atcoder.jp/contests/abc324/tasks/abc324_b
-  bundledCode: "#line 1 \"test/math/prime_factorization/atcoder-abc324-b.test.cpp\"\
-    \n#define PROBLEM \"https://atcoder.jp/contests/abc324/tasks/abc324_b\"\n\n#line\
-    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
-    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
-    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
-    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
-    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
-    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
-    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
-    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
-    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
-    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
-    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
-    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
+    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
+    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
+    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
+    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
+    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
+    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
+    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
+    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
+    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
+    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
+    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -280,33 +275,83 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/prime_factorization.cpp\"\
-    \n\nmap<long long, long long> prime_factorization(long long N) {\n    map<long\
-    \ long, long long> ret;\n    while (N % 2 == 0) {\n        ret[2]++;\n       \
-    \ N /= 2;\n    }\n\n    for (long long i = 3; i * i <= N; i += 2) {\n        while\
-    \ (N % i == 0) {\n            ret[i]++;\n            N /= i;\n        }\n    }\
-    \ \n    if (N > 1) ret[N]++;\n    return ret;\n}\n#line 4 \"test/math/prime_factorization/atcoder-abc324-b.test.cpp\"\
-    \n\nint main() {\n    ll N;\n    cin >> N;\n\n    auto v = prime_factorization(N);\n\
-    \    bool ans = true;\n    v.erase(2);\n    v.erase(3);\n    if (v.size() != 0)\
-    \ ans = false;\n\n    cout << YesNo(ans) << endl;\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc324/tasks/abc324_b\"\n\n\
-    #include \"../../../math/prime_factorization.cpp\"\n\nint main() {\n    ll N;\n\
-    \    cin >> N;\n\n    auto v = prime_factorization(N);\n    bool ans = true;\n\
-    \    v.erase(2);\n    v.erase(3);\n    if (v.size() != 0) ans = false;\n\n   \
-    \ cout << YesNo(ans) << endl;\n\n    return 0;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/modint.cpp\"\n\
+    \n// modint: mod \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\
+    \u3048\u308B\u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp {\n    long long val;\n\
+    \    constexpr Fp(long long v = 0) noexcept : val(v % MOD) {\n        if (val\
+    \ < 0) val += MOD;\n    }\n    constexpr int getmod() { return MOD; }\n    constexpr\
+    \ Fp operator - () const noexcept {\n        return val ? MOD - val : 0;\n   \
+    \ }\n    constexpr Fp operator + (const Fp& r) const noexcept { return Fp(*this)\
+    \ += r; }\n    constexpr Fp operator - (const Fp& r) const noexcept { return Fp(*this)\
+    \ -= r; }\n    constexpr Fp operator * (const Fp& r) const noexcept { return Fp(*this)\
+    \ *= r; }\n    constexpr Fp operator / (const Fp& r) const noexcept { return Fp(*this)\
+    \ /= r; }\n    constexpr Fp& operator += (const Fp& r) noexcept {\n        val\
+    \ += r.val;\n        if (val >= MOD) val -= MOD;\n        return *this;\n    }\n\
+    \    constexpr Fp& operator -= (const Fp& r) noexcept {\n        val -= r.val;\n\
+    \        if (val < 0) val += MOD;\n        return *this;\n    }\n    constexpr\
+    \ Fp& operator *= (const Fp& r) noexcept {\n        val = val * r.val % MOD;\n\
+    \        return *this;\n    }\n    constexpr Fp& operator /= (const Fp& r) noexcept\
+    \ {\n        long long a = r.val, b = MOD, u = 1, v = 0;\n        while (b) {\n\
+    \            long long t = a / b;\n            a -= t * b; swap(a, b);\n     \
+    \       u -= t * v; swap(u, v);\n        }\n        val = val * u % MOD;\n   \
+    \     if (val < 0) val += MOD;\n        return *this;\n    }\n    constexpr bool\
+    \ operator == (const Fp& r) const noexcept {\n        return this->val == r.val;\n\
+    \    }\n    constexpr bool operator != (const Fp& r) const noexcept {\n      \
+    \  return this->val != r.val;\n    }\n    friend constexpr istream& operator >>\
+    \ (istream &is, Fp<MOD>& x) noexcept {\n        long long t;\n        is >> t;\n\
+    \        x = t;\n        return (is);\n    }\n    friend constexpr ostream& operator\
+    \ << (ostream &os, const Fp<MOD>& x) noexcept {\n        return os << x.val;\n\
+    \    }\n    friend constexpr Fp<MOD> modpow(const Fp<MOD> &a, long long n) noexcept\
+    \ {\n        if (n == 0) return 1;\n        auto t = modpow(a, n / 2);\n     \
+    \   t = t * t;\n        if (n & 1) t = t * a;\n        return t;\n    }\n    friend\
+    \ constexpr Fp<MOD> modinv(const Fp<MOD> &a) noexcept {\n        Fp<MOD> b = 1;\n\
+    \        return b / a;\n    }\n};\n\nusing mint998 = Fp<998244353>;\nusing mint007\
+    \ = Fp<1000000007>;\n// using mint = Fp<MOD>;\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n// modint: mod \u8A08\u7B97\u3092\
+    \ int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\u3048\u308B\u69CB\u9020\u4F53\
+    \ntemplate<int MOD> struct Fp {\n    long long val;\n    constexpr Fp(long long\
+    \ v = 0) noexcept : val(v % MOD) {\n        if (val < 0) val += MOD;\n    }\n\
+    \    constexpr int getmod() { return MOD; }\n    constexpr Fp operator - () const\
+    \ noexcept {\n        return val ? MOD - val : 0;\n    }\n    constexpr Fp operator\
+    \ + (const Fp& r) const noexcept { return Fp(*this) += r; }\n    constexpr Fp\
+    \ operator - (const Fp& r) const noexcept { return Fp(*this) -= r; }\n    constexpr\
+    \ Fp operator * (const Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr\
+    \ Fp operator / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr\
+    \ Fp& operator += (const Fp& r) noexcept {\n        val += r.val;\n        if\
+    \ (val >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
+    \ -= (const Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val\
+    \ += MOD;\n        return *this;\n    }\n    constexpr Fp& operator *= (const\
+    \ Fp& r) noexcept {\n        val = val * r.val % MOD;\n        return *this;\n\
+    \    }\n    constexpr Fp& operator /= (const Fp& r) noexcept {\n        long long\
+    \ a = r.val, b = MOD, u = 1, v = 0;\n        while (b) {\n            long long\
+    \ t = a / b;\n            a -= t * b; swap(a, b);\n            u -= t * v; swap(u,\
+    \ v);\n        }\n        val = val * u % MOD;\n        if (val < 0) val += MOD;\n\
+    \        return *this;\n    }\n    constexpr bool operator == (const Fp& r) const\
+    \ noexcept {\n        return this->val == r.val;\n    }\n    constexpr bool operator\
+    \ != (const Fp& r) const noexcept {\n        return this->val != r.val;\n    }\n\
+    \    friend constexpr istream& operator >> (istream &is, Fp<MOD>& x) noexcept\
+    \ {\n        long long t;\n        is >> t;\n        x = t;\n        return (is);\n\
+    \    }\n    friend constexpr ostream& operator << (ostream &os, const Fp<MOD>&\
+    \ x) noexcept {\n        return os << x.val;\n    }\n    friend constexpr Fp<MOD>\
+    \ modpow(const Fp<MOD> &a, long long n) noexcept {\n        if (n == 0) return\
+    \ 1;\n        auto t = modpow(a, n / 2);\n        t = t * t;\n        if (n &\
+    \ 1) t = t * a;\n        return t;\n    }\n    friend constexpr Fp<MOD> modinv(const\
+    \ Fp<MOD> &a) noexcept {\n        Fp<MOD> b = 1;\n        return b / a;\n    }\n\
+    };\n\nusing mint998 = Fp<998244353>;\nusing mint007 = Fp<1000000007>;\n// using\
+    \ mint = Fp<MOD>;\n"
   dependsOn:
-  - math/prime_factorization.cpp
   - base.cpp
-  isVerificationFile: true
-  path: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+  isVerificationFile: false
+  path: math/modint.cpp
   requiredBy: []
-  timestamp: '2024-04-18 21:00:54+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+  timestamp: '2024-04-23 02:50:44+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+documentation_of: math/modint.cpp
 layout: document
 redirect_from:
-- /verify/test/math/prime_factorization/atcoder-abc324-b.test.cpp
-- /verify/test/math/prime_factorization/atcoder-abc324-b.test.cpp.html
-title: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+- /library/math/modint.cpp
+- /library/math/modint.cpp.html
+title: math/modint.cpp
 ---

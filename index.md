@@ -48,11 +48,14 @@ data:
       path: math/eratosthenes.cpp
       title: math/eratosthenes.cpp
     - icon: ':heavy_check_mark:'
-      path: math/is_prime.cpp
-      title: math/is_prime.cpp
+      path: math/is-prime.cpp
+      title: math/is-prime.cpp
     - icon: ':heavy_check_mark:'
-      path: math/prime_factorization.cpp
-      title: math/prime_factorization.cpp
+      path: math/modint.cpp
+      title: math/modint.cpp
+    - icon: ':heavy_check_mark:'
+      path: math/prime-factorization.cpp
+      title: math/prime-factorization.cpp
   - name: mystd
     pages:
     - icon: ':warning:'
@@ -67,6 +70,14 @@ data:
     - icon: ':warning:'
       path: mystd/mytuple.cpp
       title: mystd/mytuple.cpp
+  - name: search
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: search/bit-zentansaku.cpp
+      title: search/bit-zentansaku.cpp
+    - icon: ':heavy_check_mark:'
+      path: search/trit-zentansaku.cpp
+      title: search/trit-zentansaku.cpp
   - name: structure
     pages:
     - icon: ':heavy_check_mark:'
@@ -84,6 +95,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/segmenttree.cpp
       title: structure/segmenttree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/splay-tree.cpp
+      title: structure/splay-tree.cpp
     - icon: ':heavy_check_mark:'
       path: structure/unionfind.cpp
       title: structure/unionfind.cpp
@@ -174,16 +188,29 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
       title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
-  - name: test/math/is_prime
+  - name: test/math/is-prime
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/math/is_prime/atcoder-abc149-c.test.cpp
-      title: test/math/is_prime/atcoder-abc149-c.test.cpp
-  - name: test/math/prime_factorization
+      path: test/math/is-prime/atcoder-abc149-c.test.cpp
+      title: test/math/is-prime/atcoder-abc149-c.test.cpp
+  - name: test/math/prime-factorization
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/math/prime_factorization/atcoder-abc324-b.test.cpp
-      title: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+      path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
+      title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - name: test/search/bit-zentansaku
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+      title: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+      title: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - name: test/search/trit-zentansaku
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+      title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
   - name: test/structure/bit
     pages:
     - icon: ':heavy_check_mark:'
@@ -248,6 +275,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
       title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+  - name: test/structure/splay-tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+      title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - name: test/structure/unionfind
     pages:
     - icon: ':heavy_check_mark:'

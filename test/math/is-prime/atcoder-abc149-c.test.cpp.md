@@ -4,29 +4,34 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
-    title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+    path: math/is-prime.cpp
+    title: math/is-prime.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc149/tasks/abc149_c
+    links:
+    - https://atcoder.jp/contests/abc149/tasks/abc149_c
+  bundledCode: "#line 1 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\n#define\
+    \ PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -275,96 +280,32 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.cpp\"\
-    \n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{}; // par[i]:\
-    \ i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642\
-    )\n    map<long long, set<long long>> cc;\n\n    explicit UnionFind(long long\
-    \ V) : V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n\
-    \        }\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
-    \ unite(long long x, long long y) {\n        long long rx = find(x); //x\u306E\
-    \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n    \
-    \    if (rx == ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\
-    \u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n      \
-    \  // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\
-    \u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\
-    \u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx,\
-    \ ry);\n        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\
-    \u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
-    \ cc[ry].end());\n        cc.erase(ry);\n\n        return true;\n    }\n\n   \
-    \ // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\
-    \u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x, long long\
-    \ y) { \n        return find(x) == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\
-    \u3059\n    long long size(long long x) {\n        long long rx = find(x);\n \
-    \       return -par[rx];\n    }\n\n    bool is_connected() {\n        long long\
-    \ rx = find(0);\n        return -par[rx] == V;\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\u8FD4\u3059\n   \
-    \ set<long long> members(long long x) {\n        long long rx = find(x);\n   \
-    \     return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\u914D\u5217\u3092\
-    \u8FD4\u3059\n    set<long long> roots() {\n        set<long long> ret;\n    \
-    \    fore(p, cc) {\n            ret.insert(p.first);\n        }\n        \n  \
-    \      return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\
-    \u3092\u8FD4\u3059\n    long long group_count() {\n        return cc.size();\n\
-    \    }\n\n    map<long long, set<long long>> all_group_members() {\n        return\
-    \ cc;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct UnionFind {\n    long long\
-    \ V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7\
-    \ or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    map<long long, set<long\
-    \ long>> cc;\n\n    explicit UnionFind(long long V) : V(V), par(V, -1) { //\u6700\
-    \u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\
-    \u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n        }\n \
-    \   }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long long\
-    \ x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\
-    \u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n        if\
-    \ (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n        return\
-    \ par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool unite(long\
-    \ long x, long long y) {\n        long long rx = find(x); //x\u306E\u6839\u3092\
-    rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx ==\
-    \ ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\
-    \u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\
-    \u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\
-    \u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\
-    \u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n      \
-    \  }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\
-    \n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044\
-    (=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\
-    \u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(), cc[ry].end());\n\
-    \        cc.erase(ry);\n\n        return true;\n    }\n\n    // 2\u3064\u306E\u30C7\
-    \u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\
-    \u8FD4\u3059\n    bool is_same(long long x, long long y) { \n        return find(x)\
-    \ == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\
-    \u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\n    long long size(long\
-    \ long x) {\n        long long rx = find(x);\n        return -par[rx];\n    }\n\
-    \n    bool is_connected() {\n        long long rx = find(0);\n        return -par[rx]\
-    \ == V;\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\
-    \u306E\u8981\u7D20\u3092\u8FD4\u3059\n    set<long long> members(long long x)\
-    \ {\n        long long rx = find(x);\n        return cc[rx];\n    }\n\n    //\
-    \ \u6839\u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    set<long long> roots()\
-    \ {\n        set<long long> ret;\n        fore(p, cc) {\n            ret.insert(p.first);\n\
-    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
-    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
-    \ cc.size();\n    }\n\n    map<long long, set<long long>> all_group_members()\
-    \ {\n        return cc;\n    }\n};"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/is-prime.cpp\"\
+    \n\nbool is_prime(long long N) {\n    if (N < 2) return false;\n    if (N == 2)\
+    \ return true;\n    if (N % 2 == 0) return false;\n    for (long long i = 3; i\
+    \ * i <= N; i += 2) {\n        if (N % i == 0) return false;\n    }\n    return\
+    \ true;\n}\n#line 4 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\n\nint main()\
+    \ {\n    ll X;\n    cin >> X;\n\n    ll x = X;\n\n    while (true) {\n       \
+    \ if (is_prime(x)) {\n            cout << x << endl;\n            return 0;\n\
+    \        }\n\n        ++x;\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n\
+    #include \"../../../math/is-prime.cpp\"\n\nint main() {\n    ll X;\n    cin >>\
+    \ X;\n\n    ll x = X;\n\n    while (true) {\n        if (is_prime(x)) {\n    \
+    \        cout << x << endl;\n            return 0;\n        }\n\n        ++x;\n\
+    \    }\n\n    return 0;\n}"
   dependsOn:
+  - math/is-prime.cpp
   - base.cpp
-  isVerificationFile: false
-  path: structure/unionfind.cpp
+  isVerificationFile: true
+  path: test/math/is-prime/atcoder-abc149-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 02:50:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
-documentation_of: structure/unionfind.cpp
+  timestamp: '2024-04-22 21:47:12+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/math/is-prime/atcoder-abc149-c.test.cpp
 layout: document
 redirect_from:
-- /library/structure/unionfind.cpp
-- /library/structure/unionfind.cpp.html
-title: structure/unionfind.cpp
+- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp
+- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp.html
+title: test/math/is-prime/atcoder-abc149-c.test.cpp
 ---

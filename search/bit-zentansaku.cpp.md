@@ -7,8 +7,11 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
-    title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+    path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+    title: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+    title: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -275,96 +278,55 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.cpp\"\
-    \n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{}; // par[i]:\
-    \ i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642\
-    )\n    map<long long, set<long long>> cc;\n\n    explicit UnionFind(long long\
-    \ V) : V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n\
-    \        }\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
-    \ unite(long long x, long long y) {\n        long long rx = find(x); //x\u306E\
-    \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n    \
-    \    if (rx == ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\
-    \u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n      \
-    \  // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\
-    \u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\
-    \u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx,\
-    \ ry);\n        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\
-    \u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
-    \ cc[ry].end());\n        cc.erase(ry);\n\n        return true;\n    }\n\n   \
-    \ // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\
-    \u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x, long long\
-    \ y) { \n        return find(x) == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\
-    \u3059\n    long long size(long long x) {\n        long long rx = find(x);\n \
-    \       return -par[rx];\n    }\n\n    bool is_connected() {\n        long long\
-    \ rx = find(0);\n        return -par[rx] == V;\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\u8FD4\u3059\n   \
-    \ set<long long> members(long long x) {\n        long long rx = find(x);\n   \
-    \     return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\u914D\u5217\u3092\
-    \u8FD4\u3059\n    set<long long> roots() {\n        set<long long> ret;\n    \
-    \    fore(p, cc) {\n            ret.insert(p.first);\n        }\n        \n  \
-    \      return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\
-    \u3092\u8FD4\u3059\n    long long group_count() {\n        return cc.size();\n\
-    \    }\n\n    map<long long, set<long long>> all_group_members() {\n        return\
-    \ cc;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct UnionFind {\n    long long\
-    \ V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7\
-    \ or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    map<long long, set<long\
-    \ long>> cc;\n\n    explicit UnionFind(long long V) : V(V), par(V, -1) { //\u6700\
-    \u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\
-    \u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n        }\n \
-    \   }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long long\
-    \ x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\
-    \u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n        if\
-    \ (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n        return\
-    \ par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool unite(long\
-    \ long x, long long y) {\n        long long rx = find(x); //x\u306E\u6839\u3092\
-    rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx ==\
-    \ ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\
-    \u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\
-    \u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\
-    \u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\
-    \u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n      \
-    \  }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\
-    \n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044\
-    (=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\
-    \u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(), cc[ry].end());\n\
-    \        cc.erase(ry);\n\n        return true;\n    }\n\n    // 2\u3064\u306E\u30C7\
-    \u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\
-    \u8FD4\u3059\n    bool is_same(long long x, long long y) { \n        return find(x)\
-    \ == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\
-    \u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\n    long long size(long\
-    \ long x) {\n        long long rx = find(x);\n        return -par[rx];\n    }\n\
-    \n    bool is_connected() {\n        long long rx = find(0);\n        return -par[rx]\
-    \ == V;\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\
-    \u306E\u8981\u7D20\u3092\u8FD4\u3059\n    set<long long> members(long long x)\
-    \ {\n        long long rx = find(x);\n        return cc[rx];\n    }\n\n    //\
-    \ \u6839\u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    set<long long> roots()\
-    \ {\n        set<long long> ret;\n        fore(p, cc) {\n            ret.insert(p.first);\n\
-    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
-    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
-    \ cc.size();\n    }\n\n    map<long long, set<long long>> all_group_members()\
-    \ {\n        return cc;\n    }\n};"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 2 \"search/bit-zentansaku.cpp\"\
+    \n\n// bit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF: O(N2^N) (N<=20)\nauto exhaustive_search\
+    \ = [](long long N) {\n    long long ret = 0;\n\n    for (long long bit = 0; bit\
+    \ < (1ll << N); ++bit) {\n        rep(i, N) {\n            if (bit & (1ll << i))\
+    \ {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else {\n        \
+    \        // i\u304Cbit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\
+    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n    return ret;\n\
+    };\n\n// \u9806\u5217\u8FBC\u307Fbit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF\
+    : O(N!2^N) (N <= 7)\nauto exhaustive_search_with_permutation = [](long long N)\
+    \ {\n    long long ret = 0;\n\n    for (long long bit = 0; bit < (1ll << N); ++bit)\
+    \ {\n        vll v;\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n\
+    \                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n                v.push_back(i);\n\n          \
+    \  }\n            else {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\
+    \u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n\
+    \        }\n\n        do {\n            \n        } while (next_permutation(v.begin(),\
+    \ v.end()));\n    }\n\n    return ret;\n};\n"
+  code: "#include \"../base.cpp\"\n\n// bit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF\
+    : O(N2^N) (N<=20)\nauto exhaustive_search = [](long long N) {\n    long long ret\
+    \ = 0;\n\n    for (long long bit = 0; bit < (1ll << N); ++bit) {\n        rep(i,\
+    \ N) {\n            if (bit & (1ll << i)) {\n                // i\u304Cbit\u306B\
+    \u542B\u307E\u308C\u308B\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n \
+    \           }\n            else {\n                // i\u304Cbit\u306B\u542B\u307E\
+    \u308C\u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n       \
+    \     }\n        }\n    }\n\n    return ret;\n};\n\n// \u9806\u5217\u8FBC\u307F\
+    bit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF: O(N!2^N) (N <= 7)\nauto exhaustive_search_with_permutation\
+    \ = [](long long N) {\n    long long ret = 0;\n\n    for (long long bit = 0; bit\
+    \ < (1ll << N); ++bit) {\n        vll v;\n        rep(i, N) {\n            if\
+    \ (bit & (1ll << i)) {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\
+    \u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n                v.push_back(i);\n\
+    \n            }\n            else {\n                // i\u304Cbit\u306B\u542B\
+    \u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n \
+    \           }\n        }\n\n        do {\n            \n        } while (next_permutation(v.begin(),\
+    \ v.end()));\n    }\n\n    return ret;\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
-  path: structure/unionfind.cpp
+  path: search/bit-zentansaku.cpp
   requiredBy: []
-  timestamp: '2024-04-23 02:50:54+09:00'
+  timestamp: '2024-04-22 21:48:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
-documentation_of: structure/unionfind.cpp
+  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+documentation_of: search/bit-zentansaku.cpp
 layout: document
 redirect_from:
-- /library/structure/unionfind.cpp
-- /library/structure/unionfind.cpp.html
-title: structure/unionfind.cpp
+- /library/search/bit-zentansaku.cpp
+- /library/search/bit-zentansaku.cpp.html
+title: search/bit-zentansaku.cpp
 ---

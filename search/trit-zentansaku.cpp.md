@@ -7,8 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/math/prime_factorization/atcoder-abc324-b.test.cpp
-    title: test/math/prime_factorization/atcoder-abc324-b.test.cpp
+    path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+    title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -275,30 +275,64 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/prime_factorization.cpp\"\
-    \n\nmap<long long, long long> prime_factorization(long long N) {\n    map<long\
-    \ long, long long> ret;\n    while (N % 2 == 0) {\n        ret[2]++;\n       \
-    \ N /= 2;\n    }\n\n    for (long long i = 3; i * i <= N; i += 2) {\n        while\
-    \ (N % i == 0) {\n            ret[i]++;\n            N /= i;\n        }\n    }\
-    \ \n    if (N > 1) ret[N]++;\n    return ret;\n}\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nmap<long long, long long> prime_factorization(long\
-    \ long N) {\n    map<long long, long long> ret;\n    while (N % 2 == 0) {\n  \
-    \      ret[2]++;\n        N /= 2;\n    }\n\n    for (long long i = 3; i * i <=\
-    \ N; i += 2) {\n        while (N % i == 0) {\n            ret[i]++;\n        \
-    \    N /= i;\n        }\n    } \n    if (N > 1) ret[N]++;\n    return ret;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 2 \"search/trit-zentansaku.cpp\"\
+    \n\n// bit\u5168\u63A2\u7D22 3\u9032\u6570ver.\n// \u8A08\u7B97\u91CF: O(N3^N)\
+    \ (N<=13)\nauto exhaustive_search = [](long long N) {\n    long long ret = 0;\n\
+    \    vector<ll> v(N);\n\n    for (long long bit = 0; bit < binpow(3ll, N); ++bit)\
+    \ {\n        ll x = bit;\n        rep(i, N) {\n            v[i] = x % 3;\n   \
+    \         x /= 3;\n        }\n\n        rep(i, N) {\n            if (v[i] == 0)\
+    \ {\n                // i\u756A\u76EE\u304C0\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n\n            }\n            else if (v[i] == 1) {\n                // i\u756A\
+    \u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n         \
+    \   else {\n                // i\u756A\u76EE\u304C2\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n\n            }\n        }\n    }\n\n    return ret;\n};\n\n// \u9806\u5217\
+    \u8FBC\u307Fbit\u5168\u63A2\u7D22 3\u9032\u6570ver.\n// \u8A08\u7B97\u91CF: O(N!3^N)\
+    \ (N<=6)\nauto exhaustive_search_with_permutation = [](long long N) {\n    long\
+    \ long ret = 0;\n    vector<ll> v(N);\n\n    for (long long bit = 0; bit < binpow(3ll,\
+    \ N); ++bit) {\n        ll x = bit;\n        rep(i, N) {\n            v[i] = x\
+    \ % 3;\n            x /= 3;\n        }\n\n        rep(i, N) {\n            if\
+    \ (v[i] == 0) {\n                // i\u756A\u76EE\u304C0\u306E\u51E6\u7406\u3092\
+    \u66F8\u304F\n\n            }\n            else if (v[i] == 1) {\n           \
+    \     // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n        \
+    \    }\n            else {\n                // i\u756A\u76EE\u304C2\u306E\u51E6\
+    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n\n        // do {\n    \
+    \        \n        // } while (next_permutation(.begin(), .end()));\n    }\n\n\
+    \    return ret;\n};\n"
+  code: "#include \"../base.cpp\"\n\n// bit\u5168\u63A2\u7D22 3\u9032\u6570ver.\n\
+    // \u8A08\u7B97\u91CF: O(N3^N) (N<=13)\nauto exhaustive_search = [](long long\
+    \ N) {\n    long long ret = 0;\n    vector<ll> v(N);\n\n    for (long long bit\
+    \ = 0; bit < binpow(3ll, N); ++bit) {\n        ll x = bit;\n        rep(i, N)\
+    \ {\n            v[i] = x % 3;\n            x /= 3;\n        }\n\n        rep(i,\
+    \ N) {\n            if (v[i] == 0) {\n                // i\u756A\u76EE\u304C0\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else if (v[i] ==\
+    \ 1) {\n                // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n\n            }\n            else {\n                // i\u756A\u76EE\u304C\
+    2\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n \
+    \   return ret;\n};\n\n// \u9806\u5217\u8FBC\u307Fbit\u5168\u63A2\u7D22 3\u9032\
+    \u6570ver.\n// \u8A08\u7B97\u91CF: O(N!3^N) (N<=6)\nauto exhaustive_search_with_permutation\
+    \ = [](long long N) {\n    long long ret = 0;\n    vector<ll> v(N);\n\n    for\
+    \ (long long bit = 0; bit < binpow(3ll, N); ++bit) {\n        ll x = bit;\n  \
+    \      rep(i, N) {\n            v[i] = x % 3;\n            x /= 3;\n        }\n\
+    \n        rep(i, N) {\n            if (v[i] == 0) {\n                // i\u756A\
+    \u76EE\u304C0\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n         \
+    \   else if (v[i] == 1) {\n                // i\u756A\u76EE\u304C1\u306E\u51E6\
+    \u7406\u3092\u66F8\u304F\n\n            }\n            else {\n              \
+    \  // i\u756A\u76EE\u304C2\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n           \
+    \ }\n        }\n\n        // do {\n            \n        // } while (next_permutation(.begin(),\
+    \ .end()));\n    }\n\n    return ret;\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
-  path: math/prime_factorization.cpp
+  path: search/trit-zentansaku.cpp
   requiredBy: []
-  timestamp: '2024-04-18 21:00:54+09:00'
+  timestamp: '2024-04-22 21:48:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/math/prime_factorization/atcoder-abc324-b.test.cpp
-documentation_of: math/prime_factorization.cpp
+  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+documentation_of: search/trit-zentansaku.cpp
 layout: document
 redirect_from:
-- /library/math/prime_factorization.cpp
-- /library/math/prime_factorization.cpp.html
-title: math/prime_factorization.cpp
+- /library/search/trit-zentansaku.cpp
+- /library/search/trit-zentansaku.cpp.html
+title: search/trit-zentansaku.cpp
 ---

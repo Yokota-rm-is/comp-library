@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/unionfind.cpp
-    title: structure/unionfind.cpp
+    path: search/trit-zentansaku.cpp
+    title: search/trit-zentansaku.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,24 +14,24 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&
+    PROBLEM: https://atcoder.jp/contests/abc345/tasks/abc345_d
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&
-  bundledCode: "#line 1 \"test/structure/unionfind/aoj-dsl-1-a.test.cpp\"\n#define\
-    \ PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&\"\
-    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    - https://atcoder.jp/contests/abc345/tasks/abc345_d
+  bundledCode: "#line 1 \"test/search/trit-zentansaku/atcoder-abc345-d.test.cpp\"\n\
+    #define PROBLEM \"https://atcoder.jp/contests/abc345/tasks/abc345_d\"\n\n#line\
+    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -280,71 +280,253 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.cpp\"\
-    \n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{}; // par[i]:\
-    \ i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642\
-    )\n    map<long long, set<long long>> cc;\n\n    explicit UnionFind(long long\
-    \ V) : V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n\
-    \        }\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
-    \ unite(long long x, long long y) {\n        long long rx = find(x); //x\u306E\
-    \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n    \
-    \    if (rx == ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\
-    \u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n      \
-    \  // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\
-    \u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\
-    \u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx,\
-    \ ry);\n        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\
-    \u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
-    \ cc[ry].end());\n        cc.erase(ry);\n\n        return true;\n    }\n\n   \
-    \ // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\
-    \u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x, long long\
-    \ y) { \n        return find(x) == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\
-    \u3059\n    long long size(long long x) {\n        long long rx = find(x);\n \
-    \       return -par[rx];\n    }\n\n    bool is_connected() {\n        long long\
-    \ rx = find(0);\n        return -par[rx] == V;\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\u8FD4\u3059\n   \
-    \ set<long long> members(long long x) {\n        long long rx = find(x);\n   \
-    \     return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\u914D\u5217\u3092\
-    \u8FD4\u3059\n    set<long long> roots() {\n        set<long long> ret;\n    \
-    \    fore(p, cc) {\n            ret.insert(p.first);\n        }\n        \n  \
-    \      return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\
-    \u3092\u8FD4\u3059\n    long long group_count() {\n        return cc.size();\n\
-    \    }\n\n    map<long long, set<long long>> all_group_members() {\n        return\
-    \ cc;\n    }\n};\n#line 4 \"test/structure/unionfind/aoj-dsl-1-a.test.cpp\"\n\n\
-    int main() {\n    ll n, q;\n    cin >> n >> q;\n\n    UnionFind tree(n);\n   \
-    \ while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n \
-    \           ll x, y;\n            cin >> x >> y;\n            tree.unite(x, y);\n\
-    \        }\n        else {\n            ll x, y;\n            cin >> x >> y;\n\
-    \            cout << tree.is_same(x, y) << endl;\n        }\n    }\n\n    return\
-    \ 0;\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&\"\
-    \n\n#include \"../../../structure/unionfind.cpp\"\n\nint main() {\n    ll n, q;\n\
-    \    cin >> n >> q;\n\n    UnionFind tree(n);\n    while (q--) {\n        ll t;\n\
-    \        cin >> t;\n\n        if (t == 0) {\n            ll x, y;\n          \
-    \  cin >> x >> y;\n            tree.unite(x, y);\n        }\n        else {\n\
-    \            ll x, y;\n            cin >> x >> y;\n            cout << tree.is_same(x,\
-    \ y) << endl;\n        }\n    }\n\n    return 0;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 2 \"search/trit-zentansaku.cpp\"\
+    \n\n// bit\u5168\u63A2\u7D22 3\u9032\u6570ver.\n// \u8A08\u7B97\u91CF: O(N3^N)\
+    \ (N<=13)\nauto exhaustive_search = [](long long N) {\n    long long ret = 0;\n\
+    \    vector<ll> v(N);\n\n    for (long long bit = 0; bit < binpow(3ll, N); ++bit)\
+    \ {\n        ll x = bit;\n        rep(i, N) {\n            v[i] = x % 3;\n   \
+    \         x /= 3;\n        }\n\n        rep(i, N) {\n            if (v[i] == 0)\
+    \ {\n                // i\u756A\u76EE\u304C0\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n\n            }\n            else if (v[i] == 1) {\n                // i\u756A\
+    \u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n         \
+    \   else {\n                // i\u756A\u76EE\u304C2\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n\n            }\n        }\n    }\n\n    return ret;\n};\n\n// \u9806\u5217\
+    \u8FBC\u307Fbit\u5168\u63A2\u7D22 3\u9032\u6570ver.\n// \u8A08\u7B97\u91CF: O(N!3^N)\
+    \ (N<=6)\nauto exhaustive_search_with_permutation = [](long long N) {\n    long\
+    \ long ret = 0;\n    vector<ll> v(N);\n\n    for (long long bit = 0; bit < binpow(3ll,\
+    \ N); ++bit) {\n        ll x = bit;\n        rep(i, N) {\n            v[i] = x\
+    \ % 3;\n            x /= 3;\n        }\n\n        rep(i, N) {\n            if\
+    \ (v[i] == 0) {\n                // i\u756A\u76EE\u304C0\u306E\u51E6\u7406\u3092\
+    \u66F8\u304F\n\n            }\n            else if (v[i] == 1) {\n           \
+    \     // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n        \
+    \    }\n            else {\n                // i\u756A\u76EE\u304C2\u306E\u51E6\
+    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n\n        // do {\n    \
+    \        \n        // } while (next_permutation(.begin(), .end()));\n    }\n\n\
+    \    return ret;\n};\n#line 4 \"test/search/trit-zentansaku/atcoder-abc345-d.test.cpp\"\
+    \n\nstruct Coordinate {\n    long long y, x;\n\n    Coordinate(long long y_ =\
+    \ 0, long long x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n        return\
+    \ sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate\
+    \ &other) {\n        return Coordinate(y - other.y, x - other.x).euclid();\n \
+    \   }\n\n    long long manhattan() {\n        return abs(y) + abs(x);\n    }\n\
+    \n    long long manhattan_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char\
+    \ c) {\n        assert(c == 'R' or c == 'L' or c == 'U' or c == 'D');\n      \
+    \  Coordinate ret(y, x);\n\n        if (c == 'D') ++ret.y;\n        if (c == 'U')\
+    \ --ret.y;\n        if (c == 'R') ++ret.x;\n        if (c == 'L') --ret.x;\n\n\
+    \        return ret;\n    }\n\n    char dir2char() {\n        assert(manhattan()\
+    \ == 1);\n\n        char ret;\n        if (x > 0) ret = 'R';\n        if (x <\
+    \ 0) ret = 'L';\n        if (y > 0) ret = 'D';\n        if (y < 0) ret = 'U';\n\
+    \n        return ret;\n    }\n\n    char dir2char(Coordinate next) {\n       \
+    \ Coordinate dir = next - *this;\n        return dir.dir2char();\n    }\n\n  \
+    \  Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n    }\n\n\
+    \    Coordinate operator+ (const Coordinate &other) {\n        return Coordinate(y,\
+    \ x) += other;\n    }\n\n    Coordinate operator- (const Coordinate &other) {\n\
+    \        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate operator+\
+    \ (const long long &a) {\n        return Coordinate(y, x) += a;\n    }\n\n   \
+    \ Coordinate operator- (const long long &a) {\n        return Coordinate(y, x)\
+    \ -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n        return\
+    \ Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long long &a)\
+    \ {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
+    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
+    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
+    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
+    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
+    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
+    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
+    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
+    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
+    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
+    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
+    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
+    \ *this;\n    }\n\n    bool operator== (const Coordinate &other) {\n        return\
+    \ y == other.y and x == other.x;\n    }\n\n    bool operator!= (const Coordinate\
+    \ &other) {\n        return y != other.y or x != other.x;\n    }\n\n    bool operator<\
+    \ (const Coordinate &other) {\n        if (y == other.y) {\n            return\
+    \ x < other.x;\n        }\n        else return y < other.y;\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, const Coordinate& p) {\n        return os\
+    \ << \"(\" << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\n\
+    struct Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\
+    \n    Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
+    \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
+    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
+    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
+    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
+    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
+    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
+    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
+    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
+    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
+    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
+    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
+    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
+    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
+    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
+    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
+    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
+    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
+    \   char obj = '#';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h,\
+    \ string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()),\
+    \ vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n        return vs[y][x];\n\
+    \    }\n\n    char& operator() (const Coordinate& p) {\n        return vs[p.y][p.x];\n\
+    \    }\n\n    bool is_obj(size_t y, size_t x) {\n        return vs[y][x] == obj;\n\
+    \    }\n\n    bool is_obj(const Coordinate& p) {\n        return vs[p.y][p.x]\
+    \ == obj;\n    }\n\n    bool is_out(long long y, long long x) {\n        return\
+    \ y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate&\
+    \ p) {\n        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n\
+    \    string& operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, Field& field) {\n        rep(i, field.H)\
+    \ {\n            os << field[i] << endl;\n        }\n        return os;\n    }\n\
+    };\n\n\nint main() {\n    ll N, H, W;\n    cin >> N >> H >> W;\n\n    vll A(N),\
+    \ B(N);\n\n    rep(i, N) {\n        cin >> A[i] >> B[i];\n    }\n\n    vector<pll>\
+    \ v(N);\n\n    bool ans = false;\n\n    for (long long bit = 0; bit < binpow(3ll,\
+    \ N); ++bit) {\n        ll x = bit;\n        rep(i, N) {\n            v[i] = {i,\
+    \ x % 3};\n            x /= 3;\n        }\n\n        vector<pll> C;\n\n      \
+    \  rep(i, N) {\n            ll a = A[i], b = B[i];\n            if (v[i].second\
+    \ == 0) {\n                // i\u756A\u76EE\u304C0\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n                continue;\n            }\n            else if (v[i].second\
+    \ == 1) {\n                // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n                C.emplace_back(a, b);\n            }\n            else\
+    \ {\n                // i\u756A\u76EE\u304C2\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n                swap(a, b);\n                C.emplace_back(a, b);\n       \
+    \     }\n        }\n\n        do {\n            Field field(H, W);\n\n       \
+    \     bool flg = true;\n\n            ll idx = 0;\n            rep(t, H) {\n \
+    \               rep(l, W) {\n                    if (field.is_obj({t, l})) continue;\n\
+    \n                    if (idx == C.size()) {\n                        flg = false;\n\
+    \                        break;\n                    }\n                    \n\
+    \                    auto [a, b] = C[idx];\n                    if (field.is_out({t\
+    \ + a - 1, l + b - 1})) {\n                        flg = false;\n            \
+    \            break;\n                    }\n\n                    rep(i, b) {\n\
+    \                        if (field.is_obj({t, l + i})) {\n                   \
+    \         flg = false;\n                        }\n                    }\n   \
+    \                 if (!flg) break;\n\n                    rep(y, t, t + a) rep(x,\
+    \ l, l + b) field({y, x}) = '#';\n                    ++idx;\n               \
+    \ }\n                if (!flg) break;\n            }\n\n            if (flg) {\n\
+    \                ans = true;\n                break;\n            }\n\n      \
+    \  } while (next_permutation(C.begin(), C.end()));\n        \n        if (ans)\
+    \ break;\n    }\n\n    cout << YesNo(ans) << endl;\n\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc345/tasks/abc345_d\"\n\n\
+    #include \"../../../search/trit-zentansaku.cpp\"\n\nstruct Coordinate {\n    long\
+    \ long y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_)\
+    \ {};\n\n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n\
+    \    }\n\n    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
+    \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
+    \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
+    \    }\n\n    Coordinate char2dir(char c) {\n        assert(c == 'R' or c == 'L'\
+    \ or c == 'U' or c == 'D');\n        Coordinate ret(y, x);\n\n        if (c ==\
+    \ 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n        if (c == 'R') ++ret.x;\n\
+    \        if (c == 'L') --ret.x;\n\n        return ret;\n    }\n\n    char dir2char()\
+    \ {\n        assert(manhattan() == 1);\n\n        char ret;\n        if (x > 0)\
+    \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
+    \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
+    \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
+    \    }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
+    \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
+    \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
+    \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
+    \ operator+ (const long long &a) {\n        return Coordinate(y, x) += a;\n  \
+    \  }\n\n    Coordinate operator- (const long long &a) {\n        return Coordinate(y,\
+    \ x) -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n       \
+    \ return Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long\
+    \ long &a) {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
+    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
+    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
+    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
+    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
+    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
+    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
+    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
+    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
+    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
+    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
+    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
+    \ *this;\n    }\n\n    bool operator== (const Coordinate &other) {\n        return\
+    \ y == other.y and x == other.x;\n    }\n\n    bool operator!= (const Coordinate\
+    \ &other) {\n        return y != other.y or x != other.x;\n    }\n\n    bool operator<\
+    \ (const Coordinate &other) {\n        if (y == other.y) {\n            return\
+    \ x < other.x;\n        }\n        else return y < other.y;\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, const Coordinate& p) {\n        return os\
+    \ << \"(\" << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\n\
+    struct Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\
+    \n    Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
+    \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
+    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
+    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
+    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
+    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
+    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
+    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
+    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
+    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
+    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
+    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
+    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
+    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
+    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
+    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
+    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
+    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
+    \   char obj = '#';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h,\
+    \ string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()),\
+    \ vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n        return vs[y][x];\n\
+    \    }\n\n    char& operator() (const Coordinate& p) {\n        return vs[p.y][p.x];\n\
+    \    }\n\n    bool is_obj(size_t y, size_t x) {\n        return vs[y][x] == obj;\n\
+    \    }\n\n    bool is_obj(const Coordinate& p) {\n        return vs[p.y][p.x]\
+    \ == obj;\n    }\n\n    bool is_out(long long y, long long x) {\n        return\
+    \ y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate&\
+    \ p) {\n        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n\
+    \    string& operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, Field& field) {\n        rep(i, field.H)\
+    \ {\n            os << field[i] << endl;\n        }\n        return os;\n    }\n\
+    };\n\n\nint main() {\n    ll N, H, W;\n    cin >> N >> H >> W;\n\n    vll A(N),\
+    \ B(N);\n\n    rep(i, N) {\n        cin >> A[i] >> B[i];\n    }\n\n    vector<pll>\
+    \ v(N);\n\n    bool ans = false;\n\n    for (long long bit = 0; bit < binpow(3ll,\
+    \ N); ++bit) {\n        ll x = bit;\n        rep(i, N) {\n            v[i] = {i,\
+    \ x % 3};\n            x /= 3;\n        }\n\n        vector<pll> C;\n\n      \
+    \  rep(i, N) {\n            ll a = A[i], b = B[i];\n            if (v[i].second\
+    \ == 0) {\n                // i\u756A\u76EE\u304C0\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n                continue;\n            }\n            else if (v[i].second\
+    \ == 1) {\n                // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n                C.emplace_back(a, b);\n            }\n            else\
+    \ {\n                // i\u756A\u76EE\u304C2\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n                swap(a, b);\n                C.emplace_back(a, b);\n       \
+    \     }\n        }\n\n        do {\n            Field field(H, W);\n\n       \
+    \     bool flg = true;\n\n            ll idx = 0;\n            rep(t, H) {\n \
+    \               rep(l, W) {\n                    if (field.is_obj({t, l})) continue;\n\
+    \n                    if (idx == C.size()) {\n                        flg = false;\n\
+    \                        break;\n                    }\n                    \n\
+    \                    auto [a, b] = C[idx];\n                    if (field.is_out({t\
+    \ + a - 1, l + b - 1})) {\n                        flg = false;\n            \
+    \            break;\n                    }\n\n                    rep(i, b) {\n\
+    \                        if (field.is_obj({t, l + i})) {\n                   \
+    \         flg = false;\n                        }\n                    }\n   \
+    \                 if (!flg) break;\n\n                    rep(y, t, t + a) rep(x,\
+    \ l, l + b) field({y, x}) = '#';\n                    ++idx;\n               \
+    \ }\n                if (!flg) break;\n            }\n\n            if (flg) {\n\
+    \                ans = true;\n                break;\n            }\n\n      \
+    \  } while (next_permutation(C.begin(), C.end()));\n        \n        if (ans)\
+    \ break;\n    }\n\n    cout << YesNo(ans) << endl;\n\n\n    return 0;\n}"
   dependsOn:
-  - structure/unionfind.cpp
+  - search/trit-zentansaku.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 02:50:54+09:00'
+  timestamp: '2024-04-22 21:48:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+documentation_of: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
 layout: document
 redirect_from:
-- /verify/test/structure/unionfind/aoj-dsl-1-a.test.cpp
-- /verify/test/structure/unionfind/aoj-dsl-1-a.test.cpp.html
-title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+- /verify/test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+- /verify/test/search/trit-zentansaku/atcoder-abc345-d.test.cpp.html
+title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
 ---

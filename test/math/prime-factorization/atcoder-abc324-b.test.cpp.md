@@ -4,29 +4,34 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: test/math/is_prime/atcoder-abc149-c.test.cpp
-    title: test/math/is_prime/atcoder-abc149-c.test.cpp
+    path: math/prime-factorization.cpp
+    title: math/prime-factorization.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc324/tasks/abc324_b
+    links:
+    - https://atcoder.jp/contests/abc324/tasks/abc324_b
+  bundledCode: "#line 1 \"test/math/prime-factorization/atcoder-abc324-b.test.cpp\"\
+    \n#define PROBLEM \"https://atcoder.jp/contests/abc324/tasks/abc324_b\"\n\n#line\
+    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -275,28 +280,33 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/is_prime.cpp\"\
-    \n\nbool is_prime(long long N) {\n    if (N < 2) return false;\n    if (N == 2)\
-    \ return true;\n    if (N % 2 == 0) return false;\n    for (long long i = 3; i\
-    \ * i <= N; i += 2) {\n        if (N % i == 0) return false;\n    }\n    return\
-    \ true;\n}\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nbool is_prime(long long N) {\n\
-    \    if (N < 2) return false;\n    if (N == 2) return true;\n    if (N % 2 ==\
-    \ 0) return false;\n    for (long long i = 3; i * i <= N; i += 2) {\n        if\
-    \ (N % i == 0) return false;\n    }\n    return true;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/prime-factorization.cpp\"\
+    \n\nmap<long long, long long> prime_factorization(long long N) {\n    map<long\
+    \ long, long long> ret;\n    while (N % 2 == 0) {\n        ret[2]++;\n       \
+    \ N /= 2;\n    }\n\n    for (long long i = 3; i * i <= N; i += 2) {\n        while\
+    \ (N % i == 0) {\n            ret[i]++;\n            N /= i;\n        }\n    }\
+    \ \n    if (N > 1) ret[N]++;\n    return ret;\n}\n#line 4 \"test/math/prime-factorization/atcoder-abc324-b.test.cpp\"\
+    \n\nint main() {\n    ll N;\n    cin >> N;\n\n    auto v = prime_factorization(N);\n\
+    \    bool ans = true;\n    v.erase(2);\n    v.erase(3);\n    if (v.size() != 0)\
+    \ ans = false;\n\n    cout << YesNo(ans) << endl;\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc324/tasks/abc324_b\"\n\n\
+    #include \"../../../math/prime-factorization.cpp\"\n\nint main() {\n    ll N;\n\
+    \    cin >> N;\n\n    auto v = prime_factorization(N);\n    bool ans = true;\n\
+    \    v.erase(2);\n    v.erase(3);\n    if (v.size() != 0) ans = false;\n\n   \
+    \ cout << YesNo(ans) << endl;\n\n    return 0;\n}"
   dependsOn:
+  - math/prime-factorization.cpp
   - base.cpp
-  isVerificationFile: false
-  path: math/is_prime.cpp
+  isVerificationFile: true
+  path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-18 21:00:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/math/is_prime/atcoder-abc149-c.test.cpp
-documentation_of: math/is_prime.cpp
+  timestamp: '2024-04-22 21:47:12+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/math/prime-factorization/atcoder-abc324-b.test.cpp
 layout: document
 redirect_from:
-- /library/math/is_prime.cpp
-- /library/math/is_prime.cpp.html
-title: math/is_prime.cpp
+- /verify/test/math/prime-factorization/atcoder-abc324-b.test.cpp
+- /verify/test/math/prime-factorization/atcoder-abc324-b.test.cpp.html
+title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
 ---

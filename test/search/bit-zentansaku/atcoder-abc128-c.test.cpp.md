@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: math/is_prime.cpp
-    title: math/is_prime.cpp
+    path: search/bit-zentansaku.cpp
+    title: search/bit-zentansaku.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,12 +14,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc149/tasks/abc149_c
+    PROBLEM: https://atcoder.jp/contests/abc128/tasks/abc128_c
     links:
-    - https://atcoder.jp/contests/abc149/tasks/abc149_c
-  bundledCode: "#line 1 \"test/math/is_prime/atcoder-abc149-c.test.cpp\"\n#define\
-    \ PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n#line 2 \"\
-    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    - https://atcoder.jp/contests/abc128/tasks/abc128_c
+  bundledCode: "#line 1 \"test/search/bit-zentansaku/atcoder-abc128-c.test.cpp\"\n\
+    #define PROBLEM \"https://atcoder.jp/contests/abc128/tasks/abc128_c\"\n\n#line\
+    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
     #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
@@ -280,32 +280,69 @@ data:
     \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
     \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
     \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/is_prime.cpp\"\
-    \n\nbool is_prime(long long N) {\n    if (N < 2) return false;\n    if (N == 2)\
-    \ return true;\n    if (N % 2 == 0) return false;\n    for (long long i = 3; i\
-    \ * i <= N; i += 2) {\n        if (N % i == 0) return false;\n    }\n    return\
-    \ true;\n}\n#line 4 \"test/math/is_prime/atcoder-abc149-c.test.cpp\"\n\nint main()\
-    \ {\n    ll X;\n    cin >> X;\n\n    ll x = X;\n\n    while (true) {\n       \
-    \ if (is_prime(x)) {\n            cout << x << endl;\n            return 0;\n\
-    \        }\n\n        ++x;\n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n\
-    #include \"../../../math/is_prime.cpp\"\n\nint main() {\n    ll X;\n    cin >>\
-    \ X;\n\n    ll x = X;\n\n    while (true) {\n        if (is_prime(x)) {\n    \
-    \        cout << x << endl;\n            return 0;\n        }\n\n        ++x;\n\
-    \    }\n\n    return 0;\n}"
+    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 2 \"search/bit-zentansaku.cpp\"\
+    \n\n// bit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF: O(N2^N) (N<=20)\nauto exhaustive_search\
+    \ = [](long long N) {\n    long long ret = 0;\n\n    for (long long bit = 0; bit\
+    \ < (1ll << N); ++bit) {\n        rep(i, N) {\n            if (bit & (1ll << i))\
+    \ {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else {\n        \
+    \        // i\u304Cbit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\
+    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n    return ret;\n\
+    };\n\n// \u9806\u5217\u8FBC\u307Fbit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF\
+    : O(N!2^N) (N <= 7)\nauto exhaustive_search_with_permutation = [](long long N)\
+    \ {\n    long long ret = 0;\n\n    for (long long bit = 0; bit < (1ll << N); ++bit)\
+    \ {\n        vll v;\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n\
+    \                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n                v.push_back(i);\n\n          \
+    \  }\n            else {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\
+    \u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n\
+    \        }\n\n        do {\n            \n        } while (next_permutation(v.begin(),\
+    \ v.end()));\n    }\n\n    return ret;\n};\n#line 4 \"test/search/bit-zentansaku/atcoder-abc128-c.test.cpp\"\
+    \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vector<setll> A(M);\n\
+    \n    rep(i, M) {\n        ll k;\n        cin >> k;\n\n        rep(j, k) {\n \
+    \           ll s;\n            cin >> s;\n\n            A[i].insert(s - 1);\n\
+    \        }\n    }\n\n    vll p(M);\n    rep(i, M) cin >> p[i];\n    ll ans = 0;\n\
+    \n    for (long long bit = 0; bit < (1ll << N); ++bit) {\n        vll sum(M, 0);\n\
+    \        \n        rep(i, N) {\n            if (bit & (1ll << i)) {\n        \
+    \        // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\u51E6\u7406\
+    \u3092\u66F8\u304F\n                rep(j, M) {\n                    if (A[j].contains(i))\
+    \ sum[j] += 1;\n                }\n            }\n            else {\n       \
+    \         // i\u304Cbit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\
+    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n\n        bool flg = true;\n\
+    \        rep(i, M) {\n            sum[i] %= 2;\n            if (sum[i] != p[i])\
+    \ {\n                flg = false;\n                break;\n            } \n  \
+    \      }\n\n        if (flg) ++ans;\n    }\n\n    cout << ans << endl;\n\n\n \
+    \   return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc128/tasks/abc128_c\"\n\n\
+    #include \"../../../search/bit-zentansaku.cpp\"\n\nint main() {\n    ll N, M;\n\
+    \    cin >> N >> M;\n\n    vector<setll> A(M);\n\n    rep(i, M) {\n        ll\
+    \ k;\n        cin >> k;\n\n        rep(j, k) {\n            ll s;\n          \
+    \  cin >> s;\n\n            A[i].insert(s - 1);\n        }\n    }\n\n    vll p(M);\n\
+    \    rep(i, M) cin >> p[i];\n    ll ans = 0;\n\n    for (long long bit = 0; bit\
+    \ < (1ll << N); ++bit) {\n        vll sum(M, 0);\n        \n        rep(i, N)\
+    \ {\n            if (bit & (1ll << i)) {\n                // i\u304Cbit\u306B\u542B\
+    \u307E\u308C\u308B\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n         \
+    \       rep(j, M) {\n                    if (A[j].contains(i)) sum[j] += 1;\n\
+    \                }\n            }\n            else {\n                // i\u304C\
+    bit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n\n            }\n        }\n\n        bool flg = true;\n        rep(i,\
+    \ M) {\n            sum[i] %= 2;\n            if (sum[i] != p[i]) {\n        \
+    \        flg = false;\n                break;\n            } \n        }\n\n \
+    \       if (flg) ++ans;\n    }\n\n    cout << ans << endl;\n\n\n    return 0;\n\
+    }"
   dependsOn:
-  - math/is_prime.cpp
+  - search/bit-zentansaku.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/math/is_prime/atcoder-abc149-c.test.cpp
+  path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-18 21:00:54+09:00'
+  timestamp: '2024-04-22 21:48:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/math/is_prime/atcoder-abc149-c.test.cpp
+documentation_of: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
 layout: document
 redirect_from:
-- /verify/test/math/is_prime/atcoder-abc149-c.test.cpp
-- /verify/test/math/is_prime/atcoder-abc149-c.test.cpp.html
-title: test/math/is_prime/atcoder-abc149-c.test.cpp
+- /verify/test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+- /verify/test/search/bit-zentansaku/atcoder-abc128-c.test.cpp.html
+title: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
 ---
