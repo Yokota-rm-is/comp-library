@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc324/tasks/abc324_b"
 
-#include "../../../math/prime_factorization.cpp"
+#include "../../../math/prime-factorization.cpp"
 
 int main() {
     ll N;

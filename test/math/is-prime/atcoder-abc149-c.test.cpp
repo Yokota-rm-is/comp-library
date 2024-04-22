@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc149/tasks/abc149_c"
 
-#include "../../../math/is_prime.cpp"
+#include "../../../math/is-prime.cpp"
 
 int main() {
     ll X;
