@@ -21,7 +21,7 @@ struct UnionFind {
     }
 
     // xとyを連結
-    bool unite(long long x, long long y, long long w = 0) {
+    bool unite(long long x, long long y) {
         long long rx = find(x); //xの根をrx
         long long ry = find(y); //yの根をry
         if (rx == ry) return false; //xとyの根が同じ(=同じ木にある)時はそのまま
@@ -30,7 +30,6 @@ struct UnionFind {
         // ryの方がサイズが大きければrxとrxを入れ替える
         if (-par[rx] < -par[ry]) {
             swap(rx, ry);
-            w = -w;
         }
 
         par[rx] += par[ry]; // rxのサイズを変更
