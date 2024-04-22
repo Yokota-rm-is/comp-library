@@ -4,9 +4,8 @@
 template<typename T, typename F>
 struct Node {
     Node *l = 0, *r = 0, *p = 0;
-    T value = 0;
-    T prod = 0, rprod = 0;
-    F lazy = {1, 0};
+    T value, prod, rprod;
+    F lazy;
     long long index = -1;
     long long z = 0;
     long long sumz = 0;
@@ -42,6 +41,24 @@ struct Operation {
     virtual T e() = 0;
 
     virtual void operator() (S* x) = 0;
+};
+
+template<typename T, typename F>
+struct NoOperation : Operation<T, F> {
+    using S = Node<T, F>;
+
+    NoOperation(): _e(T()) {};
+
+    T e() override {
+        return _e;
+    }
+
+    void operator() (S* x) override {
+        x->sumz = x->l->sumz + x->z + x->r->sumz;
+    }
+
+private:
+    T _e;
 };
 
 template<typename T, typename F>
@@ -191,6 +208,23 @@ struct Mapping {
 
     virtual void map(S* x, const F f) = 0;
     virtual void com(F &f, const F s) = 0;
+};
+
+template<typename T, typename F>
+struct NoMapping: Mapping<T, F> {
+    using S = Node<T, F>;
+
+    NoMapping(): _id(F()) {};
+
+    F id() override {
+        return _id;
+    }
+
+    void map(S* x, const F f) override {}
+    void com(F &f, const F s) override {}
+
+private:
+    F _id;
 };
 
 template<typename T, typename F>
@@ -580,5 +614,9 @@ struct SplayTreeByIdx{
 
     T prod(long long l, long long r) {
         return between(l, r)->prod;
+    }
+
+    T get(long long k) {
+        return kth_element(k)->value;
     }
 };
