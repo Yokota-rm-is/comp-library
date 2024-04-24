@@ -1,5 +1,5 @@
 #define IGNORE
-#define PROBLEM "https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum"
+#define PROBLEM "https://atcoder.jp/contests/abc350/tasks/abc350_f"
 
 #include "../../../structure/splay-tree.cpp"
 
