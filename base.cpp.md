@@ -60,6 +60,9 @@ data:
     path: search/bit-zentansaku.cpp
     title: search/bit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
+    path: search/memoization.cpp
+    title: search/memoization.cpp
+  - icon: ':heavy_check_mark:'
     path: search/trit-zentansaku.cpp
     title: search/trit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
@@ -80,6 +83,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: structure/splay-tree.cpp
     title: structure/splay-tree.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/undo-unionfind.cpp
+    title: structure/undo-unionfind.cpp
   - icon: ':heavy_check_mark:'
     path: structure/unionfind.cpp
     title: structure/unionfind.cpp
@@ -163,6 +169,12 @@ data:
     path: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
     title: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/search/memoization/atcoder-abc275-d.test.cpp
+    title: test/search/memoization/atcoder-abc275-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/search/memoization/atcoder-abc350-e.test.cpp
+    title: test/search/memoization/atcoder-abc350-e.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
     title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
   - icon: ':heavy_check_mark:'
@@ -225,6 +237,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
     title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+    title: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+    title: test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
     title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
@@ -794,7 +812,9 @@ data:
   - structure/splay-tree.cpp
   - structure/segmenttree.cpp
   - structure/weighted-unionfind.cpp
+  - structure/undo-unionfind.cpp
   - structure/kruskal.cpp
+  - search/memoization.cpp
   - search/bit-zentansaku.cpp
   - search/trit-zentansaku.cpp
   - graph/bellman-ford.cpp
@@ -818,6 +838,7 @@ data:
   verifiedWith:
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
@@ -839,7 +860,10 @@ data:
   - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
   - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
+  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
   - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - test/search/memoization/atcoder-abc275-d.test.cpp
+  - test/search/memoization/atcoder-abc350-e.test.cpp
   - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp

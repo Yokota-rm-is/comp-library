@@ -76,6 +76,9 @@ data:
       path: search/bit-zentansaku.cpp
       title: search/bit-zentansaku.cpp
     - icon: ':heavy_check_mark:'
+      path: search/memoization.cpp
+      title: search/memoization.cpp
+    - icon: ':heavy_check_mark:'
       path: search/trit-zentansaku.cpp
       title: search/trit-zentansaku.cpp
   - name: structure
@@ -98,6 +101,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/splay-tree.cpp
       title: structure/splay-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/undo-unionfind.cpp
+      title: structure/undo-unionfind.cpp
     - icon: ':heavy_check_mark:'
       path: structure/unionfind.cpp
       title: structure/unionfind.cpp
@@ -206,6 +212,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
       title: test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - name: test/search/memoization
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/search/memoization/atcoder-abc275-d.test.cpp
+      title: test/search/memoization/atcoder-abc275-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/search/memoization/atcoder-abc350-e.test.cpp
+      title: test/search/memoization/atcoder-abc350-e.test.cpp
   - name: test/search/trit-zentansaku
     pages:
     - icon: ':heavy_check_mark:'
@@ -283,6 +297,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
       title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+      title: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+  - name: test/structure/undo-unionfind
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+      title: test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
   - name: test/structure/unionfind
     pages:
     - icon: ':heavy_check_mark:'

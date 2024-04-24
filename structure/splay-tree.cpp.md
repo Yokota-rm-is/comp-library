@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
     title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+    title: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -653,6 +656,7 @@ data:
   verifiedWith:
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
 documentation_of: structure/splay-tree.cpp
 layout: document
 redirect_from:

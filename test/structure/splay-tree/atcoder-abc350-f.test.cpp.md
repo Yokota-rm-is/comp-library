@@ -20,9 +20,9 @@ data:
     IGNORE: ''
     IGNORE_IF_GCC: ''
     links:
-    - https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum
+    - https://atcoder.jp/contests/abc350/tasks/abc350_f
   bundledCode: "#line 1 \"test/structure/splay-tree/atcoder-abc350-f.test.cpp\"\n\
-    #define IGNORE\n#define PROBLEM \"https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum\"\
+    #define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc350/tasks/abc350_f\"\
     \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -573,7 +573,7 @@ data:
     \ S.size()) {\n        char c = splay.get(i);\n        if (c == '(' or c == ')')\
     \ continue;\n\n        ans += c;\n    }\n\n    cout << ans << endl;\n\n    return\
     \ 0;\n} \n"
-  code: "#define IGNORE\n#define PROBLEM \"https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum\"\
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc350/tasks/abc350_f\"\
     \n\n#include \"../../../structure/splay-tree.cpp\"\n\nnamespace seg {\n    #include\
     \ \"../../../structure/dualsegmenttree.cpp\"\n}\n\nint main() {\n    string S;\n\
     \    cin >> S;\n\n    vector<char> T;\n    fore(c, S) T.push_back(c);\n\n    stack<ll>\
@@ -598,7 +598,7 @@ data:
   isVerificationFile: true
   path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:35+09:00'
+  timestamp: '2024-04-24 09:19:27+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/splay-tree/atcoder-abc350-f.test.cpp
