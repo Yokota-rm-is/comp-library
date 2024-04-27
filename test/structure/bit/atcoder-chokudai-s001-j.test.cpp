@@ -11,7 +11,7 @@ int main() {
     rep(i, N) cin >> A[i];
 
     BIT tree(N);
-    cout << tree.invension(A) << endl;
+    cout << calc_invension(A) << endl;
 
     return 0;
 }

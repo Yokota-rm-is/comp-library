@@ -16,7 +16,7 @@ int main() {
     sort(A);
 
     BIT tree(2 * N);
-    bool ans = tree.is_overlapped(A);
+    bool ans = is_overlapped(A);
 
     cout << YesNo(ans) << endl;
 

@@ -126,49 +126,6 @@ struct BIT {
         return lower_bound(x + numeric_limits<T>::epsilon());
     }
 
-    // 転倒数を求める
-    long long invension(vector<long long> &A) {
-        long long count = 0;
-
-        long long maxA = 0;
-        fore(a, A) chmax(maxA, a);
-        _N = maxA + 1;
-        init();
-
-        rep(i, A.size()) {
-            T a = A[i];
-            count += i - sum(a + 1);
-            add(a, 1);
-        }
-        return count;
-    }
-
-    // [l, r)の配列に重なりがあるかを判定
-    bool is_overlapped(vector<pair<long long, long long>> &A) {
-        bool ret = false;
-        
-        long long maxA = 0;
-        fore(a, A) chmax(maxA, a.second);
-        _N = maxA + 1;
-        init();
-
-        rep(i, A.size()) {
-            auto [l, r] = A[i];
-            add(l, 1);
-            add(r, -1);
-        }
-
-        rep(i, A.size()) {
-            auto [l, r] = A[i];
-            if (sum(l, r + 1) == 0) continue;
-
-            ret = true;
-            break;
-        }
-
-        return ret;
-    }
-
     friend ostream& operator << (ostream& os, BIT& bit) {
         os << "bit0" << endl;
         repd(h, bit.height) {
@@ -222,3 +179,48 @@ private:
         }
     }
 };
+
+// 転倒数を求める
+long long calc_invension(const vector<long long> &A) {
+    long long ret = 0;
+
+    vector<long long> B = compress(A);
+
+    long long maxB = 0;
+    fore(b, B) chmax(maxB, b);
+
+    BIT<long long> tree(maxB + 1);
+
+    rep(i, B.size()) {
+        long long b = B[i];
+        ret += i - tree.sum(b + 1);
+        tree.add(b, 1);
+    }
+
+    return ret;
+}
+
+// [l, r)の配列に重なりがあるかを判定
+bool is_overlapped(const vector<pair<long long, long long>> &A) {
+    bool ret = false;
+    
+    long long maxA = 0;
+    fore(a, A) chmax(maxA, a.second);
+    BIT<long long> tree(maxA + 1);
+
+    rep(i, A.size()) {
+        auto [l, r] = A[i];
+        tree.add(l, 1);
+        tree.add(r, -1);
+    }
+
+    rep(i, A.size()) {
+        auto [l, r] = A[i];
+        if (tree.sum(l, r + 1) == 0) continue;
+
+        ret = true;
+        break;
+    }
+
+    return ret;
+}
