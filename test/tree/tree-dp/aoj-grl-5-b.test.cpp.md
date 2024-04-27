@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: tree/tree-dp.cpp
     title: tree-dp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&
@@ -349,7 +349,7 @@ data:
   path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
   requiredBy: []
   timestamp: '2024-04-27 14:48:38+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/tree/tree-dp/aoj-grl-5-b.test.cpp
 layout: document

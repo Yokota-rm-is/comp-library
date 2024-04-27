@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,15 +9,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
     title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -472,7 +472,7 @@ data:
   path: structure/dualsegmenttree.cpp
   requiredBy: []
   timestamp: '2024-04-27 14:48:38+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
   - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp

@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
     title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/tree/tree-dp.md
     document_title: tree-dp
@@ -378,7 +378,7 @@ data:
   path: tree/tree-dp.cpp
   requiredBy: []
   timestamp: '2024-04-27 14:48:38+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/tree/tree-dp/aoj-grl-5-b.test.cpp
 documentation_of: tree/tree-dp.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -12,6 +12,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/tsp/atcoder-abc180-e.test.cpp
     title: test/graph/tsp/atcoder-abc180-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/tsp/atcoder-abc190-e.test.cpp
+    title: test/graph/tsp/atcoder-abc190-e.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -385,6 +388,7 @@ data:
   verifiedWith:
   - test/graph/tsp/aoj-dpl-2-a.test.cpp
   - test/graph/tsp/atcoder-abc180-e.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
 documentation_of: graph/tsp.cpp
 layout: document
 redirect_from:

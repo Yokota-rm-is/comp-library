@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: grid/grid-bfs.cpp
     title: grid/grid-bfs.cpp
   _extendedRequiredBy: []

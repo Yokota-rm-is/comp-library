@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -12,12 +12,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
     title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -616,7 +616,7 @@ data:
   path: grid/grid-bfs.cpp
   requiredBy: []
   timestamp: '2024-04-28 00:23:46+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp

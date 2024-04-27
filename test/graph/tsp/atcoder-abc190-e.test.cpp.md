@@ -1,23 +1,26 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
-    path: dp/bitdp.cpp
-    title: dp/bitdp.cpp
+  - icon: ':heavy_check_mark:'
+    path: graph/bfs.cpp
+    title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
+  - icon: ':heavy_check_mark:'
+    path: graph/tsp.cpp
+    title: graph/tsp.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc190/tasks/abc190_e
     links:
     - https://atcoder.jp/contests/abc190/tasks/abc190_e
-  bundledCode: "#line 1 \"test/dp/bitdp/atcoder-abc190-e.test.cpp\"\n#define PROBLEM\
+  bundledCode: "#line 1 \"test/graph/tsp/atcoder-abc190-e.test.cpp\"\n#define PROBLEM\
     \ \"https://atcoder.jp/contests/abc190/tasks/abc190_e\"\n\n#line 2 \"base.cpp\"\
     \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
@@ -289,66 +292,155 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"dp/bitdp.cpp\"\n\n// bitDP\n// \u8A08\u7B97\u91CF: O(2^N)\
-    \ (N<=19)\nauto bitDP = [](long long N, long long M) {\n    using T = long long;\n\
-    \    vector<T> dp(1 << N,inf64);\n    dp[0] = 0;\n\n    rep(bit, (1 << N)) {\n\
-    \        if (dp[bit] == inf64) continue;\n\n        rep(i, M) {\n            long\
-    \ long next = 0;\n            if (bit & (1 << next)) continue;\n\n           \
-    \ T cost = 0;\n\n            long long next_bit = bit | (1 << next);\n\n     \
-    \       chmin(dp[next_bit], dp[bit] + cost);\n        }\n    }\n\n    return dp[(1\
-    \ << N) - 1];\n};\n#line 4 \"test/dp/bitdp/atcoder-abc190-e.test.cpp\"\n\nint\
+    \ }\n#endif\n#line 2 \"graph/tsp.cpp\"\n\n// bitDP (\u5DE1\u56DE\u30BB\u30FC\u30EB\
+    \u30B9\u30DE\u30F3\u554F\u984C)\n// \u8A08\u7B97\u91CF: O(N^2 2^N) (N<=19)\ntemplate<typename\
+    \ T = long long>\nstruct TSP {\n    struct Edge {\n        long long from;\n \
+    \       long long to;\n        T weight;\n        \n        explicit Edge(long\
+    \ long u, long long v, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool\
+    \ operator< (const Edge& other) const {\n            if (from == other.from) {\n\
+    \                if (to == other.to) return weight < other.weight;\n         \
+    \       else return to < other.to;\n            }\n            else return from\
+    \ < other.from;\n        }\n    };\n\n    using Graph = vector<vector<Edge>>;\n\
+    \n    long long V;\n    bool directed;\n    Graph G;\n    vector<vector<T>> dp;\n\
+    \    vector<vector<long long>> prev;\n    long long max_visit = 0;\n\n    T INF\
+    \ = inf64;\n\n    explicit TSP(long long V, bool directed) : V(V), G(V), directed(directed)\
+    \ {\n        init();\n    }\n\n    void init() {\n        dp.assign((1 << V),\
+    \ vector<T>(V, INF));\n        prev.assign((1 << V), vector<long long>(V, -1));\n\
+    \    }\n\n    void connect(long long from, long long to, T weight) {\n       \
+    \ assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n   \
+    \     G[from].emplace_back(from, to, weight);\n        if (!directed) G[to].emplace_back(to,\
+    \ from, weight);\n    }\n\n    void operator() (long long start) {\n        bitdp(start);\n\
+    \    }\n\n    void bitdp(long long start) {\n        assert(0 <= start and start\
+    \ < V);\n\n        dp[0][start] = 0;\n\n        rep(bit, (1 << V)) {\n       \
+    \     rep(now, V) {\n                if (dp[bit][now] > INF - 1) continue;\n\n\
+    \                fore(edge, G[now]) {\n                    long long next = edge.to;\n\
+    \                    if (bit & (1 << next)) continue;\n\n                    long\
+    \ long next_bit = bit | (1 << next);\n\n                    if (chmin(dp[next_bit][next],\
+    \ dp[bit][now] + edge.weight)) {\n                        prev[next_bit][next]\
+    \ = now;\n                        chmax(max_visit, bit_count(next_bit));\n   \
+    \                 }\n                }\n            }\n        }\n    }\n\n  \
+    \  bool reach(long long to) {\n        assert(0 <= to and to < V);\n\n       \
+    \ return dp[(1 << V)][to] != INF;\n    }\n\n    T get_dist(long long start, long\
+    \ long goal, long long bit) {\n        if (goal != start) bit ^= (1 << start);\
+    \ \n        return dp[bit][goal];\n    }\n\n    T get_travel_dist(long long start,\
+    \ long long goal) {\n        long long bit = (1 << V) - 1;\n        if (goal !=\
+    \ start) bit ^= (1 << start); \n        return dp[bit][goal];\n    }\n\n    T\
+    \ dist_to(long long goal) {\n        long long start;\n        rep(i, V) if (dp[0][i]\
+    \ == 0) start = i;\n\n        long long bit = (1 << V) - 1;\n\n        return\
+    \ get_dist(start, goal, bit);\n    }\n\n    vector<long long> path_to(long long\
+    \ goal) {\n        long long start;\n        rep(i, V) if (dp[0][i] == 0) start\
+    \ = i;\n\n        long long bit = (1 << V) - 1;\n        if (start != goal) {\n\
+    \            bit ^= (1 << start);\n        }\n\n        vector<long long> p;\n\
+    \        p.push_back(goal);\n\n        long long to = goal;\n        while (true)\
+    \ {\n            long long from = prev[bit][to];\n            if (from == -1)\
+    \ break;\n\n            p.push_back(from);\n            bit ^= (1 << to);\n  \
+    \          to = from;\n        }\n\n        reverse(p.begin(), p.end());\n\n \
+    \       return p;\n    }\n};\n#line 3 \"graph/bfs.cpp\"\n\n/**\n * @brief BFS(\u5E45\
+    \u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct BFS {\n    struct\
+    \ Edge {\n        long long from;\n        long long to;\n        \n        explicit\
+    \ Edge(long long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool\
+    \ operator < (const Edge& other) const {\n            if (from == other.from)\
+    \ {\n                return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    long long V;\n    bool directed_;\n    vector<vector<Edge>> G;\n    vector<bool>\
+    \ seen;\n    vector<long long> prev;\n    vector<long long> depth;\n    long long\
+    \ group;\n\n    BFS(long long N, bool directed) : V(N), directed_(directed), G(V){\n\
+    \        init();\n    };\n    \n    void init() {\n        group = 0;\n      \
+    \  seen.assign(V, false);\n        prev.assign(V, -1);\n        depth.assign(V,\
+    \ inf64);\n    }\n    \n    void connect(long long from, long long to) {\n   \
+    \     assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
+    \        if (directed_) {\n            G[from].emplace_back(from, to);\n     \
+    \   }\n        else {\n            G[from].emplace_back(from, to);\n         \
+    \   G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator() (long\
+    \ long start) {\n        bfs(start);\n    }\n\n    void bfs_all() {\n        rep(i,\
+    \ V) {\n            if (seen[i]) continue;\n            bfs(i);\n            ++group;\n\
+    \        }\n    }\n\n    void bfs(long long start) {\n        assert(0 <= start\
+    \ and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\u6761\
+    \u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B\
+    )\n        seen[start] = true;\n        depth[start] = 0;\n        que.push(start);\
+    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
+    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
+    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
+    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
+    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
+    \              if (seen[next]) continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\
+    \u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\n               \
+    \ seen[next] = true;\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\
+    \u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\
+    \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
+    \ = depth[now] + 1;\n                prev[next] = now;\n                que.push(next);\n\
+    \            }\n        }\n    }\n\n    long long count_cc() {\n        return\
+    \ group;\n    }\n\n    long long find_diameter() {\n        long long ret = 0;\n\
+    \        vector<bool> done(V, false);\n\n        rep(i, V) {\n            if (done[i])\
+    \ continue;\n            bfs(i);\n            long long u = distance(depth.begin(),\
+    \ max_element(depth.begin(), depth.end()));\n\n            init();\n         \
+    \   bfs(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n            \n            chmax(ret, depth[v]);\n          \
+    \  rep(i, V) {\n                if (seen[i]) done[i] = true;\n            }\n\
+    \            init();\n        }\n\n        return ret;\n    }\n\n    bool reach(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to];\n\
+    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
+    \ and to < V);\n        if (!reach(to)) return {};\n\n        vector<long long>\
+    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
+    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n};\n#line 5 \"test/graph/tsp/atcoder-abc190-e.test.cpp\"\
+    \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vll A(M), B(M);\n\n\
+    \    rep(i, M) cin >> A[i] >> B[i];\n\n    ll K;\n    cin >> K;\n    vll C(K);\n\
+    \    rep(i, K) cin >> C[i];\n\n    vll D(N, -1);\n    rep(i, K) D[C[i] - 1] =\
+    \ i;\n\n    BFS bfs(N, false);\n    rep(i, M) {\n        ll a = A[i] - 1, b =\
+    \ B[i] - 1;\n        bfs.connect(a, b);\n    }\n\n    TSP tsp(K, false);\n\n \
+    \   fore(u, C) {\n        bfs(u - 1);\n\n        fore(v, C) {\n            if\
+    \ (u == v) continue;\n            if (!bfs.reach(v - 1)) continue;\n\n       \
+    \     ll w = bfs.depth[v - 1];\n            // cout << D[u - 1] << \" \" << D[v]\
+    \ << endl;\n            tsp.connect(D[u - 1], D[v - 1], w);\n        }\n\n   \
+    \     bfs.init();\n    }\n\n    rep(i, tsp.V) tsp.dp[(1 << i)][i] = 1;\n\n   \
+    \ rep(bit, (1 << tsp.V)) {\n        rep(now, tsp.V) {\n            if (tsp.dp[bit][now]\
+    \ > inf64 - 1) continue;\n\n            fore(edge, tsp.G[now]) {\n           \
+    \     long long next = edge.to;\n                if (bit & (1 << next)) continue;\n\
+    \n                long long next_bit = bit | (1 << next);\n\n                if\
+    \ (chmin(tsp.dp[next_bit][next], tsp.dp[bit][now] + edge.weight)) {\n        \
+    \            tsp.prev[next_bit][next] = now;\n                    chmax(tsp.max_visit,\
+    \ bit_count(next_bit));\n                }\n            }\n        }\n    }\n\n\
+    \    ll ans = min(tsp.dp[(1 << K) - 1]);\n\n    if (ans == inf64) cout << -1 <<\
+    \ endl; \n    else cout << ans << endl;\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc190/tasks/abc190_e\"\n\n\
+    #include \"../../../graph/tsp.cpp\"\n#include \"../../../graph/bfs.cpp\"\n\nint\
     \ main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vll A(M), B(M);\n\n    rep(i,\
     \ M) cin >> A[i] >> B[i];\n\n    ll K;\n    cin >> K;\n    vll C(K);\n    rep(i,\
-    \ K) cin >> C[i];\n\n    vector<vll> G(N);\n    rep(i, M) {\n        ll a = A[i]\
-    \ - 1, b = B[i] - 1;\n        G[a].push_back(b);\n        G[b].push_back(a);\n\
-    \    }\n\n    vll D(N, -1);\n    rep(i, K) D[C[i]] = i;\n\n    vector dp(1 <<\
-    \ K, vector<long long>(K, inf64));\n    rep(i, K) dp[1 << i][i] = 1;\n\n    rep(bit,\
-    \ 1, (1 << K)) {\n        rep(i, K) {\n            if (dp[bit][i] == inf64) continue;\n\
-    \n            fore(j, G[i]) {\n                if (D[j] < 0) {\n             \
-    \       fore(k, G[j]) {\n                        if (!st.contains(k)) continue;\n\
-    \                        if ()\n                    }\n                }\n   \
-    \             if (bit & (1 << j)) continue;\n\n                ll next_bit = bit\
-    \ | j;\n                chmin(dp[next_bit][j], dp[bit][i] + 1);\n            \
-    \    \n                rep(k, N) {\n                    if (bit & (1 << k)) {\n\
-    \                        chmin(dp[next_bit][k], dp[next_bit][j] + 1);\n      \
-    \              }\n                }\n            }\n        }\n    }\n\n    ll\
-    \ ans = inf64;\n    rep(bit, (1 << N)) {\n        if ((bit & flg) == flg) {\n\
-    \            rep(i, N) chmin(ans, dp[bit][i]);\n        } \n    }\n\n    if (ans\
-    \ == inf64) cout << -1 << endl; \n    else cout << ans << endl;\n\n    return\
-    \ 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc190/tasks/abc190_e\"\n\n\
-    #include \"../../../dp/bitdp.cpp\"\n\nint main() {\n    ll N, M;\n    cin >> N\
-    \ >> M;\n\n    vll A(M), B(M);\n\n    rep(i, M) cin >> A[i] >> B[i];\n\n    ll\
-    \ K;\n    cin >> K;\n    vll C(K);\n    rep(i, K) cin >> C[i];\n\n    vector<vll>\
-    \ G(N);\n    rep(i, M) {\n        ll a = A[i] - 1, b = B[i] - 1;\n        G[a].push_back(b);\n\
-    \        G[b].push_back(a);\n    }\n\n    vll D(N, -1);\n    rep(i, K) D[C[i]]\
-    \ = i;\n\n    vector dp(1 << K, vector<long long>(K, inf64));\n    rep(i, K) dp[1\
-    \ << i][i] = 1;\n\n    rep(bit, 1, (1 << K)) {\n        rep(i, K) {\n        \
-    \    if (dp[bit][i] == inf64) continue;\n\n            fore(j, G[i]) {\n     \
-    \           if (D[j] < 0) {\n                    fore(k, G[j]) {\n           \
-    \             if (!st.contains(k)) continue;\n                        if ()\n\
-    \                    }\n                }\n                if (bit & (1 << j))\
-    \ continue;\n\n                ll next_bit = bit | j;\n                chmin(dp[next_bit][j],\
-    \ dp[bit][i] + 1);\n                \n                rep(k, N) {\n          \
-    \          if (bit & (1 << k)) {\n                        chmin(dp[next_bit][k],\
-    \ dp[next_bit][j] + 1);\n                    }\n                }\n          \
-    \  }\n        }\n    }\n\n    ll ans = inf64;\n    rep(bit, (1 << N)) {\n    \
-    \    if ((bit & flg) == flg) {\n            rep(i, N) chmin(ans, dp[bit][i]);\n\
-    \        } \n    }\n\n    if (ans == inf64) cout << -1 << endl; \n    else cout\
-    \ << ans << endl;\n\n    return 0;\n}"
+    \ K) cin >> C[i];\n\n    vll D(N, -1);\n    rep(i, K) D[C[i] - 1] = i;\n\n   \
+    \ BFS bfs(N, false);\n    rep(i, M) {\n        ll a = A[i] - 1, b = B[i] - 1;\n\
+    \        bfs.connect(a, b);\n    }\n\n    TSP tsp(K, false);\n\n    fore(u, C)\
+    \ {\n        bfs(u - 1);\n\n        fore(v, C) {\n            if (u == v) continue;\n\
+    \            if (!bfs.reach(v - 1)) continue;\n\n            ll w = bfs.depth[v\
+    \ - 1];\n            // cout << D[u - 1] << \" \" << D[v] << endl;\n         \
+    \   tsp.connect(D[u - 1], D[v - 1], w);\n        }\n\n        bfs.init();\n  \
+    \  }\n\n    rep(i, tsp.V) tsp.dp[(1 << i)][i] = 1;\n\n    rep(bit, (1 << tsp.V))\
+    \ {\n        rep(now, tsp.V) {\n            if (tsp.dp[bit][now] > inf64 - 1)\
+    \ continue;\n\n            fore(edge, tsp.G[now]) {\n                long long\
+    \ next = edge.to;\n                if (bit & (1 << next)) continue;\n\n      \
+    \          long long next_bit = bit | (1 << next);\n\n                if (chmin(tsp.dp[next_bit][next],\
+    \ tsp.dp[bit][now] + edge.weight)) {\n                    tsp.prev[next_bit][next]\
+    \ = now;\n                    chmax(tsp.max_visit, bit_count(next_bit));\n   \
+    \             }\n            }\n        }\n    }\n\n    ll ans = min(tsp.dp[(1\
+    \ << K) - 1]);\n\n    if (ans == inf64) cout << -1 << endl; \n    else cout <<\
+    \ ans << endl;\n\n    return 0;\n}"
   dependsOn:
-  - dp/bitdp.cpp
+  - graph/tsp.cpp
   - base.cpp
+  - graph/bfs.cpp
   isVerificationFile: true
-  path: test/dp/bitdp/atcoder-abc190-e.test.cpp
+  path: test/graph/tsp/atcoder-abc190-e.test.cpp
   requiredBy: []
-  timestamp: '2024-04-28 00:24:37+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-04-28 01:11:12+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/dp/bitdp/atcoder-abc190-e.test.cpp
+documentation_of: test/graph/tsp/atcoder-abc190-e.test.cpp
 layout: document
 redirect_from:
-- /verify/test/dp/bitdp/atcoder-abc190-e.test.cpp
-- /verify/test/dp/bitdp/atcoder-abc190-e.test.cpp.html
-title: test/dp/bitdp/atcoder-abc190-e.test.cpp
+- /verify/test/graph/tsp/atcoder-abc190-e.test.cpp
+- /verify/test/graph/tsp/atcoder-abc190-e.test.cpp.html
+title: test/graph/tsp/atcoder-abc190-e.test.cpp
 ---
