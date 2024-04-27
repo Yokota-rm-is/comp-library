@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -236,95 +236,102 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"math/eratosthenes.cpp\"\
-    \n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\nstruct Eratosthenes\
-    \ {\n    long long N;\n    // \u30C6\u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\
-    \n    // \u6574\u6570 i \u3092\u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\
-    \u6570\n    vector<long long> min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\
-    \u6570\u5024\n    vector<long long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\
-    \u30E9\u30AF\u30BF\u3067\u7BE9\u3092\u56DE\u3059\n    explicit Eratosthenes(long\
-    \ long N) : N(N), is_prime(N + 1, true), min_factor(N + 1, -1), mobius(N + 1,\
-    \ 1) {\n        // 1 \u306F\u4E88\u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\
-    \u304A\u304F\n        is_prime[1] = false;\n        min_factor[1] = 1;\n\n   \
-    \     construct();\n    }\n\n    // O(N loglogN)\n    void construct() {\n   \
-    \     // \u7BE9\n        rep(p, 2, N + 1) {\n            // \u3059\u3067\u306B\
-    \u5408\u6210\u6570\u3067\u3042\u308B\u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\
-    \u3059\u308B\n            if (!is_prime[p]) continue;\n\n            // p \u306B\
-    \u3064\u3044\u3066\u306E\u60C5\u5831\u66F4\u65B0\n            min_factor[p] =\
-    \ p;\n            mobius[p] = -1;\n\n            // p \u4EE5\u5916\u306E p \u306E\
-    \u500D\u6570\u304B\u3089\u7D20\u6570\u30E9\u30D9\u30EB\u3092\u5265\u596A\n   \
-    \         for (long long q = p * 2; q <= N; q += p) {\n                // q \u306F\
-    \u5408\u6210\u6570\u306A\u306E\u3067\u3075\u308B\u3044\u843D\u3068\u3059\n   \
-    \             is_prime[q] = false;\n\n                // q \u306F p \u3067\u5272\
-    \u308A\u5207\u308C\u308B\u65E8\u3092\u66F4\u65B0\n                if (min_factor[q]\
-    \ == -1) min_factor[q] = p;\n                if ((q / p) % p == 0) mobius[q] =\
-    \ 0;\n                else mobius[q] *= -1;\n            }\n        }\n    }\n\
-    \n    // \u9AD8\u901F\u7D20\u56E0\u6570\u5206\u89E3 O(logN)\n    // pair (\u7D20\
-    \u56E0\u5B50, \u6307\u6570) \u306E vector \u3092\u8FD4\u3059\n    vector<pair<long\
-    \ long, long long>> factorize(long long n) {\n        vector<pair<long long, long\
-    \ long>> res;\n        while (n > 1) {\n            long long p = min_factor[n];\n\
-    \            long long exp = 0;\n\n            // n \u3067\u5272\u308A\u5207\u308C\
-    \u308B\u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n   \
-    \             n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
-    \ exp);\n        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\
-    \u5217\u6319 O(sigma(n))\n    vector<long long> divisors(long long n) {\n    \
-    \    vector<long long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\
-    \u89E3 (\u30E1\u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n        auto pf = factorize(n);\n\
-    \n        // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            rep(i,\
-    \ res.size()) {\n                long long v = 1;\n                rep(j, p.second)\
-    \ {\n                    v *= p.first;\n                    res.push_back(res[i]\
-    \ * v);\n                }\n            }\n        }\n        return res;\n  \
-    \  }\n\n    // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n    // \u5165\u529B\
-    \ f \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001F \u306B\u306A\u308B\
-    \n    vector<long long> fast_zeta(vector<long long> f) {\n        vector<long\
-    \ long> F(N);\n        rep(i, N) F[i] = f[i];\n\n        // \u5404\u7D20\u6570\
-    \ p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5927\u304D\u3044\u5EA7\u6A19\
-    \ (k * p) \u304B\u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u3078\u3068\u8DB3\u3057\
-    \u8FBC\u3080\n        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\
-    \n            // \u5EA7\u6A19\u304C\u5927\u304D\u3044\u65B9\u3092\u8D77\u70B9\u3068\
-    \u3057\u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\n            for (long long k\
-    \ = (N - 1) / p; k >= 1; --k) {\n                F[k] += F[k * p];\n         \
-    \   }\n        }\n\n        return F;\n    }\n\n    // \u9AD8\u901F\u30E1\u30D3\
-    \u30A6\u30B9\u5909\u63DB\n    // \u5165\u529B F \u304C in-place \u306B\u66F4\u65B0\
-    \u3055\u308C\u3066\u3001f \u306B\u306A\u308B\n    vector<long long> fast_mobius(vector<long\
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 3 \"math/eratosthenes.cpp\"\n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\
+    \u30CD\u30B9\u306E\u7BE9\nstruct Eratosthenes {\n    long long N;\n    // \u30C6\
+    \u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\n    // \u6574\u6570 i \u3092\
+    \u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long long>\
+    \ min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n    vector<long\
+    \ long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\u30E9\u30AF\u30BF\u3067\u7BE9\
+    \u3092\u56DE\u3059\n    explicit Eratosthenes(long long N) : N(N), is_prime(N\
+    \ + 1, true), min_factor(N + 1, -1), mobius(N + 1, 1) {\n        // 1 \u306F\u4E88\
+    \u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\u304A\u304F\n        is_prime[1]\
+    \ = false;\n        min_factor[1] = 1;\n\n        construct();\n    }\n\n    //\
+    \ O(N loglogN)\n    void construct() {\n        // \u7BE9\n        rep(p, 2, N\
+    \ + 1) {\n            // \u3059\u3067\u306B\u5408\u6210\u6570\u3067\u3042\u308B\
+    \u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\u3059\u308B\n            if (!is_prime[p])\
+    \ continue;\n\n            // p \u306B\u3064\u3044\u3066\u306E\u60C5\u5831\u66F4\
+    \u65B0\n            min_factor[p] = p;\n            mobius[p] = -1;\n\n      \
+    \      // p \u4EE5\u5916\u306E p \u306E\u500D\u6570\u304B\u3089\u7D20\u6570\u30E9\
+    \u30D9\u30EB\u3092\u5265\u596A\n            for (long long q = p * 2; q <= N;\
+    \ q += p) {\n                // q \u306F\u5408\u6210\u6570\u306A\u306E\u3067\u3075\
+    \u308B\u3044\u843D\u3068\u3059\n                is_prime[q] = false;\n\n     \
+    \           // q \u306F p \u3067\u5272\u308A\u5207\u308C\u308B\u65E8\u3092\u66F4\
+    \u65B0\n                if (min_factor[q] == -1) min_factor[q] = p;\n        \
+    \        if ((q / p) % p == 0) mobius[q] = 0;\n                else mobius[q]\
+    \ *= -1;\n            }\n        }\n    }\n\n    // \u9AD8\u901F\u7D20\u56E0\u6570\
+    \u5206\u89E3 O(logN)\n    // pair (\u7D20\u56E0\u5B50, \u6307\u6570) \u306E vector\
+    \ \u3092\u8FD4\u3059\n    vector<pair<long long, long long>> factorize(long long\
+    \ n) {\n        vector<pair<long long, long long>> res;\n        while (n > 1)\
+    \ {\n            long long p = min_factor[n];\n            long long exp = 0;\n\
+    \n            // n \u3067\u5272\u308A\u5207\u308C\u308B\u9650\u308A\u5272\u308B\
+    \n            while (min_factor[n] == p) {\n                n /= p;\n        \
+    \        ++exp;\n            }\n            res.emplace_back(p, exp);\n      \
+    \  }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\u5217\u6319\
+    \ O(sigma(n))\n    vector<long long> divisors(long long n) {\n        vector<long\
+    \ long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\u89E3 (\u30E1\
+    \u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n        auto pf = factorize(n);\n\n   \
+    \     // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            rep(i, res.size())\
+    \ {\n                long long v = 1;\n                rep(j, p.second) {\n  \
+    \                  v *= p.first;\n                    res.push_back(res[i] * v);\n\
+    \                }\n            }\n        }\n        return res;\n    }\n\n \
+    \   // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n    // \u5165\u529B f \u304C\
+    \ in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001F \u306B\u306A\u308B\n  \
+    \  vector<long long> fast_zeta(vector<long long> f) {\n        vector<long long>\
+    \ F(N);\n        rep(i, N) F[i] = f[i];\n\n        // \u5404\u7D20\u6570 p \u8EF8\
+    \u306B\u5BFE\u3057\u3066\n        // \u5927\u304D\u3044\u5EA7\u6A19 (k * p) \u304B\
+    \u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u3078\u3068\u8DB3\u3057\u8FBC\u3080\n\
+    \        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\n         \
+    \   // \u5EA7\u6A19\u304C\u5927\u304D\u3044\u65B9\u3092\u8D77\u70B9\u3068\u3057\
+    \u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\n            for (long long k = (N\
+    \ - 1) / p; k >= 1; --k) {\n                F[k] += F[k * p];\n            }\n\
+    \        }\n\n        return F;\n    }\n\n    // \u9AD8\u901F\u30E1\u30D3\u30A6\
+    \u30B9\u5909\u63DB\n    // \u5165\u529B F \u304C in-place \u306B\u66F4\u65B0\u3055\
+    \u308C\u3066\u3001f \u306B\u306A\u308B\n    vector<long long> fast_mobius(vector<long\
     \ long> F) {\n        vector<long long> f(N);\n        rep(i, N) f[i] = F[i];\n\
     \n        // \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5C0F\
     \u3055\u3044\u5EA7\u6A19 (k) \u304B\u3089\u5927\u304D\u3044\u5EA7\u6A19 (k * p)\
@@ -411,7 +418,7 @@ data:
   isVerificationFile: false
   path: math/eratosthenes.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:08+09:00'
+  timestamp: '2024-04-27 14:48:38+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/eratosthenes.cpp

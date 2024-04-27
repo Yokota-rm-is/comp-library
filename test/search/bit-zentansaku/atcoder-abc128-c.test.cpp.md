@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
@@ -244,62 +244,69 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 2 \"search/bit-zentansaku.cpp\"\
-    \n\n// bit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF: O(N2^N) (N<=20)\nauto exhaustive_search\
-    \ = [](long long N) {\n    long long ret = 0;\n\n    for (long long bit = 0; bit\
-    \ < (1ll << N); ++bit) {\n        rep(i, N) {\n            if (bit & (1ll << i))\
-    \ {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
-    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else {\n        \
-    \        // i\u304Cbit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\
-    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n    return ret;\n\
-    };\n\n// \u9806\u5217\u8FBC\u307Fbit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF\
-    : O(N!2^N) (N <= 7)\nauto exhaustive_search_with_permutation = [](long long N)\
-    \ {\n    long long ret = 0;\n\n    for (long long bit = 0; bit < (1ll << N); ++bit)\
-    \ {\n        vll v;\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n\
-    \                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
-    \u51E6\u7406\u3092\u66F8\u304F\n                v.push_back(i);\n\n          \
-    \  }\n            else {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\
-    \u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n\
-    \        }\n\n        do {\n            \n        } while (next_permutation(v.begin(),\
-    \ v.end()));\n    }\n\n    return ret;\n};\n#line 4 \"test/search/bit-zentansaku/atcoder-abc128-c.test.cpp\"\
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 2 \"search/bit-zentansaku.cpp\"\n\n// bit\u5168\u63A2\u7D22\
+    \n// \u8A08\u7B97\u91CF: O(N2^N) (N<=20)\nauto exhaustive_search = [](long long\
+    \ N) {\n    long long ret = 0;\n\n    for (long long bit = 0; bit < (1ll << N);\
+    \ ++bit) {\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n       \
+    \         // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\u51E6\u7406\
+    \u3092\u66F8\u304F\n\n            }\n            else {\n                // i\u304C\
+    bit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\
+    \u304F\n\n            }\n        }\n    }\n\n    return ret;\n};\n\n// \u9806\u5217\
+    \u8FBC\u307Fbit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF: O(N!2^N) (N <= 7)\n\
+    auto exhaustive_search_with_permutation = [](long long N) {\n    long long ret\
+    \ = 0;\n\n    for (long long bit = 0; bit < (1ll << N); ++bit) {\n        vll\
+    \ v;\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n             \
+    \   // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\u51E6\u7406\u3092\
+    \u66F8\u304F\n                v.push_back(i);\n\n            }\n            else\
+    \ {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\
+    \u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n        }\n\n        do\
+    \ {\n            \n        } while (next_permutation(v.begin(), v.end()));\n \
+    \   }\n\n    return ret;\n};\n#line 4 \"test/search/bit-zentansaku/atcoder-abc128-c.test.cpp\"\
     \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vector<setll> A(M);\n\
     \n    rep(i, M) {\n        ll k;\n        cin >> k;\n\n        rep(j, k) {\n \
     \           ll s;\n            cin >> s;\n\n            A[i].insert(s - 1);\n\
@@ -338,7 +345,7 @@ data:
   isVerificationFile: true
   path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:08+09:00'
+  timestamp: '2024-04-27 14:48:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp

@@ -3,9 +3,14 @@ data:
   libraryCategories:
   - name: .
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: base.cpp
       title: base.cpp
+  - name: dp
+    pages:
+    - icon: ':question:'
+      path: dp/bitdp.cpp
+      title: dp/bitdp.cpp
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
@@ -27,11 +32,14 @@ data:
       path: graph/topological-sort.cpp
       title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
     - icon: ':heavy_check_mark:'
+      path: graph/tsp.cpp
+      title: graph/tsp.cpp
+    - icon: ':heavy_check_mark:'
       path: graph/warshall-floyd.cpp
       title: "\u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5"
   - name: grid
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: grid/grid-bfs.cpp
       title: grid/grid-bfs.cpp
     - icon: ':heavy_check_mark:'
@@ -86,7 +94,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/bit.cpp
       title: structure/bit.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: structure/dualsegmenttree.cpp
       title: structure/dualsegmenttree.cpp
     - icon: ':heavy_check_mark:'
@@ -115,10 +123,35 @@ data:
     - icon: ':heavy_check_mark:'
       path: tree/tree-bfs.cpp
       title: tree-bfs
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: tree/tree-dp.cpp
       title: tree-dp
   verificationCategories:
+  - name: test/base
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/base/aoj-alds1-2-a.test.cpp
+      title: test/base/aoj-alds1-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/base/aoj-ntl-1-b.test.cpp
+      title: test/base/aoj-ntl-1-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/base/aoj-ntl-1-c.test.cpp
+      title: test/base/aoj-ntl-1-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/base/aoj-ntl-1-e.test.cpp
+      title: test/base/aoj-ntl-1-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/base/atcoder-abc109-c.test.cpp
+      title: test/base/atcoder-abc109-c.test.cpp
+  - name: test/dp/bitdp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/dp/bitdp/atcoder-abc142-e.test.cpp
+      title: test/dp/bitdp/atcoder-abc142-e.test.cpp
+    - icon: ':x:'
+      path: test/dp/bitdp/atcoder-abc190-e.test.cpp
+      title: test/dp/bitdp/atcoder-abc190-e.test.cpp
   - name: test/graph/bellman-ford
     pages:
     - icon: ':heavy_check_mark:'
@@ -140,6 +173,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dfs/aoj-alds1-11-b.test.cpp
       title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/dfs/aoj-grl-4-a.test.cpp
+      title: test/graph/dfs/aoj-grl-4-a.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/graph/dfs/atcoder-abc327-d.test.cpp
       title: test/graph/dfs/atcoder-abc327-d.test.cpp
@@ -170,6 +206,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
       title: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+  - name: test/graph/tsp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/graph/tsp/aoj-dpl-2-a.test.cpp
+      title: test/graph/tsp/aoj-dpl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/tsp/atcoder-abc180-e.test.cpp
+      title: test/graph/tsp/atcoder-abc180-e.test.cpp
   - name: test/graph/warshall-floyd
     pages:
     - icon: ':heavy_check_mark:'
@@ -183,7 +227,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
       title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
       title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - name: test/grid/grid-dfs
@@ -201,6 +245,9 @@ data:
       title: test/math/is-prime/atcoder-abc149-c.test.cpp
   - name: test/math/prime-factorization
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/math/prime-factorization/aoj-ntl-1-a.test.cpp
+      title: test/math/prime-factorization/aoj-ntl-1-a.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
       title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
@@ -228,6 +275,9 @@ data:
   - name: test/structure/bit
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/structure/bit/aoj-alds1-5-d.test.cpp
+      title: test/structure/bit/aoj-alds1-5-d.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/structure/bit/aoj-dsl-2-e.test.cpp
       title: test/structure/bit/aoj-dsl-2-e.test.cpp
     - icon: ':heavy_check_mark:'
@@ -253,7 +303,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
       title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
       title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
   - name: test/structure/kruskal
@@ -331,7 +381,7 @@ data:
       title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   - name: test/tree/tree-dp
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
       title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
 layout: toppage

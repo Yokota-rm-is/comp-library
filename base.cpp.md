@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':question:'
+    path: dp/bitdp.cpp
+    title: dp/bitdp.cpp
   - icon: ':heavy_check_mark:'
     path: graph/bellman-ford.cpp
     title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
@@ -21,9 +24,12 @@ data:
     path: graph/topological-sort.cpp
     title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
   - icon: ':heavy_check_mark:'
+    path: graph/tsp.cpp
+    title: graph/tsp.cpp
+  - icon: ':heavy_check_mark:'
     path: graph/warshall-floyd.cpp
     title: "\u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5"
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: grid/grid-bfs.cpp
     title: grid/grid-bfs.cpp
   - icon: ':heavy_check_mark:'
@@ -68,7 +74,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: structure/bit.cpp
     title: structure/bit.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: structure/dualsegmenttree.cpp
     title: structure/dualsegmenttree.cpp
   - icon: ':heavy_check_mark:'
@@ -95,10 +101,31 @@ data:
   - icon: ':heavy_check_mark:'
     path: tree/tree-bfs.cpp
     title: tree-bfs
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: tree/tree-dp.cpp
     title: tree-dp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/base/aoj-alds1-2-a.test.cpp
+    title: test/base/aoj-alds1-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/base/aoj-ntl-1-b.test.cpp
+    title: test/base/aoj-ntl-1-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/base/aoj-ntl-1-c.test.cpp
+    title: test/base/aoj-ntl-1-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/base/aoj-ntl-1-e.test.cpp
+    title: test/base/aoj-ntl-1-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/base/atcoder-abc109-c.test.cpp
+    title: test/base/atcoder-abc109-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/dp/bitdp/atcoder-abc142-e.test.cpp
+    title: test/dp/bitdp/atcoder-abc142-e.test.cpp
+  - icon: ':x:'
+    path: test/dp/bitdp/atcoder-abc190-e.test.cpp
+    title: test/dp/bitdp/atcoder-abc190-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
     title: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -114,6 +141,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/dfs/aoj-grl-4-a.test.cpp
+    title: test/graph/dfs/aoj-grl-4-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/dfs/atcoder-abc327-d.test.cpp
     title: test/graph/dfs/atcoder-abc327-d.test.cpp
@@ -139,6 +169,12 @@ data:
     path: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
     title: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/graph/tsp/aoj-dpl-2-a.test.cpp
+    title: test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/tsp/atcoder-abc180-e.test.cpp
+    title: test/graph/tsp/atcoder-abc180-e.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
     title: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   - icon: ':heavy_check_mark:'
@@ -147,7 +183,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
     title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - icon: ':heavy_check_mark:'
@@ -159,6 +195,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/math/is-prime/atcoder-abc149-c.test.cpp
     title: test/math/is-prime/atcoder-abc149-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/math/prime-factorization/aoj-ntl-1-a.test.cpp
+    title: test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
     title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
@@ -177,6 +216,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
     title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit/aoj-alds1-5-d.test.cpp
+    title: test/structure/bit/aoj-alds1-5-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-dsl-2-e.test.cpp
     title: test/structure/bit/aoj-dsl-2-e.test.cpp
@@ -201,7 +243,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
     title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -261,12 +303,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
     title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
     title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -494,45 +536,52 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n"
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n"
   code: "#pragma once\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if\
     \ __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -758,45 +807,52 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif"
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif"
   dependsOn: []
   isVerificationFile: false
   path: base.cpp
@@ -817,6 +873,7 @@ data:
   - search/memoization.cpp
   - search/bit-zentansaku.cpp
   - search/trit-zentansaku.cpp
+  - dp/bitdp.cpp
   - graph/bellman-ford.cpp
   - graph/topological-sort.cpp
   - graph/dijkstra.cpp
@@ -824,6 +881,7 @@ data:
   - graph/dfs.cpp
   - graph/scc.cpp
   - graph/bfs.cpp
+  - graph/tsp.cpp
   - grid/grid-bfs.cpp
   - grid/grid-dfs.cpp
   - heuristic/timer.cpp
@@ -833,8 +891,8 @@ data:
   - math/modint.cpp
   - tree/tree-bfs.cpp
   - tree/tree-dp.cpp
-  timestamp: '2024-04-23 03:27:08+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-04-27 14:48:38+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
@@ -850,6 +908,7 @@ data:
   - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
   - test/structure/bit/atcoder-abc338-e.test.cpp
   - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/aoj-alds1-5-d.test.cpp
   - test/structure/bit/atcoder-arc033-c.test.cpp
   - test/structure/kruskal/aoj-grl-2-a.test.cpp
   - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
@@ -866,6 +925,10 @@ data:
   - test/search/memoization/atcoder-abc350-e.test.cpp
   - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - test/dp/bitdp/atcoder-abc142-e.test.cpp
+  - test/dp/bitdp/atcoder-abc190-e.test.cpp
+  - test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - test/graph/tsp/atcoder-abc180-e.test.cpp
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   - test/graph/dijkstra/atcoder-abc270-c.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
@@ -879,14 +942,21 @@ data:
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
   - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
   - test/graph/scc/aoj-grl-3-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - test/math/prime-factorization/atcoder-abc324-b.test.cpp
   - test/math/is-prime/atcoder-abc149-c.test.cpp
+  - test/base/aoj-alds1-2-a.test.cpp
+  - test/base/aoj-ntl-1-c.test.cpp
+  - test/base/atcoder-abc109-c.test.cpp
+  - test/base/aoj-ntl-1-e.test.cpp
+  - test/base/aoj-ntl-1-b.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
   - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-a.test.cpp

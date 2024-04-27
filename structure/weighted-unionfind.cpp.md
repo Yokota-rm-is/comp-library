@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -242,71 +242,78 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/weighted-unionfind.cpp\"\
-    \n\nstruct WeightedUnionFind {\n    long long V{};\n    vector<long long> par{};\
-    \ // par[i]: i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\
-    \u306E\u6642)\n    vector<long long> diff_weight{};\n    map<long long, set<long\
-    \ long>> cc;\n\n    explicit WeightedUnionFind(long long V) : V(V), par(V, -1),\
-    \ diff_weight(V, 0) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n\
-    \        }\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     diff_weight[x] += diff_weight[par[x]];\n        return par[x] = rx;\n  \
-    \  }\n\n    // x\u306E\u6839\u304B\u3089\u306E\u91CD\u307F\u3092\u8FD4\u3059\n\
-    \    long long weight(long long x) {\n        find(x);\n        return diff_weight[x];\n\
-    \    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    // w = weight(y) - weight(x)\n\
-    \    bool unite(long long x, long long y, long long w = 0) {\n        w += weight(x);\n\
-    \        w -= weight(y);\n\n        long long rx = find(x); //x\u306E\u6839\u3092\
-    rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx ==\
-    \ ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\
-    \u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\
-    \u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\
-    \u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\
-    \u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n      \
-    \      w = -w;\n        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\
-    \u30BA\u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\
-    \u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\
-    \u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 3 \"structure/weighted-unionfind.cpp\"\n\nstruct WeightedUnionFind\
+    \ {\n    long long V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\
+    \u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    vector<long\
+    \ long> diff_weight{};\n    map<long long, set<long long>> cc;\n\n    explicit\
+    \ WeightedUnionFind(long long V) : V(V), par(V, -1), diff_weight(V, 0) { //\u6700\
+    \u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\
+    \u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n        }\n \
+    \   }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long long\
+    \ x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\
+    \u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n        if\
+    \ (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n        diff_weight[x]\
+    \ += diff_weight[par[x]];\n        return par[x] = rx;\n    }\n\n    // x\u306E\
+    \u6839\u304B\u3089\u306E\u91CD\u307F\u3092\u8FD4\u3059\n    long long weight(long\
+    \ long x) {\n        find(x);\n        return diff_weight[x];\n    }\n\n    //\
+    \ x\u3068y\u3092\u9023\u7D50\n    // w = weight(y) - weight(x)\n    bool unite(long\
+    \ long x, long long y, long long w = 0) {\n        w += weight(x);\n        w\
+    \ -= weight(y);\n\n        long long rx = find(x); //x\u306E\u6839\u3092rx\n \
+    \       long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx == ry)\
+    \ return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\u306B\
+    \u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\u30B5\
+    \u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\
+    \u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\
+    \n        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n            w\
+    \ = -w;\n        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\
+    \u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
+    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
+    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
     \ cc[ry].end());\n        cc.erase(ry);\n\n        diff_weight[ry] = w;\n\n  \
     \      return true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\
     \u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n\
@@ -377,7 +384,7 @@ data:
   isVerificationFile: false
   path: structure/weighted-unionfind.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:08+09:00'
+  timestamp: '2024-04-27 14:48:38+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp

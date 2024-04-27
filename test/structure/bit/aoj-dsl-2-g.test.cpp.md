@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
@@ -244,102 +244,95 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/bit.cpp\"\
-    \n\ntemplate<class T = long long>\nstruct BIT {\n    long long N, _N, height;\n\
-    \    vector<T> bit0, bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n\
-    \    }\n\n    BIT(const vector<T> &A): _N(A.size()) {\n        init();\n\n   \
-    \     rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n\
-    \        init();\n\n        rep(i, _N) add(i, a);\n    }\n\n    void init() {\n\
-    \        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n       \
-    \     N *= 2;\n            ++height;\n        }\n\n        bit0.assign(N + 1,\
-    \ 0);\n        bit1.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= r and r <= _N);\n\n \
-    \       if (l == r) return;\n\n        add(bit0, l, -x * l);\n        add(bit0,\
-    \ r, x * r);\n        add(bit1, l, x);\n        add(bit1, r, -x);\n    }\n\n \
-    \   void add_circular(long long l, long long r, T x) {\n        assert(0 <= l\
-    \ and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) {\n\
-    \            add(l, r, x);\n            return;\n        }\n        \n       \
-    \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
-    \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n\
-    \        if (l <= r and r <= _N) return sum(l, r);\n        \n        if (r >\
-    \ _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n    }\n\n  \
-    \  // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\
-    \u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n       \
-    \ \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    // \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\n    long long invension(vector<long\
-    \ long> &A) {\n        long long count = 0;\n\n        long long maxA = 0;\n \
-    \       fore(a, A) chmax(maxA, a);\n        _N = maxA + 1;\n        init();\n\n\
-    \        rep(i, A.size()) {\n            T a = A[i];\n            count += i -\
-    \ sum(a + 1);\n            add(a, 1);\n        }\n        return count;\n    }\n\
-    \n    // [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\
-    \u3092\u5224\u5B9A\n    bool is_overlapped(vector<pair<long long, long long>>\
-    \ &A) {\n        bool ret = false;\n        \n        long long maxA = 0;\n  \
-    \      fore(a, A) chmax(maxA, a.second);\n        _N = maxA + 1;\n        init();\n\
-    \n        rep(i, A.size()) {\n            auto [l, r] = A[i];\n            add(l,\
-    \ 1);\n            add(r, -1);\n        }\n\n        rep(i, A.size()) {\n    \
-    \        auto [l, r] = A[i];\n            if (sum(l, r + 1) == 0) continue;\n\n\
-    \            ret = true;\n            break;\n        }\n\n        return ret;\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 3 \"structure/bit.cpp\"\n\ntemplate<class T = long long>\n\
+    struct BIT {\n    long long N, _N, height;\n    vector<T> bit0, bit1;\n\n    BIT(long\
+    \ long n): _N(n) {\n        init();\n    }\n\n    BIT(const vector<T> &A): _N(A.size())\
+    \ {\n        init();\n\n        rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long\
+    \ long n, T a): _N(n) {\n        init();\n\n        rep(i, _N) add(i, a);\n  \
+    \  }\n\n    void init() {\n        N = 1;\n        height = 1;\n        while\
+    \ (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n        }\n\n\
+    \        bit0.assign(N + 1, 0);\n        bit1.assign(N + 1, 0);\n    }\n\n   \
+    \ // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long\
+    \ long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(bit0, p, x);\n\
+    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\
+    \u3048\u308B\n    void add(long long l, long long r, T x) {\n        assert(0\
+    \ <= l and l <= r and r <= _N);\n\n        if (l == r) return;\n\n        add(bit0,\
+    \ l, -x * l);\n        add(bit0, r, x * r);\n        add(bit1, l, x);\n      \
+    \  add(bit1, r, -x);\n    }\n\n    void add_circular(long long l, long long r,\
+    \ T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n   \
+    \     if (l <= r and r <= _N) {\n            add(l, r, x);\n            return;\n\
+    \        }\n        \n        if (r > _N) r -= _N;\n        \n        add(l, _N,\
+    \ x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092\
+    x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0 <= p and\
+    \ p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n    }\n\n    // \u534A\
+    \u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\
+    \n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n        return\
+    \ sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
+    \ r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
+    \ l, long long r) {\n        assert(0 <= l and l <= r and r <= _N);\n\n      \
+    \  if (l == r) return 0;\n        else return sum(r) - sum(l);\n    }\n\n    T\
+    \ sum_circular(long long l, long long r) {\n        assert(0 <= l and l <= _N\
+    \ and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) return sum(l,\
+    \ r);\n        \n        if (r > _N) r -= _N;\n        \n        return sum(l,\
+    \ _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\
+    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
+    \ p and p < _N);\n        \n        return sum(p + 1) - sum(p);\n    }\n\n   \
+    \ long long lower_bound(T x) {\n        assert(x >= 0);\n\n        ll right =\
+    \ 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long len = N; len >\
+    \ 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right + len]\
+    \ + (sum1 + bit1[right + len]) * (right + len) < x) {\n                right +=\
+    \ len;\n                sum0 += bit0[right];\n                sum1 += bit1[right];\n\
+    \            }\n        }\n\n        return right;\n    }  \n\n    long long upper_bound(T\
+    \ x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\
+    \n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os << \"\
+    bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long i =\
+    \ (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n         \
+    \       os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
     \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
     \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
     \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
@@ -354,9 +347,21 @@ data:
     x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
     \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
     \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n#line 4 \"test/structure/bit/aoj-dsl-2-g.test.cpp\"\n\n\
-    int main() {\n    ll n, q;\n    cin >> n >> q;\n\n    BIT<ll> tree(n, 0);\n  \
-    \  while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
+    \        }\n    }\n};\n\n// \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ calc_invension(const vector<long long> &A) {\n    long long ret = 0;\n\n   \
+    \ vector<long long> B = compress(A);\n\n    long long maxB = 0;\n    fore(b, B)\
+    \ chmax(maxB, b);\n\n    BIT<long long> tree(maxB + 1);\n\n    rep(i, B.size())\
+    \ {\n        long long b = B[i];\n        ret += i - tree.sum(b + 1);\n      \
+    \  tree.add(b, 1);\n    }\n\n    return ret;\n}\n\n// [l, r)\u306E\u914D\u5217\
+    \u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\u3092\u5224\u5B9A\nbool is_overlapped(const\
+    \ vector<pair<long long, long long>> &A) {\n    bool ret = false;\n    \n    long\
+    \ long maxA = 0;\n    fore(a, A) chmax(maxA, a.second);\n    BIT<long long> tree(maxA\
+    \ + 1);\n\n    rep(i, A.size()) {\n        auto [l, r] = A[i];\n        tree.add(l,\
+    \ 1);\n        tree.add(r, -1);\n    }\n\n    rep(i, A.size()) {\n        auto\
+    \ [l, r] = A[i];\n        if (tree.sum(l, r + 1) == 0) continue;\n\n        ret\
+    \ = true;\n        break;\n    }\n\n    return ret;\n}\n#line 4 \"test/structure/bit/aoj-dsl-2-g.test.cpp\"\
+    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    BIT<ll> tree(n, 0);\n\
+    \    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
     \            ll s, t, x;\n            cin >> s >> t >> x;\n            tree.add(s\
     \ - 1, t, x);\n        }\n        else {\n            ll s, t;\n            cin\
     \ >> s >> t;\n            cout << tree.sum(s - 1, t) << endl;\n        }\n   \
@@ -374,7 +379,7 @@ data:
   isVerificationFile: true
   path: test/structure/bit/aoj-dsl-2-g.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:08+09:00'
+  timestamp: '2024-04-27 14:48:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/aoj-dsl-2-g.test.cpp

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
@@ -247,114 +247,120 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/splay-tree.cpp\"\
-    \n\ntemplate<typename T, typename F>\nstruct Node {\n    Node *l = 0, *r = 0,\
-    \ *p = 0;\n    T value, prod, rprod;\n    F lazy;\n    long long index = -1;\n\
-    \    long long z = 0;\n    long long sumz = 0;\n    bool rev = false;\n\n    bool\
-    \ operator< (const Node &other) const {\n        return value < other.value;\n\
-    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
-    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
-    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T, F>& node)\
-    \ {\n        return os << node.value;\n    }\n};\n\ntemplate<typename T, typename\
-    \ F>\nstruct Operation {\n    using S = Node<T, F>;\n\n    Operation() {};\n\n\
-    \    virtual T e() = 0;\n\n    virtual void operator() (S* x) = 0;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct NoOperation : Operation<T, F> {\n    using S = Node<T,\
-    \ F>;\n\n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return\
-    \ _e;\n    }\n\n    void operator() (S* x) override {\n        x->sumz = x->l->sumz\
-    \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct Max : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
-    \    Max(): _e(numeric_limits<T>::min()) {};\n\n    T e() override {\n       \
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 3 \"structure/splay-tree.cpp\"\n\ntemplate<typename T, typename\
+    \ F>\nstruct Node {\n    Node *l = 0, *r = 0, *p = 0;\n    T value, prod, rprod;\n\
+    \    F lazy;\n    long long index = -1;\n    long long z = 0;\n    long long sumz\
+    \ = 0;\n    bool rev = false;\n\n    bool operator< (const Node &other) const\
+    \ {\n        return value < other.value;\n    }\n\n    bool operator== (const\
+    \ T other) const {\n        return value == other;\n    }\n\n    bool operator!=\
+    \ (const T other) const {\n        return value != other;\n    }\n\n    operator\
+    \ T() const {\n        return value;\n    }\n\n    friend ostream& operator <<\
+    \ (ostream &os, const Node<T, F>& node) {\n        return os << node.value;\n\
+    \    }\n};\n\ntemplate<typename T, typename F>\nstruct Operation {\n    using\
+    \ S = Node<T, F>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\n    virtual\
+    \ void operator() (S* x) = 0;\n};\n\ntemplate<typename T, typename F>\nstruct\
+    \ NoOperation : Operation<T, F> {\n    using S = Node<T, F>;\n\n    NoOperation():\
+    \ _e(T()) {};\n\n    T e() override {\n        return _e;\n    }\n\n    void operator()\
+    \ (S* x) override {\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\
+    \nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Max : Operation<T,\
+    \ F> {\n    using S = Node<T, F>;\n\n    Max(): _e(numeric_limits<T>::min()) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    void operator() (S* x)\
+    \ override {\n        x->prod = max({x->l->prod, x->value, x->r->prod});\n   \
+    \     x->rprod = max({x->r->rprod, x->value, x->l->rprod});\n        x->sumz =\
+    \ x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct Min: Operation<T, F> {\n    using S = Node<T, F>;\n\n\
+    \    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n       \
     \ return _e;\n    }\n\n    void operator() (S* x) override {\n        x->prod\
-    \ = max({x->l->prod, x->value, x->r->prod});\n        x->rprod = max({x->r->rprod,\
+    \ = min({x->l->prod, x->value, x->r->prod});\n        x->rprod = min({x->r->rprod,\
     \ x->value, x->l->rprod});\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n\
-    \    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct\
-    \ Min: Operation<T, F> {\n    using S = Node<T, F>;\n\n    Min(): _e(numeric_limits<T>::max())\
+    \    }\n\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct\
+    \ Sum: Operation<T, F> {\n    using S = Node<T, F>;\n\n    Sum(): _e(T(0)) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    void operator() (S* x)\
+    \ override {\n        x->prod = x->l->prod + x->value + x->r->prod;\n        x->rprod\
+    \ = x->r->rprod + x->value + x->l->rprod;\n        x->sumz = x->l->sumz + x->z\
+    \ + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename\
+    \ F>\nstruct Mul: Operation<T, F> {\n    using S = Node<T, F>;\n\n    Mul(): _e(T(1))\
     \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    void operator()\
-    \ (S* x) override {\n        x->prod = min({x->l->prod, x->value, x->r->prod});\n\
-    \        x->rprod = min({x->r->rprod, x->value, x->l->rprod});\n        x->sumz\
-    \ = x->l->sumz + x->z + x->r->sumz;\n    }\n\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct Sum: Operation<T, F> {\n    using S = Node<T, F>;\n\n\
-    \    Sum(): _e(T(0)) {};\n\n    T e() override {\n        return _e;\n    }\n\n\
-    \    void operator() (S* x) override {\n        x->prod = x->l->prod + x->value\
-    \ + x->r->prod;\n        x->rprod = x->r->rprod + x->value + x->l->rprod;\n  \
-    \      x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n\
-    };\n\ntemplate<typename T, typename F>\nstruct Mul: Operation<T, F> {\n    using\
-    \ S = Node<T, F>;\n\n    Mul(): _e(T(1)) {};\n\n    T e() override {\n       \
-    \ return _e;\n    }\n\n    void operator() (S* x) override {\n        x->prod\
-    \ = x->l->prod * x->value * x->r->prod;\n        x->rprod = x->r->rprod * x->value\
-    \ * x->l->rprod;\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\n\
-    private:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct GCD : Operation<T,\
-    \ F> {\n    using S = Node<T, F>;\n\n    GCD(): _e(T(0)) {};\n\n    T e() override\
-    \ {\n        return _e;\n    }\n\n    void operator() (S* x) override {\n    \
-    \    x->prod = gcd(gcd(x->l->prod, x->value), x->r->prod);\n        x->rprod =\
-    \ gcd(gcd(x->r->rprod, x->value), x->l->rprod);\n        x->sumz = x->l->sumz\
+    \ (S* x) override {\n        x->prod = x->l->prod * x->value * x->r->prod;\n \
+    \       x->rprod = x->r->rprod * x->value * x->l->rprod;\n        x->sumz = x->l->sumz\
     \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct LCM : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
-    \    LCM(): _e(T(1)) {};\n\n    T e() override {\n        return _e;\n    }\n\n\
-    \    void operator() (S* x) override {\n        x->prod = lcm(lcm(x->l->prod,\
-    \ x->value), x->r->prod);\n        x->rprod = lcm(lcm(x->r->rprod, x->value),\
+    \ T, typename F>\nstruct GCD : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
+    \    GCD(): _e(T(0)) {};\n\n    T e() override {\n        return _e;\n    }\n\n\
+    \    void operator() (S* x) override {\n        x->prod = gcd(gcd(x->l->prod,\
+    \ x->value), x->r->prod);\n        x->rprod = gcd(gcd(x->r->rprod, x->value),\
     \ x->l->rprod);\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\n\
-    private:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Mapping {\n\
-    \    using S = Node<T, F>;\n\n    Mapping() {};\n\n    virtual F id() = 0;\n\n\
-    \    void operator() (S* x, const F f) {\n        if (f == id()) return;\n\n \
-    \       map(x, f);\n    }\n\n    void composition(F &f, const F s) {\n       \
-    \ if (f == id()) {\n            f = s;\n            return;\n        };\n    \
-    \    if (s == id()) return;\n\n        com(f, s);\n    }\n\n    virtual void map(S*\
-    \ x, const F f) = 0;\n    virtual void com(F &f, const F s) = 0;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct NoMapping: Mapping<T, F> {\n    using S = Node<T, F>;\n\
-    \n    NoMapping(): _id(F()) {};\n\n    F id() override {\n        return _id;\n\
-    \    }\n\n    void map(S* x, const F f) override {}\n    void com(F &f, const\
-    \ F s) override {}\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename\
-    \ F>\nstruct Add: Mapping<T, F> {\n    using S = Node<T, F>;\n\n    Add(): _id(F(0))\
-    \ {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S*\
-    \ x, const F f) override {\n        x->value += f * x->z;\n        x->prod +=\
-    \ f * x->sumz;\n        x->rprod += f * x->sumz;\n    }\n\n    void com(F &f,\
-    \ const F s) override {\n        f += s;\n    }\n\nprivate:\n    F _id;\n};\n\n\
-    template<typename T, typename F>\nstruct Multiply: Mapping<T, F> {\n    using\
-    \ S = Node<T, F>;\n\n    Multiply(): _id(F(1)) {};\n\n    F id() override {\n\
-    \        return _id;\n    }\n\n    void map(S* x, const F f) override {\n    \
-    \    x->value *= f;\n        x->prod *= f;\n        x->rprod *= f;\n    }\n\n\
-    \    void com(F &f, const F s) override {\n        f *= s;\n    }\n\nprivate:\n\
-    \    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Affine: Mapping<T,\
+    private:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct LCM : Operation<T,\
+    \ F> {\n    using S = Node<T, F>;\n\n    LCM(): _e(T(1)) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    void operator() (S* x) override {\n    \
+    \    x->prod = lcm(lcm(x->l->prod, x->value), x->r->prod);\n        x->rprod =\
+    \ lcm(lcm(x->r->rprod, x->value), x->l->rprod);\n        x->sumz = x->l->sumz\
+    \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct Mapping {\n    using S = Node<T, F>;\n\n    Mapping()\
+    \ {};\n\n    virtual F id() = 0;\n\n    void operator() (S* x, const F f) {\n\
+    \        if (f == id()) return;\n\n        map(x, f);\n    }\n\n    void composition(F\
+    \ &f, const F s) {\n        if (f == id()) {\n            f = s;\n           \
+    \ return;\n        };\n        if (s == id()) return;\n\n        com(f, s);\n\
+    \    }\n\n    virtual void map(S* x, const F f) = 0;\n    virtual void com(F &f,\
+    \ const F s) = 0;\n};\n\ntemplate<typename T, typename F>\nstruct NoMapping: Mapping<T,\
+    \ F> {\n    using S = Node<T, F>;\n\n    NoMapping(): _id(F()) {};\n\n    F id()\
+    \ override {\n        return _id;\n    }\n\n    void map(S* x, const F f) override\
+    \ {}\n    void com(F &f, const F s) override {}\n\nprivate:\n    F _id;\n};\n\n\
+    template<typename T, typename F>\nstruct Add: Mapping<T, F> {\n    using S = Node<T,\
+    \ F>;\n\n    Add(): _id(F(0)) {};\n\n    F id() override {\n        return _id;\n\
+    \    }\n\n    void map(S* x, const F f) override {\n        x->value += f * x->z;\n\
+    \        x->prod += f * x->sumz;\n        x->rprod += f * x->sumz;\n    }\n\n\
+    \    void com(F &f, const F s) override {\n        f += s;\n    }\n\nprivate:\n\
+    \    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Multiply: Mapping<T,\
+    \ F> {\n    using S = Node<T, F>;\n\n    Multiply(): _id(F(1)) {};\n\n    F id()\
+    \ override {\n        return _id;\n    }\n\n    void map(S* x, const F f) override\
+    \ {\n        x->value *= f;\n        x->prod *= f;\n        x->rprod *= f;\n \
+    \   }\n\n    void com(F &f, const F s) override {\n        f *= s;\n    }\n\n\
+    private:\n    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Affine: Mapping<T,\
     \ F> {\n    using S = Node<T, F>;\n\n    Affine(): _id(F(1, 0)) {};\n\n    F id()\
     \ override {\n        return _id;\n    }\n\n    void map(S* x, const F f) override\
     \ {\n        x->value = f.first * x->value + f.second * x->z;\n        x->prod\
@@ -534,7 +540,7 @@ data:
   isVerificationFile: true
   path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:24+09:00'
+  timestamp: '2024-04-27 14:48:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp

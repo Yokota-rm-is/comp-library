@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
@@ -244,85 +244,91 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"structure/unionfind.cpp\"\
-    \n\nstruct UnionFind {\n    long long V;\n    vector<long long> par; // par[i]:\
-    \ i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642\
-    )\n    map<long long, set<long long>> cc;\n\n    UnionFind(long long V) : V(V),\
-    \ par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\
-    \u3057\u3066\u521D\u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n\
-    \        }\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    void\
-    \ unite(long long x, long long y) {\n        long long rx = find(x); //x\u306E\
-    \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n  \
-    \      if (rx != ry) {\n            // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\
-    \u3059\n            // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\
-    \u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n           \
-    \ if (-par[rx] < -par[ry]) {\n                swap(rx, ry);\n            }\n\n\
-    \            par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\
-    \n            par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\
-    \u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092\
-    x\u306E\u6839rx\u306B\u3064\u3051\u308B\n            cc[rx].insert(cc[ry].begin(),\
-    \ cc[ry].end());\n            cc.erase(ry);\n        }\n    }\n\n    // 2\u3064\
-    \u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\
-    \u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x, long long y) { \n\
-    \        return find(x) == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\
-    \u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\
-    \n    long long size(long long x) {\n        long long rx = find(x);\n       \
-    \ return -par[rx];\n    }\n\n    bool is_connected() {\n        long long rx =\
-    \ find(0);\n        return -par[rx] == V;\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\u8FD4\u3059\n   \
-    \ set<long long> members(long long x) {\n        long long rx = find(x);\n   \
-    \     return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\u914D\u5217\u3092\
-    \u8FD4\u3059\n    set<long long> roots() {\n        set<long long> ret;\n    \
-    \    fore(p, cc) {\n            ret.insert(p.first);\n        }\n        \n  \
-    \      return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\
-    \u3092\u8FD4\u3059\n    long long group_count() {\n        return cc.size();\n\
-    \    }\n\n    map<long long, set<long long>> all_group_members() {\n        return\
-    \ cc;\n    }\n};\n#line 4 \"test/structure/unionfind/aoj-dsl-1-a.test.cpp\"\n\n\
-    int main() {\n    ll n, q;\n    cin >> n >> q;\n\n    UnionFind tree(n);\n   \
-    \ while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n \
-    \           ll x, y;\n            cin >> x >> y;\n            tree.unite(x, y);\n\
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 3 \"structure/unionfind.cpp\"\n\nstruct UnionFind {\n    long\
+    \ long V;\n    vector<long long> par; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7\
+    \ or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    map<long long, set<long\
+    \ long>> cc;\n\n    UnionFind(long long V) : V(V), par(V, -1) { //\u6700\u521D\
+    \u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\u671F\
+    \u5316\n        rep(i, V) {\n            cc[i].insert(i);\n        }\n    }\n\n\
+    \    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long long x) { //\
+    \ \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\u5E30\
+    \u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n        if (par[x]\
+    \ < 0) return x;\n\n        long long rx = find(par[x]);\n        return par[x]\
+    \ = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    void unite(long long\
+    \ x, long long y) {\n        long long rx = find(x); //x\u306E\u6839\u3092rx\n\
+    \        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n        if (rx !=\
+    \ ry) {\n            // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n     \
+    \       // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
+    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n            if (-par[rx]\
+    \ < -par[ry]) {\n                swap(rx, ry);\n            }\n\n            par[rx]\
+    \ += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n            par[ry]\
+    \ = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\
+    \u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\
+    \u3064\u3051\u308B\n            cc[rx].insert(cc[ry].begin(), cc[ry].end());\n\
+    \            cc.erase(ry);\n        }\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\
+    \u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\
+    \u8FD4\u3059\n    bool is_same(long long x, long long y) { \n        return find(x)\
+    \ == find(y);\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\
+    \u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\n    long long size(long\
+    \ long x) {\n        long long rx = find(x);\n        return -par[rx];\n    }\n\
+    \n    bool is_connected() {\n        long long rx = find(0);\n        return -par[rx]\
+    \ == V;\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\
+    \u306E\u8981\u7D20\u3092\u8FD4\u3059\n    set<long long> members(long long x)\
+    \ {\n        long long rx = find(x);\n        return cc[rx];\n    }\n\n    //\
+    \ \u6839\u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    set<long long> roots()\
+    \ {\n        set<long long> ret;\n        fore(p, cc) {\n            ret.insert(p.first);\n\
+    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
+    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
+    \ cc.size();\n    }\n\n    map<long long, set<long long>> all_group_members()\
+    \ {\n        return cc;\n    }\n};\n#line 4 \"test/structure/unionfind/aoj-dsl-1-a.test.cpp\"\
+    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    UnionFind tree(n);\n\
+    \    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
+    \            ll x, y;\n            cin >> x >> y;\n            tree.unite(x, y);\n\
     \        }\n        else {\n            ll x, y;\n            cin >> x >> y;\n\
     \            cout << tree.is_same(x, y) << endl;\n        }\n    }\n\n    return\
     \ 0;\n}\n"
@@ -339,7 +345,7 @@ data:
   isVerificationFile: true
   path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-24 11:14:27+09:00'
+  timestamp: '2024-04-27 14:48:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/unionfind/aoj-dsl-1-a.test.cpp

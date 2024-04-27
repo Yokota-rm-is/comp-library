@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
@@ -247,69 +247,75 @@ data:
     \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
     \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
     \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(long long a, long long\
-    \ b) { \n    if (b > a) swap(a, b);\n    return ((b == 0) ? a : gcd(b, a % b));\n\
-    }\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long lcm(long\
-    \ long a, long long b) { return a / gcd(a, b) * b;}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\nlong long extGCD(long long a,\
-    \ long long b, long long &x, long long &y) {\n    if (b == 0) {x = 1; y = 0;return\
-    \ a;}\n    long long d = extGCD(b, a%b, y, x);\n    y -= a/b * x;\n    return\
-    \ d;\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
-    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
-    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
-    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
-    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
-    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
-    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
-    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
-    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
-    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
-    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
-    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
-    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\n// bit\u95A2\
-    \u4FC2\nbool bit_test(long long x, long long pos) { return (x >> pos) & 1ll; }\n\
-    long long bit_set(long long x, long long pos, bool flg) { return flg ? (x | (1ll\
-    \ << pos)) : (x & ~(1ll << pos)); }\nlong long bit_flip(long long x, long long\
-    \ pos) { return x ^ (1ll << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long\
-    \ long x) { return popcount((ull)x); }\n#else \nlong long bit_count(long long\
-    \ x) { return __builtin_popcountll(x); }\n#endif\n#line 3 \"grid/grid-dfs.cpp\"\
-    \n\nstruct Coordinate {\n    long long y, x;\n\n    Coordinate(long long y_ =\
-    \ 0, long long x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n        return\
-    \ sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate\
-    \ &other) {\n        return Coordinate(y - other.y, x - other.x).euclid();\n \
-    \   }\n\n    long long manhattan() {\n        return abs(y) + abs(x);\n    }\n\
-    \n    long long manhattan_from(const Coordinate &other) {\n        return Coordinate(y\
-    \ - other.y, x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char\
-    \ c) {\n        assert(c == 'R' or c == 'L' or c == 'U' or c == 'D');\n      \
-    \  Coordinate ret(y, x);\n\n        if (c == 'D') ++ret.y;\n        if (c == 'U')\
-    \ --ret.y;\n        if (c == 'R') ++ret.x;\n        if (c == 'L') --ret.x;\n\n\
-    \        return ret;\n    }\n\n    char dir2char() {\n        assert(manhattan()\
-    \ == 1);\n\n        char ret;\n        if (x > 0) ret = 'R';\n        if (x <\
-    \ 0) ret = 'L';\n        if (y > 0) ret = 'D';\n        if (y < 0) ret = 'U';\n\
-    \n        return ret;\n    }\n\n    char dir2char(Coordinate next) {\n       \
-    \ Coordinate dir = next - *this;\n        return dir.dir2char();\n    }\n\n  \
-    \  Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n    }\n\n\
-    \    Coordinate operator+ (const Coordinate &other) {\n        return Coordinate(y,\
-    \ x) += other;\n    }\n\n    Coordinate operator- (const Coordinate &other) {\n\
-    \        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate operator+\
-    \ (const long long &a) {\n        return Coordinate(y, x) += a;\n    }\n\n   \
-    \ Coordinate operator- (const long long &a) {\n        return Coordinate(y, x)\
-    \ -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n        return\
-    \ Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long long &a)\
-    \ {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
+    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
+    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
+    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
+    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
+    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
+    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
+    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
+    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
+    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
+    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
+    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
+    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
+    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
+    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
+    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
+    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
+    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
+    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
+    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
+    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
+    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
+    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
+    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
+    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
+    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
+    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
+    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
+    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
+    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
+    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
+    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
+    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
+    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
+    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
+    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
+    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
+    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
+    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
+    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
+    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
+    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ }\n#endif\n#line 3 \"grid/grid-dfs.cpp\"\n\nstruct Coordinate {\n    long long\
+    \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
+    \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
+    \    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
+    \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
+    \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
+    \    }\n\n    Coordinate char2dir(char c) {\n        assert(c == 'R' or c == 'L'\
+    \ or c == 'U' or c == 'D');\n        Coordinate ret(y, x);\n\n        if (c ==\
+    \ 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n        if (c == 'R') ++ret.x;\n\
+    \        if (c == 'L') --ret.x;\n\n        return ret;\n    }\n\n    char dir2char()\
+    \ {\n        assert(manhattan() == 1);\n\n        char ret;\n        if (x > 0)\
+    \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
+    \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
+    \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
+    \    }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
+    \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
+    \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
+    \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
+    \ operator+ (const long long &a) {\n        return Coordinate(y, x) += a;\n  \
+    \  }\n\n    Coordinate operator- (const long long &a) {\n        return Coordinate(y,\
+    \ x) -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n       \
+    \ return Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long\
+    \ long &a) {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
     \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
     \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
     \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
@@ -351,64 +357,66 @@ data:
     \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
     \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
     struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char obj = '#';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h,\
-    \ string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()),\
-    \ vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n        return vs[y][x];\n\
-    \    }\n\n    char& operator() (const Coordinate& p) {\n        return vs[p.y][p.x];\n\
-    \    }\n\n    bool is_obj(size_t y, size_t x) {\n        return vs[y][x] == obj;\n\
-    \    }\n\n    bool is_obj(const Coordinate& p) {\n        return vs[p.y][p.x]\
-    \ == obj;\n    }\n\n    bool is_out(long long y, long long x) {\n        return\
-    \ y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate&\
-    \ p) {\n        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n\
-    \    string& operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend\
-    \ ostream& operator << (ostream &os, Field& field) {\n        rep(i, field.H)\
-    \ {\n            os << field[i] << endl;\n        }\n        return os;\n    }\n\
-    };\n\nstruct GridDFS {\n    long long H, W;\n    Field field;\n    Grid<bool>\
-    \ seen;\n    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
-    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
-    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
-    \ Coordinate(-1, -1)\n    };\n    vector<char> path;\n\n    char s = 's';\n  \
-    \  char g = 'g';\n    char t = 't';\n    char obs = '#';\n    Coordinate start\
-    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
-    \ / 2;\n    long long group;\n\n    GridDFS(long long n) : H(n), W(n), field(n,\
-    \ n) {\n        init();\n    };\n\n    GridDFS(long long h, long long w) : H(h),\
-    \ W(w), field(h, w) {\n        init();\n    };\n\n    GridDFS(vector<string> vs)\
-    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n    };\n\
-    \n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n \
-    \   }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n  \
-    \      rep(y, H) rep(x, W) {\n                char c = field(y, x);\n        \
-    \        if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
-    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
-    \       start = Coordinate(y, x);\n                }\n                if (c ==\
-    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
-    \   }\n            }\n    }\n\n    long long dfs_all() {\n        rep(y, H) rep(x,\
-    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
-    \            if (field.is_obj(now)) continue;\n\n            dfs(now);\n     \
-    \       ++group;\n        }\n\n        return group;\n    }\n\n    void dfs()\
-    \ {\n        assert(start.y != -1);\n        dfs(start);\n    }\n\n    void dfs(Coordinate\
-    \ now) {\n        seen(now) = true;\n\n        rep(i, dirs.size()) {\n       \
-    \     Coordinate next = now + dirs[i];\n\n            if (field.is_out(next))\
-    \ continue;\n            if (field.is_obj(next)) continue;\n            if (seen(next))\
-    \ continue;\n\n            path.push_back(dirs[i].dir2char());\n            dfs(next);\n\
-    \            path.push_back(dirs[(i + 2) % 4].dir2char());\n        }\n    }\n\
-    \n    vector<Coordinate> spiral_search() {\n        Coordinate now(0, 0);\n  \
-    \      ll idx = 0;\n        Coordinate dir = dirs[idx];\n        vector<Coordinate>\
-    \ ret;\n\n        rep(i, H * W) {\n            seen(now) = true;\n           \
-    \ ret.push_back(now);\n\n            // \u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\
-    \u304F\n\n            Coordinate next = now + dir;\n            if (field.is_out(next)\
-    \ or seen(next)) {\n                ++idx;\n                idx %= 4;\n      \
-    \          dir = dirs[idx];\n            }\n            now += dir;\n        }\n\
-    \        return ret;\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
-    \    }\n\n    bool reach(Coordinate to) {\n        return seen(to);\n    }\n\n\
-    \    bool operator== (GridDFS &other) {\n        if (H != other.H or W != other.W)\
-    \ return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n\
-    \            if (field(y, x) != other.field(y, x)) return false;\n        }\n\n\
-    \        return true;\n    }\n\n    friend ostream& operator << (ostream &os,\
-    \ GridDFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n#line\
-    \ 6 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\n\nint main() {\n    ll H,\
-    \ W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n    grid.input();\n\n   \
-    \ grid.dfs();\n\n    cout << YesNo(grid.reach_goal()) << endl;\n\n    return 0;\n\
-    }\n"
+    \   char obj = '#';\n    char excl = '!';\n\n    Field(long long h, long long\
+    \ w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()),\
+    \ W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n\
+    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
+    \ {\n        return vs[p.y][p.x];\n    }\n\n    bool is_obj(size_t y, size_t x)\
+    \ {\n        return vs[y][x] == obj;\n    }\n\n    bool is_obj(const Coordinate&\
+    \ p) {\n        return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t\
+    \ y, size_t x) {\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const\
+    \ Coordinate& p) {\n        return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long\
+    \ long y, long long x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n\
+    \    }\n\n    bool is_out(const Coordinate& p) {\n        return p.y < 0 or p.y\
+    \ >= H or p.x < 0 or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n\
+    \        return vs[i];\n    }\n\n    friend ostream& operator << (ostream &os,\
+    \ Field& field) {\n        rep(i, field.H) {\n            os << field[i] << endl;\n\
+    \        }\n        return os;\n    }\n};\n\nstruct GridDFS {\n    long long H,\
+    \ W;\n    Field field;\n    Grid<bool> seen;\n    vector<Coordinate> dirs = {\n\
+    \        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0, -1),\n\
+    \        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \    vector<char> path;\n\n    char s = 's';\n    char g = 'g';\n    char t =\
+    \ 't';\n    char obs = '#';\n    char excl = '!';\n    Coordinate start = Coordinate(-1,\
+    \ -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 / 2;\n    long long\
+    \ group;\n\n    GridDFS(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
+    \    };\n\n    GridDFS(long long h, long long w) : H(h), W(w), field(h, w) {\n\
+    \        init();\n    };\n\n    GridDFS(vector<string> vs) : H(vs.size()), W(vs.front().size()),\
+    \ field(vs) {\n        init();\n    };\n\n    void init() {\n        group = 0;\n\
+    \        seen.assign(H, W, false);\n    }\n\n    void input() {\n        rep(y,\
+    \ H) cin >> field[y];\n        \n        rep(y, H) rep(x, W) {\n             \
+    \   char c = field(y, x);\n                if (c >= 'A' and c <= 'Z') c = c -\
+    \ 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\n          \
+    \      if (c == s) {\n                    start = Coordinate(y, x);\n        \
+    \        }\n                if (c == g or c == t) {\n                    goal\
+    \ = Coordinate(y, x);\n                }\n            }\n    }\n\n    long long\
+    \ dfs_all() {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\
+    \n            if (seen(now)) continue;\n            if (field.is_obj(now)) continue;\n\
+    \n            dfs(now);\n            ++group;\n        }\n\n        return group;\n\
+    \    }\n\n    void dfs() {\n        assert(start.y != -1);\n        dfs(start);\n\
+    \    }\n\n    void dfs(Coordinate now) {\n        seen(now) = true;\n\n      \
+    \  rep(i, dirs.size()) {\n            Coordinate next = now + dirs[i];\n\n   \
+    \         if (field.is_out(next)) continue;\n            if (field.is_obj(next))\
+    \ continue;\n            if (seen(next)) continue;\n\n            path.push_back(dirs[i].dir2char());\n\
+    \            dfs(next);\n            path.push_back(dirs[(i + 2) % 4].dir2char());\n\
+    \        }\n    }\n\n    vector<Coordinate> spiral_search() {\n        Coordinate\
+    \ now(0, 0);\n        ll idx = 0;\n        Coordinate dir = dirs[idx];\n     \
+    \   vector<Coordinate> ret;\n\n        rep(i, H * W) {\n            seen(now)\
+    \ = true;\n            ret.push_back(now);\n\n            // \u51E6\u7406\u3092\
+    \u3053\u3053\u306B\u66F8\u304F\n\n            Coordinate next = now + dir;\n \
+    \           if (field.is_out(next) or seen(next)) {\n                ++idx;\n\
+    \                idx %= 4;\n                dir = dirs[idx];\n            }\n\
+    \            now += dir;\n        }\n        return ret;\n    }\n\n    bool reach_goal()\
+    \ {\n        return reach(goal);\n    }\n\n    bool reach(Coordinate to) {\n \
+    \       return seen(to);\n    }\n\n    bool operator== (GridDFS &other) {\n  \
+    \      if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
+    \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
+    \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, GridDFS& grid) {\n        return os << grid.field\
+    \ << endl;\n    }\n};\n#line 6 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\
+    \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
+    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.reach_goal())\
+    \ << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\
     \n// https://atcoder.jp/contests/atc001/submissions/52418686\n\n#include \"../../../grid/grid-dfs.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
@@ -420,7 +428,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-23 03:27:08+09:00'
+  timestamp: '2024-04-28 00:23:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
