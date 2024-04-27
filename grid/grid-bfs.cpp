@@ -220,6 +220,7 @@ struct Field {
     long long W;
     vector<string> vs;
     char obj = '#';
+    char excl = '!';
 
     Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}
     Field(vector<string>& A) : H(A.size()), W(A.front().size()), vs(A) {}
@@ -238,6 +239,14 @@ struct Field {
 
     bool is_obj(const Coordinate& p) {
         return vs[p.y][p.x] == obj;
+    }
+
+    bool is_excl(size_t y, size_t x) {
+        return vs[y][x] == excl;
+    }
+
+    bool is_excl(const Coordinate& p) {
+        return vs[p.y][p.x] == excl;
     }
 
     bool is_out(long long y, long long x) {
@@ -281,6 +290,7 @@ struct GridBFS {
     char g = 'g';
     char t = 't';
     char obs = '#';
+    char excl = '!';
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
     long long inf = INF64 / 2;
     long long group;
