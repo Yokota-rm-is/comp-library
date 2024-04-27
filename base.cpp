@@ -265,19 +265,24 @@ long long nCr(long long n, long long k, long long m = 0) {
     }
     return ret;
 }
+
 // 最大公約数を求める
-long long gcd(long long a, long long b) { 
-    if (b > a) swap(a, b);
-    return ((b == 0) ? a : gcd(b, a % b));
+long long gcd(const vector<long long> &A) {
+    long long ret = 0;
+    rep(i, A.size()) ret = gcd(ret, A[i]);
+    return ret;
 }
 // 最小公倍数を求める
-long long lcm(long long a, long long b) { return a / gcd(a, b) * b;}
+long long lcm(const vector<long long> &A, const long long m = 0) { 
+    long long ret = 1;
+    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %= m;}
+    return ret;
+}
 // 拡張ユークリッドの互除法
-long long extGCD(long long a, long long b, long long &x, long long &y) {
-    if (b == 0) {x = 1; y = 0;return a;}
-    long long d = extGCD(b, a%b, y, x);
-    y -= a/b * x;
-    return d;
+tuple<long long, long long, long long> extGCD(long long a, long long b) {
+    if (b == 0) return {a, 1, 0};
+    auto [g, x, y] = extGCD(b, a % b);
+    return {g, y, x - (a / b) * y};
 }
 
 // string関係
@@ -324,6 +329,19 @@ template <typename T> long long bubble_sort(vector<T> &A) {
         ++ret;
     } 
     return ret;
+}
+template<typename T> vector<T> compress(const vector<T> &A) {
+    long long N = A.size();
+    vector<pair<T, long long>> B;
+    rep(i, N) B.emplace_back(A[i], i);
+    sort(B.begin(), B.end());
+    vector<T> C(N);
+    ll count = 0;
+    rep(i, N) {
+        C[B[i].second] = count;
+        if (i < N - 1 and B[i].first != B[i + 1].first) ++count;
+    } 
+    return C;
 }
 
 // bit関係
