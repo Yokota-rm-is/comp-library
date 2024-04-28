@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: grid/grid-bfs.cpp
-    title: grid/grid-bfs.cpp
+    path: grid/grid-dijkstra.cpp
+    title: grid/grid-dijkstra.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -17,12 +17,12 @@ data:
     IGNORE: ''
     IGNORE_IF_GCC: ''
     links:
-    - https://atcoder.jp/contests/abc007/submissions/52538110
-    - https://atcoder.jp/contests/abc007/tasks/abc007_3
-  bundledCode: "#line 1 \"test/grid/grid-bfs/atcoder-abc007-c.test.cpp\"\n#define\
-    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc007/tasks/abc007_3\"\
-    \n// https://atcoder.jp/contests/abc007/submissions/52538110\n\n#line 2 \"base.cpp\"\
-    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    - https://atcoder.jp/contests/typical90/submissions/52924275
+    - https://atcoder.jp/contests/typical90/tasks/typical90_aq
+  bundledCode: "#line 1 \"test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp\"\n\
+    #define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
+    \n// https://atcoder.jp/contests/typical90/submissions/52924275\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
     #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
@@ -292,10 +292,10 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"grid/grid-bfs.cpp\"\n\nstruct Coordinate {\n    long long\
-    \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
-    \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
-    \    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ }\n#endif\n#line 3 \"grid/grid-dijkstra.cpp\"\n\nstruct Coordinate {\n    long\
+    \ long y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_)\
+    \ {};\n\n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n\
+    \    }\n\n    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
     \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
     \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
     \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
@@ -374,112 +374,150 @@ data:
     \ >= H or p.x < 0 or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n\
     \        return vs[i];\n    }\n\n    friend ostream& operator << (ostream &os,\
     \ Field& field) {\n        rep(i, field.H) {\n            os << field[i] << endl;\n\
-    \        }\n        return os;\n    }\n};\n\nstruct GridBFS {\n    long long H,\
-    \ W;\n    Field field;\n    Grid<bool> seen;\n    Grid<long long> cost;\n    Grid<Coordinate>\
-    \ prev;\n    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
-    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
-    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
-    \ Coordinate(-1, -1)\n    };\n\n    char s = 's';\n    char g = 'g';\n    char\
-    \ t = 't';\n    char obs = '#';\n    char excl = '!';\n    Coordinate start =\
-    \ Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 /\
-    \ 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
-    \ n) {\n        init();\n    };\n\n    GridBFS(long long h, long long w) : H(h),\
-    \ W(w), field(h, w) {\n        init();\n    };\n\n    GridBFS(vector<string> vs)\
-    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n    };\n\
-    \n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n \
-    \       cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
+    \        }\n        return os;\n    }\n};\n\nstruct GridDijkstra {\n    long long\
+    \ H, W;\n    Field field;\n    Grid<bool> done;\n    Grid<long long> cost;\n \
+    \   Grid<Coordinate> prev;\n    vector<Coordinate> dirs = {\n        Coordinate(0,\
+    \ 1),\n        Coordinate(1, 0),\n        Coordinate(0, -1),\n        Coordinate(-1,\
+    \ 0),\n        // Coordinate(1, 1),\n        // Coordinate(1, -1),\n        //\
+    \ Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\n    char s = 's';\n\
+    \    char g = 'g';\n    char t = 't';\n    char obs = '#';\n    char excl = '!';\n\
+    \    Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long\
+    \ long inf = inf64;\n    long long group;\n\n    GridDijkstra(long long n) : H(n),\
+    \ W(n), field(n, n) {\n        init();\n    };\n\n    GridDijkstra(long long h,\
+    \ long long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridDijkstra(vector<string>\
+    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
+    \ };\n\n    void init() {\n        group = 0;\n        done.assign(H, W, false);\n\
+    \        cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
     \    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n \
     \       rep(y, H) rep(x, W) {\n                char c = field(y, x);\n       \
     \         if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
     \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
     \       start = Coordinate(y, x);\n                }\n                if (c ==\
     \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
-    \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
-    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
-    \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
-    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
-    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
-    \   }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
-    \ and !field.is_obj(now));\n\n        queue<Coordinate> que;\n\n        // \u521D\
-    \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
-    \u3059\u308B)\n        seen(now) = true;\n        cost(now) = 0;\n\n        que.push(now);\
-    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
-    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
-    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            now = que.front();\
-    \ // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
-    \u3059\n            que.pop();\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\
-    \u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
-    \ {\n                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
-    \ continue;\n                if (field.is_obj(next)) continue;\n             \
-    \   if (seen(next)) continue;\n\n                seen(next) = true;\n        \
-    \        cost(next) = cost(now) + 1;\n                prev(next) = now;\n    \
-    \            que.push(next);\n            }\n        }\n    }\n\n    void bfs01(Coordinate\
-    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
-    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
-    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
-    \ cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\u9802\
-    \u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\
-    \u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while\
-    \ (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\
-    \u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
-    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
-    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
-    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
-    \ next = now + dirs[i];\n                if (field.is_out(next)) continue;\n \
-    \               if(seen(next)) continue;\n\n                ll c = 0; \n     \
-    \           if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\
-    \u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                if\
-    \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
-    \                    \n                    if (c == 0) que.push_front(next);\n\
-    \                    else que.push_back(next);\n                }\n          \
-    \  }\n        }\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
-    \    }\n\n    bool reach(Coordinate to) {\n        assert(!field.is_out(to) and\
-    \ !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long dist(Coordinate\
-    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        return\
-    \ cost(to);\n    }\n\n    vector<Coordinate> path(Coordinate from, Coordinate\
-    \ to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n      \
-    \  assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n  \
-    \      return path_to(to);\n    }\n\n    vector<Coordinate> path_to_goal() {\n\
-    \        return path_to(goal);\n    }\n\n    vector<Coordinate> path_to(Coordinate\
+    \   }\n            }\n    }\n\n    void dijkstra(Coordinate now) {\n        assert(!done(now)\
+    \ and !field.is_out(now) and !field.is_obj(now));\n\n        priority_queue<pair<long\
+    \ long, Coordinate>, vector<pair<long long, Coordinate>>, greater<>> que;\n\n\
+    \        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
+    \u30FC\u30C9\u3068\u3059\u308B)\n        que.emplace(0, now); // noq \u3092\u6A59\
+    \u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\
+    \u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046\
+    )\n        while (!que.empty()) {\n            auto p = que.top(); // \u30AD\u30E5\
+    \u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n   \
+    \         que.pop();\n\n            now = p.second;\n            done(now) = true;\n\
+    \            cost(now) = p.first;\n\n            // v \u304B\u3089\u8FBF\u308C\
+    \u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i,\
+    \ dirs.size()) {\n                Coordinate next = now + dirs[i];\n\n       \
+    \         if (field.is_out(next)) continue;\n                if (field.is_obj(next))\
+    \ continue;\n                if (done(next)) continue;\n\n                long\
+    \ long c = 1;\n\n                if (chmin(cost(next), cost(now) + c)) {\n   \
+    \                 prev(next) = now;\n                    que.emplace(cost(next),\
+    \ next);\n                }\n            }\n        }\n    }\n\n    bool reach_goal()\
+    \ {\n        return reach(goal);\n    }\n\n    bool reach(Coordinate to) {\n \
+    \       assert(!field.is_out(to) and !field.is_obj(to));\n\n        return done(to);\n\
+    \    }\n\n    long long dist(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n        return cost(to);\n    }\n\n    vector<Coordinate>\
+    \ path(Coordinate from, Coordinate to) {\n        assert(!field.is_out(from) and\
+    \ !field.is_obj(from));\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
+    \n        dijkstra(from);\n        return path_to(to);\n    }\n\n    vector<Coordinate>\
+    \ path_to_goal() {\n        return path_to(goal);\n    }\n\n    vector<Coordinate>\
+    \ path_to(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
+    \        if (!reach(to)) return {};\n\n        vector<Coordinate> p;\n       \
+    \ p.push_back(to);\n\n        while (prev(p.back()) != Coordinate(-1, -1)) {\n\
+    \            p.push_back(prev(p.back()));\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n\n    string char_path_to_goal() {\n\
+    \        return char_path_to(goal);\n    }\n\n    string char_path_to(Coordinate\
     \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
-    \ (!reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
-    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    string char_path_to_goal() {\n        return char_path_to(goal);\n    }\n\
-    \n    string char_path_to(Coordinate to) {\n        assert(!field.is_out(to) and\
-    \ !field.is_obj(to));\n        if (!reach(to)) return {};\n\n        vector<Coordinate>\
-    \ path = path_to(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
-    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
-    \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
-    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
-    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
-    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
-    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n\
-    #line 6 \"test/grid/grid-bfs/atcoder-abc007-c.test.cpp\"\n\nint main() {\n   \
-    \ ll R, C;\n    cin >> R >> C;\n\n    GridBFS grid(R, C);\n    ll sy, sx;\n  \
-    \  cin >> sy >> sx;\n    grid.start = {sy - 1, sx - 1};\n    ll gy, gx;\n    cin\
-    \ >> gy >> gx;\n    grid.goal = {gy - 1, gx - 1};\n    grid.input();\n\n    grid.bfs();\n\
-    \n    cout << grid.dist(grid.goal) << endl;\n\n    return 0;\n}\n"
-  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc007/tasks/abc007_3\"\
-    \n// https://atcoder.jp/contests/abc007/submissions/52538110\n\n#include \"../../../grid/grid-bfs.cpp\"\
-    \n\nint main() {\n    ll R, C;\n    cin >> R >> C;\n\n    GridBFS grid(R, C);\n\
-    \    ll sy, sx;\n    cin >> sy >> sx;\n    grid.start = {sy - 1, sx - 1};\n  \
-    \  ll gy, gx;\n    cin >> gy >> gx;\n    grid.goal = {gy - 1, gx - 1};\n    grid.input();\n\
-    \n    grid.bfs();\n\n    cout << grid.dist(grid.goal) << endl;\n\n    return 0;\n\
-    }"
+    \ (!reach(to)) return {};\n\n        vector<Coordinate> path = path_to(to);\n\n\
+    \        string ret;\n        rep(i, path.size() - 1) {\n            ret += path[i].dir2char(path[i\
+    \ + 1]);\n        }\n\n        return ret;\n    }\n\n    bool operator== (GridDijkstra\
+    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
+    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
+    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, GridDijkstra& grid) {\n\
+    \        return os << grid.field << endl;\n    }\n};\n#line 6 \"test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp\"\
+    \n\nstruct Cell {\n    Coordinate point;\n    ll idx;\n    ll cost;\n\n    Cell(Coordinate\
+    \ p, ll i, ll c) : point(p), idx(i), cost(c) {}\n\n    friend bool operator< (const\
+    \ Cell &l, const Cell &r) {\n        return l.cost < r.cost;\n    }\n\n    friend\
+    \ bool operator> (const Cell &l, const Cell &r) {\n        return l.cost > r.cost;\n\
+    \    }\n};\n\nstruct T90_43 : GridDijkstra {\n    T90_43 (long long h, long long\
+    \ w) : GridDijkstra(h, w) {}\n\n    void dijkstra(Coordinate start) {\n      \
+    \  assert(!done(start) and !field.is_out(start) and !field.is_obj(start));\n\n\
+    \        Grid<vector<bool>> done2(H, W, vector<bool>(2, false));\n        Grid<vector<long\
+    \ long>> cost2(H, W, vector<long long>(2, inf64));\n\n        priority_queue<Cell,\
+    \ vector<Cell>, greater<Cell>> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ rep(i, 2) que.push(Cell(start, i, 0)); // noq \u3092\u6A59\u8272\u9802\u70B9\
+    \u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\
+    \u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
+    \ {\n            Cell cell = que.top(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\
+    \u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\n \
+    \           Coordinate now = cell.point;\n            ll di = cell.idx;\n    \
+    \        ll cost_now = cell.cost;            \n\n            if (done2(now)[di])\
+    \ continue;\n            done2(now)[di] = true;\n\n            chmin(cost2(now)[di],\
+    \ cost_now);\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\
+    \u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n    \
+    \            Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
+    \ continue;\n                if (field.is_obj(next)) continue;\n             \
+    \   if (done2(next)[(i % 2)]) continue;\n\n                long long c = 0;\n\
+    \                if ((i % 2) != di) c = 1;\n\n                if (chmin(cost2(next)[i\
+    \ % 2], cost_now + c)) {\n                    prev(next) = now;\n            \
+    \        que.push(Cell(next, i % 2, cost2(next)[i % 2]));\n                }\n\
+    \            }\n        }\n\n        rep(y, H) rep(x, W) cost({y, x}) = min(cost2({y,\
+    \ x}));\n        rep(y, H) rep(x, W) done({y, x}) = done2({y, x})[0] or done2({y,\
+    \ x})[1];\n    }\n};\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n   \
+    \ ll rs, cs;\n    cin >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n\
+    \    T90_43 grid(H, W);\n    grid.input();\n\n    grid.dijkstra({rs - 1, cs -\
+    \ 1});\n\n    cout << grid.dist({rt - 1, ct - 1}) << endl;\n\n    return 0;\n\
+    }\n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
+    \n// https://atcoder.jp/contests/typical90/submissions/52924275\n\n#include \"\
+    ../../../grid/grid-dijkstra.cpp\"\n\nstruct Cell {\n    Coordinate point;\n  \
+    \  ll idx;\n    ll cost;\n\n    Cell(Coordinate p, ll i, ll c) : point(p), idx(i),\
+    \ cost(c) {}\n\n    friend bool operator< (const Cell &l, const Cell &r) {\n \
+    \       return l.cost < r.cost;\n    }\n\n    friend bool operator> (const Cell\
+    \ &l, const Cell &r) {\n        return l.cost > r.cost;\n    }\n};\n\nstruct T90_43\
+    \ : GridDijkstra {\n    T90_43 (long long h, long long w) : GridDijkstra(h, w)\
+    \ {}\n\n    void dijkstra(Coordinate start) {\n        assert(!done(start) and\
+    \ !field.is_out(start) and !field.is_obj(start));\n\n        Grid<vector<bool>>\
+    \ done2(H, W, vector<bool>(2, false));\n        Grid<vector<long long>> cost2(H,\
+    \ W, vector<long long>(2, inf64));\n\n        priority_queue<Cell, vector<Cell>,\
+    \ greater<Cell>> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start\
+    \ \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n        rep(i, 2) que.push(Cell(start,\
+    \ i, 0)); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        //\
+    \ BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\
+    \u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty()) {\n            Cell\
+    \ cell = que.top(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
+    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            Coordinate now\
+    \ = cell.point;\n            ll di = cell.idx;\n            ll cost_now = cell.cost;\
+    \            \n\n            if (done2(now)[di]) continue;\n            done2(now)[di]\
+    \ = true;\n\n            chmin(cost2(now)[di], cost_now);\n\n            // v\
+    \ \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\
+    \u308B\n            rep(i, dirs.size()) {\n                Coordinate next = now\
+    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
+    \      if (field.is_obj(next)) continue;\n                if (done2(next)[(i %\
+    \ 2)]) continue;\n\n                long long c = 0;\n                if ((i %\
+    \ 2) != di) c = 1;\n\n                if (chmin(cost2(next)[i % 2], cost_now +\
+    \ c)) {\n                    prev(next) = now;\n                    que.push(Cell(next,\
+    \ i % 2, cost2(next)[i % 2]));\n                }\n            }\n        }\n\n\
+    \        rep(y, H) rep(x, W) cost({y, x}) = min(cost2({y, x}));\n        rep(y,\
+    \ H) rep(x, W) done({y, x}) = done2({y, x})[0] or done2({y, x})[1];\n    }\n};\n\
+    \nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin >>\
+    \ rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n\
+    \    grid.input();\n\n    grid.dijkstra({rs - 1, cs - 1});\n\n    cout << grid.dist({rt\
+    \ - 1, ct - 1}) << endl;\n\n    return 0;\n}"
   dependsOn:
-  - grid/grid-bfs.cpp
+  - grid/grid-dijkstra.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  path: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 00:49:32+09:00'
+  timestamp: '2024-04-29 00:51:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+documentation_of: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
 layout: document
 redirect_from:
-- /verify/test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-- /verify/test/grid/grid-bfs/atcoder-abc007-c.test.cpp.html
-title: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+- /verify/test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+- /verify/test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp.html
+title: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
 ---

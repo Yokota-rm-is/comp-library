@@ -325,15 +325,18 @@ data:
     \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
     \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
     \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
-    \ *this;\n    }\n\n    bool operator== (const Coordinate &other) {\n        return\
-    \ y == other.y and x == other.x;\n    }\n\n    bool operator!= (const Coordinate\
-    \ &other) {\n        return y != other.y or x != other.x;\n    }\n\n    bool operator<\
-    \ (const Coordinate &other) {\n        if (y == other.y) {\n            return\
-    \ x < other.x;\n        }\n        else return y < other.y;\n    }\n\n    friend\
-    \ ostream& operator << (ostream &os, const Coordinate& p) {\n        return os\
-    \ << \"(\" << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\n\
-    struct Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\
-    \n    Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
+    \ *this;\n    }\n\n    friend bool operator== (const Coordinate &l, const Coordinate\
+    \ &r) {\n        return l.y == r.y and l.x == r.x;\n    }\n\n    friend bool operator!=\
+    \ (const Coordinate &l, const Coordinate &r) {\n        return l.y != r.y or l.x\
+    \ != r.x;\n    }\n\n    friend bool operator< (const Coordinate &l, const Coordinate\
+    \ &r) {\n        if (l.y == r.y) {\n            return l.x < r.x;\n        }\n\
+    \        else return l.y < r.y;\n    }\n\n    friend bool operator> (const Coordinate\
+    \ &l, const Coordinate &r) {\n        if (l.y == r.y) {\n            return l.x\
+    \ > r.x;\n        }\n        else return l.y > r.y;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, const Coordinate& p) {\n        return os << \"(\"\
+    \ << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\nstruct\
+    \ Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\n  \
+    \  Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
     \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
     \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
     \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
@@ -469,7 +472,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   requiredBy: []
-  timestamp: '2024-04-28 00:23:46+09:00'
+  timestamp: '2024-04-29 00:49:32+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-bfs/atcoder-abc151-d.test.cpp

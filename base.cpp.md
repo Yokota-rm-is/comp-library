@@ -35,6 +35,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: grid/grid-dfs.cpp
     title: grid/grid-dfs.cpp
+  - icon: ':heavy_check_mark:'
+    path: grid/grid-dijkstra.cpp
+    title: grid/grid-dijkstra.cpp
+  - icon: ':heavy_check_mark:'
+    path: grid/grid-unionfind.cpp
+    title: grid/grid-unionfind.cpp
   - icon: ':warning:'
     path: heuristic/timer.cpp
     title: heuristic/timer.cpp
@@ -187,11 +193,20 @@ data:
     path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
     title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+    title: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
     title: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
     title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+    title: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+    title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/math/is-prime/atcoder-abc149-c.test.cpp
     title: test/math/is-prime/atcoder-abc149-c.test.cpp
@@ -883,7 +898,9 @@ data:
   - graph/bfs.cpp
   - graph/tsp.cpp
   - grid/grid-bfs.cpp
+  - grid/grid-dijkstra.cpp
   - grid/grid-dfs.cpp
+  - grid/grid-unionfind.cpp
   - heuristic/timer.cpp
   - math/is-prime.cpp
   - math/prime-factorization.cpp
@@ -946,9 +963,12 @@ data:
   - test/graph/scc/aoj-grl-3-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - test/math/prime-factorization/atcoder-abc324-b.test.cpp
   - test/math/is-prime/atcoder-abc149-c.test.cpp

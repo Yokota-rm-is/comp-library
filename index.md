@@ -45,6 +45,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: grid/grid-dfs.cpp
       title: grid/grid-dfs.cpp
+    - icon: ':heavy_check_mark:'
+      path: grid/grid-dijkstra.cpp
+      title: grid/grid-dijkstra.cpp
+    - icon: ':heavy_check_mark:'
+      path: grid/grid-unionfind.cpp
+      title: grid/grid-unionfind.cpp
   - name: heuristic
     pages:
     - icon: ':warning:'
@@ -230,6 +236,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
       title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+      title: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   - name: test/grid/grid-dfs
     pages:
     - icon: ':heavy_check_mark:'
@@ -238,6 +247,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
       title: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - name: test/grid/grid-dijkstra
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+      title: test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - name: test/grid/grid-unionfind
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+      title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - name: test/math/is-prime
     pages:
     - icon: ':heavy_check_mark:'

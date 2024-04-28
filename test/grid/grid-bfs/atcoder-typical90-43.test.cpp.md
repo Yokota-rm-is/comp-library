@@ -17,12 +17,12 @@ data:
     IGNORE: ''
     IGNORE_IF_GCC: ''
     links:
-    - https://atcoder.jp/contests/abc007/submissions/52538110
-    - https://atcoder.jp/contests/abc007/tasks/abc007_3
-  bundledCode: "#line 1 \"test/grid/grid-bfs/atcoder-abc007-c.test.cpp\"\n#define\
-    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc007/tasks/abc007_3\"\
-    \n// https://atcoder.jp/contests/abc007/submissions/52538110\n\n#line 2 \"base.cpp\"\
-    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    - https://atcoder.jp/contests/typical90/submissions/52922278
+    - https://atcoder.jp/contests/typical90/tasks/typical90_aq
+  bundledCode: "#line 1 \"test/grid/grid-bfs/atcoder-typical90-43.test.cpp\"\n#define\
+    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
+    \n// https://atcoder.jp/contests/typical90/submissions/52922278\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
     #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
@@ -455,31 +455,75 @@ data:
     \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
     \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
     \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n\
-    #line 6 \"test/grid/grid-bfs/atcoder-abc007-c.test.cpp\"\n\nint main() {\n   \
-    \ ll R, C;\n    cin >> R >> C;\n\n    GridBFS grid(R, C);\n    ll sy, sx;\n  \
-    \  cin >> sy >> sx;\n    grid.start = {sy - 1, sx - 1};\n    ll gy, gx;\n    cin\
-    \ >> gy >> gx;\n    grid.goal = {gy - 1, gx - 1};\n    grid.input();\n\n    grid.bfs();\n\
-    \n    cout << grid.dist(grid.goal) << endl;\n\n    return 0;\n}\n"
-  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc007/tasks/abc007_3\"\
-    \n// https://atcoder.jp/contests/abc007/submissions/52538110\n\n#include \"../../../grid/grid-bfs.cpp\"\
-    \n\nint main() {\n    ll R, C;\n    cin >> R >> C;\n\n    GridBFS grid(R, C);\n\
-    \    ll sy, sx;\n    cin >> sy >> sx;\n    grid.start = {sy - 1, sx - 1};\n  \
-    \  ll gy, gx;\n    cin >> gy >> gx;\n    grid.goal = {gy - 1, gx - 1};\n    grid.input();\n\
-    \n    grid.bfs();\n\n    cout << grid.dist(grid.goal) << endl;\n\n    return 0;\n\
-    }"
+    #line 6 \"test/grid/grid-bfs/atcoder-typical90-43.test.cpp\"\n\nstruct T90_43\
+    \ : GridBFS {\n    T90_43 (long long h, long long w) : GridBFS(h, w) {}\n\n  \
+    \  void bfs01(Coordinate start) {\n        assert(!seen(start) and !field.is_out(start)\
+    \ and !field.is_obj(start));\n\n        deque<Coordinate> que;\n\n        // \u521D\
+    \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
+    \u3059\u308B)\n        cost(start) = 0;\n\n        que.push_front(start); // noq\
+    \ \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB\
+    \ (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\
+    \u884C\u3046)\n        while (!que.empty()) {\n            Coordinate now = que.front();\
+    \ // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
+    \u3059\n            que.pop_front();\n\n            if (seen(now)) continue;\n\
+    \            seen(now) = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\
+    \u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
+    \ {\n                Coordinate next = now;\n                ll c = 0; \n    \
+    \            if (now != start) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\u304C\
+    1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                while (true)\
+    \ {\n                    next += dirs[i];\n                    if (field.is_out(next))\
+    \ break;\n                    if (field.is_obj(next)) break;\n\n             \
+    \       if (cost(next) >= cost(now) + c) {\n                        cost(next)\
+    \ = cost(now) + c;\n                        prev(next) = now;\n              \
+    \          \n                        if (c == 0) que.push_front(next);\n     \
+    \                   else que.push_back(next);\n                    }\n       \
+    \             else break;\n                }\n            }\n        }\n    }\n\
+    };\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin\
+    \ >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n\
+    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.dist({rt\
+    \ - 1, ct - 1}) << endl;\n\n    return 0;\n}\n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
+    \n// https://atcoder.jp/contests/typical90/submissions/52922278\n\n#include \"\
+    ../../../grid/grid-bfs.cpp\"\n\nstruct T90_43 : GridBFS {\n    T90_43 (long long\
+    \ h, long long w) : GridBFS(h, w) {}\n\n    void bfs01(Coordinate start) {\n \
+    \       assert(!seen(start) and !field.is_out(start) and !field.is_obj(start));\n\
+    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ cost(start) = 0;\n\n        que.push_front(start); // noq \u3092\u6A59\u8272\
+    \u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\
+    \u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n  \
+    \      while (!que.empty()) {\n            Coordinate now = que.front(); // \u30AD\
+    \u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\
+    \n            que.pop_front();\n\n            if (seen(now)) continue;\n     \
+    \       seen(now) = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\
+    \u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
+    \ {\n                Coordinate next = now;\n                ll c = 0; \n    \
+    \            if (now != start) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\u304C\
+    1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                while (true)\
+    \ {\n                    next += dirs[i];\n                    if (field.is_out(next))\
+    \ break;\n                    if (field.is_obj(next)) break;\n\n             \
+    \       if (cost(next) >= cost(now) + c) {\n                        cost(next)\
+    \ = cost(now) + c;\n                        prev(next) = now;\n              \
+    \          \n                        if (c == 0) que.push_front(next);\n     \
+    \                   else que.push_back(next);\n                    }\n       \
+    \             else break;\n                }\n            }\n        }\n    }\n\
+    };\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin\
+    \ >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n\
+    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.dist({rt\
+    \ - 1, ct - 1}) << endl;\n\n    return 0;\n}"
   dependsOn:
   - grid/grid-bfs.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 00:49:32+09:00'
+  timestamp: '2024-04-29 00:50:17+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+documentation_of: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
 layout: document
 redirect_from:
-- /verify/test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-- /verify/test/grid/grid-bfs/atcoder-abc007-c.test.cpp.html
-title: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+- /verify/test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+- /verify/test/grid/grid-bfs/atcoder-typical90-43.test.cpp.html
+title: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
 ---
