@@ -125,19 +125,26 @@ struct Coordinate {
         return *this;
     }
 
-    bool operator== (const Coordinate &other) {
-        return y == other.y and x == other.x;
+    friend bool operator== (const Coordinate &l, const Coordinate &r) {
+        return l.y == r.y and l.x == r.x;
     }
 
-    bool operator!= (const Coordinate &other) {
-        return y != other.y or x != other.x;
+    friend bool operator!= (const Coordinate &l, const Coordinate &r) {
+        return l.y != r.y or l.x != r.x;
     }
 
-    bool operator< (const Coordinate &other) {
-        if (y == other.y) {
-            return x < other.x;
+    friend bool operator< (const Coordinate &l, const Coordinate &r) {
+        if (l.y == r.y) {
+            return l.x < r.x;
         }
-        else return y < other.y;
+        else return l.y < r.y;
+    }
+
+    friend bool operator> (const Coordinate &l, const Coordinate &r) {
+        if (l.y == r.y) {
+            return l.x > r.x;
+        }
+        else return l.y > r.y;
     }
 
     friend ostream& operator << (ostream &os, const Coordinate& p) {
