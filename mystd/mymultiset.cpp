@@ -4,20 +4,22 @@
 template <typename T>
 struct MultiSet : public map<T, long long> {
     long long N;
+    using mp = map<T, long long>;
 
     explicit MultiSet() : N(0) {};
 
-    long long insert(T x) {
-        ++N;
-        return ++(*this)[x];
+    long long insert(T x, long long n = 1) {
+        N += n;
+        return (*this)[x] += n;
     }
 
-    long long erase(T x) {
-        --N;
-        --(*this)[x];
+    long long erase(T x, long long n = 1) {
+        if (n > (*this)[x]) n = (*this)[x];
+        N -= n;
+        (*this)[x] -= n;
 
         if ((*this)[x] == 0) {
-            map<T, long long>::erase(x);
+            mp::erase(x);
             return 0;
         }
         else {
@@ -25,12 +27,17 @@ struct MultiSet : public map<T, long long> {
         }
     }
 
+    void erase_all(T x) {
+        N -= (*this)[x];
+        mp::erase(x);
+    }
+
     T front() {
-        return map<T, long long>::begin()->first;
+        return mp::begin()->first;
     }
 
     T back() {
-        return map<T, long long>::rbegin()->first;
+        return mp::rbegin()->first;
     }
 
     void pop() {
@@ -46,7 +53,7 @@ struct MultiSet : public map<T, long long> {
     }
 
     long long count(T x) {
-        if (!map<T, long long>::contains(x)) return 0;
+        if (!mp::contains(x)) return 0;
         return (*this)[x];
     }
 };
