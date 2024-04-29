@@ -83,6 +83,9 @@ using sstr = set<str>;
 using vchar = vector<char>;
 using schar = set<char>;
 using vd = vector<double>;
+using vvd = vector<vector<double>>;
+using vb = vector<bool>;
+using vvb = vector<vector<bool>>;
 
 // boost関連
 #if __has_include(<boost/algorithm/cxx11/all_of.hpp>)
