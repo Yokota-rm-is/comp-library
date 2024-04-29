@@ -57,6 +57,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -307,48 +308,48 @@ data:
     \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
     \ assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
     \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
-    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
-    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
-    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
-    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
-    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
-    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
-    \   prev[e.to] = e.from;\n                    changed = true;\n              \
-    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
-    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
-    \                    if (cost[e.from] == inf64) continue;\n\n                \
-    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
-    \                        cost[e.to] = -inf64;\n                    }\n       \
-    \         }\n            }\n        }\n    }\n\n    bool reach(long long to) {\n\
-    \        assert(0 <= to and to < V);\n\n        return cost[to] < inf64;\n   \
-    \ }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to and\
-    \ to < V);\n        if (!reach(to)) return {};\n\n        vector<long long> p;\n\
-    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
-    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n\n    bool has_negative_cycle() {\n        rep(i,\
-    \ V) {\n            if (cost[i] == -inf64) return true;\n        }\n        return\
-    \ false;\n    }\n};\n#line 4 \"test/graph/bellman-ford/aoj-grl-1-b.test.cpp\"\n\
-    \nint main() {\n    ll V, E, r;\n    cin >> V >> E >> r;\n\n    BellmanFord<ll>\
-    \ tree(V, true);\n    rep(i, E) {\n        ll s, t, d;\n        cin >> s >> t\
-    \ >> d;\n\n        tree.connect(s, t, d);\n    }\n\n    tree(r);\n    if (tree.has_negative_cycle())\
-    \ {\n        cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n \
-    \   \n    rep(i, V) {\n        if (tree.cost[i] == inf64) cout << \"INF\" << endl;\n\
-    \        else cout << tree.cost[i] << endl;\n    }\n\n    return 0;\n}\n"
+    \ operator() (long long start) {\n        solve(start);\n    }\n\n    void solve(long\
+    \ long start) {\n        assert(0 <= start and start < V);\n\n        bool changed\
+    \ = false;\n        cost[start] = 0;\n\n        rep(i, V) {\n            changed\
+    \ = false;\n\n            fore(e, edges) {\n                if (cost[e.from] ==\
+    \ inf64) continue;\n\n                T c = cost[e.from] + e.weight;\n       \
+    \         if (chmin(cost[e.to], c)) {\n                    prev[e.to] = e.from;\n\
+    \                    changed = true;\n                }\n            }\n\n   \
+    \         if (!changed) break;\n        }\n\n        if (changed) {\n        \
+    \    rep(i, V) {\n                fore(e, edges) {\n                    if (cost[e.from]\
+    \ == inf64) continue;\n\n                    T c = cost[e.from] + e.weight;\n\
+    \                    if (c < cost[e.to]) {\n                        cost[e.to]\
+    \ = -inf64;\n                    }\n                }\n            }\n       \
+    \ }\n    }\n\n    bool can_reach(long long to) {\n        assert(0 <= to and to\
+    \ < V);\n\n        return cost[to] < inf64;\n    }\n\n    vector<long long> get_path(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!can_reach(to))\
+    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
+    \     while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    bool has_negative_cycle() {\n        rep(i, V) {\n            if (cost[i]\
+    \ == -inf64) return true;\n        }\n        return false;\n    }\n};\n#line\
+    \ 4 \"test/graph/bellman-ford/aoj-grl-1-b.test.cpp\"\n\nint main() {\n    ll V,\
+    \ E, r;\n    cin >> V >> E >> r;\n\n    BellmanFord<ll> graph(V, true);\n    rep(i,\
+    \ E) {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        graph.connect(s,\
+    \ t, d);\n    }\n\n    graph(r);\n    if (graph.has_negative_cycle()) {\n    \
+    \    cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n    \n   \
+    \ rep(i, V) {\n        if (graph.cost[i] == inf64) cout << \"INF\" << endl;\n\
+    \        else cout << graph.cost[i] << endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&\"\
     \n\n#include \"../../../graph/bellman-ford.cpp\"\n\nint main() {\n    ll V, E,\
-    \ r;\n    cin >> V >> E >> r;\n\n    BellmanFord<ll> tree(V, true);\n    rep(i,\
-    \ E) {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        tree.connect(s,\
-    \ t, d);\n    }\n\n    tree(r);\n    if (tree.has_negative_cycle()) {\n      \
-    \  cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n    \n    rep(i,\
-    \ V) {\n        if (tree.cost[i] == inf64) cout << \"INF\" << endl;\n        else\
-    \ cout << tree.cost[i] << endl;\n    }\n\n    return 0;\n}"
+    \ r;\n    cin >> V >> E >> r;\n\n    BellmanFord<ll> graph(V, true);\n    rep(i,\
+    \ E) {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        graph.connect(s,\
+    \ t, d);\n    }\n\n    graph(r);\n    if (graph.has_negative_cycle()) {\n    \
+    \    cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n    \n   \
+    \ rep(i, V) {\n        if (graph.cost[i] == inf64) cout << \"INF\" << endl;\n\
+    \        else cout << graph.cost[i] << endl;\n    }\n\n    return 0;\n}"
   dependsOn:
   - graph/bellman-ford.cpp
   - base.cpp
   isVerificationFile: true
   path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/bellman-ford/aoj-grl-1-b.test.cpp

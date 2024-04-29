@@ -54,6 +54,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -300,23 +301,23 @@ data:
     \ i;\n    }\n\n    void connect(long long from, long long to, T weight) {\n  \
     \      assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
     \        cost[from][to] = weight;\n        if (!directed_) cost[to][from] = weight;\n\
-    \    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n    void\
-    \ warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n         \
-    \       if (cost[i][k] >= inf64) continue;\n\n                rep(j, V) {\n  \
-    \                  if (cost[k][j] >= inf64) continue;\n\n                    if(chmin(cost[i][j],\
-    \ cost[i][k] + cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n\
-    \                    }\n                }\n            }\n        }\n    }\n\n\
-    \    bool reach(long long from, long long to) {\n        assert(0 <= from and\
-    \ from < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
-    \ < inf64;\n    }\n\n    T dist(long long from, long long to) {\n        assert(0\
+    \    }\n\n    void operator() () {\n        solve();\n    }\n\n    void solve()\
+    \ {\n        rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k]\
+    \ >= inf64) continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
+    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
+    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
+    \           }\n                }\n            }\n        }\n    }\n\n    bool\
+    \ can_reach(long long from, long long to) {\n        assert(0 <= from and from\
+    \ < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
+    \ < inf64;\n    }\n\n    T get_dist(long long from, long long to) {\n        assert(0\
     \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        return\
-    \ cost[from][to];\n    }\n\n    vector<T> dist_from(long long from) {\n      \
-    \  assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
+    \ cost[from][to];\n    }\n\n    vector<T> get_dist_from(long long from) {\n  \
+    \      assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
     \ V) ret.push_back(cost[from][i]);\n\n        return ret;\n    }\n\n    vector<long\
-    \ long> path(long long from, long long to) {\n        assert(0 <= from and from\
-    \ < V);\n        assert(0 <= to and to < V);\n\n        if (!reach(from, to))\
-    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
-    \     while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
+    \ long> get_path(long long from, long long to) {\n        assert(0 <= from and\
+    \ from < V);\n        assert(0 <= to and to < V);\n\n        if (!can_reach(from,\
+    \ to)) return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n\
+    \        while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
     \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
     \ true;\n\n        return false;\n    }\n};\n"
@@ -334,23 +335,23 @@ data:
     \ i;\n    }\n\n    void connect(long long from, long long to, T weight) {\n  \
     \      assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
     \        cost[from][to] = weight;\n        if (!directed_) cost[to][from] = weight;\n\
-    \    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n    void\
-    \ warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n         \
-    \       if (cost[i][k] >= inf64) continue;\n\n                rep(j, V) {\n  \
-    \                  if (cost[k][j] >= inf64) continue;\n\n                    if(chmin(cost[i][j],\
-    \ cost[i][k] + cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n\
-    \                    }\n                }\n            }\n        }\n    }\n\n\
-    \    bool reach(long long from, long long to) {\n        assert(0 <= from and\
-    \ from < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
-    \ < inf64;\n    }\n\n    T dist(long long from, long long to) {\n        assert(0\
+    \    }\n\n    void operator() () {\n        solve();\n    }\n\n    void solve()\
+    \ {\n        rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k]\
+    \ >= inf64) continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
+    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
+    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
+    \           }\n                }\n            }\n        }\n    }\n\n    bool\
+    \ can_reach(long long from, long long to) {\n        assert(0 <= from and from\
+    \ < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
+    \ < inf64;\n    }\n\n    T get_dist(long long from, long long to) {\n        assert(0\
     \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        return\
-    \ cost[from][to];\n    }\n\n    vector<T> dist_from(long long from) {\n      \
-    \  assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
+    \ cost[from][to];\n    }\n\n    vector<T> get_dist_from(long long from) {\n  \
+    \      assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
     \ V) ret.push_back(cost[from][i]);\n\n        return ret;\n    }\n\n    vector<long\
-    \ long> path(long long from, long long to) {\n        assert(0 <= from and from\
-    \ < V);\n        assert(0 <= to and to < V);\n\n        if (!reach(from, to))\
-    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
-    \     while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
+    \ long> get_path(long long from, long long to) {\n        assert(0 <= from and\
+    \ from < V);\n        assert(0 <= to and to < V);\n\n        if (!can_reach(from,\
+    \ to)) return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n\
+    \        while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
     \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
     \ true;\n\n        return false;\n    }\n};"
@@ -359,7 +360,7 @@ data:
   isVerificationFile: false
   path: graph/warshall-floyd.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
@@ -379,7 +380,7 @@ title: "\u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5"
 * `WarshallFloyd(A)`: 隣接行列`A`で初期化する．
 * `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
 * `warshall_floyd()`: ワーシャルフロイド法を実行する．計算量$O(|V|^3)$
-* `dist(from, to)`: `warshall_floyd()`実行後に実行する．ノード`from`からノード`to`へのコストを返す．到達不能な場合，`inf64`を返す．
+* `get_dist(from, to)`: `warshall_floyd()`実行後に実行する．ノード`from`からノード`to`へのコストを返す．到達不能な場合，`inf64`を返す．
 * `dist_from(from)`: `warshall_floyd()`実行後に実行する．ノード`from`から全てのノードへのコストを格納した配列を返す．到達不能なノードのコストは`inf64`となる．
-* `path(from, to)`: `warshall_floyd()`実行後に実行する．ノード`from`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
+* `get_path(from, to)`: `warshall_floyd()`実行後に実行する．ノード`from`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
 * `has_negative_cycle()`: `warshall_floyd()`実行後に実行する．負の閉路の有無を判定する．

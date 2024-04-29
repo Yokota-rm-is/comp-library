@@ -60,6 +60,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -409,21 +410,21 @@ data:
     \u3053\u3053\u306B\u66F8\u304F\n\n            Coordinate next = now + dir;\n \
     \           if (field.is_out(next) or seen(next)) {\n                ++idx;\n\
     \                idx %= 4;\n                dir = dirs[idx];\n            }\n\
-    \            now += dir;\n        }\n        return ret;\n    }\n\n    bool reach_goal()\
-    \ {\n        return reach(goal);\n    }\n\n    bool reach(Coordinate to) {\n \
-    \       return seen(to);\n    }\n\n    bool operator== (GridDFS &other) {\n  \
-    \      if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
+    \            now += dir;\n        }\n        return ret;\n    }\n\n    bool can_reach_goal()\
+    \ {\n        return can_reach(goal);\n    }\n\n    bool can_reach(Coordinate to)\
+    \ {\n        return seen(to);\n    }\n\n    bool operator== (GridDFS &other) {\n\
+    \        if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
     \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
     \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
     \ operator << (ostream &os, GridDFS& grid) {\n        return os << grid.field\
     \ << endl;\n    }\n};\n#line 6 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
-    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.reach_goal())\
+    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.can_reach_goal())\
     \ << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\
     \n// https://atcoder.jp/contests/atc001/submissions/52418686\n\n#include \"../../../grid/grid-dfs.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
-    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.reach_goal())\
+    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.can_reach_goal())\
     \ << endl;\n\n    return 0;\n}"
   dependsOn:
   - grid/grid-dfs.cpp
@@ -431,7 +432,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 00:49:32+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-dfs/atcoder-atc001-a.test.cpp

@@ -57,6 +57,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -499,7 +500,7 @@ data:
   isVerificationFile: true
   path: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:55:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp

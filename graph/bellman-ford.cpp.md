@@ -54,6 +54,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -304,27 +305,26 @@ data:
     \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
     \ assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
     \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
-    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
-    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
-    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
-    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
-    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
-    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
-    \   prev[e.to] = e.from;\n                    changed = true;\n              \
-    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
-    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
-    \                    if (cost[e.from] == inf64) continue;\n\n                \
-    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
-    \                        cost[e.to] = -inf64;\n                    }\n       \
-    \         }\n            }\n        }\n    }\n\n    bool reach(long long to) {\n\
-    \        assert(0 <= to and to < V);\n\n        return cost[to] < inf64;\n   \
-    \ }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to and\
-    \ to < V);\n        if (!reach(to)) return {};\n\n        vector<long long> p;\n\
-    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
-    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n\n    bool has_negative_cycle() {\n        rep(i,\
-    \ V) {\n            if (cost[i] == -inf64) return true;\n        }\n        return\
-    \ false;\n    }\n};\n"
+    \ operator() (long long start) {\n        solve(start);\n    }\n\n    void solve(long\
+    \ long start) {\n        assert(0 <= start and start < V);\n\n        bool changed\
+    \ = false;\n        cost[start] = 0;\n\n        rep(i, V) {\n            changed\
+    \ = false;\n\n            fore(e, edges) {\n                if (cost[e.from] ==\
+    \ inf64) continue;\n\n                T c = cost[e.from] + e.weight;\n       \
+    \         if (chmin(cost[e.to], c)) {\n                    prev[e.to] = e.from;\n\
+    \                    changed = true;\n                }\n            }\n\n   \
+    \         if (!changed) break;\n        }\n\n        if (changed) {\n        \
+    \    rep(i, V) {\n                fore(e, edges) {\n                    if (cost[e.from]\
+    \ == inf64) continue;\n\n                    T c = cost[e.from] + e.weight;\n\
+    \                    if (c < cost[e.to]) {\n                        cost[e.to]\
+    \ = -inf64;\n                    }\n                }\n            }\n       \
+    \ }\n    }\n\n    bool can_reach(long long to) {\n        assert(0 <= to and to\
+    \ < V);\n\n        return cost[to] < inf64;\n    }\n\n    vector<long long> get_path(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!can_reach(to))\
+    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
+    \     while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    bool has_negative_cycle() {\n        rep(i, V) {\n            if (cost[i]\
+    \ == -inf64) return true;\n        }\n        return false;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief \u30D9\u30EB\u30DE\
     \u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\n * @docs docs/graph/bellman-ford.md\n*/\n\
     template<class T = long long>\nstruct BellmanFord {\n    struct Edge {\n     \
@@ -343,33 +343,32 @@ data:
     \ long long to, T weight) {\n        assert(0 <= from and from < V);\n       \
     \ assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, weight);\n\
     \        if (!directed_) edges.emplace_back(to, from, weight);\n    }\n\n    void\
-    \ operator() (long long start) {\n        bellman_ford(start);\n    }\n\n    void\
-    \ bellman_ford(long long start) {\n        assert(0 <= start and start < V);\n\
-    \n        bool changed = false;\n        cost[start] = 0;\n\n        rep(i, V)\
-    \ {\n            changed = false;\n\n            fore(e, edges) {\n          \
-    \      if (cost[e.from] == inf64) continue;\n\n                T c = cost[e.from]\
-    \ + e.weight;\n                if (chmin(cost[e.to], c)) {\n                 \
-    \   prev[e.to] = e.from;\n                    changed = true;\n              \
-    \  }\n            }\n\n            if (!changed) break;\n        }\n\n       \
-    \ if (changed) {\n            rep(i, V) {\n                fore(e, edges) {\n\
-    \                    if (cost[e.from] == inf64) continue;\n\n                \
-    \    T c = cost[e.from] + e.weight;\n                    if (c < cost[e.to]) {\n\
-    \                        cost[e.to] = -inf64;\n                    }\n       \
-    \         }\n            }\n        }\n    }\n\n    bool reach(long long to) {\n\
-    \        assert(0 <= to and to < V);\n\n        return cost[to] < inf64;\n   \
-    \ }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to and\
-    \ to < V);\n        if (!reach(to)) return {};\n\n        vector<long long> p;\n\
-    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
-    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n\n    bool has_negative_cycle() {\n        rep(i,\
-    \ V) {\n            if (cost[i] == -inf64) return true;\n        }\n        return\
-    \ false;\n    }\n};"
+    \ operator() (long long start) {\n        solve(start);\n    }\n\n    void solve(long\
+    \ long start) {\n        assert(0 <= start and start < V);\n\n        bool changed\
+    \ = false;\n        cost[start] = 0;\n\n        rep(i, V) {\n            changed\
+    \ = false;\n\n            fore(e, edges) {\n                if (cost[e.from] ==\
+    \ inf64) continue;\n\n                T c = cost[e.from] + e.weight;\n       \
+    \         if (chmin(cost[e.to], c)) {\n                    prev[e.to] = e.from;\n\
+    \                    changed = true;\n                }\n            }\n\n   \
+    \         if (!changed) break;\n        }\n\n        if (changed) {\n        \
+    \    rep(i, V) {\n                fore(e, edges) {\n                    if (cost[e.from]\
+    \ == inf64) continue;\n\n                    T c = cost[e.from] + e.weight;\n\
+    \                    if (c < cost[e.to]) {\n                        cost[e.to]\
+    \ = -inf64;\n                    }\n                }\n            }\n       \
+    \ }\n    }\n\n    bool can_reach(long long to) {\n        assert(0 <= to and to\
+    \ < V);\n\n        return cost[to] < inf64;\n    }\n\n    vector<long long> get_path(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!can_reach(to))\
+    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
+    \     while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    bool has_negative_cycle() {\n        rep(i, V) {\n            if (cost[i]\
+    \ == -inf64) return true;\n        }\n        return false;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/bellman-ford.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
@@ -388,6 +387,6 @@ title: "\u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5"
 * `BellmanFord(N, directed)`: サイズ`N`で初期化する．有向辺，無向辺を`directed`で設定する．
 * `connect(from, to, weight)`: ノード`from`からノード`to`へコスト`weight`の辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
 * `bellman_ford(start)`: ノード`start`からベルマンフォード法を実行する．計算量$O(|E||V|)$
-* `reach(to)`: `bellman_ford(start)`実行後に実行する．ノード`to`へ到達可能か判定する．
-* `path_to(to)`: `bellman_ford(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
+* `can_reach(to)`: `bellman_ford(start)`実行後に実行する．ノード`to`へ到達可能か判定する．
+* `get_path(to)`: `bellman_ford(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
 * `has_negative_cycle()`: `bellman_ford(start)`実行後に実行する．負の閉路の有無を返す．

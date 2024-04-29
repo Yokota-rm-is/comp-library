@@ -60,6 +60,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -432,23 +433,23 @@ data:
     \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
     \                    \n                    if (c == 0) que.push_front(next);\n\
     \                    else que.push_back(next);\n                }\n          \
-    \  }\n        }\n    }\n\n    bool reach_goal() {\n        return reach(goal);\n\
-    \    }\n\n    bool reach(Coordinate to) {\n        assert(!field.is_out(to) and\
-    \ !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long dist(Coordinate\
-    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        return\
-    \ cost(to);\n    }\n\n    vector<Coordinate> path(Coordinate from, Coordinate\
-    \ to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n      \
-    \  assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n  \
-    \      return path_to(to);\n    }\n\n    vector<Coordinate> path_to_goal() {\n\
-    \        return path_to(goal);\n    }\n\n    vector<Coordinate> path_to(Coordinate\
+    \  }\n        }\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n\
+    \    }\n\n    bool can_reach(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long\
+    \ get_dist(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
+    \        return cost(to);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
+    \ from, Coordinate to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n\
+    \        assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n\
+    \        return get_path(to);\n    }\n\n    vector<Coordinate> get_path_to_goal()\
+    \ {\n        return get_path(goal);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
     \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
-    \ (!reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
     \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    string char_path_to_goal() {\n        return char_path_to(goal);\n    }\n\
-    \n    string char_path_to(Coordinate to) {\n        assert(!field.is_out(to) and\
-    \ !field.is_obj(to));\n        if (!reach(to)) return {};\n\n        vector<Coordinate>\
-    \ path = path_to(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \n    string get_char_path_to_goal() {\n        return get_char_path(goal);\n\
+    \    }\n\n    string get_char_path(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n        if (!can_reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = get_path(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
     \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
     \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
     \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
@@ -480,7 +481,7 @@ data:
     \             else break;\n                }\n            }\n        }\n    }\n\
     };\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin\
     \ >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n\
-    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.dist({rt\
+    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.get_dist({rt\
     \ - 1, ct - 1}) << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
     \n// https://atcoder.jp/contests/typical90/submissions/52922278\n\n#include \"\
@@ -509,7 +510,7 @@ data:
     \             else break;\n                }\n            }\n        }\n    }\n\
     };\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin\
     \ >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n\
-    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.dist({rt\
+    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.get_dist({rt\
     \ - 1, ct - 1}) << endl;\n\n    return 0;\n}"
   dependsOn:
   - grid/grid-bfs.cpp
@@ -517,7 +518,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 00:50:17+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-bfs/atcoder-typical90-43.test.cpp

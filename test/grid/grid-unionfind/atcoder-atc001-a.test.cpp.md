@@ -60,6 +60,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -412,7 +413,7 @@ data:
     \n            par(ry) = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\
     \u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092\
     x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        }\n    }\n\n    bool is_same(Coordinate\
-    \ x, Coordinate y) { \n        return find(x) == find(y);\n    }\n\n    bool reach_goal()\
+    \ x, Coordinate y) { \n        return find(x) == find(y);\n    }\n\n    bool can_reach_goal()\
     \ {\n        assert(start != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n\
     \        return find(start) == find(goal);\n    }\n\n    bool operator== (GridUnionFind\
     \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
@@ -421,20 +422,20 @@ data:
     \    }\n\n    friend ostream& operator << (ostream &os, GridUnionFind& grid) {\n\
     \        return os << grid.field << endl;\n    }\n};\n#line 6 \"test/grid/grid-unionfind/atcoder-atc001-a.test.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridUnionFind grid(H,\
-    \ W);\n    grid.input();\n\n    cout << YesNo(grid.reach_goal()) << endl;\n\n\
-    \    return 0;\n}\n"
+    \ W);\n    grid.input();\n\n    cout << YesNo(grid.can_reach_goal()) << endl;\n\
+    \n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\
     \n// https://atcoder.jp/contests/atc001/submissions/52920327\n\n#include \"../../../grid/grid-unionfind.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridUnionFind grid(H,\
-    \ W);\n    grid.input();\n\n    cout << YesNo(grid.reach_goal()) << endl;\n\n\
-    \    return 0;\n}"
+    \ W);\n    grid.input();\n\n    cout << YesNo(grid.can_reach_goal()) << endl;\n\
+    \n    return 0;\n}"
   dependsOn:
   - grid/grid-unionfind.cpp
   - base.cpp
   isVerificationFile: true
   path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 00:51:17+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp

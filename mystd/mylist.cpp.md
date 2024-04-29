@@ -5,10 +5,13 @@ data:
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/mystd/mylist/atcoder-abc344-e.test.cpp
+    title: test/mystd/mylist/atcoder-abc344-e.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -49,6 +52,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -282,29 +286,56 @@ data:
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
     \ }\n#endif\n#line 3 \"mystd/mylist.cpp\"\n\ntemplate <typename T>\nstruct List\
-    \ : public list<T> {\n    using list<T>::list;\n\n    auto insert_before(auto\
-    \ it, T v) {\n        return list<T>::insert(it, v);\n    }\n\n    auto insert_after(auto\
-    \ it, T v) {\n        return list<T>::insert(next(it), v);\n    }\n\n    friend\
-    \ constexpr ostream& operator << (ostream &os, const List<T>& lst) noexcept {\n\
-    \        for (auto it = lst.begin(); it != lst.end(); ++it) {\n            os\
-    \ << *it;\n            if (it != prev(lst.end())) os << \" \";\n        }\n  \
-    \      return os;\n    }\n};\n"
+    \ : public list<T> {\n    using iterator = typename list<T>::iterator;\n\n   \
+    \ // \u30EA\u30B9\u30C8\u306E\u5148\u982D\u306B\u8981\u7D20\u3092\u8FFD\u52A0\u3057\
+    \u3001\u305D\u306E\u8981\u7D20\u306E\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\
+    \u3059\n    iterator push_front(const T& val) {\n        list<T>::push_front(val);\n\
+    \        return this->begin();\n    }\n\n    // \u30EA\u30B9\u30C8\u306E\u672B\
+    \u5C3E\u306B\u8981\u7D20\u3092\u8FFD\u52A0\u3057\u3001\u305D\u306E\u8981\u7D20\
+    \u306E\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\n    iterator push_back(const\
+    \ T& val) {\n        list<T>::push_back(val);\n        return prev(this->end());\n\
+    \    }\n\n    // \u6307\u5B9A\u3055\u308C\u305F\u30A4\u30C6\u30EC\u30FC\u30BF\u306E\
+    \u524D\u306B\u5024\u3092\u633F\u5165\u3057\u3001\u65B0\u3057\u3044\u8981\u7D20\
+    \u306E\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\n    iterator insert_before(iterator\
+    \ pos, const T& val) {\n        return this->insert(pos, val);\n    }\n\n    //\
+    \ \u6307\u5B9A\u3055\u308C\u305F\u30A4\u30C6\u30EC\u30FC\u30BF\u306E\u5F8C\u306B\
+    \u5024\u3092\u633F\u5165\u3057\u3001\u65B0\u3057\u3044\u8981\u7D20\u306E\u30A4\
+    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\n    iterator insert_after(iterator\
+    \ pos, const T& val) {\n        iterator nextPos = next(pos);\n        return\
+    \ this->insert(nextPos, val);\n    }   \n\n    friend constexpr ostream& operator\
+    \ << (ostream &os, const List<T>& lst) noexcept {\n        for (auto it = lst.begin();\
+    \ it != lst.end(); ++it) {\n            os << *it;\n            if (it != prev(lst.end()))\
+    \ os << \" \";\n        }\n        return os;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct List\
-    \ : public list<T> {\n    using list<T>::list;\n\n    auto insert_before(auto\
-    \ it, T v) {\n        return list<T>::insert(it, v);\n    }\n\n    auto insert_after(auto\
-    \ it, T v) {\n        return list<T>::insert(next(it), v);\n    }\n\n    friend\
-    \ constexpr ostream& operator << (ostream &os, const List<T>& lst) noexcept {\n\
-    \        for (auto it = lst.begin(); it != lst.end(); ++it) {\n            os\
-    \ << *it;\n            if (it != prev(lst.end())) os << \" \";\n        }\n  \
-    \      return os;\n    }\n};"
+    \ : public list<T> {\n    using iterator = typename list<T>::iterator;\n\n   \
+    \ // \u30EA\u30B9\u30C8\u306E\u5148\u982D\u306B\u8981\u7D20\u3092\u8FFD\u52A0\u3057\
+    \u3001\u305D\u306E\u8981\u7D20\u306E\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\
+    \u3059\n    iterator push_front(const T& val) {\n        list<T>::push_front(val);\n\
+    \        return this->begin();\n    }\n\n    // \u30EA\u30B9\u30C8\u306E\u672B\
+    \u5C3E\u306B\u8981\u7D20\u3092\u8FFD\u52A0\u3057\u3001\u305D\u306E\u8981\u7D20\
+    \u306E\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\n    iterator push_back(const\
+    \ T& val) {\n        list<T>::push_back(val);\n        return prev(this->end());\n\
+    \    }\n\n    // \u6307\u5B9A\u3055\u308C\u305F\u30A4\u30C6\u30EC\u30FC\u30BF\u306E\
+    \u524D\u306B\u5024\u3092\u633F\u5165\u3057\u3001\u65B0\u3057\u3044\u8981\u7D20\
+    \u306E\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\n    iterator insert_before(iterator\
+    \ pos, const T& val) {\n        return this->insert(pos, val);\n    }\n\n    //\
+    \ \u6307\u5B9A\u3055\u308C\u305F\u30A4\u30C6\u30EC\u30FC\u30BF\u306E\u5F8C\u306B\
+    \u5024\u3092\u633F\u5165\u3057\u3001\u65B0\u3057\u3044\u8981\u7D20\u306E\u30A4\
+    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\n    iterator insert_after(iterator\
+    \ pos, const T& val) {\n        iterator nextPos = next(pos);\n        return\
+    \ this->insert(nextPos, val);\n    }   \n\n    friend constexpr ostream& operator\
+    \ << (ostream &os, const List<T>& lst) noexcept {\n        for (auto it = lst.begin();\
+    \ it != lst.end(); ++it) {\n            os << *it;\n            if (it != prev(lst.end()))\
+    \ os << \" \";\n        }\n        return os;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: mystd/mylist.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-04-29 16:58:29+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/mystd/mylist/atcoder-abc344-e.test.cpp
 documentation_of: mystd/mylist.cpp
 layout: document
 redirect_from:

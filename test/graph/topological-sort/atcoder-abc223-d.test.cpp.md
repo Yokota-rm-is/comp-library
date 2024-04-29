@@ -57,6 +57,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -308,38 +309,38 @@ data:
     \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
     \ V);\n\n        G[from].emplace_back(from, to, weight);\n        rG[to].emplace_back(to,\
     \ from, weight);\n    }\n\n    vector<long long> operator() () {\n        return\
-    \ topological_sort();\n    }\n\n    vector<long long> topological_sort() {\n \
-    \       std::vector<long long> indegrees(V);\n\n        rep(i, V) {\n        \
-    \    indegrees[i] = rG[i].size();\n        }\n\n        priority_queue<ll, vector<ll>,\
-    \ greater<>> que;\n\n        rep(i, V) {\n            if (indegrees[i] == 0) {\n\
-    \                que.push(i);\n                maximum_cost[i] = 0;\n        \
-    \    }\n        }\n\n        vector<long long> ret;\n\n        while (!que.empty())\
-    \ {\n            long long now = que.top(); \n            que.pop();\n\n     \
-    \       ret.push_back(now);\n\n            fore(edge, G[now]) {\n            \
-    \    long long next = edge.to;\n\n                if (--indegrees[next] == 0)\
-    \ {\n                    que.push(next);\n                }\n\n              \
-    \  if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n       \
-    \             prev[next] = now;\n                }\n            }\n        }\n\
-    \n        if ((long long)ret.size() != V) {\n            has_cycle = true;\n \
-    \           return {};\n        }\n\n        return ret;\n    }\n\n    vector<long\
-    \ long> path_to(long long to) {\n        assert(0 <= to and to < V);\n\n     \
-    \   vector<long long> p;\n        p.push_back(to);\n\n        while (prev[p.back()]\
+    \ solve();\n    }\n\n    vector<long long> solve() {\n        std::vector<long\
+    \ long> indegrees(V);\n\n        rep(i, V) {\n            indegrees[i] = rG[i].size();\n\
+    \        }\n\n        priority_queue<ll, vector<ll>, greater<>> que;\n\n     \
+    \   rep(i, V) {\n            if (indegrees[i] == 0) {\n                que.push(i);\n\
+    \                maximum_cost[i] = 0;\n            }\n        }\n\n        vector<long\
+    \ long> ret;\n\n        while (!que.empty()) {\n            long long now = que.top();\
+    \ \n            que.pop();\n\n            ret.push_back(now);\n\n            fore(edge,\
+    \ G[now]) {\n                long long next = edge.to;\n\n                if (--indegrees[next]\
+    \ == 0) {\n                    que.push(next);\n                }\n\n        \
+    \        if (chmax(maximum_cost[next], maximum_cost[now] + edge.weight)) {\n \
+    \                   prev[next] = now;\n                }\n            }\n    \
+    \    }\n\n        if ((long long)ret.size() != V) {\n            has_cycle = true;\n\
+    \            return {};\n        }\n\n        return ret;\n    }\n\n    vector<long\
+    \ long> get_path(long long to) {\n        assert(0 <= to and to < V);\n\n    \
+    \    vector<long long> p;\n        p.push_back(to);\n\n        while (prev[p.back()]\
     \ != -1) {\n            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
     \ p.end());\n\n        return p;\n    }\n\n    vector<long long> get_longest_path()\
     \ {\n        vector<long long> ret;\n\n        ll goal = distance(maximum_cost.begin(),\
-    \ max_element(maximum_cost.begin(), maximum_cost.end()));\n\n        return path_to(goal);\n\
+    \ max_element(maximum_cost.begin(), maximum_cost.end()));\n\n        return get_path(goal);\n\
     \    }\n};\n#line 4 \"test/graph/topological-sort/atcoder-abc223-d.test.cpp\"\n\
-    \nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    TopologicalSort tree(N);\n\
-    \    rep(i, M) {\n        ll A, B;\n        cin >> A >> B;\n\n        tree.connect(A\
-    \ - 1, B - 1, 1);\n    }\n\n    auto ans = tree();\n    if (ans.size() == 0) {\n\
-    \        cout << -1 << endl;\n        return 0;\n    }\n    else {\n        rep(i,\
-    \ N) {\n            cout << ans[i] + 1;\n            if (i < N - 1) cout << \"\
-    \ \";\n            else cout << endl;\n        }\n    }\n\n    return 0;\n}\n"
+    \nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    TopologicalSort graph(N);\n\
+    \    rep(i, M) {\n        ll A, B;\n        cin >> A >> B;\n\n        graph.connect(A\
+    \ - 1, B - 1, 1);\n    }\n\n    auto ans = graph();\n    if (ans.size() == 0)\
+    \ {\n        cout << -1 << endl;\n        return 0;\n    }\n    else {\n     \
+    \   rep(i, N) {\n            cout << ans[i] + 1;\n            if (i < N - 1) cout\
+    \ << \" \";\n            else cout << endl;\n        }\n    }\n\n    return 0;\n\
+    }\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc223/tasks/abc223_d\"\n\n\
     #include \"../../../graph/topological-sort.cpp\"\n\nint main() {\n    ll N, M;\n\
-    \    cin >> N >> M;\n\n    TopologicalSort tree(N);\n    rep(i, M) {\n       \
-    \ ll A, B;\n        cin >> A >> B;\n\n        tree.connect(A - 1, B - 1, 1);\n\
-    \    }\n\n    auto ans = tree();\n    if (ans.size() == 0) {\n        cout <<\
+    \    cin >> N >> M;\n\n    TopologicalSort graph(N);\n    rep(i, M) {\n      \
+    \  ll A, B;\n        cin >> A >> B;\n\n        graph.connect(A - 1, B - 1, 1);\n\
+    \    }\n\n    auto ans = graph();\n    if (ans.size() == 0) {\n        cout <<\
     \ -1 << endl;\n        return 0;\n    }\n    else {\n        rep(i, N) {\n   \
     \         cout << ans[i] + 1;\n            if (i < N - 1) cout << \" \";\n   \
     \         else cout << endl;\n        }\n    }\n\n    return 0;\n}"
@@ -349,7 +350,7 @@ data:
   isVerificationFile: true
   path: test/graph/topological-sort/atcoder-abc223-d.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/topological-sort/atcoder-abc223-d.test.cpp

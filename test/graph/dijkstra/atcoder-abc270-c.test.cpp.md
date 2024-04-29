@@ -57,6 +57,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -308,9 +309,9 @@ data:
     \       assert(0 <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
     \ to, weight);\n        }\n        else {\n            G[from].emplace_back(from,\
     \ to, weight);\n            G[to].emplace_back(to, from, weight);\n        }\n\
-    \    }\n\n    void operator() (long long start) {\n        dijkstra(start);\n\
-    \    }\n\n    void dijkstra(long long start) {\n        assert(0 <= start and\
-    \ start < V);\n\n        priority_queue<pair<long long, long long>, vector<pair<long\
+    \    }\n\n    void operator() (long long start) {\n        solve(start);\n   \
+    \ }\n\n    void solve(long long start) {\n        assert(0 <= start and start\
+    \ < V);\n\n        priority_queue<pair<long long, long long>, vector<pair<long\
     \ long, long long>>, greater<>> que;\n\n        cost[start] = 0;\n        \n \
     \       que.emplace(cost[start], start);\n        while (!que.empty()) {\n   \
     \         long long now = que.top().second;\n            que.pop();\n\n      \
@@ -321,31 +322,31 @@ data:
     \             long long next = edge.to;\n                if (chmin(cost[next],\
     \ cost[now] + edge.weight)) {\n                    prev[next] = now;\n       \
     \             que.emplace(cost[next], next);\n                }\n            }\n\
-    \        }\n    }\n\n    bool reach(long long to) {\n        assert(0 <= to and\
-    \ to < V);\n\n        return done[to];\n    }\n\n    vector<long long> path_to(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n        if (!reach(to)) return\
-    \ {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n        while\
-    \ (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n       \
-    \ }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n};\n\
-    #line 4 \"test/graph/dijkstra/atcoder-abc270-c.test.cpp\"\n\nint main() {\n  \
-    \  ll N, X, Y;\n    cin >> N >> X >> Y;\n\n    Dijkstra tree(N, false);\n    rep(i,\
-    \ N - 1) {\n        ll u, v;\n        cin >> u >> v;\n\n        tree.connect(u\
-    \ - 1, v - 1, 1);\n    }\n\n    tree(X - 1);\n\n    auto ans = tree.path_to(Y\
+    \        }\n    }\n\n    bool can_reach(long long to) {\n        assert(0 <= to\
+    \ and to < V);\n\n        return done[to];\n    }\n\n    vector<long long> get_path(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!can_reach(to))\
+    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
+    \     while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    };\n#line 4 \"test/graph/dijkstra/atcoder-abc270-c.test.cpp\"\n\nint main() {\n\
+    \    ll N, X, Y;\n    cin >> N >> X >> Y;\n\n    Dijkstra graph(N, false);\n \
+    \   rep(i, N - 1) {\n        ll u, v;\n        cin >> u >> v;\n\n        graph.connect(u\
+    \ - 1, v - 1, 1);\n    }\n\n    graph(X - 1);\n\n    auto ans = graph.get_path(Y\
     \ - 1);\n    fore(a, ans) ++a;\n\n    cout << ans << endl;\n\n    return 0;\n\
     }\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc270/tasks/abc270_c\"\n\n\
     #include \"../../../graph/dijkstra.cpp\"\n\nint main() {\n    ll N, X, Y;\n  \
-    \  cin >> N >> X >> Y;\n\n    Dijkstra tree(N, false);\n    rep(i, N - 1) {\n\
-    \        ll u, v;\n        cin >> u >> v;\n\n        tree.connect(u - 1, v - 1,\
-    \ 1);\n    }\n\n    tree(X - 1);\n\n    auto ans = tree.path_to(Y - 1);\n    fore(a,\
-    \ ans) ++a;\n\n    cout << ans << endl;\n\n    return 0;\n}"
+    \  cin >> N >> X >> Y;\n\n    Dijkstra graph(N, false);\n    rep(i, N - 1) {\n\
+    \        ll u, v;\n        cin >> u >> v;\n\n        graph.connect(u - 1, v -\
+    \ 1, 1);\n    }\n\n    graph(X - 1);\n\n    auto ans = graph.get_path(Y - 1);\n\
+    \    fore(a, ans) ++a;\n\n    cout << ans << endl;\n\n    return 0;\n}"
   dependsOn:
   - graph/dijkstra.cpp
   - base.cpp
   isVerificationFile: true
   path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dijkstra/atcoder-abc270-c.test.cpp

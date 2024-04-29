@@ -44,7 +44,7 @@ data:
   - icon: ':warning:'
     path: heuristic/timer.cpp
     title: heuristic/timer.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/eratosthenes.cpp
     title: math/eratosthenes.cpp
   - icon: ':heavy_check_mark:'
@@ -56,10 +56,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: math/prime-factorization.cpp
     title: math/prime-factorization.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: mystd/mylist.cpp
     title: mystd/mylist.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: mystd/mymultiset.cpp
     title: mystd/mymultiset.cpp
   - icon: ':warning:'
@@ -68,6 +68,9 @@ data:
   - icon: ':warning:'
     path: mystd/mytuple.cpp
     title: mystd/mytuple.cpp
+  - icon: ':heavy_check_mark:'
+    path: other/cumulative-sum.cpp
+    title: other/cumulative-sum.cpp
   - icon: ':heavy_check_mark:'
     path: search/bit-zentansaku.cpp
     title: search/bit-zentansaku.cpp
@@ -208,6 +211,9 @@ data:
     path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
     title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/math/eratosthenes/yukicoder-843.test.cpp
+    title: test/math/eratosthenes/yukicoder-843.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/math/is-prime/atcoder-abc149-c.test.cpp
     title: test/math/is-prime/atcoder-abc149-c.test.cpp
   - icon: ':heavy_check_mark:'
@@ -216,6 +222,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
     title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/mystd/mylist/atcoder-abc344-e.test.cpp
+    title: test/mystd/mylist/atcoder-abc344-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+    title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+    title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+    title: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+    title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
     title: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
@@ -364,6 +385,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -635,6 +657,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -906,11 +929,14 @@ data:
   - math/prime-factorization.cpp
   - math/eratosthenes.cpp
   - math/modint.cpp
+  - other/cumulative-sum.cpp
   - tree/tree-bfs.cpp
   - tree/tree-dp.cpp
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:55:23+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/mystd/mylist/atcoder-abc344-e.test.cpp
+  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
   - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
@@ -969,9 +995,13 @@ data:
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/math/eratosthenes/yukicoder-843.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - test/math/prime-factorization/atcoder-abc324-b.test.cpp
   - test/math/is-prime/atcoder-abc149-c.test.cpp
+  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   - test/base/aoj-alds1-2-a.test.cpp
   - test/base/aoj-ntl-1-c.test.cpp
   - test/base/atcoder-abc109-c.test.cpp

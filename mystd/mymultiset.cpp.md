@@ -5,10 +5,16 @@ data:
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+    title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+    title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -49,6 +55,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -282,37 +289,43 @@ data:
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
     \ }\n#endif\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename T>\nstruct\
-    \ MultiSet : public map<T, long long> {\n    long long N;\n\n    explicit MultiSet()\
-    \ : N(0) {};\n\n    long long insert(T x) {\n        ++N;\n        return ++(*this)[x];\n\
-    \    }\n\n    long long erase(T x) {\n        --N;\n        --(*this)[x];\n\n\
-    \        if ((*this)[x] == 0) {\n            map<T, long long>::erase(x);\n  \
-    \          return 0;\n        }\n        else {\n            return (*this)[x];\n\
-    \        }\n    }\n\n    T front() {\n        return map<T, long long>::begin()->first;\n\
-    \    }\n\n    T back() {\n        return map<T, long long>::rbegin()->first;\n\
-    \    }\n\n    void pop() {\n        erase(front());\n    }\n\n    void pop_back()\
-    \ {\n        erase(back());\n    }\n\n    long long count_all() {\n        return\
-    \ N;\n    }\n\n    long long count(T x) {\n        if (!map<T, long long>::contains(x))\
-    \ return 0;\n        return (*this)[x];\n    }\n};\n"
+    \ MultiSet : public map<T, long long> {\n    long long N;\n    using mp = map<T,\
+    \ long long>;\n\n    explicit MultiSet() : N(0) {};\n\n    long long insert(T\
+    \ x, long long n = 1) {\n        N += n;\n        return (*this)[x] += n;\n  \
+    \  }\n\n    long long erase(T x, long long n = 1) {\n        if (n > (*this)[x])\
+    \ n = (*this)[x];\n        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x]\
+    \ == 0) {\n            mp::erase(x);\n            return 0;\n        }\n     \
+    \   else {\n            return (*this)[x];\n        }\n    }\n\n    void erase_all(T\
+    \ x) {\n        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front()\
+    \ {\n        return mp::begin()->first;\n    }\n\n    T back() {\n        return\
+    \ mp::rbegin()->first;\n    }\n\n    void pop() {\n        erase(front());\n \
+    \   }\n\n    void pop_back() {\n        erase(back());\n    }\n\n    long long\
+    \ count_all() {\n        return N;\n    }\n\n    long long count(T x) {\n    \
+    \    if (!mp::contains(x)) return 0;\n        return (*this)[x];\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct MultiSet\
-    \ : public map<T, long long> {\n    long long N;\n\n    explicit MultiSet() :\
-    \ N(0) {};\n\n    long long insert(T x) {\n        ++N;\n        return ++(*this)[x];\n\
-    \    }\n\n    long long erase(T x) {\n        --N;\n        --(*this)[x];\n\n\
-    \        if ((*this)[x] == 0) {\n            map<T, long long>::erase(x);\n  \
-    \          return 0;\n        }\n        else {\n            return (*this)[x];\n\
-    \        }\n    }\n\n    T front() {\n        return map<T, long long>::begin()->first;\n\
-    \    }\n\n    T back() {\n        return map<T, long long>::rbegin()->first;\n\
+    \ : public map<T, long long> {\n    long long N;\n    using mp = map<T, long long>;\n\
+    \n    explicit MultiSet() : N(0) {};\n\n    long long insert(T x, long long n\
+    \ = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n    long\
+    \ long erase(T x, long long n = 1) {\n        if (n > (*this)[x]) n = (*this)[x];\n\
+    \        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x] == 0) {\n\
+    \            mp::erase(x);\n            return 0;\n        }\n        else {\n\
+    \            return (*this)[x];\n        }\n    }\n\n    void erase_all(T x) {\n\
+    \        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front() {\n \
+    \       return mp::begin()->first;\n    }\n\n    T back() {\n        return mp::rbegin()->first;\n\
     \    }\n\n    void pop() {\n        erase(front());\n    }\n\n    void pop_back()\
     \ {\n        erase(back());\n    }\n\n    long long count_all() {\n        return\
-    \ N;\n    }\n\n    long long count(T x) {\n        if (!map<T, long long>::contains(x))\
-    \ return 0;\n        return (*this)[x];\n    }\n};"
+    \ N;\n    }\n\n    long long count(T x) {\n        if (!mp::contains(x)) return\
+    \ 0;\n        return (*this)[x];\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: mystd/mymultiset.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-04-29 16:58:29+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
 documentation_of: mystd/mymultiset.cpp
 layout: document
 redirect_from:

@@ -60,6 +60,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -292,74 +293,72 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 2 \"graph/tsp.cpp\"\n\n// bitDP (\u5DE1\u56DE\u30BB\u30FC\u30EB\
+    \ }\n#endif\n#line 3 \"graph/tsp.cpp\"\n\n// bitDP (\u5DE1\u56DE\u30BB\u30FC\u30EB\
     \u30B9\u30DE\u30F3\u554F\u984C)\n// \u8A08\u7B97\u91CF: O(N^2 2^N) (N<=19)\ntemplate<typename\
-    \ T = long long>\nstruct TSP {\n    struct Edge {\n        long long from;\n \
-    \       long long to;\n        T weight;\n        \n        explicit Edge(long\
-    \ long u, long long v, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool\
-    \ operator< (const Edge& other) const {\n            if (from == other.from) {\n\
-    \                if (to == other.to) return weight < other.weight;\n         \
-    \       else return to < other.to;\n            }\n            else return from\
-    \ < other.from;\n        }\n    };\n\n    using Graph = vector<vector<Edge>>;\n\
-    \n    long long V;\n    bool directed;\n    Graph G;\n    vector<vector<T>> dp;\n\
-    \    vector<vector<long long>> prev;\n    long long max_visit = 0;\n\n    T INF\
-    \ = inf64;\n\n    explicit TSP(long long V, bool directed) : V(V), G(V), directed(directed)\
-    \ {\n        init();\n    }\n\n    void init() {\n        dp.assign((1 << V),\
-    \ vector<T>(V, INF));\n        prev.assign((1 << V), vector<long long>(V, -1));\n\
-    \    }\n\n    void connect(long long from, long long to, T weight) {\n       \
-    \ assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n   \
-    \     G[from].emplace_back(from, to, weight);\n        if (!directed) G[to].emplace_back(to,\
-    \ from, weight);\n    }\n\n    void operator() (long long start) {\n        bitdp(start);\n\
-    \    }\n\n    void bitdp(long long start) {\n        assert(0 <= start and start\
-    \ < V);\n\n        dp[0][start] = 0;\n\n        rep(bit, (1 << V)) {\n       \
-    \     rep(now, V) {\n                if (dp[bit][now] > INF - 1) continue;\n\n\
-    \                fore(edge, G[now]) {\n                    long long next = edge.to;\n\
-    \                    if (bit & (1 << next)) continue;\n\n                    long\
-    \ long next_bit = bit | (1 << next);\n\n                    if (chmin(dp[next_bit][next],\
+    \ T = long long>\nstruct TSP {\n    struct Edge {\n        long long from, to;\n\
+    \        T weight;\n        \n        Edge(long long u, long long v, T w = 1)\
+    \ : from(u), to(v), weight(w) {};\n\n        bool operator< (const Edge& other)\
+    \ const {\n            if (from == other.from) {\n                if (to == other.to)\
+    \ return weight < other.weight;\n                else return to < other.to;\n\
+    \            }\n            else return from < other.from;\n        }\n    };\n\
+    \n    using Graph = vector<vector<Edge>>;\n\n    long long V;\n    Graph G;\n\
+    \    bool directed;\n    vector<vector<T>> dp;\n    vector<vector<long long>>\
+    \ prev;\n    long long max_visit = 0;\n    long long _start;\n\n    T INF = inf64;\n\
+    \n    explicit TSP(long long v, bool directed) : V(v), G(V), directed(directed)\
+    \ {\n        init();\n    }\n\n    void init() {\n        _start = -1;\n     \
+    \   dp.assign((1 << V), vector<T>(V, INF));\n        prev.assign((1 << V), vector<long\
+    \ long>(V, -1));\n    }\n\n    void connect(long long from, long long to, T weight)\
+    \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
+    \ V);\n\n        G[from].emplace_back(from, to, weight);\n        if (!directed)\
+    \ G[to].emplace_back(to, from, weight);\n    }\n\n    void operator() (long long\
+    \ start) {\n        solve(start);\n    }\n\n    void solve(long long start) {\n\
+    \        assert(0 <= start and start < V);\n        _start = start;\n\n      \
+    \  dp[0][start] = 0;\n\n        rep(bit, (1 << V)) {\n            rep(now, V)\
+    \ {\n                if (dp[bit][now] > INF - 1) continue;\n\n               \
+    \ fore(edge, G[now]) {\n                    long long next = edge.to;\n      \
+    \              if (bit & (1 << next)) continue;\n\n                    long long\
+    \ next_bit = bit | (1 << next);\n\n                    if (chmin(dp[next_bit][next],\
     \ dp[bit][now] + edge.weight)) {\n                        prev[next_bit][next]\
     \ = now;\n                        chmax(max_visit, bit_count(next_bit));\n   \
     \                 }\n                }\n            }\n        }\n    }\n\n  \
-    \  bool reach(long long to) {\n        assert(0 <= to and to < V);\n\n       \
-    \ return dp[(1 << V)][to] != INF;\n    }\n\n    T get_dist(long long start, long\
-    \ long goal, long long bit) {\n        if (goal != start) bit ^= (1 << start);\
-    \ \n        return dp[bit][goal];\n    }\n\n    T get_travel_dist(long long start,\
-    \ long long goal) {\n        long long bit = (1 << V) - 1;\n        if (goal !=\
-    \ start) bit ^= (1 << start); \n        return dp[bit][goal];\n    }\n\n    T\
-    \ dist_to(long long goal) {\n        long long start;\n        rep(i, V) if (dp[0][i]\
-    \ == 0) start = i;\n\n        long long bit = (1 << V) - 1;\n\n        return\
-    \ get_dist(start, goal, bit);\n    }\n\n    vector<long long> path_to(long long\
-    \ goal) {\n        long long start;\n        rep(i, V) if (dp[0][i] == 0) start\
-    \ = i;\n\n        long long bit = (1 << V) - 1;\n        if (start != goal) {\n\
-    \            bit ^= (1 << start);\n        }\n\n        vector<long long> p;\n\
-    \        p.push_back(goal);\n\n        long long to = goal;\n        while (true)\
-    \ {\n            long long from = prev[bit][to];\n            if (from == -1)\
-    \ break;\n\n            p.push_back(from);\n            bit ^= (1 << to);\n  \
-    \          to = from;\n        }\n\n        reverse(p.begin(), p.end());\n\n \
-    \       return p;\n    }\n};\n#line 3 \"graph/bfs.cpp\"\n\n/**\n * @brief BFS(\u5E45\
-    \u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct BFS {\n    struct\
-    \ Edge {\n        long long from;\n        long long to;\n        \n        explicit\
-    \ Edge(long long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool\
-    \ operator < (const Edge& other) const {\n            if (from == other.from)\
-    \ {\n                return to < other.to;\n            }\n            else return\
-    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
-    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
-    \n    long long V;\n    bool directed_;\n    vector<vector<Edge>> G;\n    vector<bool>\
-    \ seen;\n    vector<long long> prev;\n    vector<long long> depth;\n    long long\
-    \ group;\n\n    BFS(long long N, bool directed) : V(N), directed_(directed), G(V){\n\
-    \        init();\n    };\n    \n    void init() {\n        group = 0;\n      \
-    \  seen.assign(V, false);\n        prev.assign(V, -1);\n        depth.assign(V,\
-    \ inf64);\n    }\n    \n    void connect(long long from, long long to) {\n   \
-    \     assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
-    \        if (directed_) {\n            G[from].emplace_back(from, to);\n     \
-    \   }\n        else {\n            G[from].emplace_back(from, to);\n         \
-    \   G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator() (long\
-    \ long start) {\n        bfs(start);\n    }\n\n    void bfs_all() {\n        rep(i,\
-    \ V) {\n            if (seen[i]) continue;\n            bfs(i);\n            ++group;\n\
-    \        }\n    }\n\n    void bfs(long long start) {\n        assert(0 <= start\
-    \ and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\u6761\
-    \u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B\
-    )\n        seen[start] = true;\n        depth[start] = 0;\n        que.push(start);\
-    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \  bool can_reach(long long to) {\n        assert(0 <= to and to < V);\n\n   \
+    \     return dp[(1 << V)][to] != INF;\n    }\n\n    T get_dist(long long goal,\
+    \ long long bit = -1) {\n        if (bit < 0) bit = (1 << V) - 1;\n        if\
+    \ (_start != goal) bit &= ~(1 << _start);\n\n        return dp[bit][goal];\n \
+    \   }\n\n    T get_cycle_dist(long long bit = -1) {\n        if (bit < 0) bit\
+    \ = (1 << V) - 1;\n\n        return dp[bit][_start];\n    }\n\n    vector<long\
+    \ long> get_path(long long goal, long long bit = -1) {\n        if (bit < 0) bit\
+    \ = (1 << V) - 1;\n\n        if (_start != goal) bit &= ~(1 << _start);\n\n  \
+    \      vector<long long> p;\n        p.push_back(goal);\n\n        long long to\
+    \ = goal;\n        while (true) {\n            long long from = prev[bit][to];\n\
+    \            if (from == -1) break;\n\n            p.push_back(from);\n      \
+    \      bit &= ~(1 << to);\n            to = from;\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n};\n#line 3 \"graph/bfs.cpp\"\n\n/**\n\
+    \ * @brief BFS(\u5E45\u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\n\
+    struct BFS {\n    struct Edge {\n        long long from;\n        long long to;\n\
+    \        \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
+    \   if (from == other.from) {\n                return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
+    \  vector<vector<Edge>> G;\n    vector<bool> seen;\n    vector<long long> prev;\n\
+    \    vector<long long> depth;\n    long long group;\n\n    BFS(long long N, bool\
+    \ directed) : V(N), directed_(directed), G(V){\n        init();\n    };\n    \n\
+    \    void init() {\n        group = 0;\n        seen.assign(V, false);\n     \
+    \   prev.assign(V, -1);\n        depth.assign(V, inf64);\n    }\n    \n    void\
+    \ connect(long long from, long long to) {\n        assert(0 <= from and from <\
+    \ V);\n        assert(0 <= to and to < V);\n\n        if (directed_) {\n     \
+    \       G[from].emplace_back(from, to);\n        }\n        else {\n         \
+    \   G[from].emplace_back(from, to);\n            G[to].emplace_back(to, from);\n\
+    \        }\n    }\n\n    void operator() (long long start) {\n        solve(start);\n\
+    \    }\n\n    void solve_all() {\n        rep(i, V) {\n            if (seen[i])\
+    \ continue;\n            solve(i);\n            ++group;\n        }\n    }\n\n\
+    \    void solve(long long start) {\n        assert(0 <= start and start < V);\n\
+    \n        queue<long long> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ seen[start] = true;\n        depth[start] = 0;\n        que.push(start); //\
+    \ noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
     \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
     \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
     \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
@@ -375,17 +374,17 @@ data:
     \            }\n        }\n    }\n\n    long long count_cc() {\n        return\
     \ group;\n    }\n\n    long long find_diameter() {\n        long long ret = 0;\n\
     \        vector<bool> done(V, false);\n\n        rep(i, V) {\n            if (done[i])\
-    \ continue;\n            bfs(i);\n            long long u = distance(depth.begin(),\
+    \ continue;\n            solve(i);\n            long long u = distance(depth.begin(),\
     \ max_element(depth.begin(), depth.end()));\n\n            init();\n         \
-    \   bfs(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
+    \   solve(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
     \ depth.end()));\n            \n            chmax(ret, depth[v]);\n          \
     \  rep(i, V) {\n                if (seen[i]) done[i] = true;\n            }\n\
-    \            init();\n        }\n\n        return ret;\n    }\n\n    bool reach(long\
+    \            init();\n        }\n\n        return ret;\n    }\n\n    bool can_reach(long\
     \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to];\n\
-    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n        if (!reach(to)) return {};\n\n        vector<long long>\
-    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
-    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \    }\n\n    vector<long long> get_path(long long to) {\n        assert(0 <=\
+    \ to and to < V);\n        if (!can_reach(to)) return {};\n\n        vector<long\
+    \ long> p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n\
+    \            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
     \ p.end());\n\n        return p;\n    }\n};\n#line 5 \"test/graph/tsp/atcoder-abc190-e.test.cpp\"\
     \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vll A(M), B(M);\n\n\
     \    rep(i, M) cin >> A[i] >> B[i];\n\n    ll K;\n    cin >> K;\n    vll C(K);\n\
@@ -393,11 +392,11 @@ data:
     \ i;\n\n    BFS bfs(N, false);\n    rep(i, M) {\n        ll a = A[i] - 1, b =\
     \ B[i] - 1;\n        bfs.connect(a, b);\n    }\n\n    TSP tsp(K, false);\n\n \
     \   fore(u, C) {\n        bfs(u - 1);\n\n        fore(v, C) {\n            if\
-    \ (u == v) continue;\n            if (!bfs.reach(v - 1)) continue;\n\n       \
-    \     ll w = bfs.depth[v - 1];\n            // cout << D[u - 1] << \" \" << D[v]\
-    \ << endl;\n            tsp.connect(D[u - 1], D[v - 1], w);\n        }\n\n   \
-    \     bfs.init();\n    }\n\n    rep(i, tsp.V) tsp.dp[(1 << i)][i] = 1;\n\n   \
-    \ rep(bit, (1 << tsp.V)) {\n        rep(now, tsp.V) {\n            if (tsp.dp[bit][now]\
+    \ (u == v) continue;\n            if (!bfs.can_reach(v - 1)) continue;\n\n   \
+    \         ll w = bfs.depth[v - 1];\n            // cout << D[u - 1] << \" \" <<\
+    \ D[v] << endl;\n            tsp.connect(D[u - 1], D[v - 1], w);\n        }\n\n\
+    \        bfs.init();\n    }\n\n    rep(i, tsp.V) tsp.dp[(1 << i)][i] = 1;\n\n\
+    \    rep(bit, (1 << tsp.V)) {\n        rep(now, tsp.V) {\n            if (tsp.dp[bit][now]\
     \ > inf64 - 1) continue;\n\n            fore(edge, tsp.G[now]) {\n           \
     \     long long next = edge.to;\n                if (bit & (1 << next)) continue;\n\
     \n                long long next_bit = bit | (1 << next);\n\n                if\
@@ -414,7 +413,7 @@ data:
     \ BFS bfs(N, false);\n    rep(i, M) {\n        ll a = A[i] - 1, b = B[i] - 1;\n\
     \        bfs.connect(a, b);\n    }\n\n    TSP tsp(K, false);\n\n    fore(u, C)\
     \ {\n        bfs(u - 1);\n\n        fore(v, C) {\n            if (u == v) continue;\n\
-    \            if (!bfs.reach(v - 1)) continue;\n\n            ll w = bfs.depth[v\
+    \            if (!bfs.can_reach(v - 1)) continue;\n\n            ll w = bfs.depth[v\
     \ - 1];\n            // cout << D[u - 1] << \" \" << D[v] << endl;\n         \
     \   tsp.connect(D[u - 1], D[v - 1], w);\n        }\n\n        bfs.init();\n  \
     \  }\n\n    rep(i, tsp.V) tsp.dp[(1 << i)][i] = 1;\n\n    rep(bit, (1 << tsp.V))\
@@ -434,7 +433,7 @@ data:
   isVerificationFile: true
   path: test/graph/tsp/atcoder-abc190-e.test.cpp
   requiredBy: []
-  timestamp: '2024-04-28 01:11:12+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/tsp/atcoder-abc190-e.test.cpp

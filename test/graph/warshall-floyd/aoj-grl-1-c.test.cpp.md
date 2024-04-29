@@ -57,6 +57,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -303,51 +304,51 @@ data:
     \ i;\n    }\n\n    void connect(long long from, long long to, T weight) {\n  \
     \      assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
     \        cost[from][to] = weight;\n        if (!directed_) cost[to][from] = weight;\n\
-    \    }\n\n    void operator() () {\n        warshall_floyd();\n    }\n\n    void\
-    \ warshall_floyd() {\n        rep(k, V) {\n            rep(i, V) {\n         \
-    \       if (cost[i][k] >= inf64) continue;\n\n                rep(j, V) {\n  \
-    \                  if (cost[k][j] >= inf64) continue;\n\n                    if(chmin(cost[i][j],\
-    \ cost[i][k] + cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n\
-    \                    }\n                }\n            }\n        }\n    }\n\n\
-    \    bool reach(long long from, long long to) {\n        assert(0 <= from and\
-    \ from < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
-    \ < inf64;\n    }\n\n    T dist(long long from, long long to) {\n        assert(0\
+    \    }\n\n    void operator() () {\n        solve();\n    }\n\n    void solve()\
+    \ {\n        rep(k, V) {\n            rep(i, V) {\n                if (cost[i][k]\
+    \ >= inf64) continue;\n\n                rep(j, V) {\n                    if (cost[k][j]\
+    \ >= inf64) continue;\n\n                    if(chmin(cost[i][j], cost[i][k] +\
+    \ cost[k][j])) {\n                        prev[i][j] = prev[k][j];\n         \
+    \           }\n                }\n            }\n        }\n    }\n\n    bool\
+    \ can_reach(long long from, long long to) {\n        assert(0 <= from and from\
+    \ < V);\n        assert(0 <= to and to < V);\n\n        return cost[from][to]\
+    \ < inf64;\n    }\n\n    T get_dist(long long from, long long to) {\n        assert(0\
     \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        return\
-    \ cost[from][to];\n    }\n\n    vector<T> dist_from(long long from) {\n      \
-    \  assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
+    \ cost[from][to];\n    }\n\n    vector<T> get_dist_from(long long from) {\n  \
+    \      assert(0 <= from and from < V);\n\n        vector<T> ret;\n\n        rep(i,\
     \ V) ret.push_back(cost[from][i]);\n\n        return ret;\n    }\n\n    vector<long\
-    \ long> path(long long from, long long to) {\n        assert(0 <= from and from\
-    \ < V);\n        assert(0 <= to and to < V);\n\n        if (!reach(from, to))\
-    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
-    \     while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
+    \ long> get_path(long long from, long long to) {\n        assert(0 <= from and\
+    \ from < V);\n        assert(0 <= to and to < V);\n\n        if (!can_reach(from,\
+    \ to)) return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n\
+    \        while (p.back() != from) {\n            p.push_back(prev[from][p.back()]);\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
     \n    bool has_negative_cycle() {\n        rep(i, V) if (cost[i][i] < 0) return\
     \ true;\n\n        return false;\n    }\n};\n#line 4 \"test/graph/warshall-floyd/aoj-grl-1-c.test.cpp\"\
-    \n\nint main() {\n    ll V, E;\n    cin >> V >> E;\n\n    WarshallFloyd<ll> tree(V,\
+    \n\nint main() {\n    ll V, E;\n    cin >> V >> E;\n\n    WarshallFloyd<ll> graph(V,\
     \ true);\n    rep(i, E) {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n\
-    \        tree.connect(s, t, d);\n    }\n\n    tree();\n    if (tree.has_negative_cycle())\
+    \        graph.connect(s, t, d);\n    }\n\n    graph();\n    if (graph.has_negative_cycle())\
     \ {\n        cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n \
-    \   \n    rep(i, V) {\n        rep(j, V) {\n            if (tree.cost[i][j] ==\
-    \ inf64) cout << \"INF\";\n            else cout << tree.cost[i][j];\n       \
-    \     \n            if (j < V - 1) cout << \" \";\n        }\n        cout <<\
+    \   \n    rep(i, V) {\n        rep(j, V) {\n            if (graph.cost[i][j] ==\
+    \ inf64) cout << \"INF\";\n            else cout << graph.cost[i][j];\n      \
+    \      \n            if (j < V - 1) cout << \" \";\n        }\n        cout <<\
     \ endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_C&\"\
     \n\n#include \"../../../graph/warshall-floyd.cpp\"\n\nint main() {\n    ll V,\
-    \ E;\n    cin >> V >> E;\n\n    WarshallFloyd<ll> tree(V, true);\n    rep(i, E)\
-    \ {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        tree.connect(s,\
-    \ t, d);\n    }\n\n    tree();\n    if (tree.has_negative_cycle()) {\n       \
-    \ cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n    \n    rep(i,\
-    \ V) {\n        rep(j, V) {\n            if (tree.cost[i][j] == inf64) cout <<\
-    \ \"INF\";\n            else cout << tree.cost[i][j];\n            \n        \
-    \    if (j < V - 1) cout << \" \";\n        }\n        cout << endl;\n    }\n\n\
-    \    return 0;\n}"
+    \ E;\n    cin >> V >> E;\n\n    WarshallFloyd<ll> graph(V, true);\n    rep(i,\
+    \ E) {\n        ll s, t, d;\n        cin >> s >> t >> d;\n\n        graph.connect(s,\
+    \ t, d);\n    }\n\n    graph();\n    if (graph.has_negative_cycle()) {\n     \
+    \   cout << \"NEGATIVE CYCLE\" << endl;\n        return 0;\n    }\n    \n    rep(i,\
+    \ V) {\n        rep(j, V) {\n            if (graph.cost[i][j] == inf64) cout <<\
+    \ \"INF\";\n            else cout << graph.cost[i][j];\n            \n       \
+    \     if (j < V - 1) cout << \" \";\n        }\n        cout << endl;\n    }\n\
+    \n    return 0;\n}"
   dependsOn:
   - graph/warshall-floyd.cpp
   - base.cpp
   isVerificationFile: true
   path: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/warshall-floyd/aoj-grl-1-c.test.cpp

@@ -58,7 +58,7 @@ data:
       title: heuristic/timer.cpp
   - name: math
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: math/eratosthenes.cpp
       title: math/eratosthenes.cpp
     - icon: ':heavy_check_mark:'
@@ -72,10 +72,10 @@ data:
       title: math/prime-factorization.cpp
   - name: mystd
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: mystd/mylist.cpp
       title: mystd/mylist.cpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: mystd/mymultiset.cpp
       title: mystd/mymultiset.cpp
     - icon: ':warning:'
@@ -84,6 +84,11 @@ data:
     - icon: ':warning:'
       path: mystd/mytuple.cpp
       title: mystd/mytuple.cpp
+  - name: other
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: other/cumulative-sum.cpp
+      title: other/cumulative-sum.cpp
   - name: search
     pages:
     - icon: ':heavy_check_mark:'
@@ -257,6 +262,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
       title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - name: test/math/eratosthenes
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/math/eratosthenes/yukicoder-843.test.cpp
+      title: test/math/eratosthenes/yukicoder-843.test.cpp
   - name: test/math/is-prime
     pages:
     - icon: ':heavy_check_mark:'
@@ -270,6 +280,27 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
       title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - name: test/mystd/mylist
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/mystd/mylist/atcoder-abc344-e.test.cpp
+      title: test/mystd/mylist/atcoder-abc344-e.test.cpp
+  - name: test/mystd/mymultiset
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+      title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - name: test/other/cumulative-sum
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+      title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+      title: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+      title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   - name: test/search/bit-zentansaku
     pages:
     - icon: ':heavy_check_mark:'

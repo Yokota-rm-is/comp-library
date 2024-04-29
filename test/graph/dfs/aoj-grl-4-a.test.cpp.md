@@ -57,6 +57,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -314,19 +315,19 @@ data:
     \ <= to and to < V);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
     \ to);\n        }\n        else {\n            G[from].emplace_back(from, to);\n\
     \            G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator()\
-    \ (long long start) {\n        dfs(start);\n    }\n\n    void dfs_all() {\n  \
-    \      rep(i, V) {\n            if (seen[i]) continue;\n            dfs(i);\n\
-    \        }\n    }\n\n    void dfs(long long now) {\n        assert(0 <= now and\
-    \ now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
+    \ (long long start) {\n        solve(start);\n    }\n\n    void solve_all() {\n\
+    \        rep(i, V) {\n            if (seen[i]) continue;\n            solve(i);\n\
+    \        }\n    }\n\n    void solve(long long now) {\n        assert(0 <= now\
+    \ and now < V);\n\n        seen[now] = true;\n        pre_order.emplace_back(now,\
     \ time++);\n\n        fore(edge, G[now]) {\n            long long next = edge.to;\n\
     \n            if (seen[next]) {\n                if (!done[next]) has_cycle =\
-    \ true;\n                continue;\n            }\n\n            dfs(next);\n\n\
-    \            descendants[now] += descendants[next] + 1;\n        }\n\n       \
-    \ done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
-    \    bool reach(long long to) {\n        assert(0 <= to and to < V);\n\n     \
-    \   return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n       \
-    \ ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\n\
-    \            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
+    \ true;\n                continue;\n            }\n\n            solve(next);\n\
+    \n            descendants[now] += descendants[next] + 1;\n        }\n\n      \
+    \  done[now] = true;\n        post_order.emplace_back(now, time++);\n    }\n\n\
+    \    bool can_reach(long long to) {\n        assert(0 <= to and to < V);\n\n \
+    \       return seen[to] or done[to];\n    }\n\n    bool is_bipartite() {\n   \
+    \     ll color = 0;\n\n        rep(i, V) {\n            if (seen[i]) continue;\n\
+    \n            seen[i] = true;\n            colors[i] = color;\n\n            stack<long\
     \ long> st;\n            st.push(i);\n\n            while (!st.empty()) {\n  \
     \              ll now = st.top();\n                st.pop();\n\n             \
     \   long long next_color;\n                if (colors[now] % 2 == 0) next_color\
@@ -338,21 +339,21 @@ data:
     \n                    st.push(next);\n                }\n            }\n\n   \
     \         color += 2;\n        }\n\n        return true;\n    }\n};\n#line 4 \"\
     test/graph/dfs/aoj-grl-4-a.test.cpp\"\n\nint main() {\n    ll V, E;\n    cin >>\
-    \ V >> E;\n\n    DFS tree(V, true);\n    rep(i, E) {\n        ll s, t;\n     \
-    \   cin >> s >> t;\n\n        tree.connect(s, t);\n    }\n\n    tree.dfs_all();\n\
-    \n    cout << tree.has_cycle << endl; \n\n    return 0;\n}\n"
+    \ V >> E;\n\n    DFS graph(V, true);\n    rep(i, E) {\n        ll s, t;\n    \
+    \    cin >> s >> t;\n\n        graph.connect(s, t);\n    }\n\n    graph.solve_all();\n\
+    \n    cout << graph.has_cycle << endl; \n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_A\"\
     \n\n#include \"../../../graph/dfs.cpp\"\n\nint main() {\n    ll V, E;\n    cin\
-    \ >> V >> E;\n\n    DFS tree(V, true);\n    rep(i, E) {\n        ll s, t;\n  \
-    \      cin >> s >> t;\n\n        tree.connect(s, t);\n    }\n\n    tree.dfs_all();\n\
-    \n    cout << tree.has_cycle << endl; \n\n    return 0;\n}"
+    \ >> V >> E;\n\n    DFS graph(V, true);\n    rep(i, E) {\n        ll s, t;\n \
+    \       cin >> s >> t;\n\n        graph.connect(s, t);\n    }\n\n    graph.solve_all();\n\
+    \n    cout << graph.has_cycle << endl; \n\n    return 0;\n}"
   dependsOn:
   - graph/dfs.cpp
   - base.cpp
   isVerificationFile: true
   path: test/graph/dfs/aoj-grl-4-a.test.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:50+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/dfs/aoj-grl-4-a.test.cpp

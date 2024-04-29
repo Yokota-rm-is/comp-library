@@ -9,5 +9,5 @@
 * `bfs(start)`: ノード`start`からbfsを実行する．計算量$O(|V|+|E|)$
 * `count_cc()`: `bfs_all()`実行後に実行する．連結成分の個数を返す．  
 * `find_diameter()`: 
-* `reach(to)`: `bfs(start)`実行後に実行する．ノード`to`へ到達可能かを判定する．
-* `path_to(to)`: `bfs(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
+* `can_reach(to)`: `bfs(start)`実行後に実行する．ノード`to`へ到達可能かを判定する．
+* `get_path(to)`: `bfs(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．

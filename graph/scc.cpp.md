@@ -54,6 +54,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -308,8 +309,8 @@ data:
     \ -1);\n    }\n    \n    void connect(long long from, long long to) {\n      \
     \  assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n  \
     \      G[from].emplace_back(from, to);\n        rG[to].emplace_back(to, from);\n\
-    \    }\n\n    long long operator() () {\n        return find_scc();\n    }\n\n\
-    \    long long find_scc() {\n        rep(i, V) {\n            if (seen[i]) continue;\n\
+    \    }\n\n    long long operator() () {\n        return solve();\n    }\n\n  \
+    \  long long solve() {\n        rep(i, V) {\n            if (seen[i]) continue;\n\
     \            dfs(i);\n        }\n\n        vector<long long> v(V);\n        rep(i,\
     \ V) {\n            v[post_order[i].time] = post_order[i].index;\n        }\n\
     \        reverse(v);\n        \n        fore(index, v) {\n            if (roots[index]\
@@ -351,8 +352,8 @@ data:
     \ -1);\n    }\n    \n    void connect(long long from, long long to) {\n      \
     \  assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n  \
     \      G[from].emplace_back(from, to);\n        rG[to].emplace_back(to, from);\n\
-    \    }\n\n    long long operator() () {\n        return find_scc();\n    }\n\n\
-    \    long long find_scc() {\n        rep(i, V) {\n            if (seen[i]) continue;\n\
+    \    }\n\n    long long operator() () {\n        return solve();\n    }\n\n  \
+    \  long long solve() {\n        rep(i, V) {\n            if (seen[i]) continue;\n\
     \            dfs(i);\n        }\n\n        vector<long long> v(V);\n        rep(i,\
     \ V) {\n            v[post_order[i].time] = post_order[i].index;\n        }\n\
     \        reverse(v);\n        \n        fore(index, v) {\n            if (roots[index]\
@@ -377,7 +378,7 @@ data:
   isVerificationFile: false
   path: graph/scc.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/scc/aoj-grl-3-c.test.cpp

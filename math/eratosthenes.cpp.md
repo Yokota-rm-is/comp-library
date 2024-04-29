@@ -5,10 +5,16 @@ data:
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/math/eratosthenes/yukicoder-843.test.cpp
+    title: test/math/eratosthenes/yukicoder-843.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+    title: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -49,6 +55,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -418,9 +425,11 @@ data:
   isVerificationFile: false
   path: math/eratosthenes.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2024-04-29 16:55:23+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/math/eratosthenes/yukicoder-843.test.cpp
+  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
 documentation_of: math/eratosthenes.cpp
 layout: document
 redirect_from:

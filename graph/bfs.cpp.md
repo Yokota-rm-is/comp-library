@@ -63,6 +63,7 @@ data:
     using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
     \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
@@ -313,40 +314,41 @@ data:
     \        if (directed_) {\n            G[from].emplace_back(from, to);\n     \
     \   }\n        else {\n            G[from].emplace_back(from, to);\n         \
     \   G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator() (long\
-    \ long start) {\n        bfs(start);\n    }\n\n    void bfs_all() {\n        rep(i,\
-    \ V) {\n            if (seen[i]) continue;\n            bfs(i);\n            ++group;\n\
-    \        }\n    }\n\n    void bfs(long long start) {\n        assert(0 <= start\
-    \ and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\u6761\
-    \u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B\
-    )\n        seen[start] = true;\n        depth[start] = 0;\n        que.push(start);\
-    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
-    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
-    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
-    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
-    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
-    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
-    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
-    \              if (seen[next]) continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\
-    \u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\n               \
-    \ seen[next] = true;\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\
-    \u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\
-    \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
-    \ = depth[now] + 1;\n                prev[next] = now;\n                que.push(next);\n\
-    \            }\n        }\n    }\n\n    long long count_cc() {\n        return\
-    \ group;\n    }\n\n    long long find_diameter() {\n        long long ret = 0;\n\
-    \        vector<bool> done(V, false);\n\n        rep(i, V) {\n            if (done[i])\
-    \ continue;\n            bfs(i);\n            long long u = distance(depth.begin(),\
-    \ max_element(depth.begin(), depth.end()));\n\n            init();\n         \
-    \   bfs(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
-    \ depth.end()));\n            \n            chmax(ret, depth[v]);\n          \
-    \  rep(i, V) {\n                if (seen[i]) done[i] = true;\n            }\n\
-    \            init();\n        }\n\n        return ret;\n    }\n\n    bool reach(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to];\n\
-    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n        if (!reach(to)) return {};\n\n        vector<long long>\
-    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
-    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};\n"
+    \ long start) {\n        solve(start);\n    }\n\n    void solve_all() {\n    \
+    \    rep(i, V) {\n            if (seen[i]) continue;\n            solve(i);\n\
+    \            ++group;\n        }\n    }\n\n    void solve(long long start) {\n\
+    \        assert(0 <= start and start < V);\n\n        queue<long long> que;\n\n\
+    \        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
+    \u30FC\u30C9\u3068\u3059\u308B)\n        seen[start] = true;\n        depth[start]\
+    \ = 0;\n        que.push(start); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\
+    \u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\
+    \u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
+    \ {\n            long long now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\
+    \u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\
+    \n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\
+    \u3066\u8ABF\u3079\u308B\n            fore(edge, G[now]) {\n                long\
+    \ long next = edge.to;\n                if (seen[next]) continue; // \u3059\u3067\
+    \u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\
+    \u3044\n                seen[next] = true;\n\n                // \u65B0\u305F\u306A\
+    \u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\
+    \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n   \
+    \             depth[next] = depth[now] + 1;\n                prev[next] = now;\n\
+    \                que.push(next);\n            }\n        }\n    }\n\n    long\
+    \ long count_cc() {\n        return group;\n    }\n\n    long long find_diameter()\
+    \ {\n        long long ret = 0;\n        vector<bool> done(V, false);\n\n    \
+    \    rep(i, V) {\n            if (done[i]) continue;\n            solve(i);\n\
+    \            long long u = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n\n            init();\n            solve(u);\n            long\
+    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
+    \            \n            chmax(ret, depth[v]);\n            rep(i, V) {\n  \
+    \              if (seen[i]) done[i] = true;\n            }\n            init();\n\
+    \        }\n\n        return ret;\n    }\n\n    bool can_reach(long long to) {\n\
+    \        assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n  \
+    \  vector<long long> get_path(long long to) {\n        assert(0 <= to and to <\
+    \ V);\n        if (!can_reach(to)) return {};\n\n        vector<long long> p;\n\
+    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
+    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
+    \n        return p;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief BFS(\u5E45\u512A\
     \u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct BFS {\n    struct\
     \ Edge {\n        long long from;\n        long long to;\n        \n        explicit\
@@ -365,46 +367,47 @@ data:
     \        if (directed_) {\n            G[from].emplace_back(from, to);\n     \
     \   }\n        else {\n            G[from].emplace_back(from, to);\n         \
     \   G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator() (long\
-    \ long start) {\n        bfs(start);\n    }\n\n    void bfs_all() {\n        rep(i,\
-    \ V) {\n            if (seen[i]) continue;\n            bfs(i);\n            ++group;\n\
-    \        }\n    }\n\n    void bfs(long long start) {\n        assert(0 <= start\
-    \ and start < V);\n\n        queue<long long> que;\n\n        // \u521D\u671F\u6761\
-    \u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B\
-    )\n        seen[start] = true;\n        depth[start] = 0;\n        que.push(start);\
-    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
-    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
-    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
-    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
-    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
-    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
-    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
-    \              if (seen[next]) continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\
-    \u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\n               \
-    \ seen[next] = true;\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\
-    \u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\
-    \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
-    \ = depth[now] + 1;\n                prev[next] = now;\n                que.push(next);\n\
-    \            }\n        }\n    }\n\n    long long count_cc() {\n        return\
-    \ group;\n    }\n\n    long long find_diameter() {\n        long long ret = 0;\n\
-    \        vector<bool> done(V, false);\n\n        rep(i, V) {\n            if (done[i])\
-    \ continue;\n            bfs(i);\n            long long u = distance(depth.begin(),\
-    \ max_element(depth.begin(), depth.end()));\n\n            init();\n         \
-    \   bfs(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
-    \ depth.end()));\n            \n            chmax(ret, depth[v]);\n          \
-    \  rep(i, V) {\n                if (seen[i]) done[i] = true;\n            }\n\
-    \            init();\n        }\n\n        return ret;\n    }\n\n    bool reach(long\
-    \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to];\n\
-    \    }\n\n    vector<long long> path_to(long long to) {\n        assert(0 <= to\
-    \ and to < V);\n        if (!reach(to)) return {};\n\n        vector<long long>\
-    \ p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n   \
-    \         p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};"
+    \ long start) {\n        solve(start);\n    }\n\n    void solve_all() {\n    \
+    \    rep(i, V) {\n            if (seen[i]) continue;\n            solve(i);\n\
+    \            ++group;\n        }\n    }\n\n    void solve(long long start) {\n\
+    \        assert(0 <= start and start < V);\n\n        queue<long long> que;\n\n\
+    \        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
+    \u30FC\u30C9\u3068\u3059\u308B)\n        seen[start] = true;\n        depth[start]\
+    \ = 0;\n        que.push(start); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\
+    \u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\
+    \u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
+    \ {\n            long long now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\
+    \u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\
+    \n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\
+    \u3066\u8ABF\u3079\u308B\n            fore(edge, G[now]) {\n                long\
+    \ long next = edge.to;\n                if (seen[next]) continue; // \u3059\u3067\
+    \u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\
+    \u3044\n                seen[next] = true;\n\n                // \u65B0\u305F\u306A\
+    \u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\
+    \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n   \
+    \             depth[next] = depth[now] + 1;\n                prev[next] = now;\n\
+    \                que.push(next);\n            }\n        }\n    }\n\n    long\
+    \ long count_cc() {\n        return group;\n    }\n\n    long long find_diameter()\
+    \ {\n        long long ret = 0;\n        vector<bool> done(V, false);\n\n    \
+    \    rep(i, V) {\n            if (done[i]) continue;\n            solve(i);\n\
+    \            long long u = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n\n            init();\n            solve(u);\n            long\
+    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
+    \            \n            chmax(ret, depth[v]);\n            rep(i, V) {\n  \
+    \              if (seen[i]) done[i] = true;\n            }\n            init();\n\
+    \        }\n\n        return ret;\n    }\n\n    bool can_reach(long long to) {\n\
+    \        assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n  \
+    \  vector<long long> get_path(long long to) {\n        assert(0 <= to and to <\
+    \ V);\n        if (!can_reach(to)) return {};\n\n        vector<long long> p;\n\
+    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
+    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
+    \n        return p;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/bfs.cpp
   requiredBy: []
-  timestamp: '2024-04-27 14:48:38+09:00'
+  timestamp: '2024-04-29 16:57:22+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/tsp/atcoder-abc190-e.test.cpp
@@ -429,5 +432,5 @@ title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
 * `bfs(start)`: ノード`start`からbfsを実行する．計算量$O(|V|+|E|)$
 * `count_cc()`: `bfs_all()`実行後に実行する．連結成分の個数を返す．  
 * `find_diameter()`: 
-* `reach(to)`: `bfs(start)`実行後に実行する．ノード`to`へ到達可能かを判定する．
-* `path_to(to)`: `bfs(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
+* `can_reach(to)`: `bfs(start)`実行後に実行する．ノード`to`へ到達可能かを判定する．
+* `get_path(to)`: `bfs(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
