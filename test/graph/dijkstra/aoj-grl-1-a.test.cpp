@@ -6,18 +6,18 @@ int main() {
     ll V, E, r;
     cin >> V >> E >> r;
 
-    Dijkstra<ll> tree(V, true);
+    Dijkstra<ll> graph(V, true);
     rep(i, E) {
         ll s, t, d;
         cin >> s >> t >> d;
 
-        tree.connect(s, t, d);
+        graph.connect(s, t, d);
     }
 
-    tree(r);
+    graph(r);
     rep(i, V) {
-        if (tree.cost[i] == inf64) cout << "INF" << endl;
-        else cout << tree.cost[i] << endl;
+        if (graph.cost[i] == inf64) cout << "INF" << endl;
+        else cout << graph.cost[i] << endl;
     }
 
     return 0;

@@ -373,36 +373,36 @@ struct GridDijkstra {
         }
     }
 
-    bool reach_goal() {
-        return reach(goal);
+    bool can_reach_goal() {
+        return can_reach(goal);
     }
 
-    bool reach(Coordinate to) {
+    bool can_reach(Coordinate to) {
         assert(!field.is_out(to) and !field.is_obj(to));
 
         return done(to);
     }
 
-    long long dist(Coordinate to) {
+    long long get_dist(Coordinate to) {
         assert(!field.is_out(to) and !field.is_obj(to));
         return cost(to);
     }
 
-    vector<Coordinate> path(Coordinate from, Coordinate to) {
+    vector<Coordinate> get_path(Coordinate from, Coordinate to) {
         assert(!field.is_out(from) and !field.is_obj(from));
         assert(!field.is_out(to) and !field.is_obj(to));
 
         dijkstra(from);
-        return path_to(to);
+        return get_path(to);
     }
 
-    vector<Coordinate> path_to_goal() {
-        return path_to(goal);
+    vector<Coordinate> get_path_to_goal() {
+        return get_path(goal);
     }
 
-    vector<Coordinate> path_to(Coordinate to) {
+    vector<Coordinate> get_path(Coordinate to) {
         assert(!field.is_out(to) and !field.is_obj(to));
-        if (!reach(to)) return {};
+        if (!can_reach(to)) return {};
 
         vector<Coordinate> p;
         p.push_back(to);
@@ -416,15 +416,15 @@ struct GridDijkstra {
         return p;
     }
 
-    string char_path_to_goal() {
-        return char_path_to(goal);
+    string get_char_path_to_goal() {
+        return get_char_path(goal);
     }
 
-    string char_path_to(Coordinate to) {
+    string get_char_path(Coordinate to) {
         assert(!field.is_out(to) and !field.is_obj(to));
-        if (!reach(to)) return {};
+        if (!can_reach(to)) return {};
 
-        vector<Coordinate> path = path_to(to);
+        vector<Coordinate> path = get_path(to);
 
         string ret;
         rep(i, path.size() - 1) {

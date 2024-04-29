@@ -11,7 +11,7 @@ int main() {
     GridUnionFind grid(H, W);
     grid.input();
 
-    cout << YesNo(grid.reach_goal()) << endl;
+    cout << YesNo(grid.can_reach_goal()) << endl;
 
     return 0;
 }

@@ -32,7 +32,7 @@ int main() {
 
         fore(v, C) {
             if (u == v) continue;
-            if (!bfs.reach(v - 1)) continue;
+            if (!bfs.can_reach(v - 1)) continue;
 
             ll w = bfs.depth[v - 1];
             // cout << D[u - 1] << " " << D[v] << endl;

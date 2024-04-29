@@ -57,18 +57,18 @@ struct BFS {
     }
 
     void operator() (long long start) {
-        bfs(start);
+        solve(start);
     }
 
-    void bfs_all() {
+    void solve_all() {
         rep(i, V) {
             if (seen[i]) continue;
-            bfs(i);
+            solve(i);
             ++group;
         }
     }
 
-    void bfs(long long start) {
+    void solve(long long start) {
         assert(0 <= start and start < V);
 
         queue<long long> que;
@@ -107,11 +107,11 @@ struct BFS {
 
         rep(i, V) {
             if (done[i]) continue;
-            bfs(i);
+            solve(i);
             long long u = distance(depth.begin(), max_element(depth.begin(), depth.end()));
 
             init();
-            bfs(u);
+            solve(u);
             long long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));
             
             chmax(ret, depth[v]);
@@ -124,15 +124,15 @@ struct BFS {
         return ret;
     }
 
-    bool reach(long long to) {
+    bool can_reach(long long to) {
         assert(0 <= to and to < V);
 
         return seen[to];
     }
 
-    vector<long long> path_to(long long to) {
+    vector<long long> get_path(long long to) {
         assert(0 <= to and to < V);
-        if (!reach(to)) return {};
+        if (!can_reach(to)) return {};
 
         vector<long long> p;
         p.push_back(to);

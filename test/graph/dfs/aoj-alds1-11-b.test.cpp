@@ -6,7 +6,7 @@ int main() {
     ll V;
     cin >> V;
 
-    DFS tree(V, true);
+    DFS graph(V, true);
     rep(i, V) {
         ll u, k;
         cin >> u >> k;
@@ -14,16 +14,16 @@ int main() {
         rep(j, k) {
             ll v;
             cin >> v;
-            tree.connect(u - 1, v - 1);
+            graph.connect(u - 1, v - 1);
         }
     }
 
-    tree.dfs_all();
+    graph.solve_all();
 
     vector<pll> ans(V);
     rep(i, V) {
-       ans[tree.pre_order[i].index].first = tree.pre_order[i].time;
-       ans[tree.post_order[i].index].second = tree.post_order[i].time;
+       ans[graph.pre_order[i].index].first = graph.pre_order[i].time;
+       ans[graph.post_order[i].index].second = graph.post_order[i].time;
     }
 
     rep(i, V) {

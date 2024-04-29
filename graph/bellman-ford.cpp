@@ -51,10 +51,10 @@ struct BellmanFord {
     }
 
     void operator() (long long start) {
-        bellman_ford(start);
+        solve(start);
     }
 
-    void bellman_ford(long long start) {
+    void solve(long long start) {
         assert(0 <= start and start < V);
 
         bool changed = false;
@@ -90,15 +90,15 @@ struct BellmanFord {
         }
     }
 
-    bool reach(long long to) {
+    bool can_reach(long long to) {
         assert(0 <= to and to < V);
 
         return cost[to] < inf64;
     }
 
-    vector<long long> path_to(long long to) {
+    vector<long long> get_path(long long to) {
         assert(0 <= to and to < V);
-        if (!reach(to)) return {};
+        if (!can_reach(to)) return {};
 
         vector<long long> p;
         p.push_back(to);

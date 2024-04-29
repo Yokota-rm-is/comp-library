@@ -6,15 +6,15 @@ int main() {
     ll N, M;
     cin >> N >> M;
 
-    TopologicalSort tree(N);
+    TopologicalSort graph(N);
     rep(i, M) {
         ll A, B;
         cin >> A >> B;
 
-        tree.connect(A - 1, B - 1, 1);
+        graph.connect(A - 1, B - 1, 1);
     }
 
-    auto ans = tree();
+    auto ans = graph();
     if (ans.size() == 0) {
         cout << -1 << endl;
         return 0;

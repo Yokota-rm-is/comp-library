@@ -70,10 +70,10 @@ struct SCC {
     }
 
     long long operator() () {
-        return find_scc();
+        return solve();
     }
 
-    long long find_scc() {
+    long long solve() {
         rep(i, V) {
             if (seen[i]) continue;
             dfs(i);

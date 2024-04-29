@@ -14,7 +14,7 @@ int main() {
         graph.connect(s, t);
     }
 
-    graph.find_scc();
+    graph.solve();
 
     ll Q;
     cin >> Q;

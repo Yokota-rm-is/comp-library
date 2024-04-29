@@ -12,7 +12,7 @@ int main() {
     grid.input();
 
     grid.bfs01(grid.start);
-    ll ans = (grid.dist(grid.goal) <= 2);
+    ll ans = (grid.get_dist(grid.goal) <= 2);
 
     cout << YESNO(ans) << endl;
 

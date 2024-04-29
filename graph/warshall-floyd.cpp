@@ -34,10 +34,10 @@ struct WarshallFloyd {
     }
 
     void operator() () {
-        warshall_floyd();
+        solve();
     }
 
-    void warshall_floyd() {
+    void solve() {
         rep(k, V) {
             rep(i, V) {
                 if (cost[i][k] >= inf64) continue;
@@ -53,21 +53,21 @@ struct WarshallFloyd {
         }
     }
 
-    bool reach(long long from, long long to) {
+    bool can_reach(long long from, long long to) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 
         return cost[from][to] < inf64;
     }
 
-    T dist(long long from, long long to) {
+    T get_dist(long long from, long long to) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 
         return cost[from][to];
     }
 
-    vector<T> dist_from(long long from) {
+    vector<T> get_dist_from(long long from) {
         assert(0 <= from and from < V);
 
         vector<T> ret;
@@ -77,11 +77,11 @@ struct WarshallFloyd {
         return ret;
     }
 
-    vector<long long> path(long long from, long long to) {
+    vector<long long> get_path(long long from, long long to) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 
-        if (!reach(from, to)) return {};
+        if (!can_reach(from, to)) return {};
 
         vector<long long> p;
         p.push_back(to);

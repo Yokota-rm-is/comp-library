@@ -6,16 +6,16 @@ int main() {
     ll N, M;
     cin >> N >> M;
 
-    TopologicalSort tree(N);
+    TopologicalSort graph(N);
     rep(i, N + M) {
         ll A, B;
         cin >> A >> B;
 
-        tree.connect(A - 1, B - 1, 1);
+        graph.connect(A - 1, B - 1, 1);
     }
 
-    tree();
-    ll ans = max(tree.maximum_cost);
+    graph();
+    ll ans = max(graph.maximum_cost);
 
     cout << ans << endl;
 

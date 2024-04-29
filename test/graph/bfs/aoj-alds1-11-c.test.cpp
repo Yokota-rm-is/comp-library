@@ -6,7 +6,7 @@ int main() {
     ll V;
     cin >> V;
 
-    BFS tree(V, true);
+    BFS graph(V, true);
     rep(i, V) {
         ll u, k;
         cin >> u >> k;
@@ -14,15 +14,15 @@ int main() {
         rep(j, k) {
             ll v;
             cin >> v;
-            tree.connect(u - 1, v - 1);
+            graph.connect(u - 1, v - 1);
         }
     }
 
-    tree(0);
+    graph(0);
 
     rep(i, V) {
-       if (tree.depth[i] == inf64) cout << i + 1 << " " << -1 << endl;
-       else cout << i + 1 << " " << tree.depth[i] << endl;
+       if (graph.depth[i] == inf64) cout << i + 1 << " " << -1 << endl;
+       else cout << i + 1 << " " << graph.depth[i] << endl;
     }
 
     return 0;

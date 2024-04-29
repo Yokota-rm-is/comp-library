@@ -18,7 +18,7 @@ int main() {
     }
 
     tsp(0);
-    ll ans = tsp.get_travel_dist(0, 0);
+    ll ans = tsp.get_cycle_dist();
 
     if (ans == inf64) cout << -1 << endl;
     else cout << ans << endl; 

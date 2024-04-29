@@ -78,17 +78,17 @@ struct DFS {
     }
 
     void operator() (long long start) {
-        dfs(start);
+        solve(start);
     }
 
-    void dfs_all() {
+    void solve_all() {
         rep(i, V) {
             if (seen[i]) continue;
-            dfs(i);
+            solve(i);
         }
     }
 
-    void dfs(long long now) {
+    void solve(long long now) {
         assert(0 <= now and now < V);
 
         seen[now] = true;
@@ -102,7 +102,7 @@ struct DFS {
                 continue;
             }
 
-            dfs(next);
+            solve(next);
 
             descendants[now] += descendants[next] + 1;
         }
@@ -111,7 +111,7 @@ struct DFS {
         post_order.emplace_back(now, time++);
     }
 
-    bool reach(long long to) {
+    bool can_reach(long long to) {
         assert(0 <= to and to < V);
 
         return seen[to] or done[to];

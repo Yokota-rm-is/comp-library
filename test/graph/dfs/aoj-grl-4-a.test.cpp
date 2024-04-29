@@ -6,17 +6,17 @@ int main() {
     ll V, E;
     cin >> V >> E;
 
-    DFS tree(V, true);
+    DFS graph(V, true);
     rep(i, E) {
         ll s, t;
         cin >> s >> t;
 
-        tree.connect(s, t);
+        graph.connect(s, t);
     }
 
-    tree.dfs_all();
+    graph.solve_all();
 
-    cout << tree.has_cycle << endl; 
+    cout << graph.has_cycle << endl; 
 
     return 0;
 }

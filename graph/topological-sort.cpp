@@ -54,10 +54,10 @@ struct TopologicalSort {
     }
 
     vector<long long> operator() () {
-        return topological_sort();
+        return solve();
     }
 
-    vector<long long> topological_sort() {
+    vector<long long> solve() {
         std::vector<long long> indegrees(V);
 
         rep(i, V) {
@@ -102,7 +102,7 @@ struct TopologicalSort {
         return ret;
     }
 
-    vector<long long> path_to(long long to) {
+    vector<long long> get_path(long long to) {
         assert(0 <= to and to < V);
 
         vector<long long> p;
@@ -122,6 +122,6 @@ struct TopologicalSort {
 
         ll goal = distance(maximum_cost.begin(), max_element(maximum_cost.begin(), maximum_cost.end()));
 
-        return path_to(goal);
+        return get_path(goal);
     }
 };

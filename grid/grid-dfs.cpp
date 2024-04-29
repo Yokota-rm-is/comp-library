@@ -393,11 +393,11 @@ struct GridDFS {
         return ret;
     }
 
-    bool reach_goal() {
-        return reach(goal);
+    bool can_reach_goal() {
+        return can_reach(goal);
     }
 
-    bool reach(Coordinate to) {
+    bool can_reach(Coordinate to) {
         return seen(to);
     }
 

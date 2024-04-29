@@ -13,7 +13,7 @@ int main() {
 
     grid.dfs();
 
-    cout << YesNo(grid.reach_goal()) << endl;
+    cout << YesNo(grid.can_reach_goal()) << endl;
 
     return 0;
 }

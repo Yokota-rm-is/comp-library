@@ -19,7 +19,7 @@ int main() {
 
     grid.bfs();
 
-    cout << grid.dist(grid.goal) << endl;
+    cout << grid.get_dist(grid.goal) << endl;
 
     return 0;
 }

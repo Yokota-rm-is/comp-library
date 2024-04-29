@@ -58,10 +58,10 @@ struct Dijkstra {
     }
 
     void operator() (long long start) {
-        dijkstra(start);
+        solve(start);
     }
 
-    void dijkstra(long long start) {
+    void solve(long long start) {
         assert(0 <= start and start < V);
 
         priority_queue<pair<long long, long long>, vector<pair<long long, long long>>, greater<>> que;
@@ -86,15 +86,15 @@ struct Dijkstra {
         }
     }
 
-    bool reach(long long to) {
+    bool can_reach(long long to) {
         assert(0 <= to and to < V);
 
         return done[to];
     }
 
-    vector<long long> path_to(long long to) {
+    vector<long long> get_path(long long to) {
         assert(0 <= to and to < V);
-        if (!reach(to)) return {};
+        if (!can_reach(to)) return {};
 
         vector<long long> p;
         p.push_back(to);

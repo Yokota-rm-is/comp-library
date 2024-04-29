@@ -65,7 +65,7 @@ int main() {
 
     grid.bfs01({rs - 1, cs - 1});
 
-    cout << grid.dist({rt - 1, ct - 1}) << endl;
+    cout << grid.get_dist({rt - 1, ct - 1}) << endl;
 
     return 0;
 }

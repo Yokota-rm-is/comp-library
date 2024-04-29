@@ -7,15 +7,15 @@ int main() {
     ll V, E;
     cin >> V >> E;
 
-    TopologicalSort tree(V);
+    TopologicalSort graph(V);
     rep(i, E) {
         ll s, t;
         cin >> s >> t;
 
-        tree.connect(s, t, 1);
+        graph.connect(s, t, 1);
     }
 
-    auto ans = tree();
+    auto ans = graph();
     rep(i, V) {
         cout << ans[i] << endl;
     }

@@ -381,7 +381,7 @@ struct GridUnionFind {
         return find(x) == find(y);
     }
 
-    bool reach_goal() {
+    bool can_reach_goal() {
         assert(start != Coordinate(-1, -1) and goal != Coordinate(-1, -1));
         return find(start) == find(goal);
     }

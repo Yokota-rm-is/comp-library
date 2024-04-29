@@ -1,15 +1,15 @@
 #include "../base.cpp"
+#include <cassert>
 
 // bitDP (巡回セールスマン問題)
 // 計算量: O(N^2 2^N) (N<=19)
 template<typename T = long long>
 struct TSP {
     struct Edge {
-        long long from;
-        long long to;
+        long long from, to;
         T weight;
         
-        explicit Edge(long long u, long long v, T w = 1) : from(u), to(v), weight(w) {};
+        Edge(long long u, long long v, T w = 1) : from(u), to(v), weight(w) {};
 
         bool operator< (const Edge& other) const {
             if (from == other.from) {
@@ -23,19 +23,21 @@ struct TSP {
     using Graph = vector<vector<Edge>>;
 
     long long V;
-    bool directed;
     Graph G;
+    bool directed;
     vector<vector<T>> dp;
     vector<vector<long long>> prev;
     long long max_visit = 0;
+    long long _start;
 
     T INF = inf64;
 
-    explicit TSP(long long V, bool directed) : V(V), G(V), directed(directed) {
+    explicit TSP(long long v, bool directed) : V(v), G(V), directed(directed) {
         init();
     }
 
     void init() {
+        _start = -1;
         dp.assign((1 << V), vector<T>(V, INF));
         prev.assign((1 << V), vector<long long>(V, -1));
     }
@@ -49,11 +51,12 @@ struct TSP {
     }
 
     void operator() (long long start) {
-        bitdp(start);
+        solve(start);
     }
 
-    void bitdp(long long start) {
+    void solve(long long start) {
         assert(0 <= start and start < V);
+        _start = start;
 
         dp[0][start] = 0;
 
@@ -76,40 +79,29 @@ struct TSP {
         }
     }
 
-    bool reach(long long to) {
+    bool can_reach(long long to) {
         assert(0 <= to and to < V);
 
         return dp[(1 << V)][to] != INF;
     }
 
-    T get_dist(long long start, long long goal, long long bit) {
-        if (goal != start) bit ^= (1 << start); 
+    T get_dist(long long goal, long long bit = -1) {
+        if (bit < 0) bit = (1 << V) - 1;
+        if (_start != goal) bit &= ~(1 << _start);
+
         return dp[bit][goal];
     }
 
-    T get_travel_dist(long long start, long long goal) {
-        long long bit = (1 << V) - 1;
-        if (goal != start) bit ^= (1 << start); 
-        return dp[bit][goal];
+    T get_cycle_dist(long long bit = -1) {
+        if (bit < 0) bit = (1 << V) - 1;
+
+        return dp[bit][_start];
     }
 
-    T dist_to(long long goal) {
-        long long start;
-        rep(i, V) if (dp[0][i] == 0) start = i;
+    vector<long long> get_path(long long goal, long long bit = -1) {
+        if (bit < 0) bit = (1 << V) - 1;
 
-        long long bit = (1 << V) - 1;
-
-        return get_dist(start, goal, bit);
-    }
-
-    vector<long long> path_to(long long goal) {
-        long long start;
-        rep(i, V) if (dp[0][i] == 0) start = i;
-
-        long long bit = (1 << V) - 1;
-        if (start != goal) {
-            bit ^= (1 << start);
-        }
+        if (_start != goal) bit &= ~(1 << _start);
 
         vector<long long> p;
         p.push_back(goal);
@@ -120,7 +112,7 @@ struct TSP {
             if (from == -1) break;
 
             p.push_back(from);
-            bit ^= (1 << to);
+            bit &= ~(1 << to);
             to = from;
         }
 
