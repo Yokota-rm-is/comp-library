@@ -26,6 +26,12 @@ data:
       path: graph/dijkstra.cpp
       title: "\u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5"
     - icon: ':heavy_check_mark:'
+      path: graph/flow.cpp
+      title: "Flow(\u6700\u5927\u30FB\u6700\u5C0F\u6D41)"
+    - icon: ':heavy_check_mark:'
+      path: graph/psp.cpp
+      title: PSP(Project Selection Problem)
+    - icon: ':heavy_check_mark:'
       path: graph/scc.cpp
       title: "\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3"
     - icon: ':heavy_check_mark:'
@@ -195,6 +201,31 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dijkstra/atcoder-abc270-c.test.cpp
       title: test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - name: test/graph/flow
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/graph/flow/aoj-grl-6-a.test.cpp
+      title: test/graph/flow/aoj-grl-6-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/flow/aoj-grl-6-b.test.cpp
+      title: test/graph/flow/aoj-grl-6-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/flow/yukicoder-177.test.cpp
+      title: test/graph/flow/yukicoder-177.test.cpp
+  - name: test/graph/psp
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/graph/psp/atcoder-abc193-f.test.cpp
+      title: test/graph/psp/atcoder-abc193-f.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/psp/atcoder-arc085-e.test.cpp
+      title: test/graph/psp/atcoder-arc085-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/psp/yukicoder-1541.test.cpp
+      title: test/graph/psp/yukicoder-1541.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/graph/psp/yukicoder-2713.test.cpp
+      title: test/graph/psp/yukicoder-2713.test.cpp
   - name: test/graph/scc
     pages:
     - icon: ':heavy_check_mark:'

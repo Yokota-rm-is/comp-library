@@ -4,41 +4,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
+  - icon: ':heavy_check_mark:'
+    path: graph/psp.cpp
+    title: PSP(Project Selection Problem)
+  - icon: ':heavy_check_mark:'
+    path: grid/grid-bfs.cpp
+    title: grid/grid-bfs.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/graph/psp/atcoder-abc193-f.test.cpp
-    title: test/graph/psp/atcoder-abc193-f.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-    title: test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-    title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-    title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-    title: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc193/tasks/abc193_f
+    links:
+    - https://atcoder.jp/contests/abc193/tasks/abc193_f
+  bundledCode: "#line 1 \"test/graph/psp/atcoder-abc193-f.test.cpp\"\n#define PROBLEM\
+    \ \"https://atcoder.jp/contests/abc193/tasks/abc193_f\"\n\n#line 2 \"base.cpp\"\
+    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -297,30 +293,135 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"grid/grid-bfs.cpp\"\n\nstruct Coordinate {\n    long long\
-    \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
-    \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
-    \    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
-    \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
-    \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
-    \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
-    \    }\n\n    Coordinate char2dir(char c) {\n        assert(c == 'R' or c == 'L'\
-    \ or c == 'U' or c == 'D');\n        Coordinate ret(y, x);\n\n        if (c ==\
-    \ 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n        if (c == 'R') ++ret.x;\n\
-    \        if (c == 'L') --ret.x;\n\n        return ret;\n    }\n\n    char dir2char()\
-    \ {\n        assert(manhattan() == 1);\n\n        char ret;\n        if (x > 0)\
-    \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
-    \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
-    \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
-    \    }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
-    \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
-    \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
-    \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
-    \ operator+ (const long long &a) {\n        return Coordinate(y, x) += a;\n  \
-    \  }\n\n    Coordinate operator- (const long long &a) {\n        return Coordinate(y,\
-    \ x) -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n       \
-    \ return Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long\
-    \ long &a) {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \ }\n#endif\n#line 4 \"graph/psp.cpp\"\n\n/**\n * @brief PSP(Project Selection\
+    \ Problem)\n*/\n\ntemplate<typename Cap>\nstruct PSP {\n    struct Edge {\n  \
+    \      long long from;\n        long long to;\n        Cap cap, flow;\n      \
+    \  long long idx;\n        long long rev;\n        \n        Edge(long long u\
+    \ = -1, long long v = -1, Cap cap = 0, long long i = 0, long long rev = 0) : from(u),\
+    \ to(v), cap(cap), flow(0), idx(i), rev(rev) {};\n\n        bool operator < (const\
+    \ Edge& other) const {\n            if (from == other.from) {\n              \
+    \  return to < other.to;\n            }\n            else return from < other.from;\n\
+    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
+    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
+    \    vector<vector<Edge>> G;\n    long long coeff = 1;\n\n    long long start,\
+    \ goal;\n    Cap offset;\n\n    long long edge_index = 0;\n    vector<Edge> edges;\n\
+    \n    // maxflow\u7528\n    vector<long long> level;\n\n    PSP(long long N) :\
+    \ V(N + 2), G(V), start(N), goal(N + 1), offset(0) {\n        init();\n    };\n\
+    \    \n    void init() {}\n\n    void connect(long long from, long long to, Cap\
+    \ cap) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and\
+    \ to < V);\n\n        if (from >= (long long)G.size()) G.resize(from + 1);\n \
+    \       if (to >= (long long)G.size()) G.resize(to + 1);\n\n        long long\
+    \ from_id = G[from].size();\n        long long to_id = G[to].size();\n\n     \
+    \   edges.emplace_back(from, to, cap, edge_index);\n\n        G[from].emplace_back(from,\
+    \ to, cap, edge_index, to_id);\n        G[to].emplace_back(to, from, 0, edge_index,\
+    \ from_id);\n\n        ++edge_index;\n    }\n\n    void set_cost_if_false(long\
+    \ long i, Cap cost) {\n        if (cost >= 0) connect(start, i, cost);\n     \
+    \   else {\n            cost *= -1;\n            offset -= cost;\n           \
+    \ connect(i, goal, cost);\n        }\n    }\n\n    void set_cost_if_true(long\
+    \ long i, Cap cost) {\n        set_gain_if_true(i, -cost);\n    }\n\n    void\
+    \ set_gain_if_false(long long i, Cap gain) {\n        set_cost_if_false(i, -gain);\n\
+    \    }\n\n    void set_gain_if_true(long long i, Cap gain) {\n        if (gain\
+    \ >= 0) {\n            offset -= gain;\n            connect(start, i, gain);\n\
+    \        }\n        else connect(i, goal, -gain);\n    }\n\n    void set_cost_if_true_false(long\
+    \ long t, long long f, Cap cost) {\n        assert(cost >= 0);\n        connect(t,\
+    \ f, cost);\n    }\n\n    void set_inf_cost_if_true_false(long long t, long long\
+    \ f) {\n        connect(t, f, inf64);\n    }\n\n    void set_cost_if_different(long\
+    \ long i, long long j, Cap cost) {\n        assert(cost >= 0);\n        connect(i,\
+    \ j, cost);\n        connect(j, i, cost);\n    }\n\n    void set_inf_cost_if_different(long\
+    \ long i, long long j) {\n        connect(i, j, inf64);\n        connect(j, i,\
+    \ inf64);\n    }\n\n    void set_gain_if_both_false(long long i, long long j,\
+    \ Cap gain) {\n        assert(gain >= 0);\n\n        offset -= gain;\n       \
+    \ long long k = V;\n        ++V;\n        connect(i, k, inf64);\n        connect(j,\
+    \ k, inf64);\n        connect(k, goal, gain);\n    }\n\n    void set_gain_if_both_true(long\
+    \ long i, long long j, Cap gain) {\n        assert(gain >= 0);\n\n        offset\
+    \ -= gain;\n        long long k = V;\n        ++V;\n        connect(start, k,\
+    \ gain);\n        connect(k, i, inf64);\n        connect(k, j, inf64);\n    }\n\
+    \n    void set_gain_if_same(long long i, long long j, Cap gain) {\n        set_gain_if_both_false(i,\
+    \ j, gain);\n        set_gain_if_both_true(i, j, gain);\n    }\n\n    void set_gain_if_all_false(const\
+    \ set<long long>& st, Cap gain) {\n        assert(gain >= 0);\n\n        offset\
+    \ -= gain;\n        long long k = V;\n        ++V;\n        fore(i, st) connect(i,\
+    \ k, inf64);\n        connect(k, goal, gain);\n    }\n\n    void set_gain_if_all_true(const\
+    \ set<long long>& st, Cap gain) {\n        assert(gain >= 0);\n\n        offset\
+    \ -= gain;\n        long long k = V;\n        ++V;\n        connect(start, k,\
+    \ gain);\n        fore(i, st) connect(k, i, inf64);\n    }\n\n    void set_gain_if_all_false(const\
+    \ vector<long long>& v, Cap gain) {\n        assert(gain >= 0);\n\n        offset\
+    \ -= gain;\n        long long k = V;\n        ++V;\n        fore(i, v) connect(i,\
+    \ k, inf64);\n        connect(k, goal, gain);\n    }\n\n    void set_gain_if_all_true(const\
+    \ vector<long long>& v, Cap gain) {\n        assert(gain >= 0);\n\n        offset\
+    \ -= gain;\n        long long k = V;\n        ++V;\n        connect(start, k,\
+    \ gain);\n        fore(i, v) connect(k, i, inf64);\n    }\n\n    Cap dfs(long\
+    \ long v, long long s, long long t, Cap flow) {\n        if (v == s) return flow;\n\
+    \n        Cap res = 0;\n        long long level_v = level[v];\n        vector<long\
+    \ long> iter(V, 0);\n\n        for (long long& i = iter[v]; i < (long long)(G[v].size());\
+    \ ++i) {\n            Edge& e = G[v][i];\n            long long next = e.to;\n\
+    \n            if (level_v <= level[next] || G[next][e.rev].cap == 0) continue;\n\
+    \n            Cap d = dfs(next, s, t, min(flow - res, G[next][e.rev].cap));\n\n\
+    \            if (d <= 0) continue;\n\n            G[v][i].cap += d;\n        \
+    \    G[next][e.rev].cap -= d;\n            res += d;\n\n            if (res ==\
+    \ flow) return res;\n        }\n\n        level[v] = V;\n        return res;\n\
+    \    }\n\n    void bfs(long long s, long long t) {\n        assert(0 <= s and\
+    \ s < V);\n        assert(0 <= t and t < V);\n\n        queue<long long> que;\n\
+    \n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
+    \u30FC\u30C9\u3068\u3059\u308B)\n        level[s] = 0;\n        que.push(s); //\
+    \ noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
+    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
+    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
+    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
+    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
+    \              if (edge.cap == 0 or level[next] >= 0) continue; // \u3059\u3067\
+    \u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\
+    \u3044\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\u70B9 nv \u306B\
+    \u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\u3066\u30AD\
+    \u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                level[next] = level[now]\
+    \ + 1;\n                \n                if (next == t) return;\n           \
+    \     que.push(next);\n            }\n        }\n    }\n\n    Cap operator() ()\
+    \ {\n        return solve();\n    }\n\n    Cap solve() {\n        return max_flow(start,\
+    \ goal, numeric_limits<Cap>::max());\n    }\n\n    Cap max_flow(long long s, long\
+    \ long t, Cap flow_limit) {\n        assert(0 <= s && s < V);\n        assert(0\
+    \ <= t && t < V);\n        assert(s != t);\n\n        Cap flow = 0;\n        while\
+    \ (flow < flow_limit) {\n            level.assign(V, -1);\n            bfs(s,\
+    \ t);\n\n            if (level[s] == -1) break;\n\n            Cap f = dfs(t,\
+    \ s, t, flow_limit - flow);\n\n            if (!f) break;\n            flow +=\
+    \ f;\n        }\n\n        return flow + offset;\n    }\n\n    void change_edge(long\
+    \ long i, Cap new_cap, Cap new_flow) {\n        long long m = edges.size();\n\n\
+    \        assert(0 <= i && i < m);\n        assert(0 <= new_flow && new_flow <=\
+    \ new_cap);\n\n        Edge edge = edges[i];\n\n        auto& _e = G[edge.from][edge.rev];\n\
+    \        auto& _re = G[_e.to][_e.rev];\n        _e.cap = new_cap - new_flow;\n\
+    \        _re.cap = new_flow;\n    }\n\n    // max_flow(s, t)\u5F8C\u306B\u4F7F\
+    \u7528\u3059\u308B\u3053\u3068\u3067s,t\u9593\u306E\u6700\u5C0F\u30AB\u30C3\u30C8\
+    \u3092\u8FD4\u3059\n    vector<bool> min_cut(long long s) {\n        vector<bool>\
+    \ visited(V);\n\n        queue<long long> que;\n        que.push(s);\n       \
+    \ \n        while (!que.empty()) {\n            long long p = que.front();\n \
+    \           que.pop();\n            visited[p] = true;\n\n            fore(e,\
+    \ G[p]) {\n                if (e.cap && !visited[e.to]) {\n                  \
+    \  visited[e.to] = true;\n                    que.push(e.to);\n              \
+    \  }\n            }\n        }\n        return visited;\n    }\n};\n#line 3 \"\
+    grid/grid-bfs.cpp\"\n\nstruct Coordinate {\n    long long y, x;\n\n    Coordinate(long\
+    \ long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n\
+    \        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n    double euclid_from(const\
+    \ Coordinate &other) {\n        return Coordinate(y - other.y, x - other.x).euclid();\n\
+    \    }\n\n    long long manhattan() {\n        return abs(y) + abs(x);\n    }\n\
+    \n    long long manhattan_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char\
+    \ c) {\n        assert(c == 'R' or c == 'L' or c == 'U' or c == 'D');\n      \
+    \  Coordinate ret(y, x);\n\n        if (c == 'D') ++ret.y;\n        if (c == 'U')\
+    \ --ret.y;\n        if (c == 'R') ++ret.x;\n        if (c == 'L') --ret.x;\n\n\
+    \        return ret;\n    }\n\n    char dir2char() {\n        assert(manhattan()\
+    \ == 1);\n\n        char ret;\n        if (x > 0) ret = 'R';\n        if (x <\
+    \ 0) ret = 'L';\n        if (y > 0) ret = 'D';\n        if (y < 0) ret = 'U';\n\
+    \n        return ret;\n    }\n\n    char dir2char(Coordinate next) {\n       \
+    \ Coordinate dir = next - *this;\n        return dir.dir2char();\n    }\n\n  \
+    \  Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n    }\n\n\
+    \    Coordinate operator+ (const Coordinate &other) {\n        return Coordinate(y,\
+    \ x) += other;\n    }\n\n    Coordinate operator- (const Coordinate &other) {\n\
+    \        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate operator+\
+    \ (const long long &a) {\n        return Coordinate(y, x) += a;\n    }\n\n   \
+    \ Coordinate operator- (const long long &a) {\n        return Coordinate(y, x)\
+    \ -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n        return\
+    \ Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long long &a)\
+    \ {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
     \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
     \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
     \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
@@ -459,187 +560,44 @@ data:
     \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
     \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
     \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
-    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct Coordinate {\n    long long\
-    \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
-    \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
-    \    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
-    \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
-    \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
-    \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
-    \    }\n\n    Coordinate char2dir(char c) {\n        assert(c == 'R' or c == 'L'\
-    \ or c == 'U' or c == 'D');\n        Coordinate ret(y, x);\n\n        if (c ==\
-    \ 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n        if (c == 'R') ++ret.x;\n\
-    \        if (c == 'L') --ret.x;\n\n        return ret;\n    }\n\n    char dir2char()\
-    \ {\n        assert(manhattan() == 1);\n\n        char ret;\n        if (x > 0)\
-    \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
-    \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
-    \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
-    \    }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
-    \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
-    \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
-    \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
-    \ operator+ (const long long &a) {\n        return Coordinate(y, x) += a;\n  \
-    \  }\n\n    Coordinate operator- (const long long &a) {\n        return Coordinate(y,\
-    \ x) -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n       \
-    \ return Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long\
-    \ long &a) {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
-    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
-    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
-    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
-    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
-    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
-    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
-    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
-    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
-    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
-    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
-    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
-    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
-    \ *this;\n    }\n\n    friend bool operator== (const Coordinate &l, const Coordinate\
-    \ &r) {\n        return l.y == r.y and l.x == r.x;\n    }\n\n    friend bool operator!=\
-    \ (const Coordinate &l, const Coordinate &r) {\n        return l.y != r.y or l.x\
-    \ != r.x;\n    }\n\n    friend bool operator< (const Coordinate &l, const Coordinate\
-    \ &r) {\n        if (l.y == r.y) {\n            return l.x < r.x;\n        }\n\
-    \        else return l.y < r.y;\n    }\n\n    friend bool operator> (const Coordinate\
-    \ &l, const Coordinate &r) {\n        if (l.y == r.y) {\n            return l.x\
-    \ > r.x;\n        }\n        else return l.y > r.y;\n    }\n\n    friend ostream&\
-    \ operator << (ostream &os, const Coordinate& p) {\n        return os << \"(\"\
-    \ << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\nstruct\
-    \ Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\n  \
-    \  Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
-    \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
-    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
-    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
-    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
-    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
-    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
-    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
-    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
-    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
-    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
-    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
-    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
-    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
-    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
-    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
-    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
-    \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
-    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
-    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
-    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char obj = '#';\n    char excl = '!';\n\n    Field(long long h, long long\
-    \ w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()),\
-    \ W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n\
-    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
-    \ {\n        return vs[p.y][p.x];\n    }\n\n    bool is_obj(size_t y, size_t x)\
-    \ {\n        return vs[y][x] == obj;\n    }\n\n    bool is_obj(const Coordinate&\
-    \ p) {\n        return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t\
-    \ y, size_t x) {\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const\
-    \ Coordinate& p) {\n        return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long\
-    \ long y, long long x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n\
-    \    }\n\n    bool is_out(const Coordinate& p) {\n        return p.y < 0 or p.y\
-    \ >= H or p.x < 0 or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n\
-    \        return vs[i];\n    }\n\n    friend ostream& operator << (ostream &os,\
-    \ Field& field) {\n        rep(i, field.H) {\n            os << field[i] << endl;\n\
-    \        }\n        return os;\n    }\n};\n\nstruct GridBFS {\n    long long H,\
-    \ W;\n    Field field;\n    Grid<bool> seen;\n    Grid<long long> cost;\n    Grid<Coordinate>\
-    \ prev;\n    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
-    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
-    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
-    \ Coordinate(-1, -1)\n    };\n\n    char s = 's';\n    char g = 'g';\n    char\
-    \ t = 't';\n    char obs = '#';\n    char excl = '!';\n    Coordinate start =\
-    \ Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 /\
-    \ 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
-    \ n) {\n        init();\n    };\n\n    GridBFS(long long h, long long w) : H(h),\
-    \ W(w), field(h, w) {\n        init();\n    };\n\n    GridBFS(vector<string> vs)\
-    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n    };\n\
-    \n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n \
-    \       cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
-    \    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n \
-    \       rep(y, H) rep(x, W) {\n                char c = field(y, x);\n       \
-    \         if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
-    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
-    \       start = Coordinate(y, x);\n                }\n                if (c ==\
-    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
-    \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
-    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
-    \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
-    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
-    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
-    \   }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
-    \ and !field.is_obj(now));\n\n        queue<Coordinate> que;\n\n        // \u521D\
-    \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
-    \u3059\u308B)\n        seen(now) = true;\n        cost(now) = 0;\n\n        que.push(now);\
-    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
-    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
-    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            now = que.front();\
-    \ // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
-    \u3059\n            que.pop();\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\
-    \u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
-    \ {\n                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
-    \ continue;\n                if (field.is_obj(next)) continue;\n             \
-    \   if (seen(next)) continue;\n\n                seen(next) = true;\n        \
-    \        cost(next) = cost(now) + 1;\n                prev(next) = now;\n    \
-    \            que.push(next);\n            }\n        }\n    }\n\n    void bfs01(Coordinate\
-    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
-    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
-    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
-    \ cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\u9802\
-    \u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\
-    \u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while\
-    \ (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\
-    \u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
-    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
-    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
-    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
-    \ next = now + dirs[i];\n                if (field.is_out(next)) continue;\n \
-    \               if(seen(next)) continue;\n\n                ll c = 0; \n     \
-    \           if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\
-    \u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                if\
-    \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
-    \                    \n                    if (c == 0) que.push_front(next);\n\
-    \                    else que.push_back(next);\n                }\n          \
-    \  }\n        }\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n\
-    \    }\n\n    bool can_reach(Coordinate to) {\n        assert(!field.is_out(to)\
-    \ and !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long\
-    \ get_dist(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \        return cost(to);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
-    \ from, Coordinate to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n\
-    \        assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n\
-    \        return get_path(to);\n    }\n\n    vector<Coordinate> get_path_to_goal()\
-    \ {\n        return get_path(goal);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
-    \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
-    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
-    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
-    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
-    \n    string get_char_path_to_goal() {\n        return get_char_path(goal);\n\
-    \    }\n\n    string get_char_path(Coordinate to) {\n        assert(!field.is_out(to)\
-    \ and !field.is_obj(to));\n        if (!can_reach(to)) return {};\n\n        vector<Coordinate>\
-    \ path = get_path(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
-    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
-    \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
-    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
-    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
-    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
-    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};"
+    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n\
+    #line 5 \"test/graph/psp/atcoder-abc193-f.test.cpp\"\n\nint main() {\n    ll N;\n\
+    \    cin >> N;\n\n    GridBFS grid(N);\n    grid.input();\n\n    vector<char>\
+    \ vc = {'B', 'W'};\n    \n    // true: \u6C7A\u3081\u6253\u3061\u306B\u5408\u3063\
+    \u3066\u3044\u308B\n    // false: \u5408\u3063\u3066\u3044\u306A\u3044\n    PSP<ll>\
+    \ flow(N * N);\n\n    rep(y, N) rep(x, N) {\n        ll index = N * y + x;\n \
+    \       char c = grid.field({y, x});\n        char target = vc[(x + y) % 2];\n\
+    \n        if (c == '?') {}\n        else if (c == target) flow.set_cost_if_false(index,\
+    \ inf64);\n        else flow.set_cost_if_true(index, inf64);\n\n        if (x\
+    \ < N - 1) flow.set_gain_if_same(index, index + 1, 1);\n        if (y < N - 1)\
+    \ flow.set_gain_if_same(index, index + N, 1);\n    }\n\n    ll ans = -flow.solve();\n\
+    \n    cout << ans << endl;\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc193/tasks/abc193_f\"\n\n\
+    #include \"../../../graph/psp.cpp\"\n#include \"../../../grid/grid-bfs.cpp\"\n\
+    \nint main() {\n    ll N;\n    cin >> N;\n\n    GridBFS grid(N);\n    grid.input();\n\
+    \n    vector<char> vc = {'B', 'W'};\n    \n    // true: \u6C7A\u3081\u6253\u3061\
+    \u306B\u5408\u3063\u3066\u3044\u308B\n    // false: \u5408\u3063\u3066\u3044\u306A\
+    \u3044\n    PSP<ll> flow(N * N);\n\n    rep(y, N) rep(x, N) {\n        ll index\
+    \ = N * y + x;\n        char c = grid.field({y, x});\n        char target = vc[(x\
+    \ + y) % 2];\n\n        if (c == '?') {}\n        else if (c == target) flow.set_cost_if_false(index,\
+    \ inf64);\n        else flow.set_cost_if_true(index, inf64);\n\n        if (x\
+    \ < N - 1) flow.set_gain_if_same(index, index + 1, 1);\n        if (y < N - 1)\
+    \ flow.set_gain_if_same(index, index + N, 1);\n    }\n\n    ll ans = -flow.solve();\n\
+    \n    cout << ans << endl;\n\n    return 0;\n}"
   dependsOn:
+  - graph/psp.cpp
   - base.cpp
-  isVerificationFile: false
-  path: grid/grid-bfs.cpp
+  - grid/grid-bfs.cpp
+  isVerificationFile: true
+  path: test/graph/psp/atcoder-abc193-f.test.cpp
   requiredBy: []
-  timestamp: '2024-04-29 16:57:22+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/graph/psp/atcoder-abc193-f.test.cpp
-  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-documentation_of: grid/grid-bfs.cpp
+  timestamp: '2024-05-03 21:29:24+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/graph/psp/atcoder-abc193-f.test.cpp
 layout: document
 redirect_from:
-- /library/grid/grid-bfs.cpp
-- /library/grid/grid-bfs.cpp.html
-title: grid/grid-bfs.cpp
+- /verify/test/graph/psp/atcoder-abc193-f.test.cpp
+- /verify/test/graph/psp/atcoder-abc193-f.test.cpp.html
+title: test/graph/psp/atcoder-abc193-f.test.cpp
 ---
