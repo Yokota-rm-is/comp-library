@@ -346,60 +346,76 @@ data:
     \ Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\n  \
     \  Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
     \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
-    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
-    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
-    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
-    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
-    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
-    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
-    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
-    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
-    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
-    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
-    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
-    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
-    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
-    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
-    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \n    bool is_out(long long y, long long x) {\n        return y < 0 or y >= H\
+    \ or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n     \
+    \   return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    T& operator()\
+    \ (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return vv[i][j];\n\
+    \    }\n\n    T& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vv[p.y][p.x];\n    }\n\n    void assign(long long h, long long\
+    \ w, T a) {\n        H = h;\n        W = w;\n        vv.assign(h, vector<T>(w,\
+    \ a));\n    }\n\n    vector<T>& operator[] (size_t i) {\n        return vv[i];\n\
+    \    } \n\n    friend ostream& operator << (ostream &os, Grid<T>& grid) {\n  \
+    \      rep(i, grid.H) {\n            os << grid[i] << endl;\n        }\n     \
+    \   return os;\n    }\n};\n\ntemplate<>\nstruct Grid<bool> {\n    long long H;\n\
+    \    long long W;\n    vector<vector<bool>> vv;\n\n    Grid(long long h = 0, long\
+    \ long w = 0, bool a = false) : H(h), W(w), vv(h, vector<bool>(w, a)) {}\n   \
+    \ Grid(vector<vector<bool>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\n   \
+    \ bool is_out(long long y, long long x) {\n        return y < 0 or y >= H or x\
+    \ < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n        return\
+    \ p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    vector<bool>::reference\
+    \ operator() (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return\
+    \ vv[i][j];\n    }\n\n    vector<bool>::reference operator() (const Coordinate&\
+    \ p) {\n        assert(!is_out(p));\n        return vv[p.y][p.x];\n    }\n\n \
+    \   void assign(long long h, long long w, bool a) {\n        H = h;\n        W\
+    \ = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
     \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
     \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
     \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
     struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char obj = '#';\n    char excl = '!';\n\n    Field(long long h, long long\
-    \ w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()),\
-    \ W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n\
-    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
-    \ {\n        return vs[p.y][p.x];\n    }\n\n    bool is_obj(size_t y, size_t x)\
-    \ {\n        return vs[y][x] == obj;\n    }\n\n    bool is_obj(const Coordinate&\
-    \ p) {\n        return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t\
-    \ y, size_t x) {\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const\
-    \ Coordinate& p) {\n        return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long\
-    \ long y, long long x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n\
-    \    }\n\n    bool is_out(const Coordinate& p) {\n        return p.y < 0 or p.y\
-    \ >= H or p.x < 0 or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n\
-    \        return vs[i];\n    }\n\n    friend ostream& operator << (ostream &os,\
-    \ Field& field) {\n        rep(i, field.H) {\n            os << field[i] << endl;\n\
-    \        }\n        return os;\n    }\n};\n\nstruct GridBFS {\n    long long H,\
-    \ W;\n    Field field;\n    Grid<bool> seen;\n    Grid<long long> cost;\n    Grid<Coordinate>\
-    \ prev;\n    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
-    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
-    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
-    \ Coordinate(-1, -1)\n    };\n\n    char s = 's';\n    char g = 'g';\n    char\
-    \ t = 't';\n    char obs = '#';\n    char excl = '!';\n    Coordinate start =\
-    \ Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 /\
-    \ 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
+    \   char dot = '.';\n    char obj = '#';\n    char excl = '!';\n\n    Field(long\
+    \ long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>&\
+    \ A) : H(A.size()), W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t\
+    \ y, size_t x) {\n        assert(!is_out(y, x));\n        return vs[y][x];\n \
+    \   }\n\n    char& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x];\n    }\n\n    bool is_dot(size_t y, size_t x) {\n\
+    \        assert(!is_out(y, x));\n        return vs[y][x] == dot;\n    }\n\n  \
+    \  bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n        return\
+    \ vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t x) {\n     \
+    \   assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\n    bool\
+    \ is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x]\
+    \ == obj;\n    }\n\n    bool is_excl(size_t y, size_t x) {\n        assert(!is_out(y,\
+    \ x));\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const Coordinate&\
+    \ p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x] == excl;\n  \
+    \  }\n\n    bool is_out(long long y, long long x) {\n        return y < 0 or y\
+    \ >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n\
+    \        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    string&\
+    \ operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, Field& field) {\n        rep(i, field.H) {\n     \
+    \       os << field[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    struct GridBFS {\n    long long H, W;\n    Field field;\n    Grid<bool> seen;\n\
+    \    Grid<long long> cost;\n    Grid<Coordinate> prev;\n    vector<Coordinate>\
+    \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n\
+    \    char obj = field.obj;\n    char excl = field.excl;\n    Coordinate start\
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
+    \ / 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
     \ n) {\n        init();\n    };\n\n    GridBFS(long long h, long long w) : H(h),\
     \ W(w), field(h, w) {\n        init();\n    };\n\n    GridBFS(vector<string> vs)\
-    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n    };\n\
-    \n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n \
-    \       cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
-    \    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n \
-    \       rep(y, H) rep(x, W) {\n                char c = field(y, x);\n       \
-    \         if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
-    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
-    \       start = Coordinate(y, x);\n                }\n                if (c ==\
-    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
-    \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
+    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n       \
+    \ after_input();\n    };\n\n    void init() {\n        group = 0;\n        seen.assign(H,\
+    \ W, false);\n        cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1,\
+    \ -1));\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n   \
+    \     after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
+    \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
+    \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
+    \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
+    \                }\n                if (c == g or c == t) {\n                \
+    \    goal = Coordinate(y, x);\n                }\n            }\n    }\n\n   \
+    \ long long to_index(Coordinate& p) {\n        return p.y * W + p.x;\n    }\n\n\
+    \    Coordinate to_coordinate(long long index) {\n        return Coordinate(index\
+    \ / W, index % W);\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
     \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
     \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
     \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
@@ -509,60 +525,76 @@ data:
     \ Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\n  \
     \  Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
     \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
-    \n    T& operator() (size_t i, size_t j) {\n        return vv[i][j];\n    }\n\n\
-    \    T& operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n   \
-    \ }\n\n    void assign(long long h, long long w, T a) {\n        H = h;\n    \
-    \    W = w;\n        vv.assign(h, vector<T>(w, a));\n    }\n\n    vector<T>& operator[]\
-    \ (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream& operator\
-    \ << (ostream &os, Grid<T>& grid) {\n        rep(i, grid.H) {\n            os\
-    \ << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\ntemplate<>\n\
-    struct Grid<bool> {\n    long long H;\n    long long W;\n    vector<vector<bool>>\
-    \ vv;\n\n    Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w),\
-    \ vv(h, vector<bool>(w, a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()),\
-    \ W(A[0].size()), vv(A) {}\n\n    vector<bool>::reference operator() (size_t i,\
-    \ size_t j) {\n        return vv[i][j];\n    }\n\n    vector<bool>::reference\
-    \ operator() (const Coordinate& p) {\n        return vv[p.y][p.x];\n    }\n\n\
-    \    void assign(long long h, long long w, bool a) {\n        H = h;\n       \
-    \ W = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \n    bool is_out(long long y, long long x) {\n        return y < 0 or y >= H\
+    \ or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n     \
+    \   return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    T& operator()\
+    \ (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return vv[i][j];\n\
+    \    }\n\n    T& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vv[p.y][p.x];\n    }\n\n    void assign(long long h, long long\
+    \ w, T a) {\n        H = h;\n        W = w;\n        vv.assign(h, vector<T>(w,\
+    \ a));\n    }\n\n    vector<T>& operator[] (size_t i) {\n        return vv[i];\n\
+    \    } \n\n    friend ostream& operator << (ostream &os, Grid<T>& grid) {\n  \
+    \      rep(i, grid.H) {\n            os << grid[i] << endl;\n        }\n     \
+    \   return os;\n    }\n};\n\ntemplate<>\nstruct Grid<bool> {\n    long long H;\n\
+    \    long long W;\n    vector<vector<bool>> vv;\n\n    Grid(long long h = 0, long\
+    \ long w = 0, bool a = false) : H(h), W(w), vv(h, vector<bool>(w, a)) {}\n   \
+    \ Grid(vector<vector<bool>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\n   \
+    \ bool is_out(long long y, long long x) {\n        return y < 0 or y >= H or x\
+    \ < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n        return\
+    \ p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    vector<bool>::reference\
+    \ operator() (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return\
+    \ vv[i][j];\n    }\n\n    vector<bool>::reference operator() (const Coordinate&\
+    \ p) {\n        assert(!is_out(p));\n        return vv[p.y][p.x];\n    }\n\n \
+    \   void assign(long long h, long long w, bool a) {\n        H = h;\n        W\
+    \ = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
     \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
     \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
     \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
     struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char obj = '#';\n    char excl = '!';\n\n    Field(long long h, long long\
-    \ w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>& A) : H(A.size()),\
-    \ W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t y, size_t x) {\n\
-    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
-    \ {\n        return vs[p.y][p.x];\n    }\n\n    bool is_obj(size_t y, size_t x)\
-    \ {\n        return vs[y][x] == obj;\n    }\n\n    bool is_obj(const Coordinate&\
-    \ p) {\n        return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t\
-    \ y, size_t x) {\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const\
-    \ Coordinate& p) {\n        return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long\
-    \ long y, long long x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n\
-    \    }\n\n    bool is_out(const Coordinate& p) {\n        return p.y < 0 or p.y\
-    \ >= H or p.x < 0 or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n\
-    \        return vs[i];\n    }\n\n    friend ostream& operator << (ostream &os,\
-    \ Field& field) {\n        rep(i, field.H) {\n            os << field[i] << endl;\n\
-    \        }\n        return os;\n    }\n};\n\nstruct GridBFS {\n    long long H,\
-    \ W;\n    Field field;\n    Grid<bool> seen;\n    Grid<long long> cost;\n    Grid<Coordinate>\
-    \ prev;\n    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
-    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
-    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
-    \ Coordinate(-1, -1)\n    };\n\n    char s = 's';\n    char g = 'g';\n    char\
-    \ t = 't';\n    char obs = '#';\n    char excl = '!';\n    Coordinate start =\
-    \ Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 /\
-    \ 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
+    \   char dot = '.';\n    char obj = '#';\n    char excl = '!';\n\n    Field(long\
+    \ long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>&\
+    \ A) : H(A.size()), W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t\
+    \ y, size_t x) {\n        assert(!is_out(y, x));\n        return vs[y][x];\n \
+    \   }\n\n    char& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x];\n    }\n\n    bool is_dot(size_t y, size_t x) {\n\
+    \        assert(!is_out(y, x));\n        return vs[y][x] == dot;\n    }\n\n  \
+    \  bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n        return\
+    \ vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t x) {\n     \
+    \   assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\n    bool\
+    \ is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x]\
+    \ == obj;\n    }\n\n    bool is_excl(size_t y, size_t x) {\n        assert(!is_out(y,\
+    \ x));\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const Coordinate&\
+    \ p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x] == excl;\n  \
+    \  }\n\n    bool is_out(long long y, long long x) {\n        return y < 0 or y\
+    \ >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n\
+    \        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    string&\
+    \ operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, Field& field) {\n        rep(i, field.H) {\n     \
+    \       os << field[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    struct GridBFS {\n    long long H, W;\n    Field field;\n    Grid<bool> seen;\n\
+    \    Grid<long long> cost;\n    Grid<Coordinate> prev;\n    vector<Coordinate>\
+    \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n\
+    \    char obj = field.obj;\n    char excl = field.excl;\n    Coordinate start\
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
+    \ / 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
     \ n) {\n        init();\n    };\n\n    GridBFS(long long h, long long w) : H(h),\
     \ W(w), field(h, w) {\n        init();\n    };\n\n    GridBFS(vector<string> vs)\
-    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n    };\n\
-    \n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n \
-    \       cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
-    \    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n        \n \
-    \       rep(y, H) rep(x, W) {\n                char c = field(y, x);\n       \
-    \         if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
-    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
-    \       start = Coordinate(y, x);\n                }\n                if (c ==\
-    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
-    \   }\n            }\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
+    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n       \
+    \ after_input();\n    };\n\n    void init() {\n        group = 0;\n        seen.assign(H,\
+    \ W, false);\n        cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1,\
+    \ -1));\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n   \
+    \     after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
+    \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
+    \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
+    \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
+    \                }\n                if (c == g or c == t) {\n                \
+    \    goal = Coordinate(y, x);\n                }\n            }\n    }\n\n   \
+    \ long long to_index(Coordinate& p) {\n        return p.y * W + p.x;\n    }\n\n\
+    \    Coordinate to_coordinate(long long index) {\n        return Coordinate(index\
+    \ / W, index % W);\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
     \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
     \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
     \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
@@ -628,7 +660,7 @@ data:
   isVerificationFile: false
   path: grid/grid-bfs.cpp
   requiredBy: []
-  timestamp: '2024-04-29 16:57:22+09:00'
+  timestamp: '2024-05-04 20:51:40+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/psp/atcoder-abc193-f.test.cpp
