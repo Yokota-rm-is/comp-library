@@ -114,6 +114,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/dualsegmenttree.cpp
       title: structure/dualsegmenttree.cpp
+    - icon: ':warning:'
+      path: structure/empty-sqrt-decomposition.cpp
+      title: structure/empty-sqrt-decomposition.cpp
     - icon: ':heavy_check_mark:'
       path: structure/kruskal.cpp
       title: structure/kruskal.cpp
@@ -126,6 +129,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/splay-tree.cpp
       title: structure/splay-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/sqrt-decomposition.cpp
+      title: structure/sqrt-decomposition.cpp
     - icon: ':heavy_check_mark:'
       path: structure/undo-unionfind.cpp
       title: structure/undo-unionfind.cpp
@@ -412,6 +418,12 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
       title: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/lazysegmenttree/aoj-dsl-2-h.test.cpp
+      title: test/structure/lazysegmenttree/aoj-dsl-2-h.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/lazysegmenttree/aoj-dsl-2-i.test.cpp
+      title: test/structure/lazysegmenttree/aoj-dsl-2-i.test.cpp
   - name: test/structure/segmenttree
     pages:
     - icon: ':heavy_check_mark:'
@@ -431,6 +443,32 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
       title: test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+  - name: test/structure/sqrt-decomposition
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+      title: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
   - name: test/structure/undo-unionfind
     pages:
     - icon: ':heavy_check_mark:'
