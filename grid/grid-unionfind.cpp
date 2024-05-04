@@ -167,11 +167,21 @@ struct Grid {
     Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w, a)) {}
     Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}
 
+    bool is_out(long long y, long long x) {
+        return y < 0 or y >= H or x < 0 or x >= W;
+    }
+
+    bool is_out(const Coordinate& p) {
+        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;
+    }
+
     T& operator() (size_t i, size_t j) {
+        assert(!is_out(i, j));
         return vv[i][j];
     }
 
     T& operator() (const Coordinate& p) {
+        assert(!is_out(p));
         return vv[p.y][p.x];
     }
 
@@ -202,11 +212,21 @@ struct Grid<bool> {
     Grid(long long h = 0, long long w = 0, bool a = false) : H(h), W(w), vv(h, vector<bool>(w, a)) {}
     Grid(vector<vector<bool>> A) : H(A.size()), W(A[0].size()), vv(A) {}
 
+    bool is_out(long long y, long long x) {
+        return y < 0 or y >= H or x < 0 or x >= W;
+    }
+
+    bool is_out(const Coordinate& p) {
+        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;
+    }
+
     vector<bool>::reference operator() (size_t i, size_t j) {
+        assert(!is_out(i, j));
         return vv[i][j];
     }
 
     vector<bool>::reference operator() (const Coordinate& p) {
+        assert(!is_out(p));
         return vv[p.y][p.x];
     }
 
@@ -232,6 +252,7 @@ struct Field {
     long long H;
     long long W;
     vector<string> vs;
+    char dot = '.';
     char obj = '#';
     char excl = '!';
 
@@ -239,26 +260,42 @@ struct Field {
     Field(vector<string>& A) : H(A.size()), W(A.front().size()), vs(A) {}
 
     char& operator() (size_t y, size_t x) {
+        assert(!is_out(y, x));
         return vs[y][x];
     }
 
     char& operator() (const Coordinate& p) {
+        assert(!is_out(p));
         return vs[p.y][p.x];
     }
 
+    bool is_dot(size_t y, size_t x) {
+        assert(!is_out(y, x));
+        return vs[y][x] == dot;
+    }
+
+    bool is_dot(const Coordinate& p) {
+        assert(!is_out(p));
+        return vs[p.y][p.x] == dot;
+    }
+
     bool is_obj(size_t y, size_t x) {
+        assert(!is_out(y, x));
         return vs[y][x] == obj;
     }
 
     bool is_obj(const Coordinate& p) {
+        assert(!is_out(p));
         return vs[p.y][p.x] == obj;
     }
 
     bool is_excl(size_t y, size_t x) {
+        assert(!is_out(y, x));
         return vs[y][x] == excl;
     }
 
     bool is_excl(const Coordinate& p) {
+        assert(!is_out(p));
         return vs[p.y][p.x] == excl;
     }
 
@@ -301,8 +338,9 @@ struct GridUnionFind {
     char s = 's';
     char g = 'g';
     char t = 't';
-    char obs = '#';
-    char excl = '!';
+    char dot = field.dot;
+    char obj = field.obj;
+    char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
     long long inf = INF64 / 2;
 
@@ -316,6 +354,7 @@ struct GridUnionFind {
 
     GridUnionFind(vector<string> vs) : H(vs.size()), W(vs.front().size()), field(vs) {
         init();
+        after_input();
     };
 
     void init() {
@@ -327,7 +366,10 @@ struct GridUnionFind {
 
     void input() {
         rep(y, H) cin >> field[y];
-        
+        after_input();
+    }
+
+    void after_input() {
         rep(y, H) rep(x, W) {
             Coordinate now(y, x);
 
@@ -351,6 +393,14 @@ struct GridUnionFind {
                 unite(now, next);
             }
         }
+    }
+
+    long long to_index(Coordinate& p) {
+        return p.y * W + p.x;
+    }
+
+    Coordinate to_coordinate(long long index) {
+        return Coordinate(index / W, index % W);
     }
 
     Coordinate find(Coordinate x) {
