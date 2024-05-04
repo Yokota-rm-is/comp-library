@@ -5,8 +5,12 @@ struct UnionFind {
     long long V;
     vector<long long> par; // par[i]: iの親の番号 or サイズ (iが親の時)
     map<long long, set<long long>> cc;
+    
+    long long edge_index;
+    map<long long, set<long long>> cc_edge;
 
     UnionFind(long long V) : V(V), par(V, -1) { //最初は全てが根であるとして初期化
+        edge_index = 0;
         rep(i, V) {
             cc[i].insert(i);
         }
@@ -25,6 +29,8 @@ struct UnionFind {
         long long rx = find(x); //xの根をrx
         long long ry = find(y); //yの根をry
 
+        cc_edge[rx].insert(edge_index++);
+
         if (rx != ry) {
             // -parはサイズを返す
             // ryの方がサイズが大きければrxとrxを入れ替える
@@ -36,6 +42,11 @@ struct UnionFind {
             par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
             cc[rx].insert(cc[ry].begin(), cc[ry].end());
             cc.erase(ry);
+
+            if (!cc_edge[ry].empty()) {
+                cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());
+                cc_edge.erase(ry);
+            }
         }
     }
 
