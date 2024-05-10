@@ -117,6 +117,12 @@ ostream& operator << (ostream& os, vector<string>& v);
 ostream& operator << (ostream& os, const vector<string>& v);
 template<typename T> ostream& operator<< (ostream& os, vector<vector<T>>& v);
 template<typename T> ostream& operator<< (ostream& os, const vector<vector<T>>& v);
+template<typename T> ostream& operator<< (ostream& os, vector<stack<T>>& v);
+template<typename T> ostream& operator<< (ostream& os, const vector<stack<T>>& v);
+template<typename T> ostream& operator<< (ostream& os, vector<queue<T>>& v);
+template<typename T> ostream& operator<< (ostream& os, const vector<queue<T>>& v);
+template<typename T> ostream& operator<< (ostream& os, vector<deque<T>>& v);
+template<typename T> ostream& operator<< (ostream& os, const vector<deque<T>>& v);
 template<typename T> ostream& operator<< (ostream& os, vector<vector<vector<T>>>& v);
 template<typename T> ostream& operator<< (ostream& os, const vector<vector<vector<T>>>& v);
 template<typename T> ostream& operator<< (ostream& os, set<T>& s);
@@ -136,21 +142,30 @@ ostream& operator << (ostream& os, vector<string>& v) { rep(i, v.size()) os << v
 ostream& operator << (ostream& os, const vector<string>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? "\n" : ""); return os;}
 template<typename T> ostream& operator << (ostream& os, vector<vector<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
 template<typename T> ostream& operator << (ostream& os, const vector<vector<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
+template<typename T> ostream& operator << (ostream& os, vector<stack<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
+template<typename T> ostream& operator << (ostream& os, const vector<stack<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
+template<typename T> ostream& operator << (ostream& os, vector<queue<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
+template<typename T> ostream& operator << (ostream& os, const vector<queue<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
+template<typename T> ostream& operator << (ostream& os, vector<deque<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
+template<typename T> ostream& operator << (ostream& os, const vector<deque<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? "\n" : ""); return os;}
 template<typename T> ostream& operator << (ostream& os, vector<vector<vector<T>>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? "\n\n": ""); return os;}
 template<typename T> ostream& operator << (ostream& os, const vector<vector<vector<T>>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? "\n\n": ""); return os;}
 template<typename T> ostream& operator << (ostream& os, set<T>& s) { for (auto it = s.begin(); it != s.end(); ++it) os << *it << ((it != --s.end()) ? " " : ""); return os;}
 template<typename T> ostream& operator << (ostream& os, const set<T>& s) { for (auto it = s.begin(); it != s.end(); ++it) os << *it << ((it != --s.end()) ? " " : ""); return os;}
 template<typename T, typename U> ostream& operator << (ostream& os, map<T, U>& m) { for (auto it = m.begin(); it != m.end(); ++it) os << it->first << ": " << it->second << (it != --m.end() ? "\n" : ""); return os;}
 template<typename T, typename U> ostream& operator << (ostream& os, const map<T, U>& m) { for (auto it = m.begin(); it != m.end(); ++it) os << it->first << ": " << it->second << (it != --m.end() ? "\n" : ""); return os;}
-template<typename T> ostream& operator << (ostream& os, queue<T>& que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size() > 1)? "\n" : ""); tmp.pop();}; return os;}
-template<typename T> ostream& operator << (ostream& os, const queue<T>& que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size() > 1)? "\n" : ""); tmp.pop();}; return os;}
-template<typename T> ostream& operator << (ostream& os, stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 1)? "\n" : ""); tmp.pop();}; return os;}
-template<typename T> ostream& operator << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 1)? "\n" : ""); tmp.pop();}; return os;}
+template<typename T> ostream& operator << (ostream& os, queue<T>& que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
+template<typename T> ostream& operator << (ostream& os, const queue<T>& que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
+template<typename T> ostream& operator << (ostream& os, stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
+template<typename T> ostream& operator << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
 
 // デバッグ用
 template<typename T> void dump(T a) { cerr << a;}
 void dump(vector<string>& a) { cerr << '\n' << a;}
 template<typename T> void dump(vector<vector<T>>& a) { cerr << '\n' << a;}
+template<typename T> void dump(vector<stack<T>>& a) { cerr << '\n' << a;}
+template<typename T> void dump(vector<queue<T>>& a) { cerr << '\n' << a;}
+template<typename T> void dump(vector<deque<T>>& a) { cerr << '\n' << a;}
 
 // input
 template<typename T> inline void input(T& a) {cin >> a;}
