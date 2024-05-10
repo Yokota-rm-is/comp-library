@@ -74,6 +74,12 @@ data:
     \ v);\nostream& operator << (ostream& os, const vector<string>& v);\ntemplate<typename\
     \ T> ostream& operator<< (ostream& os, vector<vector<T>>& v);\ntemplate<typename\
     \ T> ostream& operator<< (ostream& os, const vector<vector<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<stack<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<stack<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<queue<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<queue<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<deque<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<deque<T>>& v);\ntemplate<typename\
     \ T> ostream& operator<< (ostream& os, vector<vector<vector<T>>>& v);\ntemplate<typename\
     \ T> ostream& operator<< (ostream& os, const vector<vector<vector<T>>>& v);\n\
     template<typename T> ostream& operator<< (ostream& os, set<T>& s);\ntemplate<typename\
@@ -100,78 +106,95 @@ data:
     \ - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename T> ostream& operator\
     \ << (ostream& os, const vector<vector<T>>& v) { rep(i, v.size()) os << v[i] <<\
     \ ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename\
-    \ T> ostream& operator << (ostream& os, vector<vector<vector<T>>>& v) { rep(i,\
-    \ v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? \"\\n\\n\": \"\");\
-    \ return os;}\ntemplate<typename T> ostream& operator << (ostream& os, const vector<vector<vector<T>>>&\
-    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? \"\\n\\\
-    n\": \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream& os,\
-    \ set<T>& s) { for (auto it = s.begin(); it != s.end(); ++it) os << *it << ((it\
-    \ != --s.end()) ? \" \" : \"\"); return os;}\ntemplate<typename T> ostream& operator\
-    \ << (ostream& os, const set<T>& s) { for (auto it = s.begin(); it != s.end();\
-    \ ++it) os << *it << ((it != --s.end()) ? \" \" : \"\"); return os;}\ntemplate<typename\
-    \ T, typename U> ostream& operator << (ostream& os, map<T, U>& m) { for (auto\
-    \ it = m.begin(); it != m.end(); ++it) os << it->first << \": \" << it->second\
-    \ << (it != --m.end() ? \"\\n\" : \"\"); return os;}\ntemplate<typename T, typename\
-    \ U> ostream& operator << (ostream& os, const map<T, U>& m) { for (auto it = m.begin();\
-    \ it != m.end(); ++it) os << it->first << \": \" << it->second << (it != --m.end()\
-    \ ? \"\\n\" : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream&\
-    \ os, queue<T>& que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front()\
-    \ << ((tmp.size() > 1)? \"\\n\" : \"\"); tmp.pop();}; return os;}\ntemplate<typename\
-    \ T> ostream& operator << (ostream& os, const queue<T>& que) { queue<T> tmp(que);\
-    \ while(!tmp.empty()) {os << tmp.front() << ((tmp.size() > 1)? \"\\n\" : \"\"\
-    ); tmp.pop();}; return os;}\ntemplate<typename T> ostream& operator << (ostream&\
-    \ os, stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() <<\
-    \ ((tmp.size() > 1)? \"\\n\" : \"\"); tmp.pop();}; return os;}\ntemplate<typename\
-    \ T> ostream& operator << (ostream& os, const stack<T>& st) { stack<T> tmp(st);\
-    \ while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 1)? \"\\n\" : \"\");\
-    \ tmp.pop();}; return os;}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename\
-    \ T> void dump(T a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\\
-    n' << a;}\ntemplate<typename T> void dump(vector<vector<T>>& a) { cerr << '\\\
-    n' << a;}\n\n// input\ntemplate<typename T> inline void input(T& a) {cin >> a;}\n\
-    template<typename T, typename... Args> inline void input(T& a, Args&&... args)\
-    \ { cin >> a; input(args...);}\ntemplate<typename T> inline void input(vector<T>&\
-    \ A) { rep(i, A.size()) cin >> A[i];}\ntemplate<typename T> inline void input(vector<T>&\
-    \ A, vector<T>& B) { assert(A.size() == B.size());rep(i, A.size()) cin >> A[i]\
-    \ >> B[i];}\ntemplate<typename T> inline void input(vector<T>& A, vector<T>& B,\
-    \ vector<T>& C) { assert(A.size() == B.size() and A.size() == C.size()); rep(i,\
+    \ T> ostream& operator << (ostream& os, vector<stack<T>>& v) { rep(i, v.size())\
+    \ os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\n\
+    template<typename T> ostream& operator << (ostream& os, const vector<stack<T>>&\
+    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\"\
+    \ : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream& os,\
+    \ vector<queue<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size()\
+    \ - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const vector<queue<T>>& v) { rep(i, v.size()) os << v[i] <<\
+    \ ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename\
+    \ T> ostream& operator << (ostream& os, vector<deque<T>>& v) { rep(i, v.size())\
+    \ os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\n\
+    template<typename T> ostream& operator << (ostream& os, const vector<deque<T>>&\
+    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\"\
+    \ : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream& os,\
+    \ vector<vector<vector<T>>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size()\
+    \ - 1) ? \"\\n\\n\": \"\"); return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const vector<vector<vector<T>>>& v) { rep(i, v.size()) os <<\
+    \ v[i] << ((i < (long long)v.size() - 1) ? \"\\n\\n\": \"\"); return os;}\ntemplate<typename\
+    \ T> ostream& operator << (ostream& os, set<T>& s) { for (auto it = s.begin();\
+    \ it != s.end(); ++it) os << *it << ((it != --s.end()) ? \" \" : \"\"); return\
+    \ os;}\ntemplate<typename T> ostream& operator << (ostream& os, const set<T>&\
+    \ s) { for (auto it = s.begin(); it != s.end(); ++it) os << *it << ((it != --s.end())\
+    \ ? \" \" : \"\"); return os;}\ntemplate<typename T, typename U> ostream& operator\
+    \ << (ostream& os, map<T, U>& m) { for (auto it = m.begin(); it != m.end(); ++it)\
+    \ os << it->first << \": \" << it->second << (it != --m.end() ? \"\\n\" : \"\"\
+    ); return os;}\ntemplate<typename T, typename U> ostream& operator << (ostream&\
+    \ os, const map<T, U>& m) { for (auto it = m.begin(); it != m.end(); ++it) os\
+    \ << it->first << \": \" << it->second << (it != --m.end() ? \"\\n\" : \"\");\
+    \ return os;}\ntemplate<typename T> ostream& operator << (ostream& os, queue<T>&\
+    \ que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size()\
+    \ > 0)? \" \" : \"\\n\"); tmp.pop();}; return os;}\ntemplate<typename T> ostream&\
+    \ operator << (ostream& os, const queue<T>& que) { queue<T> tmp(que); while(!tmp.empty())\
+    \ {os << tmp.front() << ((tmp.size() > 0)? \" \" : \"\\n\"); tmp.pop();}; return\
+    \ os;}\ntemplate<typename T> ostream& operator << (ostream& os, stack<T>& st)\
+    \ { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 0)?\
+    \ \" \" : \"\\n\"); tmp.pop();}; return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty())\
+    \ {os << tmp.top() << ((tmp.size() > 0)? \" \" : \"\\n\"); tmp.pop();}; return\
+    \ os;}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename T> void dump(T\
+    \ a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<vector<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<stack<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<queue<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<deque<T>>& a) { cerr << '\\n' << a;}\n\n// input\ntemplate<typename\
+    \ T> inline void input(T& a) {cin >> a;}\ntemplate<typename T, typename... Args>\
+    \ inline void input(T& a, Args&&... args) { cin >> a; input(args...);}\ntemplate<typename\
+    \ T> inline void input(vector<T>& A) { rep(i, A.size()) cin >> A[i];}\ntemplate<typename\
+    \ T> inline void input(vector<T>& A, vector<T>& B) { assert(A.size() == B.size());rep(i,\
+    \ A.size()) cin >> A[i] >> B[i];}\ntemplate<typename T> inline void input(vector<T>&\
+    \ A, vector<T>& B, vector<T>& C) { assert(A.size() == B.size() and A.size() ==\
+    \ C.size()); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename\
+    \ T> inline void input(const long long N, vector<T>& A) { A.resize(N); rep(i,\
+    \ N) cin >> A[i];}\ntemplate<typename T> inline void input(const long long N,\
+    \ vector<T>& A, vector<T>& B) { A.resize(N); B.resize(N); rep(i, N) cin >> A[i]\
+    \ >> B[i];}\ntemplate<typename T> inline void input(const long long N, vector<T>&\
+    \ A, vector<T>& B, vector<T>& C) { A.resize(N); B.resize(N); C.resize(N); rep(i,\
     \ A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename T> inline void input(const\
-    \ long long N, vector<T>& A) { A.resize(N); rep(i, N) cin >> A[i];}\ntemplate<typename\
-    \ T> inline void input(const long long N, vector<T>& A, vector<T>& B) { A.resize(N);\
-    \ B.resize(N); rep(i, N) cin >> A[i] >> B[i];}\ntemplate<typename T> inline void\
-    \ input(const long long N, vector<T>& A, vector<T>& B, vector<T>& C) { A.resize(N);\
-    \ B.resize(N); C.resize(N); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename\
-    \ T> inline void input(const long long N, set<T>& A) {rep(i, N) { T a; cin >>\
-    \ a; A.insert(a);}}\ntemplate<typename T> inline void input(const long long N,\
-    \ set<T>& A, set<T>& B) { rep(i, N) {T a, b; cin >> a >> b; A.insert(a); B.insert(b);}}\n\
-    template<typename T> inline void input(const long long N, set<T>& A, set<T>& B,\
-    \ set<T>& C) { rep(i, N) {T a, b, c; cin >> a >> b >> c; A.insert(a); B.insert(b);\
-    \ C.insert(c);}}\ntemplate<typename T> inline void input(vector<vector<T>>& A)\
-    \ { rep(i, A.size()) input(A[i]);}\n\ninline string YESNO(bool flag) { return\
-    \ flag ? \"YES\" : \"NO\";}\ninline string yesno(bool flag) { return flag ? \"\
-    yes\" : \"no\";}\ninline string YesNo(bool flag) { return flag ? \"Yes\" : \"\
-    No\";}\ninline string POSSIBLE(bool flag) { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\"\
-    ;}\ninline string Possible(bool flag) { return flag ? \"Possible\" : \"Impossible\"\
-    ;}\ninline string TakahashiAoki(bool flag) { return flag ? \"Takahashi\" : \"\
-    Aoki\";}\n\n// \u7B2C\u4E00\u5F15\u6570\u3068\u7B2C\u4E8C\u5F15\u6570\u3092\u6BD4\
-    \u8F03\u3057\u3001\u7B2C\u4E00\u5F15\u6570(a)\u3092\u3088\u308A\u5927\u304D\u3044\
-    /\u5C0F\u3055\u3044\u5024\u306B\u4E0A\u66F8\u304D\ntemplate<typename T> inline\
-    \ bool chmin(T &a, const T &b) { return ((a > b) ? (a = b, true) : false);}\n\
-    template<typename T> inline bool chmax(T &a, const T &b) { return ((a < b) ? (a\
-    \ = b, true) : false);}\n\n#if __cplusplus > 201703L\nusing ranges::random_access_range;\n\
-    using ranges::bidirectional_range;\nusing ranges::forward_range;\nusing ranges::input_range;\n\
-    using ranges::range_value_t;\nusing ranges::iterator_t;\nusing ranges::borrowed_iterator_t;\n\
-    using ranges::range_difference_t;\n\ntemplate <input_range R, class Proj = identity,\
+    \ long long N, set<T>& A) {rep(i, N) { T a; cin >> a; A.insert(a);}}\ntemplate<typename\
+    \ T> inline void input(const long long N, set<T>& A, set<T>& B) { rep(i, N) {T\
+    \ a, b; cin >> a >> b; A.insert(a); B.insert(b);}}\ntemplate<typename T> inline\
+    \ void input(const long long N, set<T>& A, set<T>& B, set<T>& C) { rep(i, N) {T\
+    \ a, b, c; cin >> a >> b >> c; A.insert(a); B.insert(b); C.insert(c);}}\ntemplate<typename\
+    \ T> inline void input(vector<vector<T>>& A) { rep(i, A.size()) input(A[i]);}\n\
+    \ninline string YESNO(bool flag) { return flag ? \"YES\" : \"NO\";}\ninline string\
+    \ yesno(bool flag) { return flag ? \"yes\" : \"no\";}\ninline string YesNo(bool\
+    \ flag) { return flag ? \"Yes\" : \"No\";}\ninline string POSSIBLE(bool flag)\
+    \ { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\";}\ninline string Possible(bool\
+    \ flag) { return flag ? \"Possible\" : \"Impossible\";}\ninline string TakahashiAoki(bool\
+    \ flag) { return flag ? \"Takahashi\" : \"Aoki\";}\n\n// \u7B2C\u4E00\u5F15\u6570\
+    \u3068\u7B2C\u4E8C\u5F15\u6570\u3092\u6BD4\u8F03\u3057\u3001\u7B2C\u4E00\u5F15\
+    \u6570(a)\u3092\u3088\u308A\u5927\u304D\u3044/\u5C0F\u3055\u3044\u5024\u306B\u4E0A\
+    \u66F8\u304D\ntemplate<typename T> inline bool chmin(T &a, const T &b) { return\
+    \ ((a > b) ? (a = b, true) : false);}\ntemplate<typename T> inline bool chmax(T\
+    \ &a, const T &b) { return ((a < b) ? (a = b, true) : false);}\n\n#if __cplusplus\
+    \ > 201703L\nusing ranges::random_access_range;\nusing ranges::bidirectional_range;\n\
+    using ranges::forward_range;\nusing ranges::input_range;\nusing ranges::range_value_t;\n\
+    using ranges::iterator_t;\nusing ranges::borrowed_iterator_t;\nusing ranges::range_difference_t;\n\
+    \ntemplate <input_range R, class Proj = identity, indirect_unary_predicate<projected<iterator_t<R>,\
+    \ Proj>> Pred> constexpr bool all_of(R&& r, Pred pred, Proj proj = {}) { return\
+    \ ranges::all_of(r, pred, proj);};\ntemplate <input_range R, class Proj = identity,\
     \ indirect_unary_predicate<projected<iterator_t<R>, Proj>> Pred> constexpr bool\
-    \ all_of(R&& r, Pred pred, Proj proj = {}) { return ranges::all_of(r, pred, proj);};\n\
-    template <input_range R, class Proj = identity, indirect_unary_predicate<projected<iterator_t<R>,\
-    \ Proj>> Pred> constexpr bool any_of(R&& r, Pred pred, Proj proj = {}) { return\
-    \ ranges::any_of(r, pred, proj);}; \ntemplate <input_range R, class Proj = identity,\
-    \ indirect_unary_predicate<projected<iterator_t<R>, Proj>> Pred> constexpr bool\
-    \ none_of(R&& r, Pred pred, Proj proj = {}) { return ranges::none_of(r, pred,\
-    \ proj);};\ntemplate <forward_range R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
-    \ Proj>> Comp = ranges::less> constexpr bool is_sorted(R&& r, Comp comp = {},\
-    \ Proj proj = {}) { return ranges::is_sorted(r, comp, proj);};\ntemplate <forward_range\
-    \ R1, forward_range R2, class Proj1 = identity, class Proj2 = identity, indirect_equivalence_relation<projected<iterator_t<R1>,\
+    \ any_of(R&& r, Pred pred, Proj proj = {}) { return ranges::any_of(r, pred, proj);};\
+    \ \ntemplate <input_range R, class Proj = identity, indirect_unary_predicate<projected<iterator_t<R>,\
+    \ Proj>> Pred> constexpr bool none_of(R&& r, Pred pred, Proj proj = {}) { return\
+    \ ranges::none_of(r, pred, proj);};\ntemplate <forward_range R, class Proj = identity,\
+    \ indirect_strict_weak_order<projected<iterator_t<R>, Proj>> Comp = ranges::less>\
+    \ constexpr bool is_sorted(R&& r, Comp comp = {}, Proj proj = {}) { return ranges::is_sorted(r,\
+    \ comp, proj);};\ntemplate <forward_range R1, forward_range R2, class Proj1 =\
+    \ identity, class Proj2 = identity, indirect_equivalence_relation<projected<iterator_t<R1>,\
     \ Proj1>, projected<iterator_t<R2>, Proj2>> Pred = ranges::equal_to> constexpr\
     \ bool is_permutation(R1&& r1, R2&& r2, Pred pred = {}, Proj1 proj1 = {}, Proj2\
     \ proj2 = {}) { return is_permutation(r1, r2, pred, proj1, proj2);}; \ntemplate\
@@ -314,7 +337,7 @@ data:
   isVerificationFile: false
   path: other/cumulative-sum.cpp
   requiredBy: []
-  timestamp: '2024-04-29 16:58:06+09:00'
+  timestamp: '2024-05-10 22:23:20+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
