@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F&"
 
-#include "../../../structure/lazysegmenttree.cpp"
+#include "../../../structure/lazy-segment-tree.cpp"
 
 int main() {
     ll n, q;

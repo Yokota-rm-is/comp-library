@@ -1,12 +1,12 @@
-#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&"
+#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&"
 
-#include "../../../structure/segmenttree.cpp"
+#include "../../../structure/lazy-segment-tree.cpp"
 
 int main() {
     ll n, q;
     cin >> n >> q;
 
-    PointAddRangeSum<ll, ll> tree(n, 0);
+    RangeSetRangeMin<ll, ll> tree(n, (1ll << 31) - 1);
     while (q--) {
         ll t;
         cin >> t;
@@ -14,12 +14,12 @@ int main() {
         if (t == 0) {
             ll x, y;
             cin >> x >> y;
-            tree.apply(x - 1, y);
+            tree.apply(x, y);
         }
         else {
             ll x, y;
             cin >> x >> y;
-            cout << tree.prod(x - 1, y) << endl;
+            cout << tree.prod(x, y + 1) << endl;
         }
     }
 

@@ -4,7 +4,7 @@
 #include "../../../structure/splay-tree.cpp"
 
 namespace seg {
-    #include "../../../structure/dualsegmenttree.cpp"
+    #include "../../../structure/dual-segment-tree.cpp"
 }
 
 int main() {

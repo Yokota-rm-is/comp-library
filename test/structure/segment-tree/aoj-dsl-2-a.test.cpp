@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A&"
 
-#include "../../../structure/segmenttree.cpp"
+#include "../../../structure/segment-tree.cpp"
 
 int main() {
     ll n, q;

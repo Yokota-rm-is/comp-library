@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E&"
 
-#include "../../../structure/dualsegmenttree.cpp"
+#include "../../../structure/dual-segment-tree.cpp"
 
 int main() {
     ll n, q;
