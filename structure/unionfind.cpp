@@ -25,29 +25,33 @@ struct UnionFind {
     }
 
     // xとyを連結
-    void unite(long long x, long long y) {
+    bool unite(long long x, long long y) {
         long long rx = find(x); //xの根をrx
         long long ry = find(y); //yの根をry
 
         cc_edge[rx].insert(edge_index++);
 
-        if (rx != ry) {
-            // -parはサイズを返す
-            // ryの方がサイズが大きければrxとrxを入れ替える
-            if (-par[rx] < -par[ry]) {
-                swap(rx, ry);
-            }
+        // 結合時の処理をここに書く
 
-            par[rx] += par[ry]; // rxのサイズを変更
-            par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
-            cc[rx].insert(cc[ry].begin(), cc[ry].end());
-            cc.erase(ry);
+        if (rx == ry) return false; //xとyの根が同じ時は何もしない
 
-            if (!cc_edge[ry].empty()) {
-                cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());
-                cc_edge.erase(ry);
-            }
+        // -parはサイズを返す
+        // ryの方がサイズが大きければrxとrxを入れ替える
+        if (-par[rx] < -par[ry]) {
+            swap(rx, ry);
         }
+
+        par[rx] += par[ry]; // rxのサイズを変更
+        par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
+        cc[rx].insert(cc[ry].begin(), cc[ry].end());
+        cc.erase(ry);
+
+        if (!cc_edge[ry].empty()) {
+            cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());
+            cc_edge.erase(ry);
+        }
+    
+        return true;
     }
 
     // 2つのデータx, yが属する木が同じならtrueを返す

@@ -17,23 +17,27 @@ struct UndoUnionFind {
     }
 
     // xとyを連結
-    void unite(long long x, long long y) {
+    bool unite(long long x, long long y) {
         long long rx = find(x); //xの根をrx
         long long ry = find(y); //yの根をry
 
         history.emplace(rx, par[rx]);
         history.emplace(ry, par[ry]);
 
-        if (rx != ry) {
-            // -parはサイズを返す
-            // ryの方がサイズが大きければrxとrxを入れ替える
-            if (-par[rx] < -par[ry]) {
-                swap(rx, ry);
-            }
+        // 結合時の処理をここに書く
 
-            par[rx] += par[ry]; // rxのサイズを変更
-            par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
+        if (rx == ry) return false; //xとyの根が同じ時は何もしない
+
+        // -parはサイズを返す
+        // ryの方がサイズが大きければrxとrxを入れ替える
+        if (-par[rx] < -par[ry]) {
+            swap(rx, ry);
         }
+
+        par[rx] += par[ry]; // rxのサイズを変更
+        par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
+
+        return true;
     }
 
     // 2つのデータx, yが属する木が同じならtrueを返す
