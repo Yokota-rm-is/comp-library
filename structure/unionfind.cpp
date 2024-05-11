@@ -29,17 +29,20 @@ struct UnionFind {
         long long rx = find(x); //xの根をrx
         long long ry = find(y); //yの根をry
 
-        cc_edge[rx].insert(edge_index++);
-
         // 結合時の処理をここに書く
 
-        if (rx == ry) return false; //xとyの根が同じ時は何もしない
+        if (rx == ry) {
+            cc_edge[rx].insert(edge_index++);
+            return false; //xとyの根が同じ時は何もしない
+        } 
 
         // -parはサイズを返す
         // ryの方がサイズが大きければrxとrxを入れ替える
         if (-par[rx] < -par[ry]) {
             swap(rx, ry);
         }
+
+        cc_edge[rx].insert(edge_index++);
 
         par[rx] += par[ry]; // rxのサイズを変更
         par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
