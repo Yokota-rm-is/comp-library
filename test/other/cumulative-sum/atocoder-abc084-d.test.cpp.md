@@ -327,35 +327,38 @@ data:
     \u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
     \ l, long long r) {\n        if (l > r) swap(l, r);\n\n        if (l == 0) return\
     \ (*this)[r - 1];\n        else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\
-    };\n#line 3 \"math/eratosthenes.cpp\"\n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\
-    \u30B9\u306E\u7BE9\nstruct Eratosthenes {\n    long long N;\n    // \u30C6\u30FC\
-    \u30D6\u30EB\n    vector<bool> is_prime;\n\n    // \u6574\u6570 i \u3092\u5272\
-    \u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long long> min_factor;\n\
-    \n    // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n    vector<long long> mobius;\n\
-    \n    // \u30B3\u30F3\u30B9\u30C8\u30E9\u30AF\u30BF\u3067\u7BE9\u3092\u56DE\u3059\
-    \n    explicit Eratosthenes(long long N) : N(N), is_prime(N + 1, true), min_factor(N\
-    \ + 1, -1), mobius(N + 1, 1) {\n        // 1 \u306F\u4E88\u3081\u3075\u308B\u3044\
-    \u843D\u3068\u3057\u3066\u304A\u304F\n        is_prime[1] = false;\n        min_factor[1]\
-    \ = 1;\n\n        construct();\n    }\n\n    // O(N loglogN)\n    void construct()\
-    \ {\n        // \u7BE9\n        rep(p, 2, N + 1) {\n            // \u3059\u3067\
-    \u306B\u5408\u6210\u6570\u3067\u3042\u308B\u3082\u306E\u306F\u30B9\u30AD\u30C3\
-    \u30D7\u3059\u308B\n            if (!is_prime[p]) continue;\n\n            //\
-    \ p \u306B\u3064\u3044\u3066\u306E\u60C5\u5831\u66F4\u65B0\n            min_factor[p]\
-    \ = p;\n            mobius[p] = -1;\n\n            // p \u4EE5\u5916\u306E p \u306E\
-    \u500D\u6570\u304B\u3089\u7D20\u6570\u30E9\u30D9\u30EB\u3092\u5265\u596A\n   \
-    \         for (long long q = p * 2; q <= N; q += p) {\n                // q \u306F\
-    \u5408\u6210\u6570\u306A\u306E\u3067\u3075\u308B\u3044\u843D\u3068\u3059\n   \
-    \             is_prime[q] = false;\n\n                // q \u306F p \u3067\u5272\
-    \u308A\u5207\u308C\u308B\u65E8\u3092\u66F4\u65B0\n                if (min_factor[q]\
-    \ == -1) min_factor[q] = p;\n                if ((q / p) % p == 0) mobius[q] =\
-    \ 0;\n                else mobius[q] *= -1;\n            }\n        }\n    }\n\
-    \n    // \u9AD8\u901F\u7D20\u56E0\u6570\u5206\u89E3 O(logN)\n    // pair (\u7D20\
-    \u56E0\u5B50, \u6307\u6570) \u306E vector \u3092\u8FD4\u3059\n    vector<pair<long\
-    \ long, long long>> factorize(long long n) {\n        vector<pair<long long, long\
-    \ long>> res;\n        while (n > 1) {\n            long long p = min_factor[n];\n\
-    \            long long exp = 0;\n\n            // n \u3067\u5272\u308A\u5207\u308C\
-    \u308B\u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n   \
-    \             n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
+    \n    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {\n \
+    \       rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n  \
+    \      return os;\n    }\n};\n#line 3 \"math/eratosthenes.cpp\"\n\n// \u30A8\u30E9\
+    \u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\nstruct Eratosthenes {\n    long long\
+    \ N;\n    // \u30C6\u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\n    // \u6574\
+    \u6570 i \u3092\u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long\
+    \ long> min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n   \
+    \ vector<long long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\u30E9\u30AF\u30BF\
+    \u3067\u7BE9\u3092\u56DE\u3059\n    explicit Eratosthenes(long long N) : N(N),\
+    \ is_prime(N + 1, true), min_factor(N + 1, -1), mobius(N + 1, 1) {\n        //\
+    \ 1 \u306F\u4E88\u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\u304A\u304F\n\
+    \        is_prime[1] = false;\n        min_factor[1] = 1;\n\n        construct();\n\
+    \    }\n\n    // O(N loglogN)\n    void construct() {\n        // \u7BE9\n   \
+    \     rep(p, 2, N + 1) {\n            // \u3059\u3067\u306B\u5408\u6210\u6570\u3067\
+    \u3042\u308B\u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\u3059\u308B\n         \
+    \   if (!is_prime[p]) continue;\n\n            // p \u306B\u3064\u3044\u3066\u306E\
+    \u60C5\u5831\u66F4\u65B0\n            min_factor[p] = p;\n            mobius[p]\
+    \ = -1;\n\n            // p \u4EE5\u5916\u306E p \u306E\u500D\u6570\u304B\u3089\
+    \u7D20\u6570\u30E9\u30D9\u30EB\u3092\u5265\u596A\n            for (long long q\
+    \ = p * 2; q <= N; q += p) {\n                // q \u306F\u5408\u6210\u6570\u306A\
+    \u306E\u3067\u3075\u308B\u3044\u843D\u3068\u3059\n                is_prime[q]\
+    \ = false;\n\n                // q \u306F p \u3067\u5272\u308A\u5207\u308C\u308B\
+    \u65E8\u3092\u66F4\u65B0\n                if (min_factor[q] == -1) min_factor[q]\
+    \ = p;\n                if ((q / p) % p == 0) mobius[q] = 0;\n               \
+    \ else mobius[q] *= -1;\n            }\n        }\n    }\n\n    // \u9AD8\u901F\
+    \u7D20\u56E0\u6570\u5206\u89E3 O(logN)\n    // pair (\u7D20\u56E0\u5B50, \u6307\
+    \u6570) \u306E vector \u3092\u8FD4\u3059\n    vector<pair<long long, long long>>\
+    \ factorize(long long n) {\n        vector<pair<long long, long long>> res;\n\
+    \        while (n > 1) {\n            long long p = min_factor[n];\n         \
+    \   long long exp = 0;\n\n            // n \u3067\u5272\u308A\u5207\u308C\u308B\
+    \u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n         \
+    \       n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
     \ exp);\n        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\
     \u5217\u6319 O(sigma(n))\n    vector<long long> divisors(long long n) {\n    \
     \    vector<long long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\
@@ -414,7 +417,7 @@ data:
   isVerificationFile: true
   path: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 20:03:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/cumulative-sum/atocoder-abc084-d.test.cpp

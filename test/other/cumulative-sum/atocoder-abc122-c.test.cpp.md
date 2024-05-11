@@ -321,12 +321,14 @@ data:
     \u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
     \ l, long long r) {\n        if (l > r) swap(l, r);\n\n        if (l == 0) return\
     \ (*this)[r - 1];\n        else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\
-    };\n#line 4 \"test/other/cumulative-sum/atocoder-abc122-c.test.cpp\"\n\nint main()\
-    \ {\n    ll N, Q;\n    cin >> N >> Q;\n    \n    string S;\n    cin >> S;\n\n\
-    \    vll A(N, 0);\n\n    rep(i, N - 1) {\n        if (S[i] == 'A' and S[i + 1]\
-    \ == 'C') A[i] = 1;\n    }\n\n    auto B = CumulativeSum(A);\n    debug(A, B);\n\
-    \n    while (Q--) {\n        ll l, r;\n        cin >> l >> r;\n\n        cout\
-    \ << B.sum(l - 1, r - 1) << endl;\n    }\n\n    return 0;\n}\n"
+    \n    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {\n \
+    \       rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n  \
+    \      return os;\n    }\n};\n#line 4 \"test/other/cumulative-sum/atocoder-abc122-c.test.cpp\"\
+    \n\nint main() {\n    ll N, Q;\n    cin >> N >> Q;\n    \n    string S;\n    cin\
+    \ >> S;\n\n    vll A(N, 0);\n\n    rep(i, N - 1) {\n        if (S[i] == 'A' and\
+    \ S[i + 1] == 'C') A[i] = 1;\n    }\n\n    auto B = CumulativeSum(A);\n    debug(A,\
+    \ B);\n\n    while (Q--) {\n        ll l, r;\n        cin >> l >> r;\n\n     \
+    \   cout << B.sum(l - 1, r - 1) << endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc122/tasks/abc122_c\"\n\n\
     #include \"../../../other/cumulative-sum.cpp\"\n\nint main() {\n    ll N, Q;\n\
     \    cin >> N >> Q;\n    \n    string S;\n    cin >> S;\n\n    vll A(N, 0);\n\n\
@@ -340,7 +342,7 @@ data:
   isVerificationFile: true
   path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 20:03:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/cumulative-sum/atocoder-abc122-c.test.cpp

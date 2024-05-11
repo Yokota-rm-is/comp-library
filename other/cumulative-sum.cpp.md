@@ -322,7 +322,9 @@ data:
     \u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
     \ l, long long r) {\n        if (l > r) swap(l, r);\n\n        if (l == 0) return\
     \ (*this)[r - 1];\n        else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\
-    };\n"
+    \n    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {\n \
+    \       rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n  \
+    \      return os;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct CumulativeSum\
     \ : vector<T> {\n    CumulativeSum(vector<T>& A) {\n        (*this).assign(A.size(),\
     \ 0);\n        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
@@ -331,13 +333,15 @@ data:
     \u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
     \ l, long long r) {\n        if (l > r) swap(l, r);\n\n        if (l == 0) return\
     \ (*this)[r - 1];\n        else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\
-    };"
+    \n    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {\n \
+    \       rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n  \
+    \      return os;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: other/cumulative-sum.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 20:03:16+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/other/cumulative-sum/atocoder-abc084-d.test.cpp

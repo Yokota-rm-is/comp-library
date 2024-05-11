@@ -324,25 +324,28 @@ data:
     \u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
     \ l, long long r) {\n        if (l > r) swap(l, r);\n\n        if (l == 0) return\
     \ (*this)[r - 1];\n        else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\
-    };\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename T>\nstruct MultiSet\
-    \ : public map<T, long long> {\n    long long N;\n    using mp = map<T, long long>;\n\
-    \n    explicit MultiSet() : N(0) {};\n\n    long long insert(T x, long long n\
-    \ = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n    long\
-    \ long erase(T x, long long n = 1) {\n        if (n > (*this)[x]) n = (*this)[x];\n\
-    \        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x] == 0) {\n\
-    \            mp::erase(x);\n            return 0;\n        }\n        else {\n\
-    \            return (*this)[x];\n        }\n    }\n\n    void erase_all(T x) {\n\
-    \        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front() {\n \
-    \       return mp::begin()->first;\n    }\n\n    T back() {\n        return mp::rbegin()->first;\n\
-    \    }\n\n    void pop() {\n        erase(front());\n    }\n\n    void pop_back()\
-    \ {\n        erase(back());\n    }\n\n    long long count_all() {\n        return\
-    \ N;\n    }\n\n    long long count(T x) {\n        if (!mp::contains(x)) return\
-    \ 0;\n        return (*this)[x];\n    }\n};\n#line 5 \"test/other/cumulative-sum/atcoder-agc023-a.test.cpp\"\
-    \n\nint main() {\n    ll N;\n    cin >> N;\n\n    vll A(N);\n    rep(i, N) cin\
-    \ >> A[i];\n\n    auto B = CumulativeSum(A);\n    MultiSet<ll> ms;\n    rep(i,\
-    \ N) ms.insert(B[i]);\n    ll bias = 0;\n    ll ans = 0;\n\n    rep(i, N) {\n\
-    \        ans += ms.count(bias);\n        bias = B[i];\n        ms.erase(B[i]);\n\
-    \    }\n\n    cout << ans << endl;\n\n    return 0;\n}\n"
+    \n    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {\n \
+    \       rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n  \
+    \      return os;\n    }\n};\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename\
+    \ T>\nstruct MultiSet : public map<T, long long> {\n    long long N;\n    using\
+    \ mp = map<T, long long>;\n\n    explicit MultiSet() : N(0) {};\n\n    long long\
+    \ insert(T x, long long n = 1) {\n        N += n;\n        return (*this)[x] +=\
+    \ n;\n    }\n\n    long long erase(T x, long long n = 1) {\n        if (n > (*this)[x])\
+    \ n = (*this)[x];\n        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x]\
+    \ == 0) {\n            mp::erase(x);\n            return 0;\n        }\n     \
+    \   else {\n            return (*this)[x];\n        }\n    }\n\n    void erase_all(T\
+    \ x) {\n        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front()\
+    \ {\n        return mp::begin()->first;\n    }\n\n    T back() {\n        return\
+    \ mp::rbegin()->first;\n    }\n\n    void pop() {\n        erase(front());\n \
+    \   }\n\n    void pop_back() {\n        erase(back());\n    }\n\n    long long\
+    \ count_all() {\n        return N;\n    }\n\n    long long count(T x) {\n    \
+    \    if (!mp::contains(x)) return 0;\n        return (*this)[x];\n    }\n};\n\
+    #line 5 \"test/other/cumulative-sum/atcoder-agc023-a.test.cpp\"\n\nint main()\
+    \ {\n    ll N;\n    cin >> N;\n\n    vll A(N);\n    rep(i, N) cin >> A[i];\n\n\
+    \    auto B = CumulativeSum(A);\n    MultiSet<ll> ms;\n    rep(i, N) ms.insert(B[i]);\n\
+    \    ll bias = 0;\n    ll ans = 0;\n\n    rep(i, N) {\n        ans += ms.count(bias);\n\
+    \        bias = B[i];\n        ms.erase(B[i]);\n    }\n\n    cout << ans << endl;\n\
+    \n    return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/agc023/tasks/agc023_a\"\n\n\
     #include \"../../../other/cumulative-sum.cpp\"\n#include \"../../../mystd/mymultiset.cpp\"\
     \n\nint main() {\n    ll N;\n    cin >> N;\n\n    vll A(N);\n    rep(i, N) cin\
@@ -357,7 +360,7 @@ data:
   isVerificationFile: true
   path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 20:03:16+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/cumulative-sum/atcoder-agc023-a.test.cpp

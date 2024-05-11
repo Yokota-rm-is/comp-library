@@ -331,7 +331,9 @@ data:
     \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
     \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
     \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
-    \    }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
+    \    }\n\n    Coordinate& operator= (pair<long long, long long>& other) {\n  \
+    \      y = other.first;\n        x = other.second;\n        return *this;\n  \
+    \  }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
     \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
     \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
     \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
@@ -388,79 +390,84 @@ data:
     \   void assign(long long h, long long w, bool a) {\n        H = h;\n        W\
     \ = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
     \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
-    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
-    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(y, grid.H) {\n  \
+    \          rep(x, grid.W) {\n                os << (grid[y][x] ? \"true\" : \"\
+    false\") << \" \";\n            }\n        }\n        return os;\n    }\n};\n\n\
     struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char dot = '.';\n    char obj = '#';\n    char excl = '!';\n\n    Field(long\
-    \ long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>&\
-    \ A) : H(A.size()), W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t\
-    \ y, size_t x) {\n        assert(!is_out(y, x));\n        return vs[y][x];\n \
-    \   }\n\n    char& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
-    \        return vs[p.y][p.x];\n    }\n\n    bool is_dot(size_t y, size_t x) {\n\
-    \        assert(!is_out(y, x));\n        return vs[y][x] == dot;\n    }\n\n  \
-    \  bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n        return\
-    \ vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t x) {\n     \
-    \   assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\n    bool\
-    \ is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x]\
-    \ == obj;\n    }\n\n    bool is_excl(size_t y, size_t x) {\n        assert(!is_out(y,\
-    \ x));\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const Coordinate&\
-    \ p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x] == excl;\n  \
-    \  }\n\n    bool is_out(long long y, long long x) {\n        return y < 0 or y\
-    \ >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n\
-    \        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    string&\
-    \ operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend ostream&\
-    \ operator << (ostream &os, Field& field) {\n        rep(i, field.H) {\n     \
-    \       os << field[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
-    struct GridDFS {\n    long long H, W;\n    Field field;\n    Grid<bool> seen;\n\
-    \    vector<Coordinate> dirs = {\n        Coordinate(0, 1),\n        Coordinate(1,\
-    \ 0),\n        Coordinate(0, -1),\n        Coordinate(-1, 0),\n        // Coordinate(1,\
-    \ 1),\n        // Coordinate(1, -1),\n        // Coordinate(-1, 1),\n        //\
-    \ Coordinate(-1, -1)\n    };\n    vector<char> path;\n\n    char s = 's';\n  \
-    \  char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n    char obj =\
+    \   char dot = '.';\n    char hash = '#';\n    char obj = hash;\n    char excl\
+    \ = '!';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.'))\
+    \ {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()), vs(A) {}\n\
+    \n    char& operator() (size_t y, size_t x) {\n        assert(!is_out(y, x));\n\
+    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
+    \ {\n        assert(!is_out(p));\n        return vs[p.y][p.x];\n    }\n\n    bool\
+    \ is_dot(size_t y, size_t x) {\n        assert(!is_out(y, x));\n        return\
+    \ vs[y][x] == dot;\n    }\n\n    bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_hash(size_t y, size_t\
+    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == hash;\n   \
+    \ }\n\n    bool is_hash(const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t\
+    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\
+    \n    bool is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n      \
+    \  return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t y, size_t x)\
+    \ {\n        assert(!is_out(y, x));\n        return vs[y][x] == excl;\n    }\n\
+    \n    bool is_excl(const Coordinate& p) {\n        assert(!is_out(p));\n     \
+    \   return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long long y, long long\
+    \ x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool\
+    \ is_out(const Coordinate& p) {\n        return p.y < 0 or p.y >= H or p.x < 0\
+    \ or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n        return vs[i];\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, Field& field) {\n    \
+    \    rep(i, field.H) {\n            os << field[i] << endl;\n        }\n     \
+    \   return os;\n    }\n};\n\nstruct GridDFS {\n    long long H, W;\n    Field\
+    \ field;\n    Grid<bool> seen;\n    Grid<long long> cc;\n    vector<Coordinate>\
+    \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \    vector<char> path;\n\n    char s = 's';\n    char g = 'g';\n    char t =\
+    \ 't';\n    char dot = field.dot;\n    char hash = field.hash;\n    char obj =\
     \ field.obj;\n    char excl = field.excl;\n    Coordinate start = Coordinate(-1,\
     \ -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 / 2;\n    long long\
     \ group;\n\n    GridDFS(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
     \    };\n\n    GridDFS(long long h, long long w) : H(h), W(w), field(h, w) {\n\
     \        init();\n    };\n\n    GridDFS(vector<string> vs) : H(vs.size()), W(vs.front().size()),\
     \ field(vs) {\n        init();\n        after_input();\n    };\n\n    void init()\
-    \ {\n        group = 0;\n        seen.assign(H, W, false);\n    }\n\n    void\
-    \ input() {\n        rep(y, H) cin >> field[y];\n        after_input();\n    }\n\
-    \n    void after_input() {\n        rep(y, H) rep(x, W) {\n                char\
-    \ c = field(y, x);\n                if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n\
-    \                if (c < 'a' or c > 'z') continue;\n\n                if (c ==\
-    \ s) {\n                    start = Coordinate(y, x);\n                }\n   \
-    \             if (c == g or c == t) {\n                    goal = Coordinate(y,\
-    \ x);\n                }\n            }\n    }\n\n    long long to_index(Coordinate&\
-    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
-    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
-    \   long long dfs_all() {\n        rep(y, H) rep(x, W) {\n            Coordinate\
-    \ now(y, x);\n\n            if (seen(now)) continue;\n            if (field.is_obj(now))\
-    \ continue;\n\n            dfs(now);\n            ++group;\n        }\n\n    \
-    \    return group;\n    }\n\n    void dfs() {\n        assert(start.y != -1);\n\
-    \        dfs(start);\n    }\n\n    void dfs(Coordinate now) {\n        seen(now)\
-    \ = true;\n\n        rep(i, dirs.size()) {\n            Coordinate next = now\
-    \ + dirs[i];\n\n            if (field.is_out(next)) continue;\n            if\
-    \ (field.is_obj(next)) continue;\n            if (seen(next)) continue;\n\n  \
-    \          path.push_back(dirs[i].dir2char());\n            dfs(next);\n     \
-    \       path.push_back(dirs[(i + 2) % 4].dir2char());\n        }\n    }\n\n  \
-    \  vector<Coordinate> spiral_search() {\n        Coordinate now(0, 0);\n     \
-    \   ll idx = 0;\n        Coordinate dir = dirs[idx];\n        vector<Coordinate>\
-    \ ret;\n\n        rep(i, H * W) {\n            seen(now) = true;\n           \
-    \ ret.push_back(now);\n\n            // \u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\
-    \u304F\n\n            Coordinate next = now + dir;\n            if (field.is_out(next)\
-    \ or seen(next)) {\n                ++idx;\n                idx %= 4;\n      \
-    \          dir = dirs[idx];\n            }\n            now += dir;\n        }\n\
-    \        return ret;\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n\
-    \    }\n\n    bool can_reach(Coordinate to) {\n        return seen(to);\n    }\n\
-    \n    bool operator== (GridDFS &other) {\n        if (H != other.H or W != other.W)\
-    \ return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n\
-    \            if (field(y, x) != other.field(y, x)) return false;\n        }\n\n\
-    \        return true;\n    }\n\n    friend ostream& operator << (ostream &os,\
-    \ GridDFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n#line\
-    \ 6 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\n\nint main() {\n    ll H,\
-    \ W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n    grid.input();\n\n   \
-    \ grid.dfs();\n\n    cout << YesNo(grid.can_reach_goal()) << endl;\n\n    return\
-    \ 0;\n}\n"
+    \ {\n        group = 0;\n        seen.assign(H, W, false);\n        cc.assign(H,\
+    \ W, -1);\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n \
+    \       after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
+    \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
+    \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
+    \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
+    \                }\n                if (c == g or c == t) {\n                \
+    \    goal = Coordinate(y, x);\n                }\n            }\n    }\n\n   \
+    \ long long to_index(Coordinate& p) {\n        return p.y * W + p.x;\n    }\n\n\
+    \    Coordinate to_coordinate(long long index) {\n        return Coordinate(index\
+    \ / W, index % W);\n    }\n\n    long long dfs_all() {\n        rep(y, H) rep(x,\
+    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
+    \            if (field.is_obj(now)) continue;\n\n            dfs(now);\n     \
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    void dfs()\
+    \ {\n        assert(start.y != -1);\n        dfs(start);\n    }\n\n    void dfs(Coordinate\
+    \ now) {\n        seen(now) = true;\n        cc(now) = group;\n\n        rep(i,\
+    \ dirs.size()) {\n            Coordinate next = now + dirs[i];\n\n           \
+    \ if (field.is_out(next)) continue;\n            if (field.is_obj(next)) continue;\n\
+    \            if (seen(next)) continue;\n\n            path.push_back(dirs[i].dir2char());\n\
+    \            dfs(next);\n            path.push_back(dirs[(i + 2) % 4].dir2char());\n\
+    \        }\n    }\n\n    vector<Coordinate> spiral_search() {\n        Coordinate\
+    \ now(0, 0);\n        ll idx = 0;\n        Coordinate dir = dirs[idx];\n     \
+    \   vector<Coordinate> ret;\n\n        rep(i, H * W) {\n            seen(now)\
+    \ = true;\n            ret.push_back(now);\n\n            // \u51E6\u7406\u3092\
+    \u3053\u3053\u306B\u66F8\u304F\n\n            Coordinate next = now + dir;\n \
+    \           if (field.is_out(next) or seen(next)) {\n                ++idx;\n\
+    \                idx %= 4;\n                dir = dirs[idx];\n            }\n\
+    \            now += dir;\n        }\n        return ret;\n    }\n\n    bool can_reach_goal()\
+    \ {\n        return can_reach(goal);\n    }\n\n    bool can_reach(Coordinate to)\
+    \ {\n        return seen(to);\n    }\n\n    bool operator== (GridDFS &other) {\n\
+    \        if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
+    \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
+    \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, GridDFS& grid) {\n        return os << grid.field\
+    \ << endl;\n    }\n};\n#line 6 \"test/grid/grid-dfs/atcoder-atc001-a.test.cpp\"\
+    \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
+    \    grid.input();\n\n    grid.dfs();\n\n    cout << YesNo(grid.can_reach_goal())\
+    \ << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\
     \n// https://atcoder.jp/contests/atc001/submissions/52418686\n\n#include \"../../../grid/grid-dfs.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
@@ -472,7 +479,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 20:02:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-dfs/atcoder-atc001-a.test.cpp

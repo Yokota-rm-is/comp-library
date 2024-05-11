@@ -390,79 +390,83 @@ data:
     \   void assign(long long h, long long w, bool a) {\n        H = h;\n        W\
     \ = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
     \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
-    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(i, grid.H) {\n  \
-    \          os << grid[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(y, grid.H) {\n  \
+    \          rep(x, grid.W) {\n                os << (grid[y][x] ? \"true\" : \"\
+    false\") << \" \";\n            }\n        }\n        return os;\n    }\n};\n\n\
     struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char dot = '.';\n    char obj = '#';\n    char excl = '!';\n\n    Field(long\
-    \ long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>&\
-    \ A) : H(A.size()), W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t\
-    \ y, size_t x) {\n        assert(!is_out(y, x));\n        return vs[y][x];\n \
-    \   }\n\n    char& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
-    \        return vs[p.y][p.x];\n    }\n\n    bool is_dot(size_t y, size_t x) {\n\
-    \        assert(!is_out(y, x));\n        return vs[y][x] == dot;\n    }\n\n  \
-    \  bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n        return\
-    \ vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t x) {\n     \
-    \   assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\n    bool\
-    \ is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x]\
-    \ == obj;\n    }\n\n    bool is_excl(size_t y, size_t x) {\n        assert(!is_out(y,\
-    \ x));\n        return vs[y][x] == excl;\n    }\n\n    bool is_excl(const Coordinate&\
-    \ p) {\n        assert(!is_out(p));\n        return vs[p.y][p.x] == excl;\n  \
-    \  }\n\n    bool is_out(long long y, long long x) {\n        return y < 0 or y\
-    \ >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n\
-    \        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    string&\
-    \ operator[] (size_t i) {\n        return vs[i];\n    }\n\n    friend ostream&\
-    \ operator << (ostream &os, Field& field) {\n        rep(i, field.H) {\n     \
-    \       os << field[i] << endl;\n        }\n        return os;\n    }\n};\n\n\
-    struct GridUnionFind {\n    long long H, W;\n    Field field;\n    Grid<Coordinate>\
-    \ size;\n    Grid<Coordinate> par;\n    vector<Coordinate> dirs = {\n        Coordinate(0,\
-    \ 1),\n        Coordinate(1, 0),\n        Coordinate(0, -1),\n        Coordinate(-1,\
-    \ 0),\n        // Coordinate(1, 1),\n        // Coordinate(1, -1),\n        //\
-    \ Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\n    char s = 's';\n\
-    \    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n    char obj\
-    \ = field.obj;\n    char excl = field.excl;\n    Coordinate start = Coordinate(-1,\
-    \ -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 / 2;\n\n    GridUnionFind(long\
-    \ long n) : H(n), W(n), field(n, n) {\n        init();\n    };\n\n    GridUnionFind(long\
-    \ long h, long long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n\
-    \    GridUnionFind(vector<string> vs) : H(vs.size()), W(vs.front().size()), field(vs)\
-    \ {\n        init();\n        after_input();\n    };\n\n    void init() {\n  \
-    \      par.assign(H, W, {-1, -1});\n        size.assign(H, W, 1);\n\n        rep(y,\
-    \ H) rep(x, W) par(y, x) = {y, x};\n    }\n\n    void input() {\n        rep(y,\
-    \ H) cin >> field[y];\n        after_input();\n    }\n\n    void after_input()\
-    \ {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\n    \
-    \        char c = field(now);\n            if (c >= 'A' and c <= 'Z') c = c -\
-    \ 'A' + 'a';\n            if (c == s)  start = Coordinate(y, x);\n           \
-    \ if (c == g or c == t) goal = Coordinate(y, x);\n\n            if (field.is_obj(now))\
-    \ {\n                size(now) = 0;\n                par(now) = {-1, -1};\n  \
-    \              continue;\n            }\n\n            rep(i, dirs.size()) {\n\
-    \                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
-    \ continue;\n                if (field.is_obj(next)) continue;\n\n           \
-    \     unite(now, next);\n            }\n        }\n    }\n\n    long long to_index(Coordinate&\
-    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
-    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
-    \   Coordinate find(Coordinate x) {\n        if (par(x) == x) return x;\n\n  \
-    \      Coordinate rx = find(par(x));\n        return par(x) = rx;\n    }\n\n \
-    \   // x\u3068y\u3092\u9023\u7D50\n    void unite(Coordinate x, Coordinate y)\
-    \ {\n        Coordinate rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate\
-    \ ry = find(y); //y\u306E\u6839\u3092ry\n\n        if (rx != ry) {\n         \
-    \   // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n            // ry\u306E\
-    \u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\
-    \u5165\u308C\u66FF\u3048\u308B\n            if (size(rx) < size(ry)) {\n     \
-    \           swap(rx, ry);\n            }\n\n            size(rx) += size(ry);\
-    \ // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n            par(ry) = rx; //x\u3068\
-    y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\
-    \u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\
-    \n        }\n    }\n\n    bool is_same(Coordinate x, Coordinate y) { \n      \
-    \  return find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n        assert(start\
-    \ != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n        return find(start)\
-    \ == find(goal);\n    }\n\n    bool operator== (GridUnionFind &other) {\n    \
-    \    if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
-    \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
-    \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
-    \ operator << (ostream &os, GridUnionFind& grid) {\n        return os << grid.field\
-    \ << endl;\n    }\n};\n#line 6 \"test/grid/grid-unionfind/atcoder-atc001-a.test.cpp\"\
-    \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridUnionFind grid(H,\
-    \ W);\n    grid.input();\n\n    cout << YesNo(grid.can_reach_goal()) << endl;\n\
-    \n    return 0;\n}\n"
+    \   char dot = '.';\n    char hash = '#';\n    char obj = hash;\n    char excl\
+    \ = '!';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.'))\
+    \ {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()), vs(A) {}\n\
+    \n    char& operator() (size_t y, size_t x) {\n        assert(!is_out(y, x));\n\
+    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
+    \ {\n        assert(!is_out(p));\n        return vs[p.y][p.x];\n    }\n\n    bool\
+    \ is_dot(size_t y, size_t x) {\n        assert(!is_out(y, x));\n        return\
+    \ vs[y][x] == dot;\n    }\n\n    bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_hash(size_t y, size_t\
+    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == hash;\n   \
+    \ }\n\n    bool is_hash(const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t\
+    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\
+    \n    bool is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n      \
+    \  return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t y, size_t x)\
+    \ {\n        assert(!is_out(y, x));\n        return vs[y][x] == excl;\n    }\n\
+    \n    bool is_excl(const Coordinate& p) {\n        assert(!is_out(p));\n     \
+    \   return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long long y, long long\
+    \ x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool\
+    \ is_out(const Coordinate& p) {\n        return p.y < 0 or p.y >= H or p.x < 0\
+    \ or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n        return vs[i];\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, Field& field) {\n    \
+    \    rep(i, field.H) {\n            os << field[i] << endl;\n        }\n     \
+    \   return os;\n    }\n};\n\nstruct GridUnionFind {\n    long long H, W;\n   \
+    \ Field field;\n    Grid<Coordinate> size;\n    Grid<Coordinate> par;\n    vector<Coordinate>\
+    \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n\
+    \    char hash = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n\
+    \    Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long\
+    \ long inf = INF64 / 2;\n\n    GridUnionFind(long long n) : H(n), W(n), field(n,\
+    \ n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long long w)\
+    \ : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
+    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
+    \     after_input();\n    };\n\n    void init() {\n        par.assign(H, W, {-1,\
+    \ -1});\n        size.assign(H, W, 1);\n\n        rep(y, H) rep(x, W) par(y, x)\
+    \ = {y, x};\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n\
+    \        after_input();\n    }\n\n    void after_input() {\n        rep(y, H)\
+    \ rep(x, W) {\n            Coordinate now(y, x);\n\n            char c = field(now);\n\
+    \            if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n            if (c\
+    \ == s)  start = Coordinate(y, x);\n            if (c == g or c == t) goal = Coordinate(y,\
+    \ x);\n\n            if (field.is_obj(now)) {\n                size(now) = 0;\n\
+    \                par(now) = {-1, -1};\n                continue;\n           \
+    \ }\n\n            rep(i, dirs.size()) {\n                Coordinate next = now\
+    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
+    \      if (field.is_obj(next)) continue;\n\n                unite(now, next);\n\
+    \            }\n        }\n    }\n\n    long long to_index(Coordinate& p) {\n\
+    \        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long\
+    \ index) {\n        return Coordinate(index / W, index % W);\n    }\n\n    Coordinate\
+    \ find(Coordinate x) {\n        if (par(x) == x) return x;\n\n        Coordinate\
+    \ rx = find(par(x));\n        return par(x) = rx;\n    }\n\n    // x\u3068y\u3092\
+    \u9023\u7D50\n    void unite(Coordinate x, Coordinate y) {\n        Coordinate\
+    \ rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate ry = find(y); //y\u306E\
+    \u6839\u3092ry\n\n        if (rx != ry) {\n            // -par\u306F\u30B5\u30A4\
+    \u30BA\u3092\u8FD4\u3059\n            // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\
+    \u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\
+    \n            if (size(rx) < size(ry)) {\n                swap(rx, ry);\n    \
+    \        }\n\n            size(rx) += size(ry); // rx\u306E\u30B5\u30A4\u30BA\u3092\
+    \u5909\u66F4\n            par(ry) = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
+    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
+    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        }\n    }\n\n    bool\
+    \ is_same(Coordinate x, Coordinate y) { \n        return find(x) == find(y);\n\
+    \    }\n\n    bool can_reach_goal() {\n        assert(start != Coordinate(-1,\
+    \ -1) and goal != Coordinate(-1, -1));\n        return find(start) == find(goal);\n\
+    \    }\n\n    bool operator== (GridUnionFind &other) {\n        if (H != other.H\
+    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
+    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
+    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
+    \ &os, GridUnionFind& grid) {\n        return os << grid.field << endl;\n    }\n\
+    };\n#line 6 \"test/grid/grid-unionfind/atcoder-atc001-a.test.cpp\"\n\nint main()\
+    \ {\n    ll H, W;\n    cin >> H >> W;\n\n    GridUnionFind grid(H, W);\n    grid.input();\n\
+    \n    cout << YesNo(grid.can_reach_goal()) << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/atc001/tasks/dfs_a\"\
     \n// https://atcoder.jp/contests/atc001/submissions/52920327\n\n#include \"../../../grid/grid-unionfind.cpp\"\
     \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridUnionFind grid(H,\
@@ -474,7 +478,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 20:02:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
