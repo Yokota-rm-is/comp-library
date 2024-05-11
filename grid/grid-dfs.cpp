@@ -51,6 +51,12 @@ struct Coordinate {
         return dir.dir2char();
     }
 
+    Coordinate& operator= (pair<long long, long long>& other) {
+        y = other.first;
+        x = other.second;
+        return *this;
+    }
+
     Coordinate operator- () {
         return Coordinate(y, x) *= -1;
     }
@@ -235,8 +241,10 @@ struct Grid<bool> {
     } 
 
     friend ostream& operator << (ostream &os, Grid<bool>& grid) {
-        rep(i, grid.H) {
-            os << grid[i] << endl;
+        rep(y, grid.H) {
+            rep(x, grid.W) {
+                os << (grid[y][x] ? "true" : "false") << " ";
+            }
         }
         return os;
     }
@@ -247,7 +255,8 @@ struct Field {
     long long W;
     vector<string> vs;
     char dot = '.';
-    char obj = '#';
+    char hash = '#';
+    char obj = hash;
     char excl = '!';
 
     Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}
@@ -269,6 +278,16 @@ struct Field {
     }
 
     bool is_dot(const Coordinate& p) {
+        assert(!is_out(p));
+        return vs[p.y][p.x] == dot;
+    }
+
+    bool is_hash(size_t y, size_t x) {
+        assert(!is_out(y, x));
+        return vs[y][x] == hash;
+    }
+
+    bool is_hash(const Coordinate& p) {
         assert(!is_out(p));
         return vs[p.y][p.x] == dot;
     }
@@ -317,6 +336,7 @@ struct GridDFS {
     long long H, W;
     Field field;
     Grid<bool> seen;
+    Grid<long long> cc;
     vector<Coordinate> dirs = {
         Coordinate(0, 1),
         Coordinate(1, 0),
@@ -333,6 +353,7 @@ struct GridDFS {
     char g = 'g';
     char t = 't';
     char dot = field.dot;
+    char hash = field.hash;
     char obj = field.obj;
     char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
@@ -355,6 +376,7 @@ struct GridDFS {
     void init() {
         group = 0;
         seen.assign(H, W, false);
+        cc.assign(H, W, -1);
     }
 
     void input() {
@@ -406,6 +428,7 @@ struct GridDFS {
 
     void dfs(Coordinate now) {
         seen(now) = true;
+        cc(now) = group;
 
         rep(i, dirs.size()) {
             Coordinate next = now + dirs[i];

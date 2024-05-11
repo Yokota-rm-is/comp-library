@@ -51,6 +51,12 @@ struct Coordinate {
         return dir.dir2char();
     }
 
+    Coordinate& operator= (pair<long long, long long>& other) {
+        y = other.first;
+        x = other.second;
+        return *this;
+    }
+
     Coordinate operator- () {
         return Coordinate(y, x) *= -1;
     }
@@ -235,8 +241,10 @@ struct Grid<bool> {
     } 
 
     friend ostream& operator << (ostream &os, Grid<bool>& grid) {
-        rep(i, grid.H) {
-            os << grid[i] << endl;
+        rep(y, grid.H) {
+            rep(x, grid.W) {
+                os << (grid[y][x] ? "true" : "false") << " ";
+            }
         }
         return os;
     }
@@ -247,7 +255,8 @@ struct Field {
     long long W;
     vector<string> vs;
     char dot = '.';
-    char obj = '#';
+    char hash = '#';
+    char obj = hash;
     char excl = '!';
 
     Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}
@@ -269,6 +278,16 @@ struct Field {
     }
 
     bool is_dot(const Coordinate& p) {
+        assert(!is_out(p));
+        return vs[p.y][p.x] == dot;
+    }
+
+    bool is_hash(size_t y, size_t x) {
+        assert(!is_out(y, x));
+        return vs[y][x] == hash;
+    }
+
+    bool is_hash(const Coordinate& p) {
         assert(!is_out(p));
         return vs[p.y][p.x] == dot;
     }
@@ -318,6 +337,7 @@ struct GridDijkstra {
     Field field;
     Grid<bool> done;
     Grid<long long> cost;
+    Grid<long long> cc;
     Grid<Coordinate> prev;
     vector<Coordinate> dirs = {
         Coordinate(0, 1),
@@ -334,6 +354,7 @@ struct GridDijkstra {
     char g = 'g';
     char t = 't';
     char dot = field.dot;
+    char hash = field.hash;
     char obj = field.obj;
     char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
@@ -358,6 +379,7 @@ struct GridDijkstra {
         done.assign(H, W, false);
         cost.assign(H, W, inf);
         prev.assign(H, W, Coordinate(-1, -1));
+        cc.assign(H, W, -1);
     }
 
     void input() {
@@ -404,6 +426,7 @@ struct GridDijkstra {
             now = p.second;
             done(now) = true;
             cost(now) = p.first;
+            cc(now) = group;
 
             // v から辿れる頂点をすべて調べる
             rep(i, dirs.size()) {

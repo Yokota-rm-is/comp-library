@@ -51,6 +51,12 @@ struct Coordinate {
         return dir.dir2char();
     }
 
+    Coordinate& operator= (pair<long long, long long>& other) {
+        y = other.first;
+        x = other.second;
+        return *this;
+    }
+
     Coordinate operator- () {
         return Coordinate(y, x) *= -1;
     }
@@ -235,8 +241,10 @@ struct Grid<bool> {
     } 
 
     friend ostream& operator << (ostream &os, Grid<bool>& grid) {
-        rep(i, grid.H) {
-            os << grid[i] << endl;
+        rep(y, grid.H) {
+            rep(x, grid.W) {
+                os << (grid[y][x] ? "true" : "false") << " ";
+            }
         }
         return os;
     }
@@ -247,7 +255,8 @@ struct Field {
     long long W;
     vector<string> vs;
     char dot = '.';
-    char obj = '#';
+    char hash = '#';
+    char obj = hash;
     char excl = '!';
 
     Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.')) {}
@@ -269,6 +278,16 @@ struct Field {
     }
 
     bool is_dot(const Coordinate& p) {
+        assert(!is_out(p));
+        return vs[p.y][p.x] == dot;
+    }
+
+    bool is_hash(size_t y, size_t x) {
+        assert(!is_out(y, x));
+        return vs[y][x] == hash;
+    }
+
+    bool is_hash(const Coordinate& p) {
         assert(!is_out(p));
         return vs[p.y][p.x] == dot;
     }
@@ -318,6 +337,7 @@ struct GridBFS {
     Field field;
     Grid<bool> seen;
     Grid<long long> cost;
+    Grid<long long> cc;
     Grid<Coordinate> prev;
     vector<Coordinate> dirs = {
         Coordinate(0, 1),
@@ -334,6 +354,7 @@ struct GridBFS {
     char g = 'g';
     char t = 't';
     char dot = field.dot;
+    char hash = field.hash;
     char obj = field.obj;
     char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
@@ -358,6 +379,7 @@ struct GridBFS {
         seen.assign(H, W, false);
         cost.assign(H, W, inf);
         prev.assign(H, W, Coordinate(-1, -1));
+        cc.assign(H, W, -1);
     }
 
     void input() {
@@ -418,6 +440,7 @@ struct GridBFS {
         // 初期条件 (頂点 start を初期ノードとする)
         seen(now) = true;
         cost(now) = 0;
+        cc(now) = group;
 
         que.push(now); // noq を橙色頂点にする
 
@@ -436,6 +459,7 @@ struct GridBFS {
 
                 seen(next) = true;
                 cost(next) = cost(now) + 1;
+                cc(next) = group;
                 prev(next) = now;
                 que.push(next);
             }
