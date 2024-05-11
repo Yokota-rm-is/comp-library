@@ -24,4 +24,9 @@ struct CumulativeSum : vector<T> {
         if (l == 0) return (*this)[r - 1];
         else return (*this)[r - 1] - (*this)[l - 1];
     }
+
+    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {
+        rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? " " : "");
+        return os;
+    }
 };
