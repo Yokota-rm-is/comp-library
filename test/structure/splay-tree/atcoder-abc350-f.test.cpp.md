@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/dualsegmenttree.cpp
-    title: structure/dualsegmenttree.cpp
+    path: structure/dual-segment-tree.cpp
+    title: structure/dual-segment-tree.cpp
   - icon: ':heavy_check_mark:'
     path: structure/splay-tree.cpp
     title: structure/splay-tree.cpp
@@ -498,7 +498,7 @@ data:
     \        all_apply(c, f);\n        splay(c);\n    }\n\n    T prod(long long l,\
     \ long long r) {\n        return between(l, r)->prod;\n    }\n\n    T get(long\
     \ long k) {\n        return kth_element(k)->value;\n    }\n};\n#line 5 \"test/structure/splay-tree/atcoder-abc350-f.test.cpp\"\
-    \n\nnamespace seg {\n#line 3 \"structure/dualsegmenttree.cpp\"\n\ntemplate<typename\
+    \n\nnamespace seg {\n#line 3 \"structure/dual-segment-tree.cpp\"\n\ntemplate<typename\
     \ T>\nstruct Node {\n    T value;\n    long long time;\n\n    Node(T v, long long\
     \ t = -1) : value(v), time(t) {};\n\n    bool operator< (const Node &other) const\
     \ {\n        return value < other.value;\n    }\n\n    operator T() const {\n\
@@ -605,30 +605,31 @@ data:
     \ 0;\n} \n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc350/tasks/abc350_f\"\
     \n\n#include \"../../../structure/splay-tree.cpp\"\n\nnamespace seg {\n    #include\
-    \ \"../../../structure/dualsegmenttree.cpp\"\n}\n\nint main() {\n    string S;\n\
-    \    cin >> S;\n\n    vector<char> T;\n    fore(c, S) T.push_back(c);\n\n    stack<ll>\
-    \ st;\n    vector<pll> A;\n    rep(i, S.size()) {\n        char c = S[i];\n  \
-    \      if (c != '(' and c != ')') {\n\n        }\n        else if (c == '(') st.push(i);\n\
-    \        else {\n            ll l = st.top();\n            st.pop();\n       \
-    \     ll r = i;\n            A.emplace_back(l, r + 1);\n        }\n    }\n\n \
-    \   seg::RangeAddPointGet<ll, ll> tree(S.size(), 0);\n    fore(p, A) {\n     \
-    \   auto [l, r] = p;\n        tree.apply(l, r, 1);\n    }\n\n    rep(i, S.size())\
-    \ {\n        char c = S[i];\n        if (c == '(' or c == ')') continue;\n   \
-    \     if (tree.get(i) % 2 == 0) S[i] = c;\n        else {\n            if (is_upper(c))\
-    \ S[i] = to_lower(c);\n            else S[i] = to_upper(c);\n        }\n    }\n\
-    \n    SplayTreeByIdx<char, ll, NoMapping, NoOperation> splay;\n    rep(i, S.size())\
-    \ splay.insert_at(i, S[i]);\n\n    fore(p, A) {\n        auto [l, r] = p;\n  \
-    \      splay.reverse(l, r);\n    }\n\n    string ans;\n    rep(i, S.size()) {\n\
-    \        char c = splay.get(i);\n        if (c == '(' or c == ')') continue;\n\
-    \n        ans += c;\n    }\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
+    \ \"../../../structure/dual-segment-tree.cpp\"\n}\n\nint main() {\n    string\
+    \ S;\n    cin >> S;\n\n    vector<char> T;\n    fore(c, S) T.push_back(c);\n\n\
+    \    stack<ll> st;\n    vector<pll> A;\n    rep(i, S.size()) {\n        char c\
+    \ = S[i];\n        if (c != '(' and c != ')') {\n\n        }\n        else if\
+    \ (c == '(') st.push(i);\n        else {\n            ll l = st.top();\n     \
+    \       st.pop();\n            ll r = i;\n            A.emplace_back(l, r + 1);\n\
+    \        }\n    }\n\n    seg::RangeAddPointGet<ll, ll> tree(S.size(), 0);\n  \
+    \  fore(p, A) {\n        auto [l, r] = p;\n        tree.apply(l, r, 1);\n    }\n\
+    \n    rep(i, S.size()) {\n        char c = S[i];\n        if (c == '(' or c ==\
+    \ ')') continue;\n        if (tree.get(i) % 2 == 0) S[i] = c;\n        else {\n\
+    \            if (is_upper(c)) S[i] = to_lower(c);\n            else S[i] = to_upper(c);\n\
+    \        }\n    }\n\n    SplayTreeByIdx<char, ll, NoMapping, NoOperation> splay;\n\
+    \    rep(i, S.size()) splay.insert_at(i, S[i]);\n\n    fore(p, A) {\n        auto\
+    \ [l, r] = p;\n        splay.reverse(l, r);\n    }\n\n    string ans;\n    rep(i,\
+    \ S.size()) {\n        char c = splay.get(i);\n        if (c == '(' or c == ')')\
+    \ continue;\n\n        ans += c;\n    }\n\n    cout << ans << endl;\n\n    return\
+    \ 0;\n} \n"
   dependsOn:
   - structure/splay-tree.cpp
   - base.cpp
-  - structure/dualsegmenttree.cpp
+  - structure/dual-segment-tree.cpp
   isVerificationFile: true
   path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-11 16:13:14+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/splay-tree/atcoder-abc350-f.test.cpp

@@ -4,23 +4,22 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/dual-segment-tree.cpp
+    title: structure/dual-segment-tree.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-    title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-    title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
-    title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_D&
+    links:
+    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_D&
+  bundledCode: "#line 1 \"test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp\"\n\
+    #define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_D&\"\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -314,9 +313,9 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"structure/dualsegmenttree.cpp\"\n\ntemplate<typename T>\n\
-    struct Node {\n    T value;\n    long long time;\n\n    Node(T v, long long t\
-    \ = -1) : value(v), time(t) {};\n\n    bool operator< (const Node &other) const\
+    \ }\n#endif\n#line 3 \"structure/dual-segment-tree.cpp\"\n\ntemplate<typename\
+    \ T>\nstruct Node {\n    T value;\n    long long time;\n\n    Node(T v, long long\
+    \ t = -1) : value(v), time(t) {};\n\n    bool operator< (const Node &other) const\
     \ {\n        return value < other.value;\n    }\n\n    operator T() const {\n\
     \        return value;\n    }\n    \n    friend ostream& operator << (ostream\
     \ &os, const Node<T> &node) {\n        return os << node.value;\n    }\n};\n\n\
@@ -401,110 +400,35 @@ data:
     \ S = long long, typename T = long long> using RangeSetPointGet = DualSegmentTree<S,\
     \ T, Set>;\ntemplate<typename S = long long, typename T = long long> using RangeChminPointGet\
     \ = DualSegmentTree<S, T, Chmin>;\ntemplate<typename S = long long, typename T\
-    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct Node\
-    \ {\n    T value;\n    long long time;\n\n    Node(T v, long long t = -1) : value(v),\
-    \ time(t) {};\n\n    bool operator< (const Node &other) const {\n        return\
-    \ value < other.value;\n    }\n\n    operator T() const {\n        return value;\n\
-    \    }\n    \n    friend ostream& operator << (ostream &os, const Node<T> &node)\
-    \ {\n        return os << node.value;\n    }\n};\n\ntemplate<typename S, typename\
-    \ T>\nstruct Mapping {\n    using F = Node<T>;\n\n    Mapping() {};\n\n    virtual\
-    \ T id() = 0;\n\n    void operator() (S &x, const F &f) {\n        if (f == id())\
-    \ return;\n\n        map(x, f);\n    }\n\n    void composition(F &f, const F &s)\
-    \ {\n        if (f == id()) {\n            f = s;\n            return;\n     \
-    \   };\n        if (s == id()) return;\n\n        com(f, s);\n    }\n\n    virtual\
-    \ void map(S &x, const F &f) = 0;\n    virtual void com(F &f, const F &s) = 0;\n\
-    };\n\ntemplate<typename S, typename T>\nstruct Add: Mapping<S, T> {\n    using\
-    \ F = Node<T>;\n\n    Add(): _id(T(0)) {};\n\n    T id() override {\n        return\
-    \ _id;\n    }\n\n    void map(S &x, const F &f) override {\n        x += f.value;\n\
-    \    }\n\n    void com(F &f, const F &s) override {\n        f.value += s.value;\n\
-    \    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct\
-    \ Multiply: Mapping<S, T> {\n    using F = Node<T>;\n\n    Multiply(): _id(T(1))\
-    \ {};\n\n    T id() override {\n        return _id;\n    }\n\n    void map(S &x,\
-    \ const F &f) override {\n        x *= f.value;\n    }\n\n    void com(F &f, const\
-    \ F &s) override {\n        f.value *= s.value;\n    }\n\nprivate:\n    T _id;\n\
-    };\n\ntemplate<typename S, typename T>\nstruct Set: Mapping<S, T> {\n    using\
-    \ F = Node<T>;\n\n    Set(): _id(numeric_limits<T>::min()) {};\n\n    T id() override\
-    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
-    \        x = S(f.value);\n    }\n\n    void com(F &f, const F &s) override {\n\
-    \        if (f.time < s.time) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
-    \ S>\nstruct Set<S, string>: Mapping<S, string> {\n    using T = string;\n   \
-    \ using F = Node<T>;\n\n    Set(): _id(T()) {};\n\n    T id() override {\n   \
-    \     return _id;\n    }\n\n    void map(S &x, const F &f) override {\n      \
-    \  x = T(f.value);\n    }\n\n    void com(F &f, const F &s) override {\n     \
-    \   if (f.time < s.time) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename\
-    \ S, typename T>\nstruct Chmin: Mapping<S, T> {\n    using F = Node<T>;\n\n  \
-    \  Chmin(): _id(numeric_limits<T>::max()) {};\n\n    T id() override {\n     \
-    \   return _id;\n    }\n\n    void map(S &x, const F &f) override {\n        if\
-    \ (x > T(f.value)) x = T(f.value);\n    }\n\n    void com(F &f, const F &s) override\
-    \ {\n        if (f.value > s.value) f = s;\n    }\n\nprivate:\n    T _id;\n};\n\
-    \ntemplate<typename S, typename T>\nstruct Chmax: Mapping<S, T> {\n    using F\
-    \ = Node<T>;\n\n    Chmax(): _id(numeric_limits<T>::min()) {};\n\n    T id() override\
-    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
-    \        if (x < T(f.value)) x = T(f.value);\n    }\n\n    void com(F &f, const\
-    \ F &s) override {\n        if (f.value < s.value) f = s;\n    }\n\nprivate:\n\
-    \    T _id;\n};\n\ntemplate<typename S, typename T>\nstruct Flip: Mapping<S, T>\
-    \ {\n    using F = Node<T>;\n\n    Flip(): _id(T()) {};\n\n    T id() override\
-    \ {\n        return _id;\n    }\n\n    void map(S &x, const F &f) override {\n\
-    \        if (f.value) x = ~x;\n    }\n\n    void com(F &f, const F &s) override\
-    \ {\n        f = s;\n    }\n\nprivate:\n    T _id;\n};\n\ntemplate<typename S,\
-    \ \n    typename T,\n    template<class, class> class _mapping>\nstruct DualSegmentTree\
-    \ {\n    using F = Node<T>;\n\n    long long N, _N, height;\n\n    vector<S> v;\n\
-    \    vector<F> node;\n    _mapping<S, T> mapping;\n\n    long long time;\n\n \
-    \   DualSegmentTree(ll n) : _N(n), mapping(), time(0) {\n        v(n, mapping.id());\n\
-    \        init();\n    }\n\n    DualSegmentTree(ll n, S a) : _N(n), v(n, a), mapping(),\
-    \ time(0) {\n        init();\n    }\n\n    DualSegmentTree(vector<S> &A) : _N(v.size()),\
-    \ v(A), mapping(), time(0) {\n        init();\n    }\n\n    void init() {\n  \
-    \      _N = v.size();\n        height = 1;\n        N = 1;\n\n        while (N\
-    \ < _N) {\n            N *= 2;\n            height++;\n        }\n        \n \
-    \       node.resize(N * 2, F(mapping.id()));\n    }\n\n    // p\u756A\u76EE\u306E\
-    \u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F\
-    0-indexed\n    void apply(long long p, T f) {\n        apply_with_time(p, f, time++);\n\
-    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
-    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply_with_time(long\
-    \ long p, T f, long long t) {\n        assert(0 <= p and p < _N);\n\n        long\
-    \ long k = p + N;\n        mapping.composition(node[k], F(f, t));\n    }\n\n \
-    \   // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\
-    \u3057\u3066\uFF0Cf\u3067mapping\n    // l, r\u3068\u3082\u306B0-indexed\n   \
-    \ void apply(long long l, long long r, T f) {\n        apply_with_time(l, r, f,\
-    \ time++);\n    }\n\n    void apply_with_time(long long l, long long r, T f, long\
-    \ long t) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n\
-    \        r += N;\n\n        while (l < r) {\n            if (l & 1) mapping.composition(node[l++],\
-    \ F(f, t));\n            if (r & 1) mapping.composition(node[--r], F(f, t));\n\
-    \            l >>= 1;\n            r >>= 1;\n        }\n    }\n\n    S get(long\
-    \ long p) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
-    \        F f(mapping.id());\n\n        repd(i, height) mapping.composition(f,\
-    \ node[k >> i]);\n\n        S ret = v[p];\n        mapping(ret, f);\n        return\
-    \ ret;\n    }\n\n    friend ostream& operator << (ostream& os, DualSegmentTree&\
-    \ seg) {\n        os << \"v\" << endl;\n        rep(i, seg._N) {\n           \
-    \ os << seg.v[i] << \" \";\n        }\n        os << endl;\n\n        os << \"\
-    node\" << endl;\n        ll h = 1;\n        rep(i, 1, seg.node.size()) {\n   \
-    \         if (seg.node[i].value == seg.mapping.id()) os << \"id \";\n        \
-    \    else os << seg.node[i] << \" \";\n\n            if (i == (1 << h) - 1) {\n\
-    \                os << endl;\n                h++;\n            }\n        }\n\
-    \        os << endl;\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
-    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
-    \        return os;\n    }\n};\n\ntemplate<typename S = long long, typename T\
-    \ = long long> using RangeAddPointGet = DualSegmentTree<S, T, Add>;\ntemplate<typename\
-    \ S = long long, typename T = long long> using RangeSetPointGet = DualSegmentTree<S,\
-    \ T, Set>;\ntemplate<typename S = long long, typename T = long long> using RangeChminPointGet\
-    \ = DualSegmentTree<S, T, Chmin>;\ntemplate<typename S = long long, typename T\
-    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;"
+    \ = long long> using RangeChmaxPointGet = DualSegmentTree<S, T, Chmax>;\n#line\
+    \ 4 \"test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp\"\n\nint main() {\n\
+    \    ll n, q;\n    cin >> n >> q;\n\n    RangeSetPointGet<ll, ll> tree(n, (1ll\
+    \ << 31) - 1);\n    while (q--) {\n        ll t;\n        cin >> t;\n\n      \
+    \  if (t == 0) {\n            ll s, t, x;\n            cin >> s >> t >> x;\n \
+    \           tree.apply(s, t + 1, x);\n        }\n        else {\n            ll\
+    \ i;\n            cin >> i;\n            cout << tree.get(i) << endl;\n      \
+    \  }\n    }\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_D&\"\
+    \n\n#include \"../../../structure/dual-segment-tree.cpp\"\n\nint main() {\n  \
+    \  ll n, q;\n    cin >> n >> q;\n\n    RangeSetPointGet<ll, ll> tree(n, (1ll <<\
+    \ 31) - 1);\n    while (q--) {\n        ll t;\n        cin >> t;\n\n        if\
+    \ (t == 0) {\n            ll s, t, x;\n            cin >> s >> t >> x;\n     \
+    \       tree.apply(s, t + 1, x);\n        }\n        else {\n            ll i;\n\
+    \            cin >> i;\n            cout << tree.get(i) << endl;\n        }\n\
+    \    }\n\n    return 0;\n}"
   dependsOn:
+  - structure/dual-segment-tree.cpp
   - base.cpp
-  isVerificationFile: false
-  path: structure/dualsegmenttree.cpp
+  isVerificationFile: true
+  path: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-documentation_of: structure/dualsegmenttree.cpp
+  timestamp: '2024-05-11 16:13:14+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
 layout: document
 redirect_from:
-- /library/structure/dualsegmenttree.cpp
-- /library/structure/dualsegmenttree.cpp.html
-title: structure/dualsegmenttree.cpp
+- /verify/test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+- /verify/test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp.html
+title: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
 ---

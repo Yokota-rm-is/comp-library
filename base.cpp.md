@@ -90,8 +90,8 @@ data:
     path: structure/bit.cpp
     title: structure/bit.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/dualsegmenttree.cpp
-    title: structure/dualsegmenttree.cpp
+    path: structure/dual-segment-tree.cpp
+    title: structure/dual-segment-tree.cpp
   - icon: ':warning:'
     path: structure/empty-sqrt-decomposition.cpp
     title: structure/empty-sqrt-decomposition.cpp
@@ -99,11 +99,11 @@ data:
     path: structure/kruskal.cpp
     title: structure/kruskal.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/lazysegmenttree.cpp
-    title: structure/lazysegmenttree.cpp
+    path: structure/lazy-segment-tree.cpp
+    title: structure/lazy-segment-tree.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/segmenttree.cpp
-    title: structure/segmenttree.cpp
+    path: structure/segment-tree.cpp
+    title: structure/segment-tree.cpp
   - icon: ':heavy_check_mark:'
     path: structure/splay-tree.cpp
     title: structure/splay-tree.cpp
@@ -310,44 +310,44 @@ data:
     path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
     title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-    title: test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
+    path: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+    title: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
-    title: test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+    path: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+    title: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/kruskal/aoj-grl-2-a.test.cpp
     title: test/structure/kruskal/aoj-grl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-h.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-h.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/lazysegmenttree/aoj-dsl-2-i.test.cpp
-    title: test/structure/lazysegmenttree/aoj-dsl-2-i.test.cpp
+    path: test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+    title: test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
-    title: test/structure/segmenttree/aoj-dsl-2-a.test.cpp
+    path: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+    title: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
-    title: test/structure/segmenttree/aoj-dsl-2-b.test.cpp
+    path: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+    title: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
     title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
@@ -1008,17 +1008,17 @@ data:
   - mystd/mytuple.cpp
   - mystd/mymultiset.cpp
   - mystd/mylist.cpp
-  - structure/lazysegmenttree.cpp
   - structure/bit.cpp
+  - structure/segment-tree.cpp
   - structure/unionfind.cpp
-  - structure/dualsegmenttree.cpp
   - structure/splay-tree.cpp
-  - structure/segmenttree.cpp
   - structure/empty-sqrt-decomposition.cpp
   - structure/weighted-unionfind.cpp
   - structure/sqrt-decomposition.cpp
   - structure/undo-unionfind.cpp
   - structure/kruskal.cpp
+  - structure/dual-segment-tree.cpp
+  - structure/lazy-segment-tree.cpp
   - search/memoization.cpp
   - search/bit-zentansaku.cpp
   - search/trit-zentansaku.cpp
@@ -1053,8 +1053,10 @@ data:
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
   - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
-  - test/structure/dualsegmenttree/aoj-dsl-2-d.test.cpp
-  - test/structure/dualsegmenttree/aoj-dsl-2-e.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
@@ -1066,6 +1068,14 @@ data:
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
   - test/structure/bit/atcoder-abc340-e.test.cpp
   - test/structure/bit/aoj-dsl-2-g.test.cpp
   - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
@@ -1075,16 +1085,6 @@ data:
   - test/structure/bit/aoj-alds1-5-d.test.cpp
   - test/structure/bit/atcoder-arc033-c.test.cpp
   - test/structure/kruskal/aoj-grl-2-a.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-g.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-f.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-h.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-b.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-e.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazysegmenttree/aoj-dsl-2-i.test.cpp
-  - test/structure/segmenttree/aoj-dsl-2-b.test.cpp
-  - test/structure/segmenttree/aoj-dsl-2-a.test.cpp
   - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
   - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
   - test/search/memoization/atcoder-abc275-d.test.cpp
