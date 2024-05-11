@@ -322,13 +322,14 @@ data:
     \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
     \ unite(long long x, long long y) {\n        long long rx = find(x); //x\u306E\
     \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n  \
-    \      cc_edge[rx].insert(edge_index++);\n\n        // \u7D50\u5408\u6642\u306E\
-    \u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\u304F\n\n        if (rx == ry) return\
-    \ false; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\u4F55\u3082\u3057\
-    \u306A\u3044\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n  \
-    \      // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
-    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry])\
-    \ {\n            swap(rx, ry);\n        }\n\n        par[rx] += par[ry]; // rx\u306E\
+    \      // \u7D50\u5408\u6642\u306E\u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\u304F\
+    \n\n        if (rx == ry) {\n            cc_edge[rx].insert(edge_index++);\n \
+    \           return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\
+    \u4F55\u3082\u3057\u306A\u3044\n        } \n\n        // -par\u306F\u30B5\u30A4\
+    \u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\
+    \u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n\
+    \        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n        }\n\n\
+    \        cc_edge[rx].insert(edge_index++);\n\n        par[rx] += par[ry]; // rx\u306E\
     \u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\
     \u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\
     \uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
@@ -365,13 +366,14 @@ data:
     \     return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
     \ unite(long long x, long long y) {\n        long long rx = find(x); //x\u306E\
     \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n  \
-    \      cc_edge[rx].insert(edge_index++);\n\n        // \u7D50\u5408\u6642\u306E\
-    \u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\u304F\n\n        if (rx == ry) return\
-    \ false; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\u4F55\u3082\u3057\
-    \u306A\u3044\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n  \
-    \      // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
-    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry])\
-    \ {\n            swap(rx, ry);\n        }\n\n        par[rx] += par[ry]; // rx\u306E\
+    \      // \u7D50\u5408\u6642\u306E\u51E6\u7406\u3092\u3053\u3053\u306B\u66F8\u304F\
+    \n\n        if (rx == ry) {\n            cc_edge[rx].insert(edge_index++);\n \
+    \           return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\
+    \u4F55\u3082\u3057\u306A\u3044\n        } \n\n        // -par\u306F\u30B5\u30A4\
+    \u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\
+    \u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n\
+    \        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n        }\n\n\
+    \        cc_edge[rx].insert(edge_index++);\n\n        par[rx] += par[ry]; // rx\u306E\
     \u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\
     \u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\
     \uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
@@ -399,7 +401,7 @@ data:
   isVerificationFile: false
   path: structure/unionfind.cpp
   requiredBy: []
-  timestamp: '2024-05-11 20:02:35+09:00'
+  timestamp: '2024-05-11 20:37:51+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/unionfind/aoj-dsl-1-a.test.cpp
