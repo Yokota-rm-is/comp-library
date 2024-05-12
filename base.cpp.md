@@ -87,6 +87,9 @@ data:
     path: search/trit-zentansaku.cpp
     title: search/trit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
+    path: string/rolling-hash.cpp
+    title: string/rolling-hash.cpp
+  - icon: ':heavy_check_mark:'
     path: string/trie-tree.cpp
     title: string/trie-tree.cpp
   - icon: ':heavy_check_mark:'
@@ -294,6 +297,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
     title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+    title: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
+    title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+    title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/string/trie-tree/atcoder-abc353-e.test.cpp
     title: test/string/trie-tree/atcoder-abc353-e.test.cpp
@@ -1104,6 +1116,7 @@ data:
   - grid/grid-dfs.cpp
   - grid/grid-unionfind.cpp
   - heuristic/timer.cpp
+  - string/rolling-hash.cpp
   - string/trie-tree.cpp
   - math/is-prime.cpp
   - math/prime-factorization.cpp
@@ -1195,6 +1208,9 @@ data:
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
   - test/string/trie-tree/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - test/math/eratosthenes/yukicoder-843.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - test/math/prime-factorization/atcoder-abc324-b.test.cpp

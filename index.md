@@ -109,6 +109,9 @@ data:
   - name: string
     pages:
     - icon: ':heavy_check_mark:'
+      path: string/rolling-hash.cpp
+      title: string/rolling-hash.cpp
+    - icon: ':heavy_check_mark:'
       path: string/trie-tree.cpp
       title: string/trie-tree.cpp
   - name: structure
@@ -370,6 +373,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
       title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - name: test/string/rolling-hash
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+      title: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
+      title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+      title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - name: test/string/trie-tree
     pages:
     - icon: ':heavy_check_mark:'

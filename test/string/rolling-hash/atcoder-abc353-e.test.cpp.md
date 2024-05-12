@@ -4,23 +4,26 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
+  - icon: ':heavy_check_mark:'
+    path: mystd/mymultiset.cpp
+    title: mystd/mymultiset.cpp
+  - icon: ':heavy_check_mark:'
+    path: string/rolling-hash.cpp
+    title: string/rolling-hash.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-    title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-    title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
-    title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    IGNORE: ''
+    IGNORE_IF_GCC: ''
+    links:
+    - https://atcoder.jp/contests/abc141/tasks/abc141_e
+  bundledCode: "#line 1 \"test/string/rolling-hash/atcoder-abc353-e.test.cpp\"\n#define\
+    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc141/tasks/abc141_e\"\
+    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -341,49 +344,112 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename T>\nstruct MultiSet\
-    \ : public map<T, long long> {\n    long long N;\n    using mp = map<T, long long>;\n\
-    \n    explicit MultiSet() : N(0) {};\n\n    long long insert(T x, long long n\
-    \ = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n    long\
-    \ long erase(T x, long long n = 1) {\n        if (n > (*this)[x]) n = (*this)[x];\n\
-    \        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x] == 0) {\n\
-    \            mp::erase(x);\n            return 0;\n        }\n        else {\n\
-    \            return (*this)[x];\n        }\n    }\n\n    void erase_all(T x) {\n\
-    \        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front() {\n \
-    \       return mp::begin()->first;\n    }\n\n    T back() {\n        return mp::rbegin()->first;\n\
-    \    }\n\n    void pop() {\n        erase(front());\n    }\n\n    void pop_back()\
-    \ {\n        erase(back());\n    }\n\n    long long count_all() {\n        return\
-    \ N;\n    }\n\n    long long count(T x) {\n        if (!mp::contains(x)) return\
-    \ 0;\n        return (*this)[x];\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct MultiSet\
-    \ : public map<T, long long> {\n    long long N;\n    using mp = map<T, long long>;\n\
-    \n    explicit MultiSet() : N(0) {};\n\n    long long insert(T x, long long n\
-    \ = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n    long\
-    \ long erase(T x, long long n = 1) {\n        if (n > (*this)[x]) n = (*this)[x];\n\
-    \        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x] == 0) {\n\
-    \            mp::erase(x);\n            return 0;\n        }\n        else {\n\
-    \            return (*this)[x];\n        }\n    }\n\n    void erase_all(T x) {\n\
-    \        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front() {\n \
-    \       return mp::begin()->first;\n    }\n\n    T back() {\n        return mp::rbegin()->first;\n\
-    \    }\n\n    void pop() {\n        erase(front());\n    }\n\n    void pop_back()\
-    \ {\n        erase(back());\n    }\n\n    long long count_all() {\n        return\
-    \ N;\n    }\n\n    long long count(T x) {\n        if (!mp::contains(x)) return\
-    \ 0;\n        return (*this)[x];\n    }\n};"
+    \ --it;}\n#line 3 \"string/rolling-hash.cpp\"\n\nunsigned long long set_base(unsigned\
+    \ long long Max = 127, unsigned long long MOD = (1ULL << 61) - 1, unsigned long\
+    \ long root = 37) {\n    random_device rd;\n    mt19937_64 gen(rd());\n    uniform_int_distribution<int>\
+    \ dist(1, INF32);\n    unsigned long long ret;\n\n    while (true) {\n       \
+    \ int k = dist(gen);\n        ret = binpow(root, (unsigned long long)k, MOD);\n\
+    \        if (ret > Max) break;\n    };\n\n    return ret;\n}\nstatic const unsigned\
+    \ long long base = set_base();\n\nstruct Hash61 {\n    static const unsigned long\
+    \ long MOD = (1ULL << 61) - 1;\n    static const unsigned long long MASK30 = (1ULL\
+    \ << 30) - 1;\n    static const unsigned long long MASK31 = (1ULL << 31) - 1;\n\
+    \    static const unsigned long long MASK61 = MOD;\n    \n    unsigned long long\
+    \ hash, hash_rev;\n    unsigned long long pow;\n    unsigned long long size;\n\
+    \n    Hash61() {\n        init();\n    }\n\n    Hash61(string S) {\n        init();\n\
+    \        if (S.size() > 0) set(S);\n    }\n\n    Hash61(char c) {\n        init();\n\
+    \        set(string(1, c));\n    }\n\n    void init() {\n        assert(base >\
+    \ 0);\n        size = 0;\n        hash = 0;\n        hash_rev = 0;\n        pow\
+    \ = 1;\n    }\n\n    void set(char c) {\n        set(string(1, c));\n    }\n\n\
+    \    void set(string S) {\n        size = S.size();\n        \n        rep(i,\
+    \ S.size()) {\n            unsigned long long c = S[i];\n            hash = calc_mod(calc_mul(hash,\
+    \ base) + c);\n            pow = calc_mod(calc_mul(pow, base));\n        }\n \
+    \       repd(i, S.size()) {\n            unsigned long long c = S[i];\n      \
+    \      hash_rev = calc_mod(calc_mul(hash_rev, base) + c);\n        }\n    }\n\n\
+    \    bool is_palindrome() {\n        return hash == hash_rev;\n    }\n\n    Hash61&\
+    \ operator+= (const Hash61 &other) noexcept {\n        hash = calc_mod(calc_mul(hash,\
+    \ other.pow) + other.hash);\n        hash_rev = calc_mod(calc_mul(other.hash_rev,\
+    \ pow) + hash_rev);\n        pow = calc_mod(calc_mul(pow, other.pow));\n\n   \
+    \     size += other.size;\n\n        return *this;\n    }\n\n    Hash61 operator+\
+    \ (const Hash61 &other) const noexcept {\n        return Hash61(*this) += other;\n\
+    \    }\n\n    bool operator< (const Hash61 &other) const {\n        return (size\
+    \ < other.size) and (hash < other.hash);\n    }\n\n    bool operator== (const\
+    \ Hash61 &other) const noexcept {\n        return (size == other.size) and (hash\
+    \ == other.hash);\n    }\n\n    static unsigned long long calc_mul(unsigned long\
+    \ long a, unsigned long long b) {\n        unsigned long long au = a >> 31;\n\
+    \        unsigned long long ad = a & MASK31;\n        unsigned long long bu =\
+    \ b >> 31;\n        unsigned long long bd = b & MASK31;\n        unsigned long\
+    \ long mid = ad * bu + au * bd;\n        unsigned long long midu = mid >> 30;\n\
+    \        unsigned long long midd = mid & MASK30;\n\n        return au * bu * 2\
+    \ + midu + (midd << 31) + ad * bd;\n    }\n\n    static unsigned long long calc_mod(unsigned\
+    \ long long x) {\n        unsigned long long xu = x >> 61;\n        unsigned long\
+    \ long xd = x & MASK61;\n        unsigned long long res = xu + xd;\n        if\
+    \ (res >= MOD) res -= MOD;\n        return res;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, const Hash61& h) {\n        return os << h.hash;\n\
+    \    }\n};\n\nstruct RollingHash {\n    long long N;\n    vector<Hash61> hashed;\n\
+    \n    RollingHash(const string &S) : N(S.size()) {\n        construct(S);\n  \
+    \  }\n\n    void construct(string S) {\n        Hash61 hash;\n\n        hashed.push_back(hash);\n\
+    \n        rep(i, N) {\n            hash += S[i];\n            hashed.push_back(hash);\n\
+    \        }\n    }\n\n    unsigned long long get(long long r) {\n        return\
+    \ hashed[r].hash;\n    }\n\n    // [l, r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\
+    \u53D6\u5F97\n    unsigned long long get(long long l, long long r) {\n       \
+    \ if (l == 0) return hashed[r].hash;\n        \n        return Hash61::calc_mod(hashed[r].hash\
+    \ + Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r -\
+    \ l].pow)));\n    }\n\n    long long lcp(long long l1, long long r1, long long\
+    \ l2, long long r2) {\n        long long low = 0;\n        long long high = min(r1\
+    \ - l1, r2 - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return\
+    \ high;\n\n        while (high - low > 1) {\n            long long mid = (high\
+    \ + low) / 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low =\
+    \ mid;\n            else high = mid;\n        }\n\n        return low;\n    }\n\
+    \n    long long lcp(long long l1, long long l2) {\n        long long low = 0;\n\
+    \        long long high = min(N - l1, N - l2);\n        if (get(l1, l1 + high)\
+    \ == get(l2, l2 + high)) return high;\n\n        while (high - low > 1) {\n  \
+    \          long long mid = (high + low) / 2;\n\n            if (get(l1, l1 + mid)\
+    \ == get(l2, l2 + mid)) low = mid;\n            else high = mid;\n        }\n\n\
+    \        return low;\n    }\n\n    friend ostream& operator << (ostream &os, const\
+    \ RollingHash& h) {\n        rep(i, h.N) os << h.hashed[i] << \" \";\n       \
+    \ return os;\n    }\n};\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename\
+    \ T>\nstruct MultiSet : public map<T, long long> {\n    long long N;\n    using\
+    \ mp = map<T, long long>;\n\n    explicit MultiSet() : N(0) {};\n\n    long long\
+    \ insert(T x, long long n = 1) {\n        N += n;\n        return (*this)[x] +=\
+    \ n;\n    }\n\n    long long erase(T x, long long n = 1) {\n        if (n > (*this)[x])\
+    \ n = (*this)[x];\n        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x]\
+    \ == 0) {\n            mp::erase(x);\n            return 0;\n        }\n     \
+    \   else {\n            return (*this)[x];\n        }\n    }\n\n    void erase_all(T\
+    \ x) {\n        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front()\
+    \ {\n        return mp::begin()->first;\n    }\n\n    T back() {\n        return\
+    \ mp::rbegin()->first;\n    }\n\n    void pop() {\n        erase(front());\n \
+    \   }\n\n    void pop_back() {\n        erase(back());\n    }\n\n    long long\
+    \ count_all() {\n        return N;\n    }\n\n    long long count(T x) {\n    \
+    \    if (!mp::contains(x)) return 0;\n        return (*this)[x];\n    }\n};\n\
+    #line 6 \"test/string/rolling-hash/atcoder-abc353-e.test.cpp\"\n\nint main() {\n\
+    \    long long N;\n    cin >> N;\n    vector<string> S(N);\n    for(int i = 0\
+    \ ; i < N ; ++i){\n        cin >> S[i];\n    }\n\n    MultiSet<ull> ms;\n    ll\
+    \ ans = 0;\n\n    rep(i, N) {\n        RollingHash rh(S[i]);\n        rep(j, S[i].size())\
+    \ {\n            ull hash = rh.get(0, j + 1);\n            ans += ms.count(hash);\n\
+    \            ms.insert(hash);\n        }\n    }\n\n    cout << ans << endl;\n\n\
+    \    return 0;\n} \n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc141/tasks/abc141_e\"\
+    \n\n#include \"../../../string/rolling-hash.cpp\"\n#include \"../../../mystd/mymultiset.cpp\"\
+    \n\nint main() {\n    long long N;\n    cin >> N;\n    vector<string> S(N);\n\
+    \    for(int i = 0 ; i < N ; ++i){\n        cin >> S[i];\n    }\n\n    MultiSet<ull>\
+    \ ms;\n    ll ans = 0;\n\n    rep(i, N) {\n        RollingHash rh(S[i]);\n   \
+    \     rep(j, S[i].size()) {\n            ull hash = rh.get(0, j + 1);\n      \
+    \      ans += ms.count(hash);\n            ms.insert(hash);\n        }\n    }\n\
+    \n    cout << ans << endl;\n\n    return 0;\n} \n"
   dependsOn:
+  - string/rolling-hash.cpp
   - base.cpp
-  isVerificationFile: false
-  path: mystd/mymultiset.cpp
+  - mystd/mymultiset.cpp
+  isVerificationFile: true
+  path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-12 10:51:03+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
-  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-documentation_of: mystd/mymultiset.cpp
+  timestamp: '2024-05-12 12:25:03+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/string/rolling-hash/atcoder-abc353-e.test.cpp
 layout: document
 redirect_from:
-- /library/mystd/mymultiset.cpp
-- /library/mystd/mymultiset.cpp.html
-title: mystd/mymultiset.cpp
+- /verify/test/string/rolling-hash/atcoder-abc353-e.test.cpp
+- /verify/test/string/rolling-hash/atcoder-abc353-e.test.cpp.html
+title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
 ---
