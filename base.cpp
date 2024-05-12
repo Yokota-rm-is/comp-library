@@ -371,3 +371,17 @@ long long bit_count(long long x) { return popcount((ull)x); }
 #else 
 long long bit_count(long long x) { return __builtin_popcountll(x); }
 #endif
+
+// 配列関係
+// キー以上の最小の要素を見つけるイテレータを返す関数
+template <typename T> inline typename vector<T>::iterator find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(), v.end(), key); }
+template <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const Iterator begin, const Iterator end, T key) { return lower_bound(begin, end, key); }
+// キーを超える最小の要素を見つけるイテレータを返す関数
+template <typename T> inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }
+template <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator begin, const Iterator end, T key) { return upper_bound(begin, end, key); }
+// キー以下の最大の要素を見つけるイテレータを返す関数, ない場合はbeginを返す
+template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin() : --it;}
+template <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end, key); return it == begin ? begin : --it;}
+// キー未満の最大の要素を見つけるイテレータを返す関数, ない場合はbeginを返す
+template <typename T> inline typename vector<T>::iterator find_less_than(const vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin() : --it; }
+template <typename Iterator, typename T> inline Iterator find_less_than(const Iterator begin, const Iterator end, T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin : --it;}
