@@ -1,4 +1,3 @@
-#define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc350/tasks/abc350_f"
 
 #include "../../../structure/splay-tree.cpp"
