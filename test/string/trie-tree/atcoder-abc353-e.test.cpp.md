@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: math/is-prime.cpp
-    title: math/is-prime.cpp
+    path: string/trie-tree.cpp
+    title: string/trie-tree.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,12 +14,15 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc149/tasks/abc149_c
+    IGNORE: ''
+    IGNORE_IF_GCC: ''
     links:
-    - https://atcoder.jp/contests/abc149/tasks/abc149_c
-  bundledCode: "#line 1 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\n#define\
-    \ PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n#line 2 \"\
-    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    - https://atcoder.jp/contests/abc353/submissions/53397052
+    - https://atcoder.jp/contests/abc353/tasks/abc353_e
+  bundledCode: "#line 1 \"test/string/trie-tree/atcoder-abc353-e.test.cpp\"\n#define\
+    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_e\"\
+    \n// https://atcoder.jp/contests/abc353/submissions/53397052\n\n#line 2 \"base.cpp\"\
+    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
     #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
@@ -340,31 +343,77 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"math/is-prime.cpp\"\n\nbool is_prime(long long N) {\n    if\
-    \ (N < 2) return false;\n    if (N == 2) return true;\n    if (N % 2 == 0) return\
-    \ false;\n    for (long long i = 3; i * i <= N; i += 2) {\n        if (N % i ==\
-    \ 0) return false;\n    }\n    return true;\n}\n#line 4 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\
-    \n\nint main() {\n    ll X;\n    cin >> X;\n\n    ll x = X;\n\n    while (true)\
-    \ {\n        if (is_prime(x)) {\n            cout << x << endl;\n            return\
-    \ 0;\n        }\n\n        ++x;\n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n\
-    #include \"../../../math/is-prime.cpp\"\n\nint main() {\n    ll X;\n    cin >>\
-    \ X;\n\n    ll x = X;\n\n    while (true) {\n        if (is_prime(x)) {\n    \
-    \        cout << x << endl;\n            return 0;\n        }\n\n        ++x;\n\
-    \    }\n\n    return 0;\n}"
+    \ --it;}\n#line 3 \"string/trie-tree.cpp\"\n\n\n/* Trie \u6728\uFF1A \u6587\u5B57\
+    \u306E\u7A2E\u985E(char_size)\u3001int\u578B\u30670\u306B\u5BFE\u5FDC\u3059\u308B\
+    \u6587\u5B57(base)\n    insert(word): \u5358\u8A9E word \u3092 Trie \u6728\u306B\
+    \u633F\u5165\u3059\u308B\n    search(word): \u5358\u8A9E word \u304C Trie \u6728\
+    \u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    start_with(prefix):  prefix\
+    \ \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C Trie \u6728\u306B\u3042\u308B\
+    \u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\u5165\u3057\u305F\u5358\u8A9E\
+    \u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie \u6728\u306E\u9802\u70B9\u6570\
+    \u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1Ainsert, search \u3068\u3082\u306B\
+    \ O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\uFF09\n*/\ntemplate <int char_size\
+    \ = 26, int base = 'a'>\nstruct Trie {\n    struct Node {            // \u9802\
+    \u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\n        vector<long long> next;  \
+    \  // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\u683C\u7D0D\u3002\u5B58\u5728\
+    \u3057\u306A\u3051\u308C\u3070-1\n        vector<long long> accept;  // \u672B\
+    \u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\u5358\u8A9E\u306E word_id\
+    \ \u3092\u4FDD\u5B58\n        int c;               // base \u304B\u3089\u306E\u9593\
+    \u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\u3082\u306E\n        long\
+    \ long common;          // \u3044\u304F\u3064\u306E\u5358\u8A9E\u304C\u3053\u306E\
+    \u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\u304B\n        Node(long\
+    \ long c_) : c(c_), common(0) {\n            next.assign(char_size, -1);\n   \
+    \     }\n    };\n\n    vector<Node> nodes;  // trie \u6728\u672C\u4F53\n    long\
+    \ long root;\n\n    Trie() : root(0) {\n        nodes.push_back(Node(root));\n\
+    \    }\n\n    // \u5358\u8A9E\u306E\u633F\u5165\n    void insert(const string\
+    \ &word, long long word_id) {\n        ll node_id = 0;\n        rep(i, word.size()){\n\
+    \            int c = (int)(word[i] - base);\n            long long &next_id =\
+    \ nodes[node_id].next[c];\n            if (next_id == -1) {  // \u6B21\u306E\u9802\
+    \u70B9\u304C\u5B58\u5728\u3057\u306A\u3051\u308C\u3070\u8FFD\u52A0\n         \
+    \       next_id = nodes.size();\n                nodes.push_back(Node(c));\n \
+    \           }\n            ++nodes[node_id].common;\n            node_id = next_id;\n\
+    \        }\n        ++nodes[node_id].common;\n        nodes[node_id].accept.push_back(word_id);\n\
+    \    }\n    \n    void insert(const string &word) {\n        insert(word, nodes[0].common);\n\
+    \    }\n\n    // \u5358\u8A9E\u306E\u691C\u7D22\n    // prefix = false\u3000\u306A\
+    \u3089\u3070\u3001\u5B8C\u5168\u4E00\u81F4\u306E\u691C\u7D22\n    // prefix =\
+    \ true \u306A\u3089\u3070\u3001prefix \u306E\u691C\u7D22\n    bool search(const\
+    \ string &word, bool prefix = false) {\n        long long node_id = 0;\n     \
+    \   rep(i, word.size()) {\n            int c = (int)(word[i] - base);\n      \
+    \      long long &next_id = nodes[node_id].next[c];\n\n            if (next_id\
+    \ == -1) return false;   // \u6B21\u306E\u9802\u70B9\u304C\u5B58\u5728\u3057\u306A\
+    \u3051\u308C\u3070\u7D42\u4E86\n            node_id = next_id;\n        }\n  \
+    \      return (prefix) ? true : nodes[node_id].accept.size() > 0;\n    }\n\n \
+    \   // prefix \u3092\u6301\u3064\u5358\u8A9E\u304C\u5B58\u5728\u3059\u308B\u304B\
+    \u306E\u691C\u7D22\n    bool start_with(const string &prefix) {\n        return\
+    \ search(prefix, true);\n    }\n\n    // \u633F\u5165\u3057\u305F\u5358\u8A9E\u306E\
+    \u6570\n    long long count() const {\n        return (nodes[0].common);\n   \
+    \ }\n\n    // Trie\u6728\u306E\u30CE\u30FC\u30C9\u6570\n    long long size() const\
+    \ {\n        return nodes.size();\n    }\n};\n#line 6 \"test/string/trie-tree/atcoder-abc353-e.test.cpp\"\
+    \n\n\nint main() {\n    ll N;\n    cin >> N;\n\n    vector<string> S(N);\n   \
+    \ rep(i, N) cin >> S[i];\n\n    Trie<26, 'a'> trie;\n    rep(i, N) {\n       \
+    \ trie.insert(S[i]);\n    }\n\n    ll ans = 0;\n    auto A = trie.nodes;\n   \
+    \ rep(i, 1, A.size()) {\n        ans += A[i].common * (A[i].common - 1) / 2;\n\
+    \    }\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_e\"\
+    \n// https://atcoder.jp/contests/abc353/submissions/53397052\n\n#include \"../../../string/trie-tree.cpp\"\
+    \n\n\nint main() {\n    ll N;\n    cin >> N;\n\n    vector<string> S(N);\n   \
+    \ rep(i, N) cin >> S[i];\n\n    Trie<26, 'a'> trie;\n    rep(i, N) {\n       \
+    \ trie.insert(S[i]);\n    }\n\n    ll ans = 0;\n    auto A = trie.nodes;\n   \
+    \ rep(i, 1, A.size()) {\n        ans += A[i].common * (A[i].common - 1) / 2;\n\
+    \    }\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
   dependsOn:
-  - math/is-prime.cpp
+  - string/trie-tree.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/math/is-prime/atcoder-abc149-c.test.cpp
+  path: test/string/trie-tree/atcoder-abc353-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-12 10:51:03+09:00'
+  timestamp: '2024-05-12 10:52:06+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/math/is-prime/atcoder-abc149-c.test.cpp
+documentation_of: test/string/trie-tree/atcoder-abc353-e.test.cpp
 layout: document
 redirect_from:
-- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp
-- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp.html
-title: test/math/is-prime/atcoder-abc149-c.test.cpp
+- /verify/test/string/trie-tree/atcoder-abc353-e.test.cpp
+- /verify/test/string/trie-tree/atcoder-abc353-e.test.cpp.html
+title: test/string/trie-tree/atcoder-abc353-e.test.cpp
 ---

@@ -311,7 +311,34 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"math/prime-factorization.cpp\"\n\nmap<long long, long long>\
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}\n#line 3 \"math/prime-factorization.cpp\"\n\nmap<long long, long long>\
     \ prime_factorization(long long N) {\n    map<long long, long long> ret;\n   \
     \ while (N % 2 == 0) {\n        ret[2]++;\n        N /= 2;\n    }\n\n    for (long\
     \ long i = 3; i * i <= N; i += 2) {\n        while (N % i == 0) {\n          \
@@ -327,7 +354,7 @@ data:
   isVerificationFile: false
   path: math/prime-factorization.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-12 10:51:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp

@@ -5,8 +5,11 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: math/is-prime.cpp
-    title: math/is-prime.cpp
+    path: grid/grid-dfs.cpp
+    title: grid/grid-dfs.cpp
+  - icon: ':heavy_check_mark:'
+    path: math/modint.cpp
+    title: math/modint.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -14,11 +17,11 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc149/tasks/abc149_c
+    PROBLEM: https://atcoder.jp/contests/abc334/tasks/abc334_e
     links:
-    - https://atcoder.jp/contests/abc149/tasks/abc149_c
-  bundledCode: "#line 1 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\n#define\
-    \ PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n#line 2 \"\
+    - https://atcoder.jp/contests/abc334/tasks/abc334_e
+  bundledCode: "#line 1 \"test/grid/grid-dfs/atcoder-abc334-e.test.cpp\"\n#define\
+    \ PROBLEM \"https://atcoder.jp/contests/abc334/tasks/abc334_e\"\n\n#line 2 \"\
     base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
@@ -340,31 +343,226 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"math/is-prime.cpp\"\n\nbool is_prime(long long N) {\n    if\
-    \ (N < 2) return false;\n    if (N == 2) return true;\n    if (N % 2 == 0) return\
-    \ false;\n    for (long long i = 3; i * i <= N; i += 2) {\n        if (N % i ==\
-    \ 0) return false;\n    }\n    return true;\n}\n#line 4 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\
-    \n\nint main() {\n    ll X;\n    cin >> X;\n\n    ll x = X;\n\n    while (true)\
-    \ {\n        if (is_prime(x)) {\n            cout << x << endl;\n            return\
-    \ 0;\n        }\n\n        ++x;\n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n\
-    #include \"../../../math/is-prime.cpp\"\n\nint main() {\n    ll X;\n    cin >>\
-    \ X;\n\n    ll x = X;\n\n    while (true) {\n        if (is_prime(x)) {\n    \
-    \        cout << x << endl;\n            return 0;\n        }\n\n        ++x;\n\
-    \    }\n\n    return 0;\n}"
+    \ --it;}\n#line 3 \"grid/grid-dfs.cpp\"\n\nstruct Coordinate {\n    long long\
+    \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
+    \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
+    \    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
+    \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
+    \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
+    \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
+    \    }\n\n    Coordinate char2dir(char c) {\n        assert(c == 'R' or c == 'L'\
+    \ or c == 'U' or c == 'D');\n        Coordinate ret(y, x);\n\n        if (c ==\
+    \ 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n        if (c == 'R') ++ret.x;\n\
+    \        if (c == 'L') --ret.x;\n\n        return ret;\n    }\n\n    char dir2char()\
+    \ {\n        assert(manhattan() == 1);\n\n        char ret;\n        if (x > 0)\
+    \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
+    \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
+    \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
+    \    }\n\n    Coordinate& operator= (pair<long long, long long>& other) {\n  \
+    \      y = other.first;\n        x = other.second;\n        return *this;\n  \
+    \  }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
+    \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
+    \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
+    \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
+    \ operator+ (const long long &a) {\n        return Coordinate(y, x) += a;\n  \
+    \  }\n\n    Coordinate operator- (const long long &a) {\n        return Coordinate(y,\
+    \ x) -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n       \
+    \ return Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long\
+    \ long &a) {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
+    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
+    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
+    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
+    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
+    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
+    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
+    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
+    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
+    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
+    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
+    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
+    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
+    \ *this;\n    }\n\n    friend bool operator== (const Coordinate &l, const Coordinate\
+    \ &r) {\n        return l.y == r.y and l.x == r.x;\n    }\n\n    friend bool operator!=\
+    \ (const Coordinate &l, const Coordinate &r) {\n        return l.y != r.y or l.x\
+    \ != r.x;\n    }\n\n    friend bool operator< (const Coordinate &l, const Coordinate\
+    \ &r) {\n        if (l.y == r.y) {\n            return l.x < r.x;\n        }\n\
+    \        else return l.y < r.y;\n    }\n\n    friend bool operator> (const Coordinate\
+    \ &l, const Coordinate &r) {\n        if (l.y == r.y) {\n            return l.x\
+    \ > r.x;\n        }\n        else return l.y > r.y;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, const Coordinate& p) {\n        return os << \"(\"\
+    \ << p.y << \", \" << p.x << \")\";\n    }\n};\n\ntemplate<typename T>\nstruct\
+    \ Grid {\n    long long H;\n    long long W;\n    vector<vector<T>> vv;\n\n  \
+    \  Grid(long long h = 0, long long w = 0, T a = T()) : H(h), W(w), vv(h, vector<T>(w,\
+    \ a)) {}\n    Grid(vector<vector<T>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\
+    \n    bool is_out(long long y, long long x) {\n        return y < 0 or y >= H\
+    \ or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n     \
+    \   return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    T& operator()\
+    \ (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return vv[i][j];\n\
+    \    }\n\n    T& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vv[p.y][p.x];\n    }\n\n    void assign(long long h, long long\
+    \ w, T a) {\n        H = h;\n        W = w;\n        vv.assign(h, vector<T>(w,\
+    \ a));\n    }\n\n    vector<T>& operator[] (size_t i) {\n        return vv[i];\n\
+    \    } \n\n    friend ostream& operator << (ostream &os, Grid<T>& grid) {\n  \
+    \      rep(i, grid.H) {\n            os << grid[i] << endl;\n        }\n     \
+    \   return os;\n    }\n};\n\ntemplate<>\nstruct Grid<bool> {\n    long long H;\n\
+    \    long long W;\n    vector<vector<bool>> vv;\n\n    Grid(long long h = 0, long\
+    \ long w = 0, bool a = false) : H(h), W(w), vv(h, vector<bool>(w, a)) {}\n   \
+    \ Grid(vector<vector<bool>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\n   \
+    \ bool is_out(long long y, long long x) {\n        return y < 0 or y >= H or x\
+    \ < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n        return\
+    \ p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    vector<bool>::reference\
+    \ operator() (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return\
+    \ vv[i][j];\n    }\n\n    vector<bool>::reference operator() (const Coordinate&\
+    \ p) {\n        assert(!is_out(p));\n        return vv[p.y][p.x];\n    }\n\n \
+    \   void assign(long long h, long long w, bool a) {\n        H = h;\n        W\
+    \ = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
+    \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(y, grid.H) {\n  \
+    \          rep(x, grid.W) {\n                os << (grid[y][x] ? \"true\" : \"\
+    false\") << \" \";\n            }\n        }\n        return os;\n    }\n};\n\n\
+    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
+    \   char dot = '.';\n    char hash = '#';\n    char obj = hash;\n    char excl\
+    \ = '!';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.'))\
+    \ {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()), vs(A) {}\n\
+    \n    char& operator() (size_t y, size_t x) {\n        assert(!is_out(y, x));\n\
+    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
+    \ {\n        assert(!is_out(p));\n        return vs[p.y][p.x];\n    }\n\n    bool\
+    \ is_dot(size_t y, size_t x) {\n        assert(!is_out(y, x));\n        return\
+    \ vs[y][x] == dot;\n    }\n\n    bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_hash(size_t y, size_t\
+    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == hash;\n   \
+    \ }\n\n    bool is_hash(const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t\
+    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\
+    \n    bool is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n      \
+    \  return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t y, size_t x)\
+    \ {\n        assert(!is_out(y, x));\n        return vs[y][x] == excl;\n    }\n\
+    \n    bool is_excl(const Coordinate& p) {\n        assert(!is_out(p));\n     \
+    \   return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long long y, long long\
+    \ x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool\
+    \ is_out(const Coordinate& p) {\n        return p.y < 0 or p.y >= H or p.x < 0\
+    \ or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n        return vs[i];\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, Field& field) {\n    \
+    \    rep(i, field.H) {\n            os << field[i] << endl;\n        }\n     \
+    \   return os;\n    }\n};\n\nstruct GridDFS {\n    long long H, W;\n    Field\
+    \ field;\n    Grid<bool> seen;\n    Grid<long long> cc;\n    vector<Coordinate>\
+    \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \    vector<char> path;\n\n    char s = 's';\n    char g = 'g';\n    char t =\
+    \ 't';\n    char dot = field.dot;\n    char hash = field.hash;\n    char obj =\
+    \ field.obj;\n    char excl = field.excl;\n    Coordinate start = Coordinate(-1,\
+    \ -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 / 2;\n    long long\
+    \ group;\n\n    GridDFS(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
+    \    };\n\n    GridDFS(long long h, long long w) : H(h), W(w), field(h, w) {\n\
+    \        init();\n    };\n\n    GridDFS(vector<string> vs) : H(vs.size()), W(vs.front().size()),\
+    \ field(vs) {\n        init();\n        after_input();\n    };\n\n    void init()\
+    \ {\n        group = 0;\n        seen.assign(H, W, false);\n        cc.assign(H,\
+    \ W, -1);\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n \
+    \       after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
+    \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
+    \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
+    \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
+    \                }\n                if (c == g or c == t) {\n                \
+    \    goal = Coordinate(y, x);\n                }\n            }\n    }\n\n   \
+    \ long long to_index(Coordinate& p) {\n        return p.y * W + p.x;\n    }\n\n\
+    \    Coordinate to_coordinate(long long index) {\n        return Coordinate(index\
+    \ / W, index % W);\n    }\n\n    long long dfs_all() {\n        rep(y, H) rep(x,\
+    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
+    \            if (field.is_obj(now)) continue;\n\n            dfs(now);\n     \
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    void dfs()\
+    \ {\n        assert(start.y != -1);\n        dfs(start);\n    }\n\n    void dfs(Coordinate\
+    \ now) {\n        seen(now) = true;\n        cc(now) = group;\n\n        rep(i,\
+    \ dirs.size()) {\n            Coordinate next = now + dirs[i];\n\n           \
+    \ if (field.is_out(next)) continue;\n            if (field.is_obj(next)) continue;\n\
+    \            if (seen(next)) continue;\n\n            path.push_back(dirs[i].dir2char());\n\
+    \            dfs(next);\n            path.push_back(dirs[(i + 2) % 4].dir2char());\n\
+    \        }\n    }\n\n    vector<Coordinate> spiral_search() {\n        Coordinate\
+    \ now(0, 0);\n        ll idx = 0;\n        Coordinate dir = dirs[idx];\n     \
+    \   vector<Coordinate> ret;\n\n        rep(i, H * W) {\n            seen(now)\
+    \ = true;\n            ret.push_back(now);\n\n            // \u51E6\u7406\u3092\
+    \u3053\u3053\u306B\u66F8\u304F\n\n            Coordinate next = now + dir;\n \
+    \           if (field.is_out(next) or seen(next)) {\n                ++idx;\n\
+    \                idx %= 4;\n                dir = dirs[idx];\n            }\n\
+    \            now += dir;\n        }\n        return ret;\n    }\n\n    bool can_reach_goal()\
+    \ {\n        return can_reach(goal);\n    }\n\n    bool can_reach(Coordinate to)\
+    \ {\n        return seen(to);\n    }\n\n    bool operator== (GridDFS &other) {\n\
+    \        if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
+    \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
+    \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, GridDFS& grid) {\n        return os << grid.field\
+    \ << endl;\n    }\n};\n#line 3 \"math/modint.cpp\"\n\n// modint: mod \u8A08\u7B97\
+    \u3092 int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\u3048\u308B\u69CB\u9020\u4F53\
+    \ntemplate<int MOD> struct Fp {\n    long long val;\n    constexpr Fp(long long\
+    \ v = 0) noexcept : val(v % MOD) {\n        if (val < 0) val += MOD;\n    }\n\
+    \    constexpr int getmod() { return MOD; }\n    constexpr Fp operator - () const\
+    \ noexcept {\n        return val ? MOD - val : 0;\n    }\n    constexpr Fp operator\
+    \ + (const Fp& r) const noexcept { return Fp(*this) += r; }\n    constexpr Fp\
+    \ operator - (const Fp& r) const noexcept { return Fp(*this) -= r; }\n    constexpr\
+    \ Fp operator * (const Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr\
+    \ Fp operator / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr\
+    \ Fp& operator += (const Fp& r) noexcept {\n        val += r.val;\n        if\
+    \ (val >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
+    \ -= (const Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val\
+    \ += MOD;\n        return *this;\n    }\n    constexpr Fp& operator *= (const\
+    \ Fp& r) noexcept {\n        val = val * r.val % MOD;\n        return *this;\n\
+    \    }\n    constexpr Fp& operator /= (const Fp& r) noexcept {\n        long long\
+    \ a = r.val, b = MOD, u = 1, v = 0;\n        while (b) {\n            long long\
+    \ t = a / b;\n            a -= t * b; swap(a, b);\n            u -= t * v; swap(u,\
+    \ v);\n        }\n        val = val * u % MOD;\n        if (val < 0) val += MOD;\n\
+    \        return *this;\n    }\n    constexpr bool operator == (const Fp& r) const\
+    \ noexcept {\n        return this->val == r.val;\n    }\n    constexpr bool operator\
+    \ != (const Fp& r) const noexcept {\n        return this->val != r.val;\n    }\n\
+    \    friend constexpr istream& operator >> (istream &is, Fp<MOD>& x) noexcept\
+    \ {\n        long long t;\n        is >> t;\n        x = t;\n        return (is);\n\
+    \    }\n    friend constexpr ostream& operator << (ostream &os, const Fp<MOD>&\
+    \ x) noexcept {\n        return os << x.val;\n    }\n    friend constexpr Fp<MOD>\
+    \ modpow(const Fp<MOD> &a, long long n) noexcept {\n        if (n == 0) return\
+    \ 1;\n        auto t = modpow(a, n / 2);\n        t = t * t;\n        if (n &\
+    \ 1) t = t * a;\n        return t;\n    }\n    friend constexpr Fp<MOD> modinv(const\
+    \ Fp<MOD> &a) noexcept {\n        Fp<MOD> b = 1;\n        return b / a;\n    }\n\
+    };\n\nusing mint998 = Fp<998244353>;\nusing mint007 = Fp<1000000007>;\n// using\
+    \ mint = Fp<MOD>;\n#line 5 \"test/grid/grid-dfs/atcoder-abc334-e.test.cpp\"\n\n\
+    int main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n  \
+    \  grid.input();\n\n    grid.field.obj = grid.field.dot;\n    grid.obj = grid.dot;\n\
+    \n    grid.dfs_all();\n\n    mapll mp;\n    rep(y, H) rep(x, W) {\n        if\
+    \ (grid.field(y, x) == grid.hash) {\n            mp[grid.cc(y, x)]++;\n      \
+    \  }\n    }\n\n    mint998 ans = 0;\n    mint998 count = 0;\n    \n    rep(y,\
+    \ H) rep(x, W) {\n        if (grid.field(y, x) != grid.obj) continue;\n      \
+    \  \n        count += 1;\n        \n        setll st;\n        rep(i, 4) {\n \
+    \           Coordinate next = Coordinate(y, x) + grid.dirs[i];\n            if\
+    \ (grid.field.is_out(next)) continue;\n            if (grid.field.is_obj(next))\
+    \ continue;\n            st.insert(grid.cc(next));\n        }\n\n        ans +=\
+    \ mp.size() - st.size() + 1; \n    }\n\n    cout << ans / count << endl;\n\n \
+    \   return 0;\n}\n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc334/tasks/abc334_e\"\n\n\
+    #include \"../../../grid/grid-dfs.cpp\"\n#include \"../../../math/modint.cpp\"\
+    \n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    GridDFS grid(H, W);\n\
+    \    grid.input();\n\n    grid.field.obj = grid.field.dot;\n    grid.obj = grid.dot;\n\
+    \n    grid.dfs_all();\n\n    mapll mp;\n    rep(y, H) rep(x, W) {\n        if\
+    \ (grid.field(y, x) == grid.hash) {\n            mp[grid.cc(y, x)]++;\n      \
+    \  }\n    }\n\n    mint998 ans = 0;\n    mint998 count = 0;\n    \n    rep(y,\
+    \ H) rep(x, W) {\n        if (grid.field(y, x) != grid.obj) continue;\n      \
+    \  \n        count += 1;\n        \n        setll st;\n        rep(i, 4) {\n \
+    \           Coordinate next = Coordinate(y, x) + grid.dirs[i];\n            if\
+    \ (grid.field.is_out(next)) continue;\n            if (grid.field.is_obj(next))\
+    \ continue;\n            st.insert(grid.cc(next));\n        }\n\n        ans +=\
+    \ mp.size() - st.size() + 1; \n    }\n\n    cout << ans / count << endl;\n\n \
+    \   return 0;\n}"
   dependsOn:
-  - math/is-prime.cpp
+  - grid/grid-dfs.cpp
   - base.cpp
+  - math/modint.cpp
   isVerificationFile: true
-  path: test/math/is-prime/atcoder-abc149-c.test.cpp
+  path: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-12 10:51:03+09:00'
+  timestamp: '2024-05-12 10:51:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/math/is-prime/atcoder-abc149-c.test.cpp
+documentation_of: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
 layout: document
 redirect_from:
-- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp
-- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp.html
-title: test/math/is-prime/atcoder-abc149-c.test.cpp
+- /verify/test/grid/grid-dfs/atcoder-abc334-e.test.cpp
+- /verify/test/grid/grid-dfs/atcoder-abc334-e.test.cpp.html
+title: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
 ---

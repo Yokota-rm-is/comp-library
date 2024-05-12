@@ -316,19 +316,46 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 4 \"graph/psp.cpp\"\n\n/**\n * @brief PSP(Project Selection\
-    \ Problem)\n*/\n\ntemplate<typename Cap>\nstruct PSP {\n    struct Edge {\n  \
-    \      long long from;\n        long long to;\n        Cap cap, flow;\n      \
-    \  long long idx;\n        long long rev;\n        \n        Edge(long long u\
-    \ = -1, long long v = -1, Cap cap = 0, long long i = 0, long long rev = 0) : from(u),\
-    \ to(v), cap(cap), flow(0), idx(i), rev(rev) {};\n\n        bool operator < (const\
-    \ Edge& other) const {\n            if (from == other.from) {\n              \
-    \  return to < other.to;\n            }\n            else return from < other.from;\n\
-    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
-    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
-    \    vector<vector<Edge>> G;\n    long long coeff = 1;\n\n    long long start,\
-    \ goal;\n    Cap offset;\n\n    long long edge_index = 0;\n    vector<Edge> edges;\n\
-    \n    // maxflow\u7528\n    vector<long long> level;\n\n    PSP(long long N) :\
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}\n#line 4 \"graph/psp.cpp\"\n\n/**\n * @brief PSP(Project Selection Problem)\n\
+    */\n\ntemplate<typename Cap>\nstruct PSP {\n    struct Edge {\n        long long\
+    \ from;\n        long long to;\n        Cap cap, flow;\n        long long idx;\n\
+    \        long long rev;\n        \n        Edge(long long u = -1, long long v\
+    \ = -1, Cap cap = 0, long long i = 0, long long rev = 0) : from(u), to(v), cap(cap),\
+    \ flow(0), idx(i), rev(rev) {};\n\n        bool operator < (const Edge& other)\
+    \ const {\n            if (from == other.from) {\n                return to <\
+    \ other.to;\n            }\n            else return from < other.from;\n     \
+    \   }\n\n        friend ostream& operator << (ostream& os, const Edge& edge) {\n\
+    \            return os << edge.to;\n        }\n    };\n\n    long long V;\n  \
+    \  vector<vector<Edge>> G;\n    long long coeff = 1;\n\n    long long start, goal;\n\
+    \    Cap offset;\n\n    long long edge_index = 0;\n    vector<Edge> edges;\n\n\
+    \    // maxflow\u7528\n    vector<long long> level;\n\n    PSP(long long N) :\
     \ V(N + 2), G(V), start(N), goal(N + 1), offset(0) {\n        init();\n    };\n\
     \    \n    void init() {}\n\n    void connect(long long from, long long to, Cap\
     \ cap) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and\
@@ -639,7 +666,7 @@ data:
   isVerificationFile: true
   path: test/graph/psp/atcoder-abc193-f.test.cpp
   requiredBy: []
-  timestamp: '2024-05-11 20:02:15+09:00'
+  timestamp: '2024-05-12 10:51:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/psp/atcoder-abc193-f.test.cpp

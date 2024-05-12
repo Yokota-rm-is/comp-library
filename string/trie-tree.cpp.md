@@ -4,34 +4,29 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
-    path: math/is-prime.cpp
-    title: math/is-prime.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/string/trie-tree/atcoder-abc353-e.test.cpp
+    title: test/string/trie-tree/atcoder-abc353-e.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc149/tasks/abc149_c
-    links:
-    - https://atcoder.jp/contests/abc149/tasks/abc149_c
-  bundledCode: "#line 1 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\n#define\
-    \ PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n#line 2 \"\
-    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
-    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
-    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
-    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
-    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
-    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
-    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
-    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
-    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
-    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
-    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
-    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
+    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
+    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
+    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
+    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
+    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
+    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
+    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
+    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
+    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
+    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
+    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -340,31 +335,111 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"math/is-prime.cpp\"\n\nbool is_prime(long long N) {\n    if\
-    \ (N < 2) return false;\n    if (N == 2) return true;\n    if (N % 2 == 0) return\
-    \ false;\n    for (long long i = 3; i * i <= N; i += 2) {\n        if (N % i ==\
-    \ 0) return false;\n    }\n    return true;\n}\n#line 4 \"test/math/is-prime/atcoder-abc149-c.test.cpp\"\
-    \n\nint main() {\n    ll X;\n    cin >> X;\n\n    ll x = X;\n\n    while (true)\
-    \ {\n        if (is_prime(x)) {\n            cout << x << endl;\n            return\
-    \ 0;\n        }\n\n        ++x;\n    }\n\n    return 0;\n}\n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc149/tasks/abc149_c\"\n\n\
-    #include \"../../../math/is-prime.cpp\"\n\nint main() {\n    ll X;\n    cin >>\
-    \ X;\n\n    ll x = X;\n\n    while (true) {\n        if (is_prime(x)) {\n    \
-    \        cout << x << endl;\n            return 0;\n        }\n\n        ++x;\n\
-    \    }\n\n    return 0;\n}"
+    \ --it;}\n#line 3 \"string/trie-tree.cpp\"\n\n\n/* Trie \u6728\uFF1A \u6587\u5B57\
+    \u306E\u7A2E\u985E(char_size)\u3001int\u578B\u30670\u306B\u5BFE\u5FDC\u3059\u308B\
+    \u6587\u5B57(base)\n    insert(word): \u5358\u8A9E word \u3092 Trie \u6728\u306B\
+    \u633F\u5165\u3059\u308B\n    search(word): \u5358\u8A9E word \u304C Trie \u6728\
+    \u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    start_with(prefix):  prefix\
+    \ \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C Trie \u6728\u306B\u3042\u308B\
+    \u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\u5165\u3057\u305F\u5358\u8A9E\
+    \u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie \u6728\u306E\u9802\u70B9\u6570\
+    \u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1Ainsert, search \u3068\u3082\u306B\
+    \ O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\uFF09\n*/\ntemplate <int char_size\
+    \ = 26, int base = 'a'>\nstruct Trie {\n    struct Node {            // \u9802\
+    \u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\n        vector<long long> next;  \
+    \  // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\u683C\u7D0D\u3002\u5B58\u5728\
+    \u3057\u306A\u3051\u308C\u3070-1\n        vector<long long> accept;  // \u672B\
+    \u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\u5358\u8A9E\u306E word_id\
+    \ \u3092\u4FDD\u5B58\n        int c;               // base \u304B\u3089\u306E\u9593\
+    \u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\u3082\u306E\n        long\
+    \ long common;          // \u3044\u304F\u3064\u306E\u5358\u8A9E\u304C\u3053\u306E\
+    \u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\u304B\n        Node(long\
+    \ long c_) : c(c_), common(0) {\n            next.assign(char_size, -1);\n   \
+    \     }\n    };\n\n    vector<Node> nodes;  // trie \u6728\u672C\u4F53\n    long\
+    \ long root;\n\n    Trie() : root(0) {\n        nodes.push_back(Node(root));\n\
+    \    }\n\n    // \u5358\u8A9E\u306E\u633F\u5165\n    void insert(const string\
+    \ &word, long long word_id) {\n        ll node_id = 0;\n        rep(i, word.size()){\n\
+    \            int c = (int)(word[i] - base);\n            long long &next_id =\
+    \ nodes[node_id].next[c];\n            if (next_id == -1) {  // \u6B21\u306E\u9802\
+    \u70B9\u304C\u5B58\u5728\u3057\u306A\u3051\u308C\u3070\u8FFD\u52A0\n         \
+    \       next_id = nodes.size();\n                nodes.push_back(Node(c));\n \
+    \           }\n            ++nodes[node_id].common;\n            node_id = next_id;\n\
+    \        }\n        ++nodes[node_id].common;\n        nodes[node_id].accept.push_back(word_id);\n\
+    \    }\n    \n    void insert(const string &word) {\n        insert(word, nodes[0].common);\n\
+    \    }\n\n    // \u5358\u8A9E\u306E\u691C\u7D22\n    // prefix = false\u3000\u306A\
+    \u3089\u3070\u3001\u5B8C\u5168\u4E00\u81F4\u306E\u691C\u7D22\n    // prefix =\
+    \ true \u306A\u3089\u3070\u3001prefix \u306E\u691C\u7D22\n    bool search(const\
+    \ string &word, bool prefix = false) {\n        long long node_id = 0;\n     \
+    \   rep(i, word.size()) {\n            int c = (int)(word[i] - base);\n      \
+    \      long long &next_id = nodes[node_id].next[c];\n\n            if (next_id\
+    \ == -1) return false;   // \u6B21\u306E\u9802\u70B9\u304C\u5B58\u5728\u3057\u306A\
+    \u3051\u308C\u3070\u7D42\u4E86\n            node_id = next_id;\n        }\n  \
+    \      return (prefix) ? true : nodes[node_id].accept.size() > 0;\n    }\n\n \
+    \   // prefix \u3092\u6301\u3064\u5358\u8A9E\u304C\u5B58\u5728\u3059\u308B\u304B\
+    \u306E\u691C\u7D22\n    bool start_with(const string &prefix) {\n        return\
+    \ search(prefix, true);\n    }\n\n    // \u633F\u5165\u3057\u305F\u5358\u8A9E\u306E\
+    \u6570\n    long long count() const {\n        return (nodes[0].common);\n   \
+    \ }\n\n    // Trie\u6728\u306E\u30CE\u30FC\u30C9\u6570\n    long long size() const\
+    \ {\n        return nodes.size();\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n\n/* Trie \u6728\uFF1A \u6587\u5B57\
+    \u306E\u7A2E\u985E(char_size)\u3001int\u578B\u30670\u306B\u5BFE\u5FDC\u3059\u308B\
+    \u6587\u5B57(base)\n    insert(word): \u5358\u8A9E word \u3092 Trie \u6728\u306B\
+    \u633F\u5165\u3059\u308B\n    search(word): \u5358\u8A9E word \u304C Trie \u6728\
+    \u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    start_with(prefix):  prefix\
+    \ \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C Trie \u6728\u306B\u3042\u308B\
+    \u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\u5165\u3057\u305F\u5358\u8A9E\
+    \u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie \u6728\u306E\u9802\u70B9\u6570\
+    \u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1Ainsert, search \u3068\u3082\u306B\
+    \ O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\uFF09\n*/\ntemplate <int char_size\
+    \ = 26, int base = 'a'>\nstruct Trie {\n    struct Node {            // \u9802\
+    \u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\n        vector<long long> next;  \
+    \  // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\u683C\u7D0D\u3002\u5B58\u5728\
+    \u3057\u306A\u3051\u308C\u3070-1\n        vector<long long> accept;  // \u672B\
+    \u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\u5358\u8A9E\u306E word_id\
+    \ \u3092\u4FDD\u5B58\n        int c;               // base \u304B\u3089\u306E\u9593\
+    \u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\u3082\u306E\n        long\
+    \ long common;          // \u3044\u304F\u3064\u306E\u5358\u8A9E\u304C\u3053\u306E\
+    \u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\u304B\n        Node(long\
+    \ long c_) : c(c_), common(0) {\n            next.assign(char_size, -1);\n   \
+    \     }\n    };\n\n    vector<Node> nodes;  // trie \u6728\u672C\u4F53\n    long\
+    \ long root;\n\n    Trie() : root(0) {\n        nodes.push_back(Node(root));\n\
+    \    }\n\n    // \u5358\u8A9E\u306E\u633F\u5165\n    void insert(const string\
+    \ &word, long long word_id) {\n        ll node_id = 0;\n        rep(i, word.size()){\n\
+    \            int c = (int)(word[i] - base);\n            long long &next_id =\
+    \ nodes[node_id].next[c];\n            if (next_id == -1) {  // \u6B21\u306E\u9802\
+    \u70B9\u304C\u5B58\u5728\u3057\u306A\u3051\u308C\u3070\u8FFD\u52A0\n         \
+    \       next_id = nodes.size();\n                nodes.push_back(Node(c));\n \
+    \           }\n            ++nodes[node_id].common;\n            node_id = next_id;\n\
+    \        }\n        ++nodes[node_id].common;\n        nodes[node_id].accept.push_back(word_id);\n\
+    \    }\n    \n    void insert(const string &word) {\n        insert(word, nodes[0].common);\n\
+    \    }\n\n    // \u5358\u8A9E\u306E\u691C\u7D22\n    // prefix = false\u3000\u306A\
+    \u3089\u3070\u3001\u5B8C\u5168\u4E00\u81F4\u306E\u691C\u7D22\n    // prefix =\
+    \ true \u306A\u3089\u3070\u3001prefix \u306E\u691C\u7D22\n    bool search(const\
+    \ string &word, bool prefix = false) {\n        long long node_id = 0;\n     \
+    \   rep(i, word.size()) {\n            int c = (int)(word[i] - base);\n      \
+    \      long long &next_id = nodes[node_id].next[c];\n\n            if (next_id\
+    \ == -1) return false;   // \u6B21\u306E\u9802\u70B9\u304C\u5B58\u5728\u3057\u306A\
+    \u3051\u308C\u3070\u7D42\u4E86\n            node_id = next_id;\n        }\n  \
+    \      return (prefix) ? true : nodes[node_id].accept.size() > 0;\n    }\n\n \
+    \   // prefix \u3092\u6301\u3064\u5358\u8A9E\u304C\u5B58\u5728\u3059\u308B\u304B\
+    \u306E\u691C\u7D22\n    bool start_with(const string &prefix) {\n        return\
+    \ search(prefix, true);\n    }\n\n    // \u633F\u5165\u3057\u305F\u5358\u8A9E\u306E\
+    \u6570\n    long long count() const {\n        return (nodes[0].common);\n   \
+    \ }\n\n    // Trie\u6728\u306E\u30CE\u30FC\u30C9\u6570\n    long long size() const\
+    \ {\n        return nodes.size();\n    }\n};\n"
   dependsOn:
-  - math/is-prime.cpp
   - base.cpp
-  isVerificationFile: true
-  path: test/math/is-prime/atcoder-abc149-c.test.cpp
+  isVerificationFile: false
+  path: string/trie-tree.cpp
   requiredBy: []
-  timestamp: '2024-05-12 10:51:03+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/math/is-prime/atcoder-abc149-c.test.cpp
+  timestamp: '2024-05-12 10:52:06+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/string/trie-tree/atcoder-abc353-e.test.cpp
+documentation_of: string/trie-tree.cpp
 layout: document
 redirect_from:
-- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp
-- /verify/test/math/is-prime/atcoder-abc149-c.test.cpp.html
-title: test/math/is-prime/atcoder-abc149-c.test.cpp
+- /library/string/trie-tree.cpp
+- /library/string/trie-tree.cpp.html
+title: string/trie-tree.cpp
 ---

@@ -314,8 +314,35 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"structure/bit.cpp\"\n\ntemplate<class T = long long>\n\
-    struct BIT {\n    long long N, _N, height;\n    vector<T> bit0, bit1;\n\n    BIT(long\
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}\n#line 3 \"structure/bit.cpp\"\n\ntemplate<class T = long long>\nstruct\
+    \ BIT {\n    long long N, _N, height;\n    vector<T> bit0, bit1;\n\n    BIT(long\
     \ long n): _N(n) {\n        init();\n    }\n\n    BIT(const vector<T> &A): _N(A.size())\
     \ {\n        init();\n\n        rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long\
     \ long n, T a): _N(n) {\n        init();\n\n        rep(i, _N) add(i, a);\n  \
@@ -398,7 +425,7 @@ data:
   isVerificationFile: true
   path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-12 10:51:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/atcoder-chokudai-s001-j.test.cpp

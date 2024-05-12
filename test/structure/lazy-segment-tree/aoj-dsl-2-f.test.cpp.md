@@ -313,30 +313,57 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"structure/lazy-segment-tree.cpp\"\n\ntemplate<typename\
-    \ T>\nstruct Node {\n    T value;\n    long long index;\n    long long size;\n\
-    \    long long coeff;\n\n    Node(T v, long long i = -1, long long s = 0, long\
-    \ long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n    bool operator<\
-    \ (const Node &other) const {\n        return value < other.value;\n    }\n\n\
-    \    bool operator== (const T other) const {\n        return value == other;\n\
-    \    }\n\n    bool operator!= (const T other) const {\n        return value !=\
-    \ other;\n    }\n\n    operator T() const {\n        return value;\n    }\n\n\
-    \    friend ostream& operator << (ostream &os, const Node<T>& node) {\n      \
-    \  return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
-    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
-    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
-    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
-    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
-    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
-    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
-    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
-    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
-    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
-    struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
-    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
-    \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
-    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
-    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}\n#line 3 \"structure/lazy-segment-tree.cpp\"\n\ntemplate<typename T>\n\
+    struct Node {\n    T value;\n    long long index;\n    long long size;\n    long\
+    \ long coeff;\n\n    Node(T v, long long i = -1, long long s = 0, long long c\
+    \ = 1) : value(v), index(i), size(s), coeff(c) {};\n\n    bool operator< (const\
+    \ Node &other) const {\n        return value < other.value;\n    }\n\n    bool\
+    \ operator== (const T other) const {\n        return value == other;\n    }\n\n\
+    \    bool operator!= (const T other) const {\n        return value != other;\n\
+    \    }\n\n    operator T() const {\n        return value;\n    }\n\n    friend\
+    \ ostream& operator << (ostream &os, const Node<T>& node) {\n        return os\
+    \ << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation {\n    using\
+    \ S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\n    virtual\
+    \ S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename T = long\
+    \ long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\n    NoOperation():\
+    \ _e(T()) {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator()\
+    \ (const S& x, const S& y) override {\n        if (x == e()) return y;\n     \
+    \   else if (y == e()) return x;\n\n        T value = x.value;\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Max : Operation<T>\
+    \ {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min()) {};\n\n\
+    \    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = max(x.value, y.value);\n      \
+    \  long long index = (y.value > x.value ? y.index : x.index);\n        long long\
+    \ size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
     \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
     };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
     \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
@@ -523,7 +550,7 @@ data:
   isVerificationFile: true
   path: test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
   requiredBy: []
-  timestamp: '2024-05-11 16:13:14+09:00'
+  timestamp: '2024-05-12 10:51:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp

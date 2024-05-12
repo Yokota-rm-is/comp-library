@@ -87,6 +87,9 @@ data:
     path: search/trit-zentansaku.cpp
     title: search/trit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
+    path: string/trie-tree.cpp
+    title: string/trie-tree.cpp
+  - icon: ':heavy_check_mark:'
     path: structure/bit.cpp
     title: structure/bit.cpp
   - icon: ':heavy_check_mark:'
@@ -226,11 +229,17 @@ data:
     path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+    title: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
     title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
     title: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
+    title: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
     title: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
@@ -285,6 +294,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
     title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/string/trie-tree/atcoder-abc353-e.test.cpp
+    title: test/string/trie-tree/atcoder-abc353-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/bit/aoj-alds1-5-d.test.cpp
     title: test/structure/bit/aoj-alds1-5-d.test.cpp
@@ -704,7 +716,34 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n"
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}\n"
   code: "#pragma once\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if\
     \ __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -999,7 +1038,34 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif"
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}"
   dependsOn: []
   isVerificationFile: false
   path: base.cpp
@@ -1038,6 +1104,7 @@ data:
   - grid/grid-dfs.cpp
   - grid/grid-unionfind.cpp
   - heuristic/timer.cpp
+  - string/trie-tree.cpp
   - math/is-prime.cpp
   - math/prime-factorization.cpp
   - math/eratosthenes.cpp
@@ -1045,7 +1112,7 @@ data:
   - other/cumulative-sum.cpp
   - tree/tree-bfs.cpp
   - tree/tree-dp.cpp
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-12 10:51:03+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/mystd/mylist/atcoder-abc344-e.test.cpp
@@ -1117,14 +1184,17 @@ data:
   - test/graph/dfs/atcoder-abc327-d.test.cpp
   - test/graph/dfs/aoj-grl-4-a.test.cpp
   - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/string/trie-tree/atcoder-abc353-e.test.cpp
   - test/math/eratosthenes/yukicoder-843.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - test/math/prime-factorization/atcoder-abc324-b.test.cpp

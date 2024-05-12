@@ -313,13 +313,40 @@ data:
     \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
     \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
     \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n#line 3 \"graph/bellman-ford.cpp\"\n\n/**\n * @brief \u30D9\u30EB\
-    \u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\n * @docs docs/graph/bellman-ford.md\n\
-    */\ntemplate<class T = long long>\nstruct BellmanFord {\n    struct Edge {\n \
-    \       long long from;\n        long long to;\n        T weight;\n        \n\
-    \        explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u),\
-    \ to(v), weight(w) {};\n\n        bool operator < (const Edge& other) const {\n\
-    \            if (from == other.from) {\n                if (to == other.to) return\
+    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
+    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
+    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
+    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
+    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
+    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
+    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
+    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
+    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
+    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
+    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
+    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
+    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
+    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
+    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
+    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
+    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
+    \ --it;}\n#line 3 \"graph/bellman-ford.cpp\"\n\n/**\n * @brief \u30D9\u30EB\u30DE\
+    \u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\n * @docs docs/graph/bellman-ford.md\n*/\n\
+    template<class T = long long>\nstruct BellmanFord {\n    struct Edge {\n     \
+    \   long long from;\n        long long to;\n        T weight;\n        \n    \
+    \    explicit Edge(long long u = -1, long long v = -1, T w = 1) : from(u), to(v),\
+    \ weight(w) {};\n\n        bool operator < (const Edge& other) const {\n     \
+    \       if (from == other.from) {\n                if (to == other.to) return\
     \ weight < other.weight;\n                else return to < other.to;\n       \
     \     }\n            else return from < other.from;\n        }\n\n        friend\
     \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
@@ -372,7 +399,7 @@ data:
   isVerificationFile: true
   path: test/graph/bellman-ford/aoj-grl-1-b.test.cpp
   requiredBy: []
-  timestamp: '2024-05-10 22:23:20+09:00'
+  timestamp: '2024-05-12 10:51:03+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/bellman-ford/aoj-grl-1-b.test.cpp

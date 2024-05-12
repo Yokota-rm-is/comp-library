@@ -106,6 +106,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: search/trit-zentansaku.cpp
       title: search/trit-zentansaku.cpp
+  - name: string
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: string/trie-tree.cpp
+      title: string/trie-tree.cpp
   - name: structure
     pages:
     - icon: ':heavy_check_mark:'
@@ -276,6 +281,9 @@ data:
       path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
       title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+      title: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
       title: test/grid/grid-bfs/atcoder-arc005-c.test.cpp
     - icon: ':heavy_check_mark:'
@@ -283,6 +291,9 @@ data:
       title: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   - name: test/grid/grid-dfs
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
+      title: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
       title: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
@@ -359,6 +370,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
       title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - name: test/string/trie-tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/string/trie-tree/atcoder-abc353-e.test.cpp
+      title: test/string/trie-tree/atcoder-abc353-e.test.cpp
   - name: test/structure/bit
     pages:
     - icon: ':heavy_check_mark:'
