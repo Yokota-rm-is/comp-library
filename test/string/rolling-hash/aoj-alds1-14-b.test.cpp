@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B&lang=jp"
+#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B"
 
 #include "../../../string/rolling-hash.cpp"
 
@@ -8,7 +8,7 @@ int main() {
 
     RollingHash rht(T), rhp(P);
     rep(i, T.size() - P.size() + 1) {
-        if (rht.get(i, i + P.size()) == rhp.get(P.size())) {
+        if (rht.get(i, i + P.size()) == rhp.get()) {
             cout << i << endl;
         }
     }

@@ -137,6 +137,10 @@ struct RollingHash {
         }
     }
 
+    unsigned long long get() {
+        return hashed[N].hash;
+    }
+
     unsigned long long get(long long r) {
         return hashed[r].hash;
     }
