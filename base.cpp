@@ -348,7 +348,8 @@ template <typename T> long long bubble_sort(vector<T> &A) {
     } 
     return ret;
 }
-template<typename T> vector<T> compress(const vector<T> &A) {
+
+template<typename T> vector<T> compress(const vector<T> &A, bool unique_id = false) {
     long long N = A.size();
     vector<pair<T, long long>> B;
     rep(i, N) B.emplace_back(A[i], i);
@@ -357,7 +358,8 @@ template<typename T> vector<T> compress(const vector<T> &A) {
     ll count = 0;
     rep(i, N) {
         C[B[i].second] = count;
-        if (i < N - 1 and B[i].first != B[i + 1].first) ++count;
+        if (unique_id)++count;
+        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;
     } 
     return C;
 }
