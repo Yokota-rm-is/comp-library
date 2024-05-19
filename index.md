@@ -95,6 +95,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: other/cumulative-sum.cpp
       title: other/cumulative-sum.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/pattern-cumulative-sum.cpp
+      title: other/pattern-cumulative-sum.cpp
   - name: search
     pages:
     - icon: ':heavy_check_mark:'
@@ -341,6 +344,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
       title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - name: test/other/compress
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/compress/atcoder-abc036-c.test.cpp
+      title: test/other/compress/atcoder-abc036-c.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/compress/atcoder-abc113-c.test.cpp
+      title: test/other/compress/atcoder-abc113-c.test.cpp
   - name: test/other/cumulative-sum
     pages:
     - icon: ':heavy_check_mark:'
@@ -352,6 +363,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
       title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - name: test/other/pattern-cumulative-sum
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+      title: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+      title: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
   - name: test/search/bit-zentansaku
     pages:
     - icon: ':heavy_check_mark:'

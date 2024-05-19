@@ -302,17 +302,18 @@ data:
     \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
     \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
     \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
-    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
-    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
-    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
-    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
-    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
-    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
-    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
-    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
-    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
-    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
+    \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
+    \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
+    \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
+    \    rep(i, N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n\
+    \        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    }\
+    \ \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long\
+    \ pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long\
+    \ pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\n\
+    long long bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n\
+    #if __cplusplus > 201703L\nlong long bit_count(long long x) { return popcount((ull)x);\
+    \ }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
     \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
     \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
     \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
@@ -385,28 +386,29 @@ data:
     \n    RollingHash(const string &S) : N(S.size()) {\n        construct(S);\n  \
     \  }\n\n    void construct(string S) {\n        Hash61 hash;\n\n        hashed.push_back(hash);\n\
     \n        rep(i, N) {\n            hash += S[i];\n            hashed.push_back(hash);\n\
-    \        }\n    }\n\n    unsigned long long get(long long r) {\n        return\
-    \ hashed[r].hash;\n    }\n\n    // [l, r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\
-    \u53D6\u5F97\n    unsigned long long get(long long l, long long r) {\n       \
-    \ if (l == 0) return hashed[r].hash;\n        \n        return Hash61::calc_mod(hashed[r].hash\
-    \ + Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r -\
-    \ l].pow)));\n    }\n\n    long long lcp(long long l1, long long r1, long long\
-    \ l2, long long r2) {\n        long long low = 0;\n        long long high = min(r1\
-    \ - l1, r2 - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return\
-    \ high;\n\n        while (high - low > 1) {\n            long long mid = (high\
-    \ + low) / 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low =\
-    \ mid;\n            else high = mid;\n        }\n\n        return low;\n    }\n\
-    \n    long long lcp(long long l1, long long l2) {\n        long long low = 0;\n\
-    \        long long high = min(N - l1, N - l2);\n        if (get(l1, l1 + high)\
-    \ == get(l2, l2 + high)) return high;\n\n        while (high - low > 1) {\n  \
-    \          long long mid = (high + low) / 2;\n\n            if (get(l1, l1 + mid)\
-    \ == get(l2, l2 + mid)) low = mid;\n            else high = mid;\n        }\n\n\
-    \        return low;\n    }\n\n    friend ostream& operator << (ostream &os, const\
-    \ RollingHash& h) {\n        rep(i, h.N) os << h.hashed[i] << \" \";\n       \
-    \ return os;\n    }\n};\n#line 4 \"test/string/rolling-hash/atcoder-abc141-e.test.cpp\"\
-    \n\nint main() {\n    ll N;\n    cin >> N;\n\n    string S;\n    cin >> S;\n\n\
-    \    RollingHash rh(S);\n    ll ans = 0;\n    rep(i, N) rep(j, i + 1, N) {\n \
-    \       ll lcp = rh.lcp(i, j, j, N);\n        chmax(ans, lcp);\n    }\n\n    cout\
+    \        }\n    }\n\n    unsigned long long get() {\n        return hashed[N].hash;\n\
+    \    }\n\n    unsigned long long get(long long r) {\n        return hashed[r].hash;\n\
+    \    }\n\n    // [l, r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\u53D6\u5F97\n\
+    \    unsigned long long get(long long l, long long r) {\n        if (l == 0) return\
+    \ hashed[r].hash;\n        \n        return Hash61::calc_mod(hashed[r].hash +\
+    \ Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r - l].pow)));\n\
+    \    }\n\n    long long lcp(long long l1, long long r1, long long l2, long long\
+    \ r2) {\n        long long low = 0;\n        long long high = min(r1 - l1, r2\
+    \ - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return high;\n\
+    \n        while (high - low > 1) {\n            long long mid = (high + low) /\
+    \ 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low = mid;\n \
+    \           else high = mid;\n        }\n\n        return low;\n    }\n\n    long\
+    \ long lcp(long long l1, long long l2) {\n        long long low = 0;\n       \
+    \ long long high = min(N - l1, N - l2);\n        if (get(l1, l1 + high) == get(l2,\
+    \ l2 + high)) return high;\n\n        while (high - low > 1) {\n            long\
+    \ long mid = (high + low) / 2;\n\n            if (get(l1, l1 + mid) == get(l2,\
+    \ l2 + mid)) low = mid;\n            else high = mid;\n        }\n\n        return\
+    \ low;\n    }\n\n    friend ostream& operator << (ostream &os, const RollingHash&\
+    \ h) {\n        rep(i, h.N) os << h.hashed[i] << \" \";\n        return os;\n\
+    \    }\n};\n#line 4 \"test/string/rolling-hash/atcoder-abc141-e.test.cpp\"\n\n\
+    int main() {\n    ll N;\n    cin >> N;\n\n    string S;\n    cin >> S;\n\n   \
+    \ RollingHash rh(S);\n    ll ans = 0;\n    rep(i, N) rep(j, i + 1, N) {\n    \
+    \    ll lcp = rh.lcp(i, j, j, N);\n        chmax(ans, lcp);\n    }\n\n    cout\
     \ << ans << endl;\n\n    return 0;\n} \n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc141/tasks/abc141_e\"\n\n\
     #include \"../../../string/rolling-hash.cpp\"\n\nint main() {\n    ll N;\n   \
@@ -420,7 +422,7 @@ data:
   isVerificationFile: true
   path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-12 12:25:03+09:00'
+  timestamp: '2024-05-19 11:01:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/string/rolling-hash/atcoder-abc141-e.test.cpp

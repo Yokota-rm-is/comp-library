@@ -302,17 +302,18 @@ data:
     \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
     \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
     \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
-    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
-    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
-    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
-    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
-    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
-    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
-    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
-    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
-    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
-    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
+    \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
+    \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
+    \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
+    \    rep(i, N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n\
+    \        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    }\
+    \ \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long\
+    \ pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long\
+    \ pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\n\
+    long long bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n\
+    #if __cplusplus > 201703L\nlong long bit_count(long long x) { return popcount((ull)x);\
+    \ }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
     \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
     \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
     \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
@@ -512,7 +513,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-dfs/atcoder-abc335-d.test.cpp
   requiredBy: []
-  timestamp: '2024-05-12 10:51:03+09:00'
+  timestamp: '2024-05-19 11:00:57+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-dfs/atcoder-abc335-d.test.cpp

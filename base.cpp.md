@@ -78,6 +78,9 @@ data:
     path: other/cumulative-sum.cpp
     title: other/cumulative-sum.cpp
   - icon: ':heavy_check_mark:'
+    path: other/pattern-cumulative-sum.cpp
+    title: other/pattern-cumulative-sum.cpp
+  - icon: ':heavy_check_mark:'
     path: search/bit-zentansaku.cpp
     title: search/bit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
@@ -274,6 +277,12 @@ data:
     path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
     title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/other/compress/atcoder-abc036-c.test.cpp
+    title: test/other/compress/atcoder-abc036-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/compress/atcoder-abc113-c.test.cpp
+    title: test/other/compress/atcoder-abc113-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
     title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   - icon: ':heavy_check_mark:'
@@ -282,6 +291,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
     title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+    title: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+    title: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
     title: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
@@ -717,17 +732,18 @@ data:
     \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
     \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
     \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
-    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
-    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
-    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
-    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
-    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
-    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
-    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
-    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
-    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
-    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
+    \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
+    \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
+    \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
+    \    rep(i, N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n\
+    \        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    }\
+    \ \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long\
+    \ pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long\
+    \ pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\n\
+    long long bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n\
+    #if __cplusplus > 201703L\nlong long bit_count(long long x) { return popcount((ull)x);\
+    \ }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
     \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
     \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
     \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
@@ -1039,17 +1055,18 @@ data:
     \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
     \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
     \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\ntemplate<typename T>\
-    \ vector<T> compress(const vector<T> &A) {\n    long long N = A.size();\n    vector<pair<T,\
-    \ long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n    sort(B.begin(),\
-    \ B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i, N) {\n       \
-    \ C[B[i].second] = count;\n        if (i < N - 1 and B[i].first != B[i + 1].first)\
-    \ ++count;\n    } \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long\
-    \ long x, long long pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long\
-    \ long x, long long pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll\
-    \ << pos)); }\nlong long bit_flip(long long x, long long pos) { return x ^ (1ll\
-    \ << pos); }\n#if __cplusplus > 201703L\nlong long bit_count(long long x) { return\
-    \ popcount((ull)x); }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
+    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
+    \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
+    \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
+    \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
+    \    rep(i, N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n\
+    \        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    }\
+    \ \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long\
+    \ pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long\
+    \ pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\n\
+    long long bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n\
+    #if __cplusplus > 201703L\nlong long bit_count(long long x) { return popcount((ull)x);\
+    \ }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
     \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
     \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
     \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
@@ -1082,151 +1099,156 @@ data:
   isVerificationFile: false
   path: base.cpp
   requiredBy:
-  - mystd/mypair.cpp
   - mystd/mytuple.cpp
+  - mystd/mypair.cpp
   - mystd/mymultiset.cpp
   - mystd/mylist.cpp
-  - structure/bit.cpp
-  - structure/segment-tree.cpp
-  - structure/unionfind.cpp
-  - structure/splay-tree.cpp
-  - structure/empty-sqrt-decomposition.cpp
-  - structure/weighted-unionfind.cpp
-  - structure/sqrt-decomposition.cpp
-  - structure/undo-unionfind.cpp
-  - structure/kruskal.cpp
-  - structure/dual-segment-tree.cpp
-  - structure/lazy-segment-tree.cpp
-  - search/memoization.cpp
-  - search/bit-zentansaku.cpp
-  - search/trit-zentansaku.cpp
-  - dp/bitdp.cpp
-  - graph/flow.cpp
-  - graph/bellman-ford.cpp
-  - graph/topological-sort.cpp
-  - graph/dijkstra.cpp
-  - graph/warshall-floyd.cpp
-  - graph/dfs.cpp
-  - graph/psp.cpp
-  - graph/scc.cpp
-  - graph/bfs.cpp
-  - graph/tsp.cpp
+  - grid/grid-unionfind.cpp
   - grid/grid-bfs.cpp
   - grid/grid-dijkstra.cpp
   - grid/grid-dfs.cpp
-  - grid/grid-unionfind.cpp
-  - heuristic/timer.cpp
+  - graph/dijkstra.cpp
+  - graph/scc.cpp
+  - graph/psp.cpp
+  - graph/bellman-ford.cpp
+  - graph/tsp.cpp
+  - graph/topological-sort.cpp
+  - graph/bfs.cpp
+  - graph/flow.cpp
+  - graph/warshall-floyd.cpp
+  - graph/dfs.cpp
   - string/rolling-hash.cpp
   - string/trie-tree.cpp
+  - heuristic/timer.cpp
   - math/is-prime.cpp
-  - math/prime-factorization.cpp
   - math/eratosthenes.cpp
+  - math/prime-factorization.cpp
   - math/modint.cpp
+  - search/memoization.cpp
+  - search/bit-zentansaku.cpp
+  - search/trit-zentansaku.cpp
+  - structure/bit.cpp
+  - structure/empty-sqrt-decomposition.cpp
+  - structure/splay-tree.cpp
+  - structure/weighted-unionfind.cpp
+  - structure/unionfind.cpp
+  - structure/undo-unionfind.cpp
+  - structure/segment-tree.cpp
+  - structure/dual-segment-tree.cpp
+  - structure/sqrt-decomposition.cpp
+  - structure/lazy-segment-tree.cpp
+  - structure/kruskal.cpp
+  - other/pattern-cumulative-sum.cpp
   - other/cumulative-sum.cpp
-  - tree/tree-bfs.cpp
+  - dp/bitdp.cpp
   - tree/tree-dp.cpp
-  timestamp: '2024-05-12 10:51:03+09:00'
+  - tree/tree-bfs.cpp
+  timestamp: '2024-05-19 11:00:57+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/mystd/mylist/atcoder-abc344-e.test.cpp
   - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
-  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/aoj-alds1-5-d.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/kruskal/aoj-grl-2-a.test.cpp
-  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
-  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
-  - test/search/memoization/atcoder-abc275-d.test.cpp
-  - test/search/memoization/atcoder-abc350-e.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
-  - test/dp/bitdp/atcoder-abc142-e.test.cpp
-  - test/graph/flow/aoj-grl-6-b.test.cpp
-  - test/graph/flow/aoj-grl-6-a.test.cpp
-  - test/graph/flow/yukicoder-177.test.cpp
-  - test/graph/tsp/aoj-dpl-2-a.test.cpp
-  - test/graph/tsp/atcoder-abc180-e.test.cpp
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
-  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
-  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - test/graph/topological-sort/atcoder-dp-g.test.cpp
-  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
-  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  - test/graph/psp/yukicoder-1541.test.cpp
-  - test/graph/psp/atcoder-arc085-e.test.cpp
-  - test/graph/psp/atcoder-abc193-f.test.cpp
-  - test/graph/psp/yukicoder-2713.test.cpp
-  - test/graph/bfs/atcoder-abc270-c.test.cpp
-  - test/graph/bfs/atcoder-abc284-c.test.cpp
-  - test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
-  - test/graph/dfs/atcoder-abc327-d.test.cpp
-  - test/graph/dfs/aoj-grl-4-a.test.cpp
-  - test/graph/scc/aoj-grl-3-c.test.cpp
-  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - test/mystd/mylist/atcoder-abc344-e.test.cpp
   - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
+  - test/graph/bfs/atcoder-abc284-c.test.cpp
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
+  - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
+  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
+  - test/graph/psp/yukicoder-1541.test.cpp
+  - test/graph/psp/atcoder-abc193-f.test.cpp
+  - test/graph/psp/yukicoder-2713.test.cpp
+  - test/graph/psp/atcoder-arc085-e.test.cpp
+  - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/graph/flow/yukicoder-177.test.cpp
+  - test/graph/flow/aoj-grl-6-a.test.cpp
+  - test/graph/flow/aoj-grl-6-b.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/tsp/atcoder-abc180-e.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
+  - test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - test/base/aoj-alds1-2-a.test.cpp
+  - test/base/aoj-ntl-1-c.test.cpp
+  - test/base/aoj-ntl-1-e.test.cpp
+  - test/base/aoj-ntl-1-b.test.cpp
+  - test/base/atcoder-abc109-c.test.cpp
   - test/string/trie-tree/atcoder-abc353-e.test.cpp
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
   - test/string/rolling-hash/atcoder-abc141-e.test.cpp
-  - test/math/eratosthenes/yukicoder-843.test.cpp
+  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - test/math/prime-factorization/atcoder-abc324-b.test.cpp
   - test/math/is-prime/atcoder-abc149-c.test.cpp
-  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - test/math/eratosthenes/yukicoder-843.test.cpp
+  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - test/search/memoization/atcoder-abc350-e.test.cpp
+  - test/search/memoization/atcoder-abc275-d.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/bit/atcoder-abc338-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/atcoder-arc033-c.test.cpp
+  - test/structure/bit/aoj-dsl-2-g.test.cpp
+  - test/structure/bit/aoj-alds1-5-d.test.cpp
+  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
   - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
   - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
-  - test/base/aoj-alds1-2-a.test.cpp
-  - test/base/aoj-ntl-1-c.test.cpp
-  - test/base/atcoder-abc109-c.test.cpp
-  - test/base/aoj-ntl-1-e.test.cpp
-  - test/base/aoj-ntl-1-b.test.cpp
+  - test/other/compress/atcoder-abc113-c.test.cpp
+  - test/other/compress/atcoder-abc036-c.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+  - test/dp/bitdp/atcoder-abc142-e.test.cpp
+  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
   - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
-  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
 documentation_of: base.cpp
 layout: document
 redirect_from:
