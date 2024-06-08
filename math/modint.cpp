@@ -40,6 +40,19 @@ template<int MOD> struct Fp {
         if (val < 0) val += MOD;
         return *this;
     }
+    constexpr Fp pow(unsigned long long n) const noexcept {
+        assert(0 <= n);
+        Fp<MOD> x = *this, r = 1;
+        while (n) {
+            if (n & 1) r *= x;
+            x *= x;
+            n >>= 1;
+        }
+        return r;
+    }
+    constexpr Fp pow(long long n) const noexcept {
+        return pow((unsigned long long) n);
+    }
     constexpr bool operator == (const Fp& r) const noexcept {
         return this->val == r.val;
     }
