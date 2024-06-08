@@ -40,7 +40,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -338,13 +338,32 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 4 \"test/other/compress/atcoder-abc113-c.test.cpp\"\n\nint main()\
-    \ {\n    ll N, M;\n    cin >> N >> M;\n    \n    vll P(M), Y(M);\n    rep(i, M)\
-    \ cin >> P[i] >> Y[i];\n\n    map<ll, vll> mp;\n    rep(i, M) {\n        mp[P[i]].push_back(Y[i]);\n\
-    \    }\n\n    fore(p, mp) {\n        p.second = compress(p.second, false);\n \
-    \       reverse(p.second);\n    }\n\n    rep(i, M) {\n        cout << zero_padding(P[i],\
-    \ 6) << zero_padding(mp[P[i]].back() + 1, 6) << endl;\n        mp[P[i]].pop_back();\n\
-    \    }\n\n    return 0;\n}\n"
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 4 \"test/other/compress/atcoder-abc113-c.test.cpp\"\
+    \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n    \n    vll P(M), Y(M);\n\
+    \    rep(i, M) cin >> P[i] >> Y[i];\n\n    map<ll, vll> mp;\n    rep(i, M) {\n\
+    \        mp[P[i]].push_back(Y[i]);\n    }\n\n    fore(p, mp) {\n        p.second\
+    \ = compress(p.second, false);\n        reverse(p.second);\n    }\n\n    rep(i,\
+    \ M) {\n        cout << zero_padding(P[i], 6) << zero_padding(mp[P[i]].back()\
+    \ + 1, 6) << endl;\n        mp[P[i]].pop_back();\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc113/tasks/abc113_c\"\n\n\
     #include \"../../../base.cpp\"\n\nint main() {\n    ll N, M;\n    cin >> N >>\
     \ M;\n    \n    vll P(M), Y(M);\n    rep(i, M) cin >> P[i] >> Y[i];\n\n    map<ll,\
@@ -357,7 +376,7 @@ data:
   isVerificationFile: true
   path: test/other/compress/atcoder-abc113-c.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:01:31+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/compress/atcoder-abc113-c.test.cpp

@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,47 +341,66 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"graph/tsp.cpp\"\n\n// bitDP (\u5DE1\u56DE\u30BB\u30FC\u30EB\
-    \u30B9\u30DE\u30F3\u554F\u984C)\n// \u8A08\u7B97\u91CF: O(N^2 2^N) (N<=19)\ntemplate<typename\
-    \ T = long long>\nstruct TSP {\n    struct Edge {\n        long long from, to;\n\
-    \        T weight;\n        \n        Edge(long long u, long long v, T w = 1)\
-    \ : from(u), to(v), weight(w) {};\n\n        bool operator< (const Edge& other)\
-    \ const {\n            if (from == other.from) {\n                if (to == other.to)\
-    \ return weight < other.weight;\n                else return to < other.to;\n\
-    \            }\n            else return from < other.from;\n        }\n    };\n\
-    \n    using Graph = vector<vector<Edge>>;\n\n    long long V;\n    Graph G;\n\
-    \    bool directed;\n    vector<vector<T>> dp;\n    vector<vector<long long>>\
-    \ prev;\n    long long max_visit = 0;\n    long long _start;\n\n    T INF = inf64;\n\
-    \n    explicit TSP(long long v, bool directed) : V(v), G(V), directed(directed)\
-    \ {\n        init();\n    }\n\n    void init() {\n        _start = -1;\n     \
-    \   dp.assign((1 << V), vector<T>(V, INF));\n        prev.assign((1 << V), vector<long\
-    \ long>(V, -1));\n    }\n\n    void connect(long long from, long long to, T weight)\
-    \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
-    \ V);\n\n        G[from].emplace_back(from, to, weight);\n        if (!directed)\
-    \ G[to].emplace_back(to, from, weight);\n    }\n\n    void operator() (long long\
-    \ start) {\n        solve(start);\n    }\n\n    void solve(long long start) {\n\
-    \        assert(0 <= start and start < V);\n        _start = start;\n\n      \
-    \  dp[0][start] = 0;\n\n        rep(bit, (1 << V)) {\n            rep(now, V)\
-    \ {\n                if (dp[bit][now] > INF - 1) continue;\n\n               \
-    \ fore(edge, G[now]) {\n                    long long next = edge.to;\n      \
-    \              if (bit & (1 << next)) continue;\n\n                    long long\
-    \ next_bit = bit | (1 << next);\n\n                    if (chmin(dp[next_bit][next],\
-    \ dp[bit][now] + edge.weight)) {\n                        prev[next_bit][next]\
-    \ = now;\n                        chmax(max_visit, bit_count(next_bit));\n   \
-    \                 }\n                }\n            }\n        }\n    }\n\n  \
-    \  bool can_reach(long long to) {\n        assert(0 <= to and to < V);\n\n   \
-    \     return dp[(1 << V)][to] != INF;\n    }\n\n    T get_dist(long long goal,\
-    \ long long bit = -1) {\n        if (bit < 0) bit = (1 << V) - 1;\n        if\
-    \ (_start != goal) bit &= ~(1 << _start);\n\n        return dp[bit][goal];\n \
-    \   }\n\n    T get_cycle_dist(long long bit = -1) {\n        if (bit < 0) bit\
-    \ = (1 << V) - 1;\n\n        return dp[bit][_start];\n    }\n\n    vector<long\
-    \ long> get_path(long long goal, long long bit = -1) {\n        if (bit < 0) bit\
-    \ = (1 << V) - 1;\n\n        if (_start != goal) bit &= ~(1 << _start);\n\n  \
-    \      vector<long long> p;\n        p.push_back(goal);\n\n        long long to\
-    \ = goal;\n        while (true) {\n            long long from = prev[bit][to];\n\
-    \            if (from == -1) break;\n\n            p.push_back(from);\n      \
-    \      bit &= ~(1 << to);\n            to = from;\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n};\n#line 4 \"test/graph/tsp/atcoder-abc180-e.test.cpp\"\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"graph/tsp.cpp\"\n\n// bitDP (\u5DE1\
+    \u56DE\u30BB\u30FC\u30EB\u30B9\u30DE\u30F3\u554F\u984C)\n// \u8A08\u7B97\u91CF\
+    : O(N^2 2^N) (N<=19)\ntemplate<typename T = long long>\nstruct TSP {\n    struct\
+    \ Edge {\n        long long from, to;\n        T weight;\n        \n        Edge(long\
+    \ long u, long long v, T w = 1) : from(u), to(v), weight(w) {};\n\n        bool\
+    \ operator< (const Edge& other) const {\n            if (from == other.from) {\n\
+    \                if (to == other.to) return weight < other.weight;\n         \
+    \       else return to < other.to;\n            }\n            else return from\
+    \ < other.from;\n        }\n    };\n\n    using Graph = vector<vector<Edge>>;\n\
+    \n    long long V;\n    Graph G;\n    bool directed;\n    vector<vector<T>> dp;\n\
+    \    vector<vector<long long>> prev;\n    long long max_visit = 0;\n    long long\
+    \ _start;\n\n    T INF = inf64;\n\n    explicit TSP(long long v, bool directed)\
+    \ : V(v), G(V), directed(directed) {\n        init();\n    }\n\n    void init()\
+    \ {\n        _start = -1;\n        dp.assign((1 << V), vector<T>(V, INF));\n \
+    \       prev.assign((1 << V), vector<long long>(V, -1));\n    }\n\n    void connect(long\
+    \ long from, long long to, T weight) {\n        assert(0 <= from and from < V);\n\
+    \        assert(0 <= to and to < V);\n\n        G[from].emplace_back(from, to,\
+    \ weight);\n        if (!directed) G[to].emplace_back(to, from, weight);\n   \
+    \ }\n\n    void operator() (long long start) {\n        solve(start);\n    }\n\
+    \n    void solve(long long start) {\n        assert(0 <= start and start < V);\n\
+    \        _start = start;\n\n        dp[0][start] = 0;\n\n        rep(bit, (1 <<\
+    \ V)) {\n            rep(now, V) {\n                if (dp[bit][now] > INF - 1)\
+    \ continue;\n\n                fore(edge, G[now]) {\n                    long\
+    \ long next = edge.to;\n                    if (bit & (1 << next)) continue;\n\
+    \n                    long long next_bit = bit | (1 << next);\n\n            \
+    \        if (chmin(dp[next_bit][next], dp[bit][now] + edge.weight)) {\n      \
+    \                  prev[next_bit][next] = now;\n                        chmax(max_visit,\
+    \ bit_count(next_bit));\n                    }\n                }\n          \
+    \  }\n        }\n    }\n\n    bool can_reach(long long to) {\n        assert(0\
+    \ <= to and to < V);\n\n        return dp[(1 << V)][to] != INF;\n    }\n\n   \
+    \ T get_dist(long long goal, long long bit = -1) {\n        if (bit < 0) bit =\
+    \ (1 << V) - 1;\n        if (_start != goal) bit &= ~(1 << _start);\n\n      \
+    \  return dp[bit][goal];\n    }\n\n    T get_cycle_dist(long long bit = -1) {\n\
+    \        if (bit < 0) bit = (1 << V) - 1;\n\n        return dp[bit][_start];\n\
+    \    }\n\n    vector<long long> get_path(long long goal, long long bit = -1) {\n\
+    \        if (bit < 0) bit = (1 << V) - 1;\n\n        if (_start != goal) bit &=\
+    \ ~(1 << _start);\n\n        vector<long long> p;\n        p.push_back(goal);\n\
+    \n        long long to = goal;\n        while (true) {\n            long long\
+    \ from = prev[bit][to];\n            if (from == -1) break;\n\n            p.push_back(from);\n\
+    \            bit &= ~(1 << to);\n            to = from;\n        }\n\n       \
+    \ reverse(p.begin(), p.end());\n\n        return p;\n    }\n};\n#line 4 \"test/graph/tsp/atcoder-abc180-e.test.cpp\"\
     \n\nint main() {\n    ll N;\n    cin >> N;\n\n    vll X(N), Y(N), Z(N);\n    rep(i,\
     \ N) cin >> X[i] >> Y[i] >> Z[i];\n\n    TSP tsp(N, true);\n    rep(i, N) rep(j,\
     \ N) {\n        if (i == j) continue;\n\n        ll d = abs(X[j] - X[i]) + abs(Y[j]\
@@ -402,7 +421,7 @@ data:
   isVerificationFile: true
   path: test/graph/tsp/atcoder-abc180-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/tsp/atcoder-abc180-e.test.cpp

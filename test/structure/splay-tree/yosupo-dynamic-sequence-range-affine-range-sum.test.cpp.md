@@ -46,7 +46,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -344,12 +344,31 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"structure/splay-tree.cpp\"\n\ntemplate<typename T, typename\
-    \ F>\nstruct Node {\n    Node *l = 0, *r = 0, *p = 0;\n    T value, prod, rprod;\n\
-    \    F lazy;\n    long long index = -1;\n    long long z = 0;\n    long long sumz\
-    \ = 0;\n    bool rev = false;\n\n    bool operator< (const Node &other) const\
-    \ {\n        return value < other.value;\n    }\n\n    bool operator== (const\
-    \ T other) const {\n        return value == other;\n    }\n\n    bool operator!=\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"structure/splay-tree.cpp\"\n\ntemplate<typename\
+    \ T, typename F>\nstruct Node {\n    Node *l = 0, *r = 0, *p = 0;\n    T value,\
+    \ prod, rprod;\n    F lazy;\n    long long index = -1;\n    long long z = 0;\n\
+    \    long long sumz = 0;\n    bool rev = false;\n\n    bool operator< (const Node\
+    \ &other) const {\n        return value < other.value;\n    }\n\n    bool operator==\
+    \ (const T other) const {\n        return value == other;\n    }\n\n    bool operator!=\
     \ (const T other) const {\n        return value != other;\n    }\n\n    operator\
     \ T() const {\n        return value;\n    }\n\n    friend ostream& operator <<\
     \ (ostream &os, const Node<T, F>& node) {\n        return os << node.value;\n\
@@ -544,19 +563,23 @@ data:
     \ u = 1, v = 0;\n        while (b) {\n            long long t = a / b;\n     \
     \       a -= t * b; swap(a, b);\n            u -= t * v; swap(u, v);\n       \
     \ }\n        val = val * u % MOD;\n        if (val < 0) val += MOD;\n        return\
-    \ *this;\n    }\n    constexpr bool operator == (const Fp& r) const noexcept {\n\
-    \        return this->val == r.val;\n    }\n    constexpr bool operator != (const\
-    \ Fp& r) const noexcept {\n        return this->val != r.val;\n    }\n    friend\
-    \ constexpr istream& operator >> (istream &is, Fp<MOD>& x) noexcept {\n      \
-    \  long long t;\n        is >> t;\n        x = t;\n        return (is);\n    }\n\
-    \    friend constexpr ostream& operator << (ostream &os, const Fp<MOD>& x) noexcept\
-    \ {\n        return os << x.val;\n    }\n    friend constexpr Fp<MOD> modpow(const\
-    \ Fp<MOD> &a, long long n) noexcept {\n        if (n == 0) return 1;\n       \
-    \ auto t = modpow(a, n / 2);\n        t = t * t;\n        if (n & 1) t = t * a;\n\
-    \        return t;\n    }\n    friend constexpr Fp<MOD> modinv(const Fp<MOD> &a)\
-    \ noexcept {\n        Fp<MOD> b = 1;\n        return b / a;\n    }\n};\n\nusing\
-    \ mint998 = Fp<998244353>;\nusing mint007 = Fp<1000000007>;\n// using mint = Fp<MOD>;\n\
-    #line 5 \"test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp\"\
+    \ *this;\n    }\n    constexpr Fp pow(unsigned long long n) const noexcept {\n\
+    \        assert(0 <= n);\n        Fp<MOD> x = *this, r = 1;\n        while (n)\
+    \ {\n            if (n & 1) r *= x;\n            x *= x;\n            n >>= 1;\n\
+    \        }\n        return r;\n    }\n    constexpr Fp pow(long long n) const\
+    \ noexcept {\n        return pow((unsigned long long) n);\n    }\n    constexpr\
+    \ bool operator == (const Fp& r) const noexcept {\n        return this->val ==\
+    \ r.val;\n    }\n    constexpr bool operator != (const Fp& r) const noexcept {\n\
+    \        return this->val != r.val;\n    }\n    friend constexpr istream& operator\
+    \ >> (istream &is, Fp<MOD>& x) noexcept {\n        long long t;\n        is >>\
+    \ t;\n        x = t;\n        return (is);\n    }\n    friend constexpr ostream&\
+    \ operator << (ostream &os, const Fp<MOD>& x) noexcept {\n        return os <<\
+    \ x.val;\n    }\n    friend constexpr Fp<MOD> modpow(const Fp<MOD> &a, long long\
+    \ n) noexcept {\n        if (n == 0) return 1;\n        auto t = modpow(a, n /\
+    \ 2);\n        t = t * t;\n        if (n & 1) t = t * a;\n        return t;\n\
+    \    }\n    friend constexpr Fp<MOD> modinv(const Fp<MOD> &a) noexcept {\n   \
+    \     Fp<MOD> b = 1;\n        return b / a;\n    }\n};\n\nusing mint998 = Fp<998244353>;\n\
+    using mint007 = Fp<1000000007>;\n// using mint = Fp<MOD>;\n#line 5 \"test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp\"\
     \n\n\nint main() {\n    ll N, Q;\n    cin >> N >> Q;\n\n    vector<ull> a(N);\n\
     \    rep(i, N) cin >> a[i];\n\n    SplayTreeByIdx<mint998, pair<mint998, mint998>,\
     \ Affine, Sum> tree;\n\n    rep(i, N) tree.insert_at(i, a[i]);\n\n    while (Q--)\
@@ -592,7 +615,7 @@ data:
   isVerificationFile: true
   path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:29:19+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp

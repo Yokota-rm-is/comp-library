@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,55 +341,80 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"structure/weighted-unionfind.cpp\"\n\nstruct WeightedUnionFind\
-    \ {\n    long long V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\
-    \u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    vector<long\
-    \ long> diff_weight{};\n    map<long long, set<long long>> cc;\n\n    explicit\
-    \ WeightedUnionFind(long long V) : V(V), par(V, -1), diff_weight(V, 0) { //\u6700\
-    \u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\
-    \u671F\u5316\n        rep(i, V) {\n            cc[i].insert(i);\n        }\n \
-    \   }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long long\
-    \ x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\
-    \u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n        if\
-    \ (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n        diff_weight[x]\
-    \ += diff_weight[par[x]];\n        return par[x] = rx;\n    }\n\n    // x\u306E\
-    \u6839\u304B\u3089\u306E\u91CD\u307F\u3092\u8FD4\u3059\n    long long weight(long\
-    \ long x) {\n        find(x);\n        return diff_weight[x];\n    }\n\n    //\
-    \ x\u3068y\u3092\u9023\u7D50\n    // w = weight(y) - weight(x)\n    bool unite(long\
-    \ long x, long long y, long long w = 0) {\n        w += weight(x);\n        w\
-    \ -= weight(y);\n\n        long long rx = find(x); //x\u306E\u6839\u3092rx\n \
-    \       long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx == ry)\
-    \ return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\u306B\
-    \u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\u30B5\
-    \u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\
-    \u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\
-    \n        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n            w\
-    \ = -w;\n        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\
-    \u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        cc[rx].insert(cc[ry].begin(),\
-    \ cc[ry].end());\n        cc.erase(ry);\n\n        diff_weight[ry] = w;\n\n  \
-    \      return true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\
-    \u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n\
-    \    bool is_same(long long x, long long y) { \n        return find(x) == find(y);\n\
-    \    }\n\n    // return weight(y) - weight(x)\n    long long diff(long long x,\
-    \ long long y) {\n        return weight(y) - weight(x);\n    }\n\n    // x\u304C\
-    \u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\
-    \u3092\u8FD4\u3059\n    long long size(long long x) {\n        long long rx =\
-    \ find(x);\n        return -par[rx];\n    }\n\n    bool is_connected() {\n   \
-    \     long long rx = find(0);\n        return -par[rx] == V;\n    }\n\n    //\
-    \ x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\
-    \u8FD4\u3059\n    set<long long> members(long long x) {\n        long long rx\
-    \ = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"structure/weighted-unionfind.cpp\"\
+    \n\ntemplate <bool fastMode = false>\nstruct WeightedUnionFind {\n    long long\
+    \ V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7\
+    \ or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    vector<long long> diff_weight{};\n\
+    \    map<long long, set<long long>> cc;\n    long long cc_size;\n    long long\
+    \ cc_edge_size;\n\n    explicit WeightedUnionFind(long long V) : V(V), par(V,\
+    \ -1), diff_weight(V, 0) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
+    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        cc_size = V;\n        cc_edge_size\
+    \ = 0;\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
+    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
+    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
+    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
+    \     diff_weight[x] += diff_weight[par[x]];\n        return par[x] = rx;\n  \
+    \  }\n\n    // x\u306E\u6839\u304B\u3089\u306E\u91CD\u307F\u3092\u8FD4\u3059\n\
+    \    long long weight(long long x) {\n        find(x);\n        return diff_weight[x];\n\
+    \    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    // w = weight(y) - weight(x)\n\
+    \    bool unite(long long x, long long y, long long w = 0) {\n        w += weight(x);\n\
+    \        w -= weight(y);\n\n        long long rx = find(x); //x\u306E\u6839\u3092\
+    rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx ==\
+    \ ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\
+    \u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        --cc_size;\n\
+    \        ++cc_edge_size;\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\
+    \u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\
+    \u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx]\
+    \ < -par[ry]) {\n            swap(rx, ry);\n            w = -w;\n        }\n\n\
+    \        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n\
+    \        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044\
+    (=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\
+    \u6839rx\u306B\u3064\u3051\u308B\n\n        if (!fastMode) {\n            if (cc.contains(ry))\
+    \ {\n                cc[rx].insert(cc[ry].begin(), cc[ry].end());\n          \
+    \      cc.erase(ry);\n            }\n            else if (!cc.contains(rx)) cc[rx]\
+    \ = {rx, ry};\n            else cc[rx].insert(ry);\n        }\n\n        diff_weight[ry]\
+    \ = w;\n\n        return true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BF\
+    x, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\
+    \u3059\n    bool is_same(long long x, long long y) { \n        return find(x)\
+    \ == find(y);\n    }\n\n    // return weight(y) - weight(x)\n    long long diff(long\
+    \ long x, long long y) {\n        return weight(y) - weight(x);\n    }\n\n   \
+    \ // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\
+    \u306E\u6570\u3092\u8FD4\u3059\n    long long size(long long x) {\n        long\
+    \ long rx = find(x);\n        return -par[rx];\n    }\n\n    bool is_connected()\
+    \ {\n        long long rx = find(0);\n        return -par[rx] == V;\n    }\n\n\
+    \    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\
+    \u3092\u8FD4\u3059\n    set<long long> members(long long x) {\n        long long\
+    \ rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\
     \u914D\u5217\u3092\u8FD4\u3059\n    set<long long> roots() {\n        set<long\
     \ long> ret;\n        fore(p, cc) {\n            ret.insert(p.first);\n      \
     \  }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\
     \u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
-    \ cc.size();\n    }\n\n    map<long long, set<long long>> all_group_members()\
-    \ {\n        return cc;\n    }\n};\n#line 4 \"test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp\"\
-    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    WeightedUnionFind tree(n);\n\
-    \    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
-    \            ll x, y, z;\n            cin >> x >> y >> z;\n            tree.unite(x,\
+    \ cc_size;\n    }\n\n    map<long long, set<long long>> all_group_members() {\n\
+    \        auto ret = cc;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
+    \            ret[i] = {i}; \n        }\n        return ret;\n    }\n};\n#line\
+    \ 4 \"test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp\"\n\nint main() {\n\
+    \    ll n, q;\n    cin >> n >> q;\n\n    WeightedUnionFind tree(n);\n    while\
+    \ (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n       \
+    \     ll x, y, z;\n            cin >> x >> y >> z;\n            tree.unite(x,\
     \ y, z);\n        }\n        else {\n            ll x, y;\n            cin >>\
     \ x >> y;\n            if (tree.is_same(x, y)) cout << tree.diff(x, y) << endl;\n\
     \            else cout << \"?\" << endl;\n        }\n    }\n\n    return 0;\n\
@@ -408,7 +433,7 @@ data:
   isVerificationFile: true
   path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:29:41+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp

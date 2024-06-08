@@ -44,7 +44,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -342,39 +342,58 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"other/pattern-cumulative-sum.cpp\"\n\ntemplate <typename T>\n\
-    struct PatternCumulativeSum : vector<vector<T>> {\n    ll H, W;\n\n    PatternCumulativeSum(vector<vector<T>>&\
-    \ A) : H(A.size()), W(A.front().size()) {\n        (*this).resize(H + 1, vector<T>(W\
-    \ + 1, 0));\n        init(A);\n    };\n\n    void init(vector<vector<T>>& A) {\n\
-    \        rep(i, A.size()) rep(j, A.front().size()) {\n            (*this)[i +\
-    \ 1][j + 1] = A[i][j] + (*this)[i + 1][j] + (*this)[i][j + 1] - (*this)[i][j];\n\
-    \        }\n    }\n\n    // [x1, x2) x [y1, y2)\u306E\u7BC4\u56F2\u306E\u533A\u9593\
-    \u548C\u3092\u6C42\u3081\u308B\n    // x\u3068y\u306E\u9806\u756A\u306B\u6CE8\u610F\
-    \u3059\u308B\u3053\u3068\uFF01\uFF01\n    T sum(long long x1, long long y1, long\
-    \ long x2, long long y2) {\n        T ret = 0;\n\n        ll a1 = ceil(x1, W)\
-    \ * W, b1 = ceil(y1, H) * H, a2 = floor(x2, W) * W, b2 = floor(y2, H) * H;\n\n\
-    \        ret += (*this)[H][W] * ((a2 - a1) / W) * ((b2 - b1) / H); // \u4E2D\u592E\
-    \n        ret += (*this)[y2 - b2][W] - (*this)[y2 - b2][W - (a1 - x1)]; // \u5DE6\
-    \u4E0A\n        ret += ((*this)[H][W] - (*this)[H][W - (a1 - x1)]) * ((b2 - b1)\
-    \ / H); // \u4E2D\u592E\u5DE6\n        ret += (*this)[H][W] - (*this)[H][W - (a1\
-    \ - x1)] - (*this)[H - (b1 - y1)][W] + (*this)[H - (b1 - y1)][W - (a1 - x1)];\
-    \ // \u5DE6\u4E0B\n        ret += (*this)[y2 - b2][W] * ((a2 - a1) / W); // \u4E2D\
-    \u592E\u4E0A\n        ret += (*this)[y2 - b2][x2 - a2]; // \u53F3\u4E0A\n    \
-    \    ret += ((*this)[H][W] - (*this)[H - (b1 - y1)][W]) * ((a2 - a1) / W); //\
-    \ \u4E2D\u592E\u4E0B\n        ret += (*this)[H][x2 - a2] - (*this)[H - (b1 - y1)][x2\
-    \ - a2]; // \u53F3\u4E0B\n        ret += (*this)[H][x2 - a2] * ((b2 - b1) / H);\
-    \ // \u4E2D\u592E\u53F3\n\n        return ret;\n    }\n\n    friend ostream& operator<<(ostream&\
-    \ os, PatternCumulativeSum cs) {\n        rep(i, cs.size()) {\n            rep(j,\
-    \ cs.front().size()) {\n                os << cs[i][j] << \" \";\n           \
-    \ }\n            os << endl;\n        }\n        return os;\n    }\n};\n#line\
-    \ 5 \"test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp\"\n\nint main()\
-    \ {\n    long long A;\n    cin >> A;\n    long long B;\n    cin >> B;\n    long\
-    \ long C;\n    cin >> C;\n    long long D;\n    cin >> D;\n\n    vector<vector<ll>>\
-    \ pattern(2, vector<ll>(4, 0));\n    pattern[0][0] = 2;\n    pattern[0][1] = 1;\n\
-    \    pattern[0][2] = 0;\n    pattern[0][3] = 1;\n    pattern[1][0] = 1;\n    pattern[1][1]\
-    \ = 2;\n    pattern[1][2] = 1;\n    pattern[1][3] = 0;\n\n    PatternCumulativeSum<ll>\
-    \ pcs(pattern);\n    ll ans = pcs.sum(A, B, C, D);\n\n    cout << ans << endl;\n\
-    \n    return 0;\n}\n"
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"other/pattern-cumulative-sum.cpp\"\
+    \n\ntemplate <typename T>\nstruct PatternCumulativeSum : vector<vector<T>> {\n\
+    \    ll H, W;\n\n    PatternCumulativeSum(vector<vector<T>>& A) : H(A.size()),\
+    \ W(A.front().size()) {\n        (*this).resize(H + 1, vector<T>(W + 1, 0));\n\
+    \        init(A);\n    };\n\n    void init(vector<vector<T>>& A) {\n        rep(i,\
+    \ A.size()) rep(j, A.front().size()) {\n            (*this)[i + 1][j + 1] = A[i][j]\
+    \ + (*this)[i + 1][j] + (*this)[i][j + 1] - (*this)[i][j];\n        }\n    }\n\
+    \n    // [x1, x2) x [y1, y2)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\
+    \u3081\u308B\n    // x\u3068y\u306E\u9806\u756A\u306B\u6CE8\u610F\u3059\u308B\u3053\
+    \u3068\uFF01\uFF01\n    T sum(long long x1, long long y1, long long x2, long long\
+    \ y2) {\n        T ret = 0;\n\n        ll a1 = ceil(x1, W) * W, b1 = ceil(y1,\
+    \ H) * H, a2 = floor(x2, W) * W, b2 = floor(y2, H) * H;\n\n        ret += (*this)[H][W]\
+    \ * ((a2 - a1) / W) * ((b2 - b1) / H); // \u4E2D\u592E\n        ret += (*this)[y2\
+    \ - b2][W] - (*this)[y2 - b2][W - (a1 - x1)]; // \u5DE6\u4E0A\n        ret +=\
+    \ ((*this)[H][W] - (*this)[H][W - (a1 - x1)]) * ((b2 - b1) / H); // \u4E2D\u592E\
+    \u5DE6\n        ret += (*this)[H][W] - (*this)[H][W - (a1 - x1)] - (*this)[H -\
+    \ (b1 - y1)][W] + (*this)[H - (b1 - y1)][W - (a1 - x1)]; // \u5DE6\u4E0B\n   \
+    \     ret += (*this)[y2 - b2][W] * ((a2 - a1) / W); // \u4E2D\u592E\u4E0A\n  \
+    \      ret += (*this)[y2 - b2][x2 - a2]; // \u53F3\u4E0A\n        ret += ((*this)[H][W]\
+    \ - (*this)[H - (b1 - y1)][W]) * ((a2 - a1) / W); // \u4E2D\u592E\u4E0B\n    \
+    \    ret += (*this)[H][x2 - a2] - (*this)[H - (b1 - y1)][x2 - a2]; // \u53F3\u4E0B\
+    \n        ret += (*this)[H][x2 - a2] * ((b2 - b1) / H); // \u4E2D\u592E\u53F3\n\
+    \n        return ret;\n    }\n\n    friend ostream& operator<<(ostream& os, PatternCumulativeSum\
+    \ cs) {\n        rep(i, cs.size()) {\n            rep(j, cs.front().size()) {\n\
+    \                os << cs[i][j] << \" \";\n            }\n            os << endl;\n\
+    \        }\n        return os;\n    }\n};\n#line 5 \"test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp\"\
+    \n\nint main() {\n    long long A;\n    cin >> A;\n    long long B;\n    cin >>\
+    \ B;\n    long long C;\n    cin >> C;\n    long long D;\n    cin >> D;\n\n   \
+    \ vector<vector<ll>> pattern(2, vector<ll>(4, 0));\n    pattern[0][0] = 2;\n \
+    \   pattern[0][1] = 1;\n    pattern[0][2] = 0;\n    pattern[0][3] = 1;\n    pattern[1][0]\
+    \ = 1;\n    pattern[1][1] = 2;\n    pattern[1][2] = 1;\n    pattern[1][3] = 0;\n\
+    \n    PatternCumulativeSum<ll> pcs(pattern);\n    ll ans = pcs.sum(A, B, C, D);\n\
+    \n    cout << ans << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc354/tasks/abc354_d\"\
     \n\n#include \"../../../other/pattern-cumulative-sum.cpp\"\n\nint main() {\n \
     \   long long A;\n    cin >> A;\n    long long B;\n    cin >> B;\n    long long\
@@ -390,7 +409,7 @@ data:
   isVerificationFile: true
   path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:02:22+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp

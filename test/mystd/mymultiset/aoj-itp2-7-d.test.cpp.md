@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,31 +341,51 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename T>\nstruct MultiSet\
-    \ : public map<T, long long> {\n    long long N;\n    using mp = map<T, long long>;\n\
-    \n    explicit MultiSet() : N(0) {};\n\n    long long insert(T x, long long n\
-    \ = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n    long\
-    \ long erase(T x, long long n = 1) {\n        if (n > (*this)[x]) n = (*this)[x];\n\
-    \        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x] == 0) {\n\
-    \            mp::erase(x);\n            return 0;\n        }\n        else {\n\
-    \            return (*this)[x];\n        }\n    }\n\n    void erase_all(T x) {\n\
-    \        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front() {\n \
-    \       return mp::begin()->first;\n    }\n\n    T back() {\n        return mp::rbegin()->first;\n\
-    \    }\n\n    void pop() {\n        erase(front());\n    }\n\n    void pop_back()\
-    \ {\n        erase(back());\n    }\n\n    long long count_all() {\n        return\
-    \ N;\n    }\n\n    long long count(T x) {\n        if (!mp::contains(x)) return\
-    \ 0;\n        return (*this)[x];\n    }\n};\n#line 4 \"test/mystd/mymultiset/aoj-itp2-7-d.test.cpp\"\
-    \n\nint main() {\n    MultiSet<ll> ms;\n\n    ll q;\n    cin >> q;\n\n    while\
-    \ (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n       \
-    \     ll x;\n            cin >> x;\n\n            ms.insert(x);\n            cout\
-    \ << ms.count_all() << endl;\n        }\n        else if (t == 1) {\n        \
-    \    ll x;\n            cin >> x;\n\n            cout << ms.count(x) << endl;\n\
-    \        }\n        else if (t == 2) {\n            ll x;\n            cin >>\
-    \ x;\n\n            ms.erase_all(x);\n        }\n        else {\n            ll\
-    \ L, R;\n            cin >> L >> R;\n\n            for (auto p = ms.lower_bound(L);\
-    \ p != ms.end() and p->first <= R; ++p) {\n                ll x = p->first;\n\
-    \                ll n = p->second;\n\n                rep(i, n) cout << x << endl;\n\
-    \n            }\n        }\n    }\n\n    return 0;\n}\n"
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate\
+    \ <typename T>\nstruct MultiSet : public map<T, long long> {\n    long long N;\n\
+    \    using mp = map<T, long long>;\n\n    explicit MultiSet() : N(0) {};\n\n \
+    \   long long insert(T x, long long n = 1) {\n        N += n;\n        return\
+    \ (*this)[x] += n;\n    }\n\n    long long erase(T x, long long n = 1) {\n   \
+    \     if (n > (*this)[x]) n = (*this)[x];\n        N -= n;\n        (*this)[x]\
+    \ -= n;\n\n        if ((*this)[x] == 0) {\n            mp::erase(x);\n       \
+    \     return 0;\n        }\n        else {\n            return (*this)[x];\n \
+    \       }\n    }\n\n    void erase_all(T x) {\n        N -= (*this)[x];\n    \
+    \    mp::erase(x);\n    }\n\n    T front() {\n        return mp::begin()->first;\n\
+    \    }\n\n    T back() {\n        return mp::rbegin()->first;\n    }\n\n    void\
+    \ pop() {\n        erase(front());\n    }\n\n    void pop_back() {\n        erase(back());\n\
+    \    }\n\n    long long count_all() {\n        return N;\n    }\n\n    long long\
+    \ count(T x) {\n        if (!mp::contains(x)) return 0;\n        return (*this)[x];\n\
+    \    }\n};\n#line 4 \"test/mystd/mymultiset/aoj-itp2-7-d.test.cpp\"\n\nint main()\
+    \ {\n    MultiSet<ll> ms;\n\n    ll q;\n    cin >> q;\n\n    while (q--) {\n \
+    \       ll t;\n        cin >> t;\n\n        if (t == 0) {\n            ll x;\n\
+    \            cin >> x;\n\n            ms.insert(x);\n            cout << ms.count_all()\
+    \ << endl;\n        }\n        else if (t == 1) {\n            ll x;\n       \
+    \     cin >> x;\n\n            cout << ms.count(x) << endl;\n        }\n     \
+    \   else if (t == 2) {\n            ll x;\n            cin >> x;\n\n         \
+    \   ms.erase_all(x);\n        }\n        else {\n            ll L, R;\n      \
+    \      cin >> L >> R;\n\n            for (auto p = ms.lower_bound(L); p != ms.end()\
+    \ and p->first <= R; ++p) {\n                ll x = p->first;\n              \
+    \  ll n = p->second;\n\n                rep(i, n) cout << x << endl;\n\n     \
+    \       }\n        }\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP2_7_D&\"\
     \n\n#include \"../../../mystd/mymultiset.cpp\"\n\nint main() {\n    MultiSet<ll>\
     \ ms;\n\n    ll q;\n    cin >> q;\n\n    while (q--) {\n        ll t;\n      \
@@ -385,7 +405,7 @@ data:
   isVerificationFile: true
   path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp

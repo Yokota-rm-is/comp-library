@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,50 +341,69 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"structure/bit.cpp\"\n\ntemplate<class T = long long>\nstruct\
-    \ BIT {\n    long long N, _N, height;\n    vector<T> bit0, bit1;\n\n    BIT(long\
-    \ long n): _N(n) {\n        init();\n    }\n\n    BIT(const vector<T> &A): _N(A.size())\
-    \ {\n        init();\n\n        rep(i, _N) add(i, A[i]);\n    }\n\n    BIT(long\
-    \ long n, T a): _N(n) {\n        init();\n\n        rep(i, _N) add(i, a);\n  \
-    \  }\n\n    void init() {\n        N = 1;\n        height = 1;\n        while\
-    \ (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n        }\n\n\
-    \        bit0.assign(N + 1, 0);\n        bit1.assign(N + 1, 0);\n    }\n\n   \
-    \ // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long\
-    \ long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(bit0, p, x);\n\
-    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\
-    \u3048\u308B\n    void add(long long l, long long r, T x) {\n        assert(0\
-    \ <= l and l <= r and r <= _N);\n\n        if (l == r) return;\n\n        add(bit0,\
-    \ l, -x * l);\n        add(bit0, r, x * r);\n        add(bit1, l, x);\n      \
-    \  add(bit1, r, -x);\n    }\n\n    void add_circular(long long l, long long r,\
-    \ T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n   \
-    \     if (l <= r and r <= _N) {\n            add(l, r, x);\n            return;\n\
-    \        }\n        \n        if (r > _N) r -= _N;\n        \n        add(l, _N,\
-    \ x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092\
-    x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0 <= p and\
-    \ p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n    }\n\n    // \u534A\
-    \u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\
-    \n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n        return\
-    \ sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
-    \ r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
-    \ l, long long r) {\n        assert(0 <= l and l <= r and r <= _N);\n\n      \
-    \  if (l == r) return 0;\n        else return sum(r) - sum(l);\n    }\n\n    T\
-    \ sum_circular(long long l, long long r) {\n        assert(0 <= l and l <= _N\
-    \ and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) return sum(l,\
-    \ r);\n        \n        if (r > _N) r -= _N;\n        \n        return sum(l,\
-    \ _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\
-    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
-    \ p and p < _N);\n        \n        return sum(p + 1) - sum(p);\n    }\n\n   \
-    \ long long lower_bound(T x) {\n        assert(x >= 0);\n\n        ll right =\
-    \ 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long len = N; len >\
-    \ 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right + len]\
-    \ + (sum1 + bit1[right + len]) * (right + len) < x) {\n                right +=\
-    \ len;\n                sum0 += bit0[right];\n                sum1 += bit1[right];\n\
-    \            }\n        }\n\n        return right;\n    }  \n\n    long long upper_bound(T\
-    \ x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\
-    \n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os << \"\
-    bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long i =\
-    \ (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n         \
-    \       os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"structure/bit.cpp\"\n\ntemplate<class\
+    \ T = long long>\nstruct BIT {\n    long long N, _N, height;\n    vector<T> bit0,\
+    \ bit1;\n\n    BIT(long long n): _N(n) {\n        init();\n    }\n\n    BIT(const\
+    \ vector<T> &A): _N(A.size()) {\n        init();\n\n        rep(i, _N) add(i,\
+    \ A[i]);\n    }\n\n    BIT(long long n, T a): _N(n) {\n        init();\n\n   \
+    \     rep(i, _N) add(i, a);\n    }\n\n    void init() {\n        N = 1;\n    \
+    \    height = 1;\n        while (N < (_N + 1)) {\n            N *= 2;\n      \
+    \      ++height;\n        }\n\n        bit0.assign(N + 1, 0);\n        bit1.assign(N\
+    \ + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\
+    \u308B\n    void add(long long p, T x) {\n        assert(0 <= p and p < _N);\n\
+    \n        add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306B\
+    x\u3092\u52A0\u3048\u308B\n    void add(long long l, long long r, T x) {\n   \
+    \     assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return;\n\n\
+    \        add(bit0, l, -x * l);\n        add(bit0, r, x * r);\n        add(bit1,\
+    \ l, x);\n        add(bit1, r, -x);\n    }\n\n    void add_circular(long long\
+    \ l, long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <=\
+    \ 2 * _N);\n        if (l <= r and r <= _N) {\n            add(l, r, x);\n   \
+    \         return;\n        }\n        \n        if (r > _N) r -= _N;\n       \
+    \ \n        add(l, _N, x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6E\
+    p (0-indexed)\u3092x\u306B\u3059\u308B\n    void set(long long p, T x) {\n   \
+    \     assert(0 <= p and p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n\
+    \    }\n\n    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\
+    \u6C42\u3081\u308B\n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\
+    \n        return sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\
+    \u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n   \
+    \ T sum(long long l, long long r) {\n        assert(0 <= l and l <= r and r <=\
+    \ _N);\n\n        if (l == r) return 0;\n        else return sum(r) - sum(l);\n\
+    \    }\n\n    T sum_circular(long long l, long long r) {\n        assert(0 <=\
+    \ l and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N)\
+    \ return sum(l, r);\n        \n        if (r > _N) r -= _N;\n        \n      \
+    \  return sum(l, _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p,\
+    \ p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\u308B\n    T get(long long\
+    \ p) {\n        assert(0 <= p and p < _N);\n        \n        return sum(p + 1)\
+    \ - sum(p);\n    }\n\n    long long lower_bound(T x) {\n        assert(x >= 0);\n\
+    \n        ll right = 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long\
+    \ len = N; len > 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right\
+    \ + len] + (sum1 + bit1[right + len]) * (right + len) < x) {\n               \
+    \ right += len;\n                sum0 += bit0[right];\n                sum1 +=\
+    \ bit1[right];\n            }\n        }\n\n        return right;\n    }  \n\n\
+    \    long long upper_bound(T x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n\
+    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
+    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
+    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
+    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
     \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
     \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
     \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
@@ -429,7 +448,7 @@ data:
   isVerificationFile: true
   path: test/structure/bit/atcoder-abc338-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/bit/atcoder-abc338-e.test.cpp

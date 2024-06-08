@@ -46,7 +46,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -344,28 +344,47 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"string/trie-tree.cpp\"\n\n\n/* Trie \u6728\uFF1A \u6587\u5B57\
-    \u306E\u7A2E\u985E(char_size)\u3001int\u578B\u30670\u306B\u5BFE\u5FDC\u3059\u308B\
-    \u6587\u5B57(base)\n    insert(word): \u5358\u8A9E word \u3092 Trie \u6728\u306B\
-    \u633F\u5165\u3059\u308B\n    search(word): \u5358\u8A9E word \u304C Trie \u6728\
-    \u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    start_with(prefix):  prefix\
-    \ \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C Trie \u6728\u306B\u3042\u308B\
-    \u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\u5165\u3057\u305F\u5358\u8A9E\
-    \u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie \u6728\u306E\u9802\u70B9\u6570\
-    \u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1Ainsert, search \u3068\u3082\u306B\
-    \ O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\uFF09\n*/\ntemplate <int char_size\
-    \ = 26, int base = 'a'>\nstruct Trie {\n    struct Node {            // \u9802\
-    \u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\n        vector<long long> next;  \
-    \  // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\u683C\u7D0D\u3002\u5B58\u5728\
-    \u3057\u306A\u3051\u308C\u3070-1\n        vector<long long> accept;  // \u672B\
-    \u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\u5358\u8A9E\u306E word_id\
-    \ \u3092\u4FDD\u5B58\n        int c;               // base \u304B\u3089\u306E\u9593\
-    \u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\u3082\u306E\n        long\
-    \ long common;          // \u3044\u304F\u3064\u306E\u5358\u8A9E\u304C\u3053\u306E\
-    \u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\u304B\n        Node(long\
-    \ long c_) : c(c_), common(0) {\n            next.assign(char_size, -1);\n   \
-    \     }\n    };\n\n    vector<Node> nodes;  // trie \u6728\u672C\u4F53\n    long\
-    \ long root;\n\n    Trie() : root(0) {\n        nodes.push_back(Node(root));\n\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"string/trie-tree.cpp\"\n\n\n/* Trie\
+    \ \u6728\uFF1A \u6587\u5B57\u306E\u7A2E\u985E(char_size)\u3001int\u578B\u3067\
+    0\u306B\u5BFE\u5FDC\u3059\u308B\u6587\u5B57(base)\n    insert(word): \u5358\u8A9E\
+    \ word \u3092 Trie \u6728\u306B\u633F\u5165\u3059\u308B\n    search(word): \u5358\
+    \u8A9E word \u304C Trie \u6728\u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\
+    \n    start_with(prefix):  prefix \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C\
+    \ Trie \u6728\u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\
+    \u5165\u3057\u305F\u5358\u8A9E\u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie\
+    \ \u6728\u306E\u9802\u70B9\u6570\u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1A\
+    insert, search \u3068\u3082\u306B O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\
+    \uFF09\n*/\ntemplate <int char_size = 26, int base = 'a'>\nstruct Trie {\n   \
+    \ struct Node {            // \u9802\u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\
+    \n        vector<long long> next;    // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\
+    \u683C\u7D0D\u3002\u5B58\u5728\u3057\u306A\u3051\u308C\u3070-1\n        vector<long\
+    \ long> accept;  // \u672B\u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\
+    \u5358\u8A9E\u306E word_id \u3092\u4FDD\u5B58\n        int c;               //\
+    \ base \u304B\u3089\u306E\u9593\u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\
+    \u3082\u306E\n        long long common;          // \u3044\u304F\u3064\u306E\u5358\
+    \u8A9E\u304C\u3053\u306E\u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\
+    \u304B\n        Node(long long c_) : c(c_), common(0) {\n            next.assign(char_size,\
+    \ -1);\n        }\n    };\n\n    vector<Node> nodes;  // trie \u6728\u672C\u4F53\
+    \n    long long root;\n\n    Trie() : root(0) {\n        nodes.push_back(Node(root));\n\
     \    }\n\n    // \u5358\u8A9E\u306E\u633F\u5165\n    void insert(const string\
     \ &word, long long word_id) {\n        ll node_id = 0;\n        rep(i, word.size()){\n\
     \            int c = (int)(word[i] - base);\n            long long &next_id =\
@@ -408,7 +427,7 @@ data:
   isVerificationFile: true
   path: test/string/trie-tree/atcoder-abc353-e.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/string/trie-tree/atcoder-abc353-e.test.cpp

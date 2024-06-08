@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,59 +341,78 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"graph/bfs.cpp\"\n\n/**\n * @brief BFS(\u5E45\u512A\u5148\u63A2\
-    \u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct BFS {\n    struct Edge {\n   \
-    \     long long from;\n        long long to;\n        \n        explicit Edge(long\
-    \ long u = -1, long long v = -1) : from(u), to(v) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           return to < other.to;\n            }\n            else return from\
-    \ < other.from;\n        }\n\n        friend ostream& operator << (ostream& os,\
-    \ const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\n\
-    \    long long V;\n    bool directed_;\n    vector<vector<Edge>> G;\n    vector<bool>\
-    \ seen;\n    vector<long long> prev;\n    vector<long long> depth;\n    long long\
-    \ group;\n\n    BFS(long long N, bool directed) : V(N), directed_(directed), G(V){\n\
-    \        init();\n    };\n    \n    void init() {\n        group = 0;\n      \
-    \  seen.assign(V, false);\n        prev.assign(V, -1);\n        depth.assign(V,\
-    \ inf64);\n    }\n    \n    void connect(long long from, long long to) {\n   \
-    \     assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n\
-    \        if (directed_) {\n            G[from].emplace_back(from, to);\n     \
-    \   }\n        else {\n            G[from].emplace_back(from, to);\n         \
-    \   G[to].emplace_back(to, from);\n        }\n    }\n\n    void operator() (long\
-    \ long start) {\n        solve(start);\n    }\n\n    void solve_all() {\n    \
-    \    rep(i, V) {\n            if (seen[i]) continue;\n            solve(i);\n\
-    \            ++group;\n        }\n    }\n\n    void solve(long long start) {\n\
-    \        assert(0 <= start and start < V);\n\n        queue<long long> que;\n\n\
-    \        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\
-    \u30FC\u30C9\u3068\u3059\u308B)\n        seen[start] = true;\n        depth[start]\
-    \ = 0;\n        que.push(start); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\
-    \u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\
-    \u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
-    \ {\n            long long now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\
-    \u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\
-    \n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\
-    \u3066\u8ABF\u3079\u308B\n            fore(edge, G[now]) {\n                long\
-    \ long next = edge.to;\n                if (seen[next]) continue; // \u3059\u3067\
-    \u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\
-    \u3044\n                seen[next] = true;\n\n                // \u65B0\u305F\u306A\
-    \u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\
-    \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n   \
-    \             depth[next] = depth[now] + 1;\n                prev[next] = now;\n\
-    \                que.push(next);\n            }\n        }\n    }\n\n    long\
-    \ long count_cc() {\n        return group;\n    }\n\n    long long find_diameter()\
-    \ {\n        long long ret = 0;\n        vector<bool> done(V, false);\n\n    \
-    \    rep(i, V) {\n            if (done[i]) continue;\n            solve(i);\n\
-    \            long long u = distance(depth.begin(), max_element(depth.begin(),\
-    \ depth.end()));\n\n            init();\n            solve(u);\n            long\
-    \ long v = distance(depth.begin(), max_element(depth.begin(), depth.end()));\n\
-    \            \n            chmax(ret, depth[v]);\n            rep(i, V) {\n  \
-    \              if (seen[i]) done[i] = true;\n            }\n            init();\n\
-    \        }\n\n        return ret;\n    }\n\n    bool can_reach(long long to) {\n\
-    \        assert(0 <= to and to < V);\n\n        return seen[to];\n    }\n\n  \
-    \  vector<long long> get_path(long long to) {\n        assert(0 <= to and to <\
-    \ V);\n        if (!can_reach(to)) return {};\n\n        vector<long long> p;\n\
-    \        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n        \
-    \    p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(), p.end());\n\
-    \n        return p;\n    }\n};\n#line 4 \"test/graph/bfs/atcoder-abc284-c.test.cpp\"\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"graph/bfs.cpp\"\n\n/**\n * @brief\
+    \ BFS(\u5E45\u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct\
+    \ BFS {\n    struct Edge {\n        long long from;\n        long long to;\n \
+    \       \n        explicit Edge(long long u = -1, long long v = -1) : from(u),\
+    \ to(v) {};\n\n        bool operator < (const Edge& other) const {\n         \
+    \   if (from == other.from) {\n                return to < other.to;\n       \
+    \     }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    bool directed_;\n  \
+    \  vector<vector<Edge>> G;\n    vector<bool> seen;\n    vector<long long> prev;\n\
+    \    vector<long long> depth;\n    long long group;\n\n    BFS(long long N, bool\
+    \ directed) : V(N), directed_(directed), G(V){\n        init();\n    };\n    \n\
+    \    void init() {\n        group = 0;\n        seen.assign(V, false);\n     \
+    \   prev.assign(V, -1);\n        depth.assign(V, inf64);\n    }\n    \n    void\
+    \ connect(long long from, long long to) {\n        assert(0 <= from and from <\
+    \ V);\n        assert(0 <= to and to < V);\n\n        if (directed_) {\n     \
+    \       G[from].emplace_back(from, to);\n        }\n        else {\n         \
+    \   G[from].emplace_back(from, to);\n            G[to].emplace_back(to, from);\n\
+    \        }\n    }\n\n    void operator() (long long start) {\n        solve(start);\n\
+    \    }\n\n    void solve_all() {\n        rep(i, V) {\n            if (seen[i])\
+    \ continue;\n            solve(i);\n            ++group;\n        }\n    }\n\n\
+    \    void solve(long long start) {\n        assert(0 <= start and start < V);\n\
+    \n        queue<long long> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
+    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
+    \ seen[start] = true;\n        depth[start] = 0;\n        que.push(start); //\
+    \ noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            long long now\
+    \ = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\
+    \u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            // v \u304B\u3089\
+    \u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n   \
+    \         fore(edge, G[now]) {\n                long long next = edge.to;\n  \
+    \              if (seen[next]) continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\
+    \u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\n               \
+    \ seen[next] = true;\n\n                // \u65B0\u305F\u306A\u767D\u8272\u9802\
+    \u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\
+    \u3066\u30AD\u30E5\u30FC\u306B\u8FFD\u52A0\u3059\u308B\n                depth[next]\
+    \ = depth[now] + 1;\n                prev[next] = now;\n                que.push(next);\n\
+    \            }\n        }\n    }\n\n    long long count_cc() {\n        return\
+    \ group;\n    }\n\n    long long find_diameter() {\n        long long ret = 0;\n\
+    \        vector<bool> done(V, false);\n\n        rep(i, V) {\n            if (done[i])\
+    \ continue;\n            solve(i);\n            long long u = distance(depth.begin(),\
+    \ max_element(depth.begin(), depth.end()));\n\n            init();\n         \
+    \   solve(u);\n            long long v = distance(depth.begin(), max_element(depth.begin(),\
+    \ depth.end()));\n            \n            chmax(ret, depth[v]);\n          \
+    \  rep(i, V) {\n                if (seen[i]) done[i] = true;\n            }\n\
+    \            init();\n        }\n\n        return ret;\n    }\n\n    bool can_reach(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n\n        return seen[to];\n\
+    \    }\n\n    vector<long long> get_path(long long to) {\n        assert(0 <=\
+    \ to and to < V);\n        if (!can_reach(to)) return {};\n\n        vector<long\
+    \ long> p;\n        p.push_back(to);\n\n        while (prev[p.back()] != -1) {\n\
+    \            p.push_back(prev[p.back()]);\n        }\n\n        reverse(p.begin(),\
+    \ p.end());\n\n        return p;\n    }\n};\n#line 4 \"test/graph/bfs/atcoder-abc284-c.test.cpp\"\
     \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    BFS graph(N, false);\n\
     \    rep(i, M) {\n        ll u, v;\n        cin >> u >> v;\n\n        graph.connect(u\
     \ - 1, v - 1);\n    }\n\n    graph.solve_all();\n\n    cout << graph.group <<\
@@ -409,7 +428,7 @@ data:
   isVerificationFile: true
   path: test/graph/bfs/atcoder-abc284-c.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/bfs/atcoder-abc284-c.test.cpp

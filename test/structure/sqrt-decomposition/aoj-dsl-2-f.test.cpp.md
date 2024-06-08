@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,24 +341,44 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"structure/sqrt-decomposition.cpp\"\n\ntemplate<typename T,\
-    \ typename F>\nstruct SqrtDecomposition {\n    long long _N, N, sqrtN, K;\n  \
-    \  \n    vector<T> data;\n    vector<T> bucket_sum, bucket_min, bucket_max;\n\
-    \    vector<F> lazy_add, lazy_lower, lazy_upper;\n    vector<vector<T>> sorted,\
-    \ accumulated;\n\n    T e = inf64, id = inf64;\n\n    SqrtDecomposition(long long\
-    \ n) : _N(n) {\n        vector<T> v(n, 0);\n        init(v);\n    }\n\n    SqrtDecomposition(long\
-    \ long n, T a) : _N(n) {\n        vector<T> v(n, a);\n        init(v);\n    }\n\
-    \n    SqrtDecomposition(vector<T> &v) : _N(v.size()) {\n        init(v);\n   \
-    \ }\n\n    void init(vector<T> &a) {\n        sqrtN = 1;\n        while ((sqrtN\
-    \ + 1) * (sqrtN + 1) < _N) ++sqrtN;\n\n        K = (_N + sqrtN - 1) / sqrtN;\n\
-    \        N = K * sqrtN;\n        \n        data.assign(N, e);\n        rep(i,\
-    \ _N) data[i] = a[i];\n\n        bucket_sum.assign(K, 0);\n        bucket_min.assign(K,\
-    \ inf64);\n        bucket_max.assign(K, -inf64);\n        // sorted.resize(K);\n\
-    \        // accumulated.resize(K);\n        rep(k, K) update(k);\n\n        lazy_add.assign(K,\
-    \ id);\n        lazy_lower.assign(K, id);\n        lazy_upper.assign(K, id);\n\
-    \n        // rep(i, K) {\n        //     rep(j, sqrtN) sorted[i].push_back(data[i\
-    \ * sqrtN + j]);\n        //     sort(sorted[i]);\n\n        //     accumulated[i].push_back(0);\n\
-    \        //     rep(j, sqrtN) accumulated[i].push_back(accumulated[i][j] + sorted[i][j]);\n\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"structure/sqrt-decomposition.cpp\"\
+    \n\ntemplate<typename T, typename F>\nstruct SqrtDecomposition {\n    long long\
+    \ _N, N, sqrtN, K;\n    \n    vector<T> data;\n    vector<T> bucket_sum, bucket_min,\
+    \ bucket_max;\n    vector<F> lazy_add, lazy_lower, lazy_upper;\n    vector<vector<T>>\
+    \ sorted, accumulated;\n\n    T e = inf64, id = inf64;\n\n    SqrtDecomposition(long\
+    \ long n) : _N(n) {\n        vector<T> v(n, 0);\n        init(v);\n    }\n\n \
+    \   SqrtDecomposition(long long n, T a) : _N(n) {\n        vector<T> v(n, a);\n\
+    \        init(v);\n    }\n\n    SqrtDecomposition(vector<T> &v) : _N(v.size())\
+    \ {\n        init(v);\n    }\n\n    void init(vector<T> &a) {\n        sqrtN =\
+    \ 1;\n        while ((sqrtN + 1) * (sqrtN + 1) < _N) ++sqrtN;\n\n        K = (_N\
+    \ + sqrtN - 1) / sqrtN;\n        N = K * sqrtN;\n        \n        data.assign(N,\
+    \ e);\n        rep(i, _N) data[i] = a[i];\n\n        bucket_sum.assign(K, 0);\n\
+    \        bucket_min.assign(K, inf64);\n        bucket_max.assign(K, -inf64);\n\
+    \        // sorted.resize(K);\n        // accumulated.resize(K);\n        rep(k,\
+    \ K) update(k);\n\n        lazy_add.assign(K, id);\n        lazy_lower.assign(K,\
+    \ id);\n        lazy_upper.assign(K, id);\n\n        // rep(i, K) {\n        //\
+    \     rep(j, sqrtN) sorted[i].push_back(data[i * sqrtN + j]);\n        //    \
+    \ sort(sorted[i]);\n\n        //     accumulated[i].push_back(0);\n        //\
+    \     rep(j, sqrtN) accumulated[i].push_back(accumulated[i][j] + sorted[i][j]);\n\
     \        // }\n    }\n\n    void push(long long k) {\n        long long lk = k\
     \ * sqrtN, rk = (k + 1) * sqrtN;\n\n        rep(i, lk, rk) {\n            if (lazy_add[k]\
     \ != id) data[i] += lazy_add[k];\n            if (lazy_upper[k] != id) chmin(data[i],\
@@ -469,7 +489,7 @@ data:
   isVerificationFile: true
   path: test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp

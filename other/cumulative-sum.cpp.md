@@ -44,7 +44,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -342,17 +342,36 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"other/cumulative-sum.cpp\"\n\ntemplate<typename T>\nstruct\
-    \ CumulativeSum : vector<T> {\n    CumulativeSum(vector<T>& A) {\n        (*this).assign(A.size(),\
-    \ 0);\n        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
-    \ > 0);\n\n        (*this)[0] = A[0];\n        rep(i, 1, A.size()) {\n       \
-    \     (*this)[i] = A[i] + (*this)[i - 1];\n        }\n    }\n\n    // [l, r)\u306E\
-    \u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
-    \ l, long long r) {\n        if (l > r) swap(l, r);\n\n        if (l == 0) return\
-    \ (*this)[r - 1];\n        else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\
-    \n    friend ostream& operator<<(ostream& os, const CumulativeSum<T>& A) {\n \
-    \       rep(i, A.size()) os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n  \
-    \      return os;\n    }\n};\n"
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"other/cumulative-sum.cpp\"\n\ntemplate<typename\
+    \ T>\nstruct CumulativeSum : vector<T> {\n    CumulativeSum(vector<T>& A) {\n\
+    \        (*this).assign(A.size(), 0);\n        init(A);\n    };\n\n    void init(vector<T>&\
+    \ A) {\n        assert(A.size() > 0);\n\n        (*this)[0] = A[0];\n        rep(i,\
+    \ 1, A.size()) {\n            (*this)[i] = A[i] + (*this)[i - 1];\n        }\n\
+    \    }\n\n    // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\
+    \u308B\n    T sum(long long l, long long r) {\n        if (l > r) swap(l, r);\n\
+    \n        if (l == 0) return (*this)[r - 1];\n        else return (*this)[r -\
+    \ 1] - (*this)[l - 1];\n    }\n\n    friend ostream& operator<<(ostream& os, const\
+    \ CumulativeSum<T>& A) {\n        rep(i, A.size()) os << A[i] << (i < A.size()\
+    \ - 1 ? \" \" : \"\");\n        return os;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct CumulativeSum\
     \ : vector<T> {\n    CumulativeSum(vector<T>& A) {\n        (*this).assign(A.size(),\
     \ 0);\n        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
@@ -369,7 +388,7 @@ data:
   isVerificationFile: false
   path: other/cumulative-sum.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/other/cumulative-sum/atcoder-agc023-a.test.cpp

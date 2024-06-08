@@ -46,7 +46,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -344,50 +344,70 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"grid/grid-unionfind.cpp\"\n\nstruct Coordinate {\n    long\
-    \ long y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_)\
-    \ {};\n\n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n\
-    \    }\n\n    double euclid_from(const Coordinate &other) {\n        return Coordinate(y\
-    \ - other.y, x - other.x).euclid();\n    }\n\n    long long manhattan() {\n  \
-    \      return abs(y) + abs(x);\n    }\n\n    long long manhattan_from(const Coordinate\
-    \ &other) {\n        return Coordinate(y - other.y, x - other.x).manhattan();\n\
-    \    }\n\n    Coordinate char2dir(char c) {\n        assert(c == 'R' or c == 'L'\
-    \ or c == 'U' or c == 'D');\n        Coordinate ret(y, x);\n\n        if (c ==\
-    \ 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n        if (c == 'R') ++ret.x;\n\
-    \        if (c == 'L') --ret.x;\n\n        return ret;\n    }\n\n    char dir2char()\
-    \ {\n        assert(manhattan() == 1);\n\n        char ret;\n        if (x > 0)\
-    \ ret = 'R';\n        if (x < 0) ret = 'L';\n        if (y > 0) ret = 'D';\n \
-    \       if (y < 0) ret = 'U';\n\n        return ret;\n    }\n\n    char dir2char(Coordinate\
-    \ next) {\n        Coordinate dir = next - *this;\n        return dir.dir2char();\n\
-    \    }\n\n    Coordinate& operator= (pair<long long, long long>& other) {\n  \
-    \      y = other.first;\n        x = other.second;\n        return *this;\n  \
-    \  }\n\n    Coordinate operator- () {\n        return Coordinate(y, x) *= -1;\n\
-    \    }\n\n    Coordinate operator+ (const Coordinate &other) {\n        return\
-    \ Coordinate(y, x) += other;\n    }\n\n    Coordinate operator- (const Coordinate\
-    \ &other) {\n        return Coordinate(y, x) -= other;\n    }\n\n    Coordinate\
-    \ operator+ (const long long &a) {\n        return Coordinate(y, x) += a;\n  \
-    \  }\n\n    Coordinate operator- (const long long &a) {\n        return Coordinate(y,\
-    \ x) -= a;\n    }\n\n    Coordinate operator* (const long long &a) {\n       \
-    \ return Coordinate(y, x) *= a;\n    }\n\n    Coordinate operator/ (const long\
-    \ long &a) {\n        return Coordinate(y, x) /= a;\n    }\n\n    Coordinate operator%\
-    \ (const long long &a) {\n        return Coordinate(y, x) %= a;\n    }\n\n   \
-    \ Coordinate& operator+= (Coordinate other) {\n        this->y += other.y;\n \
-    \       this->x += other.x;\n        return *this;\n    }\n\n    Coordinate& operator-=\
-    \ (Coordinate other) {\n        this->y -= other.y;\n        this->x -= other.x;\n\
-    \        return *this;\n    }\n\n    Coordinate& operator+= (long long a) {\n\
-    \        this->y += a;\n        this->x += a;\n        return *this;\n    }\n\n\
-    \    Coordinate& operator-= (long long a) {\n        this->y -= a;\n        this->x\
-    \ -= a;\n        return *this;\n    }\n\n    Coordinate& operator*= (long long\
-    \ a) {\n        this->y *= a;\n        this->x *= a;\n        return *this;\n\
-    \    }\n\n    Coordinate& operator/= (long long a) {\n        this->y /= a;\n\
-    \        this->x /= a;\n        return *this;\n    }\n\n    Coordinate& operator%=\
-    \ (long long a) {\n        this->y %= a;\n        this->x %= a;\n        return\
-    \ *this;\n    }\n\n    friend bool operator== (const Coordinate &l, const Coordinate\
-    \ &r) {\n        return l.y == r.y and l.x == r.x;\n    }\n\n    friend bool operator!=\
-    \ (const Coordinate &l, const Coordinate &r) {\n        return l.y != r.y or l.x\
-    \ != r.x;\n    }\n\n    friend bool operator< (const Coordinate &l, const Coordinate\
-    \ &r) {\n        if (l.y == r.y) {\n            return l.x < r.x;\n        }\n\
-    \        else return l.y < r.y;\n    }\n\n    friend bool operator> (const Coordinate\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"grid/grid-unionfind.cpp\"\n\nstruct\
+    \ Coordinate {\n    long long y, x;\n\n    Coordinate(long long y_ = 0, long long\
+    \ x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n        return sqrt(pow(y,\
+    \ 2) + pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate &other) {\n\
+    \        return Coordinate(y - other.y, x - other.x).euclid();\n    }\n\n    long\
+    \ long manhattan() {\n        return abs(y) + abs(x);\n    }\n\n    long long\
+    \ manhattan_from(const Coordinate &other) {\n        return Coordinate(y - other.y,\
+    \ x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char c) {\n    \
+    \    assert(c == 'R' or c == 'L' or c == 'U' or c == 'D');\n        Coordinate\
+    \ ret(y, x);\n\n        if (c == 'D') ++ret.y;\n        if (c == 'U') --ret.y;\n\
+    \        if (c == 'R') ++ret.x;\n        if (c == 'L') --ret.x;\n\n        return\
+    \ ret;\n    }\n\n    char dir2char() {\n        assert(manhattan() == 1);\n\n\
+    \        char ret;\n        if (x > 0) ret = 'R';\n        if (x < 0) ret = 'L';\n\
+    \        if (y > 0) ret = 'D';\n        if (y < 0) ret = 'U';\n\n        return\
+    \ ret;\n    }\n\n    char dir2char(Coordinate next) {\n        Coordinate dir\
+    \ = next - *this;\n        return dir.dir2char();\n    }\n\n    Coordinate& operator=\
+    \ (pair<long long, long long>& other) {\n        y = other.first;\n        x =\
+    \ other.second;\n        return *this;\n    }\n\n    Coordinate operator- () {\n\
+    \        return Coordinate(y, x) *= -1;\n    }\n\n    Coordinate operator+ (const\
+    \ Coordinate &other) {\n        return Coordinate(y, x) += other;\n    }\n\n \
+    \   Coordinate operator- (const Coordinate &other) {\n        return Coordinate(y,\
+    \ x) -= other;\n    }\n\n    Coordinate operator+ (const long long &a) {\n   \
+    \     return Coordinate(y, x) += a;\n    }\n\n    Coordinate operator- (const\
+    \ long long &a) {\n        return Coordinate(y, x) -= a;\n    }\n\n    Coordinate\
+    \ operator* (const long long &a) {\n        return Coordinate(y, x) *= a;\n  \
+    \  }\n\n    Coordinate operator/ (const long long &a) {\n        return Coordinate(y,\
+    \ x) /= a;\n    }\n\n    Coordinate operator% (const long long &a) {\n       \
+    \ return Coordinate(y, x) %= a;\n    }\n\n    Coordinate& operator+= (Coordinate\
+    \ other) {\n        this->y += other.y;\n        this->x += other.x;\n       \
+    \ return *this;\n    }\n\n    Coordinate& operator-= (Coordinate other) {\n  \
+    \      this->y -= other.y;\n        this->x -= other.x;\n        return *this;\n\
+    \    }\n\n    Coordinate& operator+= (long long a) {\n        this->y += a;\n\
+    \        this->x += a;\n        return *this;\n    }\n\n    Coordinate& operator-=\
+    \ (long long a) {\n        this->y -= a;\n        this->x -= a;\n        return\
+    \ *this;\n    }\n\n    Coordinate& operator*= (long long a) {\n        this->y\
+    \ *= a;\n        this->x *= a;\n        return *this;\n    }\n\n    Coordinate&\
+    \ operator/= (long long a) {\n        this->y /= a;\n        this->x /= a;\n \
+    \       return *this;\n    }\n\n    Coordinate& operator%= (long long a) {\n \
+    \       this->y %= a;\n        this->x %= a;\n        return *this;\n    }\n\n\
+    \    friend bool operator== (const Coordinate &l, const Coordinate &r) {\n   \
+    \     return l.y == r.y and l.x == r.x;\n    }\n\n    friend bool operator!= (const\
+    \ Coordinate &l, const Coordinate &r) {\n        return l.y != r.y or l.x != r.x;\n\
+    \    }\n\n    friend bool operator< (const Coordinate &l, const Coordinate &r)\
+    \ {\n        if (l.y == r.y) {\n            return l.x < r.x;\n        }\n   \
+    \     else return l.y < r.y;\n    }\n\n    friend bool operator> (const Coordinate\
     \ &l, const Coordinate &r) {\n        if (l.y == r.y) {\n            return l.x\
     \ > r.x;\n        }\n        else return l.y > r.y;\n    }\n\n    friend ostream&\
     \ operator << (ostream &os, const Coordinate& p) {\n        return os << \"(\"\
@@ -506,7 +526,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp

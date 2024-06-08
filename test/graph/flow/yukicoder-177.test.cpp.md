@@ -43,7 +43,7 @@ data:
     \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
-    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define all(A) A.begin(),\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
     \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
     \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
     \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
@@ -341,20 +341,39 @@ data:
     \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
     \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
     \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n#line 3 \"graph/flow.cpp\"\n\n/**\n * @brief Flow(\u6700\u5927\u30FB\
-    \u6700\u5C0F\u6D41)\n*/\n\ntemplate<typename Cost, typename Cap, bool minimize\
-    \ = true>\nstruct MinCostFlow {\n    struct Edge {\n        long long from;\n\
-    \        long long to;\n        Cost cost;\n        Cap cap, flow;\n        long\
-    \ long idx;\n        long long rev;\n        \n        explicit Edge(long long\
-    \ u = -1, long long v = -1, Cost cost = 0, Cap cap = 0, long long i = 0, long\
-    \ long rev = 0) : from(u), to(v), cost(cost), cap(cap), flow(0), idx(i), rev(rev)\
-    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
-    \ == other.from) {\n                return to < other.to;\n            }\n   \
-    \         else return from < other.from;\n        }\n\n        friend ostream&\
-    \ operator << (ostream& os, const Edge& edge) {\n            return os << edge.to;\n\
-    \        }\n    };\n\n    long long V;\n    vector<vector<Edge>> G;\n    long\
-    \ long coeff = 1;\n\n    long long edge_index = 0;\n    vector<Edge> edges;\n\n\
-    \    // maxflow\u7528\n    vector<long long> level;\n\n    // mincostflow\u7528\
+    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
+    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
+    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
+    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
+    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
+    \ vec2[i]);\n    return result;\n}\n#line 3 \"graph/flow.cpp\"\n\n/**\n * @brief\
+    \ Flow(\u6700\u5927\u30FB\u6700\u5C0F\u6D41)\n*/\n\ntemplate<typename Cost, typename\
+    \ Cap, bool minimize = true>\nstruct MinCostFlow {\n    struct Edge {\n      \
+    \  long long from;\n        long long to;\n        Cost cost;\n        Cap cap,\
+    \ flow;\n        long long idx;\n        long long rev;\n        \n        explicit\
+    \ Edge(long long u = -1, long long v = -1, Cost cost = 0, Cap cap = 0, long long\
+    \ i = 0, long long rev = 0) : from(u), to(v), cost(cost), cap(cap), flow(0), idx(i),\
+    \ rev(rev) {};\n\n        bool operator < (const Edge& other) const {\n      \
+    \      if (from == other.from) {\n                return to < other.to;\n    \
+    \        }\n            else return from < other.from;\n        }\n\n        friend\
+    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
+    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
+    \ G;\n    long long coeff = 1;\n\n    long long edge_index = 0;\n    vector<Edge>\
+    \ edges;\n\n    // maxflow\u7528\n    vector<long long> level;\n\n    // mincostflow\u7528\
     \n    vector<Cost> dual;\n    vector<long long> prevv, preve;\n    Cap cur_flow;\n\
     \    Cap cur_cost, pre_cost;\n    vector<pair<Cap, Cost>> min_cost_slope;\n\n\
     \    MinCostFlow(long long N) : V(N), G(V) {\n        init();\n    };\n    \n\
@@ -485,7 +504,7 @@ data:
   isVerificationFile: true
   path: test/graph/flow/yukicoder-177.test.cpp
   requiredBy: []
-  timestamp: '2024-05-19 11:00:57+09:00'
+  timestamp: '2024-06-09 00:28:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/flow/yukicoder-177.test.cpp
