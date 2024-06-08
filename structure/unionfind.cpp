@@ -1,19 +1,21 @@
 #pragma once
 #include "../base.cpp"
 
+template <bool fastMode = false>
 struct UnionFind {
     long long V;
     vector<long long> par; // par[i]: iの親の番号 or サイズ (iが親の時)
     map<long long, set<long long>> cc;
+    long long cc_size;
     
     long long edge_index;
     map<long long, set<long long>> cc_edge;
+    long long cc_edge_size;
 
     UnionFind(long long V) : V(V), par(V, -1) { //最初は全てが根であるとして初期化
         edge_index = 0;
-        rep(i, V) {
-            cc[i].insert(i);
-        }
+        cc_size = V;
+        cc_edge_size = 0;
     }
 
     // xの根を返す
@@ -32,9 +34,12 @@ struct UnionFind {
         // 結合時の処理をここに書く
 
         if (rx == ry) {
-            cc_edge[rx].insert(edge_index++);
+            if (!fastMode) cc_edge[rx].insert(edge_index++);
             return false; //xとyの根が同じ時は何もしない
         } 
+
+        --cc_size;
+        ++cc_edge_size;
 
         // -parはサイズを返す
         // ryの方がサイズが大きければrxとrxを入れ替える
@@ -46,12 +51,19 @@ struct UnionFind {
 
         par[rx] += par[ry]; // rxのサイズを変更
         par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
-        cc[rx].insert(cc[ry].begin(), cc[ry].end());
-        cc.erase(ry);
 
-        if (!cc_edge[ry].empty()) {
-            cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());
-            cc_edge.erase(ry);
+        if (!fastMode) {
+            if (cc.contains(ry)) {
+                cc[rx].insert(cc[ry].begin(), cc[ry].end());
+                cc.erase(ry);
+            }
+            else if (!cc.contains(rx)) cc[rx] = {rx, ry};
+            else cc[rx].insert(ry);
+
+            if (!cc_edge[ry].empty()) {
+                cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());
+                cc_edge.erase(ry);
+            }
         }
     
         return true;
@@ -76,7 +88,8 @@ struct UnionFind {
     // xが所属する連結成分の要素を返す
     set<long long> members(long long x) {
         long long rx = find(x);
-        return cc[rx];
+        if (cc.contains(rx)) return cc[rx];
+        else return {rx};
     }
 
     // 根のみの配列を返す
@@ -91,10 +104,15 @@ struct UnionFind {
 
     // 連結成分の個数を返す
     long long group_count() {
-        return cc.size();
+        return cc_size;
     }
 
     map<long long, set<long long>> all_group_members() {
-        return cc;
+        auto ret = cc;
+        rep(i, V) {
+            if (par[i] != -1) continue;
+            ret[i] = {i}; 
+        }
+        return ret;
     }
 };

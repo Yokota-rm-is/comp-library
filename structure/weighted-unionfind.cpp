@@ -1,16 +1,18 @@
 #pragma once
 #include "../base.cpp"
 
+template <bool fastMode = false>
 struct WeightedUnionFind {
     long long V{};
     vector<long long> par{}; // par[i]: iの親の番号 or サイズ (iが親の時)
     vector<long long> diff_weight{};
     map<long long, set<long long>> cc;
+    long long cc_size;
+    long long cc_edge_size;
 
     explicit WeightedUnionFind(long long V) : V(V), par(V, -1), diff_weight(V, 0) { //最初は全てが根であるとして初期化
-        rep(i, V) {
-            cc[i].insert(i);
-        }
+        cc_size = V;
+        cc_edge_size = 0;
     }
 
     // xの根を返す
@@ -38,6 +40,9 @@ struct WeightedUnionFind {
         long long ry = find(y); //yの根をry
         if (rx == ry) return false; //xとyの根が同じ(=同じ木にある)時はそのまま
 
+        --cc_size;
+        ++cc_edge_size;
+
         // -parはサイズを返す
         // ryの方がサイズが大きければrxとrxを入れ替える
         if (-par[rx] < -par[ry]) {
@@ -47,8 +52,15 @@ struct WeightedUnionFind {
 
         par[rx] += par[ry]; // rxのサイズを変更
         par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
-        cc[rx].insert(cc[ry].begin(), cc[ry].end());
-        cc.erase(ry);
+
+        if (!fastMode) {
+            if (cc.contains(ry)) {
+                cc[rx].insert(cc[ry].begin(), cc[ry].end());
+                cc.erase(ry);
+            }
+            else if (!cc.contains(rx)) cc[rx] = {rx, ry};
+            else cc[rx].insert(ry);
+        }
 
         diff_weight[ry] = w;
 
@@ -94,10 +106,15 @@ struct WeightedUnionFind {
 
     // 連結成分の個数を返す
     long long group_count() {
-        return cc.size();
+        return cc_size;
     }
 
     map<long long, set<long long>> all_group_members() {
-        return cc;
+        auto ret = cc;
+        rep(i, V) {
+            if (par[i] != -1) continue;
+            ret[i] = {i}; 
+        }
+        return ret;
     }
 };

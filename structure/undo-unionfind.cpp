@@ -5,8 +5,12 @@ struct UndoUnionFind {
     long long V;
     vector<long long> par; // par[i]: iの親の番号 or サイズ (iが親の時)
     stack<pair<long long, long long>> history;
+    long long cc_size;
+    long long cc_edge_size;
 
     UndoUnionFind(long long v) : V(v), par(V, -1) { //最初は全てが根であるとして初期化
+        cc_size = V;
+        cc_edge_size = 0;
     }
 
     // xの根を返す
@@ -28,6 +32,9 @@ struct UndoUnionFind {
 
         if (rx == ry) return false; //xとyの根が同じ時は何もしない
 
+        --cc_size;
+        ++cc_edge_size;
+
         // -parはサイズを返す
         // ryの方がサイズが大きければrxとrxを入れ替える
         if (-par[rx] < -par[ry]) {
@@ -46,10 +53,17 @@ struct UndoUnionFind {
     }
 
     void undo() {
-        par[history.top().first] = history.top().second;
+        auto [rx, prx] = history.top();
+        par[rx] = prx;
         history.pop();
-        par[history.top().first] = history.top().second;
+        auto [ry, pry] = history.top();
+        par[ry] = pry;
         history.pop();
+
+        if (rx != ry) {
+            ++cc_size;
+            --cc_edge_size;
+        }
     }
 
     // xが所属する連結成分の要素の数を返す
@@ -58,8 +72,12 @@ struct UndoUnionFind {
         return -par[rx];
     }
 
+    // 連結成分の個数を返す
+    long long group_count() {
+        return cc_size;
+    }
+
     bool is_connected() {
-        long long rx = find(0);
-        return -par[rx] == V;
+        return cc_size == 1;
     }
 };
