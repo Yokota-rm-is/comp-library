@@ -55,7 +55,7 @@ bool DEBUG = false;
 
 #define fore(i, I) for (auto& i: (I))
 #define fored(i, I) for (auto& i: (I) | views::reverse)
-#define all(A) A.begin(), A.end()
+#define ALL(A) A.begin(), A.end()
 
 // for debug
 #define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...) name
@@ -387,3 +387,22 @@ template <typename Iterator, typename T> inline Iterator find_less_than_or_equal
 // キー未満の最大の要素を見つけるイテレータを返す関数, ない場合はbeginを返す
 template <typename T> inline typename vector<T>::iterator find_less_than(const vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin() : --it; }
 template <typename Iterator, typename T> inline Iterator find_less_than(const Iterator begin, const Iterator end, T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin : --it;}
+
+template <typename T> auto operator+(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }
+template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }
+template <typename T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret; }
+template <typename T> auto operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }
+template <typename T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] % x; return ret; }
+template <typename T> auto binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i], x); return ret; }
+
+template <typename R> auto& operator++(R& a) { for (auto& x : a) ++x; return a; }
+template <typename R> auto operator++(R& a, int) { auto temp = a; for (auto& x : a) x++; return temp; }
+template <typename R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }
+template <typename R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return temp; }
+
+template<typename T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>& vec2) {
+    size_t n = min(vec1.size(), vec2.size());
+    vector<pair<T, U>> result(n);
+    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);
+    return result;
+}
