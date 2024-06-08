@@ -85,20 +85,17 @@ struct SCC {
         }
         reverse(v);
         
+        ll count = 0;
         fore(index, v) {
             if (roots[index] != -1) continue;
-            dfs_reverse(index, index);
+            dfs_reverse(index, count);
+            ++count;
         }
 
-        map<long long, set<long long>> m;
+        scc.resize(count);
 
         rep(i, roots.size()) {
-            m[roots[i]].insert(i);
-        }
-
-        fore(p, m) {
-            set<long long> s_i = p.second;
-            scc.push_back(s_i);
+            scc[roots[i]].insert(i);
         }
 
         return (long long)scc.size();
