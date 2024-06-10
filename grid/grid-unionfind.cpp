@@ -351,12 +351,10 @@ struct GridUnionFind {
     char s = 's';
     char g = 'g';
     char t = 't';
-    char dot = field.dot;
-    char hash = field.hash;
-    char obj = field.obj;
-    char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
     long long inf = INF64 / 2;
+
+    long long cc_size;
 
     GridUnionFind(long long n) : H(n), W(n), field(n, n) {
         init();
@@ -372,6 +370,7 @@ struct GridUnionFind {
     };
 
     void init() {
+        cc_size = H * W;
         par.assign(H, W, {-1, -1});
         size.assign(H, W, 1);
 
@@ -425,20 +424,24 @@ struct GridUnionFind {
     }
 
     // xとyを連結
-    void unite(Coordinate x, Coordinate y) {
+    bool unite(Coordinate x, Coordinate y) {
         Coordinate rx = find(x); //xの根をrx
         Coordinate ry = find(y); //yの根をry
 
-        if (rx != ry) {
-            // -parはサイズを返す
-            // ryの方がサイズが大きければrxとrxを入れ替える
-            if (size(rx) < size(ry)) {
-                swap(rx, ry);
-            }
+        if (rx == ry) return false;
 
-            size(rx) += size(ry); // rxのサイズを変更
-            par(ry) = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
+        --cc_size;
+
+        // -parはサイズを返す
+        // ryの方がサイズが大きければrxとrxを入れ替える
+        if (size(rx) < size(ry)) {
+            swap(rx, ry);
         }
+
+        size(rx) += size(ry); // rxのサイズを変更
+        par(ry) = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
+
+        return true;
     }
 
     bool is_same(Coordinate x, Coordinate y) { 
