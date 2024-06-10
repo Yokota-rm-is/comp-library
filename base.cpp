@@ -400,6 +400,24 @@ template <typename R> auto operator++(R& a, int) { auto temp = a; for (auto& x :
 template <typename R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }
 template <typename R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return temp; }
 
+template <typename T, typename U> auto operator+(const pair<T, U>& p, const T x) { return pair<T, U>(p.first + x, p.second + x); }
+template <typename T, typename U> auto operator-(const pair<T, U>& p, const T x) { return pair<T, U>(p.first - x, p.second - x); }
+template <typename T, typename U> auto operator*(const pair<T, U>& p, const T x) { return pair<T, U>(p.first * x, p.second * x); }
+template <typename T, typename U> auto operator/(const pair<T, U>& p, const T x) { return pair<T, U>(p.first / x, p.second / x); }
+template <typename T, typename U> auto operator%(const pair<T, U>& p, const T x) { return pair<T, U>(p.first % x, p.second % x); }
+template <typename T, typename U> auto binpow(const pair<T, U>& p, const T x) { return pair<T, U>(binpow(p.first, x), binpow(p.second, x)); }
+
+template <typename T, typename U> auto operator+(const pair<T, U>& p, const pair<T, U>& q) { return pair<T, U>(p.first + q.first, p.second + q.second); }
+template <typename T, typename U> auto operator-(const pair<T, U>& p, const pair<T, U>& q) { return pair<T, U>(p.first - q.first, p.second - q.second); }
+template <typename T, typename U> auto operator*(const pair<T, U>& p, const pair<T, U>& q) { return pair<T, U>(p.first * q.first, p.second * q.second); }
+template <typename T, typename U> auto operator/(const pair<T, U>& p, const pair<T, U>& q) { return pair<T, U>(p.first / q.first, p.second / q.second); }
+template <typename T, typename U> auto operator%(const pair<T, U>& p, const pair<T, U>& q) { return pair<T, U>(p.first % q.first, p.second % q.second); }
+
+template <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first; ++p.second; return p; }
+template <typename T, typename U> auto operator++(pair<T, U>& p, int) { auto temp = p; ++p.first; ++p.second; return temp; }
+template <typename T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second; return p; }
+template <typename T, typename U> auto operator--(pair<T, U>& p, int) { auto temp = p; --p.first; --p.second; return temp; }
+
 template<typename T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>& vec2) {
     size_t n = min(vec1.size(), vec2.size());
     vector<pair<T, U>> result(n);
