@@ -243,8 +243,8 @@ inline long long max(int x, long long y) {return max((long long)x, y);}
 inline long long ceil(long long x, long long y) { return x / y + (x % y > 0);}
 inline long long floor(long long x, long long y) { return x / y - (x % y < 0);}
 pair<long long, long long> divmod(long long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1) / y, (x % y + y) % y));}
-template<typename T> inline T binpow(T x, T n, T m = 0) {
-    T ret = 1;
+inline long long binpow(long long x, long long n, long long m = 0) {
+    long long ret = 1;
     while (n > 0) {
         if (n & 1) ret *= x;  // n の最下位bitが 1 ならば x^(2^i) をかける
         x *= x;
