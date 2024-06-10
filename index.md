@@ -93,11 +93,17 @@ data:
   - name: other
     pages:
     - icon: ':heavy_check_mark:'
+      path: other/combination.cpp
+      title: other/combination.cpp
+    - icon: ':heavy_check_mark:'
       path: other/cumulative-sum.cpp
       title: other/cumulative-sum.cpp
     - icon: ':heavy_check_mark:'
       path: other/pattern-cumulative-sum.cpp
       title: other/pattern-cumulative-sum.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/range-set.cpp
+      title: other/range-set.cpp
   - name: search
     pages:
     - icon: ':heavy_check_mark:'
@@ -314,6 +320,9 @@ data:
   - name: test/grid/grid-unionfind
     pages:
     - icon: ':heavy_check_mark:'
+      path: test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
+      title: test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
       title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - name: test/math/eratosthenes
@@ -344,6 +353,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
       title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - name: test/other/combination
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/combination/atocoder-abc328-e.test.cpp
+      title: test/other/combination/atocoder-abc328-e.test.cpp
   - name: test/other/compress
     pages:
     - icon: ':heavy_check_mark:'
@@ -371,6 +385,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
       title: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+  - name: test/other/range-set
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/range-set/atocoder-abc330-e.test.cpp
+      title: test/other/range-set/atocoder-abc330-e.test.cpp
   - name: test/search/bit-zentansaku
     pages:
     - icon: ':heavy_check_mark:'

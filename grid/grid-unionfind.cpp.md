@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
+    title: test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
     title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   _isVerificationFailed: false
@@ -249,55 +252,55 @@ data:
     \ y) { return x / y + (x % y > 0);}\ninline long long floor(long long x, long\
     \ long y) { return x / y - (x % y < 0);}\npair<long long, long long> divmod(long\
     \ long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1)\
-    \ / y, (x % y + y) % y));}\ntemplate<typename T> inline T binpow(T x, T n, T m\
-    \ = 0) {\n    T ret = 1;\n    while (n > 0) {\n        if (n & 1) ret *= x;  //\
-    \ n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070 x^(2^i) \u3092\u304B\
-    \u3051\u308B\n        x *= x;\n        if (m > 0) {ret %= m; x %= m;};\n     \
-    \   n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n    }\n    return\
-    \ ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\
-    \u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n    T b = m, u = 1, v\
-    \ = 0;\n    while (b) {\n        T t = a / b;\n        a -= t * b; swap(a, b);\n\
-    \        u -= t * v; swap(u, v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n\
-    \    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\nlong long nCr(long\
-    \ long n, long long k, long long m = 0) {\n    if (n < k) return 0;\n    if (n\
-    \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
-    \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
-    \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
-    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
-    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
-    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
-    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
-    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
-    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
-    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
-    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
-    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
-    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
-    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
-    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
-    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
-    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
-    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
-    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
-    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
-    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
-    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
-    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
-    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
-    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
-    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
-    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
-    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
-    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
-    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
-    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
-    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
-    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
-    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
+    \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
+    \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
+    \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
+    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
+    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
+    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
+    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
+    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
+    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
+    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
+    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
+    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
+    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
+    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
+    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
+    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
+    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
+    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
+    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
+    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
+    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
+    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
+    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
+    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
+    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
+    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
+    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
+    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
+    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
+    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
+    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
+    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
+    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
+    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
+    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
+    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
+    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
+    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
+    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
+    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
+    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
+    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
+    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
+    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
+    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
+    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
+    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
     \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
     \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
     \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
@@ -352,14 +355,40 @@ data:
     \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
     \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
-    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
-    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
-    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
-    \ vec2[i]);\n    return result;\n}\n#line 3 \"grid/grid-unionfind.cpp\"\n\nstruct\
-    \ Coordinate {\n    long long y, x;\n\n    Coordinate(long long y_ = 0, long long\
-    \ x_ = 0) : y(y_), x(x_) {};\n\n    double euclid() {\n        return sqrt(pow(y,\
-    \ 2) + pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate &other) {\n\
-    \        return Coordinate(y - other.y, x - other.x).euclid();\n    }\n\n    long\
+    \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
+    \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
+    \ T, typename U> auto operator-(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first - x, p.second - x); }\ntemplate <typename T, typename U> auto operator*(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first * x, p.second * x); }\n\
+    template <typename T, typename U> auto operator/(const pair<T, U>& p, const T\
+    \ x) { return pair<T, U>(p.first / x, p.second / x); }\ntemplate <typename T,\
+    \ typename U> auto operator%(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first % x, p.second % x); }\ntemplate <typename T, typename U> auto binpow(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(binpow(p.first, x), binpow(p.second,\
+    \ x)); }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
+    \ p, const pair<T, U>& q) { return pair<T, U>(p.first + q.first, p.second + q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator-(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first - q.first, p.second - q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator*(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first * q.first, p.second * q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator/(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first / q.first, p.second / q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator%(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first % q.first, p.second % q.second);\
+    \ }\n\ntemplate <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first;\
+    \ ++p.second; return p; }\ntemplate <typename T, typename U> auto operator++(pair<T,\
+    \ U>& p, int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate\
+    \ <typename T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second;\
+    \ return p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p,\
+    \ int) { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
+    \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
+    \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
+    \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
+    \    return result;\n}\n#line 3 \"grid/grid-unionfind.cpp\"\n\nstruct Coordinate\
+    \ {\n    long long y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0)\
+    \ : y(y_), x(x_) {};\n\n    double euclid() {\n        return sqrt(pow(y, 2) +\
+    \ pow(x, 2));\n    }\n\n    double euclid_from(const Coordinate &other) {\n  \
+    \      return Coordinate(y - other.y, x - other.x).euclid();\n    }\n\n    long\
     \ long manhattan() {\n        return abs(y) + abs(x);\n    }\n\n    long long\
     \ manhattan_from(const Coordinate &other) {\n        return Coordinate(y - other.y,\
     \ x - other.x).manhattan();\n    }\n\n    Coordinate char2dir(char c) {\n    \
@@ -462,49 +491,48 @@ data:
     \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
     \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
     \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
-    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n\
-    \    char hash = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n\
-    \    Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long\
-    \ long inf = INF64 / 2;\n\n    GridUnionFind(long long n) : H(n), W(n), field(n,\
-    \ n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long long w)\
-    \ : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    Coordinate start\
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
+    \ / 2;\n\n    long long cc_size;\n\n    GridUnionFind(long long n) : H(n), W(n),\
+    \ field(n, n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long\
+    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
     \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
-    \     after_input();\n    };\n\n    void init() {\n        par.assign(H, W, {-1,\
-    \ -1});\n        size.assign(H, W, 1);\n\n        rep(y, H) rep(x, W) par(y, x)\
-    \ = {y, x};\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n\
-    \        after_input();\n    }\n\n    void after_input() {\n        rep(y, H)\
-    \ rep(x, W) {\n            Coordinate now(y, x);\n\n            char c = field(now);\n\
-    \            if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n            if (c\
-    \ == s)  start = Coordinate(y, x);\n            if (c == g or c == t) goal = Coordinate(y,\
-    \ x);\n\n            if (field.is_obj(now)) {\n                size(now) = 0;\n\
-    \                par(now) = {-1, -1};\n                continue;\n           \
-    \ }\n\n            rep(i, dirs.size()) {\n                Coordinate next = now\
-    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
-    \      if (field.is_obj(next)) continue;\n\n                unite(now, next);\n\
-    \            }\n        }\n    }\n\n    long long to_index(Coordinate& p) {\n\
-    \        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long\
-    \ index) {\n        return Coordinate(index / W, index % W);\n    }\n\n    Coordinate\
-    \ find(Coordinate x) {\n        if (par(x) == x) return x;\n\n        Coordinate\
-    \ rx = find(par(x));\n        return par(x) = rx;\n    }\n\n    // x\u3068y\u3092\
-    \u9023\u7D50\n    void unite(Coordinate x, Coordinate y) {\n        Coordinate\
-    \ rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate ry = find(y); //y\u306E\
-    \u6839\u3092ry\n\n        if (rx != ry) {\n            // -par\u306F\u30B5\u30A4\
-    \u30BA\u3092\u8FD4\u3059\n            // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\
-    \u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\
-    \n            if (size(rx) < size(ry)) {\n                swap(rx, ry);\n    \
-    \        }\n\n            size(rx) += size(ry); // rx\u306E\u30B5\u30A4\u30BA\u3092\
-    \u5909\u66F4\n            par(ry) = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        }\n    }\n\n    bool\
-    \ is_same(Coordinate x, Coordinate y) { \n        return find(x) == find(y);\n\
-    \    }\n\n    bool can_reach_goal() {\n        assert(start != Coordinate(-1,\
-    \ -1) and goal != Coordinate(-1, -1));\n        return find(start) == find(goal);\n\
-    \    }\n\n    bool operator== (GridUnionFind &other) {\n        if (H != other.H\
-    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
-    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
-    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
-    \ &os, GridUnionFind& grid) {\n        return os << grid.field << endl;\n    }\n\
-    };\n"
+    \     after_input();\n    };\n\n    void init() {\n        cc_size = H * W;\n\
+    \        par.assign(H, W, {-1, -1});\n        size.assign(H, W, 1);\n\n      \
+    \  rep(y, H) rep(x, W) par(y, x) = {y, x};\n    }\n\n    void input() {\n    \
+    \    rep(y, H) cin >> field[y];\n        after_input();\n    }\n\n    void after_input()\
+    \ {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\n    \
+    \        char c = field(now);\n            if (c >= 'A' and c <= 'Z') c = c -\
+    \ 'A' + 'a';\n            if (c == s)  start = Coordinate(y, x);\n           \
+    \ if (c == g or c == t) goal = Coordinate(y, x);\n\n            if (field.is_obj(now))\
+    \ {\n                size(now) = 0;\n                par(now) = {-1, -1};\n  \
+    \              continue;\n            }\n\n            rep(i, dirs.size()) {\n\
+    \                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
+    \ continue;\n                if (field.is_obj(next)) continue;\n\n           \
+    \     unite(now, next);\n            }\n        }\n    }\n\n    long long to_index(Coordinate&\
+    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
+    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
+    \   Coordinate find(Coordinate x) {\n        if (par(x) == x) return x;\n\n  \
+    \      Coordinate rx = find(par(x));\n        return par(x) = rx;\n    }\n\n \
+    \   // x\u3068y\u3092\u9023\u7D50\n    bool unite(Coordinate x, Coordinate y)\
+    \ {\n        Coordinate rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate\
+    \ ry = find(y); //y\u306E\u6839\u3092ry\n\n        if (rx == ry) return false;\n\
+    \n        --cc_size;\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\
+    \n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
+    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (size(rx) < size(ry))\
+    \ {\n            swap(rx, ry);\n        }\n\n        size(rx) += size(ry); //\
+    \ rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par(ry) = rx; //x\u3068\
+    y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\
+    \u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\
+    \n\n        return true;\n    }\n\n    bool is_same(Coordinate x, Coordinate y)\
+    \ { \n        return find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n\
+    \        assert(start != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n\
+    \        return find(start) == find(goal);\n    }\n\n    bool operator== (GridUnionFind\
+    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
+    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
+    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, GridUnionFind& grid) {\n\
+    \        return os << grid.field << endl;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\nstruct Coordinate {\n    long long\
     \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
     \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
@@ -611,57 +639,57 @@ data:
     \ dirs = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
     \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
     \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
-    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n\
-    \    char hash = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n\
-    \    Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long\
-    \ long inf = INF64 / 2;\n\n    GridUnionFind(long long n) : H(n), W(n), field(n,\
-    \ n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long long w)\
-    \ : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    Coordinate start\
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
+    \ / 2;\n\n    long long cc_size;\n\n    GridUnionFind(long long n) : H(n), W(n),\
+    \ field(n, n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long\
+    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
     \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
-    \     after_input();\n    };\n\n    void init() {\n        par.assign(H, W, {-1,\
-    \ -1});\n        size.assign(H, W, 1);\n\n        rep(y, H) rep(x, W) par(y, x)\
-    \ = {y, x};\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n\
-    \        after_input();\n    }\n\n    void after_input() {\n        rep(y, H)\
-    \ rep(x, W) {\n            Coordinate now(y, x);\n\n            char c = field(now);\n\
-    \            if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n            if (c\
-    \ == s)  start = Coordinate(y, x);\n            if (c == g or c == t) goal = Coordinate(y,\
-    \ x);\n\n            if (field.is_obj(now)) {\n                size(now) = 0;\n\
-    \                par(now) = {-1, -1};\n                continue;\n           \
-    \ }\n\n            rep(i, dirs.size()) {\n                Coordinate next = now\
-    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
-    \      if (field.is_obj(next)) continue;\n\n                unite(now, next);\n\
-    \            }\n        }\n    }\n\n    long long to_index(Coordinate& p) {\n\
-    \        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long\
-    \ index) {\n        return Coordinate(index / W, index % W);\n    }\n\n    Coordinate\
-    \ find(Coordinate x) {\n        if (par(x) == x) return x;\n\n        Coordinate\
-    \ rx = find(par(x));\n        return par(x) = rx;\n    }\n\n    // x\u3068y\u3092\
-    \u9023\u7D50\n    void unite(Coordinate x, Coordinate y) {\n        Coordinate\
-    \ rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate ry = find(y); //y\u306E\
-    \u6839\u3092ry\n\n        if (rx != ry) {\n            // -par\u306F\u30B5\u30A4\
-    \u30BA\u3092\u8FD4\u3059\n            // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\
-    \u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\
-    \n            if (size(rx) < size(ry)) {\n                swap(rx, ry);\n    \
-    \        }\n\n            size(rx) += size(ry); // rx\u306E\u30B5\u30A4\u30BA\u3092\
-    \u5909\u66F4\n            par(ry) = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        }\n    }\n\n    bool\
-    \ is_same(Coordinate x, Coordinate y) { \n        return find(x) == find(y);\n\
-    \    }\n\n    bool can_reach_goal() {\n        assert(start != Coordinate(-1,\
-    \ -1) and goal != Coordinate(-1, -1));\n        return find(start) == find(goal);\n\
-    \    }\n\n    bool operator== (GridUnionFind &other) {\n        if (H != other.H\
-    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
-    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
-    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
-    \ &os, GridUnionFind& grid) {\n        return os << grid.field << endl;\n    }\n\
-    };"
+    \     after_input();\n    };\n\n    void init() {\n        cc_size = H * W;\n\
+    \        par.assign(H, W, {-1, -1});\n        size.assign(H, W, 1);\n\n      \
+    \  rep(y, H) rep(x, W) par(y, x) = {y, x};\n    }\n\n    void input() {\n    \
+    \    rep(y, H) cin >> field[y];\n        after_input();\n    }\n\n    void after_input()\
+    \ {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\n    \
+    \        char c = field(now);\n            if (c >= 'A' and c <= 'Z') c = c -\
+    \ 'A' + 'a';\n            if (c == s)  start = Coordinate(y, x);\n           \
+    \ if (c == g or c == t) goal = Coordinate(y, x);\n\n            if (field.is_obj(now))\
+    \ {\n                size(now) = 0;\n                par(now) = {-1, -1};\n  \
+    \              continue;\n            }\n\n            rep(i, dirs.size()) {\n\
+    \                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
+    \ continue;\n                if (field.is_obj(next)) continue;\n\n           \
+    \     unite(now, next);\n            }\n        }\n    }\n\n    long long to_index(Coordinate&\
+    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
+    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
+    \   Coordinate find(Coordinate x) {\n        if (par(x) == x) return x;\n\n  \
+    \      Coordinate rx = find(par(x));\n        return par(x) = rx;\n    }\n\n \
+    \   // x\u3068y\u3092\u9023\u7D50\n    bool unite(Coordinate x, Coordinate y)\
+    \ {\n        Coordinate rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate\
+    \ ry = find(y); //y\u306E\u6839\u3092ry\n\n        if (rx == ry) return false;\n\
+    \n        --cc_size;\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\
+    \n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
+    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (size(rx) < size(ry))\
+    \ {\n            swap(rx, ry);\n        }\n\n        size(rx) += size(ry); //\
+    \ rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par(ry) = rx; //x\u3068\
+    y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\
+    \u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\
+    \n\n        return true;\n    }\n\n    bool is_same(Coordinate x, Coordinate y)\
+    \ { \n        return find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n\
+    \        assert(start != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n\
+    \        return find(start) == find(goal);\n    }\n\n    bool operator== (GridUnionFind\
+    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
+    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
+    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, GridUnionFind& grid) {\n\
+    \        return os << grid.field << endl;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: grid/grid-unionfind.cpp
   requiredBy: []
-  timestamp: '2024-06-09 00:28:45+09:00'
+  timestamp: '2024-06-11 01:50:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
   - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
 documentation_of: grid/grid-unionfind.cpp
 layout: document

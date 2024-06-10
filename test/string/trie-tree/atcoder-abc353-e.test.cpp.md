@@ -257,55 +257,55 @@ data:
     \ y) { return x / y + (x % y > 0);}\ninline long long floor(long long x, long\
     \ long y) { return x / y - (x % y < 0);}\npair<long long, long long> divmod(long\
     \ long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1)\
-    \ / y, (x % y + y) % y));}\ntemplate<typename T> inline T binpow(T x, T n, T m\
-    \ = 0) {\n    T ret = 1;\n    while (n > 0) {\n        if (n & 1) ret *= x;  //\
-    \ n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070 x^(2^i) \u3092\u304B\
-    \u3051\u308B\n        x *= x;\n        if (m > 0) {ret %= m; x %= m;};\n     \
-    \   n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n    }\n    return\
-    \ ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\
-    \u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n    T b = m, u = 1, v\
-    \ = 0;\n    while (b) {\n        T t = a / b;\n        a -= t * b; swap(a, b);\n\
-    \        u -= t * v; swap(u, v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n\
-    \    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\nlong long nCr(long\
-    \ long n, long long k, long long m = 0) {\n    if (n < k) return 0;\n    if (n\
-    \ - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *=\
-    \ (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n    \
-    \    if (m > 0) {\n            ret *= modinv(i, m);\n            ret %= m;\n \
-    \       } \n        else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\
-    \u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long>\
-    \ &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n\
-    \    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\
-    \nlong long lcm(const vector<long long> &A, const long long m = 0) { \n    long\
-    \ long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %=\
-    \ m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\
-    \u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long\
-    \ a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
-    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// string\u95A2\u4FC2\ninline\
-    \ string lltos(long long x) { return to_string(x);}\ninline int ctoi(char x) {\
-    \ return int(x - '0');}\ninline char itoc(int x) { return (char)(x + '0');}\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\ninline string to_upper(string&\
-    \ S) { return boost::to_upper_copy(S);}\ninline string to_lower(string& S) { return\
-    \ boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c) { return (c\
-    \ >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return (c >= 'A') and\
-    \ (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c)) return c; else\
-    \ return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c)) return\
-    \ c; else return c + 'a' - 'A';}\ninline string zero_padding(string N, long long\
-    \ width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0') << N;\n\
-    \    return ss.str();\n}\ninline string zero_padding(long long N, long long width)\
-    \ { return zero_padding(lltos(N), width);}\ninline string to_n_base(long long\
-    \ x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x == 0)\
-    \ return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x % base)\
-    \ < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n    return\
-    \ ret;\n}\ninline long long to_decimal(string S, long long base) {\n    assert(2\
-    \ <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i, S.size())\
-    \ {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i] - '0' : (('a'\
-    \ <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10)) * x;\n      \
-    \  x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long long> inline\
-    \ pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L')\
-    \ ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate\
-    \ <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i,\
-    \ A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j],\
-    \ A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
+    \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
+    \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
+    \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
+    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
+    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
+    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
+    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
+    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
+    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
+    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
+    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
+    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
+    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
+    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
+    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
+    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
+    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
+    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
+    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
+    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
+    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
+    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
+    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
+    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
+    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
+    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
+    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
+    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
+    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
+    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
+    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
+    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
+    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
+    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
+    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
+    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
+    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
+    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
+    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
+    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
+    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
+    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
+    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
+    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
+    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
+    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
+    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
     \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
     \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
     \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
@@ -360,29 +360,55 @@ data:
     \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
     \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
-    \ temp; }\n\ntemplate<typename T, typename U> vector<pair<T, U>> to_pair(const\
-    \ vector<T>& vec1, const vector<U>& vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n\
-    \    vector<pair<T, U>> result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i],\
-    \ vec2[i]);\n    return result;\n}\n#line 3 \"string/trie-tree.cpp\"\n\n\n/* Trie\
-    \ \u6728\uFF1A \u6587\u5B57\u306E\u7A2E\u985E(char_size)\u3001int\u578B\u3067\
-    0\u306B\u5BFE\u5FDC\u3059\u308B\u6587\u5B57(base)\n    insert(word): \u5358\u8A9E\
-    \ word \u3092 Trie \u6728\u306B\u633F\u5165\u3059\u308B\n    search(word): \u5358\
-    \u8A9E word \u304C Trie \u6728\u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\
-    \n    start_with(prefix):  prefix \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C\
-    \ Trie \u6728\u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\
-    \u5165\u3057\u305F\u5358\u8A9E\u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie\
-    \ \u6728\u306E\u9802\u70B9\u6570\u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1A\
-    insert, search \u3068\u3082\u306B O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\
-    \uFF09\n*/\ntemplate <int char_size = 26, int base = 'a'>\nstruct Trie {\n   \
-    \ struct Node {            // \u9802\u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\
-    \n        vector<long long> next;    // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\
-    \u683C\u7D0D\u3002\u5B58\u5728\u3057\u306A\u3051\u308C\u3070-1\n        vector<long\
-    \ long> accept;  // \u672B\u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\
-    \u5358\u8A9E\u306E word_id \u3092\u4FDD\u5B58\n        int c;               //\
-    \ base \u304B\u3089\u306E\u9593\u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\
-    \u3082\u306E\n        long long common;          // \u3044\u304F\u3064\u306E\u5358\
-    \u8A9E\u304C\u3053\u306E\u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\
-    \u304B\n        Node(long long c_) : c(c_), common(0) {\n            next.assign(char_size,\
+    \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
+    \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
+    \ T, typename U> auto operator-(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first - x, p.second - x); }\ntemplate <typename T, typename U> auto operator*(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first * x, p.second * x); }\n\
+    template <typename T, typename U> auto operator/(const pair<T, U>& p, const T\
+    \ x) { return pair<T, U>(p.first / x, p.second / x); }\ntemplate <typename T,\
+    \ typename U> auto operator%(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first % x, p.second % x); }\ntemplate <typename T, typename U> auto binpow(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(binpow(p.first, x), binpow(p.second,\
+    \ x)); }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
+    \ p, const pair<T, U>& q) { return pair<T, U>(p.first + q.first, p.second + q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator-(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first - q.first, p.second - q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator*(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first * q.first, p.second * q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator/(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first / q.first, p.second / q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator%(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first % q.first, p.second % q.second);\
+    \ }\n\ntemplate <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first;\
+    \ ++p.second; return p; }\ntemplate <typename T, typename U> auto operator++(pair<T,\
+    \ U>& p, int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate\
+    \ <typename T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second;\
+    \ return p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p,\
+    \ int) { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
+    \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
+    \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
+    \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
+    \    return result;\n}\n#line 3 \"string/trie-tree.cpp\"\n\n\n/* Trie \u6728\uFF1A\
+    \ \u6587\u5B57\u306E\u7A2E\u985E(char_size)\u3001int\u578B\u30670\u306B\u5BFE\u5FDC\
+    \u3059\u308B\u6587\u5B57(base)\n    insert(word): \u5358\u8A9E word \u3092 Trie\
+    \ \u6728\u306B\u633F\u5165\u3059\u308B\n    search(word): \u5358\u8A9E word \u304C\
+    \ Trie \u6728\u306B\u3042\u308B\u304B\u5224\u5B9A\u3059\u308B\n    start_with(prefix):\
+    \  prefix \u304C\u4E00\u81F4\u3059\u308B\u5358\u8A9E\u304C Trie \u6728\u306B\u3042\
+    \u308B\u304B\u5224\u5B9A\u3059\u308B\n    count(): \u633F\u5165\u3057\u305F\u5358\
+    \u8A9E\u306E\u6570\u3092\u8FD4\u3059\n    size(): Trie \u6728\u306E\u9802\u70B9\
+    \u6570\u3092\u8FD4\u3059\n    \u8A08\u7B97\u91CF\uFF1Ainsert, search \u3068\u3082\
+    \u306B O(M)\uFF08M\u306F\u5358\u8A9E\u306E\u9577\u3055\uFF09\n*/\ntemplate <int\
+    \ char_size = 26, int base = 'a'>\nstruct Trie {\n    struct Node {          \
+    \  // \u9802\u70B9\u3092\u8868\u3059\u69CB\u9020\u4F53\n        vector<long long>\
+    \ next;    // \u5B50\u306E\u9802\u70B9\u756A\u53F7\u3092\u683C\u7D0D\u3002\u5B58\
+    \u5728\u3057\u306A\u3051\u308C\u3070-1\n        vector<long long> accept;  //\
+    \ \u672B\u7AEF\u304C\u3053\u306E\u9802\u70B9\u306B\u306A\u308B\u5358\u8A9E\u306E\
+    \ word_id \u3092\u4FDD\u5B58\n        int c;               // base \u304B\u3089\
+    \u306E\u9593\u9694\u3092int\u578B\u3067\u8868\u73FE\u3057\u305F\u3082\u306E\n\
+    \        long long common;          // \u3044\u304F\u3064\u306E\u5358\u8A9E\u304C\
+    \u3053\u306E\u9802\u70B9\u3092\u5171\u6709\u3057\u3066\u3044\u308B\u304B\n   \
+    \     Node(long long c_) : c(c_), common(0) {\n            next.assign(char_size,\
     \ -1);\n        }\n    };\n\n    vector<Node> nodes;  // trie \u6728\u672C\u4F53\
     \n    long long root;\n\n    Trie() : root(0) {\n        nodes.push_back(Node(root));\n\
     \    }\n\n    // \u5358\u8A9E\u306E\u633F\u5165\n    void insert(const string\
@@ -427,7 +453,7 @@ data:
   isVerificationFile: true
   path: test/string/trie-tree/atcoder-abc353-e.test.cpp
   requiredBy: []
-  timestamp: '2024-06-09 00:28:45+09:00'
+  timestamp: '2024-06-11 01:50:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/string/trie-tree/atcoder-abc353-e.test.cpp
