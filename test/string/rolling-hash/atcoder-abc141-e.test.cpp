@@ -1,3 +1,4 @@
+#define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc141/tasks/abc141_e"
 
 #include "../../../string/rolling-hash.cpp"
