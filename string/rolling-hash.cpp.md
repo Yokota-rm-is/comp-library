@@ -13,6 +13,9 @@ data:
     path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
     title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
+    title: test/string/rolling-hash/atcoder-abc324-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
     title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   _isVerificationFailed: false
@@ -390,143 +393,176 @@ data:
     \    return result;\n}\n#line 3 \"string/rolling-hash.cpp\"\n\nunsigned long long\
     \ set_base(unsigned long long Max = 127, unsigned long long MOD = (1ULL << 61)\
     \ - 1, unsigned long long root = 37) {\n    random_device rd;\n    mt19937_64\
-    \ gen(rd());\n    uniform_int_distribution<int> dist(1, INF32);\n    unsigned\
-    \ long long ret;\n\n    while (true) {\n        int k = dist(gen);\n        ret\
-    \ = binpow(root, (unsigned long long)k, MOD);\n        if (ret > Max) break;\n\
-    \    };\n\n    return ret;\n}\nstatic const unsigned long long base = set_base();\n\
-    \nstruct Hash61 {\n    static const unsigned long long MOD = (1ULL << 61) - 1;\n\
-    \    static const unsigned long long MASK30 = (1ULL << 30) - 1;\n    static const\
-    \ unsigned long long MASK31 = (1ULL << 31) - 1;\n    static const unsigned long\
-    \ long MASK61 = MOD;\n    \n    unsigned long long hash, hash_rev;\n    unsigned\
-    \ long long pow;\n    unsigned long long size;\n\n    Hash61() {\n        init();\n\
-    \    }\n\n    Hash61(string S) {\n        init();\n        if (S.size() > 0) set(S);\n\
-    \    }\n\n    Hash61(char c) {\n        init();\n        set(string(1, c));\n\
-    \    }\n\n    void init() {\n        assert(base > 0);\n        size = 0;\n  \
-    \      hash = 0;\n        hash_rev = 0;\n        pow = 1;\n    }\n\n    void set(char\
-    \ c) {\n        set(string(1, c));\n    }\n\n    void set(string S) {\n      \
-    \  size = S.size();\n        \n        rep(i, S.size()) {\n            unsigned\
-    \ long long c = S[i];\n            hash = calc_mod(calc_mul(hash, base) + c);\n\
-    \            pow = calc_mod(calc_mul(pow, base));\n        }\n        repd(i,\
-    \ S.size()) {\n            unsigned long long c = S[i];\n            hash_rev\
-    \ = calc_mod(calc_mul(hash_rev, base) + c);\n        }\n    }\n\n    bool is_palindrome()\
-    \ {\n        return hash == hash_rev;\n    }\n\n    Hash61& operator+= (const\
-    \ Hash61 &other) noexcept {\n        hash = calc_mod(calc_mul(hash, other.pow)\
-    \ + other.hash);\n        hash_rev = calc_mod(calc_mul(other.hash_rev, pow) +\
-    \ hash_rev);\n        pow = calc_mod(calc_mul(pow, other.pow));\n\n        size\
-    \ += other.size;\n\n        return *this;\n    }\n\n    Hash61 operator+ (const\
-    \ Hash61 &other) const noexcept {\n        return Hash61(*this) += other;\n  \
-    \  }\n\n    bool operator< (const Hash61 &other) const {\n        return (size\
-    \ < other.size) and (hash < other.hash);\n    }\n\n    bool operator== (const\
-    \ Hash61 &other) const noexcept {\n        return (size == other.size) and (hash\
-    \ == other.hash);\n    }\n\n    static unsigned long long calc_mul(unsigned long\
-    \ long a, unsigned long long b) {\n        unsigned long long au = a >> 31;\n\
-    \        unsigned long long ad = a & MASK31;\n        unsigned long long bu =\
-    \ b >> 31;\n        unsigned long long bd = b & MASK31;\n        unsigned long\
-    \ long mid = ad * bu + au * bd;\n        unsigned long long midu = mid >> 30;\n\
-    \        unsigned long long midd = mid & MASK30;\n\n        return au * bu * 2\
-    \ + midu + (midd << 31) + ad * bd;\n    }\n\n    static unsigned long long calc_mod(unsigned\
-    \ long long x) {\n        unsigned long long xu = x >> 61;\n        unsigned long\
-    \ long xd = x & MASK61;\n        unsigned long long res = xu + xd;\n        if\
-    \ (res >= MOD) res -= MOD;\n        return res;\n    }\n\n    friend ostream&\
-    \ operator << (ostream &os, const Hash61& h) {\n        return os << h.hash;\n\
-    \    }\n};\n\nstruct RollingHash {\n    long long N;\n    vector<Hash61> hashed;\n\
-    \n    RollingHash(const string &S) : N(S.size()) {\n        construct(S);\n  \
-    \  }\n\n    void construct(string S) {\n        Hash61 hash;\n\n        hashed.push_back(hash);\n\
-    \n        rep(i, N) {\n            hash += S[i];\n            hashed.push_back(hash);\n\
-    \        }\n    }\n\n    unsigned long long get() {\n        return hashed[N].hash;\n\
-    \    }\n\n    unsigned long long get(long long r) {\n        return hashed[r].hash;\n\
-    \    }\n\n    // [l, r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\u53D6\u5F97\n\
-    \    unsigned long long get(long long l, long long r) {\n        if (l == 0) return\
-    \ hashed[r].hash;\n        \n        return Hash61::calc_mod(hashed[r].hash +\
-    \ Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r - l].pow)));\n\
-    \    }\n\n    long long lcp(long long l1, long long r1, long long l2, long long\
-    \ r2) {\n        long long low = 0;\n        long long high = min(r1 - l1, r2\
-    \ - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return high;\n\
-    \n        while (high - low > 1) {\n            long long mid = (high + low) /\
-    \ 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low = mid;\n \
-    \           else high = mid;\n        }\n\n        return low;\n    }\n\n    long\
-    \ long lcp(long long l1, long long l2) {\n        long long low = 0;\n       \
-    \ long long high = min(N - l1, N - l2);\n        if (get(l1, l1 + high) == get(l2,\
-    \ l2 + high)) return high;\n\n        while (high - low > 1) {\n            long\
-    \ long mid = (high + low) / 2;\n\n            if (get(l1, l1 + mid) == get(l2,\
-    \ l2 + mid)) low = mid;\n            else high = mid;\n        }\n\n        return\
-    \ low;\n    }\n\n    friend ostream& operator << (ostream &os, const RollingHash&\
-    \ h) {\n        rep(i, h.N) os << h.hashed[i] << \" \";\n        return os;\n\
-    \    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\nunsigned long long set_base(unsigned\
-    \ long long Max = 127, unsigned long long MOD = (1ULL << 61) - 1, unsigned long\
-    \ long root = 37) {\n    random_device rd;\n    mt19937_64 gen(rd());\n    uniform_int_distribution<int>\
-    \ dist(1, INF32);\n    unsigned long long ret;\n\n    while (true) {\n       \
-    \ int k = dist(gen);\n        ret = binpow(root, (unsigned long long)k, MOD);\n\
-    \        if (ret > Max) break;\n    };\n\n    return ret;\n}\nstatic const unsigned\
+    \ gen(rd());\n    uniform_int_distribution<unsigned long long> dist(1, numeric_limits<unsigned\
+    \ long long>::max());\n    unsigned long long ret;\n\n    while (true) {\n   \
+    \     unsigned long long k = dist(gen);\n        ret = binpow(root, k, MOD);\n\
+    \        if (ret > Max) break;\n    }\n\n    return ret;\n}\nstatic const unsigned\
     \ long long base = set_base();\n\nstruct Hash61 {\n    static const unsigned long\
     \ long MOD = (1ULL << 61) - 1;\n    static const unsigned long long MASK30 = (1ULL\
     \ << 30) - 1;\n    static const unsigned long long MASK31 = (1ULL << 31) - 1;\n\
     \    static const unsigned long long MASK61 = MOD;\n    \n    unsigned long long\
-    \ hash, hash_rev;\n    unsigned long long pow;\n    unsigned long long size;\n\
-    \n    Hash61() {\n        init();\n    }\n\n    Hash61(string S) {\n        init();\n\
-    \        if (S.size() > 0) set(S);\n    }\n\n    Hash61(char c) {\n        init();\n\
+    \ hash, hash_rev;\n    unsigned long long pow, pow_inv;\n    unsigned long long\
+    \ size;\n    const unsigned long long base_inv = modinv(base);\n\n    Hash61()\
+    \ {\n        init();\n    }\n\n    Hash61(string S) {\n        init();\n     \
+    \   if (S.size() > 0) set(S);\n    }\n\n    Hash61(char c) {\n        init();\n\
     \        set(string(1, c));\n    }\n\n    void init() {\n        assert(base >\
     \ 0);\n        size = 0;\n        hash = 0;\n        hash_rev = 0;\n        pow\
-    \ = 1;\n    }\n\n    void set(char c) {\n        set(string(1, c));\n    }\n\n\
-    \    void set(string S) {\n        size = S.size();\n        \n        rep(i,\
-    \ S.size()) {\n            unsigned long long c = S[i];\n            hash = calc_mod(calc_mul(hash,\
-    \ base) + c);\n            pow = calc_mod(calc_mul(pow, base));\n        }\n \
-    \       repd(i, S.size()) {\n            unsigned long long c = S[i];\n      \
-    \      hash_rev = calc_mod(calc_mul(hash_rev, base) + c);\n        }\n    }\n\n\
-    \    bool is_palindrome() {\n        return hash == hash_rev;\n    }\n\n    Hash61&\
-    \ operator+= (const Hash61 &other) noexcept {\n        hash = calc_mod(calc_mul(hash,\
-    \ other.pow) + other.hash);\n        hash_rev = calc_mod(calc_mul(other.hash_rev,\
-    \ pow) + hash_rev);\n        pow = calc_mod(calc_mul(pow, other.pow));\n\n   \
-    \     size += other.size;\n\n        return *this;\n    }\n\n    Hash61 operator+\
-    \ (const Hash61 &other) const noexcept {\n        return Hash61(*this) += other;\n\
-    \    }\n\n    bool operator< (const Hash61 &other) const {\n        return (size\
-    \ < other.size) and (hash < other.hash);\n    }\n\n    bool operator== (const\
-    \ Hash61 &other) const noexcept {\n        return (size == other.size) and (hash\
-    \ == other.hash);\n    }\n\n    static unsigned long long calc_mul(unsigned long\
-    \ long a, unsigned long long b) {\n        unsigned long long au = a >> 31;\n\
-    \        unsigned long long ad = a & MASK31;\n        unsigned long long bu =\
-    \ b >> 31;\n        unsigned long long bd = b & MASK31;\n        unsigned long\
-    \ long mid = ad * bu + au * bd;\n        unsigned long long midu = mid >> 30;\n\
-    \        unsigned long long midd = mid & MASK30;\n\n        return au * bu * 2\
-    \ + midu + (midd << 31) + ad * bd;\n    }\n\n    static unsigned long long calc_mod(unsigned\
-    \ long long x) {\n        unsigned long long xu = x >> 61;\n        unsigned long\
-    \ long xd = x & MASK61;\n        unsigned long long res = xu + xd;\n        if\
-    \ (res >= MOD) res -= MOD;\n        return res;\n    }\n\n    friend ostream&\
-    \ operator << (ostream &os, const Hash61& h) {\n        return os << h.hash;\n\
-    \    }\n};\n\nstruct RollingHash {\n    long long N;\n    vector<Hash61> hashed;\n\
-    \n    RollingHash(const string &S) : N(S.size()) {\n        construct(S);\n  \
-    \  }\n\n    void construct(string S) {\n        Hash61 hash;\n\n        hashed.push_back(hash);\n\
-    \n        rep(i, N) {\n            hash += S[i];\n            hashed.push_back(hash);\n\
-    \        }\n    }\n\n    unsigned long long get() {\n        return hashed[N].hash;\n\
-    \    }\n\n    unsigned long long get(long long r) {\n        return hashed[r].hash;\n\
-    \    }\n\n    // [l, r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\u53D6\u5F97\n\
-    \    unsigned long long get(long long l, long long r) {\n        if (l == 0) return\
-    \ hashed[r].hash;\n        \n        return Hash61::calc_mod(hashed[r].hash +\
-    \ Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r - l].pow)));\n\
-    \    }\n\n    long long lcp(long long l1, long long r1, long long l2, long long\
-    \ r2) {\n        long long low = 0;\n        long long high = min(r1 - l1, r2\
-    \ - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return high;\n\
+    \ = 1;\n        pow_inv = 1;\n    }\n\n    void set(char c) {\n        set(string(1,\
+    \ c));\n    }\n\n    void set(string S) {\n        size = S.size();\n        \n\
+    \        rep(i, S.size()) {\n            unsigned long long c = S[i];\n      \
+    \      hash = calc_mod(calc_mul(hash, base) + c);\n            pow = calc_mod(calc_mul(pow,\
+    \ base));\n            pow_inv = calc_mod(calc_mul(pow_inv, base_inv));\n    \
+    \    }\n        repd(i, S.size()) {\n            unsigned long long c = S[i];\n\
+    \            hash_rev = calc_mod(calc_mul(hash_rev, base) + c);\n        }\n \
+    \   }\n\n    bool is_palindrome() {\n        return hash == hash_rev;\n    }\n\
+    \n    operator unsigned long long() const {\n        return hash;\n    }\n\n \
+    \   friend Hash61 operator+ (const Hash61 &lhs, const Hash61 &rhs) {\n       \
+    \ return Hash61(lhs) += rhs;\n    }\n\n    Hash61& operator+= (const Hash61 &other)\
+    \ noexcept {\n        hash = calc_mod(calc_mul(hash, other.pow) + other.hash);\n\
+    \        hash_rev = calc_mod(calc_mul(other.hash_rev, pow) + hash_rev);\n    \
+    \    pow = calc_mod(calc_mul(pow, other.pow));\n        pow_inv = calc_mod(calc_mul(pow_inv,\
+    \ other.pow_inv));\n\n        size += other.size;\n\n        return *this;\n \
+    \   }\n\n    bool operator< (const Hash61 &other) const {\n        return (size\
+    \ < other.size) && (hash < other.hash);\n    }\n\n    bool operator== (const Hash61\
+    \ &other) const noexcept {\n        return (size == other.size) && (hash == other.hash);\n\
+    \    }\n\n    static unsigned long long calc_mul(unsigned long long a, unsigned\
+    \ long long b) {\n        unsigned long long au = a >> 31;\n        unsigned long\
+    \ long ad = a & MASK31;\n        unsigned long long bu = b >> 31;\n        unsigned\
+    \ long long bd = b & MASK31;\n        unsigned long long mid = ad * bu + au *\
+    \ bd;\n        unsigned long long midu = mid >> 30;\n        unsigned long long\
+    \ midd = mid & MASK30;\n\n        return au * bu * 2 + midu + (midd << 31) + ad\
+    \ * bd;\n    }\n\n    static unsigned long long calc_mod(unsigned long long x)\
+    \ {\n        unsigned long long xu = x >> 61;\n        unsigned long long xd =\
+    \ x & MASK61;\n        unsigned long long res = xu + xd;\n        if (res >= MOD)\
+    \ res -= MOD;\n        return res;\n    }\n\n    static unsigned long long binpow(unsigned\
+    \ long long x, unsigned long long n) {\n        unsigned long long ret = 1;\n\
+    \        while (n > 0) {\n            if (n & 1) ret = calc_mod(calc_mul(ret,\
+    \ x));  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070 x^(2^i) \u3092\
+    \u304B\u3051\u308B\n            x = calc_mod(calc_mul(x, x));\n            n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n        }\n        return\
+    \ ret;\n    }\n    // mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\
+    \u7B97\u3059\u308B\n    static unsigned long long modinv(unsigned long long a)\
+    \ { return binpow(a, MOD - 2);}\n\n    friend ostream& operator<<(ostream &os,\
+    \ const Hash61& h) {\n        return os << h.hash;\n    }\n};\n\nstruct RollingHash\
+    \ {\n    long long N;\n    vector<Hash61> hashed;\n\n    RollingHash(const string\
+    \ &S) : N(S.size()) {\n        construct(S);\n    }\n\n    void construct(const\
+    \ string &S) {\n        Hash61 hash;\n\n        hashed.push_back(hash);\n\n  \
+    \      rep(i, N) {\n            hash += S[i];\n            hashed.push_back(hash);\n\
+    \        }\n    }\n\n    Hash61 get() {\n        return hashed[N];\n    }\n\n\
+    \    Hash61 get(long long r) {\n        return hashed[r];\n    }\n\n    // [l,\
+    \ r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\u53D6\u5F97\n    Hash61 get(long\
+    \ long l, long long r) {\n        if (l == 0) return hashed[r];\n\n        Hash61\
+    \ ret;\n        ret.hash = Hash61::calc_mod(hashed[r].hash + Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash,\
+    \ hashed[r - l].pow)));\n        ret.hash_rev = Hash61::calc_mod(Hash61::calc_mul(Hash61::calc_mod(hashed[r].hash_rev\
+    \ + Hash61::MOD - hashed[l].hash_rev), hashed[l].pow_inv));\n        ret.size\
+    \ = r - l;\n        ret.pow = hashed[r - l].pow;\n        ret.pow_inv = hashed[r\
+    \ - l].pow_inv;\n        return ret;\n    }\n\n    // \u533A\u9593[l1, r1)\u3068\
+    \u533A\u9593[l2, r2)\u306E\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\u306E\u9577\
+    \u3055\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CFO(logn)\n    long long lcp(long\
+    \ long l1, long long r1, long long l2, long long r2) {\n        long long low\
+    \ = 0;\n        long long high = min(r1 - l1, r2 - l2);\n        if (get(l1, l1\
+    \ + high) == get(l2, l2 + high)) return high;\n\n        while (high - low > 1)\
+    \ {\n            long long mid = (high + low) / 2;\n\n            if (get(l1,\
+    \ l1 + mid) == get(l2, l2 + mid)) low = mid;\n            else high = mid;\n \
+    \       }\n\n        return low;\n    }\n\n    long long lcp(long long l1, long\
+    \ long l2) {\n        long long low = 0;\n        long long high = min(N - l1,\
+    \ N - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return high;\n\
     \n        while (high - low > 1) {\n            long long mid = (high + low) /\
     \ 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low = mid;\n \
-    \           else high = mid;\n        }\n\n        return low;\n    }\n\n    long\
-    \ long lcp(long long l1, long long l2) {\n        long long low = 0;\n       \
-    \ long long high = min(N - l1, N - l2);\n        if (get(l1, l1 + high) == get(l2,\
-    \ l2 + high)) return high;\n\n        while (high - low > 1) {\n            long\
-    \ long mid = (high + low) / 2;\n\n            if (get(l1, l1 + mid) == get(l2,\
-    \ l2 + mid)) low = mid;\n            else high = mid;\n        }\n\n        return\
-    \ low;\n    }\n\n    friend ostream& operator << (ostream &os, const RollingHash&\
-    \ h) {\n        rep(i, h.N) os << h.hashed[i] << \" \";\n        return os;\n\
-    \    }\n};"
+    \           else high = mid;\n        }\n\n        return low;\n    }\n\n    friend\
+    \ ostream& operator<<(ostream &os, const RollingHash& h) {\n        rep(i, h.N\
+    \ + 1) os << h.hashed[i] << \" \";\n        return os;\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\nunsigned long long set_base(unsigned\
+    \ long long Max = 127, unsigned long long MOD = (1ULL << 61) - 1, unsigned long\
+    \ long root = 37) {\n    random_device rd;\n    mt19937_64 gen(rd());\n    uniform_int_distribution<unsigned\
+    \ long long> dist(1, numeric_limits<unsigned long long>::max());\n    unsigned\
+    \ long long ret;\n\n    while (true) {\n        unsigned long long k = dist(gen);\n\
+    \        ret = binpow(root, k, MOD);\n        if (ret > Max) break;\n    }\n\n\
+    \    return ret;\n}\nstatic const unsigned long long base = set_base();\n\nstruct\
+    \ Hash61 {\n    static const unsigned long long MOD = (1ULL << 61) - 1;\n    static\
+    \ const unsigned long long MASK30 = (1ULL << 30) - 1;\n    static const unsigned\
+    \ long long MASK31 = (1ULL << 31) - 1;\n    static const unsigned long long MASK61\
+    \ = MOD;\n    \n    unsigned long long hash, hash_rev;\n    unsigned long long\
+    \ pow, pow_inv;\n    unsigned long long size;\n    const unsigned long long base_inv\
+    \ = modinv(base);\n\n    Hash61() {\n        init();\n    }\n\n    Hash61(string\
+    \ S) {\n        init();\n        if (S.size() > 0) set(S);\n    }\n\n    Hash61(char\
+    \ c) {\n        init();\n        set(string(1, c));\n    }\n\n    void init()\
+    \ {\n        assert(base > 0);\n        size = 0;\n        hash = 0;\n       \
+    \ hash_rev = 0;\n        pow = 1;\n        pow_inv = 1;\n    }\n\n    void set(char\
+    \ c) {\n        set(string(1, c));\n    }\n\n    void set(string S) {\n      \
+    \  size = S.size();\n        \n        rep(i, S.size()) {\n            unsigned\
+    \ long long c = S[i];\n            hash = calc_mod(calc_mul(hash, base) + c);\n\
+    \            pow = calc_mod(calc_mul(pow, base));\n            pow_inv = calc_mod(calc_mul(pow_inv,\
+    \ base_inv));\n        }\n        repd(i, S.size()) {\n            unsigned long\
+    \ long c = S[i];\n            hash_rev = calc_mod(calc_mul(hash_rev, base) + c);\n\
+    \        }\n    }\n\n    bool is_palindrome() {\n        return hash == hash_rev;\n\
+    \    }\n\n    operator unsigned long long() const {\n        return hash;\n  \
+    \  }\n\n    friend Hash61 operator+ (const Hash61 &lhs, const Hash61 &rhs) {\n\
+    \        return Hash61(lhs) += rhs;\n    }\n\n    Hash61& operator+= (const Hash61\
+    \ &other) noexcept {\n        hash = calc_mod(calc_mul(hash, other.pow) + other.hash);\n\
+    \        hash_rev = calc_mod(calc_mul(other.hash_rev, pow) + hash_rev);\n    \
+    \    pow = calc_mod(calc_mul(pow, other.pow));\n        pow_inv = calc_mod(calc_mul(pow_inv,\
+    \ other.pow_inv));\n\n        size += other.size;\n\n        return *this;\n \
+    \   }\n\n    bool operator< (const Hash61 &other) const {\n        return (size\
+    \ < other.size) && (hash < other.hash);\n    }\n\n    bool operator== (const Hash61\
+    \ &other) const noexcept {\n        return (size == other.size) && (hash == other.hash);\n\
+    \    }\n\n    static unsigned long long calc_mul(unsigned long long a, unsigned\
+    \ long long b) {\n        unsigned long long au = a >> 31;\n        unsigned long\
+    \ long ad = a & MASK31;\n        unsigned long long bu = b >> 31;\n        unsigned\
+    \ long long bd = b & MASK31;\n        unsigned long long mid = ad * bu + au *\
+    \ bd;\n        unsigned long long midu = mid >> 30;\n        unsigned long long\
+    \ midd = mid & MASK30;\n\n        return au * bu * 2 + midu + (midd << 31) + ad\
+    \ * bd;\n    }\n\n    static unsigned long long calc_mod(unsigned long long x)\
+    \ {\n        unsigned long long xu = x >> 61;\n        unsigned long long xd =\
+    \ x & MASK61;\n        unsigned long long res = xu + xd;\n        if (res >= MOD)\
+    \ res -= MOD;\n        return res;\n    }\n\n    static unsigned long long binpow(unsigned\
+    \ long long x, unsigned long long n) {\n        unsigned long long ret = 1;\n\
+    \        while (n > 0) {\n            if (n & 1) ret = calc_mod(calc_mul(ret,\
+    \ x));  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070 x^(2^i) \u3092\
+    \u304B\u3051\u308B\n            x = calc_mod(calc_mul(x, x));\n            n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n        }\n        return\
+    \ ret;\n    }\n    // mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\
+    \u7B97\u3059\u308B\n    static unsigned long long modinv(unsigned long long a)\
+    \ { return binpow(a, MOD - 2);}\n\n    friend ostream& operator<<(ostream &os,\
+    \ const Hash61& h) {\n        return os << h.hash;\n    }\n};\n\nstruct RollingHash\
+    \ {\n    long long N;\n    vector<Hash61> hashed;\n\n    RollingHash(const string\
+    \ &S) : N(S.size()) {\n        construct(S);\n    }\n\n    void construct(const\
+    \ string &S) {\n        Hash61 hash;\n\n        hashed.push_back(hash);\n\n  \
+    \      rep(i, N) {\n            hash += S[i];\n            hashed.push_back(hash);\n\
+    \        }\n    }\n\n    Hash61 get() {\n        return hashed[N];\n    }\n\n\
+    \    Hash61 get(long long r) {\n        return hashed[r];\n    }\n\n    // [l,\
+    \ r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\u53D6\u5F97\n    Hash61 get(long\
+    \ long l, long long r) {\n        if (l == 0) return hashed[r];\n\n        Hash61\
+    \ ret;\n        ret.hash = Hash61::calc_mod(hashed[r].hash + Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash,\
+    \ hashed[r - l].pow)));\n        ret.hash_rev = Hash61::calc_mod(Hash61::calc_mul(Hash61::calc_mod(hashed[r].hash_rev\
+    \ + Hash61::MOD - hashed[l].hash_rev), hashed[l].pow_inv));\n        ret.size\
+    \ = r - l;\n        ret.pow = hashed[r - l].pow;\n        ret.pow_inv = hashed[r\
+    \ - l].pow_inv;\n        return ret;\n    }\n\n    // \u533A\u9593[l1, r1)\u3068\
+    \u533A\u9593[l2, r2)\u306E\u6700\u9577\u5171\u901A\u63A5\u982D\u8F9E\u306E\u9577\
+    \u3055\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CFO(logn)\n    long long lcp(long\
+    \ long l1, long long r1, long long l2, long long r2) {\n        long long low\
+    \ = 0;\n        long long high = min(r1 - l1, r2 - l2);\n        if (get(l1, l1\
+    \ + high) == get(l2, l2 + high)) return high;\n\n        while (high - low > 1)\
+    \ {\n            long long mid = (high + low) / 2;\n\n            if (get(l1,\
+    \ l1 + mid) == get(l2, l2 + mid)) low = mid;\n            else high = mid;\n \
+    \       }\n\n        return low;\n    }\n\n    long long lcp(long long l1, long\
+    \ long l2) {\n        long long low = 0;\n        long long high = min(N - l1,\
+    \ N - l2);\n        if (get(l1, l1 + high) == get(l2, l2 + high)) return high;\n\
+    \n        while (high - low > 1) {\n            long long mid = (high + low) /\
+    \ 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low = mid;\n \
+    \           else high = mid;\n        }\n\n        return low;\n    }\n\n    friend\
+    \ ostream& operator<<(ostream &os, const RollingHash& h) {\n        rep(i, h.N\
+    \ + 1) os << h.hashed[i] << \" \";\n        return os;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: string/rolling-hash.cpp
   requiredBy: []
-  timestamp: '2024-06-11 01:50:21+09:00'
+  timestamp: '2024-06-11 14:27:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
   - test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - test/string/rolling-hash/atcoder-abc353-e.test.cpp
 documentation_of: string/rolling-hash.cpp

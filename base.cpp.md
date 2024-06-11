@@ -334,6 +334,9 @@ data:
     path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
     title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
+    title: test/string/rolling-hash/atcoder-abc324-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
     title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -1298,6 +1301,7 @@ data:
   - test/base/atcoder-abc109-c.test.cpp
   - test/string/trie-tree/atcoder-abc353-e.test.cpp
   - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
   - test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp

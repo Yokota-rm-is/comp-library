@@ -14,11 +14,12 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B
+    IGNORE: ''
+    IGNORE_IF_GCC: ''
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B
-  bundledCode: "#line 1 \"test/string/rolling-hash/aoj-alds1-14-b.test.cpp\"\n#define\
-    \ PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B\"\
+    - https://atcoder.jp/contests/abc324/tasks/abc324_c
+  bundledCode: "#line 1 \"test/string/rolling-hash/atcoder-abc324-c.test.cpp\"\n#define\
+    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc324/tasks/abc324_c\"\
     \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -467,29 +468,43 @@ data:
     \ 2;\n\n            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low = mid;\n \
     \           else high = mid;\n        }\n\n        return low;\n    }\n\n    friend\
     \ ostream& operator<<(ostream &os, const RollingHash& h) {\n        rep(i, h.N\
-    \ + 1) os << h.hashed[i] << \" \";\n        return os;\n    }\n};\n#line 4 \"\
-    test/string/rolling-hash/aoj-alds1-14-b.test.cpp\"\n\nint main() {\n    string\
-    \ T, P;\n    cin >> T >> P;\n\n    RollingHash rht(T), rhp(P);\n    rep(i, T.size()\
-    \ - P.size() + 1) {\n        if (rht.get(i, i + P.size()) == rhp.get()) {\n  \
-    \          cout << i << endl;\n        }\n    }\n\n    return 0;\n} \n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B\"\
-    \n\n#include \"../../../string/rolling-hash.cpp\"\n\nint main() {\n    string\
-    \ T, P;\n    cin >> T >> P;\n\n    RollingHash rht(T), rhp(P);\n    rep(i, T.size()\
-    \ - P.size() + 1) {\n        if (rht.get(i, i + P.size()) == rhp.get()) {\n  \
-    \          cout << i << endl;\n        }\n    }\n\n    return 0;\n} \n"
+    \ + 1) os << h.hashed[i] << \" \";\n        return os;\n    }\n};\n#line 5 \"\
+    test/string/rolling-hash/atcoder-abc324-c.test.cpp\"\n\nint main() {\n    ll N;\n\
+    \    input(N);\n\n    string T;\n    input(T);\n\n    RollingHash rh(T);\n\n \
+    \   set<ull> st;\n    st.insert(rh.get());\n    rep(i, T.size() + 1) {\n     \
+    \   rep(c, 'a', 'z' + 1) {\n            st.insert(rh.get(0, i) + Hash61(c) + rh.get(i,\
+    \ T.size()));\n        }\n    }\n    \n    rep(i, T.size()) {\n        st.insert(rh.get(0,\
+    \ i) + rh.get(i + 1, T.size()));\n        \n        rep(c, 'a', 'z' + 1) {\n \
+    \           st.insert(rh.get(0, i) + Hash61(c) + rh.get(i + 1, T.size()));\n \
+    \       }\n    }\n\n    vll ans;\n    rep(i, N) {\n        string S;\n       \
+    \ cin >> S;\n        if (st.contains(RollingHash(S).get())) ans.push_back(i);\n\
+    \    }\n    \n    cout << ans.size() << endl;\n    if (ans.size() > 0) {\n   \
+    \     ++ans;\n        cout << ans << endl;\n    }\n\n    return 0;\n} \n"
+  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc324/tasks/abc324_c\"\
+    \n\n#include \"../../../string/rolling-hash.cpp\"\n\nint main() {\n    ll N;\n\
+    \    input(N);\n\n    string T;\n    input(T);\n\n    RollingHash rh(T);\n\n \
+    \   set<ull> st;\n    st.insert(rh.get());\n    rep(i, T.size() + 1) {\n     \
+    \   rep(c, 'a', 'z' + 1) {\n            st.insert(rh.get(0, i) + Hash61(c) + rh.get(i,\
+    \ T.size()));\n        }\n    }\n    \n    rep(i, T.size()) {\n        st.insert(rh.get(0,\
+    \ i) + rh.get(i + 1, T.size()));\n        \n        rep(c, 'a', 'z' + 1) {\n \
+    \           st.insert(rh.get(0, i) + Hash61(c) + rh.get(i + 1, T.size()));\n \
+    \       }\n    }\n\n    vll ans;\n    rep(i, N) {\n        string S;\n       \
+    \ cin >> S;\n        if (st.contains(RollingHash(S).get())) ans.push_back(i);\n\
+    \    }\n    \n    cout << ans.size() << endl;\n    if (ans.size() > 0) {\n   \
+    \     ++ans;\n        cout << ans << endl;\n    }\n\n    return 0;\n} \n"
   dependsOn:
   - string/rolling-hash.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
   requiredBy: []
   timestamp: '2024-06-11 14:27:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+documentation_of: test/string/rolling-hash/atcoder-abc324-c.test.cpp
 layout: document
 redirect_from:
-- /verify/test/string/rolling-hash/aoj-alds1-14-b.test.cpp
-- /verify/test/string/rolling-hash/aoj-alds1-14-b.test.cpp.html
-title: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+- /verify/test/string/rolling-hash/atcoder-abc324-c.test.cpp
+- /verify/test/string/rolling-hash/atcoder-abc324-c.test.cpp.html
+title: test/string/rolling-hash/atcoder-abc324-c.test.cpp
 ---

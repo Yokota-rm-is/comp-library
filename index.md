@@ -420,6 +420,9 @@ data:
       path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
       title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
+      title: test/string/rolling-hash/atcoder-abc324-c.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
       title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - name: test/string/trie-tree
