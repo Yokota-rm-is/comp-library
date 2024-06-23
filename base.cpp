@@ -338,6 +338,10 @@ inline long long to_decimal(string S, long long base) {
     }
     return ret;
 }
+bool is_palindrome(const string& S) {
+    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return false;
+    return true;
+}
 
 template<class T = long long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}
 template <typename T> long long bubble_sort(vector<T> &A) {
@@ -377,16 +381,16 @@ long long bit_count(long long x) { return __builtin_popcountll(x); }
 // 配列関係
 // キー以上の最小の要素を見つけるイテレータを返す関数
 template <typename T> inline typename vector<T>::iterator find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(), v.end(), key); }
-template <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const Iterator begin, const Iterator end, T key) { return lower_bound(begin, end, key); }
+template <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const set<T>& st, T key) { return st.lower_bound(key); }
 // キーを超える最小の要素を見つけるイテレータを返す関数
 template <typename T> inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }
-template <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator begin, const Iterator end, T key) { return upper_bound(begin, end, key); }
-// キー以下の最大の要素を見つけるイテレータを返す関数, ない場合はbeginを返す
-template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin() : --it;}
-template <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end, key); return it == begin ? begin : --it;}
-// キー未満の最大の要素を見つけるイテレータを返す関数, ない場合はbeginを返す
-template <typename T> inline typename vector<T>::iterator find_less_than(const vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin() : --it; }
-template <typename Iterator, typename T> inline Iterator find_less_than(const Iterator begin, const Iterator end, T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin : --it;}
+template <typename T> inline typename set<T>::iterator find_greater_than(const set<T>& st, T key) { return st.upper_bound(key); }
+// キー以下の最大の要素を見つけるイテレータを返す関数, ない場合はendを返す
+template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it;}
+template <typename T> inline typename set<T>::iterator find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end() : --it;}
+// キー未満の最大の要素を見つけるイテレータを返す関数, ない場合はendを返す
+template <typename T> inline typename vector<T>::iterator find_less_than(const vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it; }
+template <typename T> inline typename set<T>::iterator find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end() : --it;}
 
 template <typename T> auto operator+(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }
 template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }
