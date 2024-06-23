@@ -65,6 +65,9 @@ data:
   - name: math
     pages:
     - icon: ':heavy_check_mark:'
+      path: math/binomial-coeff.cpp
+      title: math/binomial-coeff.cpp
+    - icon: ':heavy_check_mark:'
       path: math/eratosthenes.cpp
       title: math/eratosthenes.cpp
     - icon: ':heavy_check_mark:'
@@ -140,6 +143,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/lazy-segment-tree.cpp
       title: structure/lazy-segment-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/segment-tree-beats.cpp
+      title: structure/segment-tree-beats.cpp
     - icon: ':heavy_check_mark:'
       path: structure/segment-tree.cpp
       title: structure/segment-tree.cpp
@@ -325,6 +331,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
       title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - name: test/math/binomial-coeff
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+      title: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
   - name: test/math/eratosthenes
     pages:
     - icon: ':heavy_check_mark:'
@@ -353,6 +364,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
       title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
+      title: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
   - name: test/other/combination
     pages:
     - icon: ':heavy_check_mark:'
@@ -503,6 +517,35 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
       title: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - name: test/structure/segment-tree-beats
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+      title: test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+      title: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
   - name: test/structure/splay-tree
     pages:
     - icon: ':heavy_check_mark:'

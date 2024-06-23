@@ -51,6 +51,9 @@ data:
     path: heuristic/timer.cpp
     title: heuristic/timer.cpp
   - icon: ':heavy_check_mark:'
+    path: math/binomial-coeff.cpp
+    title: math/binomial-coeff.cpp
+  - icon: ':heavy_check_mark:'
     path: math/eratosthenes.cpp
     title: math/eratosthenes.cpp
   - icon: ':heavy_check_mark:'
@@ -116,6 +119,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: structure/lazy-segment-tree.cpp
     title: structure/lazy-segment-tree.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/segment-tree-beats.cpp
+    title: structure/segment-tree-beats.cpp
   - icon: ':heavy_check_mark:'
     path: structure/segment-tree.cpp
     title: structure/segment-tree.cpp
@@ -268,6 +274,9 @@ data:
     path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
     title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+    title: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/math/eratosthenes/yukicoder-843.test.cpp
     title: test/math/eratosthenes/yukicoder-843.test.cpp
   - icon: ':heavy_check_mark:'
@@ -285,6 +294,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
     title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
+    title: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/other/combination/atocoder-abc328-e.test.cpp
     title: test/other/combination/atocoder-abc328-e.test.cpp
@@ -399,6 +411,33 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
     title: test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+    title: test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+    title: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
     title: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
@@ -745,65 +784,65 @@ data:
     \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
     \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
     \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
-    \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
-    \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
-    \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
-    \    rep(i, N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n\
-    \        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    }\
-    \ \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long\
-    \ pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long\
-    \ pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\n\
-    long long bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n\
-    #if __cplusplus > 201703L\nlong long bit_count(long long x) { return popcount((ull)x);\
-    \ }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
-    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
-    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
+    \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
+    \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
+    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
+    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
+    \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
+    \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
+    \ compress(const vector<T> &A, bool unique_id = false) {\n    long long N = A.size();\n\
+    \    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n \
+    \   sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i,\
+    \ N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n    \
+    \    else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    } \n \
+    \   return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long pos)\
+    \ { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long pos,\
+    \ bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\nlong long\
+    \ bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n#if __cplusplus\
+    \ > 201703L\nlong long bit_count(long long x) { return popcount((ull)x); }\n#else\
+    \ \nlong long bit_count(long long x) { return __builtin_popcountll(x); }\n#endif\n\
+    \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
+    \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
+    \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
     \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
-    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
-    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
-    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
-    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
-    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
-    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
-    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
-    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
-    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
-    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
-    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
-    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
-    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
-    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
-    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
+    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
+    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
+    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
+    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
+    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
+    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
+    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
+    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
+    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
+    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
+    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
+    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
+    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
     \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
     \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
     \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
-    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
-    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
-    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
-    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
-    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
-    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
+    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
+    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
-    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
-    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
-    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
-    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
+    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
+    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
+    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
+    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
+    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
+    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
+    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
+    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -1113,65 +1152,65 @@ data:
     \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
     \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
     \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
-    \ * x;\n        x *= base;\n    }\n    return ret;\n}\n\ntemplate<class T = long\
-    \ long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1\
-    \ : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\n\
-    template <typename T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n\
-    \    rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n      \
-    \  swap(A[j], A[j + 1]);\n        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename\
-    \ T> vector<T> compress(const vector<T> &A, bool unique_id = false) {\n    long\
-    \ long N = A.size();\n    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i],\
-    \ i);\n    sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n\
-    \    rep(i, N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n\
-    \        else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    }\
-    \ \n    return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long\
-    \ pos) { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long\
-    \ pos, bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\n\
-    long long bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n\
-    #if __cplusplus > 201703L\nlong long bit_count(long long x) { return popcount((ull)x);\
-    \ }\n#else \nlong long bit_count(long long x) { return __builtin_popcountll(x);\
-    \ }\n#endif\n\n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\
-    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
-    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
+    \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
+    \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
+    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
+    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
+    \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
+    \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
+    \ compress(const vector<T> &A, bool unique_id = false) {\n    long long N = A.size();\n\
+    \    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n \
+    \   sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i,\
+    \ N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n    \
+    \    else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    } \n \
+    \   return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long pos)\
+    \ { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long pos,\
+    \ bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\nlong long\
+    \ bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n#if __cplusplus\
+    \ > 201703L\nlong long bit_count(long long x) { return popcount((ull)x); }\n#else\
+    \ \nlong long bit_count(long long x) { return __builtin_popcountll(x); }\n#endif\n\
+    \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
+    \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
+    \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
     \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename Iterator, typename T> inline Iterator find_greater_than_or_equal(const\
-    \ Iterator begin, const Iterator end, T key) { return lower_bound(begin, end,\
-    \ key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
-    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
-    \u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(const\
-    \ vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate\
-    \ <typename Iterator, typename T> inline Iterator find_greater_than(const Iterator\
-    \ begin, const Iterator end, T key) { return upper_bound(begin, end, key); }\n\
-    // \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\
-    \u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\
-    \u3044\u5834\u5408\u306Fbegin\u3092\u8FD4\u3059\ntemplate <typename T> inline\
-    \ typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key)\
-    \ { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.begin()\
-    \ : --it;}\ntemplate <typename Iterator, typename T> inline Iterator find_less_than_or_equal(const\
-    \ Iterator begin, const Iterator end, T key) {auto it = upper_bound(begin, end,\
-    \ key); return it == begin ? begin : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
+    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
+    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
+    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
+    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
+    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
+    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
+    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
+    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
+    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
+    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
+    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
+    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
+    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
+    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
     \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fbegin\u3092\
+    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
     \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
     \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.begin() : --it; }\ntemplate <typename Iterator, typename\
-    \ T> inline Iterator find_less_than(const Iterator begin, const Iterator end,\
-    \ T key) {auto it = lower_bound(begin, end, key); return it == begin ? begin :\
-    \ --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T x)\
-    \ { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\n\
-    template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
-    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
-    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
+    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
+    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
-    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
-    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
-    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
-    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
+    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
+    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
+    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
+    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
+    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
+    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
+    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
+    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -1207,162 +1246,175 @@ data:
   isVerificationFile: false
   path: base.cpp
   requiredBy:
-  - mystd/mytuple.cpp
-  - mystd/mypair.cpp
-  - mystd/mymultiset.cpp
-  - mystd/mylist.cpp
+  - other/cumulative-sum.cpp
+  - other/combination.cpp
+  - other/pattern-cumulative-sum.cpp
+  - other/range-set.cpp
+  - dp/bitdp.cpp
+  - heuristic/timer.cpp
+  - math/modint.cpp
+  - math/prime-factorization.cpp
+  - math/eratosthenes.cpp
+  - math/binomial-coeff.cpp
+  - math/is-prime.cpp
   - grid/grid-unionfind.cpp
   - grid/grid-bfs.cpp
   - grid/grid-dijkstra.cpp
   - grid/grid-dfs.cpp
-  - graph/dijkstra.cpp
-  - graph/scc.cpp
+  - tree/tree-bfs.cpp
+  - tree/tree-dp.cpp
+  - graph/dfs.cpp
+  - graph/bfs.cpp
   - graph/psp.cpp
-  - graph/bellman-ford.cpp
   - graph/tsp.cpp
   - graph/topological-sort.cpp
-  - graph/bfs.cpp
-  - graph/flow.cpp
+  - graph/bellman-ford.cpp
+  - graph/scc.cpp
+  - graph/dijkstra.cpp
   - graph/warshall-floyd.cpp
-  - graph/dfs.cpp
-  - string/rolling-hash.cpp
+  - graph/flow.cpp
+  - structure/undo-unionfind.cpp
+  - structure/dual-segment-tree.cpp
+  - structure/lazy-segment-tree.cpp
+  - structure/unionfind.cpp
+  - structure/empty-sqrt-decomposition.cpp
+  - structure/weighted-unionfind.cpp
+  - structure/segment-tree.cpp
+  - structure/splay-tree.cpp
+  - structure/sqrt-decomposition.cpp
+  - structure/bit.cpp
+  - structure/segment-tree-beats.cpp
+  - structure/kruskal.cpp
+  - mystd/mypair.cpp
+  - mystd/mytuple.cpp
+  - mystd/mylist.cpp
+  - mystd/mymultiset.cpp
   - string/trie-tree.cpp
-  - heuristic/timer.cpp
-  - math/is-prime.cpp
-  - math/eratosthenes.cpp
-  - math/prime-factorization.cpp
-  - math/modint.cpp
+  - string/rolling-hash.cpp
   - search/memoization.cpp
   - search/bit-zentansaku.cpp
   - search/trit-zentansaku.cpp
-  - structure/bit.cpp
-  - structure/empty-sqrt-decomposition.cpp
-  - structure/splay-tree.cpp
-  - structure/weighted-unionfind.cpp
-  - structure/unionfind.cpp
-  - structure/undo-unionfind.cpp
-  - structure/segment-tree.cpp
-  - structure/dual-segment-tree.cpp
-  - structure/sqrt-decomposition.cpp
-  - structure/lazy-segment-tree.cpp
-  - structure/kruskal.cpp
-  - other/range-set.cpp
-  - other/combination.cpp
-  - other/pattern-cumulative-sum.cpp
-  - other/cumulative-sum.cpp
-  - dp/bitdp.cpp
-  - tree/tree-dp.cpp
-  - tree/tree-bfs.cpp
-  timestamp: '2024-06-11 01:50:21+09:00'
+  timestamp: '2024-06-23 10:32:08+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - test/mystd/mylist/atcoder-abc344-e.test.cpp
-  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
-  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
-  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
-  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
-  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
-  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
-  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - test/graph/bfs/atcoder-abc284-c.test.cpp
-  - test/graph/bfs/atcoder-abc270-c.test.cpp
-  - test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - test/graph/dfs/aoj-grl-4-a.test.cpp
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
-  - test/graph/dfs/atcoder-abc327-d.test.cpp
-  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - test/graph/psp/yukicoder-1541.test.cpp
-  - test/graph/psp/atcoder-abc193-f.test.cpp
-  - test/graph/psp/yukicoder-2713.test.cpp
-  - test/graph/psp/atcoder-arc085-e.test.cpp
-  - test/graph/scc/aoj-grl-3-c.test.cpp
-  - test/graph/flow/yukicoder-177.test.cpp
-  - test/graph/flow/aoj-grl-6-a.test.cpp
-  - test/graph/flow/aoj-grl-6-b.test.cpp
-  - test/graph/topological-sort/atcoder-dp-g.test.cpp
-  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
-  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
-  - test/graph/tsp/atcoder-abc180-e.test.cpp
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
-  - test/graph/tsp/aoj-dpl-2-a.test.cpp
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  - test/base/aoj-alds1-2-a.test.cpp
-  - test/base/aoj-ntl-1-c.test.cpp
-  - test/base/aoj-ntl-1-e.test.cpp
-  - test/base/aoj-ntl-1-b.test.cpp
-  - test/base/atcoder-abc109-c.test.cpp
-  - test/string/trie-tree/atcoder-abc353-e.test.cpp
-  - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
-  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
-  - test/string/rolling-hash/atcoder-abc141-e.test.cpp
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
-  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
-  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
-  - test/math/is-prime/atcoder-abc149-c.test.cpp
-  - test/math/eratosthenes/yukicoder-843.test.cpp
-  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
-  - test/search/memoization/atcoder-abc350-e.test.cpp
-  - test/search/memoization/atcoder-abc275-d.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
-  - test/structure/kruskal/aoj-grl-2-a.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/aoj-alds1-5-d.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
-  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
-  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - test/other/combination/atocoder-abc328-e.test.cpp
+  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
-  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - test/other/range-set/atocoder-abc330-e.test.cpp
   - test/other/compress/atcoder-abc113-c.test.cpp
   - test/other/compress/atcoder-abc036-c.test.cpp
   - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
   - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
-  - test/other/range-set/atocoder-abc330-e.test.cpp
-  - test/other/combination/atocoder-abc328-e.test.cpp
   - test/dp/bitdp/atcoder-abc142-e.test.cpp
-  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
-  - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+  - test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+  - test/math/is-prime/atcoder-abc149-c.test.cpp
+  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
+  - test/math/eratosthenes/yukicoder-843.test.cpp
+  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
+  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
+  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
+  - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+  - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
+  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
+  - test/graph/bfs/atcoder-abc284-c.test.cpp
+  - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/graph/flow/aoj-grl-6-b.test.cpp
+  - test/graph/flow/yukicoder-177.test.cpp
+  - test/graph/flow/aoj-grl-6-a.test.cpp
+  - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/graph/tsp/atcoder-abc180-e.test.cpp
+  - test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
+  - test/graph/psp/yukicoder-2713.test.cpp
+  - test/graph/psp/yukicoder-1541.test.cpp
+  - test/graph/psp/atcoder-arc085-e.test.cpp
+  - test/graph/psp/atcoder-abc193-f.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
+  - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+  - test/structure/bit/aoj-alds1-5-d.test.cpp
+  - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-g.test.cpp
+  - test/structure/bit/atcoder-arc033-c.test.cpp
+  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+  - test/structure/bit/atcoder-abc338-e.test.cpp
+  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - test/base/aoj-ntl-1-b.test.cpp
+  - test/base/atcoder-abc109-c.test.cpp
+  - test/base/aoj-alds1-2-a.test.cpp
+  - test/base/aoj-ntl-1-c.test.cpp
+  - test/base/aoj-ntl-1-e.test.cpp
+  - test/mystd/mylist/atcoder-abc344-e.test.cpp
+  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
+  - test/string/trie-tree/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc141-e.test.cpp
+  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
+  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - test/search/memoization/atcoder-abc350-e.test.cpp
+  - test/search/memoization/atcoder-abc275-d.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
 documentation_of: base.cpp
 layout: document
 redirect_from:
