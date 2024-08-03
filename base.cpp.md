@@ -51,8 +51,8 @@ data:
     path: heuristic/timer.cpp
     title: heuristic/timer.cpp
   - icon: ':heavy_check_mark:'
-    path: math/binomial-coeff.cpp
-    title: math/binomial-coeff.cpp
+    path: math/combination.cpp
+    title: math/combination.cpp
   - icon: ':heavy_check_mark:'
     path: math/eratosthenes.cpp
     title: math/eratosthenes.cpp
@@ -63,8 +63,14 @@ data:
     path: math/modint.cpp
     title: math/modint.cpp
   - icon: ':heavy_check_mark:'
+    path: math/permutation.cpp
+    title: math/permutation.cpp
+  - icon: ':heavy_check_mark:'
     path: math/prime-factorization.cpp
     title: math/prime-factorization.cpp
+  - icon: ':heavy_check_mark:'
+    path: mystd/mybitset.cpp
+    title: mystd/mybitset.cpp
   - icon: ':heavy_check_mark:'
     path: mystd/mylist.cpp
     title: mystd/mylist.cpp
@@ -78,11 +84,20 @@ data:
     path: mystd/mytuple.cpp
     title: mystd/mytuple.cpp
   - icon: ':heavy_check_mark:'
-    path: other/combination.cpp
-    title: other/combination.cpp
+    path: other/LIS.cpp
+    title: other/LIS.cpp
+  - icon: ':heavy_check_mark:'
+    path: other/baseset.cpp
+    title: other/baseset.cpp
   - icon: ':heavy_check_mark:'
     path: other/cumulative-sum.cpp
     title: other/cumulative-sum.cpp
+  - icon: ':heavy_check_mark:'
+    path: other/next-combination.cpp
+    title: other/next-combination.cpp
+  - icon: ':warning:'
+    path: other/next-permutation.cpp
+    title: other/next-permutation.cpp
   - icon: ':heavy_check_mark:'
     path: other/pattern-cumulative-sum.cpp
     title: other/pattern-cumulative-sum.cpp
@@ -90,17 +105,26 @@ data:
     path: other/range-set.cpp
     title: other/range-set.cpp
   - icon: ':heavy_check_mark:'
+    path: other/static-range-frequency.cpp
+    title: other/static-range-frequency.cpp
+  - icon: ':heavy_check_mark:'
     path: search/bit-zentansaku.cpp
     title: search/bit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
     path: search/memoization.cpp
     title: search/memoization.cpp
+  - icon: ':warning:'
+    path: search/n-zentansaku.cpp
+    title: search/n-zentansaku.cpp
   - icon: ':heavy_check_mark:'
     path: search/trit-zentansaku.cpp
     title: search/trit-zentansaku.cpp
   - icon: ':heavy_check_mark:'
     path: string/rolling-hash.cpp
     title: string/rolling-hash.cpp
+  - icon: ':heavy_check_mark:'
+    path: string/suffix-array.cpp
+    title: string/suffix-array.cpp
   - icon: ':heavy_check_mark:'
     path: string/trie-tree.cpp
     title: string/trie-tree.cpp
@@ -125,6 +149,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: structure/segment-tree.cpp
     title: structure/segment-tree.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/sparse-table.cpp
+    title: structure/sparse-table.cpp
   - icon: ':heavy_check_mark:'
     path: structure/splay-tree.cpp
     title: structure/splay-tree.cpp
@@ -274,8 +301,11 @@ data:
     path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
     title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
-    title: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+    path: test/math/combination/atcoder-abc172-e.test.cpp
+    title: test/math/combination/atcoder-abc172-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/math/combination/atcoder-abc358-e.test.cpp
+    title: test/math/combination/atcoder-abc358-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/math/eratosthenes/yukicoder-843.test.cpp
     title: test/math/eratosthenes/yukicoder-843.test.cpp
@@ -283,11 +313,17 @@ data:
     path: test/math/is-prime/atcoder-abc149-c.test.cpp
     title: test/math/is-prime/atcoder-abc149-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/math/permutation/atcoder-abc172-e.test.cpp
+    title: test/math/permutation/atcoder-abc172-e.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/math/prime-factorization/aoj-ntl-1-a.test.cpp
     title: test/math/prime-factorization/aoj-ntl-1-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
     title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/mystd/mybitset/atcoder-abc354-e.test.cpp
+    title: test/mystd/mybitset/atcoder-abc354-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/mystd/mylist/atcoder-abc344-e.test.cpp
     title: test/mystd/mylist/atcoder-abc344-e.test.cpp
@@ -298,8 +334,17 @@ data:
     path: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
     title: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/other/combination/atocoder-abc328-e.test.cpp
-    title: test/other/combination/atocoder-abc328-e.test.cpp
+    path: test/other/LIS/aoj-DPL-1-d.test.cpp
+    title: test/other/LIS/aoj-DPL-1-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
+    title: test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/baseset/aoj-ALDS1-13-b.test.cpp
+    title: test/other/baseset/aoj-ALDS1-13-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/baseset/atcoder-abc322-e.test.cpp
+    title: test/other/baseset/atcoder-abc322-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/other/compress/atcoder-abc036-c.test.cpp
     title: test/other/compress/atcoder-abc036-c.test.cpp
@@ -316,6 +361,9 @@ data:
     path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
     title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/other/next-combination/atocoder-abc328-e.test.cpp
+    title: test/other/next-combination/atocoder-abc328-e.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
     title: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
   - icon: ':heavy_check_mark:'
@@ -324,6 +372,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/other/range-set/atocoder-abc330-e.test.cpp
     title: test/other/range-set/atocoder-abc330-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+    title: test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
+    title: test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
     title: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
@@ -351,6 +405,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
     title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/string/suffix-array/aoj-alds1-14-d.test.cpp
+    title: test/string/suffix-array/aoj-alds1-14-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/string/suffix-array/yosupo-suffix-array.test.cpp
+    title: test/string/suffix-array/yosupo-suffix-array.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/string/trie-tree/atcoder-abc353-e.test.cpp
     title: test/string/trie-tree/atcoder-abc353-e.test.cpp
@@ -444,6 +504,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
     title: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/sparse-table/yosupo-static-rmq.test.cpp
+    title: test/structure/sparse-table/yosupo-static-rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
     title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
@@ -545,7 +608,8 @@ data:
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -787,8 +851,8 @@ data:
     \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
     \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
     \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
-    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
-    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
     \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
     \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
     \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
@@ -806,43 +870,43 @@ data:
     \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
-    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
-    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
-    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
-    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
-    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
-    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
-    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
-    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
-    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
-    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
-    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
-    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
-    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
-    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
-    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
-    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
-    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
-    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
-    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
-    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
-    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
-    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -913,7 +977,8 @@ data:
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -1155,8 +1220,8 @@ data:
     \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
     \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
     \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
-    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
-    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
     \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
     \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
     \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
@@ -1174,43 +1239,43 @@ data:
     \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
-    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
-    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
-    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
-    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
-    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
-    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
-    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
-    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
-    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
-    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
-    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
-    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
-    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
-    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
-    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
-    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
-    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
-    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
-    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
-    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
-    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
-    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -1241,180 +1306,201 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}"
+    \    return result;\n}\n"
   dependsOn: []
   isVerificationFile: false
   path: base.cpp
   requiredBy:
-  - other/cumulative-sum.cpp
-  - other/combination.cpp
-  - other/pattern-cumulative-sum.cpp
-  - other/range-set.cpp
+  - structure/kruskal.cpp
+  - structure/sparse-table.cpp
+  - structure/dual-segment-tree.cpp
+  - structure/splay-tree.cpp
+  - structure/unionfind.cpp
+  - structure/sqrt-decomposition.cpp
+  - structure/segment-tree.cpp
+  - structure/undo-unionfind.cpp
+  - structure/lazy-segment-tree.cpp
+  - structure/bit.cpp
+  - structure/weighted-unionfind.cpp
+  - structure/empty-sqrt-decomposition.cpp
+  - structure/segment-tree-beats.cpp
   - dp/bitdp.cpp
   - heuristic/timer.cpp
-  - math/modint.cpp
-  - math/prime-factorization.cpp
-  - math/eratosthenes.cpp
-  - math/binomial-coeff.cpp
-  - math/is-prime.cpp
-  - grid/grid-unionfind.cpp
-  - grid/grid-bfs.cpp
-  - grid/grid-dijkstra.cpp
-  - grid/grid-dfs.cpp
-  - tree/tree-bfs.cpp
-  - tree/tree-dp.cpp
-  - graph/dfs.cpp
-  - graph/bfs.cpp
-  - graph/psp.cpp
-  - graph/tsp.cpp
-  - graph/topological-sort.cpp
-  - graph/bellman-ford.cpp
-  - graph/scc.cpp
-  - graph/dijkstra.cpp
-  - graph/warshall-floyd.cpp
-  - graph/flow.cpp
-  - structure/undo-unionfind.cpp
-  - structure/dual-segment-tree.cpp
-  - structure/lazy-segment-tree.cpp
-  - structure/unionfind.cpp
-  - structure/empty-sqrt-decomposition.cpp
-  - structure/weighted-unionfind.cpp
-  - structure/segment-tree.cpp
-  - structure/splay-tree.cpp
-  - structure/sqrt-decomposition.cpp
-  - structure/bit.cpp
-  - structure/segment-tree-beats.cpp
-  - structure/kruskal.cpp
-  - mystd/mypair.cpp
   - mystd/mytuple.cpp
   - mystd/mylist.cpp
   - mystd/mymultiset.cpp
+  - mystd/mybitset.cpp
+  - mystd/mypair.cpp
+  - math/eratosthenes.cpp
+  - math/modint.cpp
+  - math/combination.cpp
+  - math/prime-factorization.cpp
+  - math/is-prime.cpp
+  - math/permutation.cpp
+  - string/suffix-array.cpp
   - string/trie-tree.cpp
   - string/rolling-hash.cpp
   - search/memoization.cpp
-  - search/bit-zentansaku.cpp
   - search/trit-zentansaku.cpp
-  timestamp: '2024-06-23 10:32:08+09:00'
+  - search/n-zentansaku.cpp
+  - search/bit-zentansaku.cpp
+  - tree/tree-bfs.cpp
+  - tree/tree-dp.cpp
+  - other/range-set.cpp
+  - other/static-range-frequency.cpp
+  - other/baseset.cpp
+  - other/LIS.cpp
+  - other/next-permutation.cpp
+  - other/next-combination.cpp
+  - other/pattern-cumulative-sum.cpp
+  - other/cumulative-sum.cpp
+  - graph/topological-sort.cpp
+  - graph/flow.cpp
+  - graph/warshall-floyd.cpp
+  - graph/scc.cpp
+  - graph/dfs.cpp
+  - graph/dijkstra.cpp
+  - graph/bellman-ford.cpp
+  - graph/bfs.cpp
+  - graph/tsp.cpp
+  - graph/psp.cpp
+  - grid/grid-bfs.cpp
+  - grid/grid-dijkstra.cpp
+  - grid/grid-dfs.cpp
+  - grid/grid-unionfind.cpp
+  timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/other/combination/atocoder-abc328-e.test.cpp
-  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
-  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
-  - test/other/range-set/atocoder-abc330-e.test.cpp
-  - test/other/compress/atcoder-abc113-c.test.cpp
-  - test/other/compress/atcoder-abc036-c.test.cpp
-  - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
-  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
-  - test/dp/bitdp/atcoder-abc142-e.test.cpp
-  - test/math/binomial-coeff/atcoder-abc358-e.test.cpp
-  - test/math/is-prime/atcoder-abc149-c.test.cpp
-  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
-  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
-  - test/math/eratosthenes/yukicoder-843.test.cpp
-  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
-  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
-  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
-  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
-  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
-  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
-  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
-  - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
-  - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
-  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  - test/graph/bfs/atcoder-abc270-c.test.cpp
-  - test/graph/bfs/atcoder-abc284-c.test.cpp
-  - test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - test/graph/flow/aoj-grl-6-b.test.cpp
-  - test/graph/flow/yukicoder-177.test.cpp
-  - test/graph/flow/aoj-grl-6-a.test.cpp
-  - test/graph/scc/aoj-grl-3-c.test.cpp
-  - test/graph/tsp/atcoder-abc180-e.test.cpp
-  - test/graph/tsp/aoj-dpl-2-a.test.cpp
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
-  - test/graph/psp/yukicoder-2713.test.cpp
-  - test/graph/psp/yukicoder-1541.test.cpp
-  - test/graph/psp/atcoder-arc085-e.test.cpp
-  - test/graph/psp/atcoder-abc193-f.test.cpp
-  - test/graph/topological-sort/atcoder-dp-g.test.cpp
-  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
-  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
-  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - test/graph/dfs/aoj-grl-4-a.test.cpp
-  - test/graph/dfs/atcoder-abc327-d.test.cpp
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
-  - test/structure/bit/aoj-alds1-5-d.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+  - test/structure/sparse-table/yosupo-static-rmq.test.cpp
   - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
-  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/bit/atcoder-abc340-e.test.cpp
+  - test/structure/bit/aoj-alds1-5-d.test.cpp
+  - test/structure/bit/atcoder-arc033-c.test.cpp
+  - test/structure/bit/aoj-dsl-2-e.test.cpp
+  - test/structure/bit/atcoder-abc338-e.test.cpp
+  - test/structure/bit/aoj-dsl-2-g.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
-  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
+  - test/dp/bitdp/atcoder-abc142-e.test.cpp
+  - test/mystd/mybitset/atcoder-abc354-e.test.cpp
+  - test/mystd/mylist/atcoder-abc344-e.test.cpp
+  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
+  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - test/base/aoj-ntl-1-c.test.cpp
   - test/base/aoj-ntl-1-b.test.cpp
   - test/base/atcoder-abc109-c.test.cpp
   - test/base/aoj-alds1-2-a.test.cpp
-  - test/base/aoj-ntl-1-c.test.cpp
   - test/base/aoj-ntl-1-e.test.cpp
-  - test/mystd/mylist/atcoder-abc344-e.test.cpp
-  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
+  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
+  - test/math/is-prime/atcoder-abc149-c.test.cpp
+  - test/math/eratosthenes/yukicoder-843.test.cpp
+  - test/math/combination/atcoder-abc172-e.test.cpp
+  - test/math/combination/atcoder-abc358-e.test.cpp
+  - test/math/permutation/atcoder-abc172-e.test.cpp
   - test/string/trie-tree/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
   - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
   - test/string/rolling-hash/atcoder-abc141-e.test.cpp
-  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - test/string/suffix-array/yosupo-suffix-array.test.cpp
+  - test/string/suffix-array/aoj-alds1-14-d.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
   - test/search/memoization/atcoder-abc350-e.test.cpp
   - test/search/memoization/atcoder-abc275-d.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+  - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
+  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
+  - test/other/compress/atcoder-abc036-c.test.cpp
+  - test/other/compress/atcoder-abc113-c.test.cpp
+  - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
+  - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+  - test/other/next-combination/atocoder-abc328-e.test.cpp
+  - test/other/range-set/atocoder-abc330-e.test.cpp
+  - test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
+  - test/other/LIS/aoj-DPL-1-d.test.cpp
+  - test/other/baseset/aoj-ALDS1-13-b.test.cpp
+  - test/other/baseset/atcoder-abc322-e.test.cpp
+  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/psp/yukicoder-2713.test.cpp
+  - test/graph/psp/atcoder-arc085-e.test.cpp
+  - test/graph/psp/atcoder-abc193-f.test.cpp
+  - test/graph/psp/yukicoder-1541.test.cpp
+  - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/graph/flow/yukicoder-177.test.cpp
+  - test/graph/flow/aoj-grl-6-a.test.cpp
+  - test/graph/flow/aoj-grl-6-b.test.cpp
+  - test/graph/tsp/atcoder-abc180-e.test.cpp
+  - test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
+  - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
+  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
+  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - test/graph/bfs/atcoder-abc284-c.test.cpp
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
+  - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
+  - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
+  - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
+  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
+  - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
 documentation_of: base.cpp
 layout: document
 redirect_from:

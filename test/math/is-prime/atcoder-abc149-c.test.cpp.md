@@ -58,7 +58,8 @@ data:
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -300,8 +301,8 @@ data:
     \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
     \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
     \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
-    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
-    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
     \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
     \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
     \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
@@ -319,43 +320,43 @@ data:
     \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
-    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
-    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
-    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
-    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
-    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
-    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
-    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
-    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
-    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
-    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
-    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
-    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
-    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
-    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
-    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
-    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
-    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
-    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
-    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
-    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
-    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
-    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -405,7 +406,7 @@ data:
   isVerificationFile: true
   path: test/math/is-prime/atcoder-abc149-c.test.cpp
   requiredBy: []
-  timestamp: '2024-06-23 10:32:08+09:00'
+  timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/math/is-prime/atcoder-abc149-c.test.cpp

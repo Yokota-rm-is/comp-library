@@ -4,37 +4,32 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
-    path: other/combination.cpp
-    title: other/combination.cpp
-  - icon: ':heavy_check_mark:'
-    path: structure/unionfind.cpp
-    title: structure/unionfind.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/other/baseset/aoj-ALDS1-13-b.test.cpp
+    title: test/other/baseset/aoj-ALDS1-13-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/baseset/atcoder-abc322-e.test.cpp
+    title: test/other/baseset/atcoder-abc322-e.test.cpp
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://atcoder.jp/contests/abc328/tasks/abc328_e
-    links:
-    - https://atcoder.jp/contests/abc328/tasks/abc328_e
-  bundledCode: "#line 1 \"test/other/combination/atocoder-abc328-e.test.cpp\"\n#define\
-    \ PROBLEM \"https://atcoder.jp/contests/abc328/tasks/abc328_e\"\n\n#line 2 \"\
-    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
-    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
-    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
-    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
-    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
-    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
-    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
-    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
-    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
-    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
-    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
-    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
+    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
+    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
+    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
+    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
+    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
+    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
+    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
+    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
+    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
+    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
+    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -61,7 +56,8 @@ data:
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -303,8 +299,8 @@ data:
     \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
     \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
     \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
-    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
-    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
     \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
     \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
     \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
@@ -322,43 +318,43 @@ data:
     \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
-    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
-    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
-    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
-    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
-    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
-    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
-    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
-    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
-    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
-    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
-    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
-    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
-    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
-    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
-    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
-    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
-    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
-    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
-    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
-    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
-    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
-    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -389,113 +385,84 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"other/combination.cpp\"\n\n// possible implementation\
-    \ introduced at http://en.cppreference.com/w/cpp/algorithm/rotate with slight\
-    \ modification to handle parted ranges\ntemplate<typename FI>\nvoid parted_rotate(FI\
-    \ first1, FI last1, FI first2, FI last2) {\n    if(first1 == last1 || first2 ==\
-    \ last2) return;\n\n    FI next = first2;\n    while (first1 != next) {\n    \
-    \    iter_swap(first1++, next++);\n        if (first1 == last1) first1 = first2;\n\
-    \        if (next == last2) {\n            next = first2;\n        } \n      \
-    \  else if (first1 == first2) {\n            first2 = next;\n        }\n    }\n\
-    }\n\ntemplate<typename BI>\nbool next_combination_imp(BI first1, BI last1, BI\
-    \ first2, BI last2) {\n    if (first1 == last1 || first2 == last2) return false;\n\
-    \    auto target = last1; \n    --target;\n    auto last_elem = last2; \n    --last_elem;\n\
-    \    \n    // find right-most incrementable element: target\n    while (target\
-    \ != first1 && !(*target < *last_elem)) --target;\n    if (target == first1 &&\
-    \ !(*target < *last_elem)) {\n        parted_rotate(first1, last1, first2, last2);\n\
-    \        return false;\n    }\n    \n    // find the next value to be incremented:\
-    \ *next\n    auto next = first2;\n    while (!(*target < *next)) ++next;\n   \
-    \ iter_swap(target++, next++);\n    parted_rotate(target, last1, next, last2);\n\
-    \    return true;\n}\n\n// INVARIANT: is_sorted(first, mid) && is_sorted(mid,\
-    \ last)\ntemplate<typename BI>\ninline bool next_combination(BI first, BI mid,\
-    \ BI last) {\n    return next_combination_imp(first, mid, mid, last);\n}\n\n//\
-    \ INVARIANT: is_sorted(first, mid) && is_sorted(mid, last)\ntemplate<typename\
-    \ BI>\ninline bool prev_combination(BI first, BI mid, BI last) {\n    return next_combination_imp(mid,\
-    \ last, first, mid);\n}\n\n// \u914D\u5217\u306E\u8981\u7D20\u304B\u3089K\u500B\
-    \u9078\u3076\u7D44\u307F\u5408\u308F\u305B\u3092\u5217\u6319\u3059\u308B\n// \u8A08\
-    \u7B97\u91CF: ? (1.7 * nCk (N <= 28) \u7A0B\u5EA6\uFF1F)\ntemplate<typename T>\n\
-    auto combination = [](vector<T> &A, long long K) {\n    auto ret = 0;\n\n    sort(A.begin(),\
-    \ A.end());\n    do {\n\n    } while (next_combination(A.begin(), A.begin() +\
-    \ K, A.end()));\n\n    return ret;\n};\n#line 3 \"structure/unionfind.cpp\"\n\n\
-    template <bool fastMode = false>\nstruct UnionFind {\n    long long V;\n    vector<long\
-    \ long> par; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA\
-    \ (i\u304C\u89AA\u306E\u6642)\n    map<long long, set<long long>> cc;\n    long\
-    \ long cc_size;\n    \n    long long edge_index;\n    map<long long, set<long\
-    \ long>> cc_edge;\n    long long cc_edge_size;\n\n    UnionFind(long long V) :\
-    \ V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\
-    \u3068\u3057\u3066\u521D\u671F\u5316\n        edge_index = 0;\n        cc_size\
-    \ = V;\n        cc_edge_size = 0;\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\
-    \n    long long find(long long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\
-    \u6728\u306E\u6839\u3092\u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\
-    \u6728\u306E\u6839}\n        if (par[x] < 0) return x;\n\n        long long rx\
-    \ = find(par[x]);\n        return par[x] = rx;\n    }\n\n    // x\u3068y\u3092\
-    \u9023\u7D50\n    bool unite(long long x, long long y) {\n        long long rx\
-    \ = find(x); //x\u306E\u6839\u3092rx\n        long long ry = find(y); //y\u306E\
-    \u6839\u3092ry\n\n        // \u7D50\u5408\u6642\u306E\u51E6\u7406\u3092\u3053\u3053\
-    \u306B\u66F8\u304F\n\n        if (rx == ry) {\n            if (!fastMode) cc_edge[rx].insert(edge_index++);\n\
-    \            return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\
-    \u4F55\u3082\u3057\u306A\u3044\n        } \n\n        --cc_size;\n        ++cc_edge_size;\n\
-    \n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\
-    \u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\
-    \u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry]) {\n         \
-    \   swap(rx, ry);\n        }\n\n        cc_edge[rx].insert(edge_index++);\n\n\
-    \        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n\
-    \        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044\
-    (=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\
-    \u6839rx\u306B\u3064\u3051\u308B\n\n        if (!fastMode) {\n            if (cc.contains(ry))\
-    \ {\n                cc[rx].insert(cc[ry].begin(), cc[ry].end());\n          \
-    \      cc.erase(ry);\n            }\n            else if (!cc.contains(rx)) cc[rx]\
-    \ = {rx, ry};\n            else cc[rx].insert(ry);\n\n            if (!cc_edge[ry].empty())\
-    \ {\n                cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());\n\
-    \                cc_edge.erase(ry);\n            }\n        }\n    \n        return\
-    \ true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\
-    \u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long\
-    \ long x, long long y) { \n        return find(x) == find(y);\n    }\n\n    //\
-    \ x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\
-    \u6570\u3092\u8FD4\u3059\n    long long size(long long x) {\n        long long\
-    \ rx = find(x);\n        return -par[rx];\n    }\n\n    bool is_connected() {\n\
-    \        long long rx = find(0);\n        return -par[rx] == V;\n    }\n\n   \
-    \ // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\
-    \u3092\u8FD4\u3059\n    set<long long> members(long long x) {\n        long long\
-    \ rx = find(x);\n        if (cc.contains(rx)) return cc[rx];\n        else return\
-    \ {rx};\n    }\n\n    // \u6839\u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\
-    \n    set<long long> roots() {\n        set<long long> ret;\n        fore(p, cc)\
-    \ {\n            ret.insert(p.first);\n        }\n        \n        return ret;\n\
-    \    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\u3092\u8FD4\u3059\n\
-    \    long long group_count() {\n        return cc_size;\n    }\n\n    map<long\
-    \ long, set<long long>> all_group_members() {\n        auto ret = cc;\n      \
-    \  rep(i, V) {\n            if (par[i] != -1) continue;\n            ret[i] =\
-    \ {i}; \n        }\n        return ret;\n    }\n};\n#line 5 \"test/other/combination/atocoder-abc328-e.test.cpp\"\
-    \n\nint main() {\n    ll N, M, K;\n    input(N, M, K);\n\n    vll U, V, W;\n \
-    \   input(M, U, V, W);\n    --U; --V;\n\n    vll A(M);\n    rep(i, M) A[i] = i;\n\
-    \n    ll ans = inf64;\n    do {\n        UnionFind<true> uf(N);\n        ll sum\
-    \ = 0;\n\n        rep(i, N - 1) {\n            uf.unite(U[A[i]], V[A[i]]);\n \
-    \           sum += W[A[i]];\n        }\n\n        if (!uf.is_connected()) continue;\n\
-    \n        chmin(ans, sum % K);\n\n    } while (next_combination(A.begin(), A.begin()\
-    \ + N - 1, A.end()));\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
-  code: "#define PROBLEM \"https://atcoder.jp/contests/abc328/tasks/abc328_e\"\n\n\
-    #include \"../../../other/combination.cpp\"\n#include \"../../../structure/unionfind.cpp\"\
-    \n\nint main() {\n    ll N, M, K;\n    input(N, M, K);\n\n    vll U, V, W;\n \
-    \   input(M, U, V, W);\n    --U; --V;\n\n    vll A(M);\n    rep(i, M) A[i] = i;\n\
-    \n    ll ans = inf64;\n    do {\n        UnionFind<true> uf(N);\n        ll sum\
-    \ = 0;\n\n        rep(i, N - 1) {\n            uf.unite(U[A[i]], V[A[i]]);\n \
-    \           sum += W[A[i]];\n        }\n\n        if (!uf.is_connected()) continue;\n\
-    \n        chmin(ans, sum % K);\n\n    } while (next_combination(A.begin(), A.begin()\
-    \ + N - 1, A.end()));\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
+    \    return result;\n}\n#line 3 \"other/baseset.cpp\"\n\nvector<long long> powers\
+    \ = {1};\n\nstruct Baseset {\n    const long long base;\n    long long x;\n\n\
+    \    Baseset(long long base, long long x = 0) : base(base), x(x) {}\n\n    Baseset(long\
+    \ long base, vector<long long> v) : base(base), x(0) {\n        rep(i, v.size())\
+    \ add(i, v[i]);\n    }\n\n    void set(long long pos, long long val) {\n     \
+    \   x += (val - get(pos)) * pow(pos);\n    }\n\n    void set(vector<long long>&\
+    \ v) {\n        rep(i, v.size()) set(i, v[i]);\n    }\n\n    void add(long long\
+    \ pos, long long val) {\n        long long val_pos = get(pos); \n        val =\
+    \ clamp(val, -val_pos, base - 1 - val_pos);\n        x += val * pow(pos);\n  \
+    \  }\n\n    void add(vector<long long>& v) {\n        rep(i, v.size()) add(i,\
+    \ v[i]);\n    }\n\n    long long get(long long pos) { \n        return (x / pow(pos))\
+    \ % base;\n    }\n\n    long long pow(long long pos) {\n        if (pos < (ll)powers.size())\
+    \ return powers[pos];\n\n        long long ret = powers.back();\n        rep(i,\
+    \ pos - powers.size() + 1) {\n            ret *= base;\n            powers.push_back(ret);\n\
+    \        }\n        return ret;\n    }\n\n    operator long long() { \n      \
+    \  return x; \n    }\n    \n    Baseset& operator++() { \n        ++x;\n     \
+    \   return *this;\n    }\n\n    Baseset& operator--() { \n        --x;\n     \
+    \   return *this;\n    }\n\n    bool operator==(Baseset other) { return x == other.x;\
+    \ }\n    bool operator!=(Baseset other) { return x != other.x; }\n    bool operator<(Baseset\
+    \ other) { return x < other.x; }\n    bool operator>(Baseset other) { return x\
+    \ > other.x; }\n    bool operator<=(Baseset other) { return x <= other.x; }\n\
+    \    bool operator>=(Baseset other) { return x >= other.x; }\n    bool operator==(long\
+    \ long other) { return x == other; }\n    bool operator!=(long long other) { return\
+    \ x != other; }\n    bool operator<(long long other) { return x < other; }\n \
+    \   bool operator>(long long other) { return x > other; }\n    bool operator<=(long\
+    \ long other) { return x <= other; }\n    bool operator>=(long long other) { return\
+    \ x >= other; }\n\n    friend istream& operator>>(istream& is, Baseset& x) { return\
+    \ is >> x.x; }\n    friend ostream& operator<<(ostream& os, Baseset& x) { \n \
+    \       long long y = x.x;\n        long long base = x.base;\n        os << y\
+    \ % base;\n        y /= base;\n\n        while (y > 0) {\n            os << \"\
+    \ \" << y % base;\n            y /= base;\n        }\n        return os; \n  \
+    \  }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\nvector<long long> powers = {1};\n\
+    \nstruct Baseset {\n    const long long base;\n    long long x;\n\n    Baseset(long\
+    \ long base, long long x = 0) : base(base), x(x) {}\n\n    Baseset(long long base,\
+    \ vector<long long> v) : base(base), x(0) {\n        rep(i, v.size()) add(i, v[i]);\n\
+    \    }\n\n    void set(long long pos, long long val) {\n        x += (val - get(pos))\
+    \ * pow(pos);\n    }\n\n    void set(vector<long long>& v) {\n        rep(i, v.size())\
+    \ set(i, v[i]);\n    }\n\n    void add(long long pos, long long val) {\n     \
+    \   long long val_pos = get(pos); \n        val = clamp(val, -val_pos, base -\
+    \ 1 - val_pos);\n        x += val * pow(pos);\n    }\n\n    void add(vector<long\
+    \ long>& v) {\n        rep(i, v.size()) add(i, v[i]);\n    }\n\n    long long\
+    \ get(long long pos) { \n        return (x / pow(pos)) % base;\n    }\n\n    long\
+    \ long pow(long long pos) {\n        if (pos < (ll)powers.size()) return powers[pos];\n\
+    \n        long long ret = powers.back();\n        rep(i, pos - powers.size() +\
+    \ 1) {\n            ret *= base;\n            powers.push_back(ret);\n       \
+    \ }\n        return ret;\n    }\n\n    operator long long() { \n        return\
+    \ x; \n    }\n    \n    Baseset& operator++() { \n        ++x;\n        return\
+    \ *this;\n    }\n\n    Baseset& operator--() { \n        --x;\n        return\
+    \ *this;\n    }\n\n    bool operator==(Baseset other) { return x == other.x; }\n\
+    \    bool operator!=(Baseset other) { return x != other.x; }\n    bool operator<(Baseset\
+    \ other) { return x < other.x; }\n    bool operator>(Baseset other) { return x\
+    \ > other.x; }\n    bool operator<=(Baseset other) { return x <= other.x; }\n\
+    \    bool operator>=(Baseset other) { return x >= other.x; }\n    bool operator==(long\
+    \ long other) { return x == other; }\n    bool operator!=(long long other) { return\
+    \ x != other; }\n    bool operator<(long long other) { return x < other; }\n \
+    \   bool operator>(long long other) { return x > other; }\n    bool operator<=(long\
+    \ long other) { return x <= other; }\n    bool operator>=(long long other) { return\
+    \ x >= other; }\n\n    friend istream& operator>>(istream& is, Baseset& x) { return\
+    \ is >> x.x; }\n    friend ostream& operator<<(ostream& os, Baseset& x) { \n \
+    \       long long y = x.x;\n        long long base = x.base;\n        os << y\
+    \ % base;\n        y /= base;\n\n        while (y > 0) {\n            os << \"\
+    \ \" << y % base;\n            y /= base;\n        }\n        return os; \n  \
+    \  }\n};"
   dependsOn:
-  - other/combination.cpp
   - base.cpp
-  - structure/unionfind.cpp
-  isVerificationFile: true
-  path: test/other/combination/atocoder-abc328-e.test.cpp
+  isVerificationFile: false
+  path: other/baseset.cpp
   requiredBy: []
-  timestamp: '2024-06-23 10:32:08+09:00'
-  verificationStatus: TEST_ACCEPTED
-  verifiedWith: []
-documentation_of: test/other/combination/atocoder-abc328-e.test.cpp
+  timestamp: '2024-08-03 16:04:11+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/other/baseset/aoj-ALDS1-13-b.test.cpp
+  - test/other/baseset/atcoder-abc322-e.test.cpp
+documentation_of: other/baseset.cpp
 layout: document
 redirect_from:
-- /verify/test/other/combination/atocoder-abc328-e.test.cpp
-- /verify/test/other/combination/atocoder-abc328-e.test.cpp.html
-title: test/other/combination/atocoder-abc328-e.test.cpp
+- /library/other/baseset.cpp
+- /library/other/baseset.cpp.html
+title: other/baseset.cpp
 ---

@@ -65,8 +65,8 @@ data:
   - name: math
     pages:
     - icon: ':heavy_check_mark:'
-      path: math/binomial-coeff.cpp
-      title: math/binomial-coeff.cpp
+      path: math/combination.cpp
+      title: math/combination.cpp
     - icon: ':heavy_check_mark:'
       path: math/eratosthenes.cpp
       title: math/eratosthenes.cpp
@@ -77,10 +77,16 @@ data:
       path: math/modint.cpp
       title: math/modint.cpp
     - icon: ':heavy_check_mark:'
+      path: math/permutation.cpp
+      title: math/permutation.cpp
+    - icon: ':heavy_check_mark:'
       path: math/prime-factorization.cpp
       title: math/prime-factorization.cpp
   - name: mystd
     pages:
+    - icon: ':heavy_check_mark:'
+      path: mystd/mybitset.cpp
+      title: mystd/mybitset.cpp
     - icon: ':heavy_check_mark:'
       path: mystd/mylist.cpp
       title: mystd/mylist.cpp
@@ -96,17 +102,29 @@ data:
   - name: other
     pages:
     - icon: ':heavy_check_mark:'
-      path: other/combination.cpp
-      title: other/combination.cpp
+      path: other/LIS.cpp
+      title: other/LIS.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/baseset.cpp
+      title: other/baseset.cpp
     - icon: ':heavy_check_mark:'
       path: other/cumulative-sum.cpp
       title: other/cumulative-sum.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/next-combination.cpp
+      title: other/next-combination.cpp
+    - icon: ':warning:'
+      path: other/next-permutation.cpp
+      title: other/next-permutation.cpp
     - icon: ':heavy_check_mark:'
       path: other/pattern-cumulative-sum.cpp
       title: other/pattern-cumulative-sum.cpp
     - icon: ':heavy_check_mark:'
       path: other/range-set.cpp
       title: other/range-set.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/static-range-frequency.cpp
+      title: other/static-range-frequency.cpp
   - name: search
     pages:
     - icon: ':heavy_check_mark:'
@@ -115,6 +133,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: search/memoization.cpp
       title: search/memoization.cpp
+    - icon: ':warning:'
+      path: search/n-zentansaku.cpp
+      title: search/n-zentansaku.cpp
     - icon: ':heavy_check_mark:'
       path: search/trit-zentansaku.cpp
       title: search/trit-zentansaku.cpp
@@ -123,6 +144,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: string/rolling-hash.cpp
       title: string/rolling-hash.cpp
+    - icon: ':heavy_check_mark:'
+      path: string/suffix-array.cpp
+      title: string/suffix-array.cpp
     - icon: ':heavy_check_mark:'
       path: string/trie-tree.cpp
       title: string/trie-tree.cpp
@@ -149,6 +173,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/segment-tree.cpp
       title: structure/segment-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/sparse-table.cpp
+      title: structure/sparse-table.cpp
     - icon: ':heavy_check_mark:'
       path: structure/splay-tree.cpp
       title: structure/splay-tree.cpp
@@ -331,11 +358,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
       title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
-  - name: test/math/binomial-coeff
+  - name: test/math/combination
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
-      title: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+      path: test/math/combination/atcoder-abc172-e.test.cpp
+      title: test/math/combination/atcoder-abc172-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/math/combination/atcoder-abc358-e.test.cpp
+      title: test/math/combination/atcoder-abc358-e.test.cpp
   - name: test/math/eratosthenes
     pages:
     - icon: ':heavy_check_mark:'
@@ -346,6 +376,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/math/is-prime/atcoder-abc149-c.test.cpp
       title: test/math/is-prime/atcoder-abc149-c.test.cpp
+  - name: test/math/permutation
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/math/permutation/atcoder-abc172-e.test.cpp
+      title: test/math/permutation/atcoder-abc172-e.test.cpp
   - name: test/math/prime-factorization
     pages:
     - icon: ':heavy_check_mark:'
@@ -354,6 +389,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/math/prime-factorization/atcoder-abc324-b.test.cpp
       title: test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - name: test/mystd/mybitset
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/mystd/mybitset/atcoder-abc354-e.test.cpp
+      title: test/mystd/mybitset/atcoder-abc354-e.test.cpp
   - name: test/mystd/mylist
     pages:
     - icon: ':heavy_check_mark:'
@@ -367,11 +407,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
       title: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
-  - name: test/other/combination
+  - name: test/other/LIS
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/other/combination/atocoder-abc328-e.test.cpp
-      title: test/other/combination/atocoder-abc328-e.test.cpp
+      path: test/other/LIS/aoj-DPL-1-d.test.cpp
+      title: test/other/LIS/aoj-DPL-1-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
+      title: test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
+  - name: test/other/baseset
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/baseset/aoj-ALDS1-13-b.test.cpp
+      title: test/other/baseset/aoj-ALDS1-13-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/baseset/atcoder-abc322-e.test.cpp
+      title: test/other/baseset/atcoder-abc322-e.test.cpp
   - name: test/other/compress
     pages:
     - icon: ':heavy_check_mark:'
@@ -391,6 +442,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
       title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - name: test/other/next-combination
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/next-combination/atocoder-abc328-e.test.cpp
+      title: test/other/next-combination/atocoder-abc328-e.test.cpp
   - name: test/other/pattern-cumulative-sum
     pages:
     - icon: ':heavy_check_mark:'
@@ -404,6 +460,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/range-set/atocoder-abc330-e.test.cpp
       title: test/other/range-set/atocoder-abc330-e.test.cpp
+  - name: test/other/static-range-frequency
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+      title: test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
+      title: test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
   - name: test/search/bit-zentansaku
     pages:
     - icon: ':heavy_check_mark:'
@@ -439,6 +503,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
       title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - name: test/string/suffix-array
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/string/suffix-array/aoj-alds1-14-d.test.cpp
+      title: test/string/suffix-array/aoj-alds1-14-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/string/suffix-array/yosupo-suffix-array.test.cpp
+      title: test/string/suffix-array/yosupo-suffix-array.test.cpp
   - name: test/string/trie-tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -546,6 +618,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
       title: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+  - name: test/structure/sparse-table
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/sparse-table/yosupo-static-rmq.test.cpp
+      title: test/structure/sparse-table/yosupo-static-rmq.test.cpp
   - name: test/structure/splay-tree
     pages:
     - icon: ':heavy_check_mark:'

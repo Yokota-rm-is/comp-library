@@ -4,26 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
-    path: math/binomial-coeff.cpp
-    title: math/binomial-coeff.cpp
-  - icon: ':heavy_check_mark:'
-    path: math/modint.cpp
-    title: math/modint.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
-    IGNORE: ''
-    IGNORE_IF_GCC: ''
-    links:
-    - https://atcoder.jp/contests/abc358/tasks/abc358_e
-  bundledCode: "#line 1 \"test/math/binomial-coeff/atcoder-abc358-e.test.cpp\"\n#define\
-    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc358/tasks/abc358_e\"\
-    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    links: []
+  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
     #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
@@ -62,7 +50,8 @@ data:
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -304,8 +293,8 @@ data:
     \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
     \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
     \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
-    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
-    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
     \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
     \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
     \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
@@ -323,43 +312,43 @@ data:
     \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
-    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
-    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
-    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
-    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
-    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
-    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
-    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
-    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
-    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
-    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
-    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
-    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
-    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
-    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
-    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
-    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
-    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
-    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
-    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
-    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
-    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
-    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -390,84 +379,56 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"math/binomial-coeff.cpp\"\n\ntemplate<long long\
-    \ MOD, long long MAX = 510000>\nstruct BinomialCoefficient {\n    vector<long\
-    \ long> fac, finv, inv;\n\n    BinomialCoefficient() : fac(MAX), finv(MAX), inv(MAX)\
-    \ {\n        fac[0] = fac[1] = 1;\n        finv[0] = finv[1] = 1;\n        inv[1]\
-    \ = 1;\n        for (int i = 2; i < MAX; i++){\n            fac[i] = fac[i - 1]\
-    \ * i % MOD;\n            inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;\n   \
-    \         finv[i] = finv[i - 1] * inv[i] % MOD;\n        }\n    };\n\n    long\
-    \ long operator() (long long n, long long k) {\n        if (n < k) return 0;\n\
-    \        if (n < 0 || k < 0) return 0;\n        return fac[n] * (finv[k] * finv[n\
-    \ - k] % MOD) % MOD;\n    }\n};\n#line 3 \"math/modint.cpp\"\n\n// modint: mod\
-    \ \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\u3048\u308B\
-    \u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp {\n    long long val;\n    constexpr\
-    \ Fp(long long v = 0) noexcept : val(v % MOD) {\n        if (val < 0) val += MOD;\n\
-    \    }\n    constexpr int getmod() { return MOD; }\n    constexpr Fp operator\
-    \ - () const noexcept {\n        return val ? MOD - val : 0;\n    }\n    constexpr\
-    \ Fp operator + (const Fp& r) const noexcept { return Fp(*this) += r; }\n    constexpr\
-    \ Fp operator - (const Fp& r) const noexcept { return Fp(*this) -= r; }\n    constexpr\
-    \ Fp operator * (const Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr\
-    \ Fp operator / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr\
-    \ Fp& operator += (const Fp& r) noexcept {\n        val += r.val;\n        if\
-    \ (val >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
-    \ -= (const Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val\
-    \ += MOD;\n        return *this;\n    }\n    constexpr Fp& operator *= (const\
-    \ Fp& r) noexcept {\n        val = val * r.val % MOD;\n        return *this;\n\
-    \    }\n    constexpr Fp& operator /= (const Fp& r) noexcept {\n        long long\
-    \ a = r.val, b = MOD, u = 1, v = 0;\n        while (b) {\n            long long\
-    \ t = a / b;\n            a -= t * b; swap(a, b);\n            u -= t * v; swap(u,\
-    \ v);\n        }\n        val = val * u % MOD;\n        if (val < 0) val += MOD;\n\
-    \        return *this;\n    }\n    constexpr Fp pow(unsigned long long n) const\
-    \ noexcept {\n        assert(0 <= n);\n        Fp<MOD> x = *this, r = 1;\n   \
-    \     while (n) {\n            if (n & 1) r *= x;\n            x *= x;\n     \
-    \       n >>= 1;\n        }\n        return r;\n    }\n    constexpr Fp pow(long\
-    \ long n) const noexcept {\n        return pow((unsigned long long) n);\n    }\n\
-    \    constexpr bool operator == (const Fp& r) const noexcept {\n        return\
-    \ this->val == r.val;\n    }\n    constexpr bool operator != (const Fp& r) const\
-    \ noexcept {\n        return this->val != r.val;\n    }\n    friend constexpr\
-    \ istream& operator >> (istream &is, Fp<MOD>& x) noexcept {\n        long long\
-    \ t;\n        is >> t;\n        x = t;\n        return (is);\n    }\n    friend\
-    \ constexpr ostream& operator << (ostream &os, const Fp<MOD>& x) noexcept {\n\
-    \        return os << x.val;\n    }\n    friend constexpr Fp<MOD> modpow(const\
-    \ Fp<MOD> &a, long long n) noexcept {\n        if (n == 0) return 1;\n       \
-    \ auto t = modpow(a, n / 2);\n        t = t * t;\n        if (n & 1) t = t * a;\n\
-    \        return t;\n    }\n    friend constexpr Fp<MOD> modinv(const Fp<MOD> &a)\
-    \ noexcept {\n        Fp<MOD> b = 1;\n        return b / a;\n    }\n};\n\nusing\
-    \ mint998 = Fp<998244353>;\nusing mint007 = Fp<1000000007>;\n// using mint = Fp<MOD>;\n\
-    #line 6 \"test/math/binomial-coeff/atcoder-abc358-e.test.cpp\"\n\nusing mint =\
-    \ mint998;\nconst int MOD = 998244353;\n\nint main() {\n    ll K;\n    cin >>\
-    \ K;\n\n    vll C(26);\n    fore(c, C) cin >> c;\n\n    BinomialCoefficient<MOD>\
-    \ COM;\n\n    vector A(27, vector<mint>(K + 1, 0));\n    A[0][0] = 1;\n\n    rep(i,\
-    \ 26) {\n        rep(j, K + 1) {\n            rep(k, C[i] + 1) {\n           \
-    \     if (j + k <= K) {\n                    A[i + 1][j + k] += A[i][j] * COM(j\
-    \ + k, k);\n                }\n                else break;\n            }\n  \
-    \      }\n    }\n\n    mint ans = 0;\n    rep(i, 1, K + 1) ans += A[26][i];\n\n\
-    \    cout << ans << endl;\n\n    return 0;\n} \n"
-  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc358/tasks/abc358_e\"\
-    \n\n#include \"../../../math/binomial-coeff.cpp\"\n#include \"../../../math/modint.cpp\"\
-    \n\nusing mint = mint998;\nconst int MOD = 998244353;\n\nint main() {\n    ll\
-    \ K;\n    cin >> K;\n\n    vll C(26);\n    fore(c, C) cin >> c;\n\n    BinomialCoefficient<MOD>\
-    \ COM;\n\n    vector A(27, vector<mint>(K + 1, 0));\n    A[0][0] = 1;\n\n    rep(i,\
-    \ 26) {\n        rep(j, K + 1) {\n            rep(k, C[i] + 1) {\n           \
-    \     if (j + k <= K) {\n                    A[i + 1][j + k] += A[i][j] * COM(j\
-    \ + k, k);\n                }\n                else break;\n            }\n  \
-    \      }\n    }\n\n    mint ans = 0;\n    rep(i, 1, K + 1) ans += A[26][i];\n\n\
-    \    cout << ans << endl;\n\n    return 0;\n} \n"
+    \    return result;\n}\n#line 2 \"search/n-zentansaku.cpp\"\n\nstruct ExhaustiveSearch\
+    \ {\n    long long N, M;\n\n    ExhaustiveSearch(long long n, long long m) : N(n),\
+    \ M(m) {};\n\n    auto operator() () {\n        long long ret = 0;\n        vector<ll>\
+    \ v(N);\n\n        for (long long bit = 0; bit < binpow(M, N); ++bit) {\n    \
+    \        // v[i]:= 0 ~ M - 1\u306E\u72B6\u614B\u304C\u683C\u7D0D\u3055\u308C\u308B\
+    \n            ll x = bit;\n            rep(i, N) {\n                v[i] = x %\
+    \ M;\n                x /= M;\n            }\n\n            // sort(v.begin(),\
+    \ v.end());\n            // do {\n                \n            // } while (next_permutation(v.begin(),\
+    \ v.end()));\n            // prev_permutation(v); // \u9006\u9806\n        }\n\
+    \    }\n};\n\nauto exhaustive_search = [](long long N, long long base) {\n   \
+    \ long long ret = 0;\n    vector<ll> v(N);\n\n    for (long long bit = 0; bit\
+    \ < binpow(base, N); ++bit) {\n        ll x = bit;\n        rep(i, N) {\n    \
+    \        v[i] = x % base;\n            x /= base;\n        }\n\n        rep(i,\
+    \ N) {\n            if (v[i] == 0) {\n                // i\u756A\u76EE\u304C0\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else if (v[i] ==\
+    \ 1) {\n                // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n\n            }\n            else {\n                // i\u756A\u76EE\u304C\
+    2\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n \
+    \   return ret;\n};\n"
+  code: "#include \"../base.cpp\"\n\nstruct ExhaustiveSearch {\n    long long N, M;\n\
+    \n    ExhaustiveSearch(long long n, long long m) : N(n), M(m) {};\n\n    auto\
+    \ operator() () {\n        long long ret = 0;\n        vector<ll> v(N);\n\n  \
+    \      for (long long bit = 0; bit < binpow(M, N); ++bit) {\n            // v[i]:=\
+    \ 0 ~ M - 1\u306E\u72B6\u614B\u304C\u683C\u7D0D\u3055\u308C\u308B\n          \
+    \  ll x = bit;\n            rep(i, N) {\n                v[i] = x % M;\n     \
+    \           x /= M;\n            }\n\n            // sort(v.begin(), v.end());\n\
+    \            // do {\n                \n            // } while (next_permutation(v.begin(),\
+    \ v.end()));\n            // prev_permutation(v); // \u9006\u9806\n        }\n\
+    \    }\n};\n\nauto exhaustive_search = [](long long N, long long base) {\n   \
+    \ long long ret = 0;\n    vector<ll> v(N);\n\n    for (long long bit = 0; bit\
+    \ < binpow(base, N); ++bit) {\n        ll x = bit;\n        rep(i, N) {\n    \
+    \        v[i] = x % base;\n            x /= base;\n        }\n\n        rep(i,\
+    \ N) {\n            if (v[i] == 0) {\n                // i\u756A\u76EE\u304C0\u306E\
+    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else if (v[i] ==\
+    \ 1) {\n                // i\u756A\u76EE\u304C1\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n\n            }\n            else {\n                // i\u756A\u76EE\u304C\
+    2\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n \
+    \   return ret;\n};"
   dependsOn:
-  - math/binomial-coeff.cpp
   - base.cpp
-  - math/modint.cpp
-  isVerificationFile: true
-  path: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+  isVerificationFile: false
+  path: search/n-zentansaku.cpp
   requiredBy: []
-  timestamp: '2024-06-23 10:33:16+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-08-03 16:01:04+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+documentation_of: search/n-zentansaku.cpp
 layout: document
 redirect_from:
-- /verify/test/math/binomial-coeff/atcoder-abc358-e.test.cpp
-- /verify/test/math/binomial-coeff/atcoder-abc358-e.test.cpp.html
-title: test/math/binomial-coeff/atcoder-abc358-e.test.cpp
+- /library/search/n-zentansaku.cpp
+- /library/search/n-zentansaku.cpp.html
+title: search/n-zentansaku.cpp
 ---

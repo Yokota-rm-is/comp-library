@@ -5,6 +5,9 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
+    path: mystd/mybitset.cpp
+    title: mystd/mybitset.cpp
+  - icon: ':heavy_check_mark:'
     path: search/bit-zentansaku.cpp
     title: search/bit-zentansaku.cpp
   _extendedRequiredBy: []
@@ -58,7 +61,8 @@ data:
     using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
     \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
     using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -300,8 +304,8 @@ data:
     \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
     \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
     \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
-    \ T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x -\
-    \ 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}\ntemplate <typename\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
     \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
     \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
     \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
@@ -319,43 +323,43 @@ data:
     \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
-    \ find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const\
-    \ set<T>& st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\
-    \u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\
-    \u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T>\
-    \ inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T\
-    \ key) { return upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T>\
-    \ inline typename set<T>::iterator find_greater_than(const set<T>& st, T key)\
-    \ { return st.upper_bound(key); }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\
-    \ntemplate <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const\
-    \ vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it;}\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key);\
-    \ return it == st.begin() ? st.end() : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\
-    \u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\
-    \u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(const\
-    \ vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return\
-    \ it == v.begin() ? v.end() : --it; }\ntemplate <typename T> inline typename set<T>::iterator\
-    \ find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return\
-    \ it == st.begin() ? st.end() : --it;}\n\ntemplate <typename T> auto operator+(const\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] + x; return ret; }\ntemplate <typename T> auto operator-(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x;\
-    \ return ret; }\ntemplate <typename T> auto operator*(const vector<T>& A, const\
-    \ T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] * x; return ret;\
-    \ }\ntemplate <typename T> auto operator/(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] / x; return ret; }\ntemplate <typename\
-    \ T> auto operator%(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] % x; return ret; }\ntemplate <typename T> auto\
-    \ binpow(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = binpow(A[i], x); return ret; }\n\ntemplate <typename R> auto& operator++(R&\
-    \ a) { for (auto& x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R&\
-    \ a, int) { auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename\
-    \ R> auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
     \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
     \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
     \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
@@ -386,23 +390,65 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 2 \"search/bit-zentansaku.cpp\"\n\n// bit\u5168\u63A2\
-    \u7D22\n// \u8A08\u7B97\u91CF: O(N2^N) (N<=20)\nauto exhaustive_search = [](long\
-    \ long N) {\n    long long ret = 0;\n\n    for (long long bit = 0; bit < (1ll\
-    \ << N); ++bit) {\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n\
-    \                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
-    \u51E6\u7406\u3092\u66F8\u304F\n\n            }\n            else {\n        \
-    \        // i\u304Cbit\u306B\u542B\u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\
-    \u7406\u3092\u66F8\u304F\n\n            }\n        }\n    }\n\n    return ret;\n\
-    };\n\n// \u9806\u5217\u8FBC\u307Fbit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF\
-    : O(N!2^N) (N <= 7)\nauto exhaustive_search_with_permutation = [](long long N)\
-    \ {\n    long long ret = 0;\n\n    for (long long bit = 0; bit < (1ll << N); ++bit)\
-    \ {\n        vll v;\n        rep(i, N) {\n            if (bit & (1ll << i)) {\n\
-    \                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\
-    \u51E6\u7406\u3092\u66F8\u304F\n                v.push_back(i);\n\n          \
-    \  }\n            else {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\
-    \u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n            }\n\
-    \        }\n\n        do {\n            \n        } while (next_permutation(v.begin(),\
+    \    return result;\n}\n#line 3 \"mystd/mybitset.cpp\"\n\nstruct Bitset {\n  \
+    \  long long bit;\n\n    Bitset(long long bit = 0) : bit(bit) {}\n\n    void set(long\
+    \ long pos, bool val = true) { val? bit |= (1ll << pos): bit &= ~(1ll << pos);\
+    \ }\n    void set(vector<long long> pos, bool val = true) { for (auto x : pos)\
+    \ set(x, val);}\n\n    void flip(long long pos) { bit ^= (1ll << pos); }\n   \
+    \ void reset(long long pos) { bit &= ~(1ll << pos); }\n    void reset(vector<long\
+    \ long> pos) { for (auto x : pos) reset(x);}\n    bool test(long long pos) { return\
+    \ (bit >> pos) & 1ll; }\n    long long count() { return bit_count(bit); }\n  \
+    \  long long to_ll() { return bit; }\n    operator long long() { return bit; }\n\
+    \    bool any(Bitset x) { return bit & x.bit; }\n    bool all(Bitset x) { return\
+    \ (bit & x.bit) == x.bit; }\n    bool none(Bitset x) { return !(bit & x.bit);\
+    \ }\n\n    // \u81EA\u8EAB\u304Cx\u306E\u90E8\u5206\u96C6\u5408\u304B\u3069\u3046\
+    \u304B\u5224\u5B9A\n    bool is_subset_of(Bitset x) { return (bit & x.bit) ==\
+    \ bit; }\n    // \u81EA\u8EAB\u304Cx\u306E\u4E0A\u4F4D\u96C6\u5408\u304B\u3069\
+    \u3046\u304B\u5224\u5B9A\n    bool is_superset_of(Bitset x) { return (bit & x.bit)\
+    \ == x.bit; }\n    // \u81EA\u8EAB\u304Cx\u306E\u771F\u90E8\u5206\u96C6\u5408\u304B\
+    \u3069\u3046\u304B\u5224\u5B9A\n    bool is_proper_subset_of(Bitset x) { return\
+    \ bit != x.bit && (bit & x.bit) == bit; }\n    // \u81EA\u8EAB\u304Cx\u306E\u771F\
+    \u4E0A\u4F4D\u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\n    bool is_proper_superset_of(Bitset\
+    \ x) { return bit != x.bit && (bit & x.bit) == x.bit; }\n    // \u81EA\u8EAB\u304C\
+    x\u3068\u4EA4\u5DEE\u3057\u3066\u3044\u308B\u304B\u3069\u3046\u304B\u5224\u5B9A\
+    \n    bool intersects(Bitset x) { return bit & x.bit; }\n    \n    Bitset& operator++()\
+    \ { bit = bit + 1; return *this; }\n    Bitset operator&(Bitset x) { return bit\
+    \ & x.bit; }\n    Bitset operator|(Bitset x) { return bit | x.bit; }\n    Bitset\
+    \ operator^(Bitset x) { return bit ^ x.bit; }\n    Bitset operator~() { return\
+    \ ~bit; }\n    Bitset operator<<(long long x) { return bit << x; }\n    Bitset\
+    \ operator>>(long long x) { return bit >> x; }\n    Bitset& operator&=(Bitset\
+    \ x) { bit &= x.bit; return *this; }\n    Bitset& operator|=(Bitset x) { bit |=\
+    \ x.bit; return *this; }\n    Bitset& operator^=(Bitset x) { bit ^= x.bit; return\
+    \ *this; }\n    Bitset& operator<<=(long long x) { bit <<= x; return *this; }\n\
+    \    Bitset& operator>>=(long long x) { bit >>= x; return *this; }\n    bool operator==(Bitset\
+    \ x) { return bit == x.bit; }\n    bool operator!=(Bitset x) { return bit != x.bit;\
+    \ }\n    bool operator<(Bitset x) { return bit < x.bit; }\n    bool operator>(Bitset\
+    \ x) { return bit > x.bit; }\n    bool operator<=(Bitset x) { return bit <= x.bit;\
+    \ }\n    bool operator>=(Bitset x) { return bit >= x.bit; }\n    bool operator==(long\
+    \ long x) { return bit == x; }\n    bool operator!=(long long x) { return bit\
+    \ != x; }\n    bool operator<(long long x) { return bit < x; }\n    bool operator>(long\
+    \ long x) { return bit > x; }\n    bool operator<=(long long x) { return bit <=\
+    \ x; }\n    bool operator>=(long long x) { return bit >= x; }\n\n    friend istream&\
+    \ operator>>(istream& is, Bitset& x) { return is >> x.bit; }\n    friend ostream&\
+    \ operator<<(ostream& os, Bitset& x) { \n        os << (x.bit & 1) << \" \";\n\
+    \        x.bit >>= 1;\n\n        while (x.bit) {\n            os << (x.bit & 1)\
+    \ << \" \";\n            x.bit >>= 1;\n        }\n        return os; \n    }\n\
+    };\n#line 4 \"search/bit-zentansaku.cpp\"\n\n// bit\u5168\u63A2\u7D22\n// \u8A08\
+    \u7B97\u91CF: O(N2^N) (N<=20)\nauto exhaustive_search = [](long long N) {\n  \
+    \  long long ret = 0;\n\n    for (Bitset bit = 0; bit < (1ll << N); ++bit) {\n\
+    \        rep(i, N) {\n            if (bit.test(i)) {\n                // i\u304C\
+    bit\u306B\u542B\u307E\u308C\u308B\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\
+    \n\n            }\n            else {\n                // i\u304Cbit\u306B\u542B\
+    \u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n \
+    \           }\n        }\n    }\n\n    return ret;\n};\n\n// \u9806\u5217\u8FBC\
+    \u307Fbit\u5168\u63A2\u7D22\n// \u8A08\u7B97\u91CF: O(N!2^N) (N <= 7)\nauto exhaustive_search_with_permutation\
+    \ = [](long long N) {\n    long long ret = 0;\n\n    for (Bitset bit = 0; bit\
+    \ < (1ll << N); ++bit) {\n        vll v;\n        rep(i, N) {\n            if\
+    \ (bit.test(i)) {\n                // i\u304Cbit\u306B\u542B\u307E\u308C\u308B\
+    \u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n                v.push_back(i);\n\
+    \n            }\n            else {\n                // i\u304Cbit\u306B\u542B\
+    \u307E\u308C\u306A\u3044\u5834\u5408\u306E\u51E6\u7406\u3092\u66F8\u304F\n\n \
+    \           }\n        }\n\n        do {\n            \n        } while (next_permutation(v.begin(),\
     \ v.end()));\n    }\n\n    return ret;\n};\n#line 4 \"test/search/bit-zentansaku/atcoder-abc128-c.test.cpp\"\
     \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vector<setll> A(M);\n\
     \n    rep(i, M) {\n        ll k;\n        cin >> k;\n\n        rep(j, k) {\n \
@@ -439,10 +485,11 @@ data:
   dependsOn:
   - search/bit-zentansaku.cpp
   - base.cpp
+  - mystd/mybitset.cpp
   isVerificationFile: true
   path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   requiredBy: []
-  timestamp: '2024-06-23 10:32:08+09:00'
+  timestamp: '2024-08-03 16:01:04+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
