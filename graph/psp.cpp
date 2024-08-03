@@ -1,6 +1,5 @@
 #pragma once
 #include "../base.cpp"
-#include <cassert>
 
 /**
  * @brief PSP(Project Selection Problem)
