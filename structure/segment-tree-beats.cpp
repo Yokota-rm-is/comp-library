@@ -1,7 +1,7 @@
 #pragma once
 #include "../base.cpp"
 
-// Segment Tree Beats
+// Segment Tree Beats (下記URLの実装を一部改変)
 // https://tjkendev.github.io/procon-library/cpp/range_query/segment_tree_beats_2.html
 // - l<=i<r について、 A_i の値を min(A_i, x) に更新
 // - l<=i<r について、 A_i の値を max(A_i, x) に更新
