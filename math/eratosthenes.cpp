@@ -2,6 +2,7 @@
 #include "../base.cpp"
 
 // エラトステネスの篩
+// 計算量: O(N loglogN) (N <= 10^6)
 struct Eratosthenes {
     long long N;
     // テーブル
