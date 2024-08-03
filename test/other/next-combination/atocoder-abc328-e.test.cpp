@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc328/tasks/abc328_e"
 
-#include "../../../other/combination.cpp"
+#include "../../../other/next-combination.cpp"
 #include "../../../structure/unionfind.cpp"
 
 int main() {

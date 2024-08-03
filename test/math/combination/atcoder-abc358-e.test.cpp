@@ -1,11 +1,10 @@
-#define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc358/tasks/abc358_e"
 
-#include "../../../math/binomial-coeff.cpp"
+#include "../../../math/combination.cpp"
 #include "../../../math/modint.cpp"
 
-using mint = mint998;
 const int MOD = 998244353;
+using mint = Fp<MOD>;
 
 int main() {
     ll K;
@@ -14,7 +13,7 @@ int main() {
     vll C(26);
     fore(c, C) cin >> c;
 
-    BinomialCoefficient<MOD> COM;
+    Combination<MOD> com;
 
     vector A(27, vector<mint>(K + 1, 0));
     A[0][0] = 1;
@@ -23,7 +22,7 @@ int main() {
         rep(j, K + 1) {
             rep(k, C[i] + 1) {
                 if (j + k <= K) {
-                    A[i + 1][j + k] += A[i][j] * COM(j + k, k);
+                    A[i + 1][j + k] += A[i][j] * com(j + k, k);
                 }
                 else break;
             }

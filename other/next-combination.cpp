@@ -57,7 +57,7 @@ inline bool prev_combination(BI first, BI mid, BI last) {
 // 配列の要素からK個選ぶ組み合わせを列挙する
 // 計算量: ? (1.7 * nCk (N <= 28) 程度？)
 template<typename T>
-auto combination = [](vector<T> &A, long long K) {
+auto apply_combination = [](vector<T> &A, long long K) {
     auto ret = 0;
 
     sort(A.begin(), A.end());

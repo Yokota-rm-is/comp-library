@@ -1,11 +1,11 @@
 #pragma once
 #include "../base.cpp"
 
-template<long long MOD, long long MAX = 510000>
-struct BinomialCoefficient {
+template<long long MOD = 998244353, long long MAX = 510000>
+struct Combination {
     vector<long long> fac, finv, inv;
 
-    BinomialCoefficient() : fac(MAX), finv(MAX), inv(MAX) {
+    Combination() : fac(MAX), finv(MAX), inv(MAX) {
         fac[0] = fac[1] = 1;
         finv[0] = finv[1] = 1;
         inv[1] = 1;
