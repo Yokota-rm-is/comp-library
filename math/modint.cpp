@@ -83,4 +83,4 @@ template<int MOD> struct Fp {
 
 using mint998 = Fp<998244353>;
 using mint007 = Fp<1000000007>;
-// using mint = Fp<MOD>;
+// using mint = mint998;

@@ -3,6 +3,8 @@
 #include "../../../grid/grid-bfs.cpp"
 #include "../../../math/modint.cpp"
 
+using mint = mint998;
+
 int main() {
     ll H, W;
     cin >> H >> W;
@@ -22,8 +24,8 @@ int main() {
         }
     }
 
-    mint998 ans = 0;
-    mint998 count = 0;
+    mint ans = 0;
+    mint count = 0;
     
     rep(y, H) rep(x, W) {
         if (grid.field(y, x) != grid.obj) continue;

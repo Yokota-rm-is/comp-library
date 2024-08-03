@@ -3,6 +3,7 @@
 #include "../../../structure/splay-tree.cpp"
 #include "../../../math/modint.cpp"
 
+using mint = mint998;
 
 int main() {
     ll N, Q;
@@ -11,7 +12,7 @@ int main() {
     vector<ull> a(N);
     rep(i, N) cin >> a[i];
 
-    SplayTreeByIdx<mint998, pair<mint998, mint998>, Affine, Sum> tree;
+    SplayTreeByIdx<mint, pair<mint, mint>, Affine, Sum> tree;
 
     rep(i, N) tree.insert_at(i, a[i]);
 
