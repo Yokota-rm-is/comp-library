@@ -1,13 +1,15 @@
+#pragma once
 #include "../base.cpp"
+#include "../mystd/mybitset.cpp"
 
 // bit全探索
 // 計算量: O(N2^N) (N<=20)
 auto exhaustive_search = [](long long N) {
     long long ret = 0;
 
-    for (long long bit = 0; bit < (1ll << N); ++bit) {
+    for (Bitset bit = 0; bit < (1ll << N); ++bit) {
         rep(i, N) {
-            if (bit & (1ll << i)) {
+            if (bit.test(i)) {
                 // iがbitに含まれる場合の処理を書く
 
             }
@@ -26,10 +28,10 @@ auto exhaustive_search = [](long long N) {
 auto exhaustive_search_with_permutation = [](long long N) {
     long long ret = 0;
 
-    for (long long bit = 0; bit < (1ll << N); ++bit) {
+    for (Bitset bit = 0; bit < (1ll << N); ++bit) {
         vll v;
         rep(i, N) {
-            if (bit & (1ll << i)) {
+            if (bit.test(i)) {
                 // iがbitに含まれる場合の処理を書く
                 v.push_back(i);
 
