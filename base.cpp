@@ -86,6 +86,7 @@ using vd = vector<double>;
 using vvd = vector<vector<double>>;
 using vb = vector<bool>;
 using vvb = vector<vector<bool>>;
+template<typename T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;
 
 // boost関連
 #if __has_include(<boost/algorithm/cxx11/all_of.hpp>)
@@ -343,7 +344,7 @@ bool is_palindrome(const string& S) {
     return true;
 }
 
-template<class T = long long> inline pair<T, T> RULD(T x, T y, char c) { return {((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x)), ((c == 'U') ? y + 1 : ((c == 'D') ? y - 1 : y))};}
+template<class T = long long> inline pair<T, T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y - 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}
 template <typename T> long long bubble_sort(vector<T> &A) {
     ll ret = 0;
     rep(i, A.size() - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {
@@ -380,17 +381,17 @@ long long bit_count(long long x) { return __builtin_popcountll(x); }
 
 // 配列関係
 // キー以上の最小の要素を見つけるイテレータを返す関数
-template <typename T> inline typename vector<T>::iterator find_greater_than_or_equal(const vector<T>& v, T key) { return lower_bound(v.begin(), v.end(), key); }
-template <typename T> inline typename set<T>::iterator find_greater_than_or_equal(const set<T>& st, T key) { return st.lower_bound(key); }
+template <typename T> inline typename vector<T>::iterator find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(), v.end(), key); }
+template <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>& st, T key) { return st.lower_bound(key); }
 // キーを超える最小の要素を見つけるイテレータを返す関数
-template <typename T> inline typename vector<T>::iterator find_greater_than(const vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }
-template <typename T> inline typename set<T>::iterator find_greater_than(const set<T>& st, T key) { return st.upper_bound(key); }
+template <typename T> inline typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }
+template <typename T> inline typename set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key); }
 // キー以下の最大の要素を見つけるイテレータを返す関数, ない場合はendを返す
-template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(const vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it;}
-template <typename T> inline typename set<T>::iterator find_less_than_or_equal(const set<T>& st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end() : --it;}
+template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it;}
+template <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>& st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end() : --it;}
 // キー未満の最大の要素を見つけるイテレータを返す関数, ない場合はendを返す
-template <typename T> inline typename vector<T>::iterator find_less_than(const vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it; }
-template <typename T> inline typename set<T>::iterator find_less_than(const set<T>& st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end() : --it;}
+template <typename T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it; }
+template <typename T> inline typename set<T>::iterator find_less_than(set<T>& st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end() : --it;}
 
 template <typename T> auto operator+(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }
 template <typename T> auto operator-(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }
