@@ -478,9 +478,9 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
   - test/graph/tsp/atcoder-abc180-e.test.cpp
   - test/graph/tsp/aoj-dpl-2-a.test.cpp
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
 documentation_of: graph/tsp.cpp
 layout: document
 redirect_from:

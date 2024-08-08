@@ -129,8 +129,8 @@ data:
     path: string/trie-tree.cpp
     title: string/trie-tree.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/bit.cpp
-    title: structure/bit.cpp
+    path: structure/binary-indexed-tree.cpp
+    title: structure/binary-indexed-tree.cpp
   - icon: ':heavy_check_mark:'
     path: structure/dual-segment-tree.cpp
     title: structure/dual-segment-tree.cpp
@@ -415,29 +415,29 @@ data:
     path: test/string/trie-tree/atcoder-abc353-e.test.cpp
     title: test/string/trie-tree/atcoder-abc353-e.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-alds1-5-d.test.cpp
-    title: test/structure/bit/aoj-alds1-5-d.test.cpp
+    path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
+    title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-e.test.cpp
-    title: test/structure/bit/aoj-dsl-2-e.test.cpp
+    path: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
+    title: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/aoj-dsl-2-g.test.cpp
-    title: test/structure/bit/aoj-dsl-2-g.test.cpp
+    path: test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
+    title: test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc338-e.test.cpp
-    title: test/structure/bit/atcoder-abc338-e.test.cpp
+    path: test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
+    title: test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-abc340-e.test.cpp
-    title: test/structure/bit/atcoder-abc340-e.test.cpp
+    path: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
+    title: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-arc033-c.test.cpp
-    title: test/structure/bit/atcoder-arc033-c.test.cpp
+    path: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
+    title: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-    title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+    path: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
+    title: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
   - icon: ':heavy_check_mark:'
-    path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-    title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+    path: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
+    title: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
     title: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
@@ -1311,196 +1311,196 @@ data:
   isVerificationFile: false
   path: base.cpp
   requiredBy:
-  - structure/kruskal.cpp
-  - structure/sparse-table.cpp
-  - structure/dual-segment-tree.cpp
-  - structure/splay-tree.cpp
-  - structure/unionfind.cpp
-  - structure/sqrt-decomposition.cpp
-  - structure/segment-tree.cpp
-  - structure/undo-unionfind.cpp
-  - structure/lazy-segment-tree.cpp
-  - structure/bit.cpp
-  - structure/weighted-unionfind.cpp
-  - structure/empty-sqrt-decomposition.cpp
-  - structure/segment-tree-beats.cpp
-  - dp/bitdp.cpp
-  - heuristic/timer.cpp
-  - mystd/mytuple.cpp
-  - mystd/mylist.cpp
-  - mystd/mymultiset.cpp
-  - mystd/mybitset.cpp
-  - mystd/mypair.cpp
-  - math/eratosthenes.cpp
-  - math/modint.cpp
-  - math/combination.cpp
-  - math/prime-factorization.cpp
-  - math/is-prime.cpp
-  - math/permutation.cpp
+  - tree/tree-bfs.cpp
+  - tree/tree-dp.cpp
   - string/suffix-array.cpp
   - string/trie-tree.cpp
   - string/rolling-hash.cpp
-  - search/memoization.cpp
-  - search/trit-zentansaku.cpp
-  - search/n-zentansaku.cpp
-  - search/bit-zentansaku.cpp
-  - tree/tree-bfs.cpp
-  - tree/tree-dp.cpp
-  - other/range-set.cpp
-  - other/static-range-frequency.cpp
-  - other/baseset.cpp
-  - other/LIS.cpp
-  - other/next-permutation.cpp
-  - other/next-combination.cpp
-  - other/pattern-cumulative-sum.cpp
-  - other/cumulative-sum.cpp
-  - graph/topological-sort.cpp
-  - graph/flow.cpp
-  - graph/warshall-floyd.cpp
+  - heuristic/timer.cpp
   - graph/scc.cpp
-  - graph/dfs.cpp
-  - graph/dijkstra.cpp
-  - graph/bellman-ford.cpp
-  - graph/bfs.cpp
-  - graph/tsp.cpp
+  - graph/topological-sort.cpp
   - graph/psp.cpp
+  - graph/dfs.cpp
+  - graph/bfs.cpp
+  - graph/dijkstra.cpp
+  - graph/tsp.cpp
+  - graph/bellman-ford.cpp
+  - graph/warshall-floyd.cpp
+  - graph/flow.cpp
+  - dp/bitdp.cpp
+  - grid/grid-dfs.cpp
   - grid/grid-bfs.cpp
   - grid/grid-dijkstra.cpp
-  - grid/grid-dfs.cpp
   - grid/grid-unionfind.cpp
+  - math/prime-factorization.cpp
+  - math/permutation.cpp
+  - math/modint.cpp
+  - math/combination.cpp
+  - math/is-prime.cpp
+  - math/eratosthenes.cpp
+  - search/trit-zentansaku.cpp
+  - search/bit-zentansaku.cpp
+  - search/memoization.cpp
+  - search/n-zentansaku.cpp
+  - other/baseset.cpp
+  - other/range-set.cpp
+  - other/next-permutation.cpp
+  - other/cumulative-sum.cpp
+  - other/pattern-cumulative-sum.cpp
+  - other/next-combination.cpp
+  - other/static-range-frequency.cpp
+  - other/LIS.cpp
+  - structure/binary-indexed-tree.cpp
+  - structure/weighted-unionfind.cpp
+  - structure/undo-unionfind.cpp
+  - structure/empty-sqrt-decomposition.cpp
+  - structure/unionfind.cpp
+  - structure/splay-tree.cpp
+  - structure/segment-tree.cpp
+  - structure/sparse-table.cpp
+  - structure/kruskal.cpp
+  - structure/segment-tree-beats.cpp
+  - structure/sqrt-decomposition.cpp
+  - structure/lazy-segment-tree.cpp
+  - structure/dual-segment-tree.cpp
+  - mystd/mytuple.cpp
+  - mystd/mybitset.cpp
+  - mystd/mypair.cpp
+  - mystd/mylist.cpp
+  - mystd/mymultiset.cpp
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
-  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
-  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
-  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
-  - test/structure/sparse-table/yosupo-static-rmq.test.cpp
-  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
-  - test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-  - test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-  - test/structure/bit/atcoder-abc340-e.test.cpp
-  - test/structure/bit/aoj-alds1-5-d.test.cpp
-  - test/structure/bit/atcoder-arc033-c.test.cpp
-  - test/structure/bit/aoj-dsl-2-e.test.cpp
-  - test/structure/bit/atcoder-abc338-e.test.cpp
-  - test/structure/bit/aoj-dsl-2-g.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/kruskal/aoj-grl-2-a.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
-  - test/dp/bitdp/atcoder-abc142-e.test.cpp
-  - test/mystd/mybitset/atcoder-abc354-e.test.cpp
-  - test/mystd/mylist/atcoder-abc344-e.test.cpp
-  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
-  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - test/base/aoj-ntl-1-c.test.cpp
-  - test/base/aoj-ntl-1-b.test.cpp
-  - test/base/atcoder-abc109-c.test.cpp
-  - test/base/aoj-alds1-2-a.test.cpp
-  - test/base/aoj-ntl-1-e.test.cpp
-  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
-  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
-  - test/math/is-prime/atcoder-abc149-c.test.cpp
-  - test/math/eratosthenes/yukicoder-843.test.cpp
-  - test/math/combination/atcoder-abc172-e.test.cpp
-  - test/math/combination/atcoder-abc358-e.test.cpp
-  - test/math/permutation/atcoder-abc172-e.test.cpp
-  - test/string/trie-tree/atcoder-abc353-e.test.cpp
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
-  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
-  - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
-  - test/string/rolling-hash/atcoder-abc141-e.test.cpp
-  - test/string/suffix-array/yosupo-suffix-array.test.cpp
-  - test/string/suffix-array/aoj-alds1-14-d.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
-  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
-  - test/search/memoization/atcoder-abc350-e.test.cpp
-  - test/search/memoization/atcoder-abc275-d.test.cpp
   - test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
   - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
-  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
-  - test/other/compress/atcoder-abc036-c.test.cpp
-  - test/other/compress/atcoder-abc113-c.test.cpp
-  - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
-  - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
-  - test/other/next-combination/atocoder-abc328-e.test.cpp
-  - test/other/range-set/atocoder-abc330-e.test.cpp
-  - test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
-  - test/other/LIS/aoj-DPL-1-d.test.cpp
-  - test/other/baseset/aoj-ALDS1-13-b.test.cpp
-  - test/other/baseset/atcoder-abc322-e.test.cpp
-  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
-  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
-  - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
-  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
-  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
-  - test/graph/topological-sort/atcoder-dp-g.test.cpp
-  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
-  - test/graph/psp/yukicoder-2713.test.cpp
-  - test/graph/psp/atcoder-arc085-e.test.cpp
-  - test/graph/psp/atcoder-abc193-f.test.cpp
-  - test/graph/psp/yukicoder-1541.test.cpp
-  - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/string/suffix-array/yosupo-suffix-array.test.cpp
+  - test/string/suffix-array/aoj-alds1-14-d.test.cpp
+  - test/string/trie-tree/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/atcoder-abc324-c.test.cpp
+  - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  - test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - test/graph/flow/yukicoder-177.test.cpp
   - test/graph/flow/aoj-grl-6-a.test.cpp
   - test/graph/flow/aoj-grl-6-b.test.cpp
-  - test/graph/tsp/atcoder-abc180-e.test.cpp
-  - test/graph/tsp/aoj-dpl-2-a.test.cpp
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
+  - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
   - test/graph/bellman-ford/aoj-grl-1-b.test.cpp
-  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
-  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
-  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
+  - test/graph/psp/yukicoder-1541.test.cpp
+  - test/graph/psp/yukicoder-2713.test.cpp
+  - test/graph/psp/atcoder-arc085-e.test.cpp
+  - test/graph/psp/atcoder-abc193-f.test.cpp
   - test/graph/bfs/atcoder-abc284-c.test.cpp
   - test/graph/bfs/atcoder-abc270-c.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - test/graph/dfs/aoj-alds1-11-b.test.cpp
-  - test/graph/dfs/aoj-grl-4-a.test.cpp
-  - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
+  - test/graph/tsp/atcoder-abc180-e.test.cpp
+  - test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - test/graph/dijkstra/aoj-grl-1-a.test.cpp
+  - test/graph/dijkstra/atcoder-abc270-c.test.cpp
+  - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
+  - test/graph/scc/aoj-grl-3-c.test.cpp
+  - test/dp/bitdp/atcoder-abc142-e.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
-  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
-  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
-  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
   - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
+  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
+  - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/math/combination/atcoder-abc172-e.test.cpp
+  - test/math/combination/atcoder-abc358-e.test.cpp
+  - test/math/eratosthenes/yukicoder-843.test.cpp
+  - test/math/permutation/atcoder-abc172-e.test.cpp
+  - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
+  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
+  - test/math/is-prime/atcoder-abc149-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - test/search/memoization/atcoder-abc350-e.test.cpp
+  - test/search/memoization/atcoder-abc275-d.test.cpp
+  - test/other/baseset/aoj-ALDS1-13-b.test.cpp
+  - test/other/baseset/atcoder-abc322-e.test.cpp
+  - test/other/range-set/atocoder-abc330-e.test.cpp
+  - test/other/compress/atcoder-abc113-c.test.cpp
+  - test/other/compress/atcoder-abc036-c.test.cpp
+  - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+  - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
+  - test/other/next-combination/atocoder-abc328-e.test.cpp
+  - test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
+  - test/other/LIS/aoj-DPL-1-d.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
+  - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
+  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/sparse-table/yosupo-static-rmq.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
+  - test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
+  - test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
+  - test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
+  - test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
+  - test/structure/kruskal/aoj-grl-2-a.test.cpp
+  - test/base/aoj-ntl-1-b.test.cpp
+  - test/base/aoj-alds1-2-a.test.cpp
+  - test/base/aoj-ntl-1-e.test.cpp
+  - test/base/aoj-ntl-1-c.test.cpp
+  - test/base/atcoder-abc109-c.test.cpp
+  - test/mystd/mybitset/atcoder-abc354-e.test.cpp
+  - test/mystd/mylist/atcoder-abc344-e.test.cpp
+  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
 documentation_of: base.cpp
 layout: document
 redirect_from:

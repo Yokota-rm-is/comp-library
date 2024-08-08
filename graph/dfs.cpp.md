@@ -495,8 +495,8 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
-  - test/graph/dfs/aoj-grl-4-a.test.cpp
   - test/graph/dfs/atcoder-abc327-d.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
 documentation_of: graph/dfs.cpp
 layout: document
 redirect_from:

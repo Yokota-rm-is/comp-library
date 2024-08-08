@@ -758,8 +758,8 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
 documentation_of: structure/splay-tree.cpp
 layout: document

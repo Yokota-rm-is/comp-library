@@ -782,11 +782,11 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/psp/atcoder-abc193-f.test.cpp
+  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - test/grid/grid-bfs/atcoder-typical90-43.test.cpp
-  - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
-  - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
 documentation_of: grid/grid-bfs.cpp
 layout: document
 redirect_from:

@@ -496,9 +496,9 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/dp/bitdp/atcoder-abc142-e.test.cpp
-  - test/mystd/mybitset/atcoder-abc354-e.test.cpp
-  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
   - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
+  - test/mystd/mybitset/atcoder-abc354-e.test.cpp
 documentation_of: mystd/mybitset.cpp
 layout: document
 redirect_from:

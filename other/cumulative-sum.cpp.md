@@ -418,9 +418,9 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
   - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
 documentation_of: other/cumulative-sum.cpp
 layout: document
 redirect_from:

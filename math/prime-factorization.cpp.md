@@ -404,8 +404,8 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
   - test/math/prime-factorization/aoj-ntl-1-a.test.cpp
+  - test/math/prime-factorization/atcoder-abc324-b.test.cpp
 documentation_of: math/prime-factorization.cpp
 layout: document
 redirect_from:

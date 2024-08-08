@@ -475,8 +475,8 @@ data:
   timestamp: '2024-08-03 16:01:04+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
   - test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
+  - test/search/bit-zentansaku/atcoder-abc147-c.test.cpp
 documentation_of: search/bit-zentansaku.cpp
 layout: document
 redirect_from:

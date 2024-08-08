@@ -540,9 +540,9 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
   - test/tree/tree-bfs/atcoder-abc209-d.test.cpp
   - test/tree/tree-bfs/aoj-grl-5-c.test.cpp
-  - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
 documentation_of: tree/tree-bfs.cpp
 layout: document
 redirect_from:

@@ -674,15 +674,15 @@ data:
   timestamp: '2024-08-03 16:03:32+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
-  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
   - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
+  - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
   - test/structure/segment-tree-beats/aoj-dsl-2-d.test.cpp
   - test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
-  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-e.test.cpp
   - test/structure/segment-tree-beats/aoj-dsl-2-g.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-h.test.cpp
+  - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
 documentation_of: structure/segment-tree-beats.cpp
 layout: document
 redirect_from:

@@ -562,9 +562,9 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/string/rolling-hash/atcoder-abc324-c.test.cpp
   - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/string/rolling-hash/atcoder-abc141-e.test.cpp
 documentation_of: string/rolling-hash.cpp
 layout: document

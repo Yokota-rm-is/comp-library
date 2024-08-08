@@ -153,8 +153,8 @@ data:
   - name: structure
     pages:
     - icon: ':heavy_check_mark:'
-      path: structure/bit.cpp
-      title: structure/bit.cpp
+      path: structure/binary-indexed-tree.cpp
+      title: structure/binary-indexed-tree.cpp
     - icon: ':heavy_check_mark:'
       path: structure/dual-segment-tree.cpp
       title: structure/dual-segment-tree.cpp
@@ -516,32 +516,32 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/string/trie-tree/atcoder-abc353-e.test.cpp
       title: test/string/trie-tree/atcoder-abc353-e.test.cpp
-  - name: test/structure/bit
+  - name: test/structure/binary-indexed-tree
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/aoj-alds1-5-d.test.cpp
-      title: test/structure/bit/aoj-alds1-5-d.test.cpp
+      path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
+      title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/aoj-dsl-2-e.test.cpp
-      title: test/structure/bit/aoj-dsl-2-e.test.cpp
+      path: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
+      title: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/aoj-dsl-2-g.test.cpp
-      title: test/structure/bit/aoj-dsl-2-g.test.cpp
+      path: test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
+      title: test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/atcoder-abc338-e.test.cpp
-      title: test/structure/bit/atcoder-abc338-e.test.cpp
+      path: test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/atcoder-abc340-e.test.cpp
-      title: test/structure/bit/atcoder-abc340-e.test.cpp
+      path: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/atcoder-arc033-c.test.cpp
-      title: test/structure/bit/atcoder-arc033-c.test.cpp
+      path: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-      title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+      path: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
-      title: test/structure/bit/atcoder-tessoku-book-b59.test.cpp
+      path: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
   - name: test/structure/dual-segment-tree
     pages:
     - icon: ':heavy_check_mark:'

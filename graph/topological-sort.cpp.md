@@ -479,10 +479,10 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
-  - test/graph/topological-sort/atcoder-dp-g.test.cpp
   - test/graph/topological-sort/atcoder-abc223-d.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
 documentation_of: graph/topological-sort.cpp
 layout: document
 redirect_from:

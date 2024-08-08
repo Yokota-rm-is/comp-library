@@ -507,10 +507,10 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
   - test/graph/bfs/atcoder-abc284-c.test.cpp
   - test/graph/bfs/atcoder-abc270-c.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
 documentation_of: graph/bfs.cpp
 layout: document
 redirect_from:

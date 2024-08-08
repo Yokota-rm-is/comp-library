@@ -5,8 +5,8 @@ data:
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
-    path: structure/bit.cpp
-    title: structure/bit.cpp
+    path: structure/binary-indexed-tree.cpp
+    title: structure/binary-indexed-tree.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -18,8 +18,8 @@ data:
     IGNORE_IF_GCC: ''
     links:
     - https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_j
-  bundledCode: "#line 1 \"test/structure/bit/atcoder-chokudai-s001-j.test.cpp\"\n\
-    #define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_j\"\
+  bundledCode: "#line 1 \"test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp\"\
+    \n#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_j\"\
     \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
     #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
@@ -388,97 +388,99 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/bit.cpp\"\n\ntemplate<class T = long\
-    \ long>\nstruct BIT {\n    long long N, _N, height;\n    vector<T> bit0, bit1;\n\
-    \n    BIT(long long n): _N(n) {\n        init();\n    }\n\n    BIT(const vector<T>\
-    \ &A): _N(A.size()) {\n        init();\n\n        rep(i, _N) add(i, A[i]);\n \
-    \   }\n\n    BIT(long long n, T a): _N(n) {\n        init();\n\n        rep(i,\
-    \ _N) add(i, a);\n    }\n\n    void init() {\n        N = 1;\n        height =\
-    \ 1;\n        while (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n\
-    \        }\n\n        bit0.assign(N + 1, 0);\n        bit1.assign(N + 1, 0);\n\
-    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n  \
-    \  void add(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n      \
-    \  add(bit0, p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long l, long long r, T x) {\n   \
-    \     assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return;\n\n\
-    \        add(bit0, l, -x * l);\n        add(bit0, r, x * r);\n        add(bit1,\
-    \ l, x);\n        add(bit1, r, -x);\n    }\n\n    void add_circular(long long\
-    \ l, long long r, T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <=\
-    \ 2 * _N);\n        if (l <= r and r <= _N) {\n            add(l, r, x);\n   \
-    \         return;\n        }\n        \n        if (r > _N) r -= _N;\n       \
-    \ \n        add(l, _N, x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6E\
-    p (0-indexed)\u3092x\u306B\u3059\u308B\n    void set(long long p, T x) {\n   \
-    \     assert(0 <= p and p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n\
-    \    }\n\n    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\
-    \u6C42\u3081\u308B\n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\
-    \n        return sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\
-    \u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n   \
-    \ T sum(long long l, long long r) {\n        assert(0 <= l and l <= r and r <=\
-    \ _N);\n\n        if (l == r) return 0;\n        else return sum(r) - sum(l);\n\
-    \    }\n\n    T sum_circular(long long l, long long r) {\n        assert(0 <=\
-    \ l and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N)\
-    \ return sum(l, r);\n        \n        if (r > _N) r -= _N;\n        \n      \
-    \  return sum(l, _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p,\
-    \ p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\u308B\n    T get(long long\
-    \ p) {\n        assert(0 <= p and p < _N);\n        \n        return sum(p + 1)\
-    \ - sum(p);\n    }\n\n    long long lower_bound(T x) {\n        assert(x >= 0);\n\
-    \n        ll right = 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long\
-    \ len = N; len > 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right\
-    \ + len] + (sum1 + bit1[right + len]) * (right + len) < x) {\n               \
-    \ right += len;\n                sum0 += bit0[right];\n                sum1 +=\
-    \ bit1[right];\n            }\n        }\n\n        return right;\n    }  \n\n\
-    \    long long upper_bound(T x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n\
-    \    }\n\n    friend ostream& operator << (ostream& os, BIT& bit) {\n        os\
-    \ << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for (long long\
-    \ i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {\n     \
-    \           os << bit.bit0[i] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n        repd(h,\
-    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit1.size();\
-    \ i += (1 << (h + 1))) {\n                os << bit.bit1[i] << \" \";\n      \
-    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
-    \ << \"value\" << endl;\n        rep(i, bit._N) {\n            os << bit.get(i)\
-    \ << \" \";\n        }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n\
-    \    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n        assert(0 <= r\
-    \ and r <= _N);\n\n        if (r == 0) return 0;\n        \n        T ret = 0;\n\
-    \        for (int idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret +=\
-    \ bit[idx];\n        }\n        return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(vector<T> &bit, long long p, T x) {\n\
-    \        assert(0 <= p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for\
-    \ (int idx = p; idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n\
-    \        }\n    }\n};\n\n// \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\nlong long\
-    \ calc_invension(const vector<long long> &A) {\n    long long ret = 0;\n\n   \
-    \ vector<long long> B = compress(A);\n\n    long long maxB = 0;\n    fore(b, B)\
-    \ chmax(maxB, b);\n\n    BIT<long long> tree(maxB + 1);\n\n    rep(i, B.size())\
-    \ {\n        long long b = B[i];\n        ret += i - tree.sum(b + 1);\n      \
-    \  tree.add(b, 1);\n    }\n\n    return ret;\n}\n\n// [l, r)\u306E\u914D\u5217\
-    \u306B\u91CD\u306A\u308A\u304C\u3042\u308B\u304B\u3092\u5224\u5B9A\nbool is_overlapped(const\
-    \ vector<pair<long long, long long>> &A) {\n    bool ret = false;\n    \n    long\
-    \ long maxA = 0;\n    fore(a, A) chmax(maxA, a.second);\n    BIT<long long> tree(maxA\
-    \ + 1);\n\n    rep(i, A.size()) {\n        auto [l, r] = A[i];\n        tree.add(l,\
-    \ 1);\n        tree.add(r, -1);\n    }\n\n    rep(i, A.size()) {\n        auto\
-    \ [l, r] = A[i];\n        if (tree.sum(l, r + 1) == 0) continue;\n\n        ret\
-    \ = true;\n        break;\n    }\n\n    return ret;\n}\n#line 5 \"test/structure/bit/atcoder-chokudai-s001-j.test.cpp\"\
+    \    return result;\n}\n#line 3 \"structure/binary-indexed-tree.cpp\"\n\ntemplate<class\
+    \ T = long long>\nstruct BinaryIndexedTree {\n    long long N, _N, height;\n \
+    \   vector<T> bit0, bit1;\n\n    BinaryIndexedTree(long long n): _N(n) {\n   \
+    \     init();\n    }\n\n    BinaryIndexedTree(const vector<T> &A): _N(A.size())\
+    \ {\n        init();\n\n        rep(i, _N) add(i, A[i]);\n    }\n\n    BinaryIndexedTree(long\
+    \ long n, T a): _N(n) {\n        init();\n\n        rep(i, _N) add(i, a);\n  \
+    \  }\n\n    void init() {\n        N = 1;\n        height = 1;\n        while\
+    \ (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n        }\n\n\
+    \        bit0.assign(N + 1, 0);\n        bit1.assign(N + 1, 0);\n    }\n\n   \
+    \ // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(long\
+    \ long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(bit0, p, x);\n\
+    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306Bx\u3092\u52A0\
+    \u3048\u308B\n    void add(long long l, long long r, T x) {\n        assert(0\
+    \ <= l and l <= r and r <= _N);\n\n        if (l == r) return;\n\n        add(bit0,\
+    \ l, -x * l);\n        add(bit0, r, x * r);\n        add(bit1, l, x);\n      \
+    \  add(bit1, r, -x);\n    }\n\n    void add_circular(long long l, long long r,\
+    \ T x) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n   \
+    \     if (l <= r and r <= _N) {\n            add(l, r, x);\n            return;\n\
+    \        }\n        \n        if (r > _N) r -= _N;\n        \n        add(l, _N,\
+    \ x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092\
+    x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0 <= p and\
+    \ p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n    }\n\n    // \u534A\
+    \u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\
+    \n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n        return\
+    \ sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
+    \ r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
+    \ l, long long r) {\n        assert(0 <= l and l <= r and r <= _N);\n\n      \
+    \  if (l == r) return 0;\n        else return sum(r) - sum(l);\n    }\n\n    T\
+    \ sum_circular(long long l, long long r) {\n        assert(0 <= l and l <= _N\
+    \ and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) return sum(l,\
+    \ r);\n        \n        if (r > _N) r -= _N;\n        \n        return sum(l,\
+    \ _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\
+    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
+    \ p and p < _N);\n        \n        return sum(p + 1) - sum(p);\n    }\n\n   \
+    \ long long lower_bound(T x) {\n        assert(x >= 0);\n\n        ll right =\
+    \ 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long len = N; len >\
+    \ 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right + len]\
+    \ + (sum1 + bit1[right + len]) * (right + len) < x) {\n                right +=\
+    \ len;\n                sum0 += bit0[right];\n                sum1 += bit1[right];\n\
+    \            }\n        }\n\n        return right;\n    }  \n\n    long long upper_bound(T\
+    \ x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\
+    \n    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {\n  \
+    \      os << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for\
+    \ (long long i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1)))\
+    \ {\n                os << bit.bit0[i] << \" \";\n            }\n            os\
+    \ << endl;\n        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n\
+    \        repd(h, bit.height) {\n            for (long long i = (1 << h); i < (long\
+    \ long)bit.bit1.size(); i += (1 << (h + 1))) {\n                os << bit.bit1[i]\
+    \ << \" \";\n            }\n            os << endl;\n        }\n        os <<\
+    \ endl;\n\n        os << \"value\" << endl;\n        rep(i, bit._N) {\n      \
+    \      os << bit.get(i) << \" \";\n        }\n        os << endl;\n\n        return\
+    \ os;\n    }\n\nprivate:\n    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\
+    \u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n\
+    \        assert(0 <= r and r <= _N);\n\n        if (r == 0) return 0;\n      \
+    \  \n        T ret = 0;\n        for (int idx = r; idx > 0; idx -= (idx & -idx))\
+    \ {\n            ret += bit[idx];\n        }\n        return ret;\n    }\n\n \
+    \   // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(vector<T>\
+    \ &bit, long long p, T x) {\n        assert(0 <= p and p <= _N);\n\n        ++p;\
+    \ // 1-indexed\n\n        for (int idx = p; idx < N; idx += (idx & -idx)) {\n\
+    \            bit[idx] += x;\n        }\n    }\n};\n\n// \u8EE2\u5012\u6570\u3092\
+    \u6C42\u3081\u308B\nlong long calc_invension(const vector<long long> &A) {\n \
+    \   long long ret = 0;\n\n    vector<long long> B = compress(A);\n\n    long long\
+    \ maxB = 0;\n    fore(b, B) chmax(maxB, b);\n\n    BinaryIndexedTree<long long>\
+    \ tree(maxB + 1);\n\n    rep(i, B.size()) {\n        long long b = B[i];\n   \
+    \     ret += i - tree.sum(b + 1);\n        tree.add(b, 1);\n    }\n\n    return\
+    \ ret;\n}\n\n// [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\
+    \u304B\u3092\u5224\u5B9A\nbool is_overlapped(const vector<pair<long long, long\
+    \ long>> &A) {\n    bool ret = false;\n    \n    long long maxA = 0;\n    fore(a,\
+    \ A) chmax(maxA, a.second);\n    BinaryIndexedTree<long long> tree(maxA + 1);\n\
+    \n    rep(i, A.size()) {\n        auto [l, r] = A[i];\n        tree.add(l, 1);\n\
+    \        tree.add(r, -1);\n    }\n\n    rep(i, A.size()) {\n        auto [l, r]\
+    \ = A[i];\n        if (tree.sum(l, r + 1) == 0) continue;\n\n        ret = true;\n\
+    \        break;\n    }\n\n    return ret;\n}\n#line 5 \"test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp\"\
     \n\nint main() {\n    long long N;\n    cin >> N;\n\n    vll A(N);\n    rep(i,\
-    \ N) cin >> A[i];\n\n    BIT tree(N);\n    cout << calc_invension(A) << endl;\n\
-    \n    return 0;\n}\n"
+    \ N) cin >> A[i];\n\n    cout << calc_invension(A) << endl;\n\n    return 0;\n\
+    }\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/chokudai_S001/tasks/chokudai_S001_j\"\
-    \n\n#include \"../../../structure/bit.cpp\"\n\nint main() {\n    long long N;\n\
-    \    cin >> N;\n\n    vll A(N);\n    rep(i, N) cin >> A[i];\n\n    BIT tree(N);\n\
-    \    cout << calc_invension(A) << endl;\n\n    return 0;\n}"
+    \n\n#include \"../../../structure/binary-indexed-tree.cpp\"\n\nint main() {\n\
+    \    long long N;\n    cin >> N;\n\n    vll A(N);\n    rep(i, N) cin >> A[i];\n\
+    \n    cout << calc_invension(A) << endl;\n\n    return 0;\n}"
   dependsOn:
-  - structure/bit.cpp
+  - structure/binary-indexed-tree.cpp
   - base.cpp
   isVerificationFile: true
-  path: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+  path: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-08 21:00:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+documentation_of: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
 layout: document
 redirect_from:
-- /verify/test/structure/bit/atcoder-chokudai-s001-j.test.cpp
-- /verify/test/structure/bit/atcoder-chokudai-s001-j.test.cpp.html
-title: test/structure/bit/atcoder-chokudai-s001-j.test.cpp
+- /verify/test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
+- /verify/test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp.html
+title: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
 ---

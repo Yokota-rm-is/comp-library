@@ -464,11 +464,11 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
-  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
   - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/other/range-set/atocoder-abc330-e.test.cpp
   - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
+  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
 documentation_of: mystd/mymultiset.cpp
 layout: document
 redirect_from:

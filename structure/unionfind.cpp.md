@@ -493,8 +493,8 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
   - test/other/next-combination/atocoder-abc328-e.test.cpp
+  - test/structure/unionfind/aoj-dsl-1-a.test.cpp
 documentation_of: structure/unionfind.cpp
 layout: document
 redirect_from:

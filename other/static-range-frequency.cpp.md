@@ -411,8 +411,8 @@ data:
   timestamp: '2024-08-03 17:22:19+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
   - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
+  - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
 documentation_of: other/static-range-frequency.cpp
 layout: document
 redirect_from:

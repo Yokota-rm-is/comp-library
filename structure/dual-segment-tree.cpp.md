@@ -572,9 +572,9 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
   - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
 documentation_of: structure/dual-segment-tree.cpp
 layout: document
 redirect_from:

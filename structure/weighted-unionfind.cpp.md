@@ -495,8 +495,8 @@ data:
   timestamp: '2024-08-03 15:59:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
 documentation_of: structure/weighted-unionfind.cpp
 layout: document
 redirect_from:
