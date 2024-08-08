@@ -1,7 +1,7 @@
 #define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/arc033/tasks/arc033_3"
 
-#include "../../../structure/bit.cpp"
+#include "../../../structure/binary-indexed-tree.cpp"
 
 int main() {
     long long Q;
@@ -13,7 +13,7 @@ int main() {
         cin >> X[i];
     }
 
-    BIT tree(max(X) + 1);
+    BinaryIndexedTree tree(max(X) + 1);
     rep(i, Q) {
         long long t = T[i], x = X[i];
         

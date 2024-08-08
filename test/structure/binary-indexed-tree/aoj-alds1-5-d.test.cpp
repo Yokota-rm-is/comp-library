@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_D&"
 
-#include "../../../structure/bit.cpp"
+#include "../../../structure/binary-indexed-tree.cpp"
 
 int main() {
     ll n;

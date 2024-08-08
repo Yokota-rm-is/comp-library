@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc340/tasks/abc340_e"
 
-#include "../../../structure/bit.cpp"
+#include "../../../structure/binary-indexed-tree.cpp"
 
 int main() {
     long long N;
@@ -16,7 +16,7 @@ int main() {
         cin >> B[i];
     }
 
-    BIT bit(A);
+    BinaryIndexedTree bit(A);
     rep(i, M) {
         ll ball = bit.get(B[i]);
         bit.add(B[i], -ball);

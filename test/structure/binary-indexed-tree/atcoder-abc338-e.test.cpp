@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc338/tasks/abc338_e"
 
-#include "../../../structure/bit.cpp"
+#include "../../../structure/binary-indexed-tree.cpp"
 
 int main() {
     long long N;
@@ -15,7 +15,7 @@ int main() {
 
     sort(A);
 
-    BIT tree(2 * N);
+    BinaryIndexedTree tree(2 * N);
     bool ans = is_overlapped(A);
 
     cout << YesNo(ans) << endl;

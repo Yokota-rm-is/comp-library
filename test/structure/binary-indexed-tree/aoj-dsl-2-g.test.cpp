@@ -1,12 +1,12 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_G&"
 
-#include "../../../structure/bit.cpp"
+#include "../../../structure/binary-indexed-tree.cpp"
 
 int main() {
     ll n, q;
     cin >> n >> q;
 
-    BIT<ll> tree(n, 0);
+    BinaryIndexedTree<ll> tree(n, 0);
     while (q--) {
         ll t;
         cin >> t;

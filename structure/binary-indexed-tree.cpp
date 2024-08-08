@@ -2,21 +2,21 @@
 #include "../base.cpp"
 
 template<class T = long long>
-struct BIT {
+struct BinaryIndexedTree {
     long long N, _N, height;
     vector<T> bit0, bit1;
 
-    BIT(long long n): _N(n) {
+    BinaryIndexedTree(long long n): _N(n) {
         init();
     }
 
-    BIT(const vector<T> &A): _N(A.size()) {
+    BinaryIndexedTree(const vector<T> &A): _N(A.size()) {
         init();
 
         rep(i, _N) add(i, A[i]);
     }
 
-    BIT(long long n, T a): _N(n) {
+    BinaryIndexedTree(long long n, T a): _N(n) {
         init();
 
         rep(i, _N) add(i, a);
@@ -126,7 +126,7 @@ struct BIT {
         return lower_bound(x + numeric_limits<T>::epsilon());
     }
 
-    friend ostream& operator << (ostream& os, BIT& bit) {
+    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {
         os << "bit0" << endl;
         repd(h, bit.height) {
             for (long long i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1))) {
@@ -189,7 +189,7 @@ long long calc_invension(const vector<long long> &A) {
     long long maxB = 0;
     fore(b, B) chmax(maxB, b);
 
-    BIT<long long> tree(maxB + 1);
+    BinaryIndexedTree<long long> tree(maxB + 1);
 
     rep(i, B.size()) {
         long long b = B[i];
@@ -206,7 +206,7 @@ bool is_overlapped(const vector<pair<long long, long long>> &A) {
     
     long long maxA = 0;
     fore(a, A) chmax(maxA, a.second);
-    BIT<long long> tree(maxA + 1);
+    BinaryIndexedTree<long long> tree(maxA + 1);
 
     rep(i, A.size()) {
         auto [l, r] = A[i];
