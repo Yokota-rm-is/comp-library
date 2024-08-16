@@ -375,7 +375,6 @@ struct SegmentTree {
     long long N, _N, height;
 
     vector<S> node;
-    vector<F> lazy;
     _op<T> op;
     _mapping<T, F> mapping;
 
@@ -437,7 +436,7 @@ struct SegmentTree {
         l += N;
         r += N;
 
-        S sml(op.e(), 0), smr(op.e(), 0);
+        S sml(op.e()), smr(op.e());
         while (l < r) {
             if (l & 1) sml = op(sml, node[l++]);
             if (r & 1) smr = op(node[--r], smr);
@@ -458,12 +457,12 @@ struct SegmentTree {
     template <class G>
     long long max_right(long long l, G g) {
         assert(0 <= l && l <= _N);
-        assert(g(S(op.e(), 0)));
+        assert(g(S(op.e())));
 
         if (l == _N) return _N;
         l += N;
         
-        S sm(op.e(), 0);
+        S sm(op.e());
         do {
             while (l % 2 == 0) l >>= 1;
 
@@ -492,13 +491,13 @@ struct SegmentTree {
     template <class G>
     long long min_left(long long r, G g) {
         assert(0 <= r && r <= _N);
-        assert(g(S(op.e(), 0)));
+        assert(g(S(op.e())));
 
         if (r == 0) return 0;
 
         r += N;
 
-        S sm(op.e(), 0);
+        S sm(op.e());
 
         do {
             r--;
