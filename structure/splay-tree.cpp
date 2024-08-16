@@ -10,6 +10,7 @@ struct Node {
     long long z = 0;
     long long sumz = 0;
     bool rev = false;
+    long long coeff = 1;
 
     bool operator< (const Node &other) const {
         return value < other.value;
@@ -72,8 +73,14 @@ struct Max : Operation<T, F> {
     }
 
     void operator() (S* x) override {
-        x->prod = max({x->l->prod, x->value, x->r->prod});
-        x->rprod = max({x->r->rprod, x->value, x->l->rprod});
+        x->prod = x->value;
+        if (x->l->z > 0) x->prod = max(x->l->prod, x->prod);
+        if (x->r->z > 0) x->prod = max(x->prod, x->r->prod);
+
+        x->rprod = x->value;
+        if (x->r->z > 0) x->rprod = max(x->r->rprod, x->rprod);
+        if (x->l->z > 0) x->rprod = max(x->rprod, x->l->rprod);
+        
         x->sumz = x->l->sumz + x->z + x->r->sumz;
     }
 
@@ -92,8 +99,14 @@ struct Min: Operation<T, F> {
     }
 
     void operator() (S* x) override {
-        x->prod = min({x->l->prod, x->value, x->r->prod});
-        x->rprod = min({x->r->rprod, x->value, x->l->rprod});
+        x->prod = x->value;
+        if (x->l->z > 0) x->prod = min(x->l->prod, x->prod);
+        if (x->r->z > 0) x->prod = min(x->prod, x->r->prod);
+
+        x->rprod = x->value;
+        if (x->r->z > 0) x->rprod = min(x->r->rprod, x->rprod);
+        if (x->l->z > 0) x->rprod = min(x->rprod, x->l->rprod);
+        
         x->sumz = x->l->sumz + x->z + x->r->sumz;
     }
 
@@ -113,9 +126,16 @@ struct Sum: Operation<T, F> {
     }
 
     void operator() (S* x) override {
-        x->prod = x->l->prod + x->value + x->r->prod;
-        x->rprod = x->r->rprod + x->value + x->l->rprod;
+        x->prod = x->value;
+        if (x->l->z > 0) x->prod = x->l->prod + x->prod;
+        if (x->r->z > 0) x->prod = x->prod + x->r->prod;
+
+        x->rprod = x->value;
+        if (x->r->z > 0) x->rprod = x->r->rprod + x->rprod;
+        if (x->l->z > 0) x->rprod = x->rprod + x->l->rprod;
+
         x->sumz = x->l->sumz + x->z + x->r->sumz;
+        x->coeff = x->sumz;
     }
 
 private:
@@ -133,8 +153,14 @@ struct Mul: Operation<T, F> {
     }
 
     void operator() (S* x) override {
-        x->prod = x->l->prod * x->value * x->r->prod;
-        x->rprod = x->r->rprod * x->value * x->l->rprod;
+        x->prod = x->value;
+        if (x->l->z > 0) x->prod = x->l->prod * x->prod;
+        if (x->r->z > 0) x->prod = x->prod * x->r->prod;
+
+        x->rprod = x->value;
+        if (x->r->z > 0) x->rprod = x->r->rprod * x->rprod;
+        if (x->l->z > 0) x->rprod = x->rprod * x->l->rprod;
+
         x->sumz = x->l->sumz + x->z + x->r->sumz;
     }
 
@@ -153,8 +179,14 @@ struct GCD : Operation<T, F> {
     }
 
     void operator() (S* x) override {
-        x->prod = gcd(gcd(x->l->prod, x->value), x->r->prod);
-        x->rprod = gcd(gcd(x->r->rprod, x->value), x->l->rprod);
+        x->prod = x->value;
+        if (x->l->z > 0) x->prod = gcd(x->l->prod, x->prod);
+        if (x->r->z > 0) x->prod = gcd(x->prod, x->r->prod);
+
+        x->rprod = x->value;
+        if (x->r->z > 0) x->rprod = gcd(x->r->rprod, x->rprod);
+        if (x->l->z > 0) x->rprod = gcd(x->rprod, x->l->rprod);
+
         x->sumz = x->l->sumz + x->z + x->r->sumz;
     }
 
@@ -173,8 +205,14 @@ struct LCM : Operation<T, F> {
     }
 
     void operator() (S* x) override {
-        x->prod = lcm(lcm(x->l->prod, x->value), x->r->prod);
-        x->rprod = lcm(lcm(x->r->rprod, x->value), x->l->rprod);
+        x->prod = x->value;
+        if (x->l->z > 0) x->prod = lcm(x->l->prod, x->prod);
+        if (x->r->z > 0) x->prod = lcm(x->prod, x->r->prod);
+
+        x->rprod = x->value;
+        if (x->r->z > 0) x->rprod = lcm(x->r->rprod, x->rprod);
+        if (x->l->z > 0) x->rprod = lcm(x->rprod, x->l->rprod);
+
         x->sumz = x->l->sumz + x->z + x->r->sumz;
     }
 
@@ -239,8 +277,8 @@ struct Add: Mapping<T, F> {
 
     void map(S* x, const F f) override {
         x->value += f * x->z;
-        x->prod += f * x->sumz;
-        x->rprod += f * x->sumz;
+        x->prod += f * x->coeff;
+        x->rprod += f * x->coeff;
     }
 
     void com(F &f, const F s) override {
@@ -287,8 +325,8 @@ struct Affine: Mapping<T, F> {
 
     void map(S* x, const F f) override {
         x->value = f.first * x->value + f.second * x->z;
-        x->prod = f.first * x->prod + f.second * x->sumz;
-        x->rprod = f.first * x->rprod + f.second * x->sumz;
+        x->prod = f.first * x->prod + f.second * x->coeff;
+        x->rprod = f.first * x->rprod + f.second * x->coeff;
     }
 
     void com(F &f, const F s) override {
@@ -313,8 +351,8 @@ struct Set: Mapping<T, F> {
 
     void map(S* x, const F f) override {
         x->value = T(f) * x->z;
-        x->prod = T(f) * x->sumz;
-        x->rprod = T(f) * x->sumz;
+        x->prod = T(f) * x->coeff;
+        x->rprod = T(f) * x->coeff;
     }
 
     void com(F &f, const F s) override {
@@ -388,11 +426,29 @@ struct SplayTreeByIdx{
     S *NIL = nullptr;
     vector<pS> A;
     S *R;
+    long long N;
 
     _op<T, F> op;
     _mapping<T, F> mapping;
 
     SplayTreeByIdx() {
+        init();
+    }
+
+    SplayTreeByIdx(long long n, T a) {
+        init();
+
+        rep(i, n) push_back(a);
+    }
+
+    SplayTreeByIdx(vector<T> &A) {
+        init();
+
+        fore(a, A) push_back(a);
+    }
+
+    void init() {
+        N = 0;
         if (!pNIL) {
             pNIL = make_unique<S>();
             NIL = pNIL.get();
@@ -521,10 +577,11 @@ struct SplayTreeByIdx{
         return c;
     }
 
-    void insert_at(long long k, T x) {
+    void insert(long long k, T x) {
+        ++N;
         pS pnx = make_unique<S>(*NIL);
         S* nx = pnx.get();
-        nx->z = nx->sumz = 1;
+        nx->z = nx->sumz = nx->coeff = 1;
         nx->index = A.size();
         nx->value = nx->prod = nx->rprod = x;
         nx->lazy = mapping.id();
@@ -557,7 +614,8 @@ struct SplayTreeByIdx{
         update(nx); //
     }
 
-    void erase_at(long long k) {
+    void erase(long long k) {
+        --N;
         auto p = kth_element(k);
         if (k == 0) { // 左端
             R = p->r;
@@ -606,6 +664,10 @@ struct SplayTreeByIdx{
         splay(c);
     }
 
+    void apply(long long p, F f) {
+        apply(p, p + 1, f);
+    }
+
     void apply(long long l, long long r, F f) {
         auto c = between(l, r);
         all_apply(c, f);
@@ -619,4 +681,28 @@ struct SplayTreeByIdx{
     T get(long long k) {
         return kth_element(k)->value;
     }
+
+    void push_back(T x) {
+        insert(N, x);
+    }
+
+    void pop_back() {
+        erase(N - 1);
+    }
+
+    void push_front(T x) {
+        insert(0, x);
+    }
+
+    void pop_front() {
+        erase(0);
+    }
 };
+
+template<typename T = long long, typename F = long long> using RangeAddRangeSum = SplayTreeByIdx<T, F, Add, Sum>;
+template<typename T = long long, typename F = long long> using RangeAddRangeMin = SplayTreeByIdx<T, F, Add, Min>;
+template<typename T = long long, typename F = long long> using RangeAddRangeMax = SplayTreeByIdx<T, F, Add, Max>;
+
+template<typename T = long long, typename F = long long> using RangeSetRangeSum = SplayTreeByIdx<T, F, Set, Sum>;
+template<typename T = long long, typename F = long long> using RangeSetRangeMin = SplayTreeByIdx<T, F, Set, Min>;
+template<typename T = long long, typename F = long long> using RangeSetRangeMax = SplayTreeByIdx<T, F, Set, Max>;

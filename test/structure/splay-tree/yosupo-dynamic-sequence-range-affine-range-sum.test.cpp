@@ -14,7 +14,7 @@ int main() {
 
     SplayTreeByIdx<mint, pair<mint, mint>, Affine, Sum> tree;
 
-    rep(i, N) tree.insert_at(i, a[i]);
+    rep(i, N) tree.insert(i, a[i]);
 
     while (Q--) {
         ll t;
@@ -24,12 +24,12 @@ int main() {
             ll i;
             ull x;
             cin >> i >> x;
-            tree.insert_at(i, x);
+            tree.insert(i, x);
         }
         else if (t == 1) {
             ll i;
             cin >> i;
-            tree.erase_at(i);
+            tree.erase(i);
         }
         else if (t == 2) {
             ll l, r;

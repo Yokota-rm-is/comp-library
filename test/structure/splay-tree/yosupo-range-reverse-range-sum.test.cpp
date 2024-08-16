@@ -12,7 +12,7 @@ int main() {
 
     SplayTreeByIdx<ll, ll, NoMapping, Sum> tree;
 
-    rep(i, N) tree.insert_at(i, a[i]);
+    rep(i, N) tree.insert(i, a[i]);
 
     while (Q--) {
         ll t;

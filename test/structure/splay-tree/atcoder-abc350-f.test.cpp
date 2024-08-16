@@ -46,7 +46,7 @@ int main() {
     }
 
     SplayTreeByIdx<char, ll, NoMapping, NoOperation> splay;
-    rep(i, S.size()) splay.insert_at(i, S[i]);
+    rep(i, S.size()) splay.insert(i, S[i]);
 
     fore(p, A) {
         auto [l, r] = p;
