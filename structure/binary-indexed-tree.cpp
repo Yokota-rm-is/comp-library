@@ -70,8 +70,7 @@ struct BinaryIndexedTree {
     void set(long long p, T x) {
         assert(0 <= p and p < _N);
 
-        add(p, -get(p));
-        add(p, x);
+        add(p, x - get(p));
     }
 
     // 半開区間[0, r) (0-indexed)の総和を求める
