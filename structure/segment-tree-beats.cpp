@@ -19,7 +19,7 @@ class SegmentTreeBeats {
     vector<T> max_v, smax_v, max_c;
     vector<T> min_v, smin_v, min_c;
     vector<T> sum;
-    vll len;
+    vector<long long> len;
     vector<T> ladd, lval;
 
     void update_node_max(int k, T x) {
