@@ -35,6 +35,10 @@ struct Baseset {
         return (x / pow(pos)) % base;
     }
 
+    long long operator[](long long pos) { 
+        return get(pos);
+    }
+
     long long pow(long long pos) {
         if (pos < (ll)powers.size()) return powers[pos];
 
@@ -44,6 +48,10 @@ struct Baseset {
             powers.push_back(ret);
         }
         return ret;
+    }
+
+    long long end(long long pos) {
+        return pow(pos + 1);
     }
 
     operator long long() { 
