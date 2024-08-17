@@ -20,32 +20,21 @@ int main() {
         RollingHash rhs(S[i]);
     
         if (S[i].size() == T.size()) {
-            if (rht == rhs) {
+            if (lcp(rht, rhs) + lcs(rht, rhs) >= (ll)T.size() - 1) {
                 ans.push_back(i);
                 continue;
             }
-
-            rep(j, T.size()) {
-                if (rhs.erase(j) == rht.erase(j)) {
-                    ans.push_back(i);
-                    break;
-                }
-            }
         }
         else if (S[i].size() == T.size() + 1) {
-            rep(j, S[i].size()) {
-                if (rhs.erase(j) == rht) {
-                    ans.push_back(i);
-                    break;
-                }
+            if (lcp(rht, rhs) + lcs(rht, rhs) >= (ll)T.size()) {
+                ans.push_back(i);
+                continue;
             }
         }
         else if (S[i].size() == T.size() - 1) {
-            rep(j, T.size()) {
-                if (rhs == rht.erase(j)) {
-                    ans.push_back(i);
-                    break;
-                }
+            if (lcp(rht, rhs) + lcs(rht, rhs) >= (ll)T.size() - 1) {
+                ans.push_back(i);
+                continue;
             }
         }
     }

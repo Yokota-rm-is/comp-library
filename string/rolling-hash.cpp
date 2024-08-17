@@ -25,26 +25,27 @@ struct Hash61 {
     
     unsigned long long hash, hash_rev;
     unsigned long long pow, pow_inv;
-    unsigned long long size;
+    long long N;
     const unsigned long long base_inv = modinv(base);
 
     Hash61() {
         init();
     }
 
-    Hash61(string S) {
+    Hash61(string& S) {
         init();
         if (S.size() > 0) set(S);
     }
 
     Hash61(char c) {
         init();
-        set(string(1, c));
+        string S(1, c);
+        set(S);
     }
 
     void init() {
         assert(base > 0);
-        size = 0;
+        N = 0;
         hash = 0;
         hash_rev = 0;
         pow = 1;
@@ -52,11 +53,12 @@ struct Hash61 {
     }
 
     void set(char c) {
-        set(string(1, c));
+        string S = string(1, c);
+        set(S);
     }
 
-    void set(string S) {
-        size = S.size();
+    void set(string& S) {
+        N = S.size();
         
         rep(i, S.size()) {
             unsigned long long c = S[i];
@@ -74,6 +76,16 @@ struct Hash61 {
         return hash == hash_rev;
     }
 
+    Hash61 reverse() {
+        Hash61 ret;
+        ret.hash = hash_rev;
+        ret.hash_rev = hash;
+        ret.pow = pow;
+        ret.pow_inv = pow_inv;
+        ret.N = N;
+        return ret;
+    }
+
     operator unsigned long long() const {
         return hash;
     }
@@ -88,17 +100,17 @@ struct Hash61 {
         pow = calc_mod(calc_mul(pow, other.pow));
         pow_inv = calc_mod(calc_mul(pow_inv, other.pow_inv));
 
-        size += other.size;
+        N += other.N;
 
         return *this;
     }
 
     bool operator< (const Hash61 &other) const {
-        return (size < other.size) && (hash < other.hash);
+        return (N < other.N) && (hash < other.hash);
     }
 
     bool operator== (const Hash61 &other) const noexcept {
-        return (size == other.size) && (hash == other.hash);
+        return (N == other.N) && (hash == other.hash);
     }
 
     static unsigned long long calc_mul(unsigned long long a, unsigned long long b) {
@@ -172,10 +184,42 @@ struct RollingHash {
         Hash61 ret;
         ret.hash = Hash61::calc_mod(hashed[r].hash + Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r - l].pow)));
         ret.hash_rev = Hash61::calc_mod(Hash61::calc_mul(Hash61::calc_mod(hashed[r].hash_rev + Hash61::MOD - hashed[l].hash_rev), hashed[l].pow_inv));
-        ret.size = r - l;
+        ret.N = r - l;
         ret.pow = hashed[r - l].pow;
         ret.pow_inv = hashed[r - l].pow_inv;
         return ret;
+    }
+
+    Hash61 insert(long long pos, char c) {
+        return get(pos) + Hash61(c) + get(pos + 1, N);
+    }
+
+    Hash61 insert(long long pos, string &S) {
+        return get(pos) + Hash61(S) + get(pos + S.size(), N);
+    }
+
+    Hash61 erase(long long pos) {
+        return get(pos) + get(pos + 1, N);
+    }
+
+    Hash61 erase(long long l, long long r) {
+        return get(l) + get(r, N);
+    }
+
+    Hash61 replace(long long pos, char c) {
+        return get(pos) + Hash61(c) + get(pos + 1, N);
+    }
+
+    Hash61 replace(long long l, long long r, string &S) {
+        return get(l) + Hash61(S) + get(r, N);
+    }
+
+    Hash61 reverse() {
+        return hashed[N].hash_rev;
+    }
+
+    Hash61 reverse(long long l, long long r) {
+        return get(l) + get(l, r).reverse() + get(r, N);
     }
 
     // 区間[l1, r1)と区間[l2, r2)の最長共通接頭辞の長さを返す
@@ -196,18 +240,90 @@ struct RollingHash {
     }
 
     long long lcp(long long l1, long long l2) {
+        return lcp(l1, N, l2, N);
+    }
+
+    long long lcp(RollingHash &rhs, long long l1, long long r1, long long l2, long long r2) {
         long long low = 0;
-        long long high = min(N - l1, N - l2);
-        if (get(l1, l1 + high) == get(l2, l2 + high)) return high;
+        long long high = min(r1 - l1, r2 - l2);
+        if (get(l1, l1 + high) == rhs.get(l2, l2 + high)) return high;
 
         while (high - low > 1) {
             long long mid = (high + low) / 2;
 
-            if (get(l1, l1 + mid) == get(l2, l2 + mid)) low = mid;
+            if (get(l1, l1 + mid) == rhs.get(l2, l2 + mid)) low = mid;
             else high = mid;
         }
 
         return low;
+    }
+
+    long long lcp(RollingHash &rhs, long long l1, long long l2) {
+        return lcp(rhs, l1, N, l2, rhs.N);
+    }
+
+    long long lcp(RollingHash &rhs) {
+        return lcp(rhs, 0, N, 0, rhs.N);
+    }
+
+    // 区間[l1, r1)と区間[l2, r2)の最長共通接尾辞の長さを返す
+    long long lcs(RollingHash &rhs, long long l1, long long r1, long long l2, long long r2) {
+        long long low = 0;
+        long long high = min(r1 - l1, r2 - l2);
+        if (get(r1 - high, r1) == rhs.get(r2 - high, r2)) return high;
+
+        while (high - low > 1) {
+            long long mid = (high + low) / 2;
+
+            if (get(r1 - mid, r1) == rhs.get(r2 - mid, r2)) low = mid;
+            else high = mid;
+        }
+
+        return low;
+    }
+
+    long long lcs(RollingHash &rhs, long long l1, long long l2) {
+        return lcs(rhs, l1, N, l2, rhs.N);
+    }
+
+    long long lcs(RollingHash &rhs) {
+        return lcs(rhs, 0, N, 0, rhs.N);
+    }
+
+    friend long long lcp(RollingHash &lhs, RollingHash &rhs, long long l1, long long r1, long long l2, long long r2) {
+        return lhs.lcp(rhs, l1, r1, l2, r2);
+    }
+
+    friend long long lcp(RollingHash &lhs, RollingHash &rhs, long long l1, long long l2) {
+        return lhs.lcp(rhs, l1, l2);
+    }
+
+    friend long long lcp(RollingHash &lhs, RollingHash &rhs) {
+        return lhs.lcp(rhs, 0, lhs.N, 0, rhs.N);
+    }
+
+    friend long long lcs(RollingHash &lhs, RollingHash &rhs, long long l1, long long r1, long long l2, long long r2) {
+        return lhs.lcs(rhs, l1, r1, l2, r2);
+    }
+
+    friend long long lcs(RollingHash &lhs, RollingHash &rhs, long long l1, long long l2) {
+        return lhs.lcs(rhs, l1, l2);
+    }
+
+    friend long long lcs(RollingHash &lhs, RollingHash &rhs) {
+        return lhs.lcs(rhs, 0, lhs.N, 0, rhs.N);
+    }
+
+    operator Hash61() {
+        return get();
+    }
+
+    operator unsigned long long() {
+        return get();
+    }
+
+    bool operator== (RollingHash &rhs) {
+        return N == rhs.N and hashed == rhs.hashed;
     }
 
     friend ostream& operator<<(ostream &os, const RollingHash& h) {
