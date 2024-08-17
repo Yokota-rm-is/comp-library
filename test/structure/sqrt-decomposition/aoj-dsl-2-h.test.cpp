@@ -6,7 +6,7 @@ int main() {
     ll n, q;
     cin >> n >> q;
 
-    SqrtDecomposition<ll, ll> sd(n, 0);
+    SqrtDecomposition<ll, ll, Add, Min> sd(n, 0);
     while (q--) {
         ll t;
         cin >> t;
@@ -14,12 +14,12 @@ int main() {
         if (t == 0) {
             ll s, t, x;
             cin >> s >> t >> x;
-            sd.apply_add(s, t + 1, x);
+            sd.apply(s, t + 1, x);
         }
         else {
             ll s, t;
             cin >> s >> t;
-            cout << sd.prod_min(s, t + 1) << endl;
+            cout << sd.prod(s, t + 1) << endl;
         }
     }
 
