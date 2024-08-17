@@ -357,7 +357,6 @@ struct GridDFS {
     char obj = field.obj;
     char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
-    long long inf = INF64 / 2;
     long long group;
 
     GridDFS(long long n) : H(n), W(n), field(n, n) {

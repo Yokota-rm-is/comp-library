@@ -352,7 +352,6 @@ struct GridUnionFind {
     char g = 'g';
     char t = 't';
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
-    long long inf = INF64 / 2;
 
     long long cc_size;
 

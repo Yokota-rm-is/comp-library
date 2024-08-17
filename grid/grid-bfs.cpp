@@ -358,7 +358,6 @@ struct GridBFS {
     char obj = field.obj;
     char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
-    long long inf = INF64 / 2;
     long long group;
 
     GridBFS(long long n) : H(n), W(n), field(n, n) {
@@ -377,7 +376,7 @@ struct GridBFS {
     void init() {
         group = 0;
         seen.assign(H, W, false);
-        cost.assign(H, W, inf);
+        cost.assign(H, W, inf64);
         prev.assign(H, W, Coordinate(-1, -1));
         cc.assign(H, W, -1);
     }
@@ -488,7 +487,7 @@ struct GridBFS {
             rep(i, dirs.size()) {
                 Coordinate next = now + dirs[i];
                 if (field.is_out(next)) continue;
-                if(seen(next)) continue;
+                if (seen(next)) continue;
 
                 ll c = 0; 
                 if (field.is_obj(next)) c = 1; // ここにコストが1になる条件を書く

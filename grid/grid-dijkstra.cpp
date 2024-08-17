@@ -358,7 +358,6 @@ struct GridDijkstra {
     char obj = field.obj;
     char excl = field.excl;
     Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);
-    long long inf = inf64;
     long long group;
 
     GridDijkstra(long long n) : H(n), W(n), field(n, n) {
@@ -377,7 +376,7 @@ struct GridDijkstra {
     void init() {
         group = 0;
         done.assign(H, W, false);
-        cost.assign(H, W, inf);
+        cost.assign(H, W, inf64);
         prev.assign(H, W, Coordinate(-1, -1));
         cc.assign(H, W, -1);
     }
