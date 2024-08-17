@@ -4,44 +4,37 @@ data:
   - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
+  - icon: ':heavy_check_mark:'
+    path: hash/mod-hash.cpp
+    title: hash/mod-hash.cpp
+  - icon: ':heavy_check_mark:'
+    path: mystd/mymultiset.cpp
+    title: mystd/mymultiset.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: test/hash/mod-hash/atcoder-abc339-e.test.cpp
-    title: test/hash/mod-hash/atcoder-abc339-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-    title: test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
-    title: test/mystd/mymultiset/atcoder-abc358-d.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-    title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/other/range-set/atocoder-abc330-e.test.cpp
-    title: test/other/range-set/atocoder-abc330-e.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
-    title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+  _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    links: []
-  bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://atcoder.jp/contests/abc339/tasks/abc339_f
+    links:
+    - https://atcoder.jp/contests/abc339/tasks/abc339_f
+  bundledCode: "#line 1 \"test/hash/mod-hash/atcoder-abc339-e.test.cpp\"\n#define\
+    \ PROBLEM \"https://atcoder.jp/contests/abc339/tasks/abc339_f\"\n\n#line 2 \"\
+    base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -397,18 +390,61 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"mystd/mymultiset.cpp\"\n\ntemplate <typename\
-    \ T, typename S = long long>\nstruct MultiSet : public map<T, S> {\n    S N;\n\
-    \    using mp = map<T, S>;\n\n    explicit MultiSet() : N(0) {};\n\n    S insert(T\
-    \ x, S n = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n \
-    \   S erase(T x, S n = 1) {\n        if (!mp::contains(x)) return 0;\n       \
-    \ \n        chmin(n, (*this)[x]);\n        N -= n;\n        (*this)[x] -= n;\n\
-    \n        if ((*this)[x] == 0) {\n            mp::erase(x);\n            return\
-    \ 0;\n        }\n        else {\n            return (*this)[x];\n        }\n \
-    \   }\n\n    void erase_all(T x) {\n        N -= (*this)[x];\n        mp::erase(x);\n\
-    \    }\n\n    T front() {\n        return mp::begin()->first;\n    }\n\n    T\
-    \ back() {\n        return mp::rbegin()->first;\n    }\n\n    void pop() {\n \
-    \       erase(front());\n    }\n\n    void pop_back() {\n        erase(back());\n\
+    \    return result;\n}\n#line 2 \"hash/mod-hash.cpp\"\n\nbool is_prime(long long\
+    \ N) {\n    if (N < 2) return false;\n    if (N == 2) return true;\n    for (long\
+    \ long i = 3; i * i <= N; i += 2) {\n        if (N % i == 0) return false;\n \
+    \   }\n    return true;\n}\n\nvector<long long> set_mod(size_t size = 20) {\n\
+    \    random_device rd;\n    mt19937_64 gen(rd());\n    uniform_int_distribution<int>\
+    \ dist(inf32, INF32);\n    set<long long> primes;\n\n    while (true) {\n    \
+    \    int m = dist(gen);\n        if (!is_prime(m)) continue;\n        if (primes.contains(m))\
+    \ continue;\n\n        primes.insert(m);\n        if (primes.size() == size) break;\n\
+    \    };\n\n    return vector<long long>(primes.begin(), primes.end());\n}\nstatic\
+    \ vector<long long> mods = set_mod();\n\nstruct ModHash {\n    vector<long long>\
+    \ hash;\n    size_t size;\n\n    ModHash() : hash(mods.size()), size(mods.size())\
+    \ {}\n    ModHash(long long N) : hash(mods.size()), size(mods.size()) {construct(N);}\n\
+    \    ModHash(string S) : hash(mods.size()), size(mods.size()) { construct(S);}\n\
+    \n    void construct(long long N) {\n        rep(i, size) hash[i] = N % mods[i];\n\
+    \    }\n\n    void construct(string S) {\n        rep(i, size) {\n           \
+    \ fore(c, S) {\n                hash[i] *= 10;\n                hash[i] += c -\
+    \ '0';\n                hash[i] %= mods[i];\n            }\n        }\n    }\n\
+    \    \n    ModHash operator + (const ModHash& r) const noexcept { return ModHash(*this)\
+    \ += r; }\n    ModHash operator - (const ModHash& r) const noexcept { return ModHash(*this)\
+    \ -= r; }\n    ModHash operator * (const ModHash& r) const noexcept { return ModHash(*this)\
+    \ *= r; }\n    ModHash operator / (const ModHash& r) const noexcept { return ModHash(*this)\
+    \ /= r; }\n    ModHash& operator += (const ModHash& r) noexcept {\n        rep(i,\
+    \ size) {\n            hash[i] += r.hash[i];\n            if (hash[i] >= mods[i])\
+    \ hash[i] -= mods[i];\n        }\n        return *this;\n    }\n    constexpr\
+    \ ModHash& operator -= (const ModHash& r) noexcept {\n        rep(i, size) {\n\
+    \            hash[i] -= r.hash[i];\n            if (hash[i] < 0) hash[i] += mods[i];\n\
+    \        }\n        return *this;\n    }\n    constexpr ModHash& operator *= (const\
+    \ ModHash& r) noexcept {\n        rep(i, size) {\n            hash[i] = hash[i]\
+    \ * r.hash[i] % mods[i];\n        }\n        return *this;\n    }\n    constexpr\
+    \ ModHash& operator /= (const ModHash& r) noexcept {\n        rep(i, size) {\n\
+    \            hash[i] = hash[i] * r.hash[i] % mods[i];\n            long long a\
+    \ = r.hash[i], b = mods[i], u = 1, v = 0;\n\n            while (b) {\n       \
+    \         long long t = a / b;\n                a -= t * b; swap(a, b);\n    \
+    \            u -= t * v; swap(u, v);\n            }\n\n            hash[i] = hash[i]\
+    \ * u % mods[i];\n            if (hash[i] < 0) hash[i] += mods[i];\n        }\n\
+    \n        return *this;\n    }\n    constexpr bool operator == (const ModHash&\
+    \ r) const noexcept {\n        bool ret = true;\n        rep(i, size) {\n    \
+    \        ret &= (hash[i] == r.hash[i]);\n        }\n        return ret;\n    }\n\
+    \    constexpr bool operator != (const ModHash& r) const noexcept {\n        bool\
+    \ ret = false;\n        rep(i, size) {\n            ret |= (hash[i] != r.hash[i]);\n\
+    \        }\n        return ret;\n    }\n    constexpr bool operator< (const ModHash\
+    \ &r) const noexcept {\n        rep(i, size - 1) {\n            if (hash[i] ==\
+    \ r.hash[i]) continue;\n            return hash[i] < r.hash[i];\n        }\n\n\
+    \        return hash[size - 1] < r.hash[size - 1];\n    }\n};\n#line 3 \"mystd/mymultiset.cpp\"\
+    \n\ntemplate <typename T, typename S = long long>\nstruct MultiSet : public map<T,\
+    \ S> {\n    S N;\n    using mp = map<T, S>;\n\n    explicit MultiSet() : N(0)\
+    \ {};\n\n    S insert(T x, S n = 1) {\n        N += n;\n        return (*this)[x]\
+    \ += n;\n    }\n\n    S erase(T x, S n = 1) {\n        if (!mp::contains(x)) return\
+    \ 0;\n        \n        chmin(n, (*this)[x]);\n        N -= n;\n        (*this)[x]\
+    \ -= n;\n\n        if ((*this)[x] == 0) {\n            mp::erase(x);\n       \
+    \     return 0;\n        }\n        else {\n            return (*this)[x];\n \
+    \       }\n    }\n\n    void erase_all(T x) {\n        N -= (*this)[x];\n    \
+    \    mp::erase(x);\n    }\n\n    T front() {\n        return mp::begin()->first;\n\
+    \    }\n\n    T back() {\n        return mp::rbegin()->first;\n    }\n\n    void\
+    \ pop() {\n        erase(front());\n    }\n\n    void pop_back() {\n        erase(back());\n\
     \    }\n\n    S count_all() {\n        return N;\n    }\n\n    S count(T x) {\n\
     \        if (!mp::contains(x)) return 0;\n        return (*this)[x];\n    }\n\n\
     \    // \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\
@@ -427,56 +463,35 @@ data:
     \u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u30E1\u30BD\u30C3\u30C9, \u306A\
     \u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\n    typename mp::iterator find_less_than(T\
     \ key) {\n        auto it = mp::lower_bound(key);\n        return it == mp::begin()\
-    \ ? mp::end() : --it;\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T, typename\
-    \ S = long long>\nstruct MultiSet : public map<T, S> {\n    S N;\n    using mp\
-    \ = map<T, S>;\n\n    explicit MultiSet() : N(0) {};\n\n    S insert(T x, S n\
-    \ = 1) {\n        N += n;\n        return (*this)[x] += n;\n    }\n\n    S erase(T\
-    \ x, S n = 1) {\n        if (!mp::contains(x)) return 0;\n        \n        chmin(n,\
-    \ (*this)[x]);\n        N -= n;\n        (*this)[x] -= n;\n\n        if ((*this)[x]\
-    \ == 0) {\n            mp::erase(x);\n            return 0;\n        }\n     \
-    \   else {\n            return (*this)[x];\n        }\n    }\n\n    void erase_all(T\
-    \ x) {\n        N -= (*this)[x];\n        mp::erase(x);\n    }\n\n    T front()\
-    \ {\n        return mp::begin()->first;\n    }\n\n    T back() {\n        return\
-    \ mp::rbegin()->first;\n    }\n\n    void pop() {\n        erase(front());\n \
-    \   }\n\n    void pop_back() {\n        erase(back());\n    }\n\n    S count_all()\
-    \ {\n        return N;\n    }\n\n    S count(T x) {\n        if (!mp::contains(x))\
-    \ return 0;\n        return (*this)[x];\n    }\n\n    // \u30AD\u30FC\u4EE5\u4E0A\
-    \u306E\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
-    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u30E1\u30BD\u30C3\u30C9\n    typename mp::iterator\
-    \ find_greater_than_or_equal(T key) {\n        return mp::lower_bound(key);\n\
-    \    }\n\n    // \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\u5C0F\u306E\u8981\u7D20\
-    \u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\
-    \u30E1\u30BD\u30C3\u30C9\n    typename mp::iterator find_greater_than(T key) {\n\
-    \        return mp::upper_bound(key);\n    }\n\n    // \u30AD\u30FC\u4EE5\u4E0B\
-    \u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
-    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u30E1\u30BD\u30C3\u30C9, \u306A\u3044\u5834\
-    \u5408\u306Fend\u3092\u8FD4\u3059\n    typename mp::iterator find_less_than_or_equal(T\
-    \ key) {\n        auto it = mp::upper_bound(key);\n        return it == mp::begin()\
-    \ ? mp::end() : --it;\n    }\n\n    // \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\
-    \u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\
-    \u3092\u8FD4\u3059\u30E1\u30BD\u30C3\u30C9, \u306A\u3044\u5834\u5408\u306Fend\u3092\
-    \u8FD4\u3059\n    typename mp::iterator find_less_than(T key) {\n        auto\
-    \ it = mp::lower_bound(key);\n        return it == mp::begin() ? mp::end() : --it;\n\
-    \    }\n};"
+    \ ? mp::end() : --it;\n    }\n};\n#line 5 \"test/hash/mod-hash/atcoder-abc339-e.test.cpp\"\
+    \n\nint main() {\n   ll N;\n    cin >> N;\n\n    vector<string> A(N);\n    rep(i,\
+    \ N) cin >> A[i];\n\n    MultiSet<ModHash> ms;\n\n    vector<ModHash> B;\n   \
+    \ rep(i, N) {\n        ModHash mh(A[i]);\n        ms.insert(mh);\n        B.push_back(mh);\n\
+    \    }\n\n    ll ans = 0;\n    rep(i, N) rep(j, N) {\n        ModHash mh = B[i]\
+    \ * B[j];\n        ans += ms.count(mh);\n    }\n\n    cout << ans << endl;\n\n\
+    \    return 0;\n} \n"
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc339/tasks/abc339_f\"\n\n\
+    #include \"../../../hash/mod-hash.cpp\"\n#include \"../../../mystd/mymultiset.cpp\"\
+    \n\nint main() {\n   ll N;\n    cin >> N;\n\n    vector<string> A(N);\n    rep(i,\
+    \ N) cin >> A[i];\n\n    MultiSet<ModHash> ms;\n\n    vector<ModHash> B;\n   \
+    \ rep(i, N) {\n        ModHash mh(A[i]);\n        ms.insert(mh);\n        B.push_back(mh);\n\
+    \    }\n\n    ll ans = 0;\n    rep(i, N) rep(j, N) {\n        ModHash mh = B[i]\
+    \ * B[j];\n        ans += ms.count(mh);\n    }\n\n    cout << ans << endl;\n\n\
+    \    return 0;\n} "
   dependsOn:
+  - hash/mod-hash.cpp
   - base.cpp
-  isVerificationFile: false
-  path: mystd/mymultiset.cpp
+  - mystd/mymultiset.cpp
+  isVerificationFile: true
+  path: test/hash/mod-hash/atcoder-abc339-e.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - test/string/rolling-hash/atcoder-abc353-e.test.cpp
-  - test/hash/mod-hash/atcoder-abc339-e.test.cpp
-  - test/other/range-set/atocoder-abc330-e.test.cpp
-  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-  - test/mystd/mymultiset/aoj-itp2-7-d.test.cpp
-  - test/mystd/mymultiset/atcoder-abc358-d.test.cpp
-documentation_of: mystd/mymultiset.cpp
+  timestamp: '2024-08-18 03:50:00+09:00'
+  verificationStatus: TEST_ACCEPTED
+  verifiedWith: []
+documentation_of: test/hash/mod-hash/atcoder-abc339-e.test.cpp
 layout: document
 redirect_from:
-- /library/mystd/mymultiset.cpp
-- /library/mystd/mymultiset.cpp.html
-title: mystd/mymultiset.cpp
+- /verify/test/hash/mod-hash/atcoder-abc339-e.test.cpp
+- /verify/test/hash/mod-hash/atcoder-abc339-e.test.cpp.html
+title: test/hash/mod-hash/atcoder-abc339-e.test.cpp
 ---

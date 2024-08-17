@@ -51,6 +51,9 @@ data:
     path: grid/grid-unionfind.cpp
     title: grid/grid-unionfind.cpp
   - icon: ':heavy_check_mark:'
+    path: hash/mod-hash.cpp
+    title: hash/mod-hash.cpp
+  - icon: ':heavy_check_mark:'
     path: hash/zobrist-multiset.cpp
     title: hash/zobrist-multiset.cpp
   - icon: ':heavy_check_mark:'
@@ -351,6 +354,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
     title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/hash/mod-hash/atcoder-abc339-e.test.cpp
+    title: test/hash/mod-hash/atcoder-abc339-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
     title: test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
@@ -1542,6 +1548,7 @@ data:
   - grid/grid-unionfind.cpp
   - hash/zobrist-set.cpp
   - hash/zobrist-multiset.cpp
+  - hash/mod-hash.cpp
   - math/prime-factorization.cpp
   - math/permutation.cpp
   - math/modint.cpp
@@ -1644,6 +1651,7 @@ data:
   - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/hash/mod-hash/atcoder-abc339-e.test.cpp
   - test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
   - test/hash/zobrist-set/atcoder-abc250-e.test.cpp
   - test/math/combination/atcoder-abc172-e.test.cpp

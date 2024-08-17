@@ -63,6 +63,9 @@ data:
   - name: hash
     pages:
     - icon: ':heavy_check_mark:'
+      path: hash/mod-hash.cpp
+      title: hash/mod-hash.cpp
+    - icon: ':heavy_check_mark:'
       path: hash/zobrist-multiset.cpp
       title: hash/zobrist-multiset.cpp
     - icon: ':heavy_check_mark:'
@@ -413,6 +416,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
       title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - name: test/hash/mod-hash
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/hash/mod-hash/atcoder-abc339-e.test.cpp
+      title: test/hash/mod-hash/atcoder-abc339-e.test.cpp
   - name: test/hash/zobrist-multiset
     pages:
     - icon: ':heavy_check_mark:'
