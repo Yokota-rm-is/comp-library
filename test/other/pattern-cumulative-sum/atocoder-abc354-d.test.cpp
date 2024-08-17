@@ -1,4 +1,3 @@
-#define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc354/tasks/abc354_d"
 
 #include "../../../other/pattern-cumulative-sum.cpp"

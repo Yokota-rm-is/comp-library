@@ -1,4 +1,3 @@
-#define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc353/tasks/abc353_e"
 // https://atcoder.jp/contests/abc353/submissions/53397052
 
