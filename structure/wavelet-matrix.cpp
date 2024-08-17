@@ -481,7 +481,8 @@ struct WaveletMatrix {
     }
 
     // v[l, r)で頻度が高い順にk個の(値，頻度)を返す
-    // 計算量: O(min(r - l, k)log(bit_size)
+    // 計算量: O(min(r - l, k)log(bit_size) * {priority_queueのlog})
+    // priority_queueのlogが重そう
     vector<pair<T, ull>> top_k(ull l, ull r, ull k) {
         // (頻度，深さ，値)の順でソート
         auto comp = [](const tuple<ull, ull, ull, ull, T> &left, const tuple<ull, ull, ull, ull, T> &right) {
@@ -489,7 +490,7 @@ struct WaveletMatrix {
             if (get<0>(left) != get<0>(right)) {
                 return get<0>(left) < get<0>(right);
             }
-            // height
+            // depth
             if (get<3>(left) != get<3>(right)) {
                 return get<3>(left) > get<3>(right);
             }
@@ -504,31 +505,9 @@ struct WaveletMatrix {
     }
 
     // v[l, r)で値が大きい順にk個の(値，頻度)を返す
-    // 計算量: O(min(r - l, k)log(bit_size)
+    // 計算量: O(min(r - l, k)log(bit_size) * {priority_queueのlog})
+    // priority_queueのlogが重そう
     vector<pair<T, ull>> max_k(ull l, ull r, ull k) {
-        // (値，頻度)の順でソート
-        auto comp = [](const tuple<ull, ull, ull, ull, T> &left, const tuple<ull, ull, ull, ull, T> &right) {
-            // value
-            if (get<4>(left) != get<4>(right)) {
-                return get<4>(left) > get<4>(right);
-            }
-            // width
-            if (get<0>(left) != get<0>(right)) {
-                return get<0>(left) < get<0>(right);
-            }
-            // height
-            if (get<3>(left) != get<3>(right)) {
-                return get<3>(left) > get<3>(right);
-            }
-            return true;
-        };
-
-        return top_k(l, r, k, comp);
-    }
-
-    // v[l, r)で値が小さい順にk個の(値，頻度)を返す
-    // 計算量: O(min(r - l, k)log(bit_size)
-    vector<pair<T, ull>> min_k(ull l, ull r, ull k) {
         // (値，頻度)の順でソート
         auto comp = [](const tuple<ull, ull, ull, ull, T> &left, const tuple<ull, ull, ull, ull, T> &right) {
             // value
@@ -539,7 +518,31 @@ struct WaveletMatrix {
             if (get<0>(left) != get<0>(right)) {
                 return get<0>(left) < get<0>(right);
             }
-            // height
+            // depth
+            if (get<3>(left) != get<3>(right)) {
+                return get<3>(left) > get<3>(right);
+            }
+            return true;
+        };
+
+        return top_k(l, r, k, comp);
+    }
+
+    // v[l, r)で値が小さい順にk個の(値，頻度)を返す
+    // 計算量: O(min(r - l, k)log(bit_size) * {priority_queueのlog})
+    // priority_queueのlogが重そう
+    vector<pair<T, ull>> min_k(ull l, ull r, ull k) {
+        // (値，頻度)の順でソート
+        auto comp = [](const tuple<ull, ull, ull, ull, T> &left, const tuple<ull, ull, ull, ull, T> &right) {
+            // value
+            if (get<4>(left) != get<4>(right)) {
+                return get<4>(left) > get<4>(right);
+            }
+            // width
+            if (get<0>(left) != get<0>(right)) {
+                return get<0>(left) < get<0>(right);
+            }
+            // depth
             if (get<3>(left) != get<3>(right)) {
                 return get<3>(left) > get<3>(right);
             }
@@ -551,39 +554,42 @@ struct WaveletMatrix {
 
     // T[l, r)で出現回数が多い順にk個の(値，頻度)を返す
     // 頻度が同じ場合は値が小さいものが優先される
-    // 計算量: O(min(r - l, k)log(bit_size)
+    // 計算量: O(min(r - l, k)log(bit_size) * {priority_queueのlog})
+    // priority_queueのlogが重そう
     vector<pair<T, ull>> top_k(ull l, ull r, ull k, auto comp) {
         assert(l <= r and r <= N);
         vector<pair<T, ull>> result;
 
         priority_queue<tuple<ull, ull, ull, ull, T>, vector<tuple<ull, ull, ull, ull, T>>, decltype(comp)> que(comp);  // width, height, value, left, right
-        que.emplace(r - l, l, r, bit_size - 1, 0);
+        que.emplace(r - l, l, r, 0, 0);
 
         while (!que.empty()) {
             auto element = que.top(); que.pop();
-            ull width, left, right, height;
+            ull width, left, right, depth;
             T value;
-            tie(width, left, right, height, value) = element;
+            tie(width, left, right, depth, value) = element;
 
-            if (height == 0) {
+            if (depth >= bit_size) {
                 result.emplace_back(value, right - left);
                 if (result.size() >= k) break;
                 
                 continue;
             }
 
+            ull height = bit_size - depth - 1;
+
             // 0
             const ull left0 = bit_vectors[height].rank(0, left);
             const ull right0 = bit_vectors[height].rank(0, right);
             if (left0 < right0) {
-                que.emplace(right0 - left0, left0, right0, height - 1, value);
+                que.emplace(right0 - left0, left0, right0, depth + 1, value);
             }
 
             // 1
             const ull left1 = bit_vectors[height].zeros + bit_vectors[height].rank(1, left);
             const ull right1 = bit_vectors[height].zeros + bit_vectors[height].rank(1, right);
             if (left1 < right1) {
-                que.emplace(right1 - left1, left1, right1, height - 1, value | (1ull << height));
+                que.emplace(right1 - left1, left1, right1, depth + 1, value | (1ull << height));
             }
         }
 
@@ -591,7 +597,8 @@ struct WaveletMatrix {
     };
 
     // T[l, r)で出現回数が多い順にk個の(値，頻度)の和を返す
-    // 計算量: O(min(r - l, k)log(bit_size)
+    // 計算量: O(min(r - l, k)log(bit_size) * {priority_queueのlog})
+    // priority_queueのlogが重そう
     T sum_top_k(ull l, ull r, ull k) {
         assert(l <= r and r <= N);
         assert(k <= r - l);
