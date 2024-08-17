@@ -493,47 +493,47 @@ data:
     \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
     \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
     \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    Coordinate start\
-    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
-    \ / 2;\n\n    long long cc_size;\n\n    GridUnionFind(long long n) : H(n), W(n),\
-    \ field(n, n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long\
-    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
-    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
-    \     after_input();\n    };\n\n    void init() {\n        cc_size = H * W;\n\
-    \        par.assign(H, W, {-1, -1});\n        size.assign(H, W, 1);\n\n      \
-    \  rep(y, H) rep(x, W) par(y, x) = {y, x};\n    }\n\n    void input() {\n    \
-    \    rep(y, H) cin >> field[y];\n        after_input();\n    }\n\n    void after_input()\
-    \ {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\n    \
-    \        char c = field(now);\n            if (c >= 'A' and c <= 'Z') c = c -\
-    \ 'A' + 'a';\n            if (c == s)  start = Coordinate(y, x);\n           \
-    \ if (c == g or c == t) goal = Coordinate(y, x);\n\n            if (field.is_obj(now))\
-    \ {\n                size(now) = 0;\n                par(now) = {-1, -1};\n  \
-    \              continue;\n            }\n\n            rep(i, dirs.size()) {\n\
-    \                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
-    \ continue;\n                if (field.is_obj(next)) continue;\n\n           \
-    \     unite(now, next);\n            }\n        }\n    }\n\n    long long to_index(Coordinate&\
-    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
-    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
-    \   Coordinate find(Coordinate x) {\n        if (par(x) == x) return x;\n\n  \
-    \      Coordinate rx = find(par(x));\n        return par(x) = rx;\n    }\n\n \
-    \   // x\u3068y\u3092\u9023\u7D50\n    bool unite(Coordinate x, Coordinate y)\
-    \ {\n        Coordinate rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate\
-    \ ry = find(y); //y\u306E\u6839\u3092ry\n\n        if (rx == ry) return false;\n\
-    \n        --cc_size;\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\
-    \n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
-    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (size(rx) < size(ry))\
-    \ {\n            swap(rx, ry);\n        }\n\n        size(rx) += size(ry); //\
-    \ rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par(ry) = rx; //x\u3068\
-    y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\
-    \u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\
-    \n\n        return true;\n    }\n\n    bool is_same(Coordinate x, Coordinate y)\
-    \ { \n        return find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n\
-    \        assert(start != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n\
-    \        return find(start) == find(goal);\n    }\n\n    bool operator== (GridUnionFind\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridUnionFind& grid) {\n\
-    \        return os << grid.field << endl;\n    }\n};\n"
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n\n    long long cc_size;\n\
+    \n    GridUnionFind(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
+    \    };\n\n    GridUnionFind(long long h, long long w) : H(h), W(w), field(h,\
+    \ w) {\n        init();\n    };\n\n    GridUnionFind(vector<string> vs) : H(vs.size()),\
+    \ W(vs.front().size()), field(vs) {\n        init();\n        after_input();\n\
+    \    };\n\n    void init() {\n        cc_size = H * W;\n        par.assign(H,\
+    \ W, {-1, -1});\n        size.assign(H, W, 1);\n\n        rep(y, H) rep(x, W)\
+    \ par(y, x) = {y, x};\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n\
+    \        after_input();\n    }\n\n    void after_input() {\n        rep(y, H)\
+    \ rep(x, W) {\n            Coordinate now(y, x);\n\n            char c = field(now);\n\
+    \            if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n            if (c\
+    \ == s)  start = Coordinate(y, x);\n            if (c == g or c == t) goal = Coordinate(y,\
+    \ x);\n\n            if (field.is_obj(now)) {\n                size(now) = 0;\n\
+    \                par(now) = {-1, -1};\n                continue;\n           \
+    \ }\n\n            rep(i, dirs.size()) {\n                Coordinate next = now\
+    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
+    \      if (field.is_obj(next)) continue;\n\n                unite(now, next);\n\
+    \            }\n        }\n    }\n\n    long long to_index(Coordinate& p) {\n\
+    \        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long\
+    \ index) {\n        return Coordinate(index / W, index % W);\n    }\n\n    Coordinate\
+    \ find(Coordinate x) {\n        if (par(x) == x) return x;\n\n        Coordinate\
+    \ rx = find(par(x));\n        return par(x) = rx;\n    }\n\n    // x\u3068y\u3092\
+    \u9023\u7D50\n    bool unite(Coordinate x, Coordinate y) {\n        Coordinate\
+    \ rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate ry = find(y); //y\u306E\
+    \u6839\u3092ry\n\n        if (rx == ry) return false;\n\n        --cc_size;\n\n\
+    \        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\
+    \u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\
+    \u5165\u308C\u66FF\u3048\u308B\n        if (size(rx) < size(ry)) {\n         \
+    \   swap(rx, ry);\n        }\n\n        size(rx) += size(ry); // rx\u306E\u30B5\
+    \u30A4\u30BA\u3092\u5909\u66F4\n        par(ry) = rx; //x\u3068y\u306E\u6839\u304C\
+    \u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1A\
+    y\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n\n        return\
+    \ true;\n    }\n\n    bool is_same(Coordinate x, Coordinate y) { \n        return\
+    \ find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n        assert(start\
+    \ != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n        return find(start)\
+    \ == find(goal);\n    }\n\n    bool operator== (GridUnionFind &other) {\n    \
+    \    if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
+    \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
+    \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, GridUnionFind& grid) {\n        return os << grid.field\
+    \ << endl;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\nstruct Coordinate {\n    long long\
     \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
     \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
@@ -641,53 +641,53 @@ data:
     \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
     \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
     \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    Coordinate start\
-    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf = INF64\
-    \ / 2;\n\n    long long cc_size;\n\n    GridUnionFind(long long n) : H(n), W(n),\
-    \ field(n, n) {\n        init();\n    };\n\n    GridUnionFind(long long h, long\
-    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridUnionFind(vector<string>\
-    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
-    \     after_input();\n    };\n\n    void init() {\n        cc_size = H * W;\n\
-    \        par.assign(H, W, {-1, -1});\n        size.assign(H, W, 1);\n\n      \
-    \  rep(y, H) rep(x, W) par(y, x) = {y, x};\n    }\n\n    void input() {\n    \
-    \    rep(y, H) cin >> field[y];\n        after_input();\n    }\n\n    void after_input()\
-    \ {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\n    \
-    \        char c = field(now);\n            if (c >= 'A' and c <= 'Z') c = c -\
-    \ 'A' + 'a';\n            if (c == s)  start = Coordinate(y, x);\n           \
-    \ if (c == g or c == t) goal = Coordinate(y, x);\n\n            if (field.is_obj(now))\
-    \ {\n                size(now) = 0;\n                par(now) = {-1, -1};\n  \
-    \              continue;\n            }\n\n            rep(i, dirs.size()) {\n\
-    \                Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
-    \ continue;\n                if (field.is_obj(next)) continue;\n\n           \
-    \     unite(now, next);\n            }\n        }\n    }\n\n    long long to_index(Coordinate&\
-    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
-    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
-    \   Coordinate find(Coordinate x) {\n        if (par(x) == x) return x;\n\n  \
-    \      Coordinate rx = find(par(x));\n        return par(x) = rx;\n    }\n\n \
-    \   // x\u3068y\u3092\u9023\u7D50\n    bool unite(Coordinate x, Coordinate y)\
-    \ {\n        Coordinate rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate\
-    \ ry = find(y); //y\u306E\u6839\u3092ry\n\n        if (rx == ry) return false;\n\
-    \n        --cc_size;\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\
-    \n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
-    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (size(rx) < size(ry))\
-    \ {\n            swap(rx, ry);\n        }\n\n        size(rx) += size(ry); //\
-    \ rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par(ry) = rx; //x\u3068\
-    y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\
-    \u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\
-    \n\n        return true;\n    }\n\n    bool is_same(Coordinate x, Coordinate y)\
-    \ { \n        return find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n\
-    \        assert(start != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n\
-    \        return find(start) == find(goal);\n    }\n\n    bool operator== (GridUnionFind\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridUnionFind& grid) {\n\
-    \        return os << grid.field << endl;\n    }\n};"
+    \ = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n\n    long long cc_size;\n\
+    \n    GridUnionFind(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
+    \    };\n\n    GridUnionFind(long long h, long long w) : H(h), W(w), field(h,\
+    \ w) {\n        init();\n    };\n\n    GridUnionFind(vector<string> vs) : H(vs.size()),\
+    \ W(vs.front().size()), field(vs) {\n        init();\n        after_input();\n\
+    \    };\n\n    void init() {\n        cc_size = H * W;\n        par.assign(H,\
+    \ W, {-1, -1});\n        size.assign(H, W, 1);\n\n        rep(y, H) rep(x, W)\
+    \ par(y, x) = {y, x};\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n\
+    \        after_input();\n    }\n\n    void after_input() {\n        rep(y, H)\
+    \ rep(x, W) {\n            Coordinate now(y, x);\n\n            char c = field(now);\n\
+    \            if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n            if (c\
+    \ == s)  start = Coordinate(y, x);\n            if (c == g or c == t) goal = Coordinate(y,\
+    \ x);\n\n            if (field.is_obj(now)) {\n                size(now) = 0;\n\
+    \                par(now) = {-1, -1};\n                continue;\n           \
+    \ }\n\n            rep(i, dirs.size()) {\n                Coordinate next = now\
+    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
+    \      if (field.is_obj(next)) continue;\n\n                unite(now, next);\n\
+    \            }\n        }\n    }\n\n    long long to_index(Coordinate& p) {\n\
+    \        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long\
+    \ index) {\n        return Coordinate(index / W, index % W);\n    }\n\n    Coordinate\
+    \ find(Coordinate x) {\n        if (par(x) == x) return x;\n\n        Coordinate\
+    \ rx = find(par(x));\n        return par(x) = rx;\n    }\n\n    // x\u3068y\u3092\
+    \u9023\u7D50\n    bool unite(Coordinate x, Coordinate y) {\n        Coordinate\
+    \ rx = find(x); //x\u306E\u6839\u3092rx\n        Coordinate ry = find(y); //y\u306E\
+    \u6839\u3092ry\n\n        if (rx == ry) return false;\n\n        --cc_size;\n\n\
+    \        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\
+    \u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\
+    \u5165\u308C\u66FF\u3048\u308B\n        if (size(rx) < size(ry)) {\n         \
+    \   swap(rx, ry);\n        }\n\n        size(rx) += size(ry); // rx\u306E\u30B5\
+    \u30A4\u30BA\u3092\u5909\u66F4\n        par(ry) = rx; //x\u3068y\u306E\u6839\u304C\
+    \u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1A\
+    y\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n\n        return\
+    \ true;\n    }\n\n    bool is_same(Coordinate x, Coordinate y) { \n        return\
+    \ find(x) == find(y);\n    }\n\n    bool can_reach_goal() {\n        assert(start\
+    \ != Coordinate(-1, -1) and goal != Coordinate(-1, -1));\n        return find(start)\
+    \ == find(goal);\n    }\n\n    bool operator== (GridUnionFind &other) {\n    \
+    \    if (H != other.H or W != other.W) return false;\n\n        rep(y, min(H,\
+    \ other.H)) rep(x, min(W, other.W)) {\n            if (field(y, x) != other.field(y,\
+    \ x)) return false;\n        }\n\n        return true;\n    }\n\n    friend ostream&\
+    \ operator << (ostream &os, GridUnionFind& grid) {\n        return os << grid.field\
+    \ << endl;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: grid/grid-unionfind.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-18 02:43:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp

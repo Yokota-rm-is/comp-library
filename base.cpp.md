@@ -12,6 +12,9 @@ data:
     path: graph/bfs.cpp
     title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
   - icon: ':heavy_check_mark:'
+    path: graph/bfs01.cpp
+    title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
+  - icon: ':heavy_check_mark:'
     path: graph/dfs.cpp
     title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
   - icon: ':heavy_check_mark:'
@@ -47,6 +50,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: grid/grid-unionfind.cpp
     title: grid/grid-unionfind.cpp
+  - icon: ':heavy_check_mark:'
+    path: hash/zobrist-multiset.cpp
+    title: hash/zobrist-multiset.cpp
+  - icon: ':heavy_check_mark:'
+    path: hash/zobrist-set.cpp
+    title: hash/zobrist-set.cpp
   - icon: ':warning:'
     path: heuristic/timer.cpp
     title: heuristic/timer.cpp
@@ -90,8 +99,17 @@ data:
     path: other/baseset.cpp
     title: other/baseset.cpp
   - icon: ':heavy_check_mark:'
+    path: other/compressor.cpp
+    title: other/compressor.cpp
+  - icon: ':heavy_check_mark:'
     path: other/cumulative-sum.cpp
     title: other/cumulative-sum.cpp
+  - icon: ':heavy_check_mark:'
+    path: other/custom-baseset.cpp
+    title: other/custom-baseset.cpp
+  - icon: ':heavy_check_mark:'
+    path: other/doubling.cpp
+    title: other/doubling.cpp
   - icon: ':heavy_check_mark:'
     path: other/next-combination.cpp
     title: other/next-combination.cpp
@@ -128,12 +146,27 @@ data:
   - icon: ':heavy_check_mark:'
     path: string/trie-tree.cpp
     title: string/trie-tree.cpp
+  - icon: ':warning:'
+    path: structure/binary-indexed-tree-2d.cpp
+    title: structure/binary-indexed-tree-2d.cpp
   - icon: ':heavy_check_mark:'
     path: structure/binary-indexed-tree.cpp
     title: structure/binary-indexed-tree.cpp
   - icon: ':heavy_check_mark:'
+    path: structure/bit-on-wavelet-matrix.cpp
+    title: structure/bit-on-wavelet-matrix.cpp
+  - icon: ':heavy_check_mark:'
     path: structure/dual-segment-tree.cpp
     title: structure/dual-segment-tree.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/dynamic-binary-indexed-tree-2d.cpp
+    title: structure/dynamic-binary-indexed-tree-2d.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/dynamic-binary-indexed-tree.cpp
+    title: structure/dynamic-binary-indexed-tree.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/dynamic-wavelet-matrix.cpp
+    title: structure/dynamic-wavelet-matrix.cpp
   - icon: ':warning:'
     path: structure/empty-sqrt-decomposition.cpp
     title: structure/empty-sqrt-decomposition.cpp
@@ -147,8 +180,14 @@ data:
     path: structure/segment-tree-beats.cpp
     title: structure/segment-tree-beats.cpp
   - icon: ':heavy_check_mark:'
+    path: structure/segment-tree-on-wavelet-matrix.cpp
+    title: structure/segment-tree-on-wavelet-matrix.cpp
+  - icon: ':heavy_check_mark:'
     path: structure/segment-tree.cpp
     title: structure/segment-tree.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/semi-dynamic-wavelet-matrix.cpp
+    title: structure/semi-dynamic-wavelet-matrix.cpp
   - icon: ':heavy_check_mark:'
     path: structure/sparse-table.cpp
     title: structure/sparse-table.cpp
@@ -159,11 +198,17 @@ data:
     path: structure/sqrt-decomposition.cpp
     title: structure/sqrt-decomposition.cpp
   - icon: ':heavy_check_mark:'
+    path: structure/static-range-mode-query.cpp
+    title: structure/static-range-mode-query.cpp
+  - icon: ':heavy_check_mark:'
     path: structure/undo-unionfind.cpp
     title: structure/undo-unionfind.cpp
   - icon: ':heavy_check_mark:'
     path: structure/unionfind.cpp
     title: structure/unionfind.cpp
+  - icon: ':heavy_check_mark:'
+    path: structure/wavelet-matrix.cpp
+    title: structure/wavelet-matrix.cpp
   - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
@@ -204,6 +249,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/bfs/atcoder-abc284-c.test.cpp
     title: test/graph/bfs/atcoder-abc284-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/graph/bfs01/atcoder-abc176-d.test.cpp
+    title: test/graph/bfs01/atcoder-abc176-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
@@ -274,6 +322,9 @@ data:
     path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/grid/grid-bfs/atcoder-abc176-d.test.cpp
+    title: test/grid/grid-bfs/atcoder-abc176-d.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
     title: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -300,6 +351,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
     title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
+    title: test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/hash/zobrist-set/atcoder-abc250-e.test.cpp
+    title: test/hash/zobrist-set/atcoder-abc250-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/math/combination/atcoder-abc172-e.test.cpp
     title: test/math/combination/atcoder-abc172-e.test.cpp
@@ -352,6 +409,9 @@ data:
     path: test/other/compress/atcoder-abc113-c.test.cpp
     title: test/other/compress/atcoder-abc113-c.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/other/compressor/atcoder-abc113-c.test.cpp
+    title: test/other/compressor/atcoder-abc113-c.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
     title: test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   - icon: ':heavy_check_mark:'
@@ -360,6 +420,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
     title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/custom-baseset/atcoder-abc322-e.test.cpp
+    title: test/other/custom-baseset/atcoder-abc322-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/custom-baseset/atcoder-abc367-c.test.cpp
+    title: test/other/custom-baseset/atcoder-abc367-c.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/doubling/atcoder-abc167-d.test.cpp
+    title: test/other/doubling/atcoder-abc167-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/other/doubling/atcoder-abc367-e.test.cpp
+    title: test/other/doubling/atcoder-abc367-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/other/next-combination/atocoder-abc328-e.test.cpp
     title: test/other/next-combination/atocoder-abc328-e.test.cpp
@@ -400,6 +472,9 @@ data:
     path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
     title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
+    title: test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
     title: test/string/rolling-hash/atcoder-abc324-c.test.cpp
   - icon: ':heavy_check_mark:'
@@ -417,6 +492,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
     title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
+    title: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
     title: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
@@ -439,11 +517,44 @@ data:
     path: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
     title: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+    title: test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+    title: test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+    title: test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
     title: test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
     title: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-binary-indexed-tree-2d/atcoder-abc339-g.test.cpp
+    title: test/structure/dynamic-binary-indexed-tree-2d/atcoder-abc339-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-binary-indexed-tree-2d/yosupo-point-add-rectangle-sum.test.cpp
+    title: test/structure/dynamic-binary-indexed-tree-2d/yosupo-point-add-rectangle-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-binary-indexed-tree/yukicoder-789.test.cpp
+    title: test/structure/dynamic-binary-indexed-tree/yukicoder-789.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-wavelet-matrix/aoj-1549.test.cpp
+    title: test/structure/dynamic-wavelet-matrix/aoj-1549.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+    title: test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+    title: test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+    title: test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+    title: test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/kruskal/aoj-grl-2-a.test.cpp
     title: test/structure/kruskal/aoj-grl-2-a.test.cpp
@@ -499,14 +610,80 @@ data:
     path: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
     title: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
+    title: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+    title: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+    title: test/structure/segment-tree-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+    title: test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
     title: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
     title: test/structure/segment-tree/aoj-dsl-2-b.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/structure/sparse-table/yosupo-static-rmq.test.cpp
     title: test/structure/sparse-table/yosupo-static-rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-a.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-b.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-d.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-d.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-e.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-f.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-f.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-g.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-h.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-h.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/splay-tree/aoj-dsl-2-i.test.cpp
+    title: test/structure/splay-tree/aoj-dsl-2-i.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
     title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
@@ -541,11 +718,41 @@ data:
     path: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/structure/static-range-mode-query/yosupo-static-range-mode-query.test.cpp
+    title: test/structure/static-range-mode-query/yosupo-static-range-mode-query.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
     title: test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
     title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/aoj-1549.test.cpp
+    title: test/structure/wavelet-matrix/aoj-1549.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
+    title: test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
+    title: test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+    title: test/structure/wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
+    title: test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+    title: test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
+    title: test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
+    title: test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: test/structure/wavelet-matrix/yukicoder-738.test.cpp
+    title: test/structure/wavelet-matrix/yukicoder-738.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
     title: test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
@@ -1320,6 +1527,7 @@ data:
   - graph/scc.cpp
   - graph/topological-sort.cpp
   - graph/psp.cpp
+  - graph/bfs01.cpp
   - graph/dfs.cpp
   - graph/bfs.cpp
   - graph/dijkstra.cpp
@@ -1332,6 +1540,8 @@ data:
   - grid/grid-bfs.cpp
   - grid/grid-dijkstra.cpp
   - grid/grid-unionfind.cpp
+  - hash/zobrist-set.cpp
+  - hash/zobrist-multiset.cpp
   - math/prime-factorization.cpp
   - math/permutation.cpp
   - math/modint.cpp
@@ -1343,24 +1553,36 @@ data:
   - search/memoization.cpp
   - search/n-zentansaku.cpp
   - other/baseset.cpp
+  - other/doubling.cpp
   - other/range-set.cpp
   - other/next-permutation.cpp
   - other/cumulative-sum.cpp
   - other/pattern-cumulative-sum.cpp
+  - other/compressor.cpp
   - other/next-combination.cpp
   - other/static-range-frequency.cpp
   - other/LIS.cpp
+  - other/custom-baseset.cpp
   - structure/binary-indexed-tree.cpp
   - structure/weighted-unionfind.cpp
   - structure/undo-unionfind.cpp
+  - structure/dynamic-binary-indexed-tree-2d.cpp
+  - structure/dynamic-wavelet-matrix.cpp
   - structure/empty-sqrt-decomposition.cpp
   - structure/unionfind.cpp
   - structure/splay-tree.cpp
   - structure/segment-tree.cpp
+  - structure/bit-on-wavelet-matrix.cpp
+  - structure/segment-tree-on-wavelet-matrix.cpp
   - structure/sparse-table.cpp
+  - structure/wavelet-matrix.cpp
+  - structure/binary-indexed-tree-2d.cpp
   - structure/kruskal.cpp
+  - structure/dynamic-binary-indexed-tree.cpp
+  - structure/semi-dynamic-wavelet-matrix.cpp
   - structure/segment-tree-beats.cpp
   - structure/sqrt-decomposition.cpp
+  - structure/static-range-mode-query.cpp
   - structure/lazy-segment-tree.cpp
   - structure/dual-segment-tree.cpp
   - mystd/mytuple.cpp
@@ -1380,6 +1602,7 @@ data:
   - test/string/trie-tree/atcoder-abc353-e.test.cpp
   - test/string/rolling-hash/atcoder-abc324-c.test.cpp
   - test/string/rolling-hash/aoj-alds1-14-b.test.cpp
+  - test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
   - test/string/rolling-hash/atcoder-abc353-e.test.cpp
   - test/string/rolling-hash/atcoder-abc141-e.test.cpp
   - test/graph/flow/yukicoder-177.test.cpp
@@ -1403,12 +1626,14 @@ data:
   - test/graph/tsp/atcoder-abc190-e.test.cpp
   - test/graph/tsp/atcoder-abc180-e.test.cpp
   - test/graph/tsp/aoj-dpl-2-a.test.cpp
+  - test/graph/bfs01/atcoder-abc176-d.test.cpp
   - test/graph/dijkstra/aoj-grl-1-a.test.cpp
   - test/graph/dijkstra/atcoder-abc270-c.test.cpp
   - test/graph/warshall-floyd/aoj-grl-1-c.test.cpp
   - test/graph/scc/aoj-grl-3-c.test.cpp
   - test/dp/bitdp/atcoder-abc142-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc007-c.test.cpp
+  - test/grid/grid-bfs/atcoder-abc176-d.test.cpp
   - test/grid/grid-bfs/atcoder-arc005-c.test.cpp
   - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc151-d.test.cpp
@@ -1419,6 +1644,8 @@ data:
   - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp
+  - test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
+  - test/hash/zobrist-set/atcoder-abc250-e.test.cpp
   - test/math/combination/atcoder-abc172-e.test.cpp
   - test/math/combination/atcoder-abc358-e.test.cpp
   - test/math/eratosthenes/yukicoder-843.test.cpp
@@ -1433,11 +1660,16 @@ data:
   - test/search/memoization/atcoder-abc275-d.test.cpp
   - test/other/baseset/aoj-ALDS1-13-b.test.cpp
   - test/other/baseset/atcoder-abc322-e.test.cpp
+  - test/other/doubling/atcoder-abc167-d.test.cpp
+  - test/other/doubling/atcoder-abc367-e.test.cpp
+  - test/other/custom-baseset/atcoder-abc322-e.test.cpp
+  - test/other/custom-baseset/atcoder-abc367-c.test.cpp
   - test/other/range-set/atocoder-abc330-e.test.cpp
   - test/other/compress/atcoder-abc113-c.test.cpp
   - test/other/compress/atcoder-abc036-c.test.cpp
   - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
   - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
+  - test/other/compressor/atcoder-abc113-c.test.cpp
   - test/other/next-combination/atocoder-abc328-e.test.cpp
   - test/other/LIS/yosupo-longest-increasing-subsequence.test.cpp
   - test/other/LIS/aoj-DPL-1-d.test.cpp
@@ -1446,6 +1678,16 @@ data:
   - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
   - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
   - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - test/structure/dynamic-binary-indexed-tree/yukicoder-789.test.cpp
+  - test/structure/wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - test/structure/wavelet-matrix/aoj-1549.test.cpp
+  - test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
+  - test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
+  - test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
+  - test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+  - test/structure/wavelet-matrix/yukicoder-738.test.cpp
   - test/structure/segment-tree-beats/aoj-dsl-2-b.test.cpp
   - test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
   - test/structure/segment-tree-beats/aoj-dsl-2-i.test.cpp
@@ -1457,6 +1699,7 @@ data:
   - test/structure/segment-tree-beats/aoj-dsl-2-a.test.cpp
   - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
   - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/static-range-mode-query/yosupo-static-range-mode-query.test.cpp
   - test/structure/lazy-segment-tree/aoj-dsl-2-b.test.cpp
   - test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
   - test/structure/lazy-segment-tree/aoj-dsl-2-d.test.cpp
@@ -1465,17 +1708,50 @@ data:
   - test/structure/lazy-segment-tree/aoj-dsl-2-g.test.cpp
   - test/structure/lazy-segment-tree/aoj-dsl-2-h.test.cpp
   - test/structure/lazy-segment-tree/aoj-dsl-2-a.test.cpp
+  - test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - test/structure/dynamic-wavelet-matrix/aoj-1549.test.cpp
+  - test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
   - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+  - test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - test/structure/dynamic-binary-indexed-tree-2d/atcoder-abc339-g.test.cpp
+  - test/structure/dynamic-binary-indexed-tree-2d/yosupo-point-add-rectangle-sum.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-b.test.cpp
   - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-i.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-h.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-a.test.cpp
   - test/structure/sparse-table/yosupo-static-rmq.test.cpp
   - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
   - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
   - test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - test/structure/segment-tree-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+  - test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
   - test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
   - test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
   - test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
   - test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp

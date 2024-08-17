@@ -400,7 +400,7 @@ data:
     \u3066\u3001 A_i \u306E\u5024\u3092 x \u306B\u66F4\u65B0\n\ntemplate<typename\
     \ T>\nclass SegmentTreeBeats {\n    const T inf = 1e18;\n    int n, n0;\n\n  \
     \  vector<T> max_v, smax_v, max_c;\n    vector<T> min_v, smin_v, min_c;\n    vector<T>\
-    \ sum;\n    vll len;\n    vector<T> ladd, lval;\n\n    void update_node_max(int\
+    \ sum;\n    vector<long long> len;\n    vector<T> ladd, lval;\n\n    void update_node_max(int\
     \ k, T x) {\n        sum[k] += (x - max_v[k]) * max_c[k];\n\n        if (max_v[k]\
     \ == min_v[k]) { \n            max_v[k] = min_v[k] = x;\n        } \n        else\
     \ if (max_v[k] == smin_v[k]) {\n            max_v[k] = smin_v[k] = x;\n      \
@@ -537,7 +537,7 @@ data:
   isVerificationFile: true
   path: test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 16:03:32+09:00'
+  timestamp: '2024-08-17 04:55:13+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/segment-tree-beats/aoj-dsl-2-f.test.cpp

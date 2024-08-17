@@ -408,28 +408,28 @@ data:
     \        }\n        \n        if (r > _N) r -= _N;\n        \n        add(l, _N,\
     \ x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092\
     x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0 <= p and\
-    \ p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n    }\n\n    // \u534A\
-    \u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\
-    \n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n        return\
-    \ sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
-    \ r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
-    \ l, long long r) {\n        assert(0 <= l and l <= r and r <= _N);\n\n      \
-    \  if (l == r) return 0;\n        else return sum(r) - sum(l);\n    }\n\n    T\
-    \ sum_circular(long long l, long long r) {\n        assert(0 <= l and l <= _N\
-    \ and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) return sum(l,\
-    \ r);\n        \n        if (r > _N) r -= _N;\n        \n        return sum(l,\
-    \ _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\
-    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
-    \ p and p < _N);\n        \n        return sum(p + 1) - sum(p);\n    }\n\n   \
-    \ long long lower_bound(T x) {\n        assert(x >= 0);\n\n        ll right =\
-    \ 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long len = N; len >\
-    \ 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right + len]\
-    \ + (sum1 + bit1[right + len]) * (right + len) < x) {\n                right +=\
-    \ len;\n                sum0 += bit0[right];\n                sum1 += bit1[right];\n\
-    \            }\n        }\n\n        return right;\n    }  \n\n    long long upper_bound(T\
-    \ x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\
-    \n    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {\n  \
-    \      os << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for\
+    \ p < _N);\n\n        add(p, x - get(p));\n    }\n\n    // \u534A\u958B\u533A\u9593\
+    [0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
+    \ r) {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
+    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
+    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
+    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
+    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
+    \ long long r) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n\
+    \        if (l <= r and r <= _N) return sum(l, r);\n        \n        if (r >\
+    \ _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n    }\n\n  \
+    \  // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\
+    \u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n       \
+    \ \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
+    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
+    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
+    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
+    \ len]) * (right + len) < x) {\n                right += len;\n              \
+    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
+    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
+    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
+    \    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {\n   \
+    \     os << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for\
     \ (long long i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1)))\
     \ {\n                os << bit.bit0[i] << \" \";\n            }\n            os\
     \ << endl;\n        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n\
@@ -472,7 +472,7 @@ data:
   isVerificationFile: true
   path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
   requiredBy: []
-  timestamp: '2024-08-08 21:00:53+09:00'
+  timestamp: '2024-08-17 04:54:25+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp

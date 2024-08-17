@@ -10,6 +10,9 @@ data:
     path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
     title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
   - icon: ':heavy_check_mark:'
+    path: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
+    title: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
     title: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
   - icon: ':heavy_check_mark:'
@@ -424,28 +427,28 @@ data:
     \        }\n        \n        if (r > _N) r -= _N;\n        \n        add(l, _N,\
     \ x);\n        add(0, r, x);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092\
     x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0 <= p and\
-    \ p < _N);\n\n        add(p, -get(p));\n        add(p, x);\n    }\n\n    // \u534A\
-    \u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\
-    \n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n        return\
-    \ sum(bit0, r) + sum(bit1, r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
-    \ r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
-    \ l, long long r) {\n        assert(0 <= l and l <= r and r <= _N);\n\n      \
-    \  if (l == r) return 0;\n        else return sum(r) - sum(l);\n    }\n\n    T\
-    \ sum_circular(long long l, long long r) {\n        assert(0 <= l and l <= _N\
-    \ and 0 <= r and r <= 2 * _N);\n        if (l <= r and r <= _N) return sum(l,\
-    \ r);\n        \n        if (r > _N) r -= _N;\n        \n        return sum(l,\
-    \ _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\
-    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
-    \ p and p < _N);\n        \n        return sum(p + 1) - sum(p);\n    }\n\n   \
-    \ long long lower_bound(T x) {\n        assert(x >= 0);\n\n        ll right =\
-    \ 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for (long long len = N; len >\
-    \ 0; len >>= 1) {\n            if (right + len < _N && sum0 + bit0[right + len]\
-    \ + (sum1 + bit1[right + len]) * (right + len) < x) {\n                right +=\
-    \ len;\n                sum0 += bit0[right];\n                sum1 += bit1[right];\n\
-    \            }\n        }\n\n        return right;\n    }  \n\n    long long upper_bound(T\
-    \ x) {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\
-    \n    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {\n  \
-    \      os << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for\
+    \ p < _N);\n\n        add(p, x - get(p));\n    }\n\n    // \u534A\u958B\u533A\u9593\
+    [0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
+    \ r) {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
+    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
+    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
+    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
+    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
+    \ long long r) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n\
+    \        if (l <= r and r <= _N) return sum(l, r);\n        \n        if (r >\
+    \ _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n    }\n\n  \
+    \  // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\
+    \u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n       \
+    \ \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
+    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
+    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
+    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
+    \ len]) * (right + len) < x) {\n                right += len;\n              \
+    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
+    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
+    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
+    \    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {\n   \
+    \     os << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for\
     \ (long long i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1)))\
     \ {\n                os << bit.bit0[i] << \" \";\n            }\n            os\
     \ << endl;\n        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n\
@@ -497,67 +500,67 @@ data:
     \ if (r > _N) r -= _N;\n        \n        add(l, _N, x);\n        add(0, r, x);\n\
     \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u3092x\u306B\u3059\u308B\n    void\
     \ set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n        add(p,\
-    \ -get(p));\n        add(p, x);\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r)\
-    \ (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r)\
-    \ {\n        assert(0 <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1,\
-    \ r) * r;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\
-    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
-    \  assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n \
-    \       else return sum(r) - sum(l);\n    }\n\n    T sum_circular(long long l,\
-    \ long long r) {\n        assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n\
-    \        if (l <= r and r <= _N) return sum(l, r);\n        \n        if (r >\
-    \ _N) r -= _N;\n        \n        return sum(l, _N) + sum(0, r);\n    }\n\n  \
-    \  // \u534A\u958B\u533A\u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\
-    \u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n       \
-    \ \n        return sum(p + 1) - sum(p);\n    }\n\n    long long lower_bound(T\
-    \ x) {\n        assert(x >= 0);\n\n        ll right = 0;\n        ll sum0 = 0,\
-    \ sum1 = 0;\n\n        for (long long len = N; len > 0; len >>= 1) {\n       \
-    \     if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right +\
-    \ len]) * (right + len) < x) {\n                right += len;\n              \
-    \  sum0 += bit0[right];\n                sum1 += bit1[right];\n            }\n\
-    \        }\n\n        return right;\n    }  \n\n    long long upper_bound(T x)\
-    \ {\n        return lower_bound(x + numeric_limits<T>::epsilon());\n    }\n\n\
-    \    friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {\n   \
-    \     os << \"bit0\" << endl;\n        repd(h, bit.height) {\n            for\
-    \ (long long i = (1 << h); i < (long long)bit.bit0.size(); i += (1 << (h + 1)))\
-    \ {\n                os << bit.bit0[i] << \" \";\n            }\n            os\
-    \ << endl;\n        }\n        os << endl;\n\n        os << \"bit1\" << endl;\n\
-    \        repd(h, bit.height) {\n            for (long long i = (1 << h); i < (long\
-    \ long)bit.bit1.size(); i += (1 << (h + 1))) {\n                os << bit.bit1[i]\
-    \ << \" \";\n            }\n            os << endl;\n        }\n        os <<\
-    \ endl;\n\n        os << \"value\" << endl;\n        rep(i, bit._N) {\n      \
-    \      os << bit.get(i) << \" \";\n        }\n        os << endl;\n\n        return\
-    \ os;\n    }\n\nprivate:\n    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\
-    \u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(vector<T> &bit, long long r) {\n\
-    \        assert(0 <= r and r <= _N);\n\n        if (r == 0) return 0;\n      \
-    \  \n        T ret = 0;\n        for (int idx = r; idx > 0; idx -= (idx & -idx))\
-    \ {\n            ret += bit[idx];\n        }\n        return ret;\n    }\n\n \
-    \   // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n    void add(vector<T>\
-    \ &bit, long long p, T x) {\n        assert(0 <= p and p <= _N);\n\n        ++p;\
-    \ // 1-indexed\n\n        for (int idx = p; idx < N; idx += (idx & -idx)) {\n\
-    \            bit[idx] += x;\n        }\n    }\n};\n\n// \u8EE2\u5012\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long calc_invension(const vector<long long> &A) {\n \
-    \   long long ret = 0;\n\n    vector<long long> B = compress(A);\n\n    long long\
-    \ maxB = 0;\n    fore(b, B) chmax(maxB, b);\n\n    BinaryIndexedTree<long long>\
-    \ tree(maxB + 1);\n\n    rep(i, B.size()) {\n        long long b = B[i];\n   \
-    \     ret += i - tree.sum(b + 1);\n        tree.add(b, 1);\n    }\n\n    return\
-    \ ret;\n}\n\n// [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\u308A\u304C\u3042\u308B\
-    \u304B\u3092\u5224\u5B9A\nbool is_overlapped(const vector<pair<long long, long\
-    \ long>> &A) {\n    bool ret = false;\n    \n    long long maxA = 0;\n    fore(a,\
-    \ A) chmax(maxA, a.second);\n    BinaryIndexedTree<long long> tree(maxA + 1);\n\
-    \n    rep(i, A.size()) {\n        auto [l, r] = A[i];\n        tree.add(l, 1);\n\
-    \        tree.add(r, -1);\n    }\n\n    rep(i, A.size()) {\n        auto [l, r]\
-    \ = A[i];\n        if (tree.sum(l, r + 1) == 0) continue;\n\n        ret = true;\n\
-    \        break;\n    }\n\n    return ret;\n}"
+    \ x - get(p));\n    }\n\n    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\
+    \u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long r) {\n        assert(0\
+    \ <= r and r <= _N);\n\n        return sum(bit0, r) + sum(bit1, r) * r;\n    }\n\
+    \n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\
+    \u3081\u308B\n    T sum(long long l, long long r) {\n        assert(0 <= l and\
+    \ l <= r and r <= _N);\n\n        if (l == r) return 0;\n        else return sum(r)\
+    \ - sum(l);\n    }\n\n    T sum_circular(long long l, long long r) {\n       \
+    \ assert(0 <= l and l <= _N and 0 <= r and r <= 2 * _N);\n        if (l <= r and\
+    \ r <= _N) return sum(l, r);\n        \n        if (r > _N) r -= _N;\n       \
+    \ \n        return sum(l, _N) + sum(0, r);\n    }\n\n    // \u534A\u958B\u533A\
+    \u9593[p, p + 1) (0-indexed)\u306E\u5024\u3092\u6C42\u3081\u308B\n    T get(long\
+    \ long p) {\n        assert(0 <= p and p < _N);\n        \n        return sum(p\
+    \ + 1) - sum(p);\n    }\n\n    long long lower_bound(T x) {\n        assert(x\
+    \ >= 0);\n\n        ll right = 0;\n        ll sum0 = 0, sum1 = 0;\n\n        for\
+    \ (long long len = N; len > 0; len >>= 1) {\n            if (right + len < _N\
+    \ && sum0 + bit0[right + len] + (sum1 + bit1[right + len]) * (right + len) < x)\
+    \ {\n                right += len;\n                sum0 += bit0[right];\n   \
+    \             sum1 += bit1[right];\n            }\n        }\n\n        return\
+    \ right;\n    }  \n\n    long long upper_bound(T x) {\n        return lower_bound(x\
+    \ + numeric_limits<T>::epsilon());\n    }\n\n    friend ostream& operator << (ostream&\
+    \ os, BinaryIndexedTree& bit) {\n        os << \"bit0\" << endl;\n        repd(h,\
+    \ bit.height) {\n            for (long long i = (1 << h); i < (long long)bit.bit0.size();\
+    \ i += (1 << (h + 1))) {\n                os << bit.bit0[i] << \" \";\n      \
+    \      }\n            os << endl;\n        }\n        os << endl;\n\n        os\
+    \ << \"bit1\" << endl;\n        repd(h, bit.height) {\n            for (long long\
+    \ i = (1 << h); i < (long long)bit.bit1.size(); i += (1 << (h + 1))) {\n     \
+    \           os << bit.bit1[i] << \" \";\n            }\n            os << endl;\n\
+    \        }\n        os << endl;\n\n        os << \"value\" << endl;\n        rep(i,\
+    \ bit._N) {\n            os << bit.get(i) << \" \";\n        }\n        os <<\
+    \ endl;\n\n        return os;\n    }\n\nprivate:\n    // \u534A\u958B\u533A\u9593\
+    [0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(vector<T>\
+    \ &bit, long long r) {\n        assert(0 <= r and r <= _N);\n\n        if (r ==\
+    \ 0) return 0;\n        \n        T ret = 0;\n        for (int idx = r; idx >\
+    \ 0; idx -= (idx & -idx)) {\n            ret += bit[idx];\n        }\n       \
+    \ return ret;\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\
+    \u308B\n    void add(vector<T> &bit, long long p, T x) {\n        assert(0 <=\
+    \ p and p <= _N);\n\n        ++p; // 1-indexed\n\n        for (int idx = p; idx\
+    \ < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n        }\n    }\n\
+    };\n\n// \u8EE2\u5012\u6570\u3092\u6C42\u3081\u308B\nlong long calc_invension(const\
+    \ vector<long long> &A) {\n    long long ret = 0;\n\n    vector<long long> B =\
+    \ compress(A);\n\n    long long maxB = 0;\n    fore(b, B) chmax(maxB, b);\n\n\
+    \    BinaryIndexedTree<long long> tree(maxB + 1);\n\n    rep(i, B.size()) {\n\
+    \        long long b = B[i];\n        ret += i - tree.sum(b + 1);\n        tree.add(b,\
+    \ 1);\n    }\n\n    return ret;\n}\n\n// [l, r)\u306E\u914D\u5217\u306B\u91CD\u306A\
+    \u308A\u304C\u3042\u308B\u304B\u3092\u5224\u5B9A\nbool is_overlapped(const vector<pair<long\
+    \ long, long long>> &A) {\n    bool ret = false;\n    \n    long long maxA = 0;\n\
+    \    fore(a, A) chmax(maxA, a.second);\n    BinaryIndexedTree<long long> tree(maxA\
+    \ + 1);\n\n    rep(i, A.size()) {\n        auto [l, r] = A[i];\n        tree.add(l,\
+    \ 1);\n        tree.add(r, -1);\n    }\n\n    rep(i, A.size()) {\n        auto\
+    \ [l, r] = A[i];\n        if (tree.sum(l, r + 1) == 0) continue;\n\n        ret\
+    \ = true;\n        break;\n    }\n\n    return ret;\n}"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: structure/binary-indexed-tree.cpp
   requiredBy: []
-  timestamp: '2024-08-08 21:00:53+09:00'
+  timestamp: '2024-08-17 04:54:25+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
+  - test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
   - test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
   - test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
   - test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp

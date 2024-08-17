@@ -604,61 +604,60 @@ data:
     \ Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\n    char s = 's';\n\
     \    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n    char hash\
     \ = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n    Coordinate\
-    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf =\
-    \ INF64 / 2;\n    long long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n,\
-    \ n) {\n        init();\n    };\n\n    GridBFS(long long h, long long w) : H(h),\
-    \ W(w), field(h, w) {\n        init();\n    };\n\n    GridBFS(vector<string> vs)\
-    \ : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n       \
-    \ after_input();\n    };\n\n    void init() {\n        group = 0;\n        seen.assign(H,\
-    \ W, false);\n        cost.assign(H, W, inf);\n        prev.assign(H, W, Coordinate(-1,\
-    \ -1));\n        cc.assign(H, W, -1);\n    }\n\n    void input() {\n        rep(y,\
-    \ H) cin >> field[y];\n        after_input();\n    }\n\n    void after_input()\
-    \ {\n        rep(y, H) rep(x, W) {\n                char c = field(y, x);\n  \
-    \              if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n               \
-    \ if (c < 'a' or c > 'z') continue;\n\n                if (c == s) {\n       \
-    \             start = Coordinate(y, x);\n                }\n                if\
-    \ (c == g or c == t) {\n                    goal = Coordinate(y, x);\n       \
-    \         }\n            }\n    }\n\n    long long to_index(Coordinate& p) {\n\
-    \        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long\
-    \ index) {\n        return Coordinate(index / W, index % W);\n    }\n\n    long\
-    \ long bfs_all() {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y,\
-    \ x);\n\n            if (seen(now)) continue;\n            if (field.is_obj(now))\
-    \ continue;\n\n            bfs(now);\n            ++group;\n        }\n\n    \
-    \    return group;\n    }\n\n    long long count_cc() {\n        return group;\n\
-    \    }\n\n    void bfs() {\n        bfs(start);\n    }\n\n    void bfs(Coordinate\
-    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
-    \n        queue<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
-    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
-    \ seen(now) = true;\n        cost(now) = 0;\n        cc(now) = group;\n\n    \
-    \    que.push(now); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n\
-    \        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\
-    \u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty()) {\n\
-    \            now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\
-    \u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\n            //\
-    \ v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\
-    \u308B\n            rep(i, dirs.size()) {\n                Coordinate next = now\
-    \ + dirs[i];\n\n                if (field.is_out(next)) continue;\n          \
-    \      if (field.is_obj(next)) continue;\n                if (seen(next)) continue;\n\
-    \n                seen(next) = true;\n                cost(next) = cost(now) +\
-    \ 1;\n                cc(next) = group;\n                prev(next) = now;\n \
-    \               que.push(next);\n            }\n        }\n    }\n\n    void bfs01(Coordinate\
-    \ now) {\n        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));\n\
-    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
-    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
-    \ cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\u6A59\u8272\u9802\
-    \u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\
-    \u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while\
-    \ (!que.empty()) {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\
-    \u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
-    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
-    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
-    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
-    \ next = now + dirs[i];\n                if (field.is_out(next)) continue;\n \
-    \               if(seen(next)) continue;\n\n                ll c = 0; \n     \
-    \           if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\
-    \u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                if\
-    \ (chmin(cost(next), cost(now) + c)) {\n                    prev(next) = now;\n\
-    \                    \n                    if (c == 0) que.push_front(next);\n\
+    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long group;\n\
+    \n    GridBFS(long long n) : H(n), W(n), field(n, n) {\n        init();\n    };\n\
+    \n    GridBFS(long long h, long long w) : H(h), W(w), field(h, w) {\n        init();\n\
+    \    };\n\n    GridBFS(vector<string> vs) : H(vs.size()), W(vs.front().size()),\
+    \ field(vs) {\n        init();\n        after_input();\n    };\n\n    void init()\
+    \ {\n        group = 0;\n        seen.assign(H, W, false);\n        cost.assign(H,\
+    \ W, inf64);\n        prev.assign(H, W, Coordinate(-1, -1));\n        cc.assign(H,\
+    \ W, -1);\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n \
+    \       after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
+    \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
+    \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
+    \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
+    \                }\n                if (c == g or c == t) {\n                \
+    \    goal = Coordinate(y, x);\n                }\n            }\n    }\n\n   \
+    \ long long to_index(Coordinate& p) {\n        return p.y * W + p.x;\n    }\n\n\
+    \    Coordinate to_coordinate(long long index) {\n        return Coordinate(index\
+    \ / W, index % W);\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
+    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
+    \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
+    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
+    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
+    \   }\n\n    void bfs(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
+    \ and !field.is_obj(now));\n\n        queue<Coordinate> que;\n\n        // \u521D\
+    \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
+    \u3059\u308B)\n        seen(now) = true;\n        cost(now) = 0;\n        cc(now)\
+    \ = group;\n\n        que.push(now); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\
+    \u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\
+    \u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
+    \ {\n            now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\
+    \u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\n       \
+    \     // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\
+    \u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate next\
+    \ = now + dirs[i];\n\n                if (field.is_out(next)) continue;\n    \
+    \            if (field.is_obj(next)) continue;\n                if (seen(next))\
+    \ continue;\n\n                seen(next) = true;\n                cost(next)\
+    \ = cost(now) + 1;\n                cc(next) = group;\n                prev(next)\
+    \ = now;\n                que.push(next);\n            }\n        }\n    }\n\n\
+    \    void bfs01(Coordinate now) {\n        assert(!seen(now) and !field.is_out(now)\
+    \ and !field.is_obj(now));\n\n        deque<Coordinate> que;\n\n        // \u521D\
+    \u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\
+    \u3059\u308B)\n        cost(now) = 0;\n\n        que.push_front(now); // noq \u3092\
+    \u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\
+    \u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\
+    \u3046)\n        while (!que.empty()) {\n            now = que.front(); // \u30AD\
+    \u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\
+    \n            que.pop_front();\n\n            if (seen(now)) continue;\n     \
+    \       seen(now) = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\
+    \u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
+    \ {\n                Coordinate next = now + dirs[i];\n                if (field.is_out(next))\
+    \ continue;\n                if (seen(next)) continue;\n\n                ll c\
+    \ = 0; \n                if (field.is_obj(next)) c = 1; // \u3053\u3053\u306B\u30B3\
+    \u30B9\u30C8\u304C1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n      \
+    \          if (chmin(cost(next), cost(now) + c)) {\n                    prev(next)\
+    \ = now;\n                    \n                    if (c == 0) que.push_front(next);\n\
     \                    else que.push_back(next);\n                }\n          \
     \  }\n        }\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n\
     \    }\n\n    bool can_reach(Coordinate to) {\n        assert(!field.is_out(to)\
@@ -713,7 +712,7 @@ data:
   isVerificationFile: true
   path: test/graph/psp/atcoder-abc193-f.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 16:00:04+09:00'
+  timestamp: '2024-08-18 02:43:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/psp/atcoder-abc193-f.test.cpp

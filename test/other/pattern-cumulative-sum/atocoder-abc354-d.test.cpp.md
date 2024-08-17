@@ -14,25 +14,24 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    IGNORE: ''
-    IGNORE_IF_GCC: ''
+    PROBLEM: https://atcoder.jp/contests/abc354/tasks/abc354_d
     links:
     - https://atcoder.jp/contests/abc354/tasks/abc354_d
   bundledCode: "#line 1 \"test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp\"\
-    \n#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc354/tasks/abc354_d\"\
-    \n\n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
-    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
-    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
-    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
-    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
-    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
-    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
-    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
-    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
-    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
-    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
-    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    \n#define PROBLEM \"https://atcoder.jp/contests/abc354/tasks/abc354_d\"\n\n#line\
+    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -413,7 +412,7 @@ data:
     \n        return ret;\n    }\n\n    friend ostream& operator<<(ostream& os, PatternCumulativeSum\
     \ cs) {\n        rep(i, cs.size()) {\n            rep(j, cs.front().size()) {\n\
     \                os << cs[i][j] << \" \";\n            }\n            os << endl;\n\
-    \        }\n        return os;\n    }\n};\n#line 5 \"test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp\"\
+    \        }\n        return os;\n    }\n};\n#line 4 \"test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp\"\
     \n\nint main() {\n    long long A;\n    cin >> A;\n    long long B;\n    cin >>\
     \ B;\n    long long C;\n    cin >> C;\n    long long D;\n    cin >> D;\n\n   \
     \ vector<vector<ll>> pattern(2, vector<ll>(4, 0));\n    pattern[0][0] = 2;\n \
@@ -421,13 +420,13 @@ data:
     \ = 1;\n    pattern[1][1] = 2;\n    pattern[1][2] = 1;\n    pattern[1][3] = 0;\n\
     \n    PatternCumulativeSum<ll> pcs(pattern);\n    ll ans = pcs.sum(A, B, C, D);\n\
     \n    cout << ans << endl;\n\n    return 0;\n}\n"
-  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc354/tasks/abc354_d\"\
-    \n\n#include \"../../../other/pattern-cumulative-sum.cpp\"\n\nint main() {\n \
-    \   long long A;\n    cin >> A;\n    long long B;\n    cin >> B;\n    long long\
-    \ C;\n    cin >> C;\n    long long D;\n    cin >> D;\n\n    vector<vector<ll>>\
-    \ pattern(2, vector<ll>(4, 0));\n    pattern[0][0] = 2;\n    pattern[0][1] = 1;\n\
-    \    pattern[0][2] = 0;\n    pattern[0][3] = 1;\n    pattern[1][0] = 1;\n    pattern[1][1]\
-    \ = 2;\n    pattern[1][2] = 1;\n    pattern[1][3] = 0;\n\n    PatternCumulativeSum<ll>\
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc354/tasks/abc354_d\"\n\n\
+    #include \"../../../other/pattern-cumulative-sum.cpp\"\n\nint main() {\n    long\
+    \ long A;\n    cin >> A;\n    long long B;\n    cin >> B;\n    long long C;\n\
+    \    cin >> C;\n    long long D;\n    cin >> D;\n\n    vector<vector<ll>> pattern(2,\
+    \ vector<ll>(4, 0));\n    pattern[0][0] = 2;\n    pattern[0][1] = 1;\n    pattern[0][2]\
+    \ = 0;\n    pattern[0][3] = 1;\n    pattern[1][0] = 1;\n    pattern[1][1] = 2;\n\
+    \    pattern[1][2] = 1;\n    pattern[1][3] = 0;\n\n    PatternCumulativeSum<ll>\
     \ pcs(pattern);\n    ll ans = pcs.sum(A, B, C, D);\n\n    cout << ans << endl;\n\
     \n    return 0;\n}"
   dependsOn:
@@ -436,7 +435,7 @@ data:
   isVerificationFile: true
   path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-18 02:50:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp

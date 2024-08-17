@@ -388,134 +388,154 @@ data:
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"structure/sqrt-decomposition.cpp\"\n\ntemplate<typename\
-    \ T, typename F>\nstruct SqrtDecomposition {\n    long long _N, N, sqrtN, K;\n\
-    \    \n    vector<T> data;\n    vector<T> bucket_sum, bucket_min, bucket_max;\n\
-    \    vector<F> lazy_add, lazy_lower, lazy_upper;\n    vector<vector<T>> sorted,\
-    \ accumulated;\n\n    T e = inf64, id = inf64;\n\n    SqrtDecomposition(long long\
-    \ n) : _N(n) {\n        vector<T> v(n, 0);\n        init(v);\n    }\n\n    SqrtDecomposition(long\
-    \ long n, T a) : _N(n) {\n        vector<T> v(n, a);\n        init(v);\n    }\n\
-    \n    SqrtDecomposition(vector<T> &v) : _N(v.size()) {\n        init(v);\n   \
-    \ }\n\n    void init(vector<T> &a) {\n        sqrtN = 1;\n        while ((sqrtN\
-    \ + 1) * (sqrtN + 1) < _N) ++sqrtN;\n\n        K = (_N + sqrtN - 1) / sqrtN;\n\
-    \        N = K * sqrtN;\n        \n        data.assign(N, e);\n        rep(i,\
-    \ _N) data[i] = a[i];\n\n        bucket_sum.assign(K, 0);\n        bucket_min.assign(K,\
-    \ inf64);\n        bucket_max.assign(K, -inf64);\n        // sorted.resize(K);\n\
-    \        // accumulated.resize(K);\n        rep(k, K) update(k);\n\n        lazy_add.assign(K,\
-    \ id);\n        lazy_lower.assign(K, id);\n        lazy_upper.assign(K, id);\n\
-    \n        // rep(i, K) {\n        //     rep(j, sqrtN) sorted[i].push_back(data[i\
-    \ * sqrtN + j]);\n        //     sort(sorted[i]);\n\n        //     accumulated[i].push_back(0);\n\
-    \        //     rep(j, sqrtN) accumulated[i].push_back(accumulated[i][j] + sorted[i][j]);\n\
-    \        // }\n    }\n\n    void push(long long k) {\n        long long lk = k\
-    \ * sqrtN, rk = (k + 1) * sqrtN;\n\n        rep(i, lk, rk) {\n            if (lazy_add[k]\
-    \ != id) data[i] += lazy_add[k];\n            if (lazy_upper[k] != id) chmin(data[i],\
-    \ lazy_upper[k]);\n            if (lazy_lower[k] != id) chmax(data[i], lazy_lower[k]);\n\
-    \        }\n\n        lazy_add[k] = id;\n        lazy_upper[k] = id;\n       \
-    \ lazy_lower[k] = id;\n    }\n\n    void update(long long k) {\n        long long\
-    \ lk = k * sqrtN, rk = (k + 1) * sqrtN;\n        \n        bucket_sum[k] = 0;\n\
-    \        bucket_min[k] = inf64;\n        bucket_max[k] = -inf64;\n        // sorted[k].resize(0);\n\
-    \        // accumulated[k].assign(1, 0);\n\n        rep(i, lk, rk) {\n       \
-    \     bucket_sum[k] += data[i];\n            chmin(bucket_min[k], data[i]);\n\
-    \            chmax(bucket_max[k], data[i]);\n            // sorted[k].push_back(data[i]);\n\
-    \        }\n\n        // sort(sorted[k]);\n        // rep(i, sqrtN) accumulated[k].push_back(accumulated[k][i]\
-    \ + sorted[k][i]);\n    }\n\n    void apply_add(long long p, T x) {\n        push(p\
-    \ / sqrtN);\n        data[p] += x;\n        update(p / sqrtN);\n    }\n\n    //\
-    \ [l, r)\n    void apply_add(long long l, long long r, T x) {\n        rep(k,\
-    \ K) {\n            long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n      \
-    \      if (rk <= l || r <= lk) continue;\n            if (l <= lk && rk <= r)\
-    \ {\n                if (lazy_add[k] == id) lazy_add[k] = x;\n               \
-    \ else lazy_add[k] += x;\n\n                if (lazy_lower[k] != id) lazy_lower[k]\
-    \ += x;\n                if (lazy_upper[k] != id) lazy_upper[k] += x;\n\n    \
-    \            bucket_sum[k] += x * sqrtN;\n                bucket_max[k] += x;\n\
-    \                bucket_min[k] += x;\n            } \n            else {\n   \
-    \             push(k);\n                rep(i, max(l, lk), min(r, rk)) {\n   \
-    \                 data[i] += x;\n                }\n                update(k);\n\
-    \            }\n        }\n    }\n\n    void apply_set(long long p, T x) {\n \
-    \       push(p / sqrtN);\n        data[p] = x;\n        update(p / sqrtN);\n \
-    \   }\n\n    void apply_set(long long l, long long r, T x) {\n        rep(k, K)\
-    \ {\n            long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n         \
-    \   if (rk <= l || r <= lk) continue;\n            if (l <= lk && rk <= r) {\n\
-    \                lazy_upper[k] = x;\n                lazy_lower[k] = x;\n\n  \
-    \              bucket_sum[k] = x * sqrtN;\n                bucket_max[k] = x;\n\
-    \                bucket_min[k] = x;\n            } \n            else {\n    \
-    \            push(k);\n                rep(i, max(l, lk), min(r, rk)) {\n    \
-    \                data[i] = x;\n                }\n                update(k);\n\
-    \            }\n        }\n    }\n\n    void apply_chmin(long long p, T x) {\n\
-    \        push(p / sqrtN);\n        chmin(data[p], x);\n        update(p / sqrtN);\n\
-    \    }\n\n    void apply_chmin(long long l, long long r, T x) {\n        rep(k,\
-    \ K) {\n            long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n      \
-    \      if (rk <= l || r <= lk) continue;\n            if (l <= lk && rk <= r)\
-    \ {\n                if (lazy_upper[k] == id) lazy_upper[k] = x;\n           \
-    \     else chmin(lazy_upper[k], x);\n                \n                if (lazy_lower[k]\
-    \ != id and lazy_lower[k] > lazy_upper[k]) lazy_lower[k] = lazy_upper[k];\n\n\
-    \                // long long key = x;\n                // if (lazy_add[k] !=\
-    \ id) key += lazy_add[k];\n                // auto p = upper_bound(sorted[k].begin(),\
-    \ sorted[k].end(), key);\n                // long long d = distance(sorted.begin(),\
-    \ p);\n\n                // bucket_sum[k] += key * (sqrtN - d) - (accumulated[k][sqrtN]\
-    \ - accumulated[k][d]);\n                chmin(bucket_max[k], x);\n          \
-    \      chmin(bucket_min[k], x);\n            } \n            else {\n        \
-    \        push(k);\n                rep(i, max(l, lk), min(r, rk)) {\n        \
-    \            chmin(data[i], x);\n                }\n                update(k);\n\
-    \            }\n        }\n    }\n\n    void apply_chmax(long long p, T x) {\n\
-    \        push(p / sqrtN);\n        chmax(data[p], x);\n        update(p / sqrtN);\n\
-    \    }\n\n    void apply_chmax(long long l, long long r, T x) {\n        rep(k,\
-    \ K) {\n            long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n      \
-    \      if (rk <= l || r <= lk) continue;\n            if (l <= lk && rk <= r)\
-    \ {\n                if (lazy_lower[k] == id) lazy_lower[k] = x;\n           \
-    \     else chmax(lazy_lower[k], x);\n                \n                if (lazy_upper[k]\
-    \ != id and lazy_upper[k] < lazy_lower[k]) lazy_upper[k] = lazy_lower[k];\n\n\
-    \                // long long key = x;\n                // if (lazy_add[k] !=\
-    \ id) key += lazy_add[k];\n                // auto p = upper_bound(sorted[k].begin(),\
-    \ sorted[k].end(), key);\n                // long long d = distance(sorted.begin(),\
-    \ p);\n\n                // bucket_sum[k] += key * d - accumulated[k][d];    \
-    \            \n\n                chmax(bucket_max[k], x);\n                chmax(bucket_min[k],\
-    \ x);\n            } \n            else {\n                push(k);\n        \
-    \        rep(i, max(l, lk), min(r, rk)) {\n                    chmax(data[i],\
-    \ x);\n                }\n                update(k);\n            }\n        }\n\
-    \    }\n\n    T get(long long p) {\n        push(p / sqrtN);\n        update(p\
-    \ / sqrtN);\n\n        return data[p];\n    }\n    \n    // [l, r)\n    T prod_sum(long\
-    \ long l, long long r) {\n        T ret = 0;\n\n        rep(k, K) {\n        \
-    \    long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n            if (rk <=\
-    \ l || r <= lk) continue;\n            if (l <= lk && rk <= r) {\n           \
-    \     ret += bucket_sum[k];\n            } \n            else {\n            \
-    \    push(k);\n                rep(i, max(l, lk), min(r, rk)) {\n            \
-    \        ret += data[i];\n                }\n                update(k);\n    \
-    \        }\n        }\n\n        return ret;\n    }\n\n    // [l, r)\n    T prod_min(long\
-    \ long l, long long r) {\n        T ret = inf64;\n\n        rep(k, K) {\n    \
-    \        long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n            if (rk\
-    \ <= l || r <= lk) continue;\n\n            if (l <= lk && rk <= r) {\n      \
-    \          chmin(ret, bucket_min[k]);\n            } \n            else {\n  \
-    \              push(k);\n                rep(i, max(l, lk), min(r, rk)) {\n  \
-    \                  chmin(ret, data[i]);\n                }\n                update(k);\n\
-    \            }\n        }\n\n        return ret;\n    }\n\n    // [l, r)\n   \
-    \ T prod_max(long long l, long long r) {\n        T ret = -inf64;\n\n        rep(k,\
-    \ K) {\n            long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n      \
-    \      if (rk <= l || r <= lk) continue;\n            if (l <= lk && rk <= r)\
-    \ {\n                chmax(ret, bucket_max[k]);\n            } \n            else\
-    \ {\n                push(k);\n                rep(i, max(l, lk), min(r, rk))\
-    \ {\n                    chmax(ret, data[i]);\n                }\n           \
-    \     update(k);\n            }\n        }\n\n        return ret;\n    }\n};\n\
-    #line 4 \"test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp\"\n\nint main()\
-    \ {\n    ll n, q;\n    cin >> n >> q;\n\n    SqrtDecomposition<ll, ll> sd(n, 0);\n\
-    \    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
-    \            ll s, t, x;\n            cin >> s >> t >> x;\n            sd.apply_set(s,\
-    \ t + 1, x);\n        }\n        else {\n            ll s, t;\n            cin\
-    \ >> s >> t;\n            cout << sd.prod_sum(s, t + 1) << endl;\n        }\n\
-    \    }\n\n    return 0;\n}\n"
+    \ T>\nstruct Node {\n    T value;\n    long long index;\n    long long size;\n\
+    \    long long coeff;\n\n    Node(T v, long long i = -1, long long s = 0, long\
+    \ long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n    bool operator<\
+    \ (const Node &other) const {\n        return value < other.value;\n    }\n\n\
+    \    bool operator== (const T other) const {\n        return value == other;\n\
+    \    }\n\n    bool operator!= (const T other) const {\n        return value !=\
+    \ other;\n    }\n\n    operator T() const {\n        return value;\n    }\n\n\
+    \    friend ostream& operator << (ostream &os, const Node<T>& node) {\n      \
+    \  return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
+    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
+    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
+    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
+    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
+    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
+    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
+    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
+    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
+    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
+    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
+    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
+    \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
+    };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
+    \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
+    \  return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
+    \        T value = min(x.value, y.value);\n        long long index = (y.value\
+    \ < x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n\
+    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
+    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    struct Sum: Operation<T> {\n    using S = Node<T>;\n\n    Sum(): _e(T()) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = x.value + y.value;\n        long\
+    \ long index = -1;\n        long long size = x.size + y.size;\n        long long\
+    \ coeff = size;\n\n        S ret(value, index, size, coeff);\n\n        return\
+    \ ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul:\
+    \ Operation<T> {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e()\
+    \ override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = x.value * y.value;\n        long long index\
+    \ = -1;\n        long long size = x.size + y.size;\n        long long coeff =\
+    \ 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n   \
+    \ }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct GCD\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    GCD(): _e(T(0)) {};\n\n    T\
+    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = gcd(x.value, y.value);\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct LCM\
+    \ : Operation<T> {\n    using S = Node<T>;\n\n    LCM(): _e(T(1)) {};\n\n    T\
+    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
+    \ S& y) override {\n        T value = lcm(x.value, y.value);\n        long long\
+    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
+    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Mapping\
+    \ {\n    using S = Node<T>;\n\n    Mapping() {};\n\n    virtual F id() = 0;\n\n\
+    \    void operator() (S &x, const F f) {\n        if (f == id()) return;\n\n \
+    \       map(x, f);\n    }\n\n    void composition(F &f, const F s) {\n       \
+    \ if (f == id()) {\n            f = s;\n            return;\n        };\n    \
+    \    if (s == id()) return;\n\n        com(f, s);\n    }\n\n    virtual void map(S\
+    \ &x, const F f) = 0;\n    virtual void com(F &f, const F s) = 0;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct Add: Mapping<T, F> {\n    using S = Node<T>;\n\n    Add():\
+    \ _id(F(0)) {};\n\n    F id() override {\n        return _id;\n    }\n\n    void\
+    \ map(S &x, const F f) override {\n        x.value += f * x.coeff;\n    }\n\n\
+    \    void com(F &f, const F s) override {\n        f += s;\n    }\n\nprivate:\n\
+    \    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Multiply: Mapping<T,\
+    \ F> {\n    using S = Node<T>;\n\n    Multiply(): _id(F(1)) {};\n\n    F id()\
+    \ override {\n        return _id;\n    }\n\n    void map(S &x, const F f) override\
+    \ {\n        x.value *= f;\n    }\n\n    void com(F &f, const F s) override {\n\
+    \        f *= s;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename\
+    \ G>\nstruct Affine: Mapping<T, pair<G, G>> {\n    using S = Node<T>;\n    using\
+    \ F = pair<G, G>;\n\n    Affine(): _id(F(1, 0)) {};\n\n    F id() override {\n\
+    \        return _id;\n    }\n\n    void map(S &x, const F f) override {\n    \
+    \    x.value = f.first * x.value + f.second * x.coeff;\n    }\n\n    void com(F\
+    \ &f, const F s) override {\n        f.first *= s.first;\n        f.second *=\
+    \ s.first;\n        f.second += s.second;\n    }\n\nprivate:\n    F _id;\n};\n\
+    \ntemplate<typename T, typename F>\nstruct Set: Mapping<T, F> {\n    using S =\
+    \ Node<T>;\n\n    Set(): _id(numeric_limits<F>::min()) {};\n\n    F id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F f) override {\n\
+    \        x.value = T(f) * x.coeff;\n    }\n\n    void com(F &f, const F s) override\
+    \ {\n        f = s;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T>\n\
+    struct Set<T, string>: Mapping<T, string> {\n    using S = Node<T>;\n    using\
+    \ F = string;\n\n    Set(): _id(F()) {};\n\n    F id() override {\n        return\
+    \ _id;\n    }\n\n    void map(S &x, const F f) override {\n        x.value = T(f);\n\
+    \    }\n\n    void com(F &f, const F s) override {\n        f = s;\n    }\n\n\
+    private:\n    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Flip: Mapping<T,\
+    \ F> {\n    using S = Node<T>;\n\n    Flip(): _id(F()) {};\n\n    F id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F f) override {\n\
+    \        if (f) {\n            x.value ^= 1;\n        }\n    }\n\n    void com(F\
+    \ &f, const F s) override {\n        f ^= s;\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, \n    typename F,\n    template<class, class> class\
+    \ _mapping, \n    template<class> class _op>\nstruct SqrtDecomposition {\n   \
+    \ using S = Node<T>;\n    long long _N, N, sqrtN, K;\n    \n    vector<S> node;\n\
+    \    vector<S> bucket;\n    vector<F> lazy;\n\n    _op<T> op;\n    _mapping<T,\
+    \ F> mapping;\n\n    SqrtDecomposition(long long n) : _N(n) {\n        vector<T>\
+    \ v(n, 0);\n        init(v);\n    }\n\n    SqrtDecomposition(long long n, T a)\
+    \ : _N(n) {\n        vector<T> v(n, a);\n        init(v);\n    }\n\n    SqrtDecomposition(vector<T>\
+    \ &v) : _N(v.size()) {\n        init(v);\n    }\n\n    void init(vector<T> &a)\
+    \ {\n        sqrtN = 1;\n        while ((sqrtN + 1) * (sqrtN + 1) < _N) ++sqrtN;\n\
+    \n        K = (_N + sqrtN - 1) / sqrtN;\n        N = K * sqrtN;\n        \n  \
+    \      node.assign(N, op.e());\n        rep(i, _N) node[i] = S(a[i], i, 1, 1);\n\
+    \n        bucket.assign(K, op.e());\n        rep(k, K) update(k);\n\n        lazy.assign(K,\
+    \ mapping.id());\n    }\n\n    void push(long long k) {\n        long long l =\
+    \ k * sqrtN, r = (k + 1) * sqrtN;\n\n        rep(i, l, r) {\n            mapping(node[i],\
+    \ lazy[k]);\n        }\n\n        lazy[k] = mapping.id();\n    }\n\n    void update(long\
+    \ long k) {\n        long long l = k * sqrtN, r = (k + 1) * sqrtN;\n        \n\
+    \        S sm(op.e());\n\n        rep(i, l, r) {\n            sm = op(sm, node[i]);\n\
+    \        }\n\n        bucket[k] = sm;\n    }\n\n    void apply(long long p, F\
+    \ f) {\n        long long k = p / sqrtN;\n        push(k);\n        mapping(node[p],\
+    \ f);\n        update(k);\n    }\n\n    // [l, r)\n    void apply(long long l,\
+    \ long long r, F f) {\n        rep(k, floor(l, sqrtN), ceil(r, sqrtN)) {\n   \
+    \         long long lk = k * sqrtN, rk = (k + 1) * sqrtN;\n\n            if (rk\
+    \ <= l || r <= lk) continue;\n            if (l <= lk && rk <= r) {\n        \
+    \        mapping.composition(lazy[k], f);\n\n                mapping(bucket[k],\
+    \ f);\n            } \n            else {\n                push(k);\n        \
+    \        rep(i, max(l, lk), min(r, rk)) {\n                    mapping(node[i],\
+    \ f);\n                }\n                update(k);\n            }\n        }\n\
+    \    }\n\n    S get(long long p) {\n        long long k = p / sqrtN;\n       \
+    \ push(k);\n        update(k);\n\n        return node[p];\n    }\n    \n    //\
+    \ [l, r)\n    S prod(long long l, long long r) {\n        S sm(op.e());\n\n  \
+    \      rep(k, floor(l, sqrtN), ceil(r, sqrtN)) {\n            long long lk = k\
+    \ * sqrtN, rk = (k + 1) * sqrtN;\n\n            if (rk <= l || r <= lk) continue;\n\
+    \            if (l <= lk && rk <= r) {\n                sm = op(sm, bucket[k]);\n\
+    \            } \n            else {\n                push(k);\n              \
+    \  rep(i, max(l, lk), min(r, rk)) {\n                    sm = op(sm, node[i]);\n\
+    \                }\n                update(k);\n            }\n        }\n\n \
+    \       return sm;\n    }\n};\n#line 4 \"test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp\"\
+    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    SqrtDecomposition<ll,\
+    \ ll, Set, Sum> sd(n, 0);\n    while (q--) {\n        ll t;\n        cin >> t;\n\
+    \n        if (t == 0) {\n            ll s, t, x;\n            cin >> s >> t >>\
+    \ x;\n            sd.apply(s, t + 1, x);\n        }\n        else {\n        \
+    \    ll s, t;\n            cin >> s >> t;\n            cout << sd.prod(s, t +\
+    \ 1) << endl;\n        }\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_I&\"\
     \n\n#include \"../../../structure/sqrt-decomposition.cpp\"\n\nint main() {\n \
-    \   ll n, q;\n    cin >> n >> q;\n\n    SqrtDecomposition<ll, ll> sd(n, 0);\n\
-    \    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
-    \            ll s, t, x;\n            cin >> s >> t >> x;\n            sd.apply_set(s,\
-    \ t + 1, x);\n        }\n        else {\n            ll s, t;\n            cin\
-    \ >> s >> t;\n            cout << sd.prod_sum(s, t + 1) << endl;\n        }\n\
-    \    }\n\n    return 0;\n}"
+    \   ll n, q;\n    cin >> n >> q;\n\n    SqrtDecomposition<ll, ll, Set, Sum> sd(n,\
+    \ 0);\n    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t ==\
+    \ 0) {\n            ll s, t, x;\n            cin >> s >> t >> x;\n           \
+    \ sd.apply(s, t + 1, x);\n        }\n        else {\n            ll s, t;\n  \
+    \          cin >> s >> t;\n            cout << sd.prod(s, t + 1) << endl;\n  \
+    \      }\n    }\n\n    return 0;\n}"
   dependsOn:
   - structure/sqrt-decomposition.cpp
   - base.cpp
   isVerificationFile: true
   path: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-18 02:47:52+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp

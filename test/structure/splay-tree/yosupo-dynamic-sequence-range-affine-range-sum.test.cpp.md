@@ -393,50 +393,66 @@ data:
     \    return result;\n}\n#line 3 \"structure/splay-tree.cpp\"\n\ntemplate<typename\
     \ T, typename F>\nstruct Node {\n    Node *l = 0, *r = 0, *p = 0;\n    T value,\
     \ prod, rprod;\n    F lazy;\n    long long index = -1;\n    long long z = 0;\n\
-    \    long long sumz = 0;\n    bool rev = false;\n\n    bool operator< (const Node\
-    \ &other) const {\n        return value < other.value;\n    }\n\n    bool operator==\
-    \ (const T other) const {\n        return value == other;\n    }\n\n    bool operator!=\
-    \ (const T other) const {\n        return value != other;\n    }\n\n    operator\
-    \ T() const {\n        return value;\n    }\n\n    friend ostream& operator <<\
-    \ (ostream &os, const Node<T, F>& node) {\n        return os << node.value;\n\
-    \    }\n};\n\ntemplate<typename T, typename F>\nstruct Operation {\n    using\
-    \ S = Node<T, F>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\n    virtual\
-    \ void operator() (S* x) = 0;\n};\n\ntemplate<typename T, typename F>\nstruct\
-    \ NoOperation : Operation<T, F> {\n    using S = Node<T, F>;\n\n    NoOperation():\
-    \ _e(T()) {};\n\n    T e() override {\n        return _e;\n    }\n\n    void operator()\
-    \ (S* x) override {\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\
-    \nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Max : Operation<T,\
-    \ F> {\n    using S = Node<T, F>;\n\n    Max(): _e(numeric_limits<T>::min()) {};\n\
-    \n    T e() override {\n        return _e;\n    }\n\n    void operator() (S* x)\
-    \ override {\n        x->prod = max({x->l->prod, x->value, x->r->prod});\n   \
-    \     x->rprod = max({x->r->rprod, x->value, x->l->rprod});\n        x->sumz =\
-    \ x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct Min: Operation<T, F> {\n    using S = Node<T, F>;\n\n\
-    \    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n       \
-    \ return _e;\n    }\n\n    void operator() (S* x) override {\n        x->prod\
-    \ = min({x->l->prod, x->value, x->r->prod});\n        x->rprod = min({x->r->rprod,\
-    \ x->value, x->l->rprod});\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n\
-    \    }\n\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct\
-    \ Sum: Operation<T, F> {\n    using S = Node<T, F>;\n\n    Sum(): _e(T(0)) {};\n\
-    \n    T e() override {\n        return _e;\n    }\n\n    void operator() (S* x)\
-    \ override {\n        x->prod = x->l->prod + x->value + x->r->prod;\n        x->rprod\
-    \ = x->r->rprod + x->value + x->l->rprod;\n        x->sumz = x->l->sumz + x->z\
-    \ + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename\
-    \ F>\nstruct Mul: Operation<T, F> {\n    using S = Node<T, F>;\n\n    Mul(): _e(T(1))\
-    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    void operator()\
-    \ (S* x) override {\n        x->prod = x->l->prod * x->value * x->r->prod;\n \
-    \       x->rprod = x->r->rprod * x->value * x->l->rprod;\n        x->sumz = x->l->sumz\
+    \    long long sumz = 0;\n    bool rev = false;\n    long long coeff = 1;\n\n\
+    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
+    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
+    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
+    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
+    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T, F>& node)\
+    \ {\n        return os << node.value;\n    }\n};\n\ntemplate<typename T, typename\
+    \ F>\nstruct Operation {\n    using S = Node<T, F>;\n\n    Operation() {};\n\n\
+    \    virtual T e() = 0;\n\n    virtual void operator() (S* x) = 0;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct NoOperation : Operation<T, F> {\n    using S = Node<T,\
+    \ F>;\n\n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return\
+    \ _e;\n    }\n\n    void operator() (S* x) override {\n        x->sumz = x->l->sumz\
     \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct Max : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
+    \    Max(): _e(numeric_limits<T>::min()) {};\n\n    T e() override {\n       \
+    \ return _e;\n    }\n\n    void operator() (S* x) override {\n        x->prod\
+    \ = x->value;\n        if (x->l->z > 0) x->prod = max(x->l->prod, x->prod);\n\
+    \        if (x->r->z > 0) x->prod = max(x->prod, x->r->prod);\n\n        x->rprod\
+    \ = x->value;\n        if (x->r->z > 0) x->rprod = max(x->r->rprod, x->rprod);\n\
+    \        if (x->l->z > 0) x->rprod = max(x->rprod, x->l->rprod);\n        \n \
+    \       x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n\
+    };\n\ntemplate<typename T, typename F>\nstruct Min: Operation<T, F> {\n    using\
+    \ S = Node<T, F>;\n\n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e()\
+    \ override {\n        return _e;\n    }\n\n    void operator() (S* x) override\
+    \ {\n        x->prod = x->value;\n        if (x->l->z > 0) x->prod = min(x->l->prod,\
+    \ x->prod);\n        if (x->r->z > 0) x->prod = min(x->prod, x->r->prod);\n\n\
+    \        x->rprod = x->value;\n        if (x->r->z > 0) x->rprod = min(x->r->rprod,\
+    \ x->rprod);\n        if (x->l->z > 0) x->rprod = min(x->rprod, x->l->rprod);\n\
+    \        \n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\n\nprivate:\n\
+    \    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Sum: Operation<T, F>\
+    \ {\n    using S = Node<T, F>;\n\n    Sum(): _e(T(0)) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    void operator() (S* x) override {\n    \
+    \    x->prod = x->value;\n        if (x->l->z > 0) x->prod = x->l->prod + x->prod;\n\
+    \        if (x->r->z > 0) x->prod = x->prod + x->r->prod;\n\n        x->rprod\
+    \ = x->value;\n        if (x->r->z > 0) x->rprod = x->r->rprod + x->rprod;\n \
+    \       if (x->l->z > 0) x->rprod = x->rprod + x->l->rprod;\n\n        x->sumz\
+    \ = x->l->sumz + x->z + x->r->sumz;\n        x->coeff = x->sumz;\n    }\n\nprivate:\n\
+    \    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Mul: Operation<T, F>\
+    \ {\n    using S = Node<T, F>;\n\n    Mul(): _e(T(1)) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    void operator() (S* x) override {\n    \
+    \    x->prod = x->value;\n        if (x->l->z > 0) x->prod = x->l->prod * x->prod;\n\
+    \        if (x->r->z > 0) x->prod = x->prod * x->r->prod;\n\n        x->rprod\
+    \ = x->value;\n        if (x->r->z > 0) x->rprod = x->r->rprod * x->rprod;\n \
+    \       if (x->l->z > 0) x->rprod = x->rprod * x->l->rprod;\n\n        x->sumz\
+    \ = x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
     \ T, typename F>\nstruct GCD : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
     \    GCD(): _e(T(0)) {};\n\n    T e() override {\n        return _e;\n    }\n\n\
-    \    void operator() (S* x) override {\n        x->prod = gcd(gcd(x->l->prod,\
-    \ x->value), x->r->prod);\n        x->rprod = gcd(gcd(x->r->rprod, x->value),\
-    \ x->l->rprod);\n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\n\
-    private:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct LCM : Operation<T,\
-    \ F> {\n    using S = Node<T, F>;\n\n    LCM(): _e(T(1)) {};\n\n    T e() override\
-    \ {\n        return _e;\n    }\n\n    void operator() (S* x) override {\n    \
-    \    x->prod = lcm(lcm(x->l->prod, x->value), x->r->prod);\n        x->rprod =\
-    \ lcm(lcm(x->r->rprod, x->value), x->l->rprod);\n        x->sumz = x->l->sumz\
+    \    void operator() (S* x) override {\n        x->prod = x->value;\n        if\
+    \ (x->l->z > 0) x->prod = gcd(x->l->prod, x->prod);\n        if (x->r->z > 0)\
+    \ x->prod = gcd(x->prod, x->r->prod);\n\n        x->rprod = x->value;\n      \
+    \  if (x->r->z > 0) x->rprod = gcd(x->r->rprod, x->rprod);\n        if (x->l->z\
+    \ > 0) x->rprod = gcd(x->rprod, x->l->rprod);\n\n        x->sumz = x->l->sumz\
+    \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct LCM : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
+    \    LCM(): _e(T(1)) {};\n\n    T e() override {\n        return _e;\n    }\n\n\
+    \    void operator() (S* x) override {\n        x->prod = x->value;\n        if\
+    \ (x->l->z > 0) x->prod = lcm(x->l->prod, x->prod);\n        if (x->r->z > 0)\
+    \ x->prod = lcm(x->prod, x->r->prod);\n\n        x->rprod = x->value;\n      \
+    \  if (x->r->z > 0) x->rprod = lcm(x->r->rprod, x->rprod);\n        if (x->l->z\
+    \ > 0) x->rprod = lcm(x->rprod, x->l->rprod);\n\n        x->sumz = x->l->sumz\
     \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
     \ T, typename F>\nstruct Mapping {\n    using S = Node<T, F>;\n\n    Mapping()\
     \ {};\n\n    virtual F id() = 0;\n\n    void operator() (S* x, const F f) {\n\
@@ -451,7 +467,7 @@ data:
     template<typename T, typename F>\nstruct Add: Mapping<T, F> {\n    using S = Node<T,\
     \ F>;\n\n    Add(): _id(F(0)) {};\n\n    F id() override {\n        return _id;\n\
     \    }\n\n    void map(S* x, const F f) override {\n        x->value += f * x->z;\n\
-    \        x->prod += f * x->sumz;\n        x->rprod += f * x->sumz;\n    }\n\n\
+    \        x->prod += f * x->coeff;\n        x->rprod += f * x->coeff;\n    }\n\n\
     \    void com(F &f, const F s) override {\n        f += s;\n    }\n\nprivate:\n\
     \    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct Multiply: Mapping<T,\
     \ F> {\n    using S = Node<T, F>;\n\n    Multiply(): _id(F(1)) {};\n\n    F id()\
@@ -462,14 +478,14 @@ data:
     \ F> {\n    using S = Node<T, F>;\n\n    Affine(): _id(F(1, 0)) {};\n\n    F id()\
     \ override {\n        return _id;\n    }\n\n    void map(S* x, const F f) override\
     \ {\n        x->value = f.first * x->value + f.second * x->z;\n        x->prod\
-    \ = f.first * x->prod + f.second * x->sumz;\n        x->rprod = f.first * x->rprod\
-    \ + f.second * x->sumz;\n    }\n\n    void com(F &f, const F s) override {\n \
-    \       f.first *= s.first;\n        f.second *= s.first;\n        f.second +=\
+    \ = f.first * x->prod + f.second * x->coeff;\n        x->rprod = f.first * x->rprod\
+    \ + f.second * x->coeff;\n    }\n\n    void com(F &f, const F s) override {\n\
+    \        f.first *= s.first;\n        f.second *= s.first;\n        f.second +=\
     \ s.second;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename\
     \ F>\nstruct Set: Mapping<T, F> {\n    using S = Node<T, F>;\n\n    Set(): _id(numeric_limits<F>::min())\
     \ {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S*\
     \ x, const F f) override {\n        x->value = T(f) * x->z;\n        x->prod =\
-    \ T(f) * x->sumz;\n        x->rprod = T(f) * x->sumz;\n    }\n\n    void com(F\
+    \ T(f) * x->coeff;\n        x->rprod = T(f) * x->coeff;\n    }\n\n    void com(F\
     \ &f, const F s) override {\n        f = s;\n    }\n\nprivate:\n    F _id;\n};\n\
     \ntemplate<typename T>\nstruct Set<T, string>: Mapping<T, string> {\n    using\
     \ S = Node<T, string>;\n    using F = string;\n\n    Set(): _id(F()) {};\n\n \
@@ -485,156 +501,173 @@ data:
     };\n\ntemplate<typename T, \n    typename F,\n    template<class, class> class\
     \ _mapping, \n    template<class, class> class _op>\nstruct SplayTreeByIdx{\n\
     \    using S = Node<T, F>;\n    using pS = unique_ptr<S>;\n\n    pS pNIL;\n  \
-    \  S *NIL = nullptr;\n    vector<pS> A;\n    S *R;\n\n    _op<T, F> op;\n    _mapping<T,\
-    \ F> mapping;\n\n    SplayTreeByIdx() {\n        if (!pNIL) {\n            pNIL\
-    \ = make_unique<S>();\n            NIL = pNIL.get();\n            NIL->l = NIL->r\
-    \ = NIL->p = NIL;\n            R = NIL;\n        }\n    }\n    \n    // \u4F1D\
-    \u64AD\n    void push(S* c){\n        if (c->l != NIL) all_apply(c->l, c->lazy);\n\
-    \        if (c->r != NIL) all_apply(c->r, c->lazy);\n\n        if (c->rev){\n\
-    \            swap(c->l, c->r);\n            if (c->l != NIL) all_reverse(c->l);\n\
-    \            if (c->r != NIL) all_reverse(c->r);\n            c->rev = false;\n\
-    \        }\n        c->lazy = mapping.id(); // \u4F1D\u64AD\u6E08\u307F\n    }\n\
-    \n    void all_apply(S* c, F f) {\n        mapping(c, f);\n        mapping.composition(c->lazy,\
-    \ f);\n    }\n\n    void all_reverse(S* c) {\n        c->rev ^= 1;\n        swap(c->prod,\
-    \ c->rprod);\n    }\n\n    // \u96C6\u7D04\n    void update(S* c) {\n        op(c);\
-    \ \n    }\n\n    // \uFF08\u4FBF\u5229\uFF09\n    // p \u306E\u89AA\u304C\u3001\
-    \u5B50\u3068\u3057\u3066 p \u3092\u53C2\u7167\u3059\u308B\u306E\u3067\u3001\u305D\
-    \u308C\u3092\u66F8\u304D\u63DB\u3048\u3089\u308C\u308B\u3088\u3046\u306B\u3059\
-    \u308B\n    // \u6839\u306E\u5834\u5408\u306B\u62E1\u5F35\u3057\u3066 R \u306E\
-    \u53C2\u7167\u3092\u8FD4\u3059\u3002\n    S*& parentchild(S* p) {\n        if\
-    \ (p->p == NIL) return R;\n        if (p->p->l == p) return p->p->l;\n       \
-    \ else return p->p->r;\n    }\n\n    // \u5DE6\u56DE\u8EE2\n    void rotL(S* c)\
-    \ {\n        S* p = c->p;\n        parentchild(p) = c;\n        c->p = p->p;\n\
-    \        p->p = c;\n        if (c->l != NIL) c->l->p = p; // \u5B50\u304C NIL\
-    \ \u304B\u3082\u3057\u308C\u306A\u3044\n        p->r = c->l;\n        c->l = p;\n\
-    \    }\n\n    // \u53F3\u56DE\u8EE2\n    void rotR(S* c) {\n        S* p = c->p;\n\
-    \        parentchild(p) = c;\n        c->p = p->p;\n        p->p = c;\n      \
-    \  if (c->r != NIL) c->r->p = p; // \u5B50\u304C NIL \u304B\u3082\u3057\u308C\u306A\
-    \u3044\n        p->l = c->r;\n        c->r = p;\n    }\n\n    // splay \u5F8C\u3001\
-    \ c \u306F\u4F1D\u64AD\u6E08\u307F\n    void splay(S* c) {\n        push(c); //\
-    \ \u30EB\u30FC\u30D7\u304C\u56DE\u3089\u306A\u3044\u6642\u306E\u305F\u3081\u306B\
-    \n        while (c->p != NIL) {\n            S* p = c->p;\n            S* pp =\
-    \ p->p;\n            // \u4F1D\u64AD\u306F\u89AA\u304B\u3089\n            if (pp\
-    \ != NIL) push(pp);\n            if (p != NIL) push(p);\n            push(c);\n\
-    \            if (p->l == c) {\n                if (pp == NIL) rotR(c);\n     \
-    \           else if (pp->l == p) { \n                    rotR(p); \n         \
-    \           rotR(c); \n                }\n                else if (pp->r == p)\
-    \ { \n                    rotR(c); \n                    rotL(c); \n         \
-    \       }\n            }\n            else {\n                if (pp == NIL) rotL(c);\n\
-    \                else if (pp->r == p) { \n                    rotL(p); \n    \
-    \                rotL(c); \n                }\n                else if (pp->l\
-    \ == p) { \n                    rotL(c); \n                    rotR(c); \n   \
-    \             }\n            }\n            // \u96C6\u7D04\u306F\u5B50\u304B\u3089\
-    \n            if (pp != NIL) update(pp);\n            if (p != NIL) update(p);\n\
-    \            update(c);\n        }\n        update(c); // \u30EB\u30FC\u30D7\u304C\
-    \u56DE\u3089\u306A\u3044\u6642\u306E\u305F\u3081\u306B\n    }\n\n    S* kth_element(long\
-    \ long k) {\n        S* c = R;\n\n        while (true) {\n            push(c);\n\
-    \            if (c->l->sumz == k) break;\n            if (c->l->sumz > k) { \n\
-    \                c = c->l; \n                continue;\n            }\n\n    \
-    \        k -= c->l->sumz + 1;\n            c = c->r;\n        }\n\n        push(c);\n\
-    \        splay(c);\n        return c;\n    }\n\n    void insert_at(long long k,\
-    \ T x) {\n        pS pnx = make_unique<S>(*NIL);\n        S* nx = pnx.get();\n\
-    \        nx->z = nx->sumz = 1;\n        nx->index = A.size();\n        nx->value\
-    \ = nx->prod = nx->rprod = x;\n        nx->lazy = mapping.id();\n        A.emplace_back(move(pnx));\n\
-    \n        if (k == 0) {  // \u5DE6\u7AEF\n            nx->r = R;\n           \
-    \ if (R != NIL) R->p = nx; // \u5143\u3005 0 \u9802\u70B9\u304B\u3082\u3057\u308C\
-    \u306A\u3044\n            R = nx;\n            update(nx); // \u633F\u5165\u3057\
-    \u305F\u3089\u96C6\u7D04\n            return;\n        }\n\n        if (k == R->sumz)\
-    \ { // \u53F3\u7AEF\uFF08\u5DE6\u7AEF\u3068\u540C\u69D8\uFF09\n            nx->l\
-    \ = R;\n            if (R != NIL) R->p = nx;\n            R = nx;\n          \
-    \  update(nx);\n            return;\n        }\n\n        auto p = kth_element(k);\n\
-    \        nx->l = p->l;\n        nx->r = p;\n        R = nx;\n        p->l->p =\
-    \ nx;\n        p->p = nx;\n        p->l = NIL;\n        update(p);  // split/merge\
-    \ \u306E\u5F71\u97FF\n        update(nx); //\n    }\n\n    void erase_at(long\
-    \ long k) {\n        auto p = kth_element(k);\n        if (k == 0) { // \u5DE6\
-    \u7AEF\n            R = p->r;\n            if (R != NIL) R->p = NIL; // 0 \u9802\
-    \u70B9\u306B\u306A\u308B\u304B\u3082\u3057\u308C\u306A\u3044\n        }\n    \
-    \    else if (k == R->sumz-1) { // \u53F3\u7AEF\n            R = p->l;\n     \
-    \       if (R != NIL) R->p = NIL;\n        }\n        else {\n            auto\
-    \ l = p->l;\n            auto r = p->r;\n            r->p = NIL;   // split\n\
-    \            R = r;        //\n            kth_element(0);\n            r = R;\
-    \        // merge\n            r->l = l;     //\n            l->p = r;     //\n\
-    \            update(r); // split/merge \u306E\u5F71\u97FF\n        }\n       \
-    \ swap(p->index, A.back()->index); // index \u304C\u66F4\u65B0\u3055\u308C\u308B\
-    \u3088\n        swap(A[p->index], A[A.back()->index]); // \u5F8C\u308D\u306B\u79FB\
-    \u52D5\u3057\u3066\n        A.pop_back(); // \u524A\u9664\n    }\n\n    S* between(long\
-    \ long l, long long r) {\n        if (l == 0 && r == R->sumz) return R; // \u5168\
-    \u57DF\n        if (l == 0) return kth_element(r)->l; // \u5DE6\u7AEF\n      \
-    \  if (r == R->sumz) return kth_element(l - 1)->r; // \u53F3\u7AEF\n\n       \
-    \ auto rp = kth_element(r);\n        auto lp = rp->l;\n        R = lp;       \
-    \ // split\n        lp->p = NIL;   //\n        lp = kth_element(l - 1);\n    \
-    \    R = rp;        // merge\n        rp->l = lp;    //\n        lp->p = rp; \
-    \   //\n        update(rp); // split/merge \u306E\u5F71\u97FF\n        return\
-    \ lp->r;\n    }\n\n    void reverse(long long l, long long r) {\n        auto\
-    \ c = between(l, r);\n        all_reverse(c);\n        splay(c);\n    }\n\n  \
-    \  void apply(long long l, long long r, F f) {\n        auto c = between(l, r);\n\
-    \        all_apply(c, f);\n        splay(c);\n    }\n\n    T prod(long long l,\
-    \ long long r) {\n        return between(l, r)->prod;\n    }\n\n    T get(long\
-    \ long k) {\n        return kth_element(k)->value;\n    }\n};\n#line 3 \"math/modint.cpp\"\
-    \n\n// modint: mod \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\u3046\u306B\
-    \u6271\u3048\u308B\u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp {\n    long\
-    \ long val;\n    constexpr Fp(long long v = 0) noexcept : val(v % MOD) {\n   \
-    \     if (val < 0) val += MOD;\n    }\n    constexpr int getmod() { return MOD;\
-    \ }\n    constexpr Fp operator - () const noexcept {\n        return val ? MOD\
-    \ - val : 0;\n    }\n    constexpr Fp operator + (const Fp& r) const noexcept\
-    \ { return Fp(*this) += r; }\n    constexpr Fp operator - (const Fp& r) const\
-    \ noexcept { return Fp(*this) -= r; }\n    constexpr Fp operator * (const Fp&\
-    \ r) const noexcept { return Fp(*this) *= r; }\n    constexpr Fp operator / (const\
-    \ Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr Fp& operator\
-    \ += (const Fp& r) noexcept {\n        val += r.val;\n        if (val >= MOD)\
-    \ val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator -= (const\
-    \ Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val += MOD;\n\
-    \        return *this;\n    }\n    constexpr Fp& operator *= (const Fp& r) noexcept\
-    \ {\n        val = val * r.val % MOD;\n        return *this;\n    }\n    constexpr\
-    \ Fp& operator /= (const Fp& r) noexcept {\n        long long a = r.val, b = MOD,\
-    \ u = 1, v = 0;\n        while (b) {\n            long long t = a / b;\n     \
-    \       a -= t * b; swap(a, b);\n            u -= t * v; swap(u, v);\n       \
-    \ }\n        val = val * u % MOD;\n        if (val < 0) val += MOD;\n        return\
-    \ *this;\n    }\n    constexpr Fp pow(unsigned long long n) const noexcept {\n\
-    \        assert(0 <= n);\n        Fp<MOD> x = *this, r = 1;\n        while (n)\
-    \ {\n            if (n & 1) r *= x;\n            x *= x;\n            n >>= 1;\n\
-    \        }\n        return r;\n    }\n    constexpr Fp pow(long long n) const\
-    \ noexcept {\n        return pow((unsigned long long) n);\n    }\n    constexpr\
-    \ bool operator == (const Fp& r) const noexcept {\n        return this->val ==\
-    \ r.val;\n    }\n    constexpr bool operator != (const Fp& r) const noexcept {\n\
-    \        return this->val != r.val;\n    }\n    friend constexpr istream& operator\
-    \ >> (istream &is, Fp<MOD>& x) noexcept {\n        long long t;\n        is >>\
-    \ t;\n        x = t;\n        return (is);\n    }\n    friend constexpr ostream&\
-    \ operator << (ostream &os, const Fp<MOD>& x) noexcept {\n        return os <<\
-    \ x.val;\n    }\n    friend constexpr Fp<MOD> modpow(const Fp<MOD> &a, long long\
-    \ n) noexcept {\n        if (n == 0) return 1;\n        auto t = modpow(a, n /\
-    \ 2);\n        t = t * t;\n        if (n & 1) t = t * a;\n        return t;\n\
-    \    }\n    friend constexpr Fp<MOD> modinv(const Fp<MOD> &a) noexcept {\n   \
-    \     Fp<MOD> b = 1;\n        return b / a;\n    }\n};\n\nusing mint998 = Fp<998244353>;\n\
-    using mint007 = Fp<1000000007>;\n// using mint = mint998;\n#line 5 \"test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp\"\
+    \  S *NIL = nullptr;\n    vector<pS> A;\n    S *R;\n    long long N;\n\n    _op<T,\
+    \ F> op;\n    _mapping<T, F> mapping;\n\n    SplayTreeByIdx() {\n        init();\n\
+    \    }\n\n    SplayTreeByIdx(long long n, T a) {\n        init();\n\n        rep(i,\
+    \ n) push_back(a);\n    }\n\n    SplayTreeByIdx(vector<T> &A) {\n        init();\n\
+    \n        fore(a, A) push_back(a);\n    }\n\n    void init() {\n        N = 0;\n\
+    \        if (!pNIL) {\n            pNIL = make_unique<S>();\n            NIL =\
+    \ pNIL.get();\n            NIL->l = NIL->r = NIL->p = NIL;\n            R = NIL;\n\
+    \        }\n    }\n    \n    // \u4F1D\u64AD\n    void push(S* c){\n        if\
+    \ (c->l != NIL) all_apply(c->l, c->lazy);\n        if (c->r != NIL) all_apply(c->r,\
+    \ c->lazy);\n\n        if (c->rev){\n            swap(c->l, c->r);\n         \
+    \   if (c->l != NIL) all_reverse(c->l);\n            if (c->r != NIL) all_reverse(c->r);\n\
+    \            c->rev = false;\n        }\n        c->lazy = mapping.id(); // \u4F1D\
+    \u64AD\u6E08\u307F\n    }\n\n    void all_apply(S* c, F f) {\n        mapping(c,\
+    \ f);\n        mapping.composition(c->lazy, f);\n    }\n\n    void all_reverse(S*\
+    \ c) {\n        c->rev ^= 1;\n        swap(c->prod, c->rprod);\n    }\n\n    //\
+    \ \u96C6\u7D04\n    void update(S* c) {\n        op(c); \n    }\n\n    // \uFF08\
+    \u4FBF\u5229\uFF09\n    // p \u306E\u89AA\u304C\u3001\u5B50\u3068\u3057\u3066\
+    \ p \u3092\u53C2\u7167\u3059\u308B\u306E\u3067\u3001\u305D\u308C\u3092\u66F8\u304D\
+    \u63DB\u3048\u3089\u308C\u308B\u3088\u3046\u306B\u3059\u308B\n    // \u6839\u306E\
+    \u5834\u5408\u306B\u62E1\u5F35\u3057\u3066 R \u306E\u53C2\u7167\u3092\u8FD4\u3059\
+    \u3002\n    S*& parentchild(S* p) {\n        if (p->p == NIL) return R;\n    \
+    \    if (p->p->l == p) return p->p->l;\n        else return p->p->r;\n    }\n\n\
+    \    // \u5DE6\u56DE\u8EE2\n    void rotL(S* c) {\n        S* p = c->p;\n    \
+    \    parentchild(p) = c;\n        c->p = p->p;\n        p->p = c;\n        if\
+    \ (c->l != NIL) c->l->p = p; // \u5B50\u304C NIL \u304B\u3082\u3057\u308C\u306A\
+    \u3044\n        p->r = c->l;\n        c->l = p;\n    }\n\n    // \u53F3\u56DE\u8EE2\
+    \n    void rotR(S* c) {\n        S* p = c->p;\n        parentchild(p) = c;\n \
+    \       c->p = p->p;\n        p->p = c;\n        if (c->r != NIL) c->r->p = p;\
+    \ // \u5B50\u304C NIL \u304B\u3082\u3057\u308C\u306A\u3044\n        p->l = c->r;\n\
+    \        c->r = p;\n    }\n\n    // splay \u5F8C\u3001 c \u306F\u4F1D\u64AD\u6E08\
+    \u307F\n    void splay(S* c) {\n        push(c); // \u30EB\u30FC\u30D7\u304C\u56DE\
+    \u3089\u306A\u3044\u6642\u306E\u305F\u3081\u306B\n        while (c->p != NIL)\
+    \ {\n            S* p = c->p;\n            S* pp = p->p;\n            // \u4F1D\
+    \u64AD\u306F\u89AA\u304B\u3089\n            if (pp != NIL) push(pp);\n       \
+    \     if (p != NIL) push(p);\n            push(c);\n            if (p->l == c)\
+    \ {\n                if (pp == NIL) rotR(c);\n                else if (pp->l ==\
+    \ p) { \n                    rotR(p); \n                    rotR(c); \n      \
+    \          }\n                else if (pp->r == p) { \n                    rotR(c);\
+    \ \n                    rotL(c); \n                }\n            }\n        \
+    \    else {\n                if (pp == NIL) rotL(c);\n                else if\
+    \ (pp->r == p) { \n                    rotL(p); \n                    rotL(c);\
+    \ \n                }\n                else if (pp->l == p) { \n             \
+    \       rotL(c); \n                    rotR(c); \n                }\n        \
+    \    }\n            // \u96C6\u7D04\u306F\u5B50\u304B\u3089\n            if (pp\
+    \ != NIL) update(pp);\n            if (p != NIL) update(p);\n            update(c);\n\
+    \        }\n        update(c); // \u30EB\u30FC\u30D7\u304C\u56DE\u3089\u306A\u3044\
+    \u6642\u306E\u305F\u3081\u306B\n    }\n\n    S* kth_element(long long k) {\n \
+    \       S* c = R;\n\n        while (true) {\n            push(c);\n          \
+    \  if (c->l->sumz == k) break;\n            if (c->l->sumz > k) { \n         \
+    \       c = c->l; \n                continue;\n            }\n\n            k\
+    \ -= c->l->sumz + 1;\n            c = c->r;\n        }\n\n        push(c);\n \
+    \       splay(c);\n        return c;\n    }\n\n    void insert(long long k, T\
+    \ x) {\n        ++N;\n        pS pnx = make_unique<S>(*NIL);\n        S* nx =\
+    \ pnx.get();\n        nx->z = nx->sumz = nx->coeff = 1;\n        nx->index = A.size();\n\
+    \        nx->value = nx->prod = nx->rprod = x;\n        nx->lazy = mapping.id();\n\
+    \        A.emplace_back(move(pnx));\n\n        if (k == 0) {  // \u5DE6\u7AEF\n\
+    \            nx->r = R;\n            if (R != NIL) R->p = nx; // \u5143\u3005\
+    \ 0 \u9802\u70B9\u304B\u3082\u3057\u308C\u306A\u3044\n            R = nx;\n  \
+    \          update(nx); // \u633F\u5165\u3057\u305F\u3089\u96C6\u7D04\n       \
+    \     return;\n        }\n\n        if (k == R->sumz) { // \u53F3\u7AEF\uFF08\u5DE6\
+    \u7AEF\u3068\u540C\u69D8\uFF09\n            nx->l = R;\n            if (R != NIL)\
+    \ R->p = nx;\n            R = nx;\n            update(nx);\n            return;\n\
+    \        }\n\n        auto p = kth_element(k);\n        nx->l = p->l;\n      \
+    \  nx->r = p;\n        R = nx;\n        p->l->p = nx;\n        p->p = nx;\n  \
+    \      p->l = NIL;\n        update(p);  // split/merge \u306E\u5F71\u97FF\n  \
+    \      update(nx); //\n    }\n\n    void erase(long long k) {\n        --N;\n\
+    \        auto p = kth_element(k);\n        if (k == 0) { // \u5DE6\u7AEF\n   \
+    \         R = p->r;\n            if (R != NIL) R->p = NIL; // 0 \u9802\u70B9\u306B\
+    \u306A\u308B\u304B\u3082\u3057\u308C\u306A\u3044\n        }\n        else if (k\
+    \ == R->sumz-1) { // \u53F3\u7AEF\n            R = p->l;\n            if (R !=\
+    \ NIL) R->p = NIL;\n        }\n        else {\n            auto l = p->l;\n  \
+    \          auto r = p->r;\n            r->p = NIL;   // split\n            R =\
+    \ r;        //\n            kth_element(0);\n            r = R;        // merge\n\
+    \            r->l = l;     //\n            l->p = r;     //\n            update(r);\
+    \ // split/merge \u306E\u5F71\u97FF\n        }\n        swap(p->index, A.back()->index);\
+    \ // index \u304C\u66F4\u65B0\u3055\u308C\u308B\u3088\n        swap(A[p->index],\
+    \ A[A.back()->index]); // \u5F8C\u308D\u306B\u79FB\u52D5\u3057\u3066\n       \
+    \ A.pop_back(); // \u524A\u9664\n    }\n\n    S* between(long long l, long long\
+    \ r) {\n        if (l == 0 && r == R->sumz) return R; // \u5168\u57DF\n      \
+    \  if (l == 0) return kth_element(r)->l; // \u5DE6\u7AEF\n        if (r == R->sumz)\
+    \ return kth_element(l - 1)->r; // \u53F3\u7AEF\n\n        auto rp = kth_element(r);\n\
+    \        auto lp = rp->l;\n        R = lp;        // split\n        lp->p = NIL;\
+    \   //\n        lp = kth_element(l - 1);\n        R = rp;        // merge\n  \
+    \      rp->l = lp;    //\n        lp->p = rp;    //\n        update(rp); // split/merge\
+    \ \u306E\u5F71\u97FF\n        return lp->r;\n    }\n\n    void reverse(long long\
+    \ l, long long r) {\n        auto c = between(l, r);\n        all_reverse(c);\n\
+    \        splay(c);\n    }\n\n    void apply(long long p, F f) {\n        apply(p,\
+    \ p + 1, f);\n    }\n\n    void apply(long long l, long long r, F f) {\n     \
+    \   auto c = between(l, r);\n        all_apply(c, f);\n        splay(c);\n   \
+    \ }\n\n    T prod(long long l, long long r) {\n        return between(l, r)->prod;\n\
+    \    }\n\n    T get(long long k) {\n        return kth_element(k)->value;\n  \
+    \  }\n\n    void push_back(T x) {\n        insert(N, x);\n    }\n\n    void pop_back()\
+    \ {\n        erase(N - 1);\n    }\n\n    void push_front(T x) {\n        insert(0,\
+    \ x);\n    }\n\n    void pop_front() {\n        erase(0);\n    }\n};\n\ntemplate<typename\
+    \ T = long long, typename F = long long> using RangeAddRangeSum = SplayTreeByIdx<T,\
+    \ F, Add, Sum>;\ntemplate<typename T = long long, typename F = long long> using\
+    \ RangeAddRangeMin = SplayTreeByIdx<T, F, Add, Min>;\ntemplate<typename T = long\
+    \ long, typename F = long long> using RangeAddRangeMax = SplayTreeByIdx<T, F,\
+    \ Add, Max>;\n\ntemplate<typename T = long long, typename F = long long> using\
+    \ RangeSetRangeSum = SplayTreeByIdx<T, F, Set, Sum>;\ntemplate<typename T = long\
+    \ long, typename F = long long> using RangeSetRangeMin = SplayTreeByIdx<T, F,\
+    \ Set, Min>;\ntemplate<typename T = long long, typename F = long long> using RangeSetRangeMax\
+    \ = SplayTreeByIdx<T, F, Set, Max>;\n#line 3 \"math/modint.cpp\"\n\n// modint:\
+    \ mod \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\u3048\u308B\
+    \u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp {\n    long long val;\n    constexpr\
+    \ Fp(long long v = 0) noexcept : val(v % MOD) {\n        if (val < 0) val += MOD;\n\
+    \    }\n    constexpr int getmod() { return MOD; }\n    constexpr Fp operator\
+    \ - () const noexcept {\n        return val ? MOD - val : 0;\n    }\n    constexpr\
+    \ Fp operator + (const Fp& r) const noexcept { return Fp(*this) += r; }\n    constexpr\
+    \ Fp operator - (const Fp& r) const noexcept { return Fp(*this) -= r; }\n    constexpr\
+    \ Fp operator * (const Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr\
+    \ Fp operator / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr\
+    \ Fp& operator += (const Fp& r) noexcept {\n        val += r.val;\n        if\
+    \ (val >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
+    \ -= (const Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val\
+    \ += MOD;\n        return *this;\n    }\n    constexpr Fp& operator *= (const\
+    \ Fp& r) noexcept {\n        val = val * r.val % MOD;\n        return *this;\n\
+    \    }\n    constexpr Fp& operator /= (const Fp& r) noexcept {\n        long long\
+    \ a = r.val, b = MOD, u = 1, v = 0;\n        while (b) {\n            long long\
+    \ t = a / b;\n            a -= t * b; swap(a, b);\n            u -= t * v; swap(u,\
+    \ v);\n        }\n        val = val * u % MOD;\n        if (val < 0) val += MOD;\n\
+    \        return *this;\n    }\n    constexpr Fp pow(unsigned long long n) const\
+    \ noexcept {\n        assert(0 <= n);\n        Fp<MOD> x = *this, r = 1;\n   \
+    \     while (n) {\n            if (n & 1) r *= x;\n            x *= x;\n     \
+    \       n >>= 1;\n        }\n        return r;\n    }\n    constexpr Fp pow(long\
+    \ long n) const noexcept {\n        return pow((unsigned long long) n);\n    }\n\
+    \    constexpr bool operator == (const Fp& r) const noexcept {\n        return\
+    \ this->val == r.val;\n    }\n    constexpr bool operator != (const Fp& r) const\
+    \ noexcept {\n        return this->val != r.val;\n    }\n    friend constexpr\
+    \ istream& operator >> (istream &is, Fp<MOD>& x) noexcept {\n        long long\
+    \ t;\n        is >> t;\n        x = t;\n        return (is);\n    }\n    friend\
+    \ constexpr ostream& operator << (ostream &os, const Fp<MOD>& x) noexcept {\n\
+    \        return os << x.val;\n    }\n    friend constexpr Fp<MOD> modpow(const\
+    \ Fp<MOD> &a, long long n) noexcept {\n        if (n == 0) return 1;\n       \
+    \ auto t = modpow(a, n / 2);\n        t = t * t;\n        if (n & 1) t = t * a;\n\
+    \        return t;\n    }\n    friend constexpr Fp<MOD> modinv(const Fp<MOD> &a)\
+    \ noexcept {\n        Fp<MOD> b = 1;\n        return b / a;\n    }\n};\n\nusing\
+    \ mint998 = Fp<998244353>;\nusing mint007 = Fp<1000000007>;\n// using mint = mint998;\n\
+    #line 5 \"test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp\"\
     \n\nusing mint = mint998;\n\nint main() {\n    ll N, Q;\n    cin >> N >> Q;\n\n\
     \    vector<ull> a(N);\n    rep(i, N) cin >> a[i];\n\n    SplayTreeByIdx<mint,\
-    \ pair<mint, mint>, Affine, Sum> tree;\n\n    rep(i, N) tree.insert_at(i, a[i]);\n\
+    \ pair<mint, mint>, Affine, Sum> tree;\n\n    rep(i, N) tree.insert(i, a[i]);\n\
     \n    while (Q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
     \            ll i;\n            ull x;\n            cin >> i >> x;\n         \
-    \   tree.insert_at(i, x);\n        }\n        else if (t == 1) {\n           \
-    \ ll i;\n            cin >> i;\n            tree.erase_at(i);\n        }\n   \
-    \     else if (t == 2) {\n            ll l, r;\n            cin >> l >> r;\n \
-    \           tree.reverse(l, r);\n        }\n        else if (t == 3) {\n     \
-    \       ll l, r;\n            ull b, c;\n            cin >> l >> r >> b >> c;\n\
-    \            tree.apply(l, r, {b, c});\n        }\n        else {\n          \
-    \  ll l, r;\n            cin >> l >> r;\n            cout << tree.prod(l, r) <<\
-    \ endl;\n        }\n    }\n\n    return 0;\n}\n"
+    \   tree.insert(i, x);\n        }\n        else if (t == 1) {\n            ll\
+    \ i;\n            cin >> i;\n            tree.erase(i);\n        }\n        else\
+    \ if (t == 2) {\n            ll l, r;\n            cin >> l >> r;\n          \
+    \  tree.reverse(l, r);\n        }\n        else if (t == 3) {\n            ll\
+    \ l, r;\n            ull b, c;\n            cin >> l >> r >> b >> c;\n       \
+    \     tree.apply(l, r, {b, c});\n        }\n        else {\n            ll l,\
+    \ r;\n            cin >> l >> r;\n            cout << tree.prod(l, r) << endl;\n\
+    \        }\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum\"\
     \n\n#include \"../../../structure/splay-tree.cpp\"\n#include \"../../../math/modint.cpp\"\
     \n\nusing mint = mint998;\n\nint main() {\n    ll N, Q;\n    cin >> N >> Q;\n\n\
     \    vector<ull> a(N);\n    rep(i, N) cin >> a[i];\n\n    SplayTreeByIdx<mint,\
-    \ pair<mint, mint>, Affine, Sum> tree;\n\n    rep(i, N) tree.insert_at(i, a[i]);\n\
+    \ pair<mint, mint>, Affine, Sum> tree;\n\n    rep(i, N) tree.insert(i, a[i]);\n\
     \n    while (Q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
     \            ll i;\n            ull x;\n            cin >> i >> x;\n         \
-    \   tree.insert_at(i, x);\n        }\n        else if (t == 1) {\n           \
-    \ ll i;\n            cin >> i;\n            tree.erase_at(i);\n        }\n   \
-    \     else if (t == 2) {\n            ll l, r;\n            cin >> l >> r;\n \
-    \           tree.reverse(l, r);\n        }\n        else if (t == 3) {\n     \
-    \       ll l, r;\n            ull b, c;\n            cin >> l >> r >> b >> c;\n\
-    \            tree.apply(l, r, {b, c});\n        }\n        else {\n          \
-    \  ll l, r;\n            cin >> l >> r;\n            cout << tree.prod(l, r) <<\
-    \ endl;\n        }\n    }\n\n    return 0;\n}"
+    \   tree.insert(i, x);\n        }\n        else if (t == 1) {\n            ll\
+    \ i;\n            cin >> i;\n            tree.erase(i);\n        }\n        else\
+    \ if (t == 2) {\n            ll l, r;\n            cin >> l >> r;\n          \
+    \  tree.reverse(l, r);\n        }\n        else if (t == 3) {\n            ll\
+    \ l, r;\n            ull b, c;\n            cin >> l >> r >> b >> c;\n       \
+    \     tree.apply(l, r, {b, c});\n        }\n        else {\n            ll l,\
+    \ r;\n            cin >> l >> r;\n            cout << tree.prod(l, r) << endl;\n\
+    \        }\n    }\n\n    return 0;\n}"
   dependsOn:
   - structure/splay-tree.cpp
   - base.cpp
@@ -642,7 +675,7 @@ data:
   isVerificationFile: true
   path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 16:03:07+09:00'
+  timestamp: '2024-08-17 04:53:37+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp

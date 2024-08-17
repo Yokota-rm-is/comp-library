@@ -499,14 +499,14 @@ data:
     \    vector<char> path;\n\n    char s = 's';\n    char g = 'g';\n    char t =\
     \ 't';\n    char dot = field.dot;\n    char hash = field.hash;\n    char obj =\
     \ field.obj;\n    char excl = field.excl;\n    Coordinate start = Coordinate(-1,\
-    \ -1), goal = Coordinate(-1, -1);\n    long long inf = INF64 / 2;\n    long long\
-    \ group;\n\n    GridDFS(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
-    \    };\n\n    GridDFS(long long h, long long w) : H(h), W(w), field(h, w) {\n\
-    \        init();\n    };\n\n    GridDFS(vector<string> vs) : H(vs.size()), W(vs.front().size()),\
-    \ field(vs) {\n        init();\n        after_input();\n    };\n\n    void init()\
-    \ {\n        group = 0;\n        seen.assign(H, W, false);\n        cc.assign(H,\
-    \ W, -1);\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n \
-    \       after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
+    \ -1), goal = Coordinate(-1, -1);\n    long long group;\n\n    GridDFS(long long\
+    \ n) : H(n), W(n), field(n, n) {\n        init();\n    };\n\n    GridDFS(long\
+    \ long h, long long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n\
+    \    GridDFS(vector<string> vs) : H(vs.size()), W(vs.front().size()), field(vs)\
+    \ {\n        init();\n        after_input();\n    };\n\n    void init() {\n  \
+    \      group = 0;\n        seen.assign(H, W, false);\n        cc.assign(H, W,\
+    \ -1);\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n    \
+    \    after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
     \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
     \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
     \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
@@ -553,7 +553,7 @@ data:
   isVerificationFile: true
   path: test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-18 02:43:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/grid/grid-dfs/atcoder-atc001-a.test.cpp

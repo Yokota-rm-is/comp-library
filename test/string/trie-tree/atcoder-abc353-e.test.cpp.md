@@ -14,27 +14,25 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    IGNORE: ''
-    IGNORE_IF_GCC: ''
+    PROBLEM: https://atcoder.jp/contests/abc353/tasks/abc353_e
     links:
     - https://atcoder.jp/contests/abc353/submissions/53397052
     - https://atcoder.jp/contests/abc353/tasks/abc353_e
   bundledCode: "#line 1 \"test/string/trie-tree/atcoder-abc353-e.test.cpp\"\n#define\
-    \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_e\"\
-    \n// https://atcoder.jp/contests/abc353/submissions/53397052\n\n#line 2 \"base.cpp\"\
-    \n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
-    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
-    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
-    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
-    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
-    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
-    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
-    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
-    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
-    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
-    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
-    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    \ PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_e\"\n// https://atcoder.jp/contests/abc353/submissions/53397052\n\
+    \n#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
+    #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
+    #endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n#include <boost/algorithm/cxx11/all_of.hpp>\n\
+    #include <boost/algorithm/cxx11/any_of.hpp>\n#include <boost/algorithm/cxx11/none_of.hpp>\n\
+    #include <boost/algorithm/cxx11/one_of.hpp>\n#endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n\
+    #include <boost/lambda/lambda.hpp>\n#endif\n#if __has_include(<boost/range/irange.hpp>)\n\
+    #include <boost/range/irange.hpp>\n#include <boost/range/adaptors.hpp>\n#endif\n\
+    #if __has_include(<boost/multiprecision/cpp_int.hpp>)\n#include <boost/multiprecision/cpp_int.hpp>\n\
+    #endif\n#if __has_include(<gmpxx.h>)\n#include <gmpxx.h>\n#endif\n\nusing namespace\
+    \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
+    10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
+    \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
+    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -435,14 +433,14 @@ data:
     \ search(prefix, true);\n    }\n\n    // \u633F\u5165\u3057\u305F\u5358\u8A9E\u306E\
     \u6570\n    long long count() const {\n        return (nodes[0].common);\n   \
     \ }\n\n    // Trie\u6728\u306E\u30CE\u30FC\u30C9\u6570\n    long long size() const\
-    \ {\n        return nodes.size();\n    }\n};\n#line 6 \"test/string/trie-tree/atcoder-abc353-e.test.cpp\"\
+    \ {\n        return nodes.size();\n    }\n};\n#line 5 \"test/string/trie-tree/atcoder-abc353-e.test.cpp\"\
     \n\n\nint main() {\n    ll N;\n    cin >> N;\n\n    vector<string> S(N);\n   \
     \ rep(i, N) cin >> S[i];\n\n    Trie<26, 'a'> trie;\n    rep(i, N) {\n       \
     \ trie.insert(S[i]);\n    }\n\n    ll ans = 0;\n    auto A = trie.nodes;\n   \
     \ rep(i, 1, A.size()) {\n        ans += A[i].common * (A[i].common - 1) / 2;\n\
     \    }\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
-  code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_e\"\
-    \n// https://atcoder.jp/contests/abc353/submissions/53397052\n\n#include \"../../../string/trie-tree.cpp\"\
+  code: "#define PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_e\"\n//\
+    \ https://atcoder.jp/contests/abc353/submissions/53397052\n\n#include \"../../../string/trie-tree.cpp\"\
     \n\n\nint main() {\n    ll N;\n    cin >> N;\n\n    vector<string> S(N);\n   \
     \ rep(i, N) cin >> S[i];\n\n    Trie<26, 'a'> trie;\n    rep(i, N) {\n       \
     \ trie.insert(S[i]);\n    }\n\n    ll ans = 0;\n    auto A = trie.nodes;\n   \
@@ -454,7 +452,7 @@ data:
   isVerificationFile: true
   path: test/string/trie-tree/atcoder-abc353-e.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-18 02:50:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/string/trie-tree/atcoder-abc353-e.test.cpp

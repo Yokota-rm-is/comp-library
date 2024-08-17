@@ -492,64 +492,64 @@ data:
     \ Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\n    char s = 's';\n\
     \    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n    char hash\
     \ = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n    Coordinate\
-    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf =\
-    \ inf64;\n    long long group;\n\n    GridDijkstra(long long n) : H(n), W(n),\
-    \ field(n, n) {\n        init();\n    };\n\n    GridDijkstra(long long h, long\
-    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridDijkstra(vector<string>\
-    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
-    \     after_input();\n    };\n\n    void init() {\n        group = 0;\n      \
-    \  done.assign(H, W, false);\n        cost.assign(H, W, inf);\n        prev.assign(H,\
-    \ W, Coordinate(-1, -1));\n        cc.assign(H, W, -1);\n    }\n\n    void input()\
-    \ {\n        rep(y, H) cin >> field[y];\n        after_input();\n    }\n\n   \
-    \ void after_input() {\n        rep(y, H) rep(x, W) {\n                char c\
-    \ = field(y, x);\n                if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n\
-    \                if (c < 'a' or c > 'z') continue;\n\n                if (c ==\
-    \ s) {\n                    start = Coordinate(y, x);\n                }\n   \
-    \             if (c == g or c == t) {\n                    goal = Coordinate(y,\
-    \ x);\n                }\n            }\n    }\n\n    long long to_index(Coordinate&\
-    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
-    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
-    \   void dijkstra(Coordinate now) {\n        assert(!done(now) and !field.is_out(now)\
-    \ and !field.is_obj(now));\n\n        priority_queue<pair<long long, Coordinate>,\
-    \ vector<pair<long long, Coordinate>>, greater<>> que;\n\n        // \u521D\u671F\
-    \u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\
-    \u308B)\n        que.emplace(0, now); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\
-    \u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\
-    \u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
-    \ {\n            auto p = que.top(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\
-    \u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\n       \
-    \     now = p.second;\n            done(now) = true;\n            cost(now) =\
-    \ p.first;\n            cc(now) = group;\n\n            // v \u304B\u3089\u8FBF\
-    \u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n         \
-    \   rep(i, dirs.size()) {\n                Coordinate next = now + dirs[i];\n\n\
-    \                if (field.is_out(next)) continue;\n                if (field.is_obj(next))\
-    \ continue;\n                if (done(next)) continue;\n\n                long\
-    \ long c = 1;\n\n                if (chmin(cost(next), cost(now) + c)) {\n   \
-    \                 prev(next) = now;\n                    que.emplace(cost(next),\
-    \ next);\n                }\n            }\n        }\n    }\n\n    bool can_reach_goal()\
-    \ {\n        return can_reach(goal);\n    }\n\n    bool can_reach(Coordinate to)\
-    \ {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\n        return\
-    \ done(to);\n    }\n\n    long long get_dist(Coordinate to) {\n        assert(!field.is_out(to)\
-    \ and !field.is_obj(to));\n        return cost(to);\n    }\n\n    vector<Coordinate>\
-    \ get_path(Coordinate from, Coordinate to) {\n        assert(!field.is_out(from)\
-    \ and !field.is_obj(from));\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \n        dijkstra(from);\n        return get_path(to);\n    }\n\n    vector<Coordinate>\
-    \ get_path_to_goal() {\n        return get_path(goal);\n    }\n\n    vector<Coordinate>\
-    \ get_path(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \        if (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n   \
-    \     p.push_back(to);\n\n        while (prev(p.back()) != Coordinate(-1, -1))\
-    \ {\n            p.push_back(prev(p.back()));\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    string get_char_path_to_goal()\
-    \ {\n        return get_char_path(goal);\n    }\n\n    string get_char_path(Coordinate\
+    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long group;\n\
+    \n    GridDijkstra(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
+    \    };\n\n    GridDijkstra(long long h, long long w) : H(h), W(w), field(h, w)\
+    \ {\n        init();\n    };\n\n    GridDijkstra(vector<string> vs) : H(vs.size()),\
+    \ W(vs.front().size()), field(vs) {\n        init();\n        after_input();\n\
+    \    };\n\n    void init() {\n        group = 0;\n        done.assign(H, W, false);\n\
+    \        cost.assign(H, W, inf64);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
+    \        cc.assign(H, W, -1);\n    }\n\n    void input() {\n        rep(y, H)\
+    \ cin >> field[y];\n        after_input();\n    }\n\n    void after_input() {\n\
+    \        rep(y, H) rep(x, W) {\n                char c = field(y, x);\n      \
+    \          if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
+    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
+    \       start = Coordinate(y, x);\n                }\n                if (c ==\
+    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
+    \   }\n            }\n    }\n\n    long long to_index(Coordinate& p) {\n     \
+    \   return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long index)\
+    \ {\n        return Coordinate(index / W, index % W);\n    }\n\n    void dijkstra(Coordinate\
+    \ now) {\n        assert(!done(now) and !field.is_out(now) and !field.is_obj(now));\n\
+    \n        priority_queue<pair<long long, Coordinate>, vector<pair<long long, Coordinate>>,\
+    \ greater<>> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\
+    \u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n        que.emplace(0, now);\
+    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            auto p = que.top();\
+    \ // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
+    \u3059\n            que.pop();\n\n            now = p.second;\n            done(now)\
+    \ = true;\n            cost(now) = p.first;\n            cc(now) = group;\n\n\
+    \            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\
+    \u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
+    \ next = now + dirs[i];\n\n                if (field.is_out(next)) continue;\n\
+    \                if (field.is_obj(next)) continue;\n                if (done(next))\
+    \ continue;\n\n                long long c = 1;\n\n                if (chmin(cost(next),\
+    \ cost(now) + c)) {\n                    prev(next) = now;\n                 \
+    \   que.emplace(cost(next), next);\n                }\n            }\n       \
+    \ }\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n \
+    \   }\n\n    bool can_reach(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n\n        return done(to);\n    }\n\n    long long\
+    \ get_dist(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
+    \        return cost(to);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
+    \ from, Coordinate to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n\
+    \        assert(!field.is_out(to) and !field.is_obj(to));\n\n        dijkstra(from);\n\
+    \        return get_path(to);\n    }\n\n    vector<Coordinate> get_path_to_goal()\
+    \ {\n        return get_path(goal);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
     \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
-    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> path = get_path(to);\n\
-    \n        string ret;\n        rep(i, path.size() - 1) {\n            ret += path[i].dir2char(path[i\
-    \ + 1]);\n        }\n\n        return ret;\n    }\n\n    bool operator== (GridDijkstra\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridDijkstra& grid) {\n\
-    \        return os << grid.field << endl;\n    }\n};\n"
+    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    string get_char_path_to_goal() {\n        return get_char_path(goal);\n\
+    \    }\n\n    string get_char_path(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n        if (!can_reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = get_path(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
+    \ ret;\n    }\n\n    bool operator== (GridDijkstra &other) {\n        if (H !=\
+    \ other.H or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x,\
+    \ min(W, other.W)) {\n            if (field(y, x) != other.field(y, x)) return\
+    \ false;\n        }\n\n        return true;\n    }\n\n    friend ostream& operator\
+    \ << (ostream &os, GridDijkstra& grid) {\n        return os << grid.field << endl;\n\
+    \    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\nstruct Coordinate {\n    long long\
     \ y, x;\n\n    Coordinate(long long y_ = 0, long long x_ = 0) : y(y_), x(x_) {};\n\
     \n    double euclid() {\n        return sqrt(pow(y, 2) + pow(x, 2));\n    }\n\n\
@@ -659,70 +659,70 @@ data:
     \ Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\n    char s = 's';\n\
     \    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n    char hash\
     \ = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n    Coordinate\
-    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long inf =\
-    \ inf64;\n    long long group;\n\n    GridDijkstra(long long n) : H(n), W(n),\
-    \ field(n, n) {\n        init();\n    };\n\n    GridDijkstra(long long h, long\
-    \ long w) : H(h), W(w), field(h, w) {\n        init();\n    };\n\n    GridDijkstra(vector<string>\
-    \ vs) : H(vs.size()), W(vs.front().size()), field(vs) {\n        init();\n   \
-    \     after_input();\n    };\n\n    void init() {\n        group = 0;\n      \
-    \  done.assign(H, W, false);\n        cost.assign(H, W, inf);\n        prev.assign(H,\
-    \ W, Coordinate(-1, -1));\n        cc.assign(H, W, -1);\n    }\n\n    void input()\
-    \ {\n        rep(y, H) cin >> field[y];\n        after_input();\n    }\n\n   \
-    \ void after_input() {\n        rep(y, H) rep(x, W) {\n                char c\
-    \ = field(y, x);\n                if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n\
-    \                if (c < 'a' or c > 'z') continue;\n\n                if (c ==\
-    \ s) {\n                    start = Coordinate(y, x);\n                }\n   \
-    \             if (c == g or c == t) {\n                    goal = Coordinate(y,\
-    \ x);\n                }\n            }\n    }\n\n    long long to_index(Coordinate&\
-    \ p) {\n        return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long\
-    \ long index) {\n        return Coordinate(index / W, index % W);\n    }\n\n \
-    \   void dijkstra(Coordinate now) {\n        assert(!done(now) and !field.is_out(now)\
-    \ and !field.is_obj(now));\n\n        priority_queue<pair<long long, Coordinate>,\
-    \ vector<pair<long long, Coordinate>>, greater<>> que;\n\n        // \u521D\u671F\
-    \u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\
-    \u308B)\n        que.emplace(0, now); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\
-    \u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\
-    \u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
-    \ {\n            auto p = que.top(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\
-    \u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop();\n\n       \
-    \     now = p.second;\n            done(now) = true;\n            cost(now) =\
-    \ p.first;\n            cc(now) = group;\n\n            // v \u304B\u3089\u8FBF\
-    \u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n         \
-    \   rep(i, dirs.size()) {\n                Coordinate next = now + dirs[i];\n\n\
-    \                if (field.is_out(next)) continue;\n                if (field.is_obj(next))\
-    \ continue;\n                if (done(next)) continue;\n\n                long\
-    \ long c = 1;\n\n                if (chmin(cost(next), cost(now) + c)) {\n   \
-    \                 prev(next) = now;\n                    que.emplace(cost(next),\
-    \ next);\n                }\n            }\n        }\n    }\n\n    bool can_reach_goal()\
-    \ {\n        return can_reach(goal);\n    }\n\n    bool can_reach(Coordinate to)\
-    \ {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\n        return\
-    \ done(to);\n    }\n\n    long long get_dist(Coordinate to) {\n        assert(!field.is_out(to)\
-    \ and !field.is_obj(to));\n        return cost(to);\n    }\n\n    vector<Coordinate>\
-    \ get_path(Coordinate from, Coordinate to) {\n        assert(!field.is_out(from)\
-    \ and !field.is_obj(from));\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \n        dijkstra(from);\n        return get_path(to);\n    }\n\n    vector<Coordinate>\
-    \ get_path_to_goal() {\n        return get_path(goal);\n    }\n\n    vector<Coordinate>\
-    \ get_path(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \        if (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n   \
-    \     p.push_back(to);\n\n        while (prev(p.back()) != Coordinate(-1, -1))\
-    \ {\n            p.push_back(prev(p.back()));\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    string get_char_path_to_goal()\
-    \ {\n        return get_char_path(goal);\n    }\n\n    string get_char_path(Coordinate\
+    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long group;\n\
+    \n    GridDijkstra(long long n) : H(n), W(n), field(n, n) {\n        init();\n\
+    \    };\n\n    GridDijkstra(long long h, long long w) : H(h), W(w), field(h, w)\
+    \ {\n        init();\n    };\n\n    GridDijkstra(vector<string> vs) : H(vs.size()),\
+    \ W(vs.front().size()), field(vs) {\n        init();\n        after_input();\n\
+    \    };\n\n    void init() {\n        group = 0;\n        done.assign(H, W, false);\n\
+    \        cost.assign(H, W, inf64);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
+    \        cc.assign(H, W, -1);\n    }\n\n    void input() {\n        rep(y, H)\
+    \ cin >> field[y];\n        after_input();\n    }\n\n    void after_input() {\n\
+    \        rep(y, H) rep(x, W) {\n                char c = field(y, x);\n      \
+    \          if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
+    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
+    \       start = Coordinate(y, x);\n                }\n                if (c ==\
+    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
+    \   }\n            }\n    }\n\n    long long to_index(Coordinate& p) {\n     \
+    \   return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long index)\
+    \ {\n        return Coordinate(index / W, index % W);\n    }\n\n    void dijkstra(Coordinate\
+    \ now) {\n        assert(!done(now) and !field.is_out(now) and !field.is_obj(now));\n\
+    \n        priority_queue<pair<long long, Coordinate>, vector<pair<long long, Coordinate>>,\
+    \ greater<>> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\
+    \u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n        que.emplace(0, now);\
+    \ // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\
+    \u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\
+    \u3092\u884C\u3046)\n        while (!que.empty()) {\n            auto p = que.top();\
+    \ // \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
+    \u3059\n            que.pop();\n\n            now = p.second;\n            done(now)\
+    \ = true;\n            cost(now) = p.first;\n            cc(now) = group;\n\n\
+    \            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\
+    \u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
+    \ next = now + dirs[i];\n\n                if (field.is_out(next)) continue;\n\
+    \                if (field.is_obj(next)) continue;\n                if (done(next))\
+    \ continue;\n\n                long long c = 1;\n\n                if (chmin(cost(next),\
+    \ cost(now) + c)) {\n                    prev(next) = now;\n                 \
+    \   que.emplace(cost(next), next);\n                }\n            }\n       \
+    \ }\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n \
+    \   }\n\n    bool can_reach(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n\n        return done(to);\n    }\n\n    long long\
+    \ get_dist(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
+    \        return cost(to);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
+    \ from, Coordinate to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n\
+    \        assert(!field.is_out(to) and !field.is_obj(to));\n\n        dijkstra(from);\n\
+    \        return get_path(to);\n    }\n\n    vector<Coordinate> get_path_to_goal()\
+    \ {\n        return get_path(goal);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
     \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
-    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> path = get_path(to);\n\
-    \n        string ret;\n        rep(i, path.size() - 1) {\n            ret += path[i].dir2char(path[i\
-    \ + 1]);\n        }\n\n        return ret;\n    }\n\n    bool operator== (GridDijkstra\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridDijkstra& grid) {\n\
-    \        return os << grid.field << endl;\n    }\n};"
+    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    string get_char_path_to_goal() {\n        return get_char_path(goal);\n\
+    \    }\n\n    string get_char_path(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n        if (!can_reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = get_path(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
+    \ ret;\n    }\n\n    bool operator== (GridDijkstra &other) {\n        if (H !=\
+    \ other.H or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x,\
+    \ min(W, other.W)) {\n            if (field(y, x) != other.field(y, x)) return\
+    \ false;\n        }\n\n        return true;\n    }\n\n    friend ostream& operator\
+    \ << (ostream &os, GridDijkstra& grid) {\n        return os << grid.field << endl;\n\
+    \    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: grid/grid-dijkstra.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-18 02:43:10+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grid/grid-dijkstra/atcoder-typical90-43.test.cpp

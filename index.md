@@ -20,6 +20,9 @@ data:
       path: graph/bfs.cpp
       title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
     - icon: ':heavy_check_mark:'
+      path: graph/bfs01.cpp
+      title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
+    - icon: ':heavy_check_mark:'
       path: graph/dfs.cpp
       title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
     - icon: ':heavy_check_mark:'
@@ -57,6 +60,14 @@ data:
     - icon: ':heavy_check_mark:'
       path: grid/grid-unionfind.cpp
       title: grid/grid-unionfind.cpp
+  - name: hash
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: hash/zobrist-multiset.cpp
+      title: hash/zobrist-multiset.cpp
+    - icon: ':heavy_check_mark:'
+      path: hash/zobrist-set.cpp
+      title: hash/zobrist-set.cpp
   - name: heuristic
     pages:
     - icon: ':warning:'
@@ -108,8 +119,17 @@ data:
       path: other/baseset.cpp
       title: other/baseset.cpp
     - icon: ':heavy_check_mark:'
+      path: other/compressor.cpp
+      title: other/compressor.cpp
+    - icon: ':heavy_check_mark:'
       path: other/cumulative-sum.cpp
       title: other/cumulative-sum.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/custom-baseset.cpp
+      title: other/custom-baseset.cpp
+    - icon: ':heavy_check_mark:'
+      path: other/doubling.cpp
+      title: other/doubling.cpp
     - icon: ':heavy_check_mark:'
       path: other/next-combination.cpp
       title: other/next-combination.cpp
@@ -152,12 +172,27 @@ data:
       title: string/trie-tree.cpp
   - name: structure
     pages:
+    - icon: ':warning:'
+      path: structure/binary-indexed-tree-2d.cpp
+      title: structure/binary-indexed-tree-2d.cpp
     - icon: ':heavy_check_mark:'
       path: structure/binary-indexed-tree.cpp
       title: structure/binary-indexed-tree.cpp
     - icon: ':heavy_check_mark:'
+      path: structure/bit-on-wavelet-matrix.cpp
+      title: structure/bit-on-wavelet-matrix.cpp
+    - icon: ':heavy_check_mark:'
       path: structure/dual-segment-tree.cpp
       title: structure/dual-segment-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/dynamic-binary-indexed-tree-2d.cpp
+      title: structure/dynamic-binary-indexed-tree-2d.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/dynamic-binary-indexed-tree.cpp
+      title: structure/dynamic-binary-indexed-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/dynamic-wavelet-matrix.cpp
+      title: structure/dynamic-wavelet-matrix.cpp
     - icon: ':warning:'
       path: structure/empty-sqrt-decomposition.cpp
       title: structure/empty-sqrt-decomposition.cpp
@@ -171,8 +206,14 @@ data:
       path: structure/segment-tree-beats.cpp
       title: structure/segment-tree-beats.cpp
     - icon: ':heavy_check_mark:'
+      path: structure/segment-tree-on-wavelet-matrix.cpp
+      title: structure/segment-tree-on-wavelet-matrix.cpp
+    - icon: ':heavy_check_mark:'
       path: structure/segment-tree.cpp
       title: structure/segment-tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/semi-dynamic-wavelet-matrix.cpp
+      title: structure/semi-dynamic-wavelet-matrix.cpp
     - icon: ':heavy_check_mark:'
       path: structure/sparse-table.cpp
       title: structure/sparse-table.cpp
@@ -183,11 +224,17 @@ data:
       path: structure/sqrt-decomposition.cpp
       title: structure/sqrt-decomposition.cpp
     - icon: ':heavy_check_mark:'
+      path: structure/static-range-mode-query.cpp
+      title: structure/static-range-mode-query.cpp
+    - icon: ':heavy_check_mark:'
       path: structure/undo-unionfind.cpp
       title: structure/undo-unionfind.cpp
     - icon: ':heavy_check_mark:'
       path: structure/unionfind.cpp
       title: structure/unionfind.cpp
+    - icon: ':heavy_check_mark:'
+      path: structure/wavelet-matrix.cpp
+      title: structure/wavelet-matrix.cpp
     - icon: ':heavy_check_mark:'
       path: structure/weighted-unionfind.cpp
       title: structure/weighted-unionfind.cpp
@@ -238,6 +285,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/bfs/atcoder-abc284-c.test.cpp
       title: test/graph/bfs/atcoder-abc284-c.test.cpp
+  - name: test/graph/bfs01
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/graph/bfs01/atcoder-abc176-d.test.cpp
+      title: test/graph/bfs01/atcoder-abc176-d.test.cpp
   - name: test/graph/dfs
     pages:
     - icon: ':heavy_check_mark:'
@@ -326,6 +378,9 @@ data:
       path: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
       title: test/grid/grid-bfs/atcoder-abc151-d.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/grid/grid-bfs/atcoder-abc176-d.test.cpp
+      title: test/grid/grid-bfs/atcoder-abc176-d.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
       title: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
     - icon: ':heavy_check_mark:'
@@ -358,6 +413,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
       title: test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
+  - name: test/hash/zobrist-multiset
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
+      title: test/hash/zobrist-multiset/atcoder-abc367-f.test.cpp
+  - name: test/hash/zobrist-set
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/hash/zobrist-set/atcoder-abc250-e.test.cpp
+      title: test/hash/zobrist-set/atcoder-abc250-e.test.cpp
   - name: test/math/combination
     pages:
     - icon: ':heavy_check_mark:'
@@ -431,6 +496,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/compress/atcoder-abc113-c.test.cpp
       title: test/other/compress/atcoder-abc113-c.test.cpp
+  - name: test/other/compressor
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/compressor/atcoder-abc113-c.test.cpp
+      title: test/other/compressor/atcoder-abc113-c.test.cpp
   - name: test/other/cumulative-sum
     pages:
     - icon: ':heavy_check_mark:'
@@ -442,6 +512,22 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
       title: test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - name: test/other/custom-baseset
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/custom-baseset/atcoder-abc322-e.test.cpp
+      title: test/other/custom-baseset/atcoder-abc322-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/custom-baseset/atcoder-abc367-c.test.cpp
+      title: test/other/custom-baseset/atcoder-abc367-c.test.cpp
+  - name: test/other/doubling
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/other/doubling/atcoder-abc167-d.test.cpp
+      title: test/other/doubling/atcoder-abc167-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/other/doubling/atcoder-abc367-e.test.cpp
+      title: test/other/doubling/atcoder-abc367-e.test.cpp
   - name: test/other/next-combination
     pages:
     - icon: ':heavy_check_mark:'
@@ -498,6 +584,9 @@ data:
       path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
       title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
+      title: test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
       title: test/string/rolling-hash/atcoder-abc324-c.test.cpp
     - icon: ':heavy_check_mark:'
@@ -522,6 +611,9 @@ data:
       path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
       title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
     - icon: ':heavy_check_mark:'
+      path: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
+      title: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
       path: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
       title: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
     - icon: ':heavy_check_mark:'
@@ -542,6 +634,17 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
       title: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
+  - name: test/structure/bit-on-wavelet-matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+      title: test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+      title: test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+      title: test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
   - name: test/structure/dual-segment-tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -550,6 +653,36 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
       title: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - name: test/structure/dynamic-binary-indexed-tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-binary-indexed-tree/yukicoder-789.test.cpp
+      title: test/structure/dynamic-binary-indexed-tree/yukicoder-789.test.cpp
+  - name: test/structure/dynamic-binary-indexed-tree-2d
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-binary-indexed-tree-2d/atcoder-abc339-g.test.cpp
+      title: test/structure/dynamic-binary-indexed-tree-2d/atcoder-abc339-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-binary-indexed-tree-2d/yosupo-point-add-rectangle-sum.test.cpp
+      title: test/structure/dynamic-binary-indexed-tree-2d/yosupo-point-add-rectangle-sum.test.cpp
+  - name: test/structure/dynamic-wavelet-matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-wavelet-matrix/aoj-1549.test.cpp
+      title: test/structure/dynamic-wavelet-matrix/aoj-1549.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+      title: test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+      title: test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+      title: test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+      title: test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
   - name: test/structure/kruskal
     pages:
     - icon: ':heavy_check_mark:'
@@ -618,6 +751,52 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
       title: test/structure/segment-tree-beats/yosupo-range-chmin-chmax-add-range-sum.test.cpp
+  - name: test/structure/segment-tree-on-wavelet-matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
+      title: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+      title: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+      title: test/structure/segment-tree-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+      title: test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - name: test/structure/semi-dynamic-wavelet-matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+      title: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
   - name: test/structure/sparse-table
     pages:
     - icon: ':heavy_check_mark:'
@@ -625,6 +804,30 @@ data:
       title: test/structure/sparse-table/yosupo-static-rmq.test.cpp
   - name: test/structure/splay-tree
     pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-a.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-a.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-b.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-b.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-d.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-d.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-e.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-f.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-f.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-g.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-h.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-h.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/splay-tree/aoj-dsl-2-i.test.cpp
+      title: test/structure/splay-tree/aoj-dsl-2-i.test.cpp
     - icon: ':heavy_check_mark:'
       path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
       title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
@@ -660,6 +863,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
       title: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+  - name: test/structure/static-range-mode-query
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/static-range-mode-query/yosupo-static-range-mode-query.test.cpp
+      title: test/structure/static-range-mode-query/yosupo-static-range-mode-query.test.cpp
   - name: test/structure/undo-unionfind
     pages:
     - icon: ':heavy_check_mark:'
@@ -670,6 +878,35 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
       title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
+  - name: test/structure/wavelet-matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/aoj-1549.test.cpp
+      title: test/structure/wavelet-matrix/aoj-1549.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
+      title: test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
+      title: test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+      title: test/structure/wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
+      title: test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+      title: test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
+      title: test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
+      title: test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/wavelet-matrix/yukicoder-738.test.cpp
+      title: test/structure/wavelet-matrix/yukicoder-738.test.cpp
   - name: test/structure/weighted-unionfind
     pages:
     - icon: ':heavy_check_mark:'

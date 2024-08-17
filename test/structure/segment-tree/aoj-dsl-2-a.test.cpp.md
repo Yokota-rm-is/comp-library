@@ -475,38 +475,37 @@ data:
     \ = ~x.value;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, \n  \
     \  typename F,\n    template<class, class> class _mapping,\n    template<class>\
     \ class _op>\nstruct SegmentTree {\n    using S = Node<T>;\n\n    long long N,\
-    \ _N, height;\n\n    vector<S> node;\n    vector<F> lazy;\n    _op<T> op;\n  \
-    \  _mapping<T, F> mapping;\n\n    SegmentTree(ll _N) : _N(_N), op(), mapping()\
-    \ {\n        vector<T> v(_N, op.e());\n        init(v);\n    }\n\n    SegmentTree(ll\
-    \ _N, T a) : _N(_N), op(), mapping() {\n        vector<T> v(_N, a);\n        init(v);\n\
-    \    }\n\n    SegmentTree(vector<T> &v) : _N(v.size()), op(), mapping() {\n  \
-    \      init(v);\n    }\n\n    void init(vector<T> &v) {\n        _N = v.size();\n\
-    \        height = 1;\n        N = 1;\n\n        while (N < _N) {\n           \
-    \ N *= 2;\n            height++;\n        }\n\n        node.resize(2 * N, S(op.e()));\n\
-    \n        rep(i, N) {\n            if (i < _N) node[i + N] = S(v[i], i, 1, 1);\n\
-    \            else node[i + N] = S(op.e());\n        }\n        repd(i, 1, N) update(i);\n\
-    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
-    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply(long long\
-    \ p, F f) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
-    \        mapping(node[k], f);\n        rep(i, 1, height) update(k >> i);\n   \
-    \ }\n\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\n      \
-    \  long long k = p + N;\n        return node[k];\n    }\n\n    // \u534A\u958B\
-    \u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u3092\u8FD4\u3059\n    // l,\
-    \ r\u3068\u3082\u306B0-indexed\n    S prod(long long l, long long r) {\n     \
-    \   assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n        r += N;\n\
-    \n        S sml(op.e(), 0), smr(op.e(), 0);\n        while (l < r) {\n       \
-    \     if (l & 1) sml = op(sml, node[l++]);\n            if (r & 1) smr = op(node[--r],\
-    \ smr);\n            l >>= 1;\n            r >>= 1;\n        }\n\n        return\
-    \ op(sml, smr);\n    }\n\n    S prod_all() {\n        return node[1];\n    }\n\
-    \n    // \u5DE6\u7AEF\u3092l\u306B\u56FA\u5B9A\u3057\u305F\u5834\u5408\u306E\uFF0C\
-    g(prod(op(node[l], node[l + 1], ..., node[r - 1]))) = true\u3068\u306A\u308B\u6700\
-    \u5927\u306Er\u3092\u8FD4\u3059\n    // g(node[l]) = false\u306E\u5834\u5408\uFF0C\
-    l\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593[l, l)\u3068\u306A\u308A\uFF0C\u89E3\
-    \u306F\u306A\u3044)\n    // l = N\u306E\u5834\u5408\uFF0CN\u3092\u8FD4\u3059\n\
-    \    template <class G>\n    long long max_right(long long l, G g) {\n       \
-    \ assert(0 <= l && l <= _N);\n        assert(g(S(op.e(), 0)));\n\n        if (l\
-    \ == _N) return _N;\n        l += N;\n        \n        S sm(op.e(), 0);\n   \
-    \     do {\n            while (l % 2 == 0) l >>= 1;\n\n            if (!g(op(sm,\
+    \ _N, height;\n\n    vector<S> node;\n    _op<T> op;\n    _mapping<T, F> mapping;\n\
+    \n    SegmentTree(ll _N) : _N(_N), op(), mapping() {\n        vector<T> v(_N,\
+    \ op.e());\n        init(v);\n    }\n\n    SegmentTree(ll _N, T a) : _N(_N), op(),\
+    \ mapping() {\n        vector<T> v(_N, a);\n        init(v);\n    }\n\n    SegmentTree(vector<T>\
+    \ &v) : _N(v.size()), op(), mapping() {\n        init(v);\n    }\n\n    void init(vector<T>\
+    \ &v) {\n        _N = v.size();\n        height = 1;\n        N = 1;\n\n     \
+    \   while (N < _N) {\n            N *= 2;\n            height++;\n        }\n\n\
+    \        node.resize(2 * N, S(op.e()));\n\n        rep(i, N) {\n            if\
+    \ (i < _N) node[i + N] = S(v[i], i, 1, 1);\n            else node[i + N] = S(op.e());\n\
+    \        }\n        repd(i, 1, N) update(i);\n    }\n\n    // p\u756A\u76EE\u306E\
+    \u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F\
+    0-indexed\n    void apply(long long p, F f) {\n        assert(0 <= p and p < _N);\n\
+    \n        long long k = p + N;\n        mapping(node[k], f);\n        rep(i, 1,\
+    \ height) update(k >> i);\n    }\n\n    T get(long long p) {\n        assert(0\
+    \ <= p and p < _N);\n\n        long long k = p + N;\n        return node[k];\n\
+    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u3092\
+    \u8FD4\u3059\n    // l, r\u3068\u3082\u306B0-indexed\n    S prod(long long l,\
+    \ long long r) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l +=\
+    \ N;\n        r += N;\n\n        S sml(op.e()), smr(op.e());\n        while (l\
+    \ < r) {\n            if (l & 1) sml = op(sml, node[l++]);\n            if (r\
+    \ & 1) smr = op(node[--r], smr);\n            l >>= 1;\n            r >>= 1;\n\
+    \        }\n\n        return op(sml, smr);\n    }\n\n    S prod_all() {\n    \
+    \    return node[1];\n    }\n\n    // \u5DE6\u7AEF\u3092l\u306B\u56FA\u5B9A\u3057\
+    \u305F\u5834\u5408\u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r - 1])))\
+    \ = true\u3068\u306A\u308B\u6700\u5927\u306Er\u3092\u8FD4\u3059\n    // g(node[l])\
+    \ = false\u306E\u5834\u5408\uFF0Cl\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593\
+    [l, l)\u3068\u306A\u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // l = N\u306E\u5834\
+    \u5408\uFF0CN\u3092\u8FD4\u3059\n    template <class G>\n    long long max_right(long\
+    \ long l, G g) {\n        assert(0 <= l && l <= _N);\n        assert(g(S(op.e())));\n\
+    \n        if (l == _N) return _N;\n        l += N;\n        \n        S sm(op.e());\n\
+    \        do {\n            while (l % 2 == 0) l >>= 1;\n\n            if (!g(op(sm,\
     \ node[l]))) {\n                while (l < N) {\n                    l *= 2;\n\
     \                    if (g(op(sm, node[l]))) {\n                        sm = op(sm,\
     \ node[l]);\n                        l++;\n                    }\n           \
@@ -518,9 +517,9 @@ data:
     \u5834\u5408\uFF0Cr\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593[r, r)\u3068\u306A\
     \u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // r = 0\u306E\u5834\u5408\uFF0C0\u3092\
     \u8FD4\u3059\n    template <class G>\n    long long min_left(long long r, G g)\
-    \ {\n        assert(0 <= r && r <= _N);\n        assert(g(S(op.e(), 0)));\n\n\
-    \        if (r == 0) return 0;\n\n        r += N;\n\n        S sm(op.e(), 0);\n\
-    \n        do {\n            r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n\
+    \ {\n        assert(0 <= r && r <= _N);\n        assert(g(S(op.e())));\n\n   \
+    \     if (r == 0) return 0;\n\n        r += N;\n\n        S sm(op.e());\n\n  \
+    \      do {\n            r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n\
     \            \n            if (!g(op(node[r], sm))) {\n                while (r\
     \ < N) {\n                    r = (2 * r + 1);\n\n                    if (g(op(node[r],\
     \ sm))) {\n                        sm = op(node[r], sm);\n                   \
@@ -568,7 +567,7 @@ data:
   isVerificationFile: true
   path: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-08-17 04:54:58+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/segment-tree/aoj-dsl-2-a.test.cpp

@@ -398,14 +398,16 @@ data:
     \ clamp(val, -val_pos, base - 1 - val_pos);\n        x += val * pow(pos);\n  \
     \  }\n\n    void add(vector<long long>& v) {\n        rep(i, v.size()) add(i,\
     \ v[i]);\n    }\n\n    long long get(long long pos) { \n        return (x / pow(pos))\
-    \ % base;\n    }\n\n    long long pow(long long pos) {\n        if (pos < (ll)powers.size())\
+    \ % base;\n    }\n\n    long long operator[](long long pos) { \n        return\
+    \ get(pos);\n    }\n\n    long long pow(long long pos) {\n        if (pos < (ll)powers.size())\
     \ return powers[pos];\n\n        long long ret = powers.back();\n        rep(i,\
     \ pos - powers.size() + 1) {\n            ret *= base;\n            powers.push_back(ret);\n\
-    \        }\n        return ret;\n    }\n\n    operator long long() { \n      \
-    \  return x; \n    }\n    \n    Baseset& operator++() { \n        ++x;\n     \
-    \   return *this;\n    }\n\n    Baseset& operator--() { \n        --x;\n     \
-    \   return *this;\n    }\n\n    bool operator==(Baseset other) { return x == other.x;\
-    \ }\n    bool operator!=(Baseset other) { return x != other.x; }\n    bool operator<(Baseset\
+    \        }\n        return ret;\n    }\n\n    long long end(long long pos) {\n\
+    \        return pow(pos + 1);\n    }\n\n    operator long long() { \n        return\
+    \ x; \n    }\n    \n    Baseset& operator++() { \n        ++x;\n        return\
+    \ *this;\n    }\n\n    Baseset& operator--() { \n        --x;\n        return\
+    \ *this;\n    }\n\n    bool operator==(Baseset other) { return x == other.x; }\n\
+    \    bool operator!=(Baseset other) { return x != other.x; }\n    bool operator<(Baseset\
     \ other) { return x < other.x; }\n    bool operator>(Baseset other) { return x\
     \ > other.x; }\n    bool operator<=(Baseset other) { return x <= other.x; }\n\
     \    bool operator>=(Baseset other) { return x >= other.x; }\n    bool operator==(long\
@@ -445,7 +447,7 @@ data:
   isVerificationFile: true
   path: test/other/baseset/atcoder-abc322-e.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 16:04:11+09:00'
+  timestamp: '2024-08-18 02:45:23+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/other/baseset/atcoder-abc322-e.test.cpp
