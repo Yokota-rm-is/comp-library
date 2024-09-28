@@ -74,7 +74,8 @@ struct Eratosthenes {
 
         // 約数列挙
         fore(p, pf) {
-            rep(i, res.size()) {
+            ll s = res.size();
+            rep(i, s) {
                 long long v = 1;
                 rep(j, p.second) {
                     v *= p.first;
