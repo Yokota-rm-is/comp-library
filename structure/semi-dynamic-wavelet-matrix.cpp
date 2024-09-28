@@ -11,7 +11,7 @@ struct BIT {
         init(n); 
     }
 
-    void init(int n) {
+    void init(long long n) {
         _N = n;
         N = 1;
         height = 1;
@@ -407,6 +407,7 @@ struct SemiDynamicWaveletMatrix {
     vector<SemiDynamicBitVector> bit_vectors;
     unordered_map<ull, ull> begin_indices;   // 最後のソートされた配列で各文字の開始位置
     vector<BIT<T>> cumulative_sum;
+    BIT<T> inactive_count;
     T min_val = numeric_limits<T>::max(), max_val = numeric_limits<T>::min();
 
     ull N, _N;  // 与えられた配列のサイズ
@@ -449,20 +450,19 @@ struct SemiDynamicWaveletMatrix {
 
         bit_vectors.assign(bit_size, N);
         cumulative_sum.assign(bit_size, N);
+        inactive_count.init(N);
 
-        rep(i, _N) values[i].push_back(sim_values[i].front());
-
-        vector<pair<T, ull>> cur;
+        vector<T> cur;
         rep(i, _N) {
-            rep(j, sim_values[i].size()) {
-                cur.emplace_back(sim_values[i][j], (j == 0));
+            fore(v, sim_values[i]) {
+                cur.push_back(v);
             }
         }
-        vector<pair<T, ull>> nxt(N);
+        vector<T> nxt(N);
 
         repd(h, bit_size) {
             rep(i, N) {
-                if ((cur[i].first >> h) & 1) bit_vectors[h].set(1, i);
+                if ((cur[i] >> h) & 1) bit_vectors[h].set(1, i);
                 else bit_vectors[h].set(0, i);
             }
             bit_vectors[h].build();
@@ -480,18 +480,18 @@ struct SemiDynamicWaveletMatrix {
                     *it0 = cur[i];
                     ++it0;
                 }
-
-                if (cur[i].second) {
-                    bit_vectors[h].activate(bit, i);
-                    cumulative_sum[h].set(i, cur[i].first);
-                }
             }
             
             swap(cur, nxt);
         }
 
         repd(i, N) {
-            begin_indices[cur[i].first] = i;
+            begin_indices[cur[i]] = i;
+            inactive_count.add(i, 1);
+        }
+
+        rep(i, _N) {
+            set(i, sim_values[i].front());
         }
     }
 
@@ -508,6 +508,8 @@ struct SemiDynamicWaveletMatrix {
             }
             else index = bit_vectors[h].rank(0, index);
         }   
+
+        inactive_count.set(index, 0);
     }
 
     void deactivate(ull index) {
@@ -523,6 +525,8 @@ struct SemiDynamicWaveletMatrix {
             }
             else index = bit_vectors[h].rank(0, index);
         }   
+
+        inactive_count.set(index, 1);
     }
 
     void set(ull pos, T val) {
@@ -530,9 +534,9 @@ struct SemiDynamicWaveletMatrix {
         assert(val >= 0);
         assert(val == sim_values[pos][values[pos].size()]);
 
-        ull index = indices[pos] + values[pos].size() - 1;
-        deactivate(index);
-        activate(index + 1, val);
+        ull index = indices[pos] + values[pos].size();
+        if (values[pos].size() > 0) deactivate(index - 1);
+        activate(index, val);
         values[pos].push_back(val);
     }
 
@@ -583,7 +587,7 @@ struct SemiDynamicWaveletMatrix {
         return {median_floor, median_ceil};
     }
 
-    // v[l, r)でk番目(0-indexed)に小さい数値とindex(0-indexed)を返す
+    // v[l, r)でk番目(0-indexed)に小さい数値を返す
     // 小さい順に並べてk番目の値
     // 計算量: O(log(bit_size))
     T quantile(ull l, ull r, ull k) {
@@ -638,7 +642,7 @@ struct SemiDynamicWaveletMatrix {
         }
 
         ull l = begin_indices[val];
-        return index - l - bit_vectors[0].state[bit].sum(l, index);
+        return index - l - inactive_count.sum(l, index);
     }
 
     // v[l, r)のvalの数
@@ -1145,7 +1149,7 @@ private:
 
         if (depth == bit_size) {
             if (lower <= val and val < upper) {
-                return val * (r - l);   // 値 * 頻度
+                return val * (r - l - inactive_count.sum(l, r));   // 値 * 頻度
             }
             return 0;
         }
@@ -1154,7 +1158,7 @@ private:
 
         const T next_val = (1ull << height) | val;                   // 上からheight番目のbitを立てる
         const T all_one_val = ((1ull << height) - 1) | next_val;     // height以降のbitをたてる(これ以降全部1を選んだときの値)
-        if(all_one_val < lower or upper <= val) return 0;
+        if (all_one_val < lower or upper <= val) return 0;
 
         // [l, pos)のすべての要素は[lower, upper)
         if (lower <= val and all_one_val < upper) {
