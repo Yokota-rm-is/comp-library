@@ -54,7 +54,7 @@ struct BinaryIndexedTree2D {
     }
 
     // 半開区間[h1, h2) x [w1, w2) (0-indexed)の総和を求める
-    T sum(long long h1, long long w1, long long h2, long long w2) {
+    T sum(long long h1, long long h2, long long w1, long long w2) {
         assert(0 <= h1 and h1 <= h2 and h2 <= _H and 0 <= w1 and w1 <= w2 and w2 <= _W);
 
         return sum(h2, w2) - sum(h1, w2) - sum(h2, w1) + sum(h1, w1);
@@ -68,15 +68,6 @@ struct BinaryIndexedTree2D {
     }
 
     friend ostream& operator << (ostream& os, BinaryIndexedTree2D& bit) {
-        // os << "bit" << endl;
-        // repd(h, bit.height) {
-        //     for (long long i = (1 << h); i < (long long)bit.bit.size(); i += (1 << (h + 1))) {
-        //         os << bit.bit[i] << " ";
-        //     }
-        //     os << endl;
-        // }
-        // os << endl;
-
         os << "value" << endl;
         rep(i, bit._N) {
             os << bit.get(i) << " ";
