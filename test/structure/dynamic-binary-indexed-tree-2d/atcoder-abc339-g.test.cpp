@@ -33,7 +33,7 @@ int main() {
         --L;
         X = comp.upper_bound(X);
         
-        ll ans = bit.sum(L, 0, R, X);
+        ll ans = bit.sum(L, R, 0, X);
         cout << ans << endl;
         B = ans;
     }
