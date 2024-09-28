@@ -68,7 +68,7 @@ int main() {
             ll r = comp_x.lower_bound(query[q][3]);
             ll u = comp_y.lower_bound(query[q][4]);
 
-            cout << bit.sum(l, d, r, u) << endl;
+            cout << bit.sum(l, r, d, u) << endl;
         }
     }
 
