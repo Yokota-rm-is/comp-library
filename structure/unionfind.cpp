@@ -99,6 +99,7 @@ struct UnionFind {
         assert(mergeCC);
         vector<long long> ret;
         fore(p, cc) {
+            if (p.empty()) continue;
             ret.push_back(p.front());
         }
         
@@ -113,9 +114,9 @@ struct UnionFind {
     vector<vector<long long>> all_group_members() {
         assert(mergeCC);
         vector<vector<long long>> ret;
-        rep(i, V) {
-            if (par[i] != -1) continue;
-            ret.push_back(cc[i]);
+        fore(p, cc) {
+            if (p.empty()) continue;
+            ret.push_back(p);
             sort(ret.back().begin(), ret.back().end());
         }
 
