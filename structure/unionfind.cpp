@@ -1,21 +1,20 @@
 #pragma once
 #include "../base.cpp"
 
-template <bool fastMode = false>
+template <bool mergeCC = true>
 struct UnionFind {
     long long V;
     vector<long long> par; // par[i]: iの親の番号 or サイズ (iが親の時)
-    map<long long, set<long long>> cc;
+    vector<vector<long long>> cc;
     long long cc_size;
     
-    long long edge_index;
-    map<long long, set<long long>> cc_edge;
-    long long cc_edge_size;
+    vector<pair<long long, long long>> edges;
+    vector<vector<long long>> cc_edge;
 
-    UnionFind(long long V) : V(V), par(V, -1) { //最初は全てが根であるとして初期化
-        edge_index = 0;
+    UnionFind(long long V) : V(V), par(V, -1), cc(V), cc_edge(V) { //最初は全てが根であるとして初期化
         cc_size = V;
-        cc_edge_size = 0;
+
+        rep(i, V) cc[i] = {i};
     }
 
     // xの根を返す
@@ -28,18 +27,11 @@ struct UnionFind {
 
     // xとyを連結
     bool unite(long long x, long long y) {
+        long long edge_index = edges.size();
+        edges.emplace_back(x, y);
+
         long long rx = find(x); //xの根をrx
         long long ry = find(y); //yの根をry
-
-        // 結合時の処理をここに書く
-
-        if (rx == ry) {
-            if (!fastMode) cc_edge[rx].insert(edge_index++);
-            return false; //xとyの根が同じ時は何もしない
-        } 
-
-        --cc_size;
-        ++cc_edge_size;
 
         // -parはサイズを返す
         // ryの方がサイズが大きければrxとrxを入れ替える
@@ -47,23 +39,23 @@ struct UnionFind {
             swap(rx, ry);
         }
 
-        cc_edge[rx].insert(edge_index++);
+        cc_edge[rx].push_back(edge_index);
 
+        // 結合時の処理をここに書く
+
+
+        if (rx == ry) return false; //xとyの根が同じ時は何もしない
+
+        --cc_size;
         par[rx] += par[ry]; // rxのサイズを変更
         par[ry] = rx; //xとyの根が同じでない(=同じ木にない)時：yの根ryをxの根rxにつける
 
-        if (!fastMode) {
-            if (cc.contains(ry)) {
-                cc[rx].insert(cc[ry].begin(), cc[ry].end());
-                cc.erase(ry);
-            }
-            else if (!cc.contains(rx)) cc[rx] = {rx, ry};
-            else cc[rx].insert(ry);
+        if (mergeCC) {
+            cc[rx].insert(cc[rx].end(), cc[ry].begin(), cc[ry].end());
+            cc[ry].clear();
 
-            if (!cc_edge[ry].empty()) {
-                cc_edge[rx].insert(cc_edge[ry].begin(), cc_edge[ry].end());
-                cc_edge.erase(ry);
-            }
+            cc_edge[rx].insert(cc_edge[rx].end(), cc_edge[ry].begin(), cc_edge[ry].end());
+            cc_edge[ry].clear();
         }
     
         return true;
@@ -74,10 +66,20 @@ struct UnionFind {
         return find(x) == find(y);
     }
 
+    bool is_root(long long x) {
+        return find(x) == x;
+    }
+
     // xが所属する連結成分の要素の数を返す
     long long size(long long x) {
         long long rx = find(x);
         return -par[rx];
+    }
+
+    long long edge_size(long long x) {
+        assert(mergeCC);
+        long long rx = find(x);
+        return cc_edge[rx].size();
     }
 
     bool is_connected() {
@@ -86,17 +88,18 @@ struct UnionFind {
     }
 
     // xが所属する連結成分の要素を返す
-    set<long long> members(long long x) {
+    vector<long long> members(long long x) {
+        assert(mergeCC);
         long long rx = find(x);
-        if (cc.contains(rx)) return cc[rx];
-        else return {rx};
+        return cc[rx];
     }
 
     // 根のみの配列を返す
-    set<long long> roots() {
-        set<long long> ret;
+    vector<long long> roots() {
+        assert(mergeCC);
+        vector<long long> ret;
         fore(p, cc) {
-            ret.insert(p.first);
+            ret.push_back(p.front());
         }
         
         return ret;
@@ -107,12 +110,15 @@ struct UnionFind {
         return cc_size;
     }
 
-    map<long long, set<long long>> all_group_members() {
-        auto ret = cc;
+    vector<vector<long long>> all_group_members() {
+        assert(mergeCC);
+        vector<vector<long long>> ret;
         rep(i, V) {
             if (par[i] != -1) continue;
-            ret[i] = {i}; 
+            ret.push_back(cc[i]);
+            sort(ret.back().begin(), ret.back().end());
         }
+
         return ret;
     }
 };

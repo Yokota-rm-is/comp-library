@@ -6,11 +6,9 @@ struct UndoUnionFind {
     vector<long long> par; // par[i]: iの親の番号 or サイズ (iが親の時)
     stack<pair<long long, long long>> history;
     long long cc_size;
-    long long cc_edge_size;
 
     UndoUnionFind(long long v) : V(v), par(V, -1) { //最初は全てが根であるとして初期化
         cc_size = V;
-        cc_edge_size = 0;
     }
 
     // xの根を返す
@@ -33,7 +31,6 @@ struct UndoUnionFind {
         if (rx == ry) return false; //xとyの根が同じ時は何もしない
 
         --cc_size;
-        ++cc_edge_size;
 
         // -parはサイズを返す
         // ryの方がサイズが大きければrxとrxを入れ替える
@@ -62,7 +59,6 @@ struct UndoUnionFind {
 
         if (rx != ry) {
             ++cc_size;
-            --cc_edge_size;
         }
     }
 
