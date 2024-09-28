@@ -33,7 +33,7 @@ int main() {
             wm.add(x, A[x], A[x]);
         }
         else {
-            cout << wm.sum(x, y) << endl;
+            cout << wm.sum(x, y, 0, inf64) << endl;
         }
     }
 

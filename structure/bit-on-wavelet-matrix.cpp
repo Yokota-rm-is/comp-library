@@ -286,7 +286,7 @@ struct BITonWaveletMatrix {
         build();
     }
 
-    void add_point(ll x, ll y) {
+    void add_point(ll y, ll x) {
         ps.emplace_back(x, y);
         ys.emplace_back(y);
     }
@@ -328,7 +328,7 @@ struct BITonWaveletMatrix {
         }
     }
 
-    T access(long long x, long long y) {
+    T access(long long y, long long x) {
         ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();
         ull j = yid(y);
 
@@ -353,7 +353,7 @@ struct BITonWaveletMatrix {
         return lower_bound(ys.begin(), ys.end(), y) - ys.begin(); }
 
     // (x, y)にvalを加える
-    void add(long long x, long long y, T val) {
+    void add(long long y, long long x, T val) {
         ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();
         ull j = yid(y);
 
@@ -369,7 +369,7 @@ struct BITonWaveletMatrix {
     }
 
     // (x, y)の値をvalにする
-    void set(long long x, long long y, T val) {
+    void set(long long y, long long x, T val) {
         ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();
         ull j = yid(y);
 
@@ -384,15 +384,15 @@ struct BITonWaveletMatrix {
         }
     }
 
-    // [l, r), [d, u)の範囲の和を返す
-    T sum(long long l, long long r, long long d, long long u) {
-        return sum(l, r, u) - sum(l, r, d);
+    // [h1, h2) x [w1, w2)の範囲の和を返す
+    T sum(long long h1, long long h2, long long w1, long long w2) {
+        return sum(h2, w1, w2) - sum(h1, w1, w2);
     }
 
-    // [l, r), [0, u)の範囲の和を返す
-    T sum(long long l, long long r, long long u) {
-        l = xid(l), r = xid(r);
-        u = yid(u);
+    // [0, h) x [w1, w2)の範囲の和を返す
+    T sum(long long h, long long w1, long long w2) {
+        ll l = xid(w1), r = xid(w2);
+        ll u = yid(h);
 
         T res = 0;
         repd(h, logN) {
@@ -409,8 +409,8 @@ struct BITonWaveletMatrix {
         return res;
     }
 
-    // [l, r)の総和を求める
-    T sum(long long l, long long r) {
-        return sum(l, r, inf64);
+    // [0, h) x [0, w)の総和を求める
+    T sum(long long h, long long w) {
+        return sum(h, 0, w);
     }
 };
