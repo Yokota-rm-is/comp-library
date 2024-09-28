@@ -58,17 +58,26 @@ bool DEBUG = false;
 #define ALL(A) A.begin(), A.end()
 
 // for debug
-#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...) name
+#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, name, ...) name
 #define DUMP1(a) if (DEBUG) {cerr << "line: " << __LINE__ << ", " << #a << ": "; dump(a); cerr << endl;};
-#define DUMP2(a, b) if (DEBUG) {DUMP1(a); DUMP1(b)};
-#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};
-#define DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};
-#define DUMP5(a, b, c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};
-#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)
+#define DUMP2(a, ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};
+#define DUMP3(a, ...) if (DEBUG) {DUMP1(a); DUMP2(__VA_ARGS__);};
+#define DUMP4(a, ...) if (DEBUG) {DUMP1(a); DUMP3(__VA_ARGS__);};
+#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};
+#define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};
+#define DUMP7(a, ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};
+#define DUMP8(a, ...) if (DEBUG) {DUMP1(a); DUMP7(__VA_ARGS__);};
+#define DUMP9(a, ...) if (DEBUG) {DUMP1(a); DUMP8(__VA_ARGS__);};
+#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};
+#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6, DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)
 
 // 省略
+using ushort = unsigned short;
+using uint = unsigned int;
 using ll = long long;
 using ull = unsigned long long;
+using lll = __int128_t;
+using ulll = __uint128_t;
 using vll = vector<ll>;
 using setll = set<ll>;
 using mapll = map<ll, ll>;
@@ -102,7 +111,6 @@ using boost::lambda::_3;
 #endif
 #if __has_include(<boost/multiprecision/cpp_int.hpp>)
 using namespace boost::multiprecision;
-using lll = int128_t;
 #endif
 #if __has_include(<gmpxx.h>)
 #include <gmpxx.h>
@@ -248,9 +256,11 @@ inline long long binpow(long long x, long long n, long long m = 0) {
     long long ret = 1;
     while (n > 0) {
         if (n & 1) ret *= x;  // n の最下位bitが 1 ならば x^(2^i) をかける
-        x *= x;
-        if (m > 0) {ret %= m; x %= m;};
+        if (m > 0) ret %= m;
         n >>= 1;  // n を1bit 左にずらす
+
+        if (n > 0) x *= x;
+        if (m > 0) x %= m;
     }
     return ret;
 }
@@ -429,3 +439,8 @@ template<typename T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec
     for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);
     return result;
 }
+
+long long log_floor(long long x, long long base) { long long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}
+long long log_ceil(long long x, long long base) { long long ret = log(x) / log(base); if ((1ll << ret) < x) ++ret; return ret;}
+long long root_floor(long long x, long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret; return ret;}
+long long root_ceil(long long x, long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}
