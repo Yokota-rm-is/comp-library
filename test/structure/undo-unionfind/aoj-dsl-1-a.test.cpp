@@ -1,12 +1,12 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&"
 
-#include "../../../structure/weighted-unionfind.cpp"
+#include "../../../structure/undo-unionfind.cpp"
 
 int main() {
     ll n, q;
     cin >> n >> q;
 
-    WeightedUnionFind tree(n);
+    UndoUnionFind tree(n);
     while (q--) {
         ll t;
         cin >> t;
@@ -14,7 +14,7 @@ int main() {
         if (t == 0) {
             ll x, y;
             cin >> x >> y;
-            tree.unite(x, y, 0);
+            tree.unite(x, y);
         }
         else {
             ll x, y;
