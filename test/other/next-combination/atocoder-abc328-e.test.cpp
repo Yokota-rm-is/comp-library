@@ -16,7 +16,7 @@ int main() {
 
     ll ans = inf64;
     do {
-        UnionFind<true> uf(N);
+        UnionFind uf(N);
         ll sum = 0;
 
         rep(i, N - 1) {
