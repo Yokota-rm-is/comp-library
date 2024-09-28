@@ -1,6 +1,8 @@
 #pragma once
 #include "../base.cpp"
 
+// Unique: trueのとき，重複する要素を別の要素として扱う
+// Accending: 重複する要素をどちらの方向に割り当てるか
 template <typename T, bool Unique = false, bool Accending = true>
 struct Compressor {
     vector<T> original, values;
@@ -34,9 +36,20 @@ struct Compressor {
         }
     }
 
-    long long find(T x) {
+    // xを圧縮後の値に変換
+    long long compress(T x) {
         assert(remap.contains(x));
         return remap[x];
+    }
+
+    // xを圧縮後の値に変換
+    long long operator()(T x) {
+        return compress(x);
+    }
+
+    // xを圧縮後の値に変換
+    long long find(T x) {
+        return compress(x);
     }
 
     long long size() {
@@ -55,10 +68,12 @@ struct Compressor {
         return remap.contains(x);
     }
 
+    // コンストラクト時の配列のpos番目の値を取得
     T operator[](long long pos) {
         return compressed[pos];
     }
 
+    // comp後の値から元の値を取得
     T retrieve(long long k) {
         return values[k];
     }
