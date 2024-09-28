@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,18 +9,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/bfs/aoj-alds1-11-c.test.cpp
     title: test/graph/bfs/aoj-alds1-11-c.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/bfs/atcoder-abc270-c.test.cpp
     title: test/graph/bfs/atcoder-abc270-c.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/bfs/atcoder-abc284-c.test.cpp
     title: test/graph/bfs/atcoder-abc284-c.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/tsp/atcoder-abc190-e.test.cpp
     title: test/graph/tsp/atcoder-abc190-e.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/graph/bfs.md
     document_title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
@@ -518,7 +518,7 @@ data:
   path: graph/bfs.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/bfs/atcoder-abc270-c.test.cpp
   - test/graph/bfs/atcoder-abc284-c.test.cpp

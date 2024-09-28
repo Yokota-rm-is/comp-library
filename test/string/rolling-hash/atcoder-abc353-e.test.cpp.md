@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: mystd/mymultiset.cpp
     title: mystd/mymultiset.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: string/rolling-hash.cpp
     title: string/rolling-hash.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc353/tasks/abc353_e
@@ -580,7 +580,7 @@ data:
   path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/string/rolling-hash/atcoder-abc353-e.test.cpp
 layout: document

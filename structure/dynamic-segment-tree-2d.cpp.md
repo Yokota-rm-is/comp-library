@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/dynamic-segment-tree-2d/aoj-1068.test.cpp
     title: test/structure/dynamic-segment-tree-2d/aoj-1068.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -666,7 +666,7 @@ data:
   path: structure/dynamic-segment-tree-2d.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:33:04+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/dynamic-segment-tree-2d/aoj-1068.test.cpp
 documentation_of: structure/dynamic-segment-tree-2d.cpp

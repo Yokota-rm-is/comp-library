@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,18 +9,18 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/psp/atcoder-abc193-f.test.cpp
     title: test/graph/psp/atcoder-abc193-f.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/psp/atcoder-arc085-e.test.cpp
     title: test/graph/psp/atcoder-arc085-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/psp/yukicoder-1541.test.cpp
     title: test/graph/psp/yukicoder-1541.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/psp/yukicoder-2713.test.cpp
     title: test/graph/psp/yukicoder-2713.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     document_title: PSP(Project Selection Problem)
     links: []
@@ -621,7 +621,7 @@ data:
   path: graph/psp.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/psp/atcoder-abc193-f.test.cpp
   - test/graph/psp/atcoder-arc085-e.test.cpp

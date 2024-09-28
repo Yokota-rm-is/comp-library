@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: structure/undo-unionfind.cpp
     title: structure/undo-unionfind.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_A&
@@ -456,7 +456,7 @@ data:
   path: test/structure/undo-unionfind/aoj-dsl-1-a.test.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:24:14+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/undo-unionfind/aoj-dsl-1-a.test.cpp
 layout: document

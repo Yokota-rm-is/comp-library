@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,7 +9,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
@@ -18,30 +18,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -1486,7 +1486,7 @@ data:
   path: structure/semi-dynamic-wavelet-matrix.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:57:52+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
   - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp

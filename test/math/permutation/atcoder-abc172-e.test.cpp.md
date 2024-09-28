@@ -1,16 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/combination.cpp
     title: math/combination.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/modint.cpp
     title: math/modint.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: math/permutation.cpp
     title: math/permutation.cpp
   _extendedRequiredBy: []

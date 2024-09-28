@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/compressor.cpp
     title: other/compressor.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc277/tasks/abc277_c
@@ -454,38 +454,38 @@ data:
     \     long long rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\u306E\
     \u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    vector<long long> roots() {\n\
     \        assert(mergeCC);\n        vector<long long> ret;\n        fore(p, cc)\
-    \ {\n            ret.push_back(p.front());\n        }\n        \n        return\
-    \ ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\u3092\u8FD4\
-    \u3059\n    long long group_count() {\n        return cc_size;\n    }\n\n    vector<vector<long\
-    \ long>> all_group_members() {\n        assert(mergeCC);\n        vector<vector<long\
-    \ long>> ret;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
-    \            ret.push_back(cc[i]);\n            sort(ret.back().begin(), ret.back().end());\n\
-    \        }\n\n        return ret;\n    }\n};\n#line 3 \"other/compressor.cpp\"\
-    \n\n// Unique: true\u306E\u3068\u304D\uFF0C\u91CD\u8907\u3059\u308B\u8981\u7D20\
-    \u3092\u5225\u306E\u8981\u7D20\u3068\u3057\u3066\u6271\u3046\n// Accending: \u91CD\
-    \u8907\u3059\u308B\u8981\u7D20\u3092\u3069\u3061\u3089\u306E\u65B9\u5411\u306B\
-    \u5272\u308A\u5F53\u3066\u308B\u304B\ntemplate <typename T, bool Unique = false,\
-    \ bool Accending = true>\nstruct Compressor {\n    vector<T> original, values;\n\
-    \    vector<long long> compressed;\n    unordered_map<T, long long> remap, count;\n\
-    \n    Compressor() {}\n    Compressor(const vector<T>& v) {\n        init(v);\n\
-    \    }\n\n    void init(const vector<T>& v) {\n        original = v;\n       \
-    \ values = v;\n\n        sort(values.begin(), values.end());\n        if (!Unique)\
-    \ {\n            values.erase(unique(values.begin(), values.end()), values.end());\n\
-    \            compressed.resize(original.size());\n        }\n\n        rep(i,\
-    \ original.size()) {\n            if (!Unique) compressed[i] = std::lower_bound(values.begin(),\
-    \ values.end(), original[i]) - values.begin();\n            else {\n         \
-    \       if (Accending) compressed[i] = std::lower_bound(values.begin(), values.end(),\
-    \ original[i]) - values.begin() + count[original[i]];\n                else compressed[i]\
-    \ = std::upper_bound(values.begin(), values.end(), original[i]) - values.begin()\
-    \ - count[original[i]] - 1;\n            }\n\n            if (!remap.contains(original[i]))\
-    \ remap[original[i]] = compressed[i];\n            ++count[original[i]];\n   \
-    \     }\n    }\n\n    // x\u3092\u5727\u7E2E\u5F8C\u306E\u5024\u306B\u5909\u63DB\
-    \n    long long compress(T x) {\n        assert(remap.contains(x));\n        return\
-    \ remap[x];\n    }\n\n    // x\u3092\u5727\u7E2E\u5F8C\u306E\u5024\u306B\u5909\
-    \u63DB\n    long long operator()(T x) {\n        return compress(x);\n    }\n\n\
-    \    // x\u3092\u5727\u7E2E\u5F8C\u306E\u5024\u306B\u5909\u63DB\n    long long\
-    \ find(T x) {\n        return compress(x);\n    }\n\n    long long size() {\n\
-    \        return (long long)values.size();\n    }\n\n    long long lower_bound(T\
+    \ {\n            if (p.empty()) continue;\n            ret.push_back(p.front());\n\
+    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
+    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
+    \ cc_size;\n    }\n\n    vector<vector<long long>> all_group_members() {\n   \
+    \     assert(mergeCC);\n        vector<vector<long long>> ret;\n        fore(p,\
+    \ cc) {\n            if (p.empty()) continue;\n            ret.push_back(p);\n\
+    \            sort(ret.back().begin(), ret.back().end());\n        }\n\n      \
+    \  return ret;\n    }\n};\n#line 3 \"other/compressor.cpp\"\n\n// Unique: true\u306E\
+    \u3068\u304D\uFF0C\u91CD\u8907\u3059\u308B\u8981\u7D20\u3092\u5225\u306E\u8981\
+    \u7D20\u3068\u3057\u3066\u6271\u3046\n// Accending: \u91CD\u8907\u3059\u308B\u8981\
+    \u7D20\u3092\u3069\u3061\u3089\u306E\u65B9\u5411\u306B\u5272\u308A\u5F53\u3066\
+    \u308B\u304B\ntemplate <typename T, bool Unique = false, bool Accending = true>\n\
+    struct Compressor {\n    vector<T> original, values;\n    vector<long long> compressed;\n\
+    \    unordered_map<T, long long> remap, count;\n\n    Compressor() {}\n    Compressor(const\
+    \ vector<T>& v) {\n        init(v);\n    }\n\n    void init(const vector<T>& v)\
+    \ {\n        original = v;\n        values = v;\n\n        sort(values.begin(),\
+    \ values.end());\n        if (!Unique) {\n            values.erase(unique(values.begin(),\
+    \ values.end()), values.end());\n            compressed.resize(original.size());\n\
+    \        }\n\n        rep(i, original.size()) {\n            if (!Unique) compressed[i]\
+    \ = std::lower_bound(values.begin(), values.end(), original[i]) - values.begin();\n\
+    \            else {\n                if (Accending) compressed[i] = std::lower_bound(values.begin(),\
+    \ values.end(), original[i]) - values.begin() + count[original[i]];\n        \
+    \        else compressed[i] = std::upper_bound(values.begin(), values.end(), original[i])\
+    \ - values.begin() - count[original[i]] - 1;\n            }\n\n            if\
+    \ (!remap.contains(original[i])) remap[original[i]] = compressed[i];\n       \
+    \     ++count[original[i]];\n        }\n    }\n\n    // x\u3092\u5727\u7E2E\u5F8C\
+    \u306E\u5024\u306B\u5909\u63DB\n    long long compress(T x) {\n        assert(remap.contains(x));\n\
+    \        return remap[x];\n    }\n\n    // x\u3092\u5727\u7E2E\u5F8C\u306E\u5024\
+    \u306B\u5909\u63DB\n    long long operator()(T x) {\n        return compress(x);\n\
+    \    }\n\n    // x\u3092\u5727\u7E2E\u5F8C\u306E\u5024\u306B\u5909\u63DB\n   \
+    \ long long find(T x) {\n        return compress(x);\n    }\n\n    long long size()\
+    \ {\n        return (long long)values.size();\n    }\n\n    long long lower_bound(T\
     \ x) {\n        return std::lower_bound(values.begin(), values.end(), x) - values.begin();\n\
     \    }\n\n    long long upper_bound(T x) {\n        return std::upper_bound(values.begin(),\
     \ values.end(), x) - values.begin();\n    }\n\n    bool contains(T x) {\n    \
@@ -519,8 +519,8 @@ data:
   isVerificationFile: true
   path: test/structure/weighted-unionfind/atcoder-abc277-c.test.cpp
   requiredBy: []
-  timestamp: '2024-09-28 16:24:41+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-29 02:01:28+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/weighted-unionfind/atcoder-abc277-c.test.cpp
 layout: document

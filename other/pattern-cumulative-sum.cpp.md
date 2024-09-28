@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,12 +9,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
     title: test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
     title: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -455,7 +455,7 @@ data:
   path: other/pattern-cumulative-sum.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
   - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp

@@ -1,35 +1,35 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
     title: test/grid/grid-bfs/atcoder-abc334-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
     title: test/grid/grid-dfs/atcoder-abc334-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/math/combination/atcoder-abc172-e.test.cpp
     title: test/math/combination/atcoder-abc172-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/math/combination/atcoder-abc358-e.test.cpp
     title: test/math/combination/atcoder-abc358-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/math/eratosthenes/atcoder-abc304-f.test.cpp
     title: test/math/eratosthenes/atcoder-abc304-f.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/math/permutation/atcoder-abc172-e.test.cpp
     title: test/math/permutation/atcoder-abc172-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
     title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -492,7 +492,7 @@ data:
   path: math/modint.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc334-e.test.cpp

@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   - icon: ':heavy_check_mark:'
     path: structure/dual-segment-tree.cpp
     title: structure/dual-segment-tree.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: structure/splay-tree.cpp
     title: structure/splay-tree.cpp
   _extendedRequiredBy: []

@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc292/tasks/abc292_d
@@ -451,13 +451,14 @@ data:
     \     long long rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\u306E\
     \u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    vector<long long> roots() {\n\
     \        assert(mergeCC);\n        vector<long long> ret;\n        fore(p, cc)\
-    \ {\n            ret.push_back(p.front());\n        }\n        \n        return\
-    \ ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\u3092\u8FD4\
-    \u3059\n    long long group_count() {\n        return cc_size;\n    }\n\n    vector<vector<long\
-    \ long>> all_group_members() {\n        assert(mergeCC);\n        vector<vector<long\
-    \ long>> ret;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
-    \            ret.push_back(cc[i]);\n            sort(ret.back().begin(), ret.back().end());\n\
-    \        }\n\n        return ret;\n    }\n};\n#line 4 \"test/structure/weighted-unionfind/atcoder-abc292-d.test.cpp\"\
+    \ {\n            if (p.empty()) continue;\n            ret.push_back(p.front());\n\
+    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
+    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
+    \ cc_size;\n    }\n\n    vector<vector<long long>> all_group_members() {\n   \
+    \     assert(mergeCC);\n        vector<vector<long long>> ret;\n        fore(p,\
+    \ cc) {\n            if (p.empty()) continue;\n            ret.push_back(p);\n\
+    \            sort(ret.back().begin(), ret.back().end());\n        }\n\n      \
+    \  return ret;\n    }\n};\n#line 4 \"test/structure/weighted-unionfind/atcoder-abc292-d.test.cpp\"\
     \n\nint main() {\n    long long N, M;\n    cin >> N >> M;\n\n    WeightedUnionFind\
     \ tree(N);\n    rep(i, M) {\n        long long u, v;\n        cin >> u >> v;\n\
     \        --u; --v;\n\n        tree.unite(u, v, 0);\n    }\n\n    bool ans = true;\n\
@@ -478,8 +479,8 @@ data:
   isVerificationFile: true
   path: test/structure/weighted-unionfind/atcoder-abc292-d.test.cpp
   requiredBy: []
-  timestamp: '2024-09-28 16:24:14+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2024-09-29 02:01:28+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/weighted-unionfind/atcoder-abc292-d.test.cpp
 layout: document

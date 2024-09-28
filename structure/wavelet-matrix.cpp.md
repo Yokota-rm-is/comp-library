@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -12,7 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
     title: test/structure/wavelet-matrix/atcoder-abc281-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
     title: test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
   - icon: ':heavy_check_mark:'
@@ -21,21 +21,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
     title: test/structure/wavelet-matrix/yosupo-static-range-frequency.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
     title: test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
     title: test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
     title: test/structure/wavelet-matrix/yosupo-static-rmq.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/wavelet-matrix/yukicoder-738.test.cpp
     title: test/structure/wavelet-matrix/yukicoder-738.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -1222,7 +1222,7 @@ data:
   path: structure/wavelet-matrix.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/wavelet-matrix/atcoder-abc339-g.test.cpp
   - test/structure/wavelet-matrix/yosupo-static-range-sum.test.cpp

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: graph/bfs.cpp
     title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
   _extendedRequiredBy: []

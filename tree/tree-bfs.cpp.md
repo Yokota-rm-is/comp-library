@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,15 +9,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/tree/tree-bfs/aoj-grl-5-a.test.cpp
     title: test/tree/tree-bfs/aoj-grl-5-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
     title: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
     title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/tree/tree-bfs.md
     document_title: tree-bfs
@@ -551,7 +551,7 @@ data:
   path: tree/tree-bfs.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/tree/tree-bfs/aoj-grl-5-a.test.cpp
   - test/tree/tree-bfs/atcoder-abc209-d.test.cpp

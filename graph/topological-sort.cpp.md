@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/topological-sort/aoj-grl-4-b.test.cpp
     title: test/graph/topological-sort/aoj-grl-4-b.test.cpp
   - icon: ':heavy_check_mark:'
@@ -15,12 +15,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/graph/topological-sort/atcoder-dp-g.test.cpp
     title: test/graph/topological-sort/atcoder-dp-g.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
     title: test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/graph/topological-sort.md
     document_title: "\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u30BD\u30FC\u30C8"
@@ -491,7 +491,7 @@ data:
   path: graph/topological-sort.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:26:14+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/topological-sort/atcoder-abc223-d.test.cpp
   - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp

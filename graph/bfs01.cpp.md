@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/bfs01/atcoder-abc176-d.test.cpp
     title: test/graph/bfs01/atcoder-abc176-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/bfs01/atcoder-abc302-f.test.cpp
     title: test/graph/bfs01/atcoder-abc302-f.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -505,7 +505,7 @@ data:
   path: graph/bfs01.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:25:40+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/bfs01/atcoder-abc176-d.test.cpp
   - test/graph/bfs01/atcoder-abc302-f.test.cpp

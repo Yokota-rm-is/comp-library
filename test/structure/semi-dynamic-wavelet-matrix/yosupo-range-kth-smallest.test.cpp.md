@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: structure/semi-dynamic-wavelet-matrix.cpp
     title: structure/semi-dynamic-wavelet-matrix.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/range_kth_smallest
@@ -945,7 +945,7 @@ data:
   path: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:57:52+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
 layout: document

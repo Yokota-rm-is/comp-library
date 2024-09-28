@@ -1,32 +1,32 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/other/next-combination/atocoder-abc328-e.test.cpp
     title: test/other/next-combination/atocoder-abc328-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/aoj-dsl-1-a.test.cpp
     title: test/structure/unionfind/aoj-dsl-1-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/atcoder-abc277-c.test.cpp
     title: test/structure/unionfind/atcoder-abc277-c.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/atcoder-abc284-c.test.cpp
     title: test/structure/unionfind/atcoder-abc284-c.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/atcoder-abc292-d.test.cpp
     title: test/structure/unionfind/atcoder-abc292-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/unionfind/atcoder-abc333-d.test.cpp
     title: test/structure/unionfind/atcoder-abc333-d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -454,13 +454,14 @@ data:
     \        long long rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\
     \u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    vector<long long> roots()\
     \ {\n        assert(mergeCC);\n        vector<long long> ret;\n        fore(p,\
-    \ cc) {\n            ret.push_back(p.front());\n        }\n        \n        return\
-    \ ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\u3092\u8FD4\
-    \u3059\n    long long group_count() {\n        return cc_size;\n    }\n\n    vector<vector<long\
-    \ long>> all_group_members() {\n        assert(mergeCC);\n        vector<vector<long\
-    \ long>> ret;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
-    \            ret.push_back(cc[i]);\n            sort(ret.back().begin(), ret.back().end());\n\
-    \        }\n\n        return ret;\n    }\n};\n"
+    \ cc) {\n            if (p.empty()) continue;\n            ret.push_back(p.front());\n\
+    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
+    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
+    \ cc_size;\n    }\n\n    vector<vector<long long>> all_group_members() {\n   \
+    \     assert(mergeCC);\n        vector<vector<long long>> ret;\n        fore(p,\
+    \ cc) {\n            if (p.empty()) continue;\n            ret.push_back(p);\n\
+    \            sort(ret.back().begin(), ret.back().end());\n        }\n\n      \
+    \  return ret;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <bool mergeCC = true>\n\
     struct UnionFind {\n    long long V;\n    vector<long long> par; // par[i]: i\u306E\
     \u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n \
@@ -504,20 +505,21 @@ data:
     \        long long rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\
     \u306E\u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    vector<long long> roots()\
     \ {\n        assert(mergeCC);\n        vector<long long> ret;\n        fore(p,\
-    \ cc) {\n            ret.push_back(p.front());\n        }\n        \n        return\
-    \ ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\u3092\u8FD4\
-    \u3059\n    long long group_count() {\n        return cc_size;\n    }\n\n    vector<vector<long\
-    \ long>> all_group_members() {\n        assert(mergeCC);\n        vector<vector<long\
-    \ long>> ret;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
-    \            ret.push_back(cc[i]);\n            sort(ret.back().begin(), ret.back().end());\n\
-    \        }\n\n        return ret;\n    }\n};"
+    \ cc) {\n            if (p.empty()) continue;\n            ret.push_back(p.front());\n\
+    \        }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\
+    \u306E\u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
+    \ cc_size;\n    }\n\n    vector<vector<long long>> all_group_members() {\n   \
+    \     assert(mergeCC);\n        vector<vector<long long>> ret;\n        fore(p,\
+    \ cc) {\n            if (p.empty()) continue;\n            ret.push_back(p);\n\
+    \            sort(ret.back().begin(), ret.back().end());\n        }\n\n      \
+    \  return ret;\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: structure/unionfind.cpp
   requiredBy: []
-  timestamp: '2024-09-28 16:23:46+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2024-09-29 02:01:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/other/next-combination/atocoder-abc328-e.test.cpp
   - test/structure/unionfind/atcoder-abc333-d.test.cpp

@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: graph/flow.cpp
     title: "Flow(\u6700\u5927\u30FB\u6700\u5C0F\u6D41)"
   _extendedRequiredBy: []

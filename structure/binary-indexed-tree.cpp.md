@@ -1,41 +1,41 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
     title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
     title: test/structure/binary-indexed-tree/aoj-dsl-2-b.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
     title: test/structure/binary-indexed-tree/aoj-dsl-2-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
     title: test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
     title: test/structure/binary-indexed-tree/atcoder-abc338-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
     title: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
     title: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
     title: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
     title: test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -570,7 +570,7 @@ data:
   path: structure/binary-indexed-tree.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/binary-indexed-tree/aoj-dsl-2-g.test.cpp
   - test/structure/binary-indexed-tree/atcoder-tessoku-book-b59.test.cpp

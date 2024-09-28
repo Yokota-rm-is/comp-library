@@ -1,23 +1,23 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-alds1-11-b.test.cpp
     title: test/graph/dfs/aoj-alds1-11-b.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/graph/dfs/aoj-grl-4-a.test.cpp
     title: test/graph/dfs/aoj-grl-4-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/graph/dfs/atcoder-abc327-d.test.cpp
     title: test/graph/dfs/atcoder-abc327-d.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/graph/dfs.md
     document_title: "DFS(\u6DF1\u3055\u512A\u5148\u63A2\u7D22)"
@@ -506,7 +506,7 @@ data:
   path: graph/dfs.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/dfs/aoj-grl-4-a.test.cpp
   - test/graph/dfs/atcoder-abc327-d.test.cpp

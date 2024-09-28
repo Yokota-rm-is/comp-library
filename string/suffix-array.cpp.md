@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/string/suffix-array/aoj-alds1-14-d.test.cpp
     title: test/string/suffix-array/aoj-alds1-14-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/string/suffix-array/yosupo-suffix-array.test.cpp
     title: test/string/suffix-array/yosupo-suffix-array.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://ei1333.github.io/algorithm/suffix-array.html
@@ -511,7 +511,7 @@ data:
   path: string/suffix-array.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/string/suffix-array/yosupo-suffix-array.test.cpp
   - test/string/suffix-array/aoj-alds1-14-d.test.cpp

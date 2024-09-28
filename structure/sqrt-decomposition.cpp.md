@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,30 +9,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
     title: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -678,7 +678,7 @@ data:
   path: structure/sqrt-decomposition.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp

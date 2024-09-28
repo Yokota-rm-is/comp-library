@@ -1,15 +1,15 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/aoj-1595.test.cpp
     title: test/tree/tree-dp/aoj-1595.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/aoj-grl-5-a.test.cpp
     title: test/tree/tree-dp/aoj-grl-5-a.test.cpp
   - icon: ':heavy_check_mark:'
@@ -18,12 +18,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/atcoder-abc220-f.test.cpp
     title: test/tree/tree-dp/atcoder-abc220-f.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/atcoder-abc348-e.test.cpp
     title: test/tree/tree-dp/atcoder-abc348-e.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     _deprecated_at_docs: docs/tree/tree-dp.md
     document_title: tree-dp
@@ -677,7 +677,7 @@ data:
   path: tree/tree-dp.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:31:12+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/tree/tree-dp/aoj-grl-5-a.test.cpp
   - test/tree/tree-dp/atcoder-abc220-f.test.cpp

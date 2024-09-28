@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: mystd/mybitset.cpp
     title: mystd/mybitset.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: search/bit-zentansaku.cpp
     title: search/bit-zentansaku.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://atcoder.jp/contests/abc128/tasks/abc128_c
@@ -504,7 +504,7 @@ data:
   path: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
   requiredBy: []
   timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/search/bit-zentansaku/atcoder-abc128-c.test.cpp
 layout: document

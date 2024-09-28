@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: base.cpp
     title: base.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: other/compressor.cpp
     title: other/compressor.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: structure/dynamic-wavelet-matrix.cpp
     title: structure/dynamic-wavelet-matrix.cpp
   _extendedRequiredBy: []
