@@ -198,11 +198,11 @@ struct BitVector {
 template<typename T>
 struct Node {
     T value;
-    long long index;
+    long long y, x;
     long long size;
     long long coeff;
 
-    Node(T v, long long i = -1, long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};
+    Node(T v, long long y = 0, long long x = 0, long long s = 0, long long c = 1) : value(v), y(y), x(x), size(s), coeff(c) {};
 
     bool operator< (const Node &other) const {
         return value < other.value;
@@ -251,11 +251,12 @@ struct NoOperation : Operation<T> {
         else if (y == e()) return x;
 
         T value = x.value;
-        long long index = -1;
+        long long r = -1;
+        long long c = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -276,11 +277,12 @@ struct Max : Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = max(x.value, y.value);
-        long long index = (y.value > x.value ? y.index : x.index);
+        long long r = (y.value > x.value ? y.y : x.y);
+        long long c = (y.value > x.value ? y.x : x.x);
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -301,11 +303,12 @@ struct Min: Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = min(x.value, y.value);
-        long long index = (y.value < x.value ? y.index : x.index);
+        long long r = (y.value < x.value ? y.y : x.y);
+        long long c = (y.value < x.value ? y.x : x.x);
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -326,11 +329,12 @@ struct Sum: Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = x.value + y.value;
-        long long index = -1;
+        long long r = -1;
+        long long c = -1;
         long long size = x.size + y.size;
         long long coeff = size;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -351,11 +355,12 @@ struct Mul: Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = x.value * y.value;
-        long long index = -1;
+        long long r = -1;
+        long long c = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -376,11 +381,12 @@ struct GCD : Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = gcd(x.value, y.value);
-        long long index = -1;
+        long long r = -1;
+        long long c = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -401,11 +407,12 @@ struct LCM : Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = lcm(x.value, y.value);
-        long long index = -1;
+        long long r = -1;
+        long long c = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, r, c, size, coeff);
 
         return ret;
     }
@@ -521,18 +528,6 @@ struct SegmentTree {
     SegmentTree(long long n) : _N(n), op(), mapping() {
         init();
     }
-    SegmentTree(long long n, T a) : _N(n), op(), mapping() { 
-        init();
-
-        rep(i, _N) node[i + N] = S(a, i, 1, 1);
-        repd(i, 1, N) update(i);
-    }
-    SegmentTree(const vector<T>& v): _N(v.size()), op(), mapping() { 
-        init();
-
-        rep(i, _N) node[i + N] = S(v[i], i, 1, 1);
-        repd(i, 1, N) update(i); 
-    }
 
     void init() {
         N = 1;
@@ -545,6 +540,24 @@ struct SegmentTree {
         node.assign(2 * N, S(op.e()));
     }
 
+    void set_point(ll pos, ll y, ll x, T a) {
+        assert(0 <= pos and pos < _N);
+
+        long long k = pos + N;
+        node[k] = S(a, y, x, 1, 1);
+    }
+
+    void set_point(ll pos, ll y, ll x) {
+        assert(0 <= pos and pos < _N);
+
+        long long k = pos + N;
+        node[k] = S(node[k].value, y, x, 1, 1);
+    }
+
+    void build() {
+        repd(i, 1, N) update(i);
+    }
+
     // p番目の配列の値に対して，fでmapping
     // pは0-indexed
     void apply(long long p, F f) {
@@ -555,7 +568,7 @@ struct SegmentTree {
         rep(i, 1, height) update(k >> i);
     }
 
-    T get(long long p) {
+    S get(long long p) {
         assert(0 <= p and p < _N);
 
         long long k = p + N;
@@ -588,6 +601,28 @@ struct SegmentTree {
         return prod(l, r).size;
     }
 
+    friend ostream& operator << (ostream& os, SegmentTree& seg) {
+        os << "node" << endl;
+        ll h = 1;
+        rep(i, 1, seg.node.size()) {
+            // if (seg.node[i].value == seg.op.e()) os << "e ";
+            // else os << seg.node[i] << " ";
+
+            if (seg.node[i].value == seg.op.e()) os << "(e, ";
+            else os << "(" << seg.node[i] << ", ";
+
+            os << seg.node[i].y << ", " << seg.node[i].x << ") ";
+
+            if (i == (1 << h) - 1) {
+                os << endl;
+                h++;
+            }
+        }
+        os << endl;
+
+        return os;
+    }
+
 private:
     // k番目のノードの値を子の値で更新
     void update(long long k) {
@@ -614,6 +649,7 @@ struct SegmentTreeonWaveletMatrix {
     vector<long long> ys;
 
     _op<T> op;
+    T e = op.e();
     _mapping<T, F> mapping;
 
     unordered_map<long long, T> original;
@@ -626,12 +662,18 @@ struct SegmentTreeonWaveletMatrix {
         build();
     }
 
-    void add_point(ll x, ll y) {
+    void add_point(ll y, ll x) {
         ps.emplace_back(x, y);
         ys.emplace_back(y);
     }
 
     void build() {
+        build(op.e());
+    }
+
+    void build(T a) {
+        e = a;
+
         sort(ps.begin(), ps.end());
         ps.erase(unique(ps.begin(), ps.end()), ps.end());
         N = ps.size();
@@ -641,6 +683,8 @@ struct SegmentTreeonWaveletMatrix {
 
         vector<uint> cur(N), nxt(N);
         rep(i, N) cur[i] = yid(ps[i].second);
+
+        vector<Point> p_cur = ps, p_nxt(N);
 
         logN = 0;
         while ((1ull << logN) <= N) ++logN;
@@ -653,22 +697,41 @@ struct SegmentTreeonWaveletMatrix {
             auto it0 = nxt.begin();
             auto it1 = nxt.begin() + bit_vectors[h].zeros;
 
+            auto p_it0 = p_nxt.begin();
+            auto p_it1 = p_nxt.begin() + bit_vectors[h].zeros;
+
             rep(i, N) {
+                ll i0;
                 if (bit_vectors[h].access(i) == 1) {
                     *it1 = cur[i];
                     ++it1;
+
+                    *p_it1 = p_cur[i];
+                    ++p_it1;
+
+                    i0 = it1 - nxt.begin() - 1;
+                    tree[h].set_point(i0, p_cur[i].second, p_cur[i].first, a);
                 }
                 else {
                     *it0 = cur[i];
                     ++it0;
+
+                    *p_it0 = p_cur[i];
+                    ++p_it0;
+
+                    i0 = it0 - nxt.begin() - 1;
+                    tree[h].set_point(i0, p_cur[i].second, p_cur[i].first, a);
                 }
             }
             
             swap(cur, nxt);
+            swap(p_cur, p_nxt);
+
+            tree[h].build();
         }
     }
 
-    T access(long long x, long long y) {
+    S access(long long y, long long x) {
         ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();
         ull j = yid(y);
 
@@ -693,7 +756,7 @@ struct SegmentTreeonWaveletMatrix {
         return lower_bound(ys.begin(), ys.end(), y) - ys.begin(); }
 
     // p番目の配列の値に対して，valでmapping
-    void apply(long long x, long long y, T val) {
+    void apply(long long y, long long x, T val) {
         ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();
         ull j = yid(y);
 
@@ -708,21 +771,16 @@ struct SegmentTreeonWaveletMatrix {
         }
     }
 
-    // // [l, r), [d, u)の範囲の和を返す
-    // S prod(long long l, long long r, long long d, long long u) {
-    //     return prod(l, r, u) - prod(l, r, d);
-    // }
+    // 半開区間[0, h) x [w1, w2) (0-indexed) の範囲の和を求める
+    S prod(long long h, long long w1, long long w2) {
+        ll l = xid(w1), r = xid(w2);
+        ll u = yid(h);
 
-    // [l, r), [0, u)の範囲の和を求める
-    T prod(long long l, long long r, long long u) {
-        l = xid(l), r = xid(r);
-        u = yid(u);
-
-        S res(op.e());
+        S ret(e);
         repd(h, logN) {
             ull l0 = bit_vectors[h].rank(0, l), r0 = bit_vectors[h].rank(0, r);
             if ((u >> h) & 1) {
-                res = op(res, tree[h].prod(l0, r0));
+                ret = op(ret, tree[h].prod(l0, r0));
                 l += bit_vectors[h].zeros - l0;
                 r += bit_vectors[h].zeros - r0;
             } 
@@ -730,29 +788,29 @@ struct SegmentTreeonWaveletMatrix {
                 l = l0, r = r0;
             }
         }
-        return res;
+        return ret;
     }
 
-    // [l, r)の総和を求める
-    T prod(long long l, long long r) {
-        return prod(l, r, inf64);
+    // 半開区間[0, h) x [0, w) (0-indexed) の範囲の和を求める
+    S prod(long long h, long long w) {
+        return prod(h, 0, w);
     }
 
-    // [l, r), [d, u)の範囲の要素の数を求める
-    T count(long long l, long long r, long long d, long long u) {
-        return count(l, r, u) - count(l, r, d);
+    // [h1, h2) x [w1, w2)の範囲の要素の数を求める
+    T count(long long h1, long long h2, long long w1, long long w2) {
+        return count(h1, w1, w2) - count(h2, w1, w2);
     }
 
-    // [l, r), [0, u)の範囲の要素の数を求める
-    T count(long long l, long long r, T u) {
-        l = xid(l), r = xid(r);
-        u = yid(u);
+    // [0, h) x [w1, w2)の範囲の要素の数を求める
+    T count(long long h, long long w1, long long w2) {
+        ll l = xid(w1), r = xid(w2);
+        ll u = yid(h);
 
-        T res = 0;
+        T ret = 0;
         repd(h, logN) {
             ull l0 = bit_vectors[h].rank(0, l), r0 = bit_vectors[h].rank(0, r);
             if ((u >> h) & 1) {
-                res += tree[h].count(l0, r0);
+                ret += tree[h].count(l0, r0);
                 l += bit_vectors[h].zeros - l0;
                 r += bit_vectors[h].zeros - r0;
             } 
@@ -760,11 +818,11 @@ struct SegmentTreeonWaveletMatrix {
                 l = l0, r = r0;
             }
         }
-        return res;
+        return ret;
     }
 
-    // [l, r)の要素の数を求める
-    T count(long long l, long long r) {
-        return count(l, r, inf64);
+    // [0, h) x [0, w)の要素の数を求める
+    T count(long long h, long long w) {
+        return count(h, 0, w);
     }
 };

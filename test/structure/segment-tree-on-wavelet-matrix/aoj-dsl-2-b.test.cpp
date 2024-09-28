@@ -9,7 +9,7 @@ int main() {
     SegmentTreeonWaveletMatrix<ll, ll, Add, Sum> wm;
 
     vll A(n, 0);
-    rep(i, n) wm.add_point(i, A[i]);
+    rep(i, n) wm.add_point(A[i], i);
 
     vll T(q), X(q), Y(q);
 
@@ -18,25 +18,25 @@ int main() {
         --X[i];
         if (T[i] == 0) {
             A[X[i]] += Y[i];
-            wm.add_point(X[i], A[X[i]]);
+            wm.add_point(A[X[i]], X[i]);
         }
     } 
 
     wm.build();
     A.assign(n, 0);
-    rep(i, n) wm.apply(i, A[i], A[i]);
+    rep(i, n) wm.apply(A[i], i, A[i]);
 
    rep(i, q) {
         ll t = T[i], x = X[i], y = Y[i];
 
         if (t == 0) {
-            wm.apply(x, A[x], -A[x]);
+            wm.apply(A[x], x, -A[x]);
 
             A[x] += y;
-            wm.apply(x, A[x], A[x]);
+            wm.apply(A[x], x, A[x]);
         }
         else {
-            cout << wm.prod(x, y) << endl;
+            cout << wm.prod(inf64, x, y) << endl;
         }
     }
 

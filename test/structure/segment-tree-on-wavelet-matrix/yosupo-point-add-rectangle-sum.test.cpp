@@ -11,7 +11,7 @@ int main() {
 
     rep(i, N) {
         cin >> X[i] >> Y[i] >> W[i];
-        wm.add_point(X[i], Y[i]);
+        wm.add_point(Y[i], X[i]);
     }
 
     vvll query(Q);
@@ -25,7 +25,7 @@ int main() {
 
             query[i] = {t, x, y, w};
 
-            wm.add_point(x, y);
+            wm.add_point(y, x);
         }
         else {
             ll l, d, r, u;
@@ -37,17 +37,17 @@ int main() {
 
     wm.build();
     rep(i, N) {
-        wm.apply(X[i], Y[i], W[i]);
+        wm.apply(Y[i], X[i], W[i]);
     }
 
     rep(i, Q) {
         if (query[i][0] == 0) {
             ll x = query[i][1], y = query[i][2], w = query[i][3];
-            wm.apply(x, y, w);
+            wm.apply(y, x, w);
         }
         else {
             ll l = query[i][1], d = query[i][2], r = query[i][3], u = query[i][4];
-            cout << wm.prod(l, r, u) - wm.prod(l, r, d) << endl;
+            cout << wm.prod(u, l, r) - wm.prod(d, l, r) << endl;
         }
     }
 }
