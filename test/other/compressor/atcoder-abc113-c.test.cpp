@@ -23,7 +23,7 @@ int main() {
     rep(i, M) {
         ll p = P[i];
         ll y = Y[i];
-        ll y_comp = comp[p].find(y);
+        ll y_comp = comp[p].compress(y);
 
         cout << zero_padding(p, 6) << zero_padding(y_comp + 1, 6) << endl;
     }
