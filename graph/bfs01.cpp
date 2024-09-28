@@ -1,10 +1,6 @@
 #pragma once
 #include "../base.cpp"
 
-/**
- * @brief BFS(幅優先探索)
- * @docs docs/graph/bfs.md
-*/
 struct BFS01 {
     struct Edge {
         long long from;
