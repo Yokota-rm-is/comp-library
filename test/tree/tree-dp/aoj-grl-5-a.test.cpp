@@ -1,4 +1,4 @@
-#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&"
+#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&"
 
 #include "../../../tree/tree-dp.cpp"
 
@@ -15,11 +15,14 @@ int main() {
     }
 
     tree.build(0);
-    auto ans = tree.reroot();
+    auto dp = tree.reroot();
 
+    ll ans = 0;
     rep(i, n) {
-        cout << ans[i] << endl;
+        chmax(ans, dp[i].value);
     }
+
+    cout << ans << endl;
 
     return 0;
 }

@@ -1,17 +1,19 @@
-#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&"
+#define PROBLEM "https://atcoder.jp/contests/abc220/tasks/abc220_f"
 
 #include "../../../tree/tree-dp.cpp"
+
 
 int main() {
     ll n;
     cin >> n;
 
-    TreeDP<ll, ll, ll, None, Add, Max> tree(n);
+    TreeDP<ll, ll, ll, None, AddVTimes, Sum> tree(n);
     rep(i, n - 1) {
-        ll s, t, w;
-        cin >> s >> t >> w;
+        ll s, t;
+        cin >> s >> t;
+        --s; --t;
 
-        tree.connect(s, t, w);
+        tree.connect(s, t, 1);
     }
 
     tree.build(0);
