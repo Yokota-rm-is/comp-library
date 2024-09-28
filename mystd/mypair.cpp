@@ -3,6 +3,9 @@
 
 template <typename T, typename U> struct Pair : public pair<T, U> {
     using pair<T, U>::pair;
+
+    Pair(T f) : pair<T, U>(f, U()) {}
+
     constexpr Pair<T, U> operator - () const noexcept {return {-this->first, -this->second};}
     template<typename S> constexpr Pair<T, U> operator + (const S& r) const noexcept { return Pair<T, U>(*this) += {r, r}; }
     template<typename S> constexpr Pair<T, U> operator - (const S& r) const noexcept { return Pair<T, U>(*this) -= {r, r}; }
