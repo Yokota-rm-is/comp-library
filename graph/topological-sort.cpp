@@ -58,7 +58,7 @@ struct TopologicalSort {
     }
 
     vector<long long> solve() {
-        std::vector<long long> indegrees(V);
+        vector<long long> indegrees(V);
 
         rep(i, V) {
             indegrees[i] = rG[i].size();

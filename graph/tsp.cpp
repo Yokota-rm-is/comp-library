@@ -1,5 +1,4 @@
 #include "../base.cpp"
-#include <cassert>
 
 // bitDP (巡回セールスマン問題)
 // 計算量: O(N^2 2^N) (N<=19)
