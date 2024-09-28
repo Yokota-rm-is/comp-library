@@ -1,20 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: math/eratosthenes.cpp
     title: math/eratosthenes.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/cumulative-sum.cpp
     title: other/cumulative-sum.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     IGNORE: ''
@@ -50,27 +50,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -264,28 +271,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -393,89 +400,95 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"other/cumulative-sum.cpp\"\n\ntemplate<typename\
-    \ T>\nstruct CumulativeSum : vector<T> {\n    CumulativeSum(vector<T>& A) {\n\
-    \        (*this).assign(A.size(), 0);\n        init(A);\n    };\n\n    void init(vector<T>&\
-    \ A) {\n        assert(A.size() > 0);\n\n        (*this)[0] = A[0];\n        rep(i,\
-    \ 1, A.size()) {\n            (*this)[i] = A[i] + (*this)[i - 1];\n        }\n\
-    \    }\n\n    // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\
-    \u308B\n    T sum(long long l, long long r) {\n        if (l > r) swap(l, r);\n\
-    \n        if (l == 0) return (*this)[r - 1];\n        else return (*this)[r -\
-    \ 1] - (*this)[l - 1];\n    }\n\n    friend ostream& operator<<(ostream& os, const\
-    \ CumulativeSum<T>& A) {\n        rep(i, A.size()) os << A[i] << (i < A.size()\
-    \ - 1 ? \" \" : \"\");\n        return os;\n    }\n};\n#line 3 \"math/eratosthenes.cpp\"\
-    \n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\n// \u8A08\u7B97\
-    \u91CF: O(N loglogN) (N <= 10^6)\nstruct Eratosthenes {\n    long long N;\n  \
-    \  // \u30C6\u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\n    // \u6574\u6570\
-    \ i \u3092\u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long\
-    \ long> min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n   \
-    \ vector<long long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\u30E9\u30AF\u30BF\
-    \u3067\u7BE9\u3092\u56DE\u3059\n    explicit Eratosthenes(long long N) : N(N),\
-    \ is_prime(N + 1, true), min_factor(N + 1, -1), mobius(N + 1, 1) {\n        //\
-    \ 1 \u306F\u4E88\u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\u304A\u304F\n\
-    \        is_prime[1] = false;\n        min_factor[1] = 1;\n\n        construct();\n\
-    \    }\n\n    // O(N loglogN)\n    void construct() {\n        // \u7BE9\n   \
-    \     rep(p, 2, N + 1) {\n            // \u3059\u3067\u306B\u5408\u6210\u6570\u3067\
-    \u3042\u308B\u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\u3059\u308B\n         \
-    \   if (!is_prime[p]) continue;\n\n            // p \u306B\u3064\u3044\u3066\u306E\
-    \u60C5\u5831\u66F4\u65B0\n            min_factor[p] = p;\n            mobius[p]\
-    \ = -1;\n\n            // p \u4EE5\u5916\u306E p \u306E\u500D\u6570\u304B\u3089\
-    \u7D20\u6570\u30E9\u30D9\u30EB\u3092\u5265\u596A\n            for (long long q\
-    \ = p * 2; q <= N; q += p) {\n                // q \u306F\u5408\u6210\u6570\u306A\
-    \u306E\u3067\u3075\u308B\u3044\u843D\u3068\u3059\n                is_prime[q]\
-    \ = false;\n\n                // q \u306F p \u3067\u5272\u308A\u5207\u308C\u308B\
-    \u65E8\u3092\u66F4\u65B0\n                if (min_factor[q] == -1) min_factor[q]\
-    \ = p;\n                if ((q / p) % p == 0) mobius[q] = 0;\n               \
-    \ else mobius[q] *= -1;\n            }\n        }\n    }\n\n    // \u9AD8\u901F\
-    \u7D20\u56E0\u6570\u5206\u89E3 O(logN)\n    // pair (\u7D20\u56E0\u5B50, \u6307\
-    \u6570) \u306E vector \u3092\u8FD4\u3059\n    vector<pair<long long, long long>>\
-    \ factorize(long long n) {\n        vector<pair<long long, long long>> res;\n\
-    \        while (n > 1) {\n            long long p = min_factor[n];\n         \
-    \   long long exp = 0;\n\n            // n \u3067\u5272\u308A\u5207\u308C\u308B\
-    \u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n         \
-    \       n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"other/cumulative-sum.cpp\"\
+    \n\ntemplate<typename T>\nstruct CumulativeSum : vector<T> {\n    CumulativeSum(vector<T>&\
+    \ A) {\n        (*this).assign(A.size(), 0);\n        init(A);\n    };\n\n   \
+    \ void init(vector<T>& A) {\n        assert(A.size() > 0);\n\n        (*this)[0]\
+    \ = A[0];\n        rep(i, 1, A.size()) {\n            (*this)[i] = A[i] + (*this)[i\
+    \ - 1];\n        }\n    }\n\n    // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\
+    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
+    \  if (l > r) swap(l, r);\n\n        if (l == 0) return (*this)[r - 1];\n    \
+    \    else return (*this)[r - 1] - (*this)[l - 1];\n    }\n\n    friend ostream&\
+    \ operator<<(ostream& os, const CumulativeSum<T>& A) {\n        rep(i, A.size())\
+    \ os << A[i] << (i < A.size() - 1 ? \" \" : \"\");\n        return os;\n    }\n\
+    };\n#line 3 \"math/eratosthenes.cpp\"\n\n// \u30A8\u30E9\u30C8\u30B9\u30C6\u30CD\
+    \u30B9\u306E\u7BE9\n// \u8A08\u7B97\u91CF: O(N loglogN) (N <= 10^6)\nstruct Eratosthenes\
+    \ {\n    long long N;\n    // \u30C6\u30FC\u30D6\u30EB\n    vector<bool> is_prime;\n\
+    \n    // \u6574\u6570 i \u3092\u5272\u308A\u5207\u308B\u6700\u5C0F\u306E\u7D20\
+    \u6570\n    vector<long long> min_factor;\n\n    // \u30E1\u30D3\u30A6\u30B9\u95A2\
+    \u6570\u5024\n    vector<long long> mobius;\n\n    // \u30B3\u30F3\u30B9\u30C8\
+    \u30E9\u30AF\u30BF\u3067\u7BE9\u3092\u56DE\u3059\n    explicit Eratosthenes(long\
+    \ long N) : N(N), is_prime(N + 1, true), min_factor(N + 1, -1), mobius(N + 1,\
+    \ 1) {\n        // 1 \u306F\u4E88\u3081\u3075\u308B\u3044\u843D\u3068\u3057\u3066\
+    \u304A\u304F\n        is_prime[1] = false;\n        min_factor[1] = 1;\n\n   \
+    \     construct();\n    }\n\n    // O(N loglogN)\n    void construct() {\n   \
+    \     // \u7BE9\n        rep(p, 2, N + 1) {\n            // \u3059\u3067\u306B\
+    \u5408\u6210\u6570\u3067\u3042\u308B\u3082\u306E\u306F\u30B9\u30AD\u30C3\u30D7\
+    \u3059\u308B\n            if (!is_prime[p]) continue;\n\n            // p \u306B\
+    \u3064\u3044\u3066\u306E\u60C5\u5831\u66F4\u65B0\n            min_factor[p] =\
+    \ p;\n            mobius[p] = -1;\n\n            // p \u4EE5\u5916\u306E p \u306E\
+    \u500D\u6570\u304B\u3089\u7D20\u6570\u30E9\u30D9\u30EB\u3092\u5265\u596A\n   \
+    \         for (long long q = p * 2; q <= N; q += p) {\n                // q \u306F\
+    \u5408\u6210\u6570\u306A\u306E\u3067\u3075\u308B\u3044\u843D\u3068\u3059\n   \
+    \             is_prime[q] = false;\n\n                // q \u306F p \u3067\u5272\
+    \u308A\u5207\u308C\u308B\u65E8\u3092\u66F4\u65B0\n                if (min_factor[q]\
+    \ == -1) min_factor[q] = p;\n                if ((q / p) % p == 0) mobius[q] =\
+    \ 0;\n                else mobius[q] *= -1;\n            }\n        }\n    }\n\
+    \n    // \u9AD8\u901F\u7D20\u56E0\u6570\u5206\u89E3 O(logN)\n    // pair (\u7D20\
+    \u56E0\u5B50, \u6307\u6570) \u306E vector \u3092\u8FD4\u3059\n    vector<pair<long\
+    \ long, long long>> factorize(long long n) {\n        vector<pair<long long, long\
+    \ long>> res;\n        while (n > 1) {\n            long long p = min_factor[n];\n\
+    \            long long exp = 0;\n\n            // n \u3067\u5272\u308A\u5207\u308C\
+    \u308B\u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n   \
+    \             n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
     \ exp);\n        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\
     \u5217\u6319 O(sigma(n))\n    vector<long long> divisors(long long n) {\n    \
     \    vector<long long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\
     \u89E3 (\u30E1\u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n        auto pf = factorize(n);\n\
-    \n        // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            rep(i,\
-    \ res.size()) {\n                long long v = 1;\n                rep(j, p.second)\
-    \ {\n                    v *= p.first;\n                    res.push_back(res[i]\
-    \ * v);\n                }\n            }\n        }\n        return res;\n  \
-    \  }\n\n    // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n    // \u5165\u529B\
-    \ f \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001F \u306B\u306A\u308B\
-    \n    vector<long long> fast_zeta(vector<long long> f) {\n        vector<long\
-    \ long> F(N);\n        rep(i, N) F[i] = f[i];\n\n        // \u5404\u7D20\u6570\
-    \ p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5927\u304D\u3044\u5EA7\u6A19\
-    \ (k * p) \u304B\u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u3078\u3068\u8DB3\u3057\
-    \u8FBC\u3080\n        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\
-    \n            // \u5EA7\u6A19\u304C\u5927\u304D\u3044\u65B9\u3092\u8D77\u70B9\u3068\
-    \u3057\u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\n            for (long long k\
-    \ = (N - 1) / p; k >= 1; --k) {\n                F[k] += F[k * p];\n         \
-    \   }\n        }\n\n        return F;\n    }\n\n    // \u9AD8\u901F\u30E1\u30D3\
-    \u30A6\u30B9\u5909\u63DB\n    // \u5165\u529B F \u304C in-place \u306B\u66F4\u65B0\
-    \u3055\u308C\u3066\u3001f \u306B\u306A\u308B\n    vector<long long> fast_mobius(vector<long\
-    \ long> F) {\n        vector<long long> f(N);\n        rep(i, N) f[i] = F[i];\n\
-    \n        // \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5C0F\
-    \u3055\u3044\u5EA7\u6A19 (k) \u304B\u3089\u5927\u304D\u3044\u5EA7\u6A19 (k * p)\
-    \ \u3092\u5F15\u3044\u3066\u3044\u304F\n        rep(p, 2, N) {\n            if\
-    \ (!is_prime[p]) continue;\n\n            // \u5EA7\u6A19\u304C\u5C0F\u3055\u3044\
-    \u65B9\u3092\u8D77\u70B9\u3068\u3057\u3066\u5DEE\u5206\u3092\u3068\u308B\n   \
-    \         for (long long k = 1; k * p < N; ++k) {\n                f[k] -= f[k\
-    \ * p];\n            }\n        }\n\n        return f;\n    }\n\n    // \u6DFB\
-    \u5B57 GCD \u7573\u307F\u8FBC\u307F\n    vector<long long> gcd_conv(const vector<long\
-    \ long>& f, const vector<long long>& g) {\n        vector<long long> F(N), G(N),\
-    \ H(N);\n\n        // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\n        F =\
-    \ fast_zeta(f);\n        G = fast_zeta(g);\n\n        // H \u3092\u6C42\u3081\u308B\
-    \n        rep(i, 1, N) H[i] = F[i] * G[i];\n\n        // \u9AD8\u901F\u30E1\u30D3\
-    \u30A6\u30B9\u5909\u63DB\n        fast_mobius(H);\n\n        return H;\n    }\n\
-    };\n#line 7 \"test/other/cumulative-sum/atocoder-abc084-d.test.cpp\"\n\nint main()\
-    \ {\n    ll N = 1e5;\n\n    Eratosthenes era(N);\n\n    vector<ll> A(N + 1, 0);\n\
-    \    rep(i, 1, N + 1, 2) {\n        if (!era.is_prime[i]) continue;\n        if\
-    \ (!era.is_prime[(i + 1) / 2]) continue;\n\n        A[i] = 1;\n    }\n\n    auto\
-    \ B = CumulativeSum(A);\n\n    ll Q;\n    cin >> Q;\n    while (Q--) {\n     \
-    \   ll l, r;\n        cin >> l >> r;\n\n        cout << B.sum(l, r + 1) << endl;\n\
-    \    }\n\n    return 0;\n}\n"
+    \n        // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            ll s\
+    \ = res.size();\n            rep(i, s) {\n                long long v = 1;\n \
+    \               rep(j, p.second) {\n                    v *= p.first;\n      \
+    \              res.push_back(res[i] * v);\n                }\n            }\n\
+    \        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u30BC\u30FC\u30BF\
+    \u5909\u63DB\n    // \u5165\u529B f \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\
+    \u3066\u3001F \u306B\u306A\u308B\n    vector<long long> fast_zeta(vector<long\
+    \ long> f) {\n        vector<long long> F(N);\n        rep(i, N) F[i] = f[i];\n\
+    \n        // \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5927\
+    \u304D\u3044\u5EA7\u6A19 (k * p) \u304B\u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k)\
+    \ \u3078\u3068\u8DB3\u3057\u8FBC\u3080\n        rep(p, 2, N) {\n            if\
+    \ (!is_prime[p]) continue;\n\n            // \u5EA7\u6A19\u304C\u5927\u304D\u3044\
+    \u65B9\u3092\u8D77\u70B9\u3068\u3057\u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\
+    \n            for (long long k = (N - 1) / p; k >= 1; --k) {\n               \
+    \ F[k] += F[k * p];\n            }\n        }\n\n        return F;\n    }\n\n\
+    \    // \u9AD8\u901F\u30E1\u30D3\u30A6\u30B9\u5909\u63DB\n    // \u5165\u529B\
+    \ F \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001f \u306B\u306A\u308B\
+    \n    vector<long long> fast_mobius(vector<long long> F) {\n        vector<long\
+    \ long> f(N);\n        rep(i, N) f[i] = F[i];\n\n        // \u5404\u7D20\u6570\
+    \ p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5C0F\u3055\u3044\u5EA7\u6A19\
+    \ (k) \u304B\u3089\u5927\u304D\u3044\u5EA7\u6A19 (k * p) \u3092\u5F15\u3044\u3066\
+    \u3044\u304F\n        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\
+    \n            // \u5EA7\u6A19\u304C\u5C0F\u3055\u3044\u65B9\u3092\u8D77\u70B9\u3068\
+    \u3057\u3066\u5DEE\u5206\u3092\u3068\u308B\n            for (long long k = 1;\
+    \ k * p < N; ++k) {\n                f[k] -= f[k * p];\n            }\n      \
+    \  }\n\n        return f;\n    }\n\n    // \u6DFB\u5B57 GCD \u7573\u307F\u8FBC\
+    \u307F\n    vector<long long> gcd_conv(const vector<long long>& f, const vector<long\
+    \ long>& g) {\n        vector<long long> F(N), G(N), H(N);\n\n        // \u9AD8\
+    \u901F\u30BC\u30FC\u30BF\u5909\u63DB\n        F = fast_zeta(f);\n        G = fast_zeta(g);\n\
+    \n        // H \u3092\u6C42\u3081\u308B\n        rep(i, 1, N) H[i] = F[i] * G[i];\n\
+    \n        // \u9AD8\u901F\u30E1\u30D3\u30A6\u30B9\u5909\u63DB\n        fast_mobius(H);\n\
+    \n        return H;\n    }\n};\n#line 7 \"test/other/cumulative-sum/atocoder-abc084-d.test.cpp\"\
+    \n\nint main() {\n    ll N = 1e5;\n\n    Eratosthenes era(N);\n\n    vector<ll>\
+    \ A(N + 1, 0);\n    rep(i, 1, N + 1, 2) {\n        if (!era.is_prime[i]) continue;\n\
+    \        if (!era.is_prime[(i + 1) / 2]) continue;\n\n        A[i] = 1;\n    }\n\
+    \n    auto B = CumulativeSum(A);\n\n    ll Q;\n    cin >> Q;\n    while (Q--)\
+    \ {\n        ll l, r;\n        cin >> l >> r;\n\n        cout << B.sum(l, r +\
+    \ 1) << endl;\n    }\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc084/tasks/abc084_d\"\
     \n// https://atcoder.jp/contests/abc084/submissions/52932657\n\n#include \"../../../other/cumulative-sum.cpp\"\
     \n#include \"../../../math/eratosthenes.cpp\"\n\nint main() {\n    ll N = 1e5;\n\
@@ -492,8 +505,8 @@ data:
   isVerificationFile: true
   path: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 16:02:31+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-28 16:26:42+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/other/cumulative-sum/atocoder-abc084-d.test.cpp
 layout: document

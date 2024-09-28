@@ -1,17 +1,29 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/tree/tree-dp/aoj-1595.test.cpp
+    title: test/tree/tree-dp/aoj-1595.test.cpp
+  - icon: ':x:'
+    path: test/tree/tree-dp/aoj-grl-5-a.test.cpp
+    title: test/tree/tree-dp/aoj-grl-5-a.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/tree/tree-dp/aoj-grl-5-b.test.cpp
     title: test/tree/tree-dp/aoj-grl-5-b.test.cpp
-  _isVerificationFailed: false
+  - icon: ':heavy_check_mark:'
+    path: test/tree/tree-dp/atcoder-abc220-f.test.cpp
+    title: test/tree/tree-dp/atcoder-abc220-f.test.cpp
+  - icon: ':x:'
+    path: test/tree/tree-dp/atcoder-abc348-e.test.cpp
+    title: test/tree/tree-dp/atcoder-abc348-e.test.cpp
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     _deprecated_at_docs: docs/tree/tree-dp.md
     document_title: tree-dp
@@ -41,27 +53,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -255,28 +274,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -384,101 +403,287 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"tree/tree-dp.cpp\"\n\n/**\n * @brief tree-dp\n\
-    \ * @docs docs/tree/tree-dp.md\n*/\ntemplate <typename Weight = long long, typename\
-    \ DP = long long>\nstruct TreeDP {\n    struct Edge {\n        long long from;\n\
-    \        long long to;\n        Weight weight;\n        long long rev;\n     \
-    \   \n        explicit Edge(long long u = -1, long long v = -1, Weight w = 1,\
-    \ long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           if (to == other.to) return weight < other.weight;\n              \
-    \  else return to < other.to;\n            }\n            else return from < other.from;\n\
-    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
-    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
-    \    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n    // \u5168\u65B9\u4F4D\
-    \u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP> prod_all;\n    long\
-    \ long root;\n\n    TreeDP(long long N) : V(N), G(V){\n        init();\n    };\n\
-    \n    DP id() {\n        return 0;\n    }\n\n    DP merge(DP x, DP y) {\n    \
-    \    return max(x, y);\n    }\n\n    DP put_edge(DP x, Edge& edge) {\n       \
-    \ return x + (DP)edge.weight;\n    }\n\n    DP put_vertex(DP x, long long v) {\n\
-    \        return x;\n    }\n    \n    void init() {\n        seen.assign(V, false);\n\
-    \n        dp.resize(V);\n        prod_all.assign(V, id());\n    }\n    \n    void\
-    \ connect(long long from, long long to, Weight weight = 1) {\n        assert(0\
-    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        long\
-    \ long from_id = G[from].size();\n        long long to_id = G[to].size();\n\n\
-    \        G[from].emplace_back(from, to, weight, to_id);\n        G[to].emplace_back(to,\
-    \ from, weight, from_id);\n\n        dp[from].push_back(id());\n        dp[to].push_back(id());\n\
-    \    }\n\n    DP build(long long root_) {\n        root = root_;\n        return\
-    \ dfs(root);\n    }\n\n    vector<DP> reroot() {\n        prod(root, id());\n\n\
-    \        return prod_all;\n    }\n\n    DP dfs(long long now) {\n        assert(0\
-    \ <= now and now < V);\n\n        DP ret = id();\n\n        seen[now] = true;\n\
-    \n        rep(i, G[now].size()) {\n            Edge edge = G[now][i];\n      \
-    \      long long next = edge.to;\n\n            if (seen[next]) continue;\n\n\
-    \            dp[now][i] = dfs(next);\n            ret = merge(ret, put_edge(dp[now][i],\
-    \ edge));\n        }\n\n        return put_vertex(ret, now);\n    }\n\n    void\
-    \ prod(long long now, const DP& dp_p, Edge e = Edge()) {\n        long long deg\
-    \ = G[now].size();\n\n        if (e.rev != -1) dp[now][e.rev] = dp_p;\n\n    \
-    \    vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());\n\n        rep(i,\
-    \ deg) {\n            Edge edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i],\
-    \ put_edge(dp[now][i], edge));\n        }\n\n        repd(i, deg) {\n        \
-    \    Edge edge = G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
-    \ edge));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(), now);\n\
-    \n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n           \
-    \ Edge edge = G[now][i];\n            long long child = edge.to;\n           \
-    \ prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n     \
-    \   }\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief tree-dp\n * @docs\
-    \ docs/tree/tree-dp.md\n*/\ntemplate <typename Weight = long long, typename DP\
-    \ = long long>\nstruct TreeDP {\n    struct Edge {\n        long long from;\n\
-    \        long long to;\n        Weight weight;\n        long long rev;\n     \
-    \   \n        explicit Edge(long long u = -1, long long v = -1, Weight w = 1,\
-    \ long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           if (to == other.to) return weight < other.weight;\n              \
-    \  else return to < other.to;\n            }\n            else return from < other.from;\n\
-    \        }\n\n        friend ostream& operator << (ostream& os, const Edge& edge)\
-    \ {\n            return os << edge.to;\n        }\n    };\n\n    long long V;\n\
-    \    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n    // \u5168\u65B9\u4F4D\
-    \u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP> prod_all;\n    long\
-    \ long root;\n\n    TreeDP(long long N) : V(N), G(V){\n        init();\n    };\n\
-    \n    DP id() {\n        return 0;\n    }\n\n    DP merge(DP x, DP y) {\n    \
-    \    return max(x, y);\n    }\n\n    DP put_edge(DP x, Edge& edge) {\n       \
-    \ return x + (DP)edge.weight;\n    }\n\n    DP put_vertex(DP x, long long v) {\n\
-    \        return x;\n    }\n    \n    void init() {\n        seen.assign(V, false);\n\
-    \n        dp.resize(V);\n        prod_all.assign(V, id());\n    }\n    \n    void\
-    \ connect(long long from, long long to, Weight weight = 1) {\n        assert(0\
-    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        long\
-    \ long from_id = G[from].size();\n        long long to_id = G[to].size();\n\n\
-    \        G[from].emplace_back(from, to, weight, to_id);\n        G[to].emplace_back(to,\
-    \ from, weight, from_id);\n\n        dp[from].push_back(id());\n        dp[to].push_back(id());\n\
-    \    }\n\n    DP build(long long root_) {\n        root = root_;\n        return\
-    \ dfs(root);\n    }\n\n    vector<DP> reroot() {\n        prod(root, id());\n\n\
-    \        return prod_all;\n    }\n\n    DP dfs(long long now) {\n        assert(0\
-    \ <= now and now < V);\n\n        DP ret = id();\n\n        seen[now] = true;\n\
-    \n        rep(i, G[now].size()) {\n            Edge edge = G[now][i];\n      \
-    \      long long next = edge.to;\n\n            if (seen[next]) continue;\n\n\
-    \            dp[now][i] = dfs(next);\n            ret = merge(ret, put_edge(dp[now][i],\
-    \ edge));\n        }\n\n        return put_vertex(ret, now);\n    }\n\n    void\
-    \ prod(long long now, const DP& dp_p, Edge e = Edge()) {\n        long long deg\
-    \ = G[now].size();\n\n        if (e.rev != -1) dp[now][e.rev] = dp_p;\n\n    \
-    \    vector<DP> prod_l(deg + 1, id()), prod_r(deg + 1, id());\n\n        rep(i,\
-    \ deg) {\n            Edge edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i],\
-    \ put_edge(dp[now][i], edge));\n        }\n\n        repd(i, deg) {\n        \
-    \    Edge edge = G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
-    \ edge));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(), now);\n\
-    \n        rep(i, deg) {\n            if (i == e.rev) continue;\n\n           \
-    \ Edge edge = G[now][i];\n            long long child = edge.to;\n           \
-    \ prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), now), edge);\n     \
-    \   }\n    }\n};"
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"tree/tree-dp.cpp\"\
+    \n\ntemplate<typename T, typename S = T>\nstruct Product {\n    T value;\n   \
+    \ S sub0, sub1;\n    long long num_v;\n    long long num_e;\n\n    Product(T v\
+    \ = 0, S s0 = 0, S s1 = 0, long long nv = 0, long long ne = 0) : value(v), sub0(s0),\
+    \ sub1(s1), num_v(nv), num_e(ne) {};\n\n    operator T() const {\n        return\
+    \ value;\n    }\n};\n\ntemplate<typename Weight, typename T>\nstruct Put {\n \
+    \   using S = Product<T>;\n\n    Put() {};\n\n    virtual T e() = 0;\n    virtual\
+    \ bool is_vertex() = 0;\n    virtual bool is_none() = 0;\n\n    virtual S operator()\
+    \ (const S& dp, const Weight& w) = 0;\n};\n\ntemplate<typename Weight, typename\
+    \ T>\nstruct None : Put<Weight, T> {\n    using S = Product<T>;\n\n    None(bool\
+    \ is_vertex): _e(numeric_limits<T>::min()), _is_vertex(is_vertex), _is_none(true)\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    bool is_vertex()\
+    \ override {\n        return _is_vertex;\n    }\n\n    bool is_none() override\
+    \ {\n        return _is_none;\n    }\n\n    S operator() (const S& dp, const Weight&\
+    \ w) override {\n        T value = dp.value;\n        T sub0 = dp.sub0;\n    \
+    \    T sub1 = dp.sub1;\n        long long num_v = dp.num_v + (is_vertex() == true);\n\
+    \        long long num_e = dp.num_e + (is_vertex() == false);\n\n        return\
+    \ S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool\
+    \ _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename Weight, typename T>\n\
+    struct Add : Put<Weight, T> {\n    using S = Product<T>;\n\n    Add(bool is_vertex)\
+    \ : _e(T(0)), _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    bool is_vertex() override {\n        return\
+    \ _is_vertex;\n    }\n\n    bool is_none() override {\n        return _is_none;\n\
+    \    }\n\n    S operator() (const S& dp, const Weight& w) override {\n       \
+    \ T value = dp.value + T(w);\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n\
+    \        long long num_v = dp.num_v + (is_vertex() == true);\n        long long\
+    \ num_e = dp.num_e + (is_vertex() == false);\n\n        return S(value, sub0,\
+    \ sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n \
+    \   bool _is_none;\n};\n\ntemplate<typename Weight, typename T>\nstruct Mul :\
+    \ Put<Weight, T> {\n    using S = Product<T>;\n\n    Mul(bool is_vertex) : _e(T(1)),\
+    \ _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override {\n       \
+    \ return _e;\n    }\n\n    bool is_vertex() override {\n        return _is_vertex;\n\
+    \    }\n\n    bool is_none() override {\n        return _is_none;\n    }\n\n \
+    \   S operator() (const S& dp, const Weight& w) override {\n        T value =\
+    \ dp.value * T(w);\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n   \
+    \     long long num_v = dp.num_v + (is_vertex() == true);\n        long long num_e\
+    \ = dp.num_e + (is_vertex() == false);\n\n        return S(value, sub0, sub1,\
+    \ num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n    bool\
+    \ _is_none;\n};\n\ntemplate<typename Weight, typename T>\nstruct AddETimes : Put<Weight,\
+    \ T> {\n    using S = Product<T>;\n\n    AddETimes(bool is_vertex) : _e(T(0)),\
+    \ _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override {\n       \
+    \ return _e;\n    }\n\n    bool is_vertex() override {\n        return _is_vertex;\n\
+    \    }\n\n    bool is_none() override {\n        return _is_none;\n    }\n\n \
+    \   S operator() (const S& dp, const Weight& w) override {\n        T value =\
+    \ dp.value + T(w * dp.num_e);\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n\
+    \        long long num_v = dp.num_v + (is_vertex() == true);\n        long long\
+    \ num_e = dp.num_e + (is_vertex() == false);\n\n        return S(value, sub0,\
+    \ sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n \
+    \   bool _is_none;\n};\n\ntemplate<typename Weight, typename T>\nstruct AddVTimes\
+    \ : Put<Weight, T> {\n    using S = Product<T>;\n\n    AddVTimes(bool is_vertex)\
+    \ : _e(T(0)), _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    bool is_vertex() override {\n        return\
+    \ _is_vertex;\n    }\n\n    bool is_none() override {\n        return _is_none;\n\
+    \    }\n\n    S operator() (const S& dp, const Weight& w) override {\n       \
+    \ T value = dp.value + T(w * dp.num_v);\n        T sub0 = dp.sub0;\n        T\
+    \ sub1 = dp.sub1;\n        long long num_v = dp.num_v + (is_vertex() == true);\n\
+    \        long long num_e = dp.num_e + (is_vertex() == false);\n\n        return\
+    \ S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool\
+    \ _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename T>\nstruct Merge {\n\
+    \    using S = Product<T>;\n\n    Merge() {};\n\n    virtual T e() = 0;\n\n  \
+    \  virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
+    \ T>\nstruct Sum : Merge<T> {\n    using S = Product<T>;\n\n    Sum() : _e(T(0))\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = x.value + y.value;\n       \
+    \ T sub0 = x.sub0 + y.sub0;\n        T sub1 = x.sub1 + y.sub1;\n        long long\
+    \ num_v = x.num_v + y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\n\
+    \        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T\
+    \ _e;\n};\n\ntemplate<typename T>\nstruct Max : Merge<T> {\n    using S = Product<T>;\n\
+    \n    Max() : _e(numeric_limits<T>::min()) {};\n\n    T e() override {\n     \
+    \   return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
+    \        T value, sub0, sub1;\n        if (x.value < y.value) {\n            value\
+    \ = y.value;\n            sub0 = y.sub0;\n            sub1 = y.sub1;\n       \
+    \ }\n        else {\n            value = x.value;\n            sub0 = x.sub0;\n\
+    \            sub1 = x.sub1;\n        }\n\n        long long num_v = x.num_v +\
+    \ y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\n        return S(value,\
+    \ sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T>\nstruct Min : Merge<T> {\n    using S = Product<T>;\n\n    Min() : _e(numeric_limits<T>::max())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value, sub0, sub1;\n        if (x.value\
+    \ < y.value) {\n            value = x.value;\n            sub0 = x.sub0;\n   \
+    \         sub1 = x.sub1;\n        }\n        else {\n            value = y.value;\n\
+    \            sub0 = y.sub0;\n            sub1 = y.sub1;\n        }\n\n       \
+    \ long long num_v = x.num_v + y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\
+    \n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T\
+    \ _e;\n};\n\n/**\n * @brief tree-dp\n * @docs docs/tree/tree-dp.md\n*/\ntemplate\
+    \ <typename EdgeWeight, \n    typename VertexWeight, \n    typename T,\n    template<class,\
+    \ class> class _put_vertex,\n    template<class, class> class _put_edge,\n   \
+    \ template<class> class _merge>\nstruct TreeDP {\n    struct Edge {\n        long\
+    \ long from;\n        long long to;\n        EdgeWeight weight;\n        long\
+    \ long rev;\n        \n        explicit Edge(long long u = -1, long long v = -1,\
+    \ EdgeWeight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\
+    \n        bool operator < (const Edge& other) const {\n            if (from ==\
+    \ other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \                else return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    using DP = Product<T>;\n\n    long long V;\n    vector<vector<Edge>> G;\n\
+    \    vector<bool> seen;\n\n    vector<VertexWeight> v_weight;\n\n    _put_vertex<VertexWeight,\
+    \ T> put_vertex;\n    _put_edge<EdgeWeight, T> put_edge;\n    _merge<T> merge;\n\
+    \n    // \u5168\u65B9\u4F4D\u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP>\
+    \ prod_all;\n    long long root;\n\n    TreeDP(long long N) : V(N), G(V), put_vertex(true),\
+    \ put_edge(false), merge() {\n        init();\n    };\n\n    DP e() {\n      \
+    \  if (!put_vertex.is_none()) return put_vertex.e();\n        else return put_edge.e();\n\
+    \    }\n    \n    void init() {\n        seen.assign(V, false);\n\n        v_weight.resize(V);\n\
+    \        dp.resize(V);\n        prod_all.assign(V, merge.e());\n    }\n    \n\
+    \    void connect(long long from, long long to, EdgeWeight weight) {\n       \
+    \ assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n   \
+    \     long long from_id = G[from].size();\n        long long to_id = G[to].size();\n\
+    \n        G[from].emplace_back(from, to, weight, to_id);\n        G[to].emplace_back(to,\
+    \ from, weight, from_id);\n\n        dp[from].push_back(e());\n        dp[to].push_back(e());\n\
+    \    }\n\n    void set_vertex_weight(long long v, VertexWeight w) {\n        assert(0\
+    \ <= v and v < V);\n\n        v_weight[v] = w;\n    }\n\n    DP build(long long\
+    \ root_) {\n        root = root_;\n        return dfs(root);\n    }\n\n    vector<DP>\
+    \ reroot() {\n        prod(root, e());\n\n        return prod_all;\n    }\n\n\
+    \    DP dfs(long long now) {\n        assert(0 <= now and now < V);\n\n      \
+    \  DP ret = e();\n\n        seen[now] = true;\n\n        rep(i, G[now].size())\
+    \ {\n            Edge edge = G[now][i];\n            long long next = edge.to;\n\
+    \n            if (seen[next]) continue;\n\n            dp[now][i] = dfs(next);\n\
+    \            ret = merge(ret, put_edge(dp[now][i], edge.weight));\n        }\n\
+    \n        return put_vertex(ret, v_weight[now]);\n    }\n\n    void prod(long\
+    \ long now, const DP& dp_p, Edge e_p = Edge()) {\n        long long deg = G[now].size();\n\
+    \n        if (e_p.rev != -1) dp[now][e_p.rev] = dp_p;\n\n        vector<DP> prod_l(deg\
+    \ + 1, e()), prod_r(deg + 1, e());\n\n        rep(i, deg) {\n            Edge\
+    \ edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i], put_edge(dp[now][i],\
+    \ edge.weight));\n        }\n\n        repd(i, deg) {\n            Edge edge =\
+    \ G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
+    \ edge.weight));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
+    \ v_weight[now]);\n\n        rep(i, deg) {\n            if (i == e_p.rev) continue;\n\
+    \n            Edge edge = G[now][i];\n            long long child = edge.to;\n\
+    \            prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), v_weight[now]),\
+    \ edge);\n        }\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T, typename S\
+    \ = T>\nstruct Product {\n    T value;\n    S sub0, sub1;\n    long long num_v;\n\
+    \    long long num_e;\n\n    Product(T v = 0, S s0 = 0, S s1 = 0, long long nv\
+    \ = 0, long long ne = 0) : value(v), sub0(s0), sub1(s1), num_v(nv), num_e(ne)\
+    \ {};\n\n    operator T() const {\n        return value;\n    }\n};\n\ntemplate<typename\
+    \ Weight, typename T>\nstruct Put {\n    using S = Product<T>;\n\n    Put() {};\n\
+    \n    virtual T e() = 0;\n    virtual bool is_vertex() = 0;\n    virtual bool\
+    \ is_none() = 0;\n\n    virtual S operator() (const S& dp, const Weight& w) =\
+    \ 0;\n};\n\ntemplate<typename Weight, typename T>\nstruct None : Put<Weight, T>\
+    \ {\n    using S = Product<T>;\n\n    None(bool is_vertex): _e(numeric_limits<T>::min()),\
+    \ _is_vertex(is_vertex), _is_none(true) {};\n\n    T e() override {\n        return\
+    \ _e;\n    }\n\n    bool is_vertex() override {\n        return _is_vertex;\n\
+    \    }\n\n    bool is_none() override {\n        return _is_none;\n    }\n\n \
+    \   S operator() (const S& dp, const Weight& w) override {\n        T value =\
+    \ dp.value;\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n        long\
+    \ long num_v = dp.num_v + (is_vertex() == true);\n        long long num_e = dp.num_e\
+    \ + (is_vertex() == false);\n\n        return S(value, sub0, sub1, num_v, num_e);\n\
+    \    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n    bool _is_none;\n};\n\n\
+    template<typename Weight, typename T>\nstruct Add : Put<Weight, T> {\n    using\
+    \ S = Product<T>;\n\n    Add(bool is_vertex) : _e(T(0)), _is_vertex(is_vertex),\
+    \ _is_none(false) {};\n\n    T e() override {\n        return _e;\n    }\n\n \
+    \   bool is_vertex() override {\n        return _is_vertex;\n    }\n\n    bool\
+    \ is_none() override {\n        return _is_none;\n    }\n\n    S operator() (const\
+    \ S& dp, const Weight& w) override {\n        T value = dp.value + T(w);\n   \
+    \     T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n        long long num_v =\
+    \ dp.num_v + (is_vertex() == true);\n        long long num_e = dp.num_e + (is_vertex()\
+    \ == false);\n\n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\n\
+    private:\n    T _e;\n    bool _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename\
+    \ Weight, typename T>\nstruct Mul : Put<Weight, T> {\n    using S = Product<T>;\n\
+    \n    Mul(bool is_vertex) : _e(T(1)), _is_vertex(is_vertex), _is_none(false) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    bool is_vertex() override\
+    \ {\n        return _is_vertex;\n    }\n\n    bool is_none() override {\n    \
+    \    return _is_none;\n    }\n\n    S operator() (const S& dp, const Weight& w)\
+    \ override {\n        T value = dp.value * T(w);\n        T sub0 = dp.sub0;\n\
+    \        T sub1 = dp.sub1;\n        long long num_v = dp.num_v + (is_vertex()\
+    \ == true);\n        long long num_e = dp.num_e + (is_vertex() == false);\n\n\
+    \        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T\
+    \ _e;\n    bool _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename Weight,\
+    \ typename T>\nstruct AddETimes : Put<Weight, T> {\n    using S = Product<T>;\n\
+    \n    AddETimes(bool is_vertex) : _e(T(0)), _is_vertex(is_vertex), _is_none(false)\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    bool is_vertex()\
+    \ override {\n        return _is_vertex;\n    }\n\n    bool is_none() override\
+    \ {\n        return _is_none;\n    }\n\n    S operator() (const S& dp, const Weight&\
+    \ w) override {\n        T value = dp.value + T(w * dp.num_e);\n        T sub0\
+    \ = dp.sub0;\n        T sub1 = dp.sub1;\n        long long num_v = dp.num_v +\
+    \ (is_vertex() == true);\n        long long num_e = dp.num_e + (is_vertex() ==\
+    \ false);\n\n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n\
+    \    T _e;\n    bool _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename\
+    \ Weight, typename T>\nstruct AddVTimes : Put<Weight, T> {\n    using S = Product<T>;\n\
+    \n    AddVTimes(bool is_vertex) : _e(T(0)), _is_vertex(is_vertex), _is_none(false)\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    bool is_vertex()\
+    \ override {\n        return _is_vertex;\n    }\n\n    bool is_none() override\
+    \ {\n        return _is_none;\n    }\n\n    S operator() (const S& dp, const Weight&\
+    \ w) override {\n        T value = dp.value + T(w * dp.num_v);\n        T sub0\
+    \ = dp.sub0;\n        T sub1 = dp.sub1;\n        long long num_v = dp.num_v +\
+    \ (is_vertex() == true);\n        long long num_e = dp.num_e + (is_vertex() ==\
+    \ false);\n\n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n\
+    \    T _e;\n    bool _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename\
+    \ T>\nstruct Merge {\n    using S = Product<T>;\n\n    Merge() {};\n\n    virtual\
+    \ T e() = 0;\n\n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\n\
+    template<typename T>\nstruct Sum : Merge<T> {\n    using S = Product<T>;\n\n \
+    \   Sum() : _e(T(0)) {};\n\n    T e() override {\n        return _e;\n    }\n\n\
+    \    S operator() (const S& x, const S& y) override {\n        T value = x.value\
+    \ + y.value;\n        T sub0 = x.sub0 + y.sub0;\n        T sub1 = x.sub1 + y.sub1;\n\
+    \        long long num_v = x.num_v + y.num_v;\n        long long num_e = x.num_e\
+    \ + y.num_e;\n\n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\n\
+    private:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Max : Merge<T> {\n   \
+    \ using S = Product<T>;\n\n    Max() : _e(numeric_limits<T>::min()) {};\n\n  \
+    \  T e() override {\n        return _e;\n    }\n\n    S operator() (const S& x,\
+    \ const S& y) override {\n        T value, sub0, sub1;\n        if (x.value <\
+    \ y.value) {\n            value = y.value;\n            sub0 = y.sub0;\n     \
+    \       sub1 = y.sub1;\n        }\n        else {\n            value = x.value;\n\
+    \            sub0 = x.sub0;\n            sub1 = x.sub1;\n        }\n\n       \
+    \ long long num_v = x.num_v + y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\
+    \n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T\
+    \ _e;\n};\n\ntemplate<typename T>\nstruct Min : Merge<T> {\n    using S = Product<T>;\n\
+    \n    Min() : _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n     \
+    \   return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
+    \        T value, sub0, sub1;\n        if (x.value < y.value) {\n            value\
+    \ = x.value;\n            sub0 = x.sub0;\n            sub1 = x.sub1;\n       \
+    \ }\n        else {\n            value = y.value;\n            sub0 = y.sub0;\n\
+    \            sub1 = y.sub1;\n        }\n\n        long long num_v = x.num_v +\
+    \ y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\n        return S(value,\
+    \ sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n};\n\n/**\n * @brief\
+    \ tree-dp\n * @docs docs/tree/tree-dp.md\n*/\ntemplate <typename EdgeWeight, \n\
+    \    typename VertexWeight, \n    typename T,\n    template<class, class> class\
+    \ _put_vertex,\n    template<class, class> class _put_edge,\n    template<class>\
+    \ class _merge>\nstruct TreeDP {\n    struct Edge {\n        long long from;\n\
+    \        long long to;\n        EdgeWeight weight;\n        long long rev;\n \
+    \       \n        explicit Edge(long long u = -1, long long v = -1, EdgeWeight\
+    \ w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n       \
+    \ bool operator < (const Edge& other) const {\n            if (from == other.from)\
+    \ {\n                if (to == other.to) return weight < other.weight;\n     \
+    \           else return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    using DP = Product<T>;\n\n    long long V;\n    vector<vector<Edge>> G;\n\
+    \    vector<bool> seen;\n\n    vector<VertexWeight> v_weight;\n\n    _put_vertex<VertexWeight,\
+    \ T> put_vertex;\n    _put_edge<EdgeWeight, T> put_edge;\n    _merge<T> merge;\n\
+    \n    // \u5168\u65B9\u4F4D\u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP>\
+    \ prod_all;\n    long long root;\n\n    TreeDP(long long N) : V(N), G(V), put_vertex(true),\
+    \ put_edge(false), merge() {\n        init();\n    };\n\n    DP e() {\n      \
+    \  if (!put_vertex.is_none()) return put_vertex.e();\n        else return put_edge.e();\n\
+    \    }\n    \n    void init() {\n        seen.assign(V, false);\n\n        v_weight.resize(V);\n\
+    \        dp.resize(V);\n        prod_all.assign(V, merge.e());\n    }\n    \n\
+    \    void connect(long long from, long long to, EdgeWeight weight) {\n       \
+    \ assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n   \
+    \     long long from_id = G[from].size();\n        long long to_id = G[to].size();\n\
+    \n        G[from].emplace_back(from, to, weight, to_id);\n        G[to].emplace_back(to,\
+    \ from, weight, from_id);\n\n        dp[from].push_back(e());\n        dp[to].push_back(e());\n\
+    \    }\n\n    void set_vertex_weight(long long v, VertexWeight w) {\n        assert(0\
+    \ <= v and v < V);\n\n        v_weight[v] = w;\n    }\n\n    DP build(long long\
+    \ root_) {\n        root = root_;\n        return dfs(root);\n    }\n\n    vector<DP>\
+    \ reroot() {\n        prod(root, e());\n\n        return prod_all;\n    }\n\n\
+    \    DP dfs(long long now) {\n        assert(0 <= now and now < V);\n\n      \
+    \  DP ret = e();\n\n        seen[now] = true;\n\n        rep(i, G[now].size())\
+    \ {\n            Edge edge = G[now][i];\n            long long next = edge.to;\n\
+    \n            if (seen[next]) continue;\n\n            dp[now][i] = dfs(next);\n\
+    \            ret = merge(ret, put_edge(dp[now][i], edge.weight));\n        }\n\
+    \n        return put_vertex(ret, v_weight[now]);\n    }\n\n    void prod(long\
+    \ long now, const DP& dp_p, Edge e_p = Edge()) {\n        long long deg = G[now].size();\n\
+    \n        if (e_p.rev != -1) dp[now][e_p.rev] = dp_p;\n\n        vector<DP> prod_l(deg\
+    \ + 1, e()), prod_r(deg + 1, e());\n\n        rep(i, deg) {\n            Edge\
+    \ edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i], put_edge(dp[now][i],\
+    \ edge.weight));\n        }\n\n        repd(i, deg) {\n            Edge edge =\
+    \ G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
+    \ edge.weight));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
+    \ v_weight[now]);\n\n        rep(i, deg) {\n            if (i == e_p.rev) continue;\n\
+    \n            Edge edge = G[now][i];\n            long long child = edge.to;\n\
+    \            prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), v_weight[now]),\
+    \ edge);\n        }\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: tree/tree-dp.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-28 16:31:12+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
+  - test/tree/tree-dp/aoj-grl-5-a.test.cpp
+  - test/tree/tree-dp/atcoder-abc220-f.test.cpp
   - test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - test/tree/tree-dp/atcoder-abc348-e.test.cpp
+  - test/tree/tree-dp/aoj-1595.test.cpp
 documentation_of: tree/tree-dp.cpp
 layout: document
 redirect_from:

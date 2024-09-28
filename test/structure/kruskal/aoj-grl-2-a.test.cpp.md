@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: structure/kruskal.cpp
     title: structure/kruskal.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&
@@ -44,27 +44,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -258,28 +265,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -387,51 +394,58 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/kruskal.cpp\"\n\nstruct WeightPriorityEdge\
-    \ {\n    long long from;\n    long long to;\n    long long weight;\n    \n   \
-    \ explicit WeightPriorityEdge(long long s, long long t, long long w = 0) : from(s),\
-    \ to(t), weight(w) {};\n\n    bool operator< (const WeightPriorityEdge& other)\
-    \ const {\n        if (weight == other.weight) {\n            if (from == other.from)\
-    \ return to < other.to;\n            else return from < other.from;\n        }\n\
-    \        else return weight < other.weight;\n    }\n};\n\nstruct UnionFind {\n\
-    \    long long V{};\n    vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\
-    \u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n\n    vector<WeightPriorityEdge>\
-    \ edges;\n\n    explicit UnionFind(long long V) : V(V), par(V, -1) { //\u6700\u521D\
-    \u306F\u5168\u3066\u304C\u6839\u3067\u3042\u308B\u3068\u3057\u3066\u521D\u671F\
-    \u5316\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     return par[x] = rx;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\
-    \u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n\
-    \    bool is_same(long long x, long long y) { \n        return find(x) == find(y);\n\
-    \    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\
-    \u8981\u7D20\u306E\u6570\u3092\u8FD4\u3059\n    long long size(long long x) {\n\
-    \        long long rx = find(x);\n        return -par[rx];\n    }\n\n    bool\
-    \ is_connected() {\n        long long rx = find(0);\n        return -par[rx] ==\
-    \ V;\n    }\n\n    // kruskal\u7528 \n    void add_edge(long long u, long long\
-    \ v, long long w) {\n        edges.emplace_back(u, v, w);\n    }\n    \n    //\
-    \ \u7121\u5411\u6700\u5C0F\u5168\u57DF\u6728\u306E\u30B3\u30B9\u30C8\u3092\u6C42\
-    \u3081\u308B\n    long long kruskal() {\n        sort(edges.begin(), edges.end());\n\
-    \n        long long sum = 0;\n        fore(e, edges) {\n            if (is_same(e.from,\
-    \ e.to)) continue;\n\n            unite(e.from, e.to, e.weight);\n           \
-    \ sum += e.weight;\n        }\n\n        return sum;\n    }\n\nprivate:\n    //\
-    \ x\u3068y\u3092\u9023\u7D50\n    bool unite(long long x, long long y, long long\
-    \ w = 0) {\n        long long rx = find(x); //x\u306E\u6839\u3092rx\n        long\
-    \ long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx == ry) return false;\
-    \ //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\u306B\u3042\u308B\
-    )\u6642\u306F\u305D\u306E\u307E\u307E\n\n        // -par\u306F\u30B5\u30A4\u30BA\
-    \u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\
-    \u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n     \
-    \   if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n            w = -w;\n\
-    \        }\n\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\
-    \u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\
-    \u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092\
-    x\u306E\u6839rx\u306B\u3064\u3051\u308B\n\n        return true;\n    }\n};\n#line\
-    \ 4 \"test/structure/kruskal/aoj-grl-2-a.test.cpp\"\n\nint main() {\n    ll V,\
-    \ E;\n    cin >> V >> E;\n\n    UnionFind tree(V);\n    \n    rep(i, E) {\n  \
-    \      ll s, t, w;\n        cin >> s >> t >> w;\n\n        tree.add_edge(s, t,\
-    \ w);\n    }\n\n    cout << tree.kruskal() << endl;\n\n    return 0;\n}\n"
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/kruskal.cpp\"\
+    \n\nstruct WeightPriorityEdge {\n    long long from;\n    long long to;\n    long\
+    \ long weight;\n    \n    explicit WeightPriorityEdge(long long s, long long t,\
+    \ long long w = 0) : from(s), to(t), weight(w) {};\n\n    bool operator< (const\
+    \ WeightPriorityEdge& other) const {\n        if (weight == other.weight) {\n\
+    \            if (from == other.from) return to < other.to;\n            else return\
+    \ from < other.from;\n        }\n        else return weight < other.weight;\n\
+    \    }\n};\n\nstruct UnionFind {\n    long long V{};\n    vector<long long> par{};\
+    \ // par[i]: i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\u30A4\u30BA (i\u304C\u89AA\
+    \u306E\u6642)\n\n    vector<WeightPriorityEdge> edges;\n\n    explicit UnionFind(long\
+    \ long V) : V(V), par(V, -1) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\
+    \u3042\u308B\u3068\u3057\u3066\u521D\u671F\u5316\n    }\n\n    // x\u306E\u6839\
+    \u3092\u8FD4\u3059\n    long long find(long long x) { // \u30C7\u30FC\u30BFx\u304C\
+    \u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\u518D\u5E30\u3067\u5F97\u308B\uFF1A\
+    root(x) = {x\u306E\u6728\u306E\u6839}\n        if (par[x] < 0) return x;\n\n \
+    \       long long rx = find(par[x]);\n        return par[x] = rx;\n    }\n\n \
+    \   // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\
+    \u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x,\
+    \ long long y) { \n        return find(x) == find(y);\n    }\n\n    // x\u304C\
+    \u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\
+    \u3092\u8FD4\u3059\n    long long size(long long x) {\n        long long rx =\
+    \ find(x);\n        return -par[rx];\n    }\n\n    bool is_connected() {\n   \
+    \     long long rx = find(0);\n        return -par[rx] == V;\n    }\n\n    //\
+    \ kruskal\u7528 \n    void add_edge(long long u, long long v, long long w) {\n\
+    \        edges.emplace_back(u, v, w);\n    }\n    \n    // \u7121\u5411\u6700\u5C0F\
+    \u5168\u57DF\u6728\u306E\u30B3\u30B9\u30C8\u3092\u6C42\u3081\u308B\n    long long\
+    \ kruskal() {\n        sort(edges.begin(), edges.end());\n\n        long long\
+    \ sum = 0;\n        fore(e, edges) {\n            if (is_same(e.from, e.to)) continue;\n\
+    \n            unite(e.from, e.to, e.weight);\n            sum += e.weight;\n \
+    \       }\n\n        return sum;\n    }\n\nprivate:\n    // x\u3068y\u3092\u9023\
+    \u7D50\n    bool unite(long long x, long long y, long long w = 0) {\n        long\
+    \ long rx = find(x); //x\u306E\u6839\u3092rx\n        long long ry = find(y);\
+    \ //y\u306E\u6839\u3092ry\n        if (rx == ry) return false; //x\u3068y\u306E\
+    \u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\
+    \u306E\u307E\u307E\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\
+    \n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\
+    \u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx] < -par[ry])\
+    \ {\n            swap(rx, ry);\n            w = -w;\n        }\n\n        par[rx]\
+    \ += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n        par[ry]\
+    \ = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\
+    \u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\
+    \u3064\u3051\u308B\n\n        return true;\n    }\n};\n#line 4 \"test/structure/kruskal/aoj-grl-2-a.test.cpp\"\
+    \n\nint main() {\n    ll V, E;\n    cin >> V >> E;\n\n    UnionFind tree(V);\n\
+    \    \n    rep(i, E) {\n        ll s, t, w;\n        cin >> s >> t >> w;\n\n \
+    \       tree.add_edge(s, t, w);\n    }\n\n    cout << tree.kruskal() << endl;\n\
+    \n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&\"\
     \n\n#include \"../../../structure/kruskal.cpp\"\n\nint main() {\n    ll V, E;\n\
     \    cin >> V >> E;\n\n    UnionFind tree(V);\n    \n    rep(i, E) {\n       \
@@ -443,8 +457,8 @@ data:
   isVerificationFile: true
   path: test/structure/kruskal/aoj-grl-2-a.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-28 16:22:31+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/kruskal/aoj-grl-2-a.test.cpp
 layout: document

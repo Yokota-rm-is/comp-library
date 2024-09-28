@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
@@ -9,7 +9,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
   - icon: ':heavy_check_mark:'
@@ -18,27 +18,30 @@ data:
   - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
+    path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
+    title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
+  - icon: ':x:'
     path: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
     title: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -66,27 +69,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -280,28 +290,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -409,11 +419,17 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/semi-dynamic-wavelet-matrix.cpp\"\n\
-    \ntemplate <typename T>\nstruct BIT {\n    long long N, _N, height;\n    vector<T>\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/semi-dynamic-wavelet-matrix.cpp\"\
+    \n\ntemplate <typename T>\nstruct BIT {\n    long long N, _N, height;\n    vector<T>\
     \ bit;\n\n    BIT() {}\n    BIT(long long n) { \n        init(n); \n    }\n\n\
-    \    void init(int n) {\n        _N = n;\n        N = 1;\n        height = 1;\n\
-    \        while (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n\
+    \    void init(long long n) {\n        _N = n;\n        N = 1;\n        height\
+    \ = 1;\n        while (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n\
     \        }\n        bit.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
     x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
     \ <= p and p < _N);\n\n        ++p; // 1-indexed\n\n        for (int idx = p;\
@@ -575,80 +591,81 @@ data:
     \ {\n    using ull = unsigned long long;\n\n    vector<SemiDynamicBitVector> bit_vectors;\n\
     \    unordered_map<ull, ull> begin_indices;   // \u6700\u5F8C\u306E\u30BD\u30FC\
     \u30C8\u3055\u308C\u305F\u914D\u5217\u3067\u5404\u6587\u5B57\u306E\u958B\u59CB\
-    \u4F4D\u7F6E\n    vector<BIT<T>> cumulative_sum;\n    T min_val = numeric_limits<T>::max(),\
-    \ max_val = numeric_limits<T>::min();\n\n    ull N, _N;  // \u4E0E\u3048\u3089\
-    \u308C\u305F\u914D\u5217\u306E\u30B5\u30A4\u30BA\n    ull bit_size;   // \u6587\
-    \u5B57\u3092\u8868\u3059\u306E\u306B\u5FC5\u8981\u306Abit\u6570\n\n    vector<vector<T>>\
-    \ sim_values, values;\n    vector<ull> indices;\n\n    T NOTFOUND = numeric_limits<T>::max()\
-    \ / 2;\n\n    SemiDynamicWaveletMatrix (long long n, T a): N(0), _N(n), sim_values(n),\
-    \ values(n), indices(n + 1) {\n        rep(i, _N) simulate_set(i, a);\n    }\n\
-    \n    SemiDynamicWaveletMatrix (const vector<T> &A): N(0), _N(A.size()), sim_values(A.size()),\
-    \ values(A.size()), indices(A.size() + 1) {\n        rep(i, _N) simulate_set(i,\
-    \ A[i]);\n    }\n\n    void simulate_set(ull pos, T val) {\n        assert(pos\
-    \ < _N);\n        assert(val >= 0);\n        sim_values[pos].push_back(val);\n\
-    \        ++N;\n        chmax(max_val, val);\n        chmin(min_val, val);\n  \
-    \  }\n\n    void simulate_add(ull pos, T val) {\n        simulate_set(pos, sim_values[pos].back()\
-    \ + val);\n    }\n\n    void build() {\n        indices[0] = 0;\n        rep(i,\
-    \ _N) {\n            indices[i + 1] = indices[i] + sim_values[i].size();\n   \
-    \     }\n\n        bit_size = 0;\n        while (T(1ull << bit_size) <= max_val\
-    \ + 1) ++bit_size;\n\n        bit_vectors.assign(bit_size, N);\n        cumulative_sum.assign(bit_size,\
-    \ N);\n\n        rep(i, _N) values[i].push_back(sim_values[i].front());\n\n  \
-    \      vector<pair<T, ull>> cur;\n        rep(i, _N) {\n            rep(j, sim_values[i].size())\
-    \ {\n                cur.emplace_back(sim_values[i][j], (j == 0));\n         \
-    \   }\n        }\n        vector<pair<T, ull>> nxt(N);\n\n        repd(h, bit_size)\
-    \ {\n            rep(i, N) {\n                if ((cur[i].first >> h) & 1) bit_vectors[h].set(1,\
+    \u4F4D\u7F6E\n    vector<BIT<T>> cumulative_sum;\n    BIT<T> inactive_count;\n\
+    \    T min_val = numeric_limits<T>::max(), max_val = numeric_limits<T>::min();\n\
+    \n    ull N, _N;  // \u4E0E\u3048\u3089\u308C\u305F\u914D\u5217\u306E\u30B5\u30A4\
+    \u30BA\n    ull bit_size;   // \u6587\u5B57\u3092\u8868\u3059\u306E\u306B\u5FC5\
+    \u8981\u306Abit\u6570\n\n    vector<vector<T>> sim_values, values;\n    vector<ull>\
+    \ indices;\n\n    T NOTFOUND = numeric_limits<T>::max() / 2;\n\n    SemiDynamicWaveletMatrix\
+    \ (long long n, T a): N(0), _N(n), sim_values(n), values(n), indices(n + 1) {\n\
+    \        rep(i, _N) simulate_set(i, a);\n    }\n\n    SemiDynamicWaveletMatrix\
+    \ (const vector<T> &A): N(0), _N(A.size()), sim_values(A.size()), values(A.size()),\
+    \ indices(A.size() + 1) {\n        rep(i, _N) simulate_set(i, A[i]);\n    }\n\n\
+    \    void simulate_set(ull pos, T val) {\n        assert(pos < _N);\n        assert(val\
+    \ >= 0);\n        sim_values[pos].push_back(val);\n        ++N;\n        chmax(max_val,\
+    \ val);\n        chmin(min_val, val);\n    }\n\n    void simulate_add(ull pos,\
+    \ T val) {\n        simulate_set(pos, sim_values[pos].back() + val);\n    }\n\n\
+    \    void build() {\n        indices[0] = 0;\n        rep(i, _N) {\n         \
+    \   indices[i + 1] = indices[i] + sim_values[i].size();\n        }\n\n       \
+    \ bit_size = 0;\n        while (T(1ull << bit_size) <= max_val + 1) ++bit_size;\n\
+    \n        bit_vectors.assign(bit_size, N);\n        cumulative_sum.assign(bit_size,\
+    \ N);\n        inactive_count.init(N);\n\n        vector<T> cur;\n        rep(i,\
+    \ _N) {\n            fore(v, sim_values[i]) {\n                cur.push_back(v);\n\
+    \            }\n        }\n        vector<T> nxt(N);\n\n        repd(h, bit_size)\
+    \ {\n            rep(i, N) {\n                if ((cur[i] >> h) & 1) bit_vectors[h].set(1,\
     \ i);\n                else bit_vectors[h].set(0, i);\n            }\n       \
     \     bit_vectors[h].build();\n\n            auto it0 = nxt.begin();\n       \
     \     auto it1 = nxt.begin() + bit_vectors[h].zeros;\n\n            rep(i, N)\
     \ {\n                ull bit = bit_vectors[h].access(i);\n                if (bit\
     \ == 1) {\n                    *it1 = cur[i];\n                    ++it1;\n  \
     \              }\n                else {\n                    *it0 = cur[i];\n\
-    \                    ++it0;\n                }\n\n                if (cur[i].second)\
-    \ {\n                    bit_vectors[h].activate(bit, i);\n                  \
-    \  cumulative_sum[h].set(i, cur[i].first);\n                }\n            }\n\
-    \            \n            swap(cur, nxt);\n        }\n\n        repd(i, N) {\n\
-    \            begin_indices[cur[i].first] = i;\n        }\n    }\n\n    void activate(ull\
-    \ index, T val) {\n        assert(index < N);\n\n        repd(h, bit_size) {\n\
-    \            ull bit = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\
-    \u5024\u306Ei\u756A\u76EE\u306Ebit\n            bit_vectors[h].activate(bit, index);\n\
-    \            cumulative_sum[h].add(index, val);\n\n            if (bit == 1) {\n\
+    \                    ++it0;\n                }\n            }\n            \n\
+    \            swap(cur, nxt);\n        }\n\n        repd(i, N) {\n            begin_indices[cur[i]]\
+    \ = i;\n            inactive_count.add(i, 1);\n        }\n\n        rep(i, _N)\
+    \ {\n            set(i, sim_values[i].front());\n        }\n    }\n\n    void\
+    \ activate(ull index, T val) {\n        assert(index < N);\n\n        repd(h,\
+    \ bit_size) {\n            ull bit = bit_vectors[h].access(index);   // \u3082\
+    \u3068\u306E\u6570\u5024\u306Ei\u756A\u76EE\u306Ebit\n            bit_vectors[h].activate(bit,\
+    \ index);\n            cumulative_sum[h].add(index, val);\n\n            if (bit\
+    \ == 1) {\n                index = bit_vectors[h].rank(1, index) + bit_vectors[h].zeros;\n\
+    \            }\n            else index = bit_vectors[h].rank(0, index);\n    \
+    \    }   \n\n        inactive_count.set(index, 0);\n    }\n\n    void deactivate(ull\
+    \ index) {\n        assert(index < N);\n\n        repd(h, bit_size) {\n      \
+    \      ull bit = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\u5024\
+    \u306Ei\u756A\u76EE\u306Ebit\n            bit_vectors[h].deactivate(bit, index);\n\
+    \            cumulative_sum[h].set(index, 0);\n\n            if (bit == 1) {\n\
     \                index = bit_vectors[h].rank(1, index) + bit_vectors[h].zeros;\n\
     \            }\n            else index = bit_vectors[h].rank(0, index);\n    \
-    \    }   \n    }\n\n    void deactivate(ull index) {\n        assert(index < N);\n\
-    \n        repd(h, bit_size) {\n            ull bit = bit_vectors[h].access(index);\
-    \   // \u3082\u3068\u306E\u6570\u5024\u306Ei\u756A\u76EE\u306Ebit\n          \
-    \  bit_vectors[h].deactivate(bit, index);\n            cumulative_sum[h].set(index,\
-    \ 0);\n\n            if (bit == 1) {\n                index = bit_vectors[h].rank(1,\
-    \ index) + bit_vectors[h].zeros;\n            }\n            else index = bit_vectors[h].rank(0,\
-    \ index);\n        }   \n    }\n\n    void set(ull pos, T val) {\n        assert(pos\
-    \ < _N);\n        assert(val >= 0);\n        assert(val == sim_values[pos][values[pos].size()]);\n\
-    \n        ull index = indices[pos] + values[pos].size() - 1;\n        deactivate(index);\n\
-    \        activate(index + 1, val);\n        values[pos].push_back(val);\n    }\n\
-    \n    void add(ull pos, T val) {\n        set(pos, values[pos].back() + val);\n\
-    \    }\n\n    // v[pos]\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    T access(ull\
-    \ pos) {\n        assert(pos < N);\n\n        ull index = indices[pos] + values[pos].size()\
-    \ - 1;\n\n        T val = 0;\n        repd(h, bit_size) {\n            ull bit\
-    \ = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\u5024\u306Ei\u756A\
-    \u76EE\u306Ebit\n            if (bit == 1) {\n                val |= (1ull <<\
-    \ h);\n                index = bit_vectors[h].rank(1, index) + bit_vectors[h].zeros;\n\
-    \            }\n            else index = bit_vectors[h].rank(0, index);\n    \
-    \    }\n        return val;\n    }\n\n    // v[l, r)\u3067k\u756A\u76EE\u306B\u5927\
-    \u304D\u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F1-indexed)\n    //\
-    \ \u8A08\u7B97\u91CF: O(log(bit_size))\n    T kth_max(ull l, ull r, ull k) {\n\
-    \        assert(l < r and r <= N and 0 < k and k <= r - l);\n        return quantile(l,\
-    \ r, r - l - k);\n    }\n\n    // v[l, r)\u3067k\u756A\u76EE\u306B\u5C0F\u3055\
-    \u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F1-indexed)\n    // \u8A08\
-    \u7B97\u91CF: O(log(bit_size))\n    T kth_min(ull l, ull r, ull k) {\n       \
-    \ assert(l < r and r <= N and 0 < k and k <= r - l);\n        return quantile(l,\
-    \ r, k - 1);\n    }\n\n    // v[l, r)\u306E\u4E2D\u592E\u5024(\u5C0F\u3055\u3044\
-    \u65B9)\u3068\u4E2D\u592E\u5024(\u5927\u304D\u3044\u65B9)\u3092\u8FD4\u3059\n\
-    \    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    pair<T, T> median(ull l, ull\
-    \ r) {\n        assert(l < r and r <= N);\n        T median_floor = quantile(l,\
-    \ r, floor(r - l + 1, 2) - 1);\n        T median_ceil = quantile(l, r, ceil(r\
-    \ - l + 1, 2) - 1);\n\n        return {median_floor, median_ceil};\n    }\n\n\
-    \    // v[l, r)\u3067k\u756A\u76EE(0-indexed)\u306B\u5C0F\u3055\u3044\u6570\u5024\
-    \u3068index(0-indexed)\u3092\u8FD4\u3059\n    // \u5C0F\u3055\u3044\u9806\u306B\
-    \u4E26\u3079\u3066k\u756A\u76EE\u306E\u5024\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n\
+    \    }   \n\n        inactive_count.set(index, 1);\n    }\n\n    void set(ull\
+    \ pos, T val) {\n        assert(pos < _N);\n        assert(val >= 0);\n      \
+    \  assert(val == sim_values[pos][values[pos].size()]);\n\n        ull index =\
+    \ indices[pos] + values[pos].size();\n        if (values[pos].size() > 0) deactivate(index\
+    \ - 1);\n        activate(index, val);\n        values[pos].push_back(val);\n\
+    \    }\n\n    void add(ull pos, T val) {\n        set(pos, values[pos].back()\
+    \ + val);\n    }\n\n    // v[pos]\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n\
+    \    T access(ull pos) {\n        assert(pos < N);\n\n        ull index = indices[pos]\
+    \ + values[pos].size() - 1;\n\n        T val = 0;\n        repd(h, bit_size) {\n\
+    \            ull bit = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\
+    \u5024\u306Ei\u756A\u76EE\u306Ebit\n            if (bit == 1) {\n            \
+    \    val |= (1ull << h);\n                index = bit_vectors[h].rank(1, index)\
+    \ + bit_vectors[h].zeros;\n            }\n            else index = bit_vectors[h].rank(0,\
+    \ index);\n        }\n        return val;\n    }\n\n    // v[l, r)\u3067k\u756A\
+    \u76EE\u306B\u5927\u304D\u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F\
+    1-indexed)\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    T kth_max(ull l,\
+    \ ull r, ull k) {\n        assert(l < r and r <= N and 0 < k and k <= r - l);\n\
+    \        return quantile(l, r, r - l - k);\n    }\n\n    // v[l, r)\u3067k\u756A\
+    \u76EE\u306B\u5C0F\u3055\u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F\
+    1-indexed)\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    T kth_min(ull l,\
+    \ ull r, ull k) {\n        assert(l < r and r <= N and 0 < k and k <= r - l);\n\
+    \        return quantile(l, r, k - 1);\n    }\n\n    // v[l, r)\u306E\u4E2D\u592E\
+    \u5024(\u5C0F\u3055\u3044\u65B9)\u3068\u4E2D\u592E\u5024(\u5927\u304D\u3044\u65B9\
+    )\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    pair<T,\
+    \ T> median(ull l, ull r) {\n        assert(l < r and r <= N);\n        T median_floor\
+    \ = quantile(l, r, floor(r - l + 1, 2) - 1);\n        T median_ceil = quantile(l,\
+    \ r, ceil(r - l + 1, 2) - 1);\n\n        return {median_floor, median_ceil};\n\
+    \    }\n\n    // v[l, r)\u3067k\u756A\u76EE(0-indexed)\u306B\u5C0F\u3055\u3044\
+    \u6570\u5024\u3092\u8FD4\u3059\n    // \u5C0F\u3055\u3044\u9806\u306B\u4E26\u3079\
+    \u3066k\u756A\u76EE\u306E\u5024\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n\
     \    T quantile(ull l, ull r, ull k) {\n        assert(l < r and r <= N and k\
     \ < r - l);\n\n        l = indices[l], r = indices[r];\n\n        ull val = 0;\n\
     \        repd(h, bit_size) {\n            ull zeros_l = bit_vectors[h].active_rank(0,\
@@ -671,7 +688,7 @@ data:
     i\u756A\u76EE\u306Ebit\n            index = bit_vectors[h].rank(bit, index); \
     \        // c\u306Ei\u756A\u76EE\u306Ebit\u3068\u540C\u3058\u6570\u5024\u306E\u6570\
     \n            if (bit == 1) index += bit_vectors[h].zeros;\n        }\n\n    \
-    \    ull l = begin_indices[val];\n        return index - l - bit_vectors[0].state[bit].sum(l,\
+    \    ull l = begin_indices[val];\n        return index - l - inactive_count.sum(l,\
     \ index);\n    }\n\n    // v[l, r)\u306Eval\u306E\u6570\n    // \u8A08\u7B97\u91CF\
     : O(log(bit_size))\n    ull rank(T val, ull l, ull r) {\n        assert(l <= r\
     \ and r <= N);\n        if (l == r) return 0;\n        if (!begin_indices.contains(val))\
@@ -920,15 +937,15 @@ data:
     \ l, ull r, const ull depth, const T val, const T lower, const T upper) {\n  \
     \      if (l == r) return 0;\n\n        if (depth == 0) {\n            l = indices[l],\
     \ r = indices[r];\n        }\n\n        if (depth == bit_size) {\n           \
-    \ if (lower <= val and val < upper) {\n                return val * (r - l); \
-    \  // \u5024 * \u983B\u5EA6\n            }\n            return 0;\n        }\n\
-    \n        const ull height = bit_size - depth - 1;\n\n        const T next_val\
-    \ = (1ull << height) | val;                   // \u4E0A\u304B\u3089height\u756A\
+    \ if (lower <= val and val < upper) {\n                return val * (r - l - inactive_count.sum(l,\
+    \ r));   // \u5024 * \u983B\u5EA6\n            }\n            return 0;\n    \
+    \    }\n\n        const ull height = bit_size - depth - 1;\n\n        const T\
+    \ next_val = (1ull << height) | val;                   // \u4E0A\u304B\u3089height\u756A\
     \u76EE\u306Ebit\u3092\u7ACB\u3066\u308B\n        const T all_one_val = ((1ull\
     \ << height) - 1) | next_val;     // height\u4EE5\u964D\u306Ebit\u3092\u305F\u3066\
     \u308B(\u3053\u308C\u4EE5\u964D\u5168\u90E81\u3092\u9078\u3093\u3060\u3068\u304D\
-    \u306E\u5024)\n        if(all_one_val < lower or upper <= val) return 0;\n\n \
-    \       // [l, pos)\u306E\u3059\u3079\u3066\u306E\u8981\u7D20\u306F[lower, upper)\n\
+    \u306E\u5024)\n        if (all_one_val < lower or upper <= val) return 0;\n\n\
+    \        // [l, pos)\u306E\u3059\u3079\u3066\u306E\u8981\u7D20\u306F[lower, upper)\n\
     \        if (lower <= val and all_one_val < upper) {\n            return cumulative_sum[height].sum(l,\
     \ r);\n        }\n\n        const ull rank0_l = bit_vectors[height].rank(0, l);\n\
     \        const ull rank0_r = bit_vectors[height].rank(0, r);\n        const ull\
@@ -938,26 +955,26 @@ data:
     \ + rank1_r, depth + 1, next_val, lower, upper);\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct BIT\
     \ {\n    long long N, _N, height;\n    vector<T> bit;\n\n    BIT() {}\n    BIT(long\
-    \ long n) { \n        init(n); \n    }\n\n    void init(int n) {\n        _N =\
-    \ n;\n        N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n  \
-    \          N *= 2;\n            ++height;\n        }\n        bit.assign(N + 1,\
-    \ 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\
-    \n    void add(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n   \
-    \     ++p; // 1-indexed\n\n        for (int idx = p; idx < N; idx += (idx & -idx))\
-    \ {\n            bit[idx] += x;\n        }\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\
-    \u5024\u3092x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        T val = get(p);\n        \n        if (val == x)\
-    \ return;\n        add(p, x - val);\n    }\n\n    // \u534A\u958B\u533A\u9593\
-    [0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long\
-    \ r) {\n        assert(0 <= r and r <= _N);\n\n        if (r == 0) return 0;\n\
-    \        \n        T ret = 0;\n        for (int idx = r; idx > 0; idx -= (idx\
-    \ & -idx)) {\n            ret += bit[idx];\n        }\n        return ret;\n \
-    \   }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\
-    \u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n        assert(0 <=\
-    \ l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n        else return\
-    \ sum(r) - sum(l);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \n        return sum(p + 1) - sum(p);\n    }\n};\n\nstruct SemiDynamicBitVector\
+    \ long n) { \n        init(n); \n    }\n\n    void init(long long n) {\n     \
+    \   _N = n;\n        N = 1;\n        height = 1;\n        while (N < (_N + 1))\
+    \ {\n            N *= 2;\n            ++height;\n        }\n        bit.assign(N\
+    \ + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\
+    \u308B\n    void add(long long p, T x) {\n        assert(0 <= p and p < _N);\n\
+    \n        ++p; // 1-indexed\n\n        for (int idx = p; idx < N; idx += (idx\
+    \ & -idx)) {\n            bit[idx] += x;\n        }\n    }\n\n    // \u4F4D\u7F6E\
+    p (0-indexed)\u306E\u5024\u3092x\u306B\u3059\u308B\n    void set(long long p,\
+    \ T x) {\n        assert(0 <= p and p < _N);\n\n        T val = get(p);\n    \
+    \    \n        if (val == x) return;\n        add(p, x - val);\n    }\n\n    //\
+    \ \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\
+    \u308B\n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\n    \
+    \    if (r == 0) return 0;\n        \n        T ret = 0;\n        for (int idx\
+    \ = r; idx > 0; idx -= (idx & -idx)) {\n            ret += bit[idx];\n       \
+    \ }\n        return ret;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\
+    \u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n\
+    \        assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return\
+    \ 0;\n        else return sum(r) - sum(l);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\
+    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
+    \ p and p < _N);\n\n        return sum(p + 1) - sum(p);\n    }\n};\n\nstruct SemiDynamicBitVector\
     \ {\n    using ull = unsigned long long;\n    using uint = uint16_t;\n\n    ull\
     \ N;    // \u30D3\u30C3\u30C8\u30D9\u30AF\u30C8\u30EB\u306E\u30B5\u30A4\u30BA\n\
     \    ull blockBitNum = 16;\n    ull LEVEL_L = 512;\n    ull LEVEL_S = 16;\n\n\
@@ -1101,80 +1118,81 @@ data:
     \ {\n    using ull = unsigned long long;\n\n    vector<SemiDynamicBitVector> bit_vectors;\n\
     \    unordered_map<ull, ull> begin_indices;   // \u6700\u5F8C\u306E\u30BD\u30FC\
     \u30C8\u3055\u308C\u305F\u914D\u5217\u3067\u5404\u6587\u5B57\u306E\u958B\u59CB\
-    \u4F4D\u7F6E\n    vector<BIT<T>> cumulative_sum;\n    T min_val = numeric_limits<T>::max(),\
-    \ max_val = numeric_limits<T>::min();\n\n    ull N, _N;  // \u4E0E\u3048\u3089\
-    \u308C\u305F\u914D\u5217\u306E\u30B5\u30A4\u30BA\n    ull bit_size;   // \u6587\
-    \u5B57\u3092\u8868\u3059\u306E\u306B\u5FC5\u8981\u306Abit\u6570\n\n    vector<vector<T>>\
-    \ sim_values, values;\n    vector<ull> indices;\n\n    T NOTFOUND = numeric_limits<T>::max()\
-    \ / 2;\n\n    SemiDynamicWaveletMatrix (long long n, T a): N(0), _N(n), sim_values(n),\
-    \ values(n), indices(n + 1) {\n        rep(i, _N) simulate_set(i, a);\n    }\n\
-    \n    SemiDynamicWaveletMatrix (const vector<T> &A): N(0), _N(A.size()), sim_values(A.size()),\
-    \ values(A.size()), indices(A.size() + 1) {\n        rep(i, _N) simulate_set(i,\
-    \ A[i]);\n    }\n\n    void simulate_set(ull pos, T val) {\n        assert(pos\
-    \ < _N);\n        assert(val >= 0);\n        sim_values[pos].push_back(val);\n\
-    \        ++N;\n        chmax(max_val, val);\n        chmin(min_val, val);\n  \
-    \  }\n\n    void simulate_add(ull pos, T val) {\n        simulate_set(pos, sim_values[pos].back()\
-    \ + val);\n    }\n\n    void build() {\n        indices[0] = 0;\n        rep(i,\
-    \ _N) {\n            indices[i + 1] = indices[i] + sim_values[i].size();\n   \
-    \     }\n\n        bit_size = 0;\n        while (T(1ull << bit_size) <= max_val\
-    \ + 1) ++bit_size;\n\n        bit_vectors.assign(bit_size, N);\n        cumulative_sum.assign(bit_size,\
-    \ N);\n\n        rep(i, _N) values[i].push_back(sim_values[i].front());\n\n  \
-    \      vector<pair<T, ull>> cur;\n        rep(i, _N) {\n            rep(j, sim_values[i].size())\
-    \ {\n                cur.emplace_back(sim_values[i][j], (j == 0));\n         \
-    \   }\n        }\n        vector<pair<T, ull>> nxt(N);\n\n        repd(h, bit_size)\
-    \ {\n            rep(i, N) {\n                if ((cur[i].first >> h) & 1) bit_vectors[h].set(1,\
+    \u4F4D\u7F6E\n    vector<BIT<T>> cumulative_sum;\n    BIT<T> inactive_count;\n\
+    \    T min_val = numeric_limits<T>::max(), max_val = numeric_limits<T>::min();\n\
+    \n    ull N, _N;  // \u4E0E\u3048\u3089\u308C\u305F\u914D\u5217\u306E\u30B5\u30A4\
+    \u30BA\n    ull bit_size;   // \u6587\u5B57\u3092\u8868\u3059\u306E\u306B\u5FC5\
+    \u8981\u306Abit\u6570\n\n    vector<vector<T>> sim_values, values;\n    vector<ull>\
+    \ indices;\n\n    T NOTFOUND = numeric_limits<T>::max() / 2;\n\n    SemiDynamicWaveletMatrix\
+    \ (long long n, T a): N(0), _N(n), sim_values(n), values(n), indices(n + 1) {\n\
+    \        rep(i, _N) simulate_set(i, a);\n    }\n\n    SemiDynamicWaveletMatrix\
+    \ (const vector<T> &A): N(0), _N(A.size()), sim_values(A.size()), values(A.size()),\
+    \ indices(A.size() + 1) {\n        rep(i, _N) simulate_set(i, A[i]);\n    }\n\n\
+    \    void simulate_set(ull pos, T val) {\n        assert(pos < _N);\n        assert(val\
+    \ >= 0);\n        sim_values[pos].push_back(val);\n        ++N;\n        chmax(max_val,\
+    \ val);\n        chmin(min_val, val);\n    }\n\n    void simulate_add(ull pos,\
+    \ T val) {\n        simulate_set(pos, sim_values[pos].back() + val);\n    }\n\n\
+    \    void build() {\n        indices[0] = 0;\n        rep(i, _N) {\n         \
+    \   indices[i + 1] = indices[i] + sim_values[i].size();\n        }\n\n       \
+    \ bit_size = 0;\n        while (T(1ull << bit_size) <= max_val + 1) ++bit_size;\n\
+    \n        bit_vectors.assign(bit_size, N);\n        cumulative_sum.assign(bit_size,\
+    \ N);\n        inactive_count.init(N);\n\n        vector<T> cur;\n        rep(i,\
+    \ _N) {\n            fore(v, sim_values[i]) {\n                cur.push_back(v);\n\
+    \            }\n        }\n        vector<T> nxt(N);\n\n        repd(h, bit_size)\
+    \ {\n            rep(i, N) {\n                if ((cur[i] >> h) & 1) bit_vectors[h].set(1,\
     \ i);\n                else bit_vectors[h].set(0, i);\n            }\n       \
     \     bit_vectors[h].build();\n\n            auto it0 = nxt.begin();\n       \
     \     auto it1 = nxt.begin() + bit_vectors[h].zeros;\n\n            rep(i, N)\
     \ {\n                ull bit = bit_vectors[h].access(i);\n                if (bit\
     \ == 1) {\n                    *it1 = cur[i];\n                    ++it1;\n  \
     \              }\n                else {\n                    *it0 = cur[i];\n\
-    \                    ++it0;\n                }\n\n                if (cur[i].second)\
-    \ {\n                    bit_vectors[h].activate(bit, i);\n                  \
-    \  cumulative_sum[h].set(i, cur[i].first);\n                }\n            }\n\
-    \            \n            swap(cur, nxt);\n        }\n\n        repd(i, N) {\n\
-    \            begin_indices[cur[i].first] = i;\n        }\n    }\n\n    void activate(ull\
-    \ index, T val) {\n        assert(index < N);\n\n        repd(h, bit_size) {\n\
-    \            ull bit = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\
-    \u5024\u306Ei\u756A\u76EE\u306Ebit\n            bit_vectors[h].activate(bit, index);\n\
-    \            cumulative_sum[h].add(index, val);\n\n            if (bit == 1) {\n\
+    \                    ++it0;\n                }\n            }\n            \n\
+    \            swap(cur, nxt);\n        }\n\n        repd(i, N) {\n            begin_indices[cur[i]]\
+    \ = i;\n            inactive_count.add(i, 1);\n        }\n\n        rep(i, _N)\
+    \ {\n            set(i, sim_values[i].front());\n        }\n    }\n\n    void\
+    \ activate(ull index, T val) {\n        assert(index < N);\n\n        repd(h,\
+    \ bit_size) {\n            ull bit = bit_vectors[h].access(index);   // \u3082\
+    \u3068\u306E\u6570\u5024\u306Ei\u756A\u76EE\u306Ebit\n            bit_vectors[h].activate(bit,\
+    \ index);\n            cumulative_sum[h].add(index, val);\n\n            if (bit\
+    \ == 1) {\n                index = bit_vectors[h].rank(1, index) + bit_vectors[h].zeros;\n\
+    \            }\n            else index = bit_vectors[h].rank(0, index);\n    \
+    \    }   \n\n        inactive_count.set(index, 0);\n    }\n\n    void deactivate(ull\
+    \ index) {\n        assert(index < N);\n\n        repd(h, bit_size) {\n      \
+    \      ull bit = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\u5024\
+    \u306Ei\u756A\u76EE\u306Ebit\n            bit_vectors[h].deactivate(bit, index);\n\
+    \            cumulative_sum[h].set(index, 0);\n\n            if (bit == 1) {\n\
     \                index = bit_vectors[h].rank(1, index) + bit_vectors[h].zeros;\n\
     \            }\n            else index = bit_vectors[h].rank(0, index);\n    \
-    \    }   \n    }\n\n    void deactivate(ull index) {\n        assert(index < N);\n\
-    \n        repd(h, bit_size) {\n            ull bit = bit_vectors[h].access(index);\
-    \   // \u3082\u3068\u306E\u6570\u5024\u306Ei\u756A\u76EE\u306Ebit\n          \
-    \  bit_vectors[h].deactivate(bit, index);\n            cumulative_sum[h].set(index,\
-    \ 0);\n\n            if (bit == 1) {\n                index = bit_vectors[h].rank(1,\
-    \ index) + bit_vectors[h].zeros;\n            }\n            else index = bit_vectors[h].rank(0,\
-    \ index);\n        }   \n    }\n\n    void set(ull pos, T val) {\n        assert(pos\
-    \ < _N);\n        assert(val >= 0);\n        assert(val == sim_values[pos][values[pos].size()]);\n\
-    \n        ull index = indices[pos] + values[pos].size() - 1;\n        deactivate(index);\n\
-    \        activate(index + 1, val);\n        values[pos].push_back(val);\n    }\n\
-    \n    void add(ull pos, T val) {\n        set(pos, values[pos].back() + val);\n\
-    \    }\n\n    // v[pos]\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    T access(ull\
-    \ pos) {\n        assert(pos < N);\n\n        ull index = indices[pos] + values[pos].size()\
-    \ - 1;\n\n        T val = 0;\n        repd(h, bit_size) {\n            ull bit\
-    \ = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\u5024\u306Ei\u756A\
-    \u76EE\u306Ebit\n            if (bit == 1) {\n                val |= (1ull <<\
-    \ h);\n                index = bit_vectors[h].rank(1, index) + bit_vectors[h].zeros;\n\
-    \            }\n            else index = bit_vectors[h].rank(0, index);\n    \
-    \    }\n        return val;\n    }\n\n    // v[l, r)\u3067k\u756A\u76EE\u306B\u5927\
-    \u304D\u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F1-indexed)\n    //\
-    \ \u8A08\u7B97\u91CF: O(log(bit_size))\n    T kth_max(ull l, ull r, ull k) {\n\
-    \        assert(l < r and r <= N and 0 < k and k <= r - l);\n        return quantile(l,\
-    \ r, r - l - k);\n    }\n\n    // v[l, r)\u3067k\u756A\u76EE\u306B\u5C0F\u3055\
-    \u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F1-indexed)\n    // \u8A08\
-    \u7B97\u91CF: O(log(bit_size))\n    T kth_min(ull l, ull r, ull k) {\n       \
-    \ assert(l < r and r <= N and 0 < k and k <= r - l);\n        return quantile(l,\
-    \ r, k - 1);\n    }\n\n    // v[l, r)\u306E\u4E2D\u592E\u5024(\u5C0F\u3055\u3044\
-    \u65B9)\u3068\u4E2D\u592E\u5024(\u5927\u304D\u3044\u65B9)\u3092\u8FD4\u3059\n\
-    \    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    pair<T, T> median(ull l, ull\
-    \ r) {\n        assert(l < r and r <= N);\n        T median_floor = quantile(l,\
-    \ r, floor(r - l + 1, 2) - 1);\n        T median_ceil = quantile(l, r, ceil(r\
-    \ - l + 1, 2) - 1);\n\n        return {median_floor, median_ceil};\n    }\n\n\
-    \    // v[l, r)\u3067k\u756A\u76EE(0-indexed)\u306B\u5C0F\u3055\u3044\u6570\u5024\
-    \u3068index(0-indexed)\u3092\u8FD4\u3059\n    // \u5C0F\u3055\u3044\u9806\u306B\
-    \u4E26\u3079\u3066k\u756A\u76EE\u306E\u5024\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n\
+    \    }   \n\n        inactive_count.set(index, 1);\n    }\n\n    void set(ull\
+    \ pos, T val) {\n        assert(pos < _N);\n        assert(val >= 0);\n      \
+    \  assert(val == sim_values[pos][values[pos].size()]);\n\n        ull index =\
+    \ indices[pos] + values[pos].size();\n        if (values[pos].size() > 0) deactivate(index\
+    \ - 1);\n        activate(index, val);\n        values[pos].push_back(val);\n\
+    \    }\n\n    void add(ull pos, T val) {\n        set(pos, values[pos].back()\
+    \ + val);\n    }\n\n    // v[pos]\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n\
+    \    T access(ull pos) {\n        assert(pos < N);\n\n        ull index = indices[pos]\
+    \ + values[pos].size() - 1;\n\n        T val = 0;\n        repd(h, bit_size) {\n\
+    \            ull bit = bit_vectors[h].access(index);   // \u3082\u3068\u306E\u6570\
+    \u5024\u306Ei\u756A\u76EE\u306Ebit\n            if (bit == 1) {\n            \
+    \    val |= (1ull << h);\n                index = bit_vectors[h].rank(1, index)\
+    \ + bit_vectors[h].zeros;\n            }\n            else index = bit_vectors[h].rank(0,\
+    \ index);\n        }\n        return val;\n    }\n\n    // v[l, r)\u3067k\u756A\
+    \u76EE\u306B\u5927\u304D\u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F\
+    1-indexed)\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    T kth_max(ull l,\
+    \ ull r, ull k) {\n        assert(l < r and r <= N and 0 < k and k <= r - l);\n\
+    \        return quantile(l, r, r - l - k);\n    }\n\n    // v[l, r)\u3067k\u756A\
+    \u76EE\u306B\u5C0F\u3055\u3044\u6570\u5024\u3068index\u3092\u8FD4\u3059(k\u306F\
+    1-indexed)\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    T kth_min(ull l,\
+    \ ull r, ull k) {\n        assert(l < r and r <= N and 0 < k and k <= r - l);\n\
+    \        return quantile(l, r, k - 1);\n    }\n\n    // v[l, r)\u306E\u4E2D\u592E\
+    \u5024(\u5C0F\u3055\u3044\u65B9)\u3068\u4E2D\u592E\u5024(\u5927\u304D\u3044\u65B9\
+    )\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n    pair<T,\
+    \ T> median(ull l, ull r) {\n        assert(l < r and r <= N);\n        T median_floor\
+    \ = quantile(l, r, floor(r - l + 1, 2) - 1);\n        T median_ceil = quantile(l,\
+    \ r, ceil(r - l + 1, 2) - 1);\n\n        return {median_floor, median_ceil};\n\
+    \    }\n\n    // v[l, r)\u3067k\u756A\u76EE(0-indexed)\u306B\u5C0F\u3055\u3044\
+    \u6570\u5024\u3092\u8FD4\u3059\n    // \u5C0F\u3055\u3044\u9806\u306B\u4E26\u3079\
+    \u3066k\u756A\u76EE\u306E\u5024\n    // \u8A08\u7B97\u91CF: O(log(bit_size))\n\
     \    T quantile(ull l, ull r, ull k) {\n        assert(l < r and r <= N and k\
     \ < r - l);\n\n        l = indices[l], r = indices[r];\n\n        ull val = 0;\n\
     \        repd(h, bit_size) {\n            ull zeros_l = bit_vectors[h].active_rank(0,\
@@ -1197,7 +1215,7 @@ data:
     i\u756A\u76EE\u306Ebit\n            index = bit_vectors[h].rank(bit, index); \
     \        // c\u306Ei\u756A\u76EE\u306Ebit\u3068\u540C\u3058\u6570\u5024\u306E\u6570\
     \n            if (bit == 1) index += bit_vectors[h].zeros;\n        }\n\n    \
-    \    ull l = begin_indices[val];\n        return index - l - bit_vectors[0].state[bit].sum(l,\
+    \    ull l = begin_indices[val];\n        return index - l - inactive_count.sum(l,\
     \ index);\n    }\n\n    // v[l, r)\u306Eval\u306E\u6570\n    // \u8A08\u7B97\u91CF\
     : O(log(bit_size))\n    ull rank(T val, ull l, ull r) {\n        assert(l <= r\
     \ and r <= N);\n        if (l == r) return 0;\n        if (!begin_indices.contains(val))\
@@ -1446,40 +1464,41 @@ data:
     \ l, ull r, const ull depth, const T val, const T lower, const T upper) {\n  \
     \      if (l == r) return 0;\n\n        if (depth == 0) {\n            l = indices[l],\
     \ r = indices[r];\n        }\n\n        if (depth == bit_size) {\n           \
-    \ if (lower <= val and val < upper) {\n                return val * (r - l); \
-    \  // \u5024 * \u983B\u5EA6\n            }\n            return 0;\n        }\n\
-    \n        const ull height = bit_size - depth - 1;\n\n        const T next_val\
-    \ = (1ull << height) | val;                   // \u4E0A\u304B\u3089height\u756A\
+    \ if (lower <= val and val < upper) {\n                return val * (r - l - inactive_count.sum(l,\
+    \ r));   // \u5024 * \u983B\u5EA6\n            }\n            return 0;\n    \
+    \    }\n\n        const ull height = bit_size - depth - 1;\n\n        const T\
+    \ next_val = (1ull << height) | val;                   // \u4E0A\u304B\u3089height\u756A\
     \u76EE\u306Ebit\u3092\u7ACB\u3066\u308B\n        const T all_one_val = ((1ull\
     \ << height) - 1) | next_val;     // height\u4EE5\u964D\u306Ebit\u3092\u305F\u3066\
     \u308B(\u3053\u308C\u4EE5\u964D\u5168\u90E81\u3092\u9078\u3093\u3060\u3068\u304D\
-    \u306E\u5024)\n        if(all_one_val < lower or upper <= val) return 0;\n\n \
-    \       // [l, pos)\u306E\u3059\u3079\u3066\u306E\u8981\u7D20\u306F[lower, upper)\n\
+    \u306E\u5024)\n        if (all_one_val < lower or upper <= val) return 0;\n\n\
+    \        // [l, pos)\u306E\u3059\u3079\u3066\u306E\u8981\u7D20\u306F[lower, upper)\n\
     \        if (lower <= val and all_one_val < upper) {\n            return cumulative_sum[height].sum(l,\
     \ r);\n        }\n\n        const ull rank0_l = bit_vectors[height].rank(0, l);\n\
     \        const ull rank0_r = bit_vectors[height].rank(0, r);\n        const ull\
     \ rank1_l = l - rank0_l;\n        const ull rank1_r = r - rank0_r;\n\n       \
     \ return range_sum(rank0_l, rank0_r, depth + 1, val, lower, upper) +\n       \
     \        range_sum(bit_vectors[height].zeros + rank1_l, bit_vectors[height].zeros\
-    \ + rank1_r, depth + 1, next_val, lower, upper);\n    }\n};"
+    \ + rank1_r, depth + 1, next_val, lower, upper);\n    }\n};\n"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: structure/semi-dynamic-wavelet-matrix.cpp
   requiredBy: []
-  timestamp: '2024-08-17 05:00:56+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-28 16:57:52+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
   - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
   - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
 documentation_of: structure/semi-dynamic-wavelet-matrix.cpp
 layout: document
 redirect_from:

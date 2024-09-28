@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: structure/segment-tree-on-wavelet-matrix.cpp
     title: structure/segment-tree-on-wavelet-matrix.cpp
   _extendedRequiredBy: []
@@ -44,27 +44,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -258,28 +265,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -387,7 +394,13 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/segment-tree-on-wavelet-matrix.cpp\"\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/segment-tree-on-wavelet-matrix.cpp\"\
     \n\nstruct BitVector {\n    using ull = unsigned long long;\n    using uint =\
     \ uint16_t;\n\n    ull N;    // \u30D3\u30C3\u30C8\u30D9\u30AF\u30C8\u30EB\u306E\
     \u30B5\u30A4\u30BA\n    ull blockBitNum = 16;\n    ull LEVEL_L = 512;\n    ull\
@@ -464,96 +477,99 @@ data:
     \ {\n            os << bv.L[i] << \", \";\n        }\n        os << endl;\n  \
     \      os << \"S: \";\n        rep(i, bv.S.size()) {\n            os << bv.S[i]\
     \ << \", \";\n        }\n        os << endl;\n\n        return os;\n    }\n};\n\
-    \ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n  \
-    \  long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1, long\
-    \ long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\n\
-    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
-    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
-    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
-    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T>& node) {\n\
-    \        return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
-    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
-    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
-    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
-    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
-    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
-    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
-    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
-    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
-    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
-    struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
-    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
-    \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
-    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
-    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
-    \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
-    };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
-    \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
-    \  return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
-    \        T value = min(x.value, y.value);\n        long long index = (y.value\
-    \ < x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n\
-    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
-    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
-    struct Sum: Operation<T> {\n    using S = Node<T>;\n\n    Sum(): _e(T()) {};\n\
-    \n    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
-    \ x, const S& y) override {\n        T value = x.value + y.value;\n        long\
-    \ long index = -1;\n        long long size = x.size + y.size;\n        long long\
-    \ coeff = size;\n\n        S ret(value, index, size, coeff);\n\n        return\
-    \ ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul:\
-    \ Operation<T> {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e()\
-    \ override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
-    \ S& y) override {\n        T value = x.value * y.value;\n        long long index\
+    \ntemplate<typename T>\nstruct Node {\n    T value;\n    long long y, x;\n   \
+    \ long long size;\n    long long coeff;\n\n    Node(T v, long long y = 0, long\
+    \ long x = 0, long long s = 0, long long c = 1) : value(v), y(y), x(x), size(s),\
+    \ coeff(c) {};\n\n    bool operator< (const Node &other) const {\n        return\
+    \ value < other.value;\n    }\n\n    bool operator== (const T other) const {\n\
+    \        return value == other;\n    }\n\n    bool operator!= (const T other)\
+    \ const {\n        return value != other;\n    }\n\n    operator T() const {\n\
+    \        return value;\n    }\n\n    friend ostream& operator << (ostream &os,\
+    \ const Node<T>& node) {\n        return os << node.value;\n    }\n};\n\ntemplate<typename\
+    \ T>\nstruct Operation {\n    using S = Node<T>;\n\n    Operation() {};\n\n  \
+    \  virtual T e() = 0;\n\n    virtual S operator() (const S& x, const S& y) = 0;\n\
+    };\n\ntemplate<typename T = long long>\nstruct NoOperation : Operation<T> {\n\
+    \    using S = Node<T>;\n\n    NoOperation(): _e(T()) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    S operator() (const S& x, const S& y) override\
+    \ {\n        if (x == e()) return y;\n        else if (y == e()) return x;\n\n\
+    \        T value = x.value;\n        long long r = -1;\n        long long c =\
+    \ -1;\n        long long size = x.size + y.size;\n        long long coeff = 1;\n\
+    \n        S ret(value, r, c, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n\
+    \    T _e;\n};\n\ntemplate<typename T>\nstruct Max : Operation<T> {\n    using\
+    \ S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min()) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    S operator() (const S& x, const S& y) override\
+    \ {\n        T value = max(x.value, y.value);\n        long long r = (y.value\
+    \ > x.value ? y.y : x.y);\n        long long c = (y.value > x.value ? y.x : x.x);\n\
+    \        long long size = x.size + y.size;\n        long long coeff = 1;\n\n \
+    \       S ret(value, r, c, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n\
+    \    T _e;\n};\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using\
+    \ S = Node<T>;\n\n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    S operator() (const S& x, const S& y) override\
+    \ {\n        T value = min(x.value, y.value);\n        long long r = (y.value\
+    \ < x.value ? y.y : x.y);\n        long long c = (y.value < x.value ? y.x : x.x);\n\
+    \        long long size = x.size + y.size;\n        long long coeff = 1;\n\n \
+    \       S ret(value, r, c, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n\
+    \    T _e;\n};\n\ntemplate<typename T>\nstruct Sum: Operation<T> {\n    using\
+    \ S = Node<T>;\n\n    Sum(): _e(T()) {};\n\n    T e() override {\n        return\
+    \ _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n       \
+    \ T value = x.value + y.value;\n        long long r = -1;\n        long long c\
     \ = -1;\n        long long size = x.size + y.size;\n        long long coeff =\
-    \ 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n   \
-    \ }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct GCD\
-    \ : Operation<T> {\n    using S = Node<T>;\n\n    GCD(): _e(T(0)) {};\n\n    T\
-    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
-    \ S& y) override {\n        T value = gcd(x.value, y.value);\n        long long\
-    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
-    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
-    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct LCM\
-    \ : Operation<T> {\n    using S = Node<T>;\n\n    LCM(): _e(T(1)) {};\n\n    T\
-    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
-    \ S& y) override {\n        T value = lcm(x.value, y.value);\n        long long\
-    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
-    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
-    \   }\n\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct\
-    \ Mapping {\n    using S = Node<T>;\n\n    Mapping() {};\n\n    virtual F id()\
-    \ = 0;\n\n    void operator() (S &x, const F f) {\n        if (f == id()) return;\n\
-    \n        map(x, f);\n    }\n\n    virtual void map(S &x, const F f) = 0;\n};\n\
-    \ntemplate<typename T, typename F>\nstruct Add: Mapping<T, F> {\n    using S =\
-    \ Node<T>;\n\n    Add(): _id(F(0)) {};\n\n    F id() override {\n        return\
-    \ _id;\n    }\n\n    void map(S &x, const F f) override {\n        x.value +=\
-    \ f;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename F>\n\
-    struct Multiply: Mapping<T, F> {\n    using S = Node<T>;\n\n    Multiply(): _id(F(1))\
-    \ {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S &x,\
-    \ const F f) override {\n        x.value *= f;\n    }\n\nprivate:\n    F _id;\n\
-    };\n\ntemplate<typename T, typename G>\nstruct Affine: Mapping<T, pair<G, G>>\
-    \ {\n    using S = Node<T>;\n    using F = pair<G, G>;\n\n    Affine(): _id(F(1,\
-    \ 0)) {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S\
-    \ &x, const F f) override {\n        x.value = f.first * x.value + f.second;\n\
-    \    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename F>\nstruct\
-    \ Set: Mapping<T, F> {\n    using S = Node<T>;\n\n    Set(): _id(numeric_limits<F>::min())\
-    \ {};\n\n    F id() override {\n        return _id;\n    }\n\n    void map(S &x,\
-    \ const F f) override { \n        x.value = T(f);\n    }\n\nprivate:\n    F _id;\n\
-    };\n\ntemplate<typename T, \n    typename F,\n    template<class, class> class\
-    \ _mapping,\n    template<class> class _op>\nstruct SegmentTree {\n    using S\
-    \ = Node<T>;\n\n    long long N, _N, height;\n    vector<S> node;\n    _op<T>\
-    \ op;\n    _mapping<T, F> mapping;\n\n    SegmentTree(): _N(0), op(), mapping()\
-    \ {}\n    SegmentTree(long long n) : _N(n), op(), mapping() {\n        init();\n\
-    \    }\n    SegmentTree(long long n, T a) : _N(n), op(), mapping() { \n      \
-    \  init();\n\n        rep(i, _N) node[i + N] = S(a, i, 1, 1);\n        repd(i,\
-    \ 1, N) update(i);\n    }\n    SegmentTree(const vector<T>& v): _N(v.size()),\
-    \ op(), mapping() { \n        init();\n\n        rep(i, _N) node[i + N] = S(v[i],\
-    \ i, 1, 1);\n        repd(i, 1, N) update(i); \n    }\n\n    void init() {\n \
-    \       N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n        \
-    \    N *= 2;\n            ++height;\n        }\n\n        node.assign(2 * N, S(op.e()));\n\
+    \ size;\n\n        S ret(value, r, c, size, coeff);\n\n        return ret;\n \
+    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul: Operation<T>\
+    \ {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e() override {\n\
+    \        return _e;\n    }\n\n    S operator() (const S& x, const S& y) override\
+    \ {\n        T value = x.value * y.value;\n        long long r = -1;\n       \
+    \ long long c = -1;\n        long long size = x.size + y.size;\n        long long\
+    \ coeff = 1;\n\n        S ret(value, r, c, size, coeff);\n\n        return ret;\n\
+    \    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct\
+    \ GCD : Operation<T> {\n    using S = Node<T>;\n\n    GCD(): _e(T(0)) {};\n\n\
+    \    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = gcd(x.value, y.value);\n      \
+    \  long long r = -1;\n        long long c = -1;\n        long long size = x.size\
+    \ + y.size;\n        long long coeff = 1;\n\n        S ret(value, r, c, size,\
+    \ coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T = long long>\nstruct LCM : Operation<T> {\n    using S = Node<T>;\n\n    LCM():\
+    \ _e(T(1)) {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator()\
+    \ (const S& x, const S& y) override {\n        T value = lcm(x.value, y.value);\n\
+    \        long long r = -1;\n        long long c = -1;\n        long long size\
+    \ = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value, r,\
+    \ c, size, coeff);\n\n        return ret;\n    }\n\n\nprivate:\n    T _e;\n};\n\
+    \ntemplate<typename T, typename F>\nstruct Mapping {\n    using S = Node<T>;\n\
+    \n    Mapping() {};\n\n    virtual F id() = 0;\n\n    void operator() (S &x, const\
+    \ F f) {\n        if (f == id()) return;\n\n        map(x, f);\n    }\n\n    virtual\
+    \ void map(S &x, const F f) = 0;\n};\n\ntemplate<typename T, typename F>\nstruct\
+    \ Add: Mapping<T, F> {\n    using S = Node<T>;\n\n    Add(): _id(F(0)) {};\n\n\
+    \    F id() override {\n        return _id;\n    }\n\n    void map(S &x, const\
+    \ F f) override {\n        x.value += f;\n    }\n\nprivate:\n    F _id;\n};\n\n\
+    template<typename T, typename F>\nstruct Multiply: Mapping<T, F> {\n    using\
+    \ S = Node<T>;\n\n    Multiply(): _id(F(1)) {};\n\n    F id() override {\n   \
+    \     return _id;\n    }\n\n    void map(S &x, const F f) override {\n       \
+    \ x.value *= f;\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename T, typename\
+    \ G>\nstruct Affine: Mapping<T, pair<G, G>> {\n    using S = Node<T>;\n    using\
+    \ F = pair<G, G>;\n\n    Affine(): _id(F(1, 0)) {};\n\n    F id() override {\n\
+    \        return _id;\n    }\n\n    void map(S &x, const F f) override {\n    \
+    \    x.value = f.first * x.value + f.second;\n    }\n\nprivate:\n    F _id;\n\
+    };\n\ntemplate<typename T, typename F>\nstruct Set: Mapping<T, F> {\n    using\
+    \ S = Node<T>;\n\n    Set(): _id(numeric_limits<F>::min()) {};\n\n    F id() override\
+    \ {\n        return _id;\n    }\n\n    void map(S &x, const F f) override { \n\
+    \        x.value = T(f);\n    }\n\nprivate:\n    F _id;\n};\n\ntemplate<typename\
+    \ T, \n    typename F,\n    template<class, class> class _mapping,\n    template<class>\
+    \ class _op>\nstruct SegmentTree {\n    using S = Node<T>;\n\n    long long N,\
+    \ _N, height;\n    vector<S> node;\n    _op<T> op;\n    _mapping<T, F> mapping;\n\
+    \n    SegmentTree(): _N(0), op(), mapping() {}\n    SegmentTree(long long n) :\
+    \ _N(n), op(), mapping() {\n        init();\n    }\n\n    void init() {\n    \
+    \    N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n           \
+    \ N *= 2;\n            ++height;\n        }\n\n        node.assign(2 * N, S(op.e()));\n\
+    \    }\n\n    void set_point(ll pos, ll y, ll x, T a) {\n        assert(0 <= pos\
+    \ and pos < _N);\n\n        long long k = pos + N;\n        node[k] = S(a, y,\
+    \ x, 1, 1);\n    }\n\n    void set_point(ll pos, ll y, ll x) {\n        assert(0\
+    \ <= pos and pos < _N);\n\n        long long k = pos + N;\n        node[k] = S(node[k].value,\
+    \ y, x, 1, 1);\n    }\n\n    void build() {\n        repd(i, 1, N) update(i);\n\
     \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
     \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply(long long\
     \ p, F f) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
     \        mapping(node[k], f);\n        rep(i, 1, height) update(k >> i);\n   \
-    \ }\n\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\n      \
+    \ }\n\n    S get(long long p) {\n        assert(0 <= p and p < _N);\n\n      \
     \  long long k = p + N;\n        return node[k];\n    }\n\n    // \u534A\u958B\
     \u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u3092\u8FD4\u3059\n    // l,\
     \ r\u3068\u3082\u306B0-indexed\n    S prod(long long l, long long r) {\n     \
@@ -564,104 +580,120 @@ data:
     \ op(sml, smr);\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\
     \u8981\u7D20\u306E\u6570\u3092\u6C42\u3081\u308B\n    T count(long long l, long\
     \ long r) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        return prod(l,\
-    \ r).size;\n    }\n\nprivate:\n    // k\u756A\u76EE\u306E\u30CE\u30FC\u30C9\u306E\
-    \u5024\u3092\u5B50\u306E\u5024\u3067\u66F4\u65B0\n    void update(long long k)\
-    \ {\n        assert(1 <= k and k <= N - 1);\n\n        node[k] = op(node[k * 2],\
-    \ node[k * 2 + 1]);\n    }\n};\n\ntemplate<typename T, \n    typename F,\n   \
-    \ template<class, class> class _mapping,\n    template<class> class _op>\nstruct\
-    \ SegmentTreeonWaveletMatrix {\n    using uint = unsigned int;\n    using ull\
-    \ = unsigned long long;\n    using Point = pair<long long, long long>;\n    using\
-    \ S = Node<T>;\n\n    ull N, logN;\n    vector<BitVector> bit_vectors;\n    vector<SegmentTree<T,\
-    \ F, _mapping, _op>> tree;\n    vector<Point> ps;\n    vector<long long> ys;\n\
-    \n    _op<T> op;\n    _mapping<T, F> mapping;\n\n    unordered_map<long long,\
-    \ T> original;\n\n    SegmentTreeonWaveletMatrix() {}\n    SegmentTreeonWaveletMatrix(const\
-    \ vector<pair<long long, long long>>& A) {\n        rep(i, A.size()) {\n     \
-    \       add_point(A[i].first, A[i].second);\n        }\n        build();\n   \
-    \ }\n\n    void add_point(ll x, ll y) {\n        ps.emplace_back(x, y);\n    \
-    \    ys.emplace_back(y);\n    }\n\n    void build() {\n        sort(ps.begin(),\
-    \ ps.end());\n        ps.erase(unique(ps.begin(), ps.end()), ps.end());\n    \
-    \    N = ps.size();\n\n        sort(ys.begin(), ys.end());\n        ys.erase(unique(ys.begin(),\
-    \ ys.end()), ys.end());\n\n        vector<uint> cur(N), nxt(N);\n        rep(i,\
-    \ N) cur[i] = yid(ps[i].second);\n\n        logN = 0;\n        while ((1ull <<\
-    \ logN) <= N) ++logN;\n        bit_vectors.assign(logN, N);\n        tree.assign(logN,\
+    \ r).size;\n    }\n\n    friend ostream& operator << (ostream& os, SegmentTree&\
+    \ seg) {\n        os << \"node\" << endl;\n        ll h = 1;\n        rep(i, 1,\
+    \ seg.node.size()) {\n            // if (seg.node[i].value == seg.op.e()) os <<\
+    \ \"e \";\n            // else os << seg.node[i] << \" \";\n\n            if (seg.node[i].value\
+    \ == seg.op.e()) os << \"(e, \";\n            else os << \"(\" << seg.node[i]\
+    \ << \", \";\n\n            os << seg.node[i].y << \", \" << seg.node[i].x <<\
+    \ \") \";\n\n            if (i == (1 << h) - 1) {\n                os << endl;\n\
+    \                h++;\n            }\n        }\n        os << endl;\n\n     \
+    \   return os;\n    }\n\nprivate:\n    // k\u756A\u76EE\u306E\u30CE\u30FC\u30C9\
+    \u306E\u5024\u3092\u5B50\u306E\u5024\u3067\u66F4\u65B0\n    void update(long long\
+    \ k) {\n        assert(1 <= k and k <= N - 1);\n\n        node[k] = op(node[k\
+    \ * 2], node[k * 2 + 1]);\n    }\n};\n\ntemplate<typename T, \n    typename F,\n\
+    \    template<class, class> class _mapping,\n    template<class> class _op>\n\
+    struct SegmentTreeonWaveletMatrix {\n    using uint = unsigned int;\n    using\
+    \ ull = unsigned long long;\n    using Point = pair<long long, long long>;\n \
+    \   using S = Node<T>;\n\n    ull N, logN;\n    vector<BitVector> bit_vectors;\n\
+    \    vector<SegmentTree<T, F, _mapping, _op>> tree;\n    vector<Point> ps;\n \
+    \   vector<long long> ys;\n\n    _op<T> op;\n    T e = op.e();\n    _mapping<T,\
+    \ F> mapping;\n\n    unordered_map<long long, T> original;\n\n    SegmentTreeonWaveletMatrix()\
+    \ {}\n    SegmentTreeonWaveletMatrix(const vector<pair<long long, long long>>&\
+    \ A) {\n        rep(i, A.size()) {\n            add_point(A[i].first, A[i].second);\n\
+    \        }\n        build();\n    }\n\n    void add_point(ll y, ll x) {\n    \
+    \    ps.emplace_back(x, y);\n        ys.emplace_back(y);\n    }\n\n    void build()\
+    \ {\n        build(op.e());\n    }\n\n    void build(T a) {\n        e = a;\n\n\
+    \        sort(ps.begin(), ps.end());\n        ps.erase(unique(ps.begin(), ps.end()),\
+    \ ps.end());\n        N = ps.size();\n\n        sort(ys.begin(), ys.end());\n\
+    \        ys.erase(unique(ys.begin(), ys.end()), ys.end());\n\n        vector<uint>\
+    \ cur(N), nxt(N);\n        rep(i, N) cur[i] = yid(ps[i].second);\n\n        vector<Point>\
+    \ p_cur = ps, p_nxt(N);\n\n        logN = 0;\n        while ((1ull << logN) <=\
+    \ N) ++logN;\n        bit_vectors.assign(logN, N);\n        tree.assign(logN,\
     \ N);\n        repd(h, logN) {\n            rep(i, N) if ((cur[i] >> h) & 1) bit_vectors[h].set(1,\
     \ i);\n            bit_vectors[h].build();\n\n            auto it0 = nxt.begin();\n\
-    \            auto it1 = nxt.begin() + bit_vectors[h].zeros;\n\n            rep(i,\
-    \ N) {\n                if (bit_vectors[h].access(i) == 1) {\n               \
-    \     *it1 = cur[i];\n                    ++it1;\n                }\n        \
-    \        else {\n                    *it0 = cur[i];\n                    ++it0;\n\
-    \                }\n            }\n            \n            swap(cur, nxt);\n\
-    \        }\n    }\n\n    T access(long long x, long long y) {\n        ull i =\
-    \ lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();\n        ull j\
-    \ = yid(y);\n\n        repd(h, logN) {\n            ull i0 = bit_vectors[h].rank(0,\
+    \            auto it1 = nxt.begin() + bit_vectors[h].zeros;\n\n            auto\
+    \ p_it0 = p_nxt.begin();\n            auto p_it1 = p_nxt.begin() + bit_vectors[h].zeros;\n\
+    \n            rep(i, N) {\n                ll i0;\n                if (bit_vectors[h].access(i)\
+    \ == 1) {\n                    *it1 = cur[i];\n                    ++it1;\n\n\
+    \                    *p_it1 = p_cur[i];\n                    ++p_it1;\n\n    \
+    \                i0 = it1 - nxt.begin() - 1;\n                    tree[h].set_point(i0,\
+    \ p_cur[i].second, p_cur[i].first, a);\n                }\n                else\
+    \ {\n                    *it0 = cur[i];\n                    ++it0;\n\n      \
+    \              *p_it0 = p_cur[i];\n                    ++p_it0;\n\n          \
+    \          i0 = it0 - nxt.begin() - 1;\n                    tree[h].set_point(i0,\
+    \ p_cur[i].second, p_cur[i].first, a);\n                }\n            }\n   \
+    \         \n            swap(cur, nxt);\n            swap(p_cur, p_nxt);\n\n \
+    \           tree[h].build();\n        }\n    }\n\n    S access(long long y, long\
+    \ long x) {\n        ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) -\
+    \ ps.begin();\n        ull j = yid(y);\n\n        repd(h, logN) {\n          \
+    \  ull i0 = bit_vectors[h].rank(0, i);\n            if ((j >> h) & 1) {\n    \
+    \            i += bit_vectors[h].zeros - i0;\n            } else {\n         \
+    \       i = i0;\n            }\n        }\n\n        return tree[0].get(i);\n\
+    \    }\n\n    ull xid(long long x) const {\n        auto comp = [](const Point&\
+    \ a, const Point& b) { return a.first < b.first;};\n        return lower_bound(ps.begin(),\
+    \ ps.end(), make_pair(x, -inf64), comp) - ps.begin();\n    }\n\n    ull yid(long\
+    \ long y) const { \n        return lower_bound(ys.begin(), ys.end(), y) - ys.begin();\
+    \ }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\
+    \uFF0Cval\u3067mapping\n    void apply(long long y, long long x, T val) {\n  \
+    \      ull i = lower_bound(ps.begin(), ps.end(), Point{x, y}) - ps.begin();\n\
+    \        ull j = yid(y);\n\n        repd(h, logN) {\n            ull i0 = bit_vectors[h].rank(0,\
     \ i);\n            if ((j >> h) & 1) {\n                i += bit_vectors[h].zeros\
     \ - i0;\n            } else {\n                i = i0;\n            }\n      \
-    \  }\n\n        return tree[0].get(i);\n    }\n\n    ull xid(long long x) const\
-    \ {\n        auto comp = [](const Point& a, const Point& b) { return a.first <\
-    \ b.first;};\n        return lower_bound(ps.begin(), ps.end(), make_pair(x, -inf64),\
-    \ comp) - ps.begin();\n    }\n\n    ull yid(long long y) const { \n        return\
-    \ lower_bound(ys.begin(), ys.end(), y) - ys.begin(); }\n\n    // p\u756A\u76EE\
-    \u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cval\u3067mapping\n\
-    \    void apply(long long x, long long y, T val) {\n        ull i = lower_bound(ps.begin(),\
-    \ ps.end(), Point{x, y}) - ps.begin();\n        ull j = yid(y);\n\n        repd(h,\
-    \ logN) {\n            ull i0 = bit_vectors[h].rank(0, i);\n            if ((j\
-    \ >> h) & 1) {\n                i += bit_vectors[h].zeros - i0;\n            }\
-    \ else {\n                i = i0;\n            }\n            tree[h].apply(i,\
-    \ val);\n        }\n    }\n\n    // // [l, r), [d, u)\u306E\u7BC4\u56F2\u306E\u548C\
-    \u3092\u8FD4\u3059\n    // S prod(long long l, long long r, long long d, long\
-    \ long u) {\n    //     return prod(l, r, u) - prod(l, r, d);\n    // }\n\n  \
-    \  // [l, r), [0, u)\u306E\u7BC4\u56F2\u306E\u548C\u3092\u6C42\u3081\u308B\n \
-    \   T prod(long long l, long long r, long long u) {\n        l = xid(l), r = xid(r);\n\
-    \        u = yid(u);\n\n        S res(op.e());\n        repd(h, logN) {\n    \
-    \        ull l0 = bit_vectors[h].rank(0, l), r0 = bit_vectors[h].rank(0, r);\n\
-    \            if ((u >> h) & 1) {\n                res = op(res, tree[h].prod(l0,\
+    \      tree[h].apply(i, val);\n        }\n    }\n\n    // \u534A\u958B\u533A\u9593\
+    [0, h) x [w1, w2) (0-indexed) \u306E\u7BC4\u56F2\u306E\u548C\u3092\u6C42\u3081\
+    \u308B\n    S prod(long long h, long long w1, long long w2) {\n        ll l =\
+    \ xid(w1), r = xid(w2);\n        ll u = yid(h);\n\n        S ret(e);\n       \
+    \ repd(h, logN) {\n            ull l0 = bit_vectors[h].rank(0, l), r0 = bit_vectors[h].rank(0,\
+    \ r);\n            if ((u >> h) & 1) {\n                ret = op(ret, tree[h].prod(l0,\
     \ r0));\n                l += bit_vectors[h].zeros - l0;\n                r +=\
     \ bit_vectors[h].zeros - r0;\n            } \n            else {\n           \
-    \     l = l0, r = r0;\n            }\n        }\n        return res;\n    }\n\n\
-    \    // [l, r)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T prod(long long\
-    \ l, long long r) {\n        return prod(l, r, inf64);\n    }\n\n    // [l, r),\
-    \ [d, u)\u306E\u7BC4\u56F2\u306E\u8981\u7D20\u306E\u6570\u3092\u6C42\u3081\u308B\
-    \n    T count(long long l, long long r, long long d, long long u) {\n        return\
-    \ count(l, r, u) - count(l, r, d);\n    }\n\n    // [l, r), [0, u)\u306E\u7BC4\
+    \     l = l0, r = r0;\n            }\n        }\n        return ret;\n    }\n\n\
+    \    // \u534A\u958B\u533A\u9593[0, h) x [0, w) (0-indexed) \u306E\u7BC4\u56F2\
+    \u306E\u548C\u3092\u6C42\u3081\u308B\n    S prod(long long h, long long w) {\n\
+    \        return prod(h, 0, w);\n    }\n\n    // [h1, h2) x [w1, w2)\u306E\u7BC4\
     \u56F2\u306E\u8981\u7D20\u306E\u6570\u3092\u6C42\u3081\u308B\n    T count(long\
-    \ long l, long long r, T u) {\n        l = xid(l), r = xid(r);\n        u = yid(u);\n\
-    \n        T res = 0;\n        repd(h, logN) {\n            ull l0 = bit_vectors[h].rank(0,\
-    \ l), r0 = bit_vectors[h].rank(0, r);\n            if ((u >> h) & 1) {\n     \
-    \           res += tree[h].count(l0, r0);\n                l += bit_vectors[h].zeros\
-    \ - l0;\n                r += bit_vectors[h].zeros - r0;\n            } \n   \
-    \         else {\n                l = l0, r = r0;\n            }\n        }\n\
-    \        return res;\n    }\n\n    // [l, r)\u306E\u8981\u7D20\u306E\u6570\u3092\
-    \u6C42\u3081\u308B\n    T count(long long l, long long r) {\n        return count(l,\
-    \ r, inf64);\n    }\n};\n#line 4 \"test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp\"\
+    \ long h1, long long h2, long long w1, long long w2) {\n        return count(h1,\
+    \ w1, w2) - count(h2, w1, w2);\n    }\n\n    // [0, h) x [w1, w2)\u306E\u7BC4\u56F2\
+    \u306E\u8981\u7D20\u306E\u6570\u3092\u6C42\u3081\u308B\n    T count(long long\
+    \ h, long long w1, long long w2) {\n        ll l = xid(w1), r = xid(w2);\n   \
+    \     ll u = yid(h);\n\n        T ret = 0;\n        repd(h, logN) {\n        \
+    \    ull l0 = bit_vectors[h].rank(0, l), r0 = bit_vectors[h].rank(0, r);\n   \
+    \         if ((u >> h) & 1) {\n                ret += tree[h].count(l0, r0);\n\
+    \                l += bit_vectors[h].zeros - l0;\n                r += bit_vectors[h].zeros\
+    \ - r0;\n            } \n            else {\n                l = l0, r = r0;\n\
+    \            }\n        }\n        return ret;\n    }\n\n    // [0, h) x [0, w)\u306E\
+    \u8981\u7D20\u306E\u6570\u3092\u6C42\u3081\u308B\n    T count(long long h, long\
+    \ long w) {\n        return count(h, 0, w);\n    }\n};\n#line 4 \"test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp\"\
     \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    SegmentTreeonWaveletMatrix<ll,\
-    \ ll, Add, Sum> wm;\n\n    vll A(n, 0);\n    rep(i, n) wm.add_point(i, A[i]);\n\
+    \ ll, Add, Sum> wm;\n\n    vll A(n, 0);\n    rep(i, n) wm.add_point(A[i], i);\n\
     \n    vll T(q), X(q), Y(q);\n\n    rep(i, q) {\n        cin >> T[i] >> X[i] >>\
     \ Y[i];\n        --X[i];\n        if (T[i] == 0) {\n            A[X[i]] += Y[i];\n\
-    \            wm.add_point(X[i], A[X[i]]);\n        }\n    } \n\n    wm.build();\n\
-    \    A.assign(n, 0);\n    rep(i, n) wm.apply(i, A[i], A[i]);\n\n   rep(i, q) {\n\
+    \            wm.add_point(A[X[i]], X[i]);\n        }\n    } \n\n    wm.build();\n\
+    \    A.assign(n, 0);\n    rep(i, n) wm.apply(A[i], i, A[i]);\n\n   rep(i, q) {\n\
     \        ll t = T[i], x = X[i], y = Y[i];\n\n        if (t == 0) {\n         \
-    \   wm.apply(x, A[x], -A[x]);\n\n            A[x] += y;\n            wm.apply(x,\
-    \ A[x], A[x]);\n        }\n        else {\n            cout << wm.prod(x, y) <<\
-    \ endl;\n        }\n    }\n\n    return 0;\n}\n"
+    \   wm.apply(A[x], x, -A[x]);\n\n            A[x] += y;\n            wm.apply(A[x],\
+    \ x, A[x]);\n        }\n        else {\n            cout << wm.prod(inf64, x,\
+    \ y) << endl;\n        }\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_B&\"\
     \n\n#include \"../../../structure/segment-tree-on-wavelet-matrix.cpp\"\n\nint\
     \ main() {\n    ll n, q;\n    cin >> n >> q;\n\n    SegmentTreeonWaveletMatrix<ll,\
-    \ ll, Add, Sum> wm;\n\n    vll A(n, 0);\n    rep(i, n) wm.add_point(i, A[i]);\n\
+    \ ll, Add, Sum> wm;\n\n    vll A(n, 0);\n    rep(i, n) wm.add_point(A[i], i);\n\
     \n    vll T(q), X(q), Y(q);\n\n    rep(i, q) {\n        cin >> T[i] >> X[i] >>\
     \ Y[i];\n        --X[i];\n        if (T[i] == 0) {\n            A[X[i]] += Y[i];\n\
-    \            wm.add_point(X[i], A[X[i]]);\n        }\n    } \n\n    wm.build();\n\
-    \    A.assign(n, 0);\n    rep(i, n) wm.apply(i, A[i], A[i]);\n\n   rep(i, q) {\n\
+    \            wm.add_point(A[X[i]], X[i]);\n        }\n    } \n\n    wm.build();\n\
+    \    A.assign(n, 0);\n    rep(i, n) wm.apply(A[i], i, A[i]);\n\n   rep(i, q) {\n\
     \        ll t = T[i], x = X[i], y = Y[i];\n\n        if (t == 0) {\n         \
-    \   wm.apply(x, A[x], -A[x]);\n\n            A[x] += y;\n            wm.apply(x,\
-    \ A[x], A[x]);\n        }\n        else {\n            cout << wm.prod(x, y) <<\
-    \ endl;\n        }\n    }\n\n    return 0;\n}"
+    \   wm.apply(A[x], x, -A[x]);\n\n            A[x] += y;\n            wm.apply(A[x],\
+    \ x, A[x]);\n        }\n        else {\n            cout << wm.prod(inf64, x,\
+    \ y) << endl;\n        }\n    }\n\n    return 0;\n}"
   dependsOn:
   - structure/segment-tree-on-wavelet-matrix.cpp
   - base.cpp
   isVerificationFile: true
   path: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
   requiredBy: []
-  timestamp: '2024-08-17 04:59:20+09:00'
+  timestamp: '2024-09-28 16:55:50+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp

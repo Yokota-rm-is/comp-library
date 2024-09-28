@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: structure/splay-tree.cpp
     title: structure/splay-tree.cpp
   _extendedRequiredBy: []
@@ -44,27 +44,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -258,28 +265,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -387,36 +394,42 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/splay-tree.cpp\"\n\ntemplate<typename\
-    \ T, typename F>\nstruct Node {\n    Node *l = 0, *r = 0, *p = 0;\n    T value,\
-    \ prod, rprod;\n    F lazy;\n    long long index = -1;\n    long long z = 0;\n\
-    \    long long sumz = 0;\n    bool rev = false;\n    long long coeff = 1;\n\n\
-    \    bool operator< (const Node &other) const {\n        return value < other.value;\n\
-    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
-    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
-    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T, F>& node)\
-    \ {\n        return os << node.value;\n    }\n};\n\ntemplate<typename T, typename\
-    \ F>\nstruct Operation {\n    using S = Node<T, F>;\n\n    Operation() {};\n\n\
-    \    virtual T e() = 0;\n\n    virtual void operator() (S* x) = 0;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct NoOperation : Operation<T, F> {\n    using S = Node<T,\
-    \ F>;\n\n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return\
-    \ _e;\n    }\n\n    void operator() (S* x) override {\n        x->sumz = x->l->sumz\
-    \ + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
-    \ T, typename F>\nstruct Max : Operation<T, F> {\n    using S = Node<T, F>;\n\n\
-    \    Max(): _e(numeric_limits<T>::min()) {};\n\n    T e() override {\n       \
-    \ return _e;\n    }\n\n    void operator() (S* x) override {\n        x->prod\
-    \ = x->value;\n        if (x->l->z > 0) x->prod = max(x->l->prod, x->prod);\n\
-    \        if (x->r->z > 0) x->prod = max(x->prod, x->r->prod);\n\n        x->rprod\
-    \ = x->value;\n        if (x->r->z > 0) x->rprod = max(x->r->rprod, x->rprod);\n\
-    \        if (x->l->z > 0) x->rprod = max(x->rprod, x->l->rprod);\n        \n \
-    \       x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n\
-    };\n\ntemplate<typename T, typename F>\nstruct Min: Operation<T, F> {\n    using\
-    \ S = Node<T, F>;\n\n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e()\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/splay-tree.cpp\"\
+    \n\ntemplate<typename T, typename F>\nstruct Node {\n    Node *l = 0, *r = 0,\
+    \ *p = 0;\n    T value, prod, rprod;\n    F lazy;\n    long long index = -1;\n\
+    \    long long z = 0;\n    long long sumz = 0;\n    bool rev = false;\n    long\
+    \ long coeff = 1;\n\n    bool operator< (const Node &other) const {\n        return\
+    \ value < other.value;\n    }\n\n    bool operator== (const T other) const {\n\
+    \        return value == other;\n    }\n\n    bool operator!= (const T other)\
+    \ const {\n        return value != other;\n    }\n\n    operator T() const {\n\
+    \        return value;\n    }\n\n    friend ostream& operator << (ostream &os,\
+    \ const Node<T, F>& node) {\n        return os << node.value;\n    }\n};\n\ntemplate<typename\
+    \ T, typename F>\nstruct Operation {\n    using S = Node<T, F>;\n\n    Operation()\
+    \ {};\n\n    virtual T e() = 0;\n\n    virtual void operator() (S* x) = 0;\n};\n\
+    \ntemplate<typename T, typename F>\nstruct NoOperation : Operation<T, F> {\n \
+    \   using S = Node<T, F>;\n\n    NoOperation(): _e(T()) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    void operator() (S* x) override {\n    \
+    \    x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n    T _e;\n\
+    };\n\ntemplate<typename T, typename F>\nstruct Max : Operation<T, F> {\n    using\
+    \ S = Node<T, F>;\n\n    Max(): _e(numeric_limits<T>::min()) {};\n\n    T e()\
     \ override {\n        return _e;\n    }\n\n    void operator() (S* x) override\
-    \ {\n        x->prod = x->value;\n        if (x->l->z > 0) x->prod = min(x->l->prod,\
-    \ x->prod);\n        if (x->r->z > 0) x->prod = min(x->prod, x->r->prod);\n\n\
-    \        x->rprod = x->value;\n        if (x->r->z > 0) x->rprod = min(x->r->rprod,\
+    \ {\n        x->prod = x->value;\n        if (x->l->z > 0) x->prod = max(x->l->prod,\
+    \ x->prod);\n        if (x->r->z > 0) x->prod = max(x->prod, x->r->prod);\n\n\
+    \        x->rprod = x->value;\n        if (x->r->z > 0) x->rprod = max(x->r->rprod,\
+    \ x->rprod);\n        if (x->l->z > 0) x->rprod = max(x->rprod, x->l->rprod);\n\
+    \        \n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\nprivate:\n\
+    \    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Min: Operation<T, F>\
+    \ {\n    using S = Node<T, F>;\n\n    Min(): _e(numeric_limits<T>::max()) {};\n\
+    \n    T e() override {\n        return _e;\n    }\n\n    void operator() (S* x)\
+    \ override {\n        x->prod = x->value;\n        if (x->l->z > 0) x->prod =\
+    \ min(x->l->prod, x->prod);\n        if (x->r->z > 0) x->prod = min(x->prod, x->r->prod);\n\
+    \n        x->rprod = x->value;\n        if (x->r->z > 0) x->rprod = min(x->r->rprod,\
     \ x->rprod);\n        if (x->l->z > 0) x->rprod = min(x->rprod, x->l->rprod);\n\
     \        \n        x->sumz = x->l->sumz + x->z + x->r->sumz;\n    }\n\n\nprivate:\n\
     \    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Sum: Operation<T, F>\
@@ -621,7 +634,7 @@ data:
   isVerificationFile: true
   path: test/structure/splay-tree/aoj-dsl-2-i.test.cpp
   requiredBy: []
-  timestamp: '2024-08-17 04:53:37+09:00'
+  timestamp: '2024-09-28 16:22:31+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/splay-tree/aoj-dsl-2-i.test.cpp

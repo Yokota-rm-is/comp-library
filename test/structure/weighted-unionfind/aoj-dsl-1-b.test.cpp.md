@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: structure/weighted-unionfind.cpp
     title: structure/weighted-unionfind.cpp
   _extendedRequiredBy: []
@@ -44,27 +44,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -258,28 +265,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -387,61 +394,73 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/weighted-unionfind.cpp\"\n\ntemplate\
-    \ <bool fastMode = false>\nstruct WeightedUnionFind {\n    long long V{};\n  \
-    \  vector<long long> par{}; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7 or \u30B5\
-    \u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    vector<long long> diff_weight{};\n\
-    \    map<long long, set<long long>> cc;\n    long long cc_size;\n    long long\
-    \ cc_edge_size;\n\n    explicit WeightedUnionFind(long long V) : V(V), par(V,\
-    \ -1), diff_weight(V, 0) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
-    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        cc_size = V;\n        cc_edge_size\
-    \ = 0;\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long find(long\
-    \ long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\u6839\u3092\
-    \u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\u6839}\n  \
-    \      if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n   \
-    \     diff_weight[x] += diff_weight[par[x]];\n        return par[x] = rx;\n  \
-    \  }\n\n    // x\u306E\u6839\u304B\u3089\u306E\u91CD\u307F\u3092\u8FD4\u3059\n\
-    \    long long weight(long long x) {\n        find(x);\n        return diff_weight[x];\n\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/weighted-unionfind.cpp\"\
+    \n\ntemplate <bool mergeCC = true>\nstruct WeightedUnionFind {\n    long long\
+    \ V;\n    vector<long long> par; // par[i]: i\u306E\u89AA\u306E\u756A\u53F7 or\
+    \ \u30B5\u30A4\u30BA (i\u304C\u89AA\u306E\u6642)\n    vector<vector<long long>>\
+    \ cc;\n    long long cc_size;\n    \n    vector<pair<long long, long long>> edges;\n\
+    \    vector<vector<long long>> cc_edge;\n\n    vector<long long> diff_weight;\n\
+    \n    explicit WeightedUnionFind(long long V) : V(V), par(V, -1), cc(V), cc_edge(V),\
+    \ diff_weight(V, 0) { //\u6700\u521D\u306F\u5168\u3066\u304C\u6839\u3067\u3042\
+    \u308B\u3068\u3057\u3066\u521D\u671F\u5316\n        cc_size = V;\n\n        rep(i,\
+    \ V) cc[i] = {i};\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\n    long long\
+    \ find(long long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\u6728\u306E\
+    \u6839\u3092\u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\u6728\u306E\
+    \u6839}\n        if (par[x] < 0) return x;\n\n        long long rx = find(par[x]);\n\
+    \        diff_weight[x] += diff_weight[par[x]];\n        return par[x] = rx;\n\
+    \    }\n\n    // x\u306E\u6839\u304B\u3089\u306E\u91CD\u307F\u3092\u8FD4\u3059\
+    \n    long long weight(long long x) {\n        find(x);\n        return diff_weight[x];\n\
     \    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    // w = weight(y) - weight(x)\n\
-    \    bool unite(long long x, long long y, long long w = 0) {\n        w += weight(x);\n\
+    \    bool unite(long long x, long long y, long long w) {\n        long long edge_index\
+    \ = edges.size();\n        edges.emplace_back(x, y);\n        \n        w += weight(x);\n\
     \        w -= weight(y);\n\n        long long rx = find(x); //x\u306E\u6839\u3092\
-    rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n        if (rx ==\
-    \ ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\u3058\u6728\
-    \u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n        --cc_size;\n\
-    \        ++cc_edge_size;\n\n        // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\
-    \u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\
-    \u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\u308B\n        if (-par[rx]\
-    \ < -par[ry]) {\n            swap(rx, ry);\n            w = -w;\n        }\n\n\
-    \        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\u5909\u66F4\n\
-    \        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\u306A\u3044\
-    (=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092x\u306E\
-    \u6839rx\u306B\u3064\u3051\u308B\n\n        if (!fastMode) {\n            if (cc.contains(ry))\
-    \ {\n                cc[rx].insert(cc[ry].begin(), cc[ry].end());\n          \
-    \      cc.erase(ry);\n            }\n            else if (!cc.contains(rx)) cc[rx]\
-    \ = {rx, ry};\n            else cc[rx].insert(ry);\n        }\n\n        diff_weight[ry]\
-    \ = w;\n\n        return true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BF\
+    rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n        // -par\u306F\
+    \u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\u30B5\u30A4\
+    \u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\u66FF\u3048\
+    \u308B\n        if (-par[rx] < -par[ry]) {\n            swap(rx, ry);\n      \
+    \      w = -w;\n        }\n\n        cc_edge[rx].push_back(edge_index);\n\n  \
+    \      if (rx == ry) return false; //x\u3068y\u306E\u6839\u304C\u540C\u3058(=\u540C\
+    \u3058\u6728\u306B\u3042\u308B)\u6642\u306F\u305D\u306E\u307E\u307E\n\n      \
+    \  --cc_size;\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\u3092\
+    \u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\u3067\
+    \u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839ry\u3092\
+    x\u306E\u6839rx\u306B\u3064\u3051\u308B\n        diff_weight[ry] = w;\n\n    \
+    \    if (mergeCC) {\n            cc[rx].insert(cc[rx].end(), cc[ry].begin(), cc[ry].end());\n\
+    \            cc[ry].clear();\n\n            cc_edge[rx].insert(cc_edge[rx].end(),\
+    \ cc_edge[ry].begin(), cc_edge[ry].end());\n            cc_edge[ry].clear();\n\
+    \        }\n\n        return true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BF\
     x, y\u304C\u5C5E\u3059\u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\
     \u3059\n    bool is_same(long long x, long long y) { \n        return find(x)\
-    \ == find(y);\n    }\n\n    // return weight(y) - weight(x)\n    long long diff(long\
+    \ == find(y);\n    }\n\n    bool is_root(long long x) {\n        return find(x)\
+    \ == x;\n    }\n\n    // return weight(y) - weight(x)\n    long long diff(long\
     \ long x, long long y) {\n        return weight(y) - weight(x);\n    }\n\n   \
     \ // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\
     \u306E\u6570\u3092\u8FD4\u3059\n    long long size(long long x) {\n        long\
-    \ long rx = find(x);\n        return -par[rx];\n    }\n\n    bool is_connected()\
-    \ {\n        long long rx = find(0);\n        return -par[rx] == V;\n    }\n\n\
-    \    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\
-    \u3092\u8FD4\u3059\n    set<long long> members(long long x) {\n        long long\
-    \ rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\u306E\u307F\u306E\
-    \u914D\u5217\u3092\u8FD4\u3059\n    set<long long> roots() {\n        set<long\
-    \ long> ret;\n        fore(p, cc) {\n            ret.insert(p.first);\n      \
-    \  }\n        \n        return ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\
-    \u500B\u6570\u3092\u8FD4\u3059\n    long long group_count() {\n        return\
-    \ cc_size;\n    }\n\n    map<long long, set<long long>> all_group_members() {\n\
-    \        auto ret = cc;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
-    \            ret[i] = {i}; \n        }\n        return ret;\n    }\n};\n#line\
-    \ 4 \"test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp\"\n\nint main() {\n\
-    \    ll n, q;\n    cin >> n >> q;\n\n    WeightedUnionFind tree(n);\n    while\
-    \ (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n       \
-    \     ll x, y, z;\n            cin >> x >> y >> z;\n            tree.unite(x,\
+    \ long rx = find(x);\n        return -par[rx];\n    }\n\n    long long edge_size(long\
+    \ long x) {\n        assert(mergeCC);\n        long long rx = find(x);\n     \
+    \   return cc_edge[rx].size();\n    }\n\n    bool is_connected() {\n        long\
+    \ long rx = find(0);\n        return -par[rx] == V;\n    }\n    // x\u304C\u6240\
+    \u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u3092\u8FD4\u3059\
+    \n    vector<long long> members(long long x) {\n        assert(mergeCC);\n   \
+    \     long long rx = find(x);\n        return cc[rx];\n    }\n\n    // \u6839\u306E\
+    \u307F\u306E\u914D\u5217\u3092\u8FD4\u3059\n    vector<long long> roots() {\n\
+    \        assert(mergeCC);\n        vector<long long> ret;\n        fore(p, cc)\
+    \ {\n            ret.push_back(p.front());\n        }\n        \n        return\
+    \ ret;\n    }\n\n    // \u9023\u7D50\u6210\u5206\u306E\u500B\u6570\u3092\u8FD4\
+    \u3059\n    long long group_count() {\n        return cc_size;\n    }\n\n    vector<vector<long\
+    \ long>> all_group_members() {\n        assert(mergeCC);\n        vector<vector<long\
+    \ long>> ret;\n        rep(i, V) {\n            if (par[i] != -1) continue;\n\
+    \            ret.push_back(cc[i]);\n            sort(ret.back().begin(), ret.back().end());\n\
+    \        }\n\n        return ret;\n    }\n};\n#line 4 \"test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp\"\
+    \n\nint main() {\n    ll n, q;\n    cin >> n >> q;\n\n    WeightedUnionFind tree(n);\n\
+    \    while (q--) {\n        ll t;\n        cin >> t;\n\n        if (t == 0) {\n\
+    \            ll x, y, z;\n            cin >> x >> y >> z;\n            tree.unite(x,\
     \ y, z);\n        }\n        else {\n            ll x, y;\n            cin >>\
     \ x >> y;\n            if (tree.is_same(x, y)) cout << tree.diff(x, y) << endl;\n\
     \            else cout << \"?\" << endl;\n        }\n    }\n\n    return 0;\n\
@@ -460,7 +479,7 @@ data:
   isVerificationFile: true
   path: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
   requiredBy: []
-  timestamp: '2024-08-03 15:59:26+09:00'
+  timestamp: '2024-09-28 16:23:46+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp

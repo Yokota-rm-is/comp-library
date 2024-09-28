@@ -1,0 +1,561 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: base.cpp
+    title: base.cpp
+  - icon: ':question:'
+    path: tree/tree-dp.cpp
+    title: tree-dp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _isVerificationFailed: true
+  _pathExtension: cpp
+  _verificationStatusIcon: ':x:'
+  attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&
+    links:
+    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&
+  bundledCode: "#line 1 \"test/tree/tree-dp/aoj-grl-5-a.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&\"\n\n#line\
+    \ 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
+    #include <boost/algorithm/cxx11/none_of.hpp>\n#include <boost/algorithm/cxx11/one_of.hpp>\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\n#include <boost/lambda/lambda.hpp>\n\
+    #endif\n#if __has_include(<boost/range/irange.hpp>)\n#include <boost/range/irange.hpp>\n\
+    #include <boost/range/adaptors.hpp>\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    #include <boost/multiprecision/cpp_int.hpp>\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\n#endif\n\nusing namespace std;\n\n// constant values\nconst\
+    \ int INF32 = numeric_limits<int>::max(); //2.147483647\xD710^{9}:32bit\u6574\u6570\
+    \u306Einf\nconst int inf32 = INF32 / 2;\nconst long long INF64 = numeric_limits<long\
+    \ long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\u6570\u306Einf\n\
+    const long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
+    \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
+    #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
+    \ REP1(i, n) REP2(i, 0, n)\n#define REP2(i, l, r) for (long long i = (l); (i)\
+    \ < (long long)(r); ++(i))\n#define REP3(i, l, r, s) for (long long i = (l); (i)\
+    \ < (long long)(r); (i) += (s))\n#define rep(i, ...) OVERLOAD_REP(__VA_ARGS__,\
+    \ REP3, REP2, REP1)(i, __VA_ARGS__)\n\n#define REPD1(i, n) REPD2(i, 0, n)\n#define\
+    \ REPD2(i, l, r) for (long long i = (long long)(r) - 1; (i) >= (long long)(l);\
+    \ --(i))\n#define REPD3(i, l, r, s) for (long long i = (long long)(r) - 1; (i)\
+    \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
+    \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
+    #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
+    using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
+    #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
+    using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
+    \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
+    \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
+    \ operator<< (ostream& os, const pair<T, U>& p);\ntemplate<typename T> ostream&\
+    \ operator<< (ostream& os, vector<T>& v);\ntemplate<typename T> ostream& operator<<\
+    \ (ostream& os, const vector<T>& v);\nostream& operator << (ostream& os, vector<string>&\
+    \ v);\nostream& operator << (ostream& os, const vector<string>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<vector<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<vector<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<stack<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<stack<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<queue<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<queue<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<deque<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<deque<T>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, vector<vector<vector<T>>>& v);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const vector<vector<vector<T>>>& v);\n\
+    template<typename T> ostream& operator<< (ostream& os, set<T>& s);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, const set<T>& s);\ntemplate<typename T,\
+    \ typename U> ostream& operator<< (ostream& os, map<T, U>& m);\ntemplate<typename\
+    \ T, typename U> ostream& operator<< (ostream& os, const map<T, U>& m);\ntemplate<typename\
+    \ T> ostream& operator<< (ostream& os, queue<T>& que);\ntemplate<typename T> ostream&\
+    \ operator<< (ostream& os, const queue<T>& que);\ntemplate<typename T> ostream&\
+    \ operator<< (ostream& os, stack<T>& st);\ntemplate<typename T> ostream& operator<<\
+    \ (ostream& os, const stack<T>& st);\n\ntemplate<typename T, typename U> ostream&\
+    \ operator << (ostream& os, pair<T, U>& p) { return os << \"(\" << p.first <<\
+    \ \", \" << p.second << \")\";}\ntemplate<typename T, typename U> ostream& operator\
+    \ << (ostream& os, const pair<T, U>& p) { return os << \"(\" << p.first << \"\
+    , \" << p.second << \")\";}\ntemplate<typename T> ostream& operator << (ostream&\
+    \ os, vector<T>& v) { rep(i, v.size()) os << v[i] << ((i + 1 < (long long)v.size())\
+    \ ? \" \" : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream&\
+    \ os, const vector<T>& v) { rep(i, v.size()) os << v[i] << ((i + 1 < (long long)v.size())\
+    \ ? \" \" : \"\"); return os;}\nostream& operator << (ostream& os, vector<string>&\
+    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? \"\\n\"\
+    \ : \"\"); return os;}\nostream& operator << (ostream& os, const vector<string>&\
+    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1) ? \"\\n\"\
+    \ : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream& os,\
+    \ vector<vector<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size()\
+    \ - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const vector<vector<T>>& v) { rep(i, v.size()) os << v[i] <<\
+    \ ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename\
+    \ T> ostream& operator << (ostream& os, vector<stack<T>>& v) { rep(i, v.size())\
+    \ os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\n\
+    template<typename T> ostream& operator << (ostream& os, const vector<stack<T>>&\
+    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\"\
+    \ : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream& os,\
+    \ vector<queue<T>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size()\
+    \ - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const vector<queue<T>>& v) { rep(i, v.size()) os << v[i] <<\
+    \ ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\ntemplate<typename\
+    \ T> ostream& operator << (ostream& os, vector<deque<T>>& v) { rep(i, v.size())\
+    \ os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\" : \"\"); return os;}\n\
+    template<typename T> ostream& operator << (ostream& os, const vector<deque<T>>&\
+    \ v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size() - 1 )? \"\\n\"\
+    \ : \"\"); return os;}\ntemplate<typename T> ostream& operator << (ostream& os,\
+    \ vector<vector<vector<T>>>& v) { rep(i, v.size()) os << v[i] << ((i < (long long)v.size()\
+    \ - 1) ? \"\\n\\n\": \"\"); return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const vector<vector<vector<T>>>& v) { rep(i, v.size()) os <<\
+    \ v[i] << ((i < (long long)v.size() - 1) ? \"\\n\\n\": \"\"); return os;}\ntemplate<typename\
+    \ T> ostream& operator << (ostream& os, set<T>& s) { for (auto it = s.begin();\
+    \ it != s.end(); ++it) os << *it << ((it != --s.end()) ? \" \" : \"\"); return\
+    \ os;}\ntemplate<typename T> ostream& operator << (ostream& os, const set<T>&\
+    \ s) { for (auto it = s.begin(); it != s.end(); ++it) os << *it << ((it != --s.end())\
+    \ ? \" \" : \"\"); return os;}\ntemplate<typename T, typename U> ostream& operator\
+    \ << (ostream& os, map<T, U>& m) { for (auto it = m.begin(); it != m.end(); ++it)\
+    \ os << it->first << \": \" << it->second << (it != --m.end() ? \"\\n\" : \"\"\
+    ); return os;}\ntemplate<typename T, typename U> ostream& operator << (ostream&\
+    \ os, const map<T, U>& m) { for (auto it = m.begin(); it != m.end(); ++it) os\
+    \ << it->first << \": \" << it->second << (it != --m.end() ? \"\\n\" : \"\");\
+    \ return os;}\ntemplate<typename T> ostream& operator << (ostream& os, queue<T>&\
+    \ que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size()\
+    \ > 0)? \" \" : \"\\n\"); tmp.pop();}; return os;}\ntemplate<typename T> ostream&\
+    \ operator << (ostream& os, const queue<T>& que) { queue<T> tmp(que); while(!tmp.empty())\
+    \ {os << tmp.front() << ((tmp.size() > 0)? \" \" : \"\\n\"); tmp.pop();}; return\
+    \ os;}\ntemplate<typename T> ostream& operator << (ostream& os, stack<T>& st)\
+    \ { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 0)?\
+    \ \" \" : \"\\n\"); tmp.pop();}; return os;}\ntemplate<typename T> ostream& operator\
+    \ << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty())\
+    \ {os << tmp.top() << ((tmp.size() > 0)? \" \" : \"\\n\"); tmp.pop();}; return\
+    \ os;}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename T> void dump(T\
+    \ a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<vector<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<stack<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<queue<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
+    \ T> void dump(vector<deque<T>>& a) { cerr << '\\n' << a;}\n\n// input\ntemplate<typename\
+    \ T> inline void input(T& a) {cin >> a;}\ntemplate<typename T, typename... Args>\
+    \ inline void input(T& a, Args&&... args) { cin >> a; input(args...);}\ntemplate<typename\
+    \ T> inline void input(vector<T>& A) { rep(i, A.size()) cin >> A[i];}\ntemplate<typename\
+    \ T> inline void input(vector<T>& A, vector<T>& B) { assert(A.size() == B.size());rep(i,\
+    \ A.size()) cin >> A[i] >> B[i];}\ntemplate<typename T> inline void input(vector<T>&\
+    \ A, vector<T>& B, vector<T>& C) { assert(A.size() == B.size() and A.size() ==\
+    \ C.size()); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename\
+    \ T> inline void input(const long long N, vector<T>& A) { A.resize(N); rep(i,\
+    \ N) cin >> A[i];}\ntemplate<typename T> inline void input(const long long N,\
+    \ vector<T>& A, vector<T>& B) { A.resize(N); B.resize(N); rep(i, N) cin >> A[i]\
+    \ >> B[i];}\ntemplate<typename T> inline void input(const long long N, vector<T>&\
+    \ A, vector<T>& B, vector<T>& C) { A.resize(N); B.resize(N); C.resize(N); rep(i,\
+    \ A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename T> inline void input(const\
+    \ long long N, set<T>& A) {rep(i, N) { T a; cin >> a; A.insert(a);}}\ntemplate<typename\
+    \ T> inline void input(const long long N, set<T>& A, set<T>& B) { rep(i, N) {T\
+    \ a, b; cin >> a >> b; A.insert(a); B.insert(b);}}\ntemplate<typename T> inline\
+    \ void input(const long long N, set<T>& A, set<T>& B, set<T>& C) { rep(i, N) {T\
+    \ a, b, c; cin >> a >> b >> c; A.insert(a); B.insert(b); C.insert(c);}}\ntemplate<typename\
+    \ T> inline void input(vector<vector<T>>& A) { rep(i, A.size()) input(A[i]);}\n\
+    \ninline string YESNO(bool flag) { return flag ? \"YES\" : \"NO\";}\ninline string\
+    \ yesno(bool flag) { return flag ? \"yes\" : \"no\";}\ninline string YesNo(bool\
+    \ flag) { return flag ? \"Yes\" : \"No\";}\ninline string POSSIBLE(bool flag)\
+    \ { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\";}\ninline string Possible(bool\
+    \ flag) { return flag ? \"Possible\" : \"Impossible\";}\ninline string TakahashiAoki(bool\
+    \ flag) { return flag ? \"Takahashi\" : \"Aoki\";}\n\n// \u7B2C\u4E00\u5F15\u6570\
+    \u3068\u7B2C\u4E8C\u5F15\u6570\u3092\u6BD4\u8F03\u3057\u3001\u7B2C\u4E00\u5F15\
+    \u6570(a)\u3092\u3088\u308A\u5927\u304D\u3044/\u5C0F\u3055\u3044\u5024\u306B\u4E0A\
+    \u66F8\u304D\ntemplate<typename T> inline bool chmin(T &a, const T &b) { return\
+    \ ((a > b) ? (a = b, true) : false);}\ntemplate<typename T> inline bool chmax(T\
+    \ &a, const T &b) { return ((a < b) ? (a = b, true) : false);}\n\n#if __cplusplus\
+    \ > 201703L\nusing ranges::random_access_range;\nusing ranges::bidirectional_range;\n\
+    using ranges::forward_range;\nusing ranges::input_range;\nusing ranges::range_value_t;\n\
+    using ranges::iterator_t;\nusing ranges::borrowed_iterator_t;\nusing ranges::range_difference_t;\n\
+    \ntemplate <input_range R, class Proj = identity, indirect_unary_predicate<projected<iterator_t<R>,\
+    \ Proj>> Pred> constexpr bool all_of(R&& r, Pred pred, Proj proj = {}) { return\
+    \ ranges::all_of(r, pred, proj);};\ntemplate <input_range R, class Proj = identity,\
+    \ indirect_unary_predicate<projected<iterator_t<R>, Proj>> Pred> constexpr bool\
+    \ any_of(R&& r, Pred pred, Proj proj = {}) { return ranges::any_of(r, pred, proj);};\
+    \ \ntemplate <input_range R, class Proj = identity, indirect_unary_predicate<projected<iterator_t<R>,\
+    \ Proj>> Pred> constexpr bool none_of(R&& r, Pred pred, Proj proj = {}) { return\
+    \ ranges::none_of(r, pred, proj);};\ntemplate <forward_range R, class Proj = identity,\
+    \ indirect_strict_weak_order<projected<iterator_t<R>, Proj>> Comp = ranges::less>\
+    \ constexpr bool is_sorted(R&& r, Comp comp = {}, Proj proj = {}) { return ranges::is_sorted(r,\
+    \ comp, proj);};\ntemplate <forward_range R1, forward_range R2, class Proj1 =\
+    \ identity, class Proj2 = identity, indirect_equivalence_relation<projected<iterator_t<R1>,\
+    \ Proj1>, projected<iterator_t<R2>, Proj2>> Pred = ranges::equal_to> constexpr\
+    \ bool is_permutation(R1&& r1, R2&& r2, Pred pred = {}, Proj1 proj1 = {}, Proj2\
+    \ proj2 = {}) { return is_permutation(r1, r2, pred, proj1, proj2);}; \ntemplate\
+    \ <forward_range R, class T, class Proj = identity, indirect_strict_weak_order<const\
+    \ T*, projected<iterator_t<R>, Proj>> Comp = ranges::less> constexpr borrowed_iterator_t<R>\
+    \ lower_bound(R&& r, const T& value, Comp comp = {}, Proj proj = {}) { return\
+    \ ranges::lower_bound(r, value, comp, proj);}; \ntemplate <forward_range R, class\
+    \ T, class Proj = identity, indirect_strict_weak_order<const T*, projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr borrowed_iterator_t<R> upper_bound(R&&\
+    \ r, const T& value, Comp comp = {}, Proj proj = {}) { return ranges::upper_bound(r,\
+    \ value, comp, proj);};\ntemplate <input_range R, weakly_incrementable O, class\
+    \ Gen> O sample(R&& r, O out, range_difference_t<R> n, Gen&& g) {return ranges::sample(r,\
+    \ out, n, g);};\ntemplate <input_range R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr range_value_t<R> max(R&& r, Comp comp\
+    \ = {}, Proj proj = {}) { return ranges::max(r, comp, proj);};\ntemplate <input_range\
+    \ R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr range_value_t<R> min(R&& r, Comp comp\
+    \ = {}, Proj proj = {}) { return ranges::min(r, comp, proj);};\ntemplate <input_range\
+    \ R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr ranges::minmax_result<range_value_t<R>>\
+    \ minmax(R&& r, Comp comp = {}, Proj proj = {}) { return ranges::minmax(r, comp,\
+    \ proj);};\ntemplate <forward_range R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr borrowed_iterator_t<R> max_element(R&&\
+    \ r, Comp comp = {}, Proj proj = {}) { return ranges::max_element(r, comp, proj);};\n\
+    template <forward_range R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr borrowed_iterator_t<R> min_element(R&&\
+    \ r, Comp comp = {}, Proj proj = {}) { return ranges::min_element(r, comp, proj);};\n\
+    template <forward_range R, class Proj = identity, indirect_strict_weak_order<projected<iterator_t<R>,\
+    \ Proj>> Comp = ranges::less> constexpr ranges::minmax_element_result<borrowed_iterator_t<R>>\
+    \ minmax_element(R&& r, Comp comp = {}, Proj proj = {}) { return ranges::minmax_element(r,\
+    \ comp, proj);};\ntemplate <bidirectional_range R, class Comp = ranges::less,\
+    \ class Proj = identity> constexpr ranges::next_permutation_result<borrowed_iterator_t<R>>\
+    \ next_permutation(R&& r, Comp comp = {}, Proj proj = {}) {return ranges::next_permutation(r,\
+    \ comp, proj);}; \ntemplate <bidirectional_range R, class Comp = ranges::less,\
+    \ class Proj = identity> constexpr ranges::prev_permutation_result<borrowed_iterator_t<R>>\
+    \ prev_permutation(R&& r, Comp comp = {}, Proj proj = {}) {return ranges::prev_permutation(r,\
+    \ comp, proj);}; \ntemplate <random_access_range R, class Comp = ranges::less,\
+    \ class Proj = identity> constexpr borrowed_iterator_t<R> sort(R&& r, Comp comp\
+    \ = {}, Proj proj = {}) { return ranges::sort(r, comp, proj);};\ntemplate <random_access_range\
+    \ R, class Comp = ranges::less, class Proj = identity> constexpr borrowed_iterator_t<R>\
+    \ stable_sort(R&& r, Comp comp = {}, Proj proj = {}) { return ranges::stable_sort(r,\
+    \ comp, proj);};\ntemplate <bidirectional_range R> constexpr borrowed_iterator_t<R>\
+    \ reverse(R&& r) { return ranges::reverse(r);};\n\n#else\ntemplate<typename T>\
+    \ inline void sort(vector<T>& A) { sort(A.begin(), A.end());}\ntemplate<typename\
+    \ T> inline void reverse(vector<T>& A) { reverse(A.begin(), A.end());}\ninline\
+    \ void reverse(string &s) { reverse(s.begin(), s.end());}\ntemplate<typename T>\
+    \ inline T min(const vector<T>& A) { return *min_element(A.begin(), A.end());}\n\
+    template<typename T> inline T max(const vector<T>& A) { return *max_element(A.begin(),\
+    \ A.end());}\n\n#endif\n\ntemplate<typename T> T accumulate(vector<T> A) { return\
+    \ accumulate(A.begin(), A.end(), T(0));}\ntemplate<typename T> inline size_t min_index(const\
+    \ vector<T>& A) { return distance(A.begin(), min_element(A.begin(), A.end()));}\n\
+    template<typename T> inline size_t max_index(const vector<T>& A) { return distance(A.begin(),\
+    \ max_element(A.begin(), A.end()));}\n\n// math\u95A2\u4FC2\ninline long long\
+    \ min(long long x, int y) {return min(x, (long long)y);}\ninline long long min(int\
+    \ x, long long y) {return min((long long)x, y);}\ninline long long max(long long\
+    \ x, int y) {return max(x, (long long)y);}\ninline long long max(int x, long long\
+    \ y) {return max((long long)x, y);}\ninline long long ceil(long long x, long long\
+    \ y) { return x / y + (x % y > 0);}\ninline long long floor(long long x, long\
+    \ long y) { return x / y - (x % y < 0);}\npair<long long, long long> divmod(long\
+    \ long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1)\
+    \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
+    \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
+    \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
+    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
+    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
+    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
+    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
+    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
+    \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
+    \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
+    \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
+    \ << N;\n    return ss.str();\n}\ninline string zero_padding(long long N, long\
+    \ long width) { return zero_padding(lltos(N), width);}\ninline string to_n_base(long\
+    \ long x, long long base) {\n    assert(2 <= base and base <= 36);\n    if (x\
+    \ == 0) return \"0\";\n    string ret;\n    for (; x > 0; x /= base) ret += (((x\
+    \ % base) < 10) ? '0' + (x % base) : 'a' + (x % base) - 10);\n    reverse(ret);\n\
+    \    return ret;\n}\ninline long long to_decimal(string S, long long base) {\n\
+    \    assert(2 <= base and base <= 36);\n    long long ret = 0, x = 1;\n    repd(i,\
+    \ S.size()) {\n        ret += (long long)(('0' <= S[i] and S[i] <= '9') ? S[i]\
+    \ - '0' : (('a' <= S[i] and S[i] <= 'z') ? S[i] = 'a' + 10 : S[i] - 'A' + 10))\
+    \ * x;\n        x *= base;\n    }\n    return ret;\n}\nbool is_palindrome(const\
+    \ string& S) {\n    rep(i, S.size() / 2) if (S[i] != S[S.size() - i - 1]) return\
+    \ false;\n    return true;\n}\n\ntemplate<class T = long long> inline pair<T,\
+    \ T> DRUL(T y, T x, char c) { return {((c == 'D') ? y + 1 : ((c == 'U') ? y -\
+    \ 1 : y)), ((c == 'R') ? x + 1 : ((c == 'L') ? x - 1 : x))};}\ntemplate <typename\
+    \ T> long long bubble_sort(vector<T> &A) {\n    ll ret = 0;\n    rep(i, A.size()\
+    \ - 1) rep(j, A.size() - 1) if (A[j] > A[j + 1]) {\n        swap(A[j], A[j + 1]);\n\
+    \        ++ret;\n    } \n    return ret;\n}\n\ntemplate<typename T> vector<T>\
+    \ compress(const vector<T> &A, bool unique_id = false) {\n    long long N = A.size();\n\
+    \    vector<pair<T, long long>> B;\n    rep(i, N) B.emplace_back(A[i], i);\n \
+    \   sort(B.begin(), B.end());\n    vector<T> C(N);\n    ll count = 0;\n    rep(i,\
+    \ N) {\n        C[B[i].second] = count;\n        if (unique_id)++count;\n    \
+    \    else if (i < N - 1 and B[i].first != B[i + 1].first) ++count;\n    } \n \
+    \   return C;\n}\n\n// bit\u95A2\u4FC2\nbool bit_test(long long x, long long pos)\
+    \ { return (x >> pos) & 1ll; }\nlong long bit_set(long long x, long long pos,\
+    \ bool flg) { return flg ? (x | (1ll << pos)) : (x & ~(1ll << pos)); }\nlong long\
+    \ bit_flip(long long x, long long pos) { return x ^ (1ll << pos); }\n#if __cplusplus\
+    \ > 201703L\nlong long bit_count(long long x) { return popcount((ull)x); }\n#else\
+    \ \nlong long bit_count(long long x) { return __builtin_popcountll(x); }\n#endif\n\
+    \n// \u914D\u5217\u95A2\u4FC2\n// \u30AD\u30FC\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
+    \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
+    \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
+    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
+    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
+    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
+    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
+    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
+    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
+    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
+    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
+    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
+    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
+    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
+    \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
+    \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
+    \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
+    \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
+    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
+    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
+    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
+    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
+    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
+    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
+    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
+    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
+    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
+    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
+    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
+    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
+    \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
+    \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
+    \ T, typename U> auto operator-(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first - x, p.second - x); }\ntemplate <typename T, typename U> auto operator*(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first * x, p.second * x); }\n\
+    template <typename T, typename U> auto operator/(const pair<T, U>& p, const T\
+    \ x) { return pair<T, U>(p.first / x, p.second / x); }\ntemplate <typename T,\
+    \ typename U> auto operator%(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first % x, p.second % x); }\ntemplate <typename T, typename U> auto binpow(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(binpow(p.first, x), binpow(p.second,\
+    \ x)); }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
+    \ p, const pair<T, U>& q) { return pair<T, U>(p.first + q.first, p.second + q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator-(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first - q.first, p.second - q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator*(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first * q.first, p.second * q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator/(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first / q.first, p.second / q.second);\
+    \ }\ntemplate <typename T, typename U> auto operator%(const pair<T, U>& p, const\
+    \ pair<T, U>& q) { return pair<T, U>(p.first % q.first, p.second % q.second);\
+    \ }\n\ntemplate <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first;\
+    \ ++p.second; return p; }\ntemplate <typename T, typename U> auto operator++(pair<T,\
+    \ U>& p, int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate\
+    \ <typename T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second;\
+    \ return p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p,\
+    \ int) { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
+    \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
+    \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
+    \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"tree/tree-dp.cpp\"\
+    \n\ntemplate<typename T, typename S = T>\nstruct Product {\n    T value;\n   \
+    \ S sub0, sub1;\n    long long num_v;\n    long long num_e;\n\n    Product(T v\
+    \ = 0, S s0 = 0, S s1 = 0, long long nv = 0, long long ne = 0) : value(v), sub0(s0),\
+    \ sub1(s1), num_v(nv), num_e(ne) {};\n\n    operator T() const {\n        return\
+    \ value;\n    }\n};\n\ntemplate<typename Weight, typename T>\nstruct Put {\n \
+    \   using S = Product<T>;\n\n    Put() {};\n\n    virtual T e() = 0;\n    virtual\
+    \ bool is_vertex() = 0;\n    virtual bool is_none() = 0;\n\n    virtual S operator()\
+    \ (const S& dp, const Weight& w) = 0;\n};\n\ntemplate<typename Weight, typename\
+    \ T>\nstruct None : Put<Weight, T> {\n    using S = Product<T>;\n\n    None(bool\
+    \ is_vertex): _e(numeric_limits<T>::min()), _is_vertex(is_vertex), _is_none(true)\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    bool is_vertex()\
+    \ override {\n        return _is_vertex;\n    }\n\n    bool is_none() override\
+    \ {\n        return _is_none;\n    }\n\n    S operator() (const S& dp, const Weight&\
+    \ w) override {\n        T value = dp.value;\n        T sub0 = dp.sub0;\n    \
+    \    T sub1 = dp.sub1;\n        long long num_v = dp.num_v + (is_vertex() == true);\n\
+    \        long long num_e = dp.num_e + (is_vertex() == false);\n\n        return\
+    \ S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool\
+    \ _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename Weight, typename T>\n\
+    struct Add : Put<Weight, T> {\n    using S = Product<T>;\n\n    Add(bool is_vertex)\
+    \ : _e(T(0)), _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    bool is_vertex() override {\n        return\
+    \ _is_vertex;\n    }\n\n    bool is_none() override {\n        return _is_none;\n\
+    \    }\n\n    S operator() (const S& dp, const Weight& w) override {\n       \
+    \ T value = dp.value + T(w);\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n\
+    \        long long num_v = dp.num_v + (is_vertex() == true);\n        long long\
+    \ num_e = dp.num_e + (is_vertex() == false);\n\n        return S(value, sub0,\
+    \ sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n \
+    \   bool _is_none;\n};\n\ntemplate<typename Weight, typename T>\nstruct Mul :\
+    \ Put<Weight, T> {\n    using S = Product<T>;\n\n    Mul(bool is_vertex) : _e(T(1)),\
+    \ _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override {\n       \
+    \ return _e;\n    }\n\n    bool is_vertex() override {\n        return _is_vertex;\n\
+    \    }\n\n    bool is_none() override {\n        return _is_none;\n    }\n\n \
+    \   S operator() (const S& dp, const Weight& w) override {\n        T value =\
+    \ dp.value * T(w);\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n   \
+    \     long long num_v = dp.num_v + (is_vertex() == true);\n        long long num_e\
+    \ = dp.num_e + (is_vertex() == false);\n\n        return S(value, sub0, sub1,\
+    \ num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n    bool\
+    \ _is_none;\n};\n\ntemplate<typename Weight, typename T>\nstruct AddETimes : Put<Weight,\
+    \ T> {\n    using S = Product<T>;\n\n    AddETimes(bool is_vertex) : _e(T(0)),\
+    \ _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override {\n       \
+    \ return _e;\n    }\n\n    bool is_vertex() override {\n        return _is_vertex;\n\
+    \    }\n\n    bool is_none() override {\n        return _is_none;\n    }\n\n \
+    \   S operator() (const S& dp, const Weight& w) override {\n        T value =\
+    \ dp.value + T(w * dp.num_e);\n        T sub0 = dp.sub0;\n        T sub1 = dp.sub1;\n\
+    \        long long num_v = dp.num_v + (is_vertex() == true);\n        long long\
+    \ num_e = dp.num_e + (is_vertex() == false);\n\n        return S(value, sub0,\
+    \ sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool _is_vertex;\n \
+    \   bool _is_none;\n};\n\ntemplate<typename Weight, typename T>\nstruct AddVTimes\
+    \ : Put<Weight, T> {\n    using S = Product<T>;\n\n    AddVTimes(bool is_vertex)\
+    \ : _e(T(0)), _is_vertex(is_vertex), _is_none(false) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    bool is_vertex() override {\n        return\
+    \ _is_vertex;\n    }\n\n    bool is_none() override {\n        return _is_none;\n\
+    \    }\n\n    S operator() (const S& dp, const Weight& w) override {\n       \
+    \ T value = dp.value + T(w * dp.num_v);\n        T sub0 = dp.sub0;\n        T\
+    \ sub1 = dp.sub1;\n        long long num_v = dp.num_v + (is_vertex() == true);\n\
+    \        long long num_e = dp.num_e + (is_vertex() == false);\n\n        return\
+    \ S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n    bool\
+    \ _is_vertex;\n    bool _is_none;\n};\n\ntemplate<typename T>\nstruct Merge {\n\
+    \    using S = Product<T>;\n\n    Merge() {};\n\n    virtual T e() = 0;\n\n  \
+    \  virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
+    \ T>\nstruct Sum : Merge<T> {\n    using S = Product<T>;\n\n    Sum() : _e(T(0))\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = x.value + y.value;\n       \
+    \ T sub0 = x.sub0 + y.sub0;\n        T sub1 = x.sub1 + y.sub1;\n        long long\
+    \ num_v = x.num_v + y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\n\
+    \        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T\
+    \ _e;\n};\n\ntemplate<typename T>\nstruct Max : Merge<T> {\n    using S = Product<T>;\n\
+    \n    Max() : _e(numeric_limits<T>::min()) {};\n\n    T e() override {\n     \
+    \   return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
+    \        T value, sub0, sub1;\n        if (x.value < y.value) {\n            value\
+    \ = y.value;\n            sub0 = y.sub0;\n            sub1 = y.sub1;\n       \
+    \ }\n        else {\n            value = x.value;\n            sub0 = x.sub0;\n\
+    \            sub1 = x.sub1;\n        }\n\n        long long num_v = x.num_v +\
+    \ y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\n        return S(value,\
+    \ sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T>\nstruct Min : Merge<T> {\n    using S = Product<T>;\n\n    Min() : _e(numeric_limits<T>::max())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value, sub0, sub1;\n        if (x.value\
+    \ < y.value) {\n            value = x.value;\n            sub0 = x.sub0;\n   \
+    \         sub1 = x.sub1;\n        }\n        else {\n            value = y.value;\n\
+    \            sub0 = y.sub0;\n            sub1 = y.sub1;\n        }\n\n       \
+    \ long long num_v = x.num_v + y.num_v;\n        long long num_e = x.num_e + y.num_e;\n\
+    \n        return S(value, sub0, sub1, num_v, num_e);\n    }\n\nprivate:\n    T\
+    \ _e;\n};\n\n/**\n * @brief tree-dp\n * @docs docs/tree/tree-dp.md\n*/\ntemplate\
+    \ <typename EdgeWeight, \n    typename VertexWeight, \n    typename T,\n    template<class,\
+    \ class> class _put_vertex,\n    template<class, class> class _put_edge,\n   \
+    \ template<class> class _merge>\nstruct TreeDP {\n    struct Edge {\n        long\
+    \ long from;\n        long long to;\n        EdgeWeight weight;\n        long\
+    \ long rev;\n        \n        explicit Edge(long long u = -1, long long v = -1,\
+    \ EdgeWeight w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\
+    \n        bool operator < (const Edge& other) const {\n            if (from ==\
+    \ other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \                else return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    using DP = Product<T>;\n\n    long long V;\n    vector<vector<Edge>> G;\n\
+    \    vector<bool> seen;\n\n    vector<VertexWeight> v_weight;\n\n    _put_vertex<VertexWeight,\
+    \ T> put_vertex;\n    _put_edge<EdgeWeight, T> put_edge;\n    _merge<T> merge;\n\
+    \n    // \u5168\u65B9\u4F4D\u6728dp\u7528\n    vector<vector<DP>> dp;\n    vector<DP>\
+    \ prod_all;\n    long long root;\n\n    TreeDP(long long N) : V(N), G(V), put_vertex(true),\
+    \ put_edge(false), merge() {\n        init();\n    };\n\n    DP e() {\n      \
+    \  if (!put_vertex.is_none()) return put_vertex.e();\n        else return put_edge.e();\n\
+    \    }\n    \n    void init() {\n        seen.assign(V, false);\n\n        v_weight.resize(V);\n\
+    \        dp.resize(V);\n        prod_all.assign(V, merge.e());\n    }\n    \n\
+    \    void connect(long long from, long long to, EdgeWeight weight) {\n       \
+    \ assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\n   \
+    \     long long from_id = G[from].size();\n        long long to_id = G[to].size();\n\
+    \n        G[from].emplace_back(from, to, weight, to_id);\n        G[to].emplace_back(to,\
+    \ from, weight, from_id);\n\n        dp[from].push_back(e());\n        dp[to].push_back(e());\n\
+    \    }\n\n    void set_vertex_weight(long long v, VertexWeight w) {\n        assert(0\
+    \ <= v and v < V);\n\n        v_weight[v] = w;\n    }\n\n    DP build(long long\
+    \ root_) {\n        root = root_;\n        return dfs(root);\n    }\n\n    vector<DP>\
+    \ reroot() {\n        prod(root, e());\n\n        return prod_all;\n    }\n\n\
+    \    DP dfs(long long now) {\n        assert(0 <= now and now < V);\n\n      \
+    \  DP ret = e();\n\n        seen[now] = true;\n\n        rep(i, G[now].size())\
+    \ {\n            Edge edge = G[now][i];\n            long long next = edge.to;\n\
+    \n            if (seen[next]) continue;\n\n            dp[now][i] = dfs(next);\n\
+    \            ret = merge(ret, put_edge(dp[now][i], edge.weight));\n        }\n\
+    \n        return put_vertex(ret, v_weight[now]);\n    }\n\n    void prod(long\
+    \ long now, const DP& dp_p, Edge e_p = Edge()) {\n        long long deg = G[now].size();\n\
+    \n        if (e_p.rev != -1) dp[now][e_p.rev] = dp_p;\n\n        vector<DP> prod_l(deg\
+    \ + 1, e()), prod_r(deg + 1, e());\n\n        rep(i, deg) {\n            Edge\
+    \ edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i], put_edge(dp[now][i],\
+    \ edge.weight));\n        }\n\n        repd(i, deg) {\n            Edge edge =\
+    \ G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
+    \ edge.weight));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
+    \ v_weight[now]);\n\n        rep(i, deg) {\n            if (i == e_p.rev) continue;\n\
+    \n            Edge edge = G[now][i];\n            long long child = edge.to;\n\
+    \            prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), v_weight[now]),\
+    \ edge);\n        }\n    }\n};\n#line 4 \"test/tree/tree-dp/aoj-grl-5-a.test.cpp\"\
+    \n\nint main() {\n    ll n;\n    cin >> n;\n\n    TreeDP<ll, ll, ll, None, Add,\
+    \ Max> tree(n);\n    rep(i, n - 1) {\n        ll s, t, w;\n        cin >> s >>\
+    \ t >> w;\n\n        tree.connect(s, t, w);\n    }\n\n    tree.build(0);\n   \
+    \ auto dp = tree.reroot();\n\n    ll ans = 0;\n    rep(i, n) {\n        chmax(ans,\
+    \ dp[i].value);\n    }\n\n    cout << ans << endl;\n\n    return 0;\n}\n"
+  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&\"\
+    \n\n#include \"../../../tree/tree-dp.cpp\"\n\nint main() {\n    ll n;\n    cin\
+    \ >> n;\n\n    TreeDP<ll, ll, ll, None, Add, Max> tree(n);\n    rep(i, n - 1)\
+    \ {\n        ll s, t, w;\n        cin >> s >> t >> w;\n\n        tree.connect(s,\
+    \ t, w);\n    }\n\n    tree.build(0);\n    auto dp = tree.reroot();\n\n    ll\
+    \ ans = 0;\n    rep(i, n) {\n        chmax(ans, dp[i].value);\n    }\n\n    cout\
+    \ << ans << endl;\n\n    return 0;\n}"
+  dependsOn:
+  - tree/tree-dp.cpp
+  - base.cpp
+  isVerificationFile: true
+  path: test/tree/tree-dp/aoj-grl-5-a.test.cpp
+  requiredBy: []
+  timestamp: '2024-09-28 16:31:12+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
+  verifiedWith: []
+documentation_of: test/tree/tree-dp/aoj-grl-5-a.test.cpp
+layout: document
+redirect_from:
+- /verify/test/tree/tree-dp/aoj-grl-5-a.test.cpp
+- /verify/test/tree/tree-dp/aoj-grl-5-a.test.cpp.html
+title: test/tree/tree-dp/aoj-grl-5-a.test.cpp
+---

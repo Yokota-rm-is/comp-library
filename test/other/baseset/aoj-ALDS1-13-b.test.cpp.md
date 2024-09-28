@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: other/baseset.cpp
     title: other/baseset.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_13_B
@@ -44,27 +44,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -258,28 +265,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -387,58 +394,64 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"other/baseset.cpp\"\n\nvector<long long> powers\
-    \ = {1};\n\nstruct Baseset {\n    const long long base;\n    long long x;\n\n\
-    \    Baseset(long long base, long long x = 0) : base(base), x(x) {}\n\n    Baseset(long\
-    \ long base, vector<long long> v) : base(base), x(0) {\n        rep(i, v.size())\
-    \ add(i, v[i]);\n    }\n\n    void set(long long pos, long long val) {\n     \
-    \   x += (val - get(pos)) * pow(pos);\n    }\n\n    void set(vector<long long>&\
-    \ v) {\n        rep(i, v.size()) set(i, v[i]);\n    }\n\n    void add(long long\
-    \ pos, long long val) {\n        long long val_pos = get(pos); \n        val =\
-    \ clamp(val, -val_pos, base - 1 - val_pos);\n        x += val * pow(pos);\n  \
-    \  }\n\n    void add(vector<long long>& v) {\n        rep(i, v.size()) add(i,\
-    \ v[i]);\n    }\n\n    long long get(long long pos) { \n        return (x / pow(pos))\
-    \ % base;\n    }\n\n    long long operator[](long long pos) { \n        return\
-    \ get(pos);\n    }\n\n    long long pow(long long pos) {\n        if (pos < (ll)powers.size())\
-    \ return powers[pos];\n\n        long long ret = powers.back();\n        rep(i,\
-    \ pos - powers.size() + 1) {\n            ret *= base;\n            powers.push_back(ret);\n\
-    \        }\n        return ret;\n    }\n\n    long long end(long long pos) {\n\
-    \        return pow(pos + 1);\n    }\n\n    operator long long() { \n        return\
-    \ x; \n    }\n    \n    Baseset& operator++() { \n        ++x;\n        return\
-    \ *this;\n    }\n\n    Baseset& operator--() { \n        --x;\n        return\
-    \ *this;\n    }\n\n    bool operator==(Baseset other) { return x == other.x; }\n\
-    \    bool operator!=(Baseset other) { return x != other.x; }\n    bool operator<(Baseset\
-    \ other) { return x < other.x; }\n    bool operator>(Baseset other) { return x\
-    \ > other.x; }\n    bool operator<=(Baseset other) { return x <= other.x; }\n\
-    \    bool operator>=(Baseset other) { return x >= other.x; }\n    bool operator==(long\
-    \ long other) { return x == other; }\n    bool operator!=(long long other) { return\
-    \ x != other; }\n    bool operator<(long long other) { return x < other; }\n \
-    \   bool operator>(long long other) { return x > other; }\n    bool operator<=(long\
-    \ long other) { return x <= other; }\n    bool operator>=(long long other) { return\
-    \ x >= other; }\n\n    friend istream& operator>>(istream& is, Baseset& x) { return\
-    \ is >> x.x; }\n    friend ostream& operator<<(ostream& os, Baseset& x) { \n \
-    \       long long y = x.x;\n        long long base = x.base;\n        os << y\
-    \ % base;\n        y /= base;\n\n        while (y > 0) {\n            os << \"\
-    \ \" << y % base;\n            y /= base;\n        }\n        return os; \n  \
-    \  }\n};\n#line 4 \"test/other/baseset/aoj-ALDS1-13-b.test.cpp\"\n\nll N = 3;\n\
-    \nlong long f(Baseset now, Baseset target) {\n    long long ret = 0;\n\n    vector<bool>\
-    \ seen(binpow(9, 9), false);\n    queue<array<long long, 4>> que;\n\n    ll x,\
-    \ y;\n    rep(i, N) rep(j, N) {\n        if (now.get(i * N + j) == 0) {\n    \
-    \        y = i;\n            x = j;\n            break;\n        }\n    }\n  \
-    \  que.push({now, 0, y, x});\n    seen[now] = true;\n\n    while (!que.empty())\
-    \ {\n        auto [nb, cost, y, x] = que.front(); que.pop();\n        Baseset\
-    \ now(9, nb);\n        if (now == target) {\n            ret = cost;\n       \
-    \     break;\n        }\n\n        rep(i, 4) {\n            auto [ny, nx] = DRUL(y,\
-    \ x, \"DRUL\"[i]);\n            if (ny < 0 or ny >= N or nx < 0 or nx >= N) continue;\n\
-    \n            Baseset next = now;\n            next.set(y * N + x, now.get(ny\
-    \ * N + nx));\n            next.set(ny * N + nx, 0);\n            if (seen[next])\
-    \ continue;\n            seen[next] = true;\n            que.push({next, cost\
-    \ + 1, ny, nx});\n        }\n    }\n\n    return ret;\n}\n\nint main() {\n   \
-    \ vvll A(N, vll(N));\n    rep(i, N) rep(j, N) cin >> A[i][j];\n\n    Baseset now(9),\
-    \ target(9);\n    rep(i, N) rep(j, N) {\n        now.set(i * N + j, A[i][j]);\n\
-    \        if (i * N + j < 8) target.set(i * N + j, i * N + j + 1);\n        else\
-    \ target.set(i * N + j, 0);\n    }\n\n    ll ans = f(now, target);\n\n    cout\
-    \ << ans << endl;\n\n    return 0;\n} \n"
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"other/baseset.cpp\"\
+    \n\nvector<long long> powers = {1};\n\nstruct Baseset {\n    const long long base;\n\
+    \    long long x;\n\n    Baseset(long long base, long long x = 0) : base(base),\
+    \ x(x) {}\n\n    Baseset(long long base, vector<long long> v) : base(base), x(0)\
+    \ {\n        rep(i, v.size()) add(i, v[i]);\n    }\n\n    void set(long long pos,\
+    \ long long val) {\n        x += (val - get(pos)) * pow(pos);\n    }\n\n    void\
+    \ set(vector<long long>& v) {\n        rep(i, v.size()) set(i, v[i]);\n    }\n\
+    \n    void add(long long pos, long long val) {\n        long long val_pos = get(pos);\
+    \ \n        val = clamp(val, -val_pos, base - 1 - val_pos);\n        x += val\
+    \ * pow(pos);\n    }\n\n    void add(vector<long long>& v) {\n        rep(i, v.size())\
+    \ add(i, v[i]);\n    }\n\n    long long get(long long pos) { \n        return\
+    \ (x / pow(pos)) % base;\n    }\n\n    long long operator[](long long pos) { \n\
+    \        return get(pos);\n    }\n\n    long long pow(long long pos) {\n     \
+    \   if (pos < (ll)powers.size()) return powers[pos];\n\n        long long ret\
+    \ = powers.back();\n        rep(i, pos - powers.size() + 1) {\n            ret\
+    \ *= base;\n            powers.push_back(ret);\n        }\n        return ret;\n\
+    \    }\n\n    long long end(long long pos) {\n        return pow(pos + 1);\n \
+    \   }\n\n    operator long long() { \n        return x; \n    }\n    \n    Baseset&\
+    \ operator++() { \n        ++x;\n        return *this;\n    }\n\n    Baseset&\
+    \ operator--() { \n        --x;\n        return *this;\n    }\n\n    bool operator==(Baseset\
+    \ other) { return x == other.x; }\n    bool operator!=(Baseset other) { return\
+    \ x != other.x; }\n    bool operator<(Baseset other) { return x < other.x; }\n\
+    \    bool operator>(Baseset other) { return x > other.x; }\n    bool operator<=(Baseset\
+    \ other) { return x <= other.x; }\n    bool operator>=(Baseset other) { return\
+    \ x >= other.x; }\n    bool operator==(long long other) { return x == other; }\n\
+    \    bool operator!=(long long other) { return x != other; }\n    bool operator<(long\
+    \ long other) { return x < other; }\n    bool operator>(long long other) { return\
+    \ x > other; }\n    bool operator<=(long long other) { return x <= other; }\n\
+    \    bool operator>=(long long other) { return x >= other; }\n\n    friend istream&\
+    \ operator>>(istream& is, Baseset& x) { return is >> x.x; }\n    friend ostream&\
+    \ operator<<(ostream& os, Baseset& x) { \n        long long y = x.x;\n       \
+    \ long long base = x.base;\n        os << y % base;\n        y /= base;\n\n  \
+    \      while (y > 0) {\n            os << \" \" << y % base;\n            y /=\
+    \ base;\n        }\n        return os; \n    }\n};\n#line 4 \"test/other/baseset/aoj-ALDS1-13-b.test.cpp\"\
+    \n\nll N = 3;\n\nlong long f(Baseset now, Baseset target) {\n    long long ret\
+    \ = 0;\n\n    vector<bool> seen(binpow(9, 9), false);\n    queue<array<long long,\
+    \ 4>> que;\n\n    ll x, y;\n    rep(i, N) rep(j, N) {\n        if (now.get(i *\
+    \ N + j) == 0) {\n            y = i;\n            x = j;\n            break;\n\
+    \        }\n    }\n    que.push({now, 0, y, x});\n    seen[now] = true;\n\n  \
+    \  while (!que.empty()) {\n        auto [nb, cost, y, x] = que.front(); que.pop();\n\
+    \        Baseset now(9, nb);\n        if (now == target) {\n            ret =\
+    \ cost;\n            break;\n        }\n\n        rep(i, 4) {\n            auto\
+    \ [ny, nx] = DRUL(y, x, \"DRUL\"[i]);\n            if (ny < 0 or ny >= N or nx\
+    \ < 0 or nx >= N) continue;\n\n            Baseset next = now;\n            next.set(y\
+    \ * N + x, now.get(ny * N + nx));\n            next.set(ny * N + nx, 0);\n   \
+    \         if (seen[next]) continue;\n            seen[next] = true;\n        \
+    \    que.push({next, cost + 1, ny, nx});\n        }\n    }\n\n    return ret;\n\
+    }\n\nint main() {\n    vvll A(N, vll(N));\n    rep(i, N) rep(j, N) cin >> A[i][j];\n\
+    \n    Baseset now(9), target(9);\n    rep(i, N) rep(j, N) {\n        now.set(i\
+    \ * N + j, A[i][j]);\n        if (i * N + j < 8) target.set(i * N + j, i * N +\
+    \ j + 1);\n        else target.set(i * N + j, 0);\n    }\n\n    ll ans = f(now,\
+    \ target);\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_13_B\"\
     \n\n#include \"../../../other/baseset.cpp\"\n\nll N = 3;\n\nlong long f(Baseset\
     \ now, Baseset target) {\n    long long ret = 0;\n\n    vector<bool> seen(binpow(9,\
@@ -465,8 +478,8 @@ data:
   isVerificationFile: true
   path: test/other/baseset/aoj-ALDS1-13-b.test.cpp
   requiredBy: []
-  timestamp: '2024-08-18 02:45:23+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2024-09-28 16:22:31+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/other/baseset/aoj-ALDS1-13-b.test.cpp
 layout: document

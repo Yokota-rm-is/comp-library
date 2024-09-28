@@ -1,20 +1,21 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: test/graph/bfs01/atcoder-abc176-d.test.cpp
     title: test/graph/bfs01/atcoder-abc176-d.test.cpp
-  _isVerificationFailed: false
+  - icon: ':x:'
+    path: test/graph/bfs01/atcoder-abc302-f.test.cpp
+    title: test/graph/bfs01/atcoder-abc302-f.test.cpp
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
-    _deprecated_at_docs: docs/graph/bfs.md
-    document_title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
     #if __has_include(<boost/algorithm/string.hpp>)\n#include <boost/algorithm/string.hpp>\n\
@@ -41,27 +42,34 @@ data:
     \ >= (long long)(l); (i) -= (s))\n#define repd(i, ...) OVERLOAD_REP(__VA_ARGS__,\
     \ REPD3, REPD2, REPD1)(i, __VA_ARGS__)\n\n#define fore(i, I) for (auto& i: (I))\n\
     #define fored(i, I) for (auto& i: (I) | views::reverse)\n#define ALL(A) A.begin(),\
-    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, name, ...)\
-    \ name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \" << __LINE__ << \", \"\
-    \ << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a, b) if (DEBUG) {DUMP1(a);\
-    \ DUMP1(b)};\n#define DUMP3(a, b, c) if (DEBUG) {DUMP1(a); DUMP2(b, c)};\n#define\
-    \ DUMP4(a, b, c, d) if (DEBUG) {DUMP1(a); DUMP3(b, c, d)};\n#define DUMP5(a, b,\
-    \ c, d, e) if (DEBUG) {DUMP1(a); DUMP4(b, c, d, e)};\n#define debug(...) OVERLOAD_DEBUG(__VA_ARGS__,\
-    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ll\
-    \ = long long;\nusing ull = unsigned long long;\nusing vll = vector<ll>;\nusing\
-    \ setll = set<ll>;\nusing mapll = map<ll, ll>;\nusing pll = pair<ll, ll>;\ntemplate<typename\
-    \ T> using vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\n\
-    using vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
-    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
-    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
-    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
-    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
-    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    \ A.end()\n\n// for debug\n#define OVERLOAD_DEBUG(_1, _2, _3, _4, _5, _6, _7,\
+    \ _8, _9, _10, name, ...) name\n#define DUMP1(a) if (DEBUG) {cerr << \"line: \"\
+    \ << __LINE__ << \", \" << #a << \": \"; dump(a); cerr << endl;};\n#define DUMP2(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP1(__VA_ARGS__);};\n#define DUMP3(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP2(__VA_ARGS__);};\n#define DUMP4(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP3(__VA_ARGS__);};\n#define DUMP5(a, ...) if (DEBUG) {DUMP1(a); DUMP4(__VA_ARGS__);};\n\
+    #define DUMP6(a, ...) if (DEBUG) {DUMP1(a); DUMP5(__VA_ARGS__);};\n#define DUMP7(a,\
+    \ ...) if (DEBUG) {DUMP1(a); DUMP6(__VA_ARGS__);};\n#define DUMP8(a, ...) if (DEBUG)\
+    \ {DUMP1(a); DUMP7(__VA_ARGS__);};\n#define DUMP9(a, ...) if (DEBUG) {DUMP1(a);\
+    \ DUMP8(__VA_ARGS__);};\n#define DUMP10(a, ...) if (DEBUG) {DUMP1(a); DUMP9(__VA_ARGS__);};\n\
+    #define debug(...) OVERLOAD_DEBUG(__VA_ARGS__, DUMP10, DUMP9, DUMP8, DUMP7, DUMP6,\
+    \ DUMP5, DUMP4, DUMP3, DUMP2, DUMP1)(__VA_ARGS__)\n\n// \u7701\u7565\nusing ushort\
+    \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
+    \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
+    using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
+    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
+    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
+    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
+    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
+    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
+    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
+    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
+    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
     using boost::lambda::_2;\nusing boost::lambda::_3;\n#endif\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
-    using namespace boost::multiprecision;\nusing lll = int128_t;\n#endif\n#if __has_include(<gmpxx.h>)\n\
+    using namespace boost::multiprecision;\n#endif\n#if __has_include(<gmpxx.h>)\n\
     #include <gmpxx.h>\nusing mpz = mpz_class;\n#endif\n\n// \u51FA\u529B\u30B9\u30C8\
     \u30EA\u30FC\u30E0\u6F14\u7B97\u5B50\ntemplate<typename T, typename U> ostream&\
     \ operator<< (ostream& os, pair<T, U>& p);\ntemplate<typename T, typename U> ostream&\
@@ -255,28 +263,28 @@ data:
     \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
     \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
     \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        x *= x;\n        if (m > 0) {ret %=\
-    \ m; x %= m;};\n        n >>= 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\
-    \n    }\n    return ret;\n}\n// mod. m \u3067\u306E a \u306E\u9006\u5143 a^{-1}\
-    \ \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T m) {\n\
-    \    T b = m, u = 1, v = 0;\n    while (b) {\n        T t = a / b;\n        a\
-    \ -= t * b; swap(a, b);\n        u -= t * v; swap(u, v);\n    }\n    u %= m;\n\
-    \    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\u6C42\u3081\u308B\
-    \nlong long nCr(long long n, long long k, long long m = 0) {\n    if (n < k) return\
-    \ 0;\n    if (n - k < k) k = n - k;\n    long long ret = 1;\n    rep(i, k) {\n\
-    \        ret *= (n - i);\n        if (m > 0) ret %= m;\n    }\n    rep(i, 1, k\
-    \ + 1) {\n        if (m > 0) {\n            ret *= modinv(i, m);\n           \
-    \ ret %= m;\n        } \n        else ret /= i;\n    }\n    return ret;\n}\n\n\
-    // \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const\
-    \ vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size()) ret =\
-    \ gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\
-    \u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long long\
-    \ m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]);\
-    \ if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\
-    \u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long, long long>\
-    \ extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1, 0};\n    auto\
-    \ [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n//\
-    \ string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
+    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
+    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
+    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
+    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
+    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
+    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
+    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
+    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
+    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
+    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
+    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
+    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
+    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
+    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
+    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
+    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
+    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
+    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
+    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
+    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
+    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
     inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
     \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
     \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
@@ -384,60 +392,65 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"graph/bfs01.cpp\"\n\n/**\n * @brief BFS(\u5E45\
-    \u512A\u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct BFS01 {\n  \
-    \  struct Edge {\n        long long from;\n        long long to;\n        long\
-    \ long weight;\n        \n        explicit Edge(long long u = -1, long long v\
-    \ = -1, long long w = -1) : from(u), to(v), weight(w) {};\n\n        bool operator\
-    \ < (const Edge& other) const {\n            if (from == other.from) {\n     \
-    \           return to < other.to;\n            }\n            else return from\
-    \ < other.from;\n        }\n\n        friend ostream& operator << (ostream& os,\
-    \ const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\n\
-    \    long long V;\n    bool directed_;\n    vector<vector<Edge>> G;\n    vector<bool>\
-    \ done;\n    vector<long long> prev;\n    vector<long long> cost;\n    long long\
-    \ group;\n\n    BFS01(long long N, bool directed) : V(N), directed_(directed),\
-    \ G(V){\n        init();\n    };\n    \n    void init() {\n        group = 0;\n\
-    \        done.assign(V, false);\n        prev.assign(V, -1);\n        cost.assign(V,\
-    \ inf64);\n    }\n    \n    void connect(long long from, long long to, long long\
-    \ weight) {\n        assert(0 <= from and from < V);\n        assert(0 <= to and\
-    \ to < V);\n        assert(weight == 0 or weight == 1);\n\n        if (directed_)\
-    \ {\n            G[from].emplace_back(from, to, weight);\n        }\n        else\
-    \ {\n            G[from].emplace_back(from, to, weight);\n            G[to].emplace_back(to,\
-    \ from, weight);\n        }\n    }\n\n    void operator() (long long start) {\n\
-    \        solve(start);\n    }\n\n    void solve_all() {\n        rep(i, V) {\n\
-    \            if (done[i]) continue;\n            solve(i);\n            ++group;\n\
-    \        }\n    }\n\n    void solve(long long start) {\n        assert(0 <= start\
-    \ and start < V);\n\n        deque<long long> que;\n\n        // \u521D\u671F\u6761\
-    \u4EF6 (\u9802\u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B\
-    )\n        cost[start] = 0;\n        que.push_back(start); // noq \u3092\u6A59\
-    \u8272\u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\
-    \u30FC\u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046\
-    )\n        while (!que.empty()) {\n            long long now = que.front(); //\
-    \ \u30AD\u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\
-    \u3059\n            que.pop_front();\n\n            if (done[now]) continue;\n\
-    \            done[now] = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\
-    \u9802\u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            fore(edge,\
-    \ G[now]) {\n                long long next = edge.to;\n                if (done[next])\
-    \ continue; // \u3059\u3067\u306B\u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\
-    \u63A2\u7D22\u3057\u306A\u3044\n\n                if (chmin(cost[next], cost[now]\
-    \ + edge.weight)) {\n                    if (edge.weight == 0) que.push_front(next);\
-    \ // \u65B0\u305F\u306A\u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\
-    \u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306E\u5148\
-    \u982D\u306B\u8FFD\u52A0\u3059\u308B\n                    else que.push_back(next);\
-    \ // \u65B0\u305F\u306A\u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\
-    \u96E2\u60C5\u5831\u3092\u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306E\u672B\
-    \u5C3E\u306B\u8FFD\u52A0\u3059\u308B\n\n                    prev[next] = now;\n\
-    \                }\n            }\n        }\n    }\n\n    long long count_cc()\
-    \ {\n        return group;\n    }\n\n    bool can_reach(long long to) {\n    \
-    \    assert(0 <= to and to < V);\n\n        return done[to];\n    }\n\n    vector<long\
-    \ long> get_path(long long to) {\n        assert(0 <= to and to < V);\n      \
-    \  if (!can_reach(to)) return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\
-    \n        while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
+    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
+    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
+    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
+    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
+    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
+    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
+    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"graph/bfs01.cpp\"\
+    \n\nstruct BFS01 {\n    struct Edge {\n        long long from;\n        long long\
+    \ to;\n        long long weight;\n        \n        explicit Edge(long long u\
+    \ = -1, long long v = -1, long long w = -1) : from(u), to(v), weight(w) {};\n\n\
+    \        bool operator < (const Edge& other) const {\n            if (from ==\
+    \ other.from) {\n                return to < other.to;\n            }\n      \
+    \      else return from < other.from;\n        }\n\n        friend ostream& operator\
+    \ << (ostream& os, const Edge& edge) {\n            return os << edge.to;\n  \
+    \      }\n    };\n\n    long long V;\n    bool directed_;\n    vector<vector<Edge>>\
+    \ G;\n    vector<bool> done;\n    vector<long long> prev;\n    vector<long long>\
+    \ cost;\n    long long group;\n\n    BFS01(long long N, bool directed) : V(N),\
+    \ directed_(directed), G(V){\n        init();\n    };\n    \n    void init() {\n\
+    \        group = 0;\n        done.assign(V, false);\n        prev.assign(V, -1);\n\
+    \        cost.assign(V, inf64);\n    }\n    \n    void connect(long long from,\
+    \ long long to, long long weight) {\n        assert(0 <= from and from < V);\n\
+    \        assert(0 <= to and to < V);\n        assert(weight == 0 or weight ==\
+    \ 1);\n\n        if (directed_) {\n            G[from].emplace_back(from, to,\
+    \ weight);\n        }\n        else {\n            G[from].emplace_back(from,\
+    \ to, weight);\n            G[to].emplace_back(to, from, weight);\n        }\n\
+    \    }\n\n    void operator() (long long start) {\n        solve(start);\n   \
+    \ }\n\n    void solve_all() {\n        rep(i, V) {\n            if (done[i]) continue;\n\
+    \            solve(i);\n            ++group;\n        }\n    }\n\n    void solve(long\
+    \ long start) {\n        assert(0 <= start and start < V);\n\n        deque<long\
+    \ long> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\
+    \u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n        cost[start] = 0;\n\
+    \        que.push_back(start); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\
+    \u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\
+    \u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty())\
+    \ {\n            long long now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\
+    \u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
+    \n            if (done[now]) continue;\n            done[now] = true;\n\n    \
+    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
+    \u8ABF\u3079\u308B\n            fore(edge, G[now]) {\n                long long\
+    \ next = edge.to;\n                if (done[next]) continue; // \u3059\u3067\u306B\
+    \u767A\u898B\u6E08\u307F\u306E\u9802\u70B9\u306F\u63A2\u7D22\u3057\u306A\u3044\
+    \n\n                if (chmin(cost[next], cost[now] + edge.weight)) {\n      \
+    \              if (edge.weight == 0) que.push_front(next); // \u65B0\u305F\u306A\
+    \u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\
+    \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306E\u5148\u982D\u306B\u8FFD\u52A0\
+    \u3059\u308B\n                    else que.push_back(next); // \u65B0\u305F\u306A\
+    \u767D\u8272\u9802\u70B9 nv \u306B\u3064\u3044\u3066\u8DDD\u96E2\u60C5\u5831\u3092\
+    \u66F4\u65B0\u3057\u3066\u30AD\u30E5\u30FC\u306E\u672B\u5C3E\u306B\u8FFD\u52A0\
+    \u3059\u308B\n\n                    prev[next] = now;\n                }\n   \
+    \         }\n        }\n    }\n\n    long long count_cc() {\n        return group;\n\
+    \    }\n\n    bool can_reach(long long to) {\n        assert(0 <= to and to <\
+    \ V);\n\n        return done[to];\n    }\n\n    vector<long long> get_path(long\
+    \ long to) {\n        assert(0 <= to and to < V);\n        if (!can_reach(to))\
+    \ return {};\n\n        vector<long long> p;\n        p.push_back(to);\n\n   \
+    \     while (prev[p.back()] != -1) {\n            p.push_back(prev[p.back()]);\n\
     \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
     };\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief BFS(\u5E45\u512A\
-    \u5148\u63A2\u7D22)\n * @docs docs/graph/bfs.md\n*/\nstruct BFS01 {\n    struct\
-    \ Edge {\n        long long from;\n        long long to;\n        long long weight;\n\
+  code: "#pragma once\n#include \"../base.cpp\"\n\nstruct BFS01 {\n    struct Edge\
+    \ {\n        long long from;\n        long long to;\n        long long weight;\n\
     \        \n        explicit Edge(long long u = -1, long long v = -1, long long\
     \ w = -1) : from(u), to(v), weight(w) {};\n\n        bool operator < (const Edge&\
     \ other) const {\n            if (from == other.from) {\n                return\
@@ -491,27 +504,15 @@ data:
   isVerificationFile: false
   path: graph/bfs01.cpp
   requiredBy: []
-  timestamp: '2024-08-18 02:43:59+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2024-09-28 16:25:40+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/graph/bfs01/atcoder-abc176-d.test.cpp
+  - test/graph/bfs01/atcoder-abc302-f.test.cpp
 documentation_of: graph/bfs01.cpp
 layout: document
 redirect_from:
 - /library/graph/bfs01.cpp
 - /library/graph/bfs01.cpp.html
-title: "BFS(\u5E45\u512A\u5148\u63A2\u7D22)"
+title: graph/bfs01.cpp
 ---
-# BFS
-## 概要
-グラフ上でBFSを行う．
-
-## 使い方
-* `BFS(N, directed)`: サイズ`N`で初期化する．有向辺，無向辺を`directed`で設定する．
-* `connect(from, to)`: ノード`from`からノード`to`へ辺を張る．`directed = false`の時，逆向きの辺を同時に張る．
-* `bfs_all()`: 全てのノード`i`に対して`seen[i] = true`となるまで`bfs(i)`を実行する．
-* `bfs(start)`: ノード`start`からbfsを実行する．計算量$O(|V|+|E|)$
-* `count_cc()`: `bfs_all()`実行後に実行する．連結成分の個数を返す．  
-* `find_diameter()`: 
-* `can_reach(to)`: `bfs(start)`実行後に実行する．ノード`to`へ到達可能かを判定する．
-* `get_path(to)`: `bfs(start)`実行後に実行する．ノード`start`からノード`to`までの経路を格納した配列を返す．到達できない場合，空配列を返す．
