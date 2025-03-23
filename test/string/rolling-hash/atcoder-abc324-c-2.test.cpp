@@ -4,10 +4,10 @@
 
 int main() {
     ll N;
-    input(N);
+    cin >> N;
 
     string T;
-    input(T);
+    cin >> T;
 
     vector<string> S(N);
     rep(i, N) cin >> S[i];
