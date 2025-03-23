@@ -9,20 +9,18 @@ int main() {
     string S;
     cin >> S;
 
-    vll A(N, 0);
+    CumulativeSum<ll> cs;
 
     rep(i, N - 1) {
-        if (S[i] == 'A' and S[i + 1] == 'C') A[i] = 1;
+        if (S[i] == 'A' and S[i + 1] == 'C') cs.push_back(1);
+        else cs.push_back(0);
     }
-
-    auto B = CumulativeSum(A);
-    debug(A, B);
 
     while (Q--) {
         ll l, r;
         cin >> l >> r;
 
-        cout << B.sum(l - 1, r - 1) << endl;
+        cout << cs.sum(l - 1, r - 1) << endl;
     }
 
     return 0;
