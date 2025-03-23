@@ -8,7 +8,7 @@ int main() {
     cin >> N >> Q;
 
     vll A(N);
-    input(A);
+    rep(i, N) cin >> A[i];
 
     RangeSet<ll> rs;
     MultiSet<ll> ms;
