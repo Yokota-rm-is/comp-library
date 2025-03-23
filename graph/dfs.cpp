@@ -48,8 +48,6 @@ struct DFS {
     bool has_cycle;
     vector<long long> descendants;
 
-    vector<long long> colors;
-
     DFS(long long N, bool directed) : V(N), directed_(directed), G(V) {
         init();
     };
@@ -61,7 +59,6 @@ struct DFS {
         seen.assign(V, false);
         done.assign(V, false);
         descendants.assign(V, 0);
-        colors.assign(V, -1);
     }
     
     void connect(long long from, long long to) {
@@ -115,44 +112,5 @@ struct DFS {
         assert(0 <= to and to < V);
 
         return seen[to] or done[to];
-    }
-
-    bool is_bipartite() {
-        ll color = 0;
-
-        rep(i, V) {
-            if (seen[i]) continue;
-
-            seen[i] = true;
-            colors[i] = color;
-
-            stack<long long> st;
-            st.push(i);
-
-            while (!st.empty()) {
-                ll now = st.top();
-                st.pop();
-
-                long long next_color;
-                if (colors[now] % 2 == 0) next_color = colors[now] + 1;
-                else next_color = colors[now] - 1;
-
-                fore(edge, G[now]) {
-                    long long next = edge.to;
-
-                    if (colors[next] == -1) colors[next] = next_color;
-                    else if (colors[next] != next_color) return false;
-
-                    if (seen[next]) continue;
-                    seen[next] = true;
-
-                    st.push(next);
-                }
-            }
-
-            color += 2;
-        }
-
-        return true;
     }
 };
