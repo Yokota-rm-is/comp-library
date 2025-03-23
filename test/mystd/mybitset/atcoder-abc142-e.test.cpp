@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc142/tasks/abc142_e"
 
-#include "../../../dp/bitdp.cpp"
+#include "../../../mystd/mybitset.cpp"
 
 int main() {
     ll N, M;
@@ -28,17 +28,19 @@ int main() {
     vector<long long> dp(1 << N,inf64);
     dp[0] = 0;
 
-    rep(bit, (1 << N)) {
-        if (dp[bit] == inf64) continue;
+    auto f = [&](Bitset bit) {
+        if (dp[bit] == inf64) return;
 
         rep(i, M) {
-            long long next_bit = bit | d[i];
+            ll next_bit = bit.to_ll() | d[i];
             long long cost = a[i];
 
             chmin(dp[next_bit], dp[bit] + cost);
         }
-    }
+    };
 
+    bitDP(N, f);
+    
     ll ans = dp[(1 << N) - 1];
     if (ans == inf64) cout << -1 << endl; 
     else cout << ans << endl;

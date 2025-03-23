@@ -35,7 +35,7 @@ int main() {
     cin >> N;
 
     A.resize(N), B.resize(N);
-    input(A, B);
+    rep(i, N) cin >> A[i] >> B[i];
 
     dp.resize(1 << N, -1);
     Bitset bit((1 << N) - 1);
