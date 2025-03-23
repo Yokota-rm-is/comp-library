@@ -409,25 +409,32 @@ struct GridDijkstra {
         return Coordinate(index / W, index % W);
     }
 
-    void dijkstra(Coordinate now) {
-        assert(!done(now) and !field.is_out(now) and !field.is_obj(now));
+    void dijkstra(Coordinate start) {
+        dijkstra(vector<Coordinate>{start});
+    }
+
+    void dijkstra(vector<Coordinate> starts) {
+        fore(start, starts) {
+            assert(!done(start));
+            assert(!field.is_out(start));
+            assert(!field.is_obj(start));
+        }
 
         priority_queue<pair<long long, Coordinate>, vector<pair<long long, Coordinate>>, greater<>> que;
 
-        // 初期条件 (頂点 start を初期ノードとする)
-        que.emplace(0, now); // noq を橙色頂点にする
+        fore(start, starts) {
+            que.emplace(0, start);
+        }
 
-        // BFS 開始 (キューが空になるまで探索を行う)
         while (!que.empty()) {
-            auto p = que.top(); // キューから先頭頂点を取り出す
+            auto p = que.top();
             que.pop();
 
-            now = p.second;
+            Coordinate now = p.second;
             done(now) = true;
             cost(now) = p.first;
             cc(now) = group;
 
-            // v から辿れる頂点をすべて調べる
             rep(i, dirs.size()) {
                 Coordinate next = now + dirs[i];
 

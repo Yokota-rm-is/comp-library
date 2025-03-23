@@ -431,24 +431,31 @@ struct GridBFS {
         bfs(start);
     }
 
-    void bfs(Coordinate now) {
-        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));
+    void bfs(Coordinate start) {
+        bfs(vector<Coordinate>{start});
+    }
+
+    void bfs(vector<Coordinate> starts) {
+        fore(start, starts) {
+            assert(!seen(start));
+            assert(!field.is_out(start));
+            assert(!field.is_obj(start));
+        }
 
         queue<Coordinate> que;
 
-        // 初期条件 (頂点 start を初期ノードとする)
-        seen(now) = true;
-        cost(now) = 0;
-        cc(now) = group;
+        fore(start, starts) {
+            seen(start) = true;
+            cost(start) = 0;
+            cc(start) = group;
 
-        que.push(now); // noq を橙色頂点にする
+            que.push(start);
+        }
 
-        // BFS 開始 (キューが空になるまで探索を行う)
         while (!que.empty()) {
-            now = que.front(); // キューから先頭頂点を取り出す
+            Coordinate now = que.front();
             que.pop();
 
-            // v から辿れる頂点をすべて調べる
             rep(i, dirs.size()) {
                 Coordinate next = now + dirs[i];
 
@@ -465,32 +472,37 @@ struct GridBFS {
         }
     }
 
-    void bfs01(Coordinate now) {
-        assert(!seen(now) and !field.is_out(now) and !field.is_obj(now));
+    void bfs01(Coordinate start, function<bool(Coordinate, Coordinate)> calc_cost) {
+        bfs01(vector<Coordinate>{start}, calc_cost);
+    }
+
+    void bfs01(vector<Coordinate> starts, function<bool(Coordinate, Coordinate)> calc_cost) {
+        fore(start, starts) {
+            assert(!seen(start));
+            assert(!field.is_out(start));
+            assert(!field.is_obj(start));
+        }
 
         deque<Coordinate> que;
 
-        // 初期条件 (頂点 start を初期ノードとする)
-        cost(now) = 0;
+        fore(start, starts) {
+            cost(start) = 0;
+            que.push_front(start);
+        }
 
-        que.push_front(now); // noq を橙色頂点にする
-
-        // BFS 開始 (キューが空になるまで探索を行う)
         while (!que.empty()) {
-            now = que.front(); // キューから先頭頂点を取り出す
+            Coordinate now = que.front();
             que.pop_front();
 
             if (seen(now)) continue;
             seen(now) = true;
 
-            // v から辿れる頂点をすべて調べる
             rep(i, dirs.size()) {
                 Coordinate next = now + dirs[i];
                 if (field.is_out(next)) continue;
                 if (seen(next)) continue;
 
-                ll c = 0; 
-                if (field.is_obj(next)) c = 1; // ここにコストが1になる条件を書く
+                ll c = calc_cost(now, next);
 
                 if (chmin(cost(next), cost(now) + c)) {
                     prev(next) = now;
