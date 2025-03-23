@@ -1,32 +1,67 @@
 #pragma once
 #include "../base.cpp"
 
-unsigned long long set_base(unsigned long long Max = 127, unsigned long long MOD = (1ULL << 61) - 1, unsigned long long root = 37) {
-    random_device rd;
-    mt19937_64 gen(rd());
-    uniform_int_distribution<unsigned long long> dist(1, numeric_limits<unsigned long long>::max());
-    unsigned long long ret;
+namespace _hash61 {
+    const unsigned long long MOD = (1ULL << 61) - 1;
+    const unsigned long long MASK30 = (1ULL << 30) - 1;
+    const unsigned long long MASK31 = (1ULL << 31) - 1;
+    const unsigned long long MASK61 = MOD;
 
-    while (true) {
-        unsigned long long k = dist(gen);
-        ret = binpow(root, k, MOD);
-        if (ret > Max) break;
+    unsigned long long set_base(unsigned long long Max = 127, unsigned long long MOD = (1ULL << 61) - 1, unsigned long long root = 37) {
+        random_device rd;
+        mt19937_64 gen(rd());
+        uniform_int_distribution<unsigned long long> dist(1, numeric_limits<unsigned long long>::max());
+        unsigned long long ret;
+
+        while (true) {
+            unsigned long long k = dist(gen);
+            ret = binpow(root, k, MOD);
+            if (ret > Max) break;
+        }
+
+        return ret;
     }
 
-    return ret;
+    unsigned long long calc_mul(unsigned long long a, unsigned long long b) {
+        unsigned long long au = a >> 31;
+        unsigned long long ad = a & MASK31;
+        unsigned long long bu = b >> 31;
+        unsigned long long bd = b & MASK31;
+        unsigned long long mid = ad * bu + au * bd;
+        unsigned long long midu = mid >> 30;
+        unsigned long long midd = mid & MASK30;
+
+        return au * bu * 2 + midu + (midd << 31) + ad * bd;
+    }
+
+    unsigned long long calc_mod(unsigned long long x) {
+        unsigned long long xu = x >> 61;
+        unsigned long long xd = x & MASK61;
+        unsigned long long res = xu + xd;
+        if (res >= MOD) res -= MOD;
+        return res;
+    }
+
+    unsigned long long binpow(unsigned long long x, unsigned long long n) {
+        unsigned long long ret = 1;
+        while (n > 0) {
+            if (n & 1) ret = calc_mod(calc_mul(ret, x));
+            x = calc_mod(calc_mul(x, x));
+            n >>= 1;
+        }
+        return ret;
+    }
+    
+    unsigned long long modinv(unsigned long long a) { return binpow(a, MOD - 2);}
+
+    static const unsigned long long base = set_base();
+    const unsigned long long base_inv = modinv(base);
 }
-static const unsigned long long base = set_base();
 
 struct Hash61 {
-    static const unsigned long long MOD = (1ULL << 61) - 1;
-    static const unsigned long long MASK30 = (1ULL << 30) - 1;
-    static const unsigned long long MASK31 = (1ULL << 31) - 1;
-    static const unsigned long long MASK61 = MOD;
-    
     unsigned long long hash, hash_rev;
     unsigned long long pow, pow_inv;
     long long N;
-    const unsigned long long base_inv = modinv(base);
 
     Hash61() {
         init();
@@ -44,7 +79,6 @@ struct Hash61 {
     }
 
     void init() {
-        assert(base > 0);
         N = 0;
         hash = 0;
         hash_rev = 0;
@@ -62,13 +96,13 @@ struct Hash61 {
         
         rep(i, S.size()) {
             unsigned long long c = S[i];
-            hash = calc_mod(calc_mul(hash, base) + c);
-            pow = calc_mod(calc_mul(pow, base));
-            pow_inv = calc_mod(calc_mul(pow_inv, base_inv));
+            hash = _hash61::calc_mod(_hash61::calc_mul(hash, _hash61::base) + c);
+            pow = _hash61::calc_mod(_hash61::calc_mul(pow, _hash61::base));
+            pow_inv = _hash61::calc_mod(_hash61::calc_mul(pow_inv, _hash61::base_inv));
         }
         repd(i, S.size()) {
             unsigned long long c = S[i];
-            hash_rev = calc_mod(calc_mul(hash_rev, base) + c);
+            hash_rev = _hash61::calc_mod(_hash61::calc_mul(hash_rev, _hash61::base) + c);
         }
     }
 
@@ -95,10 +129,10 @@ struct Hash61 {
     }
 
     Hash61& operator+= (const Hash61 &other) noexcept {
-        hash = calc_mod(calc_mul(hash, other.pow) + other.hash);
-        hash_rev = calc_mod(calc_mul(other.hash_rev, pow) + hash_rev);
-        pow = calc_mod(calc_mul(pow, other.pow));
-        pow_inv = calc_mod(calc_mul(pow_inv, other.pow_inv));
+        hash = _hash61::calc_mod(_hash61::calc_mul(hash, other.pow) + other.hash);
+        hash_rev = _hash61::calc_mod(_hash61::calc_mul(other.hash_rev, pow) + hash_rev);
+        pow = _hash61::calc_mod(_hash61::calc_mul(pow, other.pow));
+        pow_inv = _hash61::calc_mod(_hash61::calc_mul(pow_inv, other.pow_inv));
 
         N += other.N;
 
@@ -112,38 +146,6 @@ struct Hash61 {
     bool operator== (const Hash61 &other) const noexcept {
         return (N == other.N) && (hash == other.hash);
     }
-
-    static unsigned long long calc_mul(unsigned long long a, unsigned long long b) {
-        unsigned long long au = a >> 31;
-        unsigned long long ad = a & MASK31;
-        unsigned long long bu = b >> 31;
-        unsigned long long bd = b & MASK31;
-        unsigned long long mid = ad * bu + au * bd;
-        unsigned long long midu = mid >> 30;
-        unsigned long long midd = mid & MASK30;
-
-        return au * bu * 2 + midu + (midd << 31) + ad * bd;
-    }
-
-    static unsigned long long calc_mod(unsigned long long x) {
-        unsigned long long xu = x >> 61;
-        unsigned long long xd = x & MASK61;
-        unsigned long long res = xu + xd;
-        if (res >= MOD) res -= MOD;
-        return res;
-    }
-
-    static unsigned long long binpow(unsigned long long x, unsigned long long n) {
-        unsigned long long ret = 1;
-        while (n > 0) {
-            if (n & 1) ret = calc_mod(calc_mul(ret, x));  // n の最下位bitが 1 ならば x^(2^i) をかける
-            x = calc_mod(calc_mul(x, x));
-            n >>= 1;  // n を1bit 左にずらす
-        }
-        return ret;
-    }
-    // mod. m での a の逆元 a^{-1} を計算する
-    static unsigned long long modinv(unsigned long long a) { return binpow(a, MOD - 2);}
 
     friend ostream& operator<<(ostream &os, const Hash61& h) {
         return os << h.hash;
@@ -182,8 +184,8 @@ struct RollingHash {
         if (l == 0) return hashed[r];
 
         Hash61 ret;
-        ret.hash = Hash61::calc_mod(hashed[r].hash + Hash61::MOD - Hash61::calc_mod(Hash61::calc_mul(hashed[l].hash, hashed[r - l].pow)));
-        ret.hash_rev = Hash61::calc_mod(Hash61::calc_mul(Hash61::calc_mod(hashed[r].hash_rev + Hash61::MOD - hashed[l].hash_rev), hashed[l].pow_inv));
+        ret.hash = _hash61::calc_mod(hashed[r].hash + _hash61::MOD - _hash61::calc_mod(_hash61::calc_mul(hashed[l].hash, hashed[r - l].pow)));
+        ret.hash_rev = _hash61::calc_mod(_hash61::calc_mul(_hash61::calc_mod(hashed[r].hash_rev + _hash61::MOD - hashed[l].hash_rev), hashed[l].pow_inv));
         ret.N = r - l;
         ret.pow = hashed[r - l].pow;
         ret.pow_inv = hashed[r - l].pow_inv;
@@ -220,6 +222,10 @@ struct RollingHash {
 
     Hash61 reverse(long long l, long long r) {
         return get(l) + get(l, r).reverse() + get(r, N);
+    }
+
+    bool is_palindrome(long long l, long long r) {
+        return get(l, r).is_palindrome();
     }
 
     // 区間[l1, r1)と区間[l2, r2)の最長共通接頭辞の長さを返す
