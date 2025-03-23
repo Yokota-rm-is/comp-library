@@ -4,12 +4,17 @@
 template <typename T, typename S = long long>
 struct MultiSet : public map<T, S> {
     S N;
+    ll n_duplicates;
     using mp = map<T, S>;
 
-    explicit MultiSet() : N(0) {};
+    MultiSet() : N(0), n_duplicates(0) {};
 
     S insert(T x, S n = 1) {
         N += n;
+        
+        auto it = mp::find(x);
+        if (it == mp::end() and n > 1) n_duplicates++;
+        else if (it != mp::end() and it->second == 1 and n > 0) n_duplicates++;
         return (*this)[x] += n;
     }
 
@@ -18,6 +23,11 @@ struct MultiSet : public map<T, S> {
         
         chmin(n, (*this)[x]);
         N -= n;
+
+        auto it = mp::find(x);
+        if (it->second == n and n > 1) n_duplicates--;
+        else if (it->second == n + 1) n_duplicates--;
+
         (*this)[x] -= n;
 
         if ((*this)[x] == 0) {
@@ -30,6 +40,11 @@ struct MultiSet : public map<T, S> {
     }
 
     void erase_all(T x) {
+        auto it = mp::find(x);
+
+        if (it == mp::end()) return;
+        else if (it->second > 1) n_duplicates--;
+
         N -= (*this)[x];
         mp::erase(x);
     }
