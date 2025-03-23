@@ -42,30 +42,11 @@ int main() {
         bfs.init();
     }
 
-    rep(i, tsp.V) tsp.dp[(1 << i)][i] = 1;
-
-    rep(bit, (1 << tsp.V)) {
-        rep(now, tsp.V) {
-            if (tsp.dp[bit][now] > inf64 - 1) continue;
-
-            fore(edge, tsp.G[now]) {
-                long long next = edge.to;
-                if (bit & (1 << next)) continue;
-
-                long long next_bit = bit | (1 << next);
-
-                if (chmin(tsp.dp[next_bit][next], tsp.dp[bit][now] + edge.weight)) {
-                    tsp.prev[next_bit][next] = now;
-                    chmax(tsp.max_visit, bit_count(next_bit));
-                }
-            }
-        }
-    }
-
-    ll ans = min(tsp.dp[(1 << K) - 1]);
+    tsp();
+    ll ans = tsp.get_min_dist();
 
     if (ans == inf64) cout << -1 << endl; 
-    else cout << ans << endl;
+    else cout << ans + 1 << endl;
 
     return 0;
 }
