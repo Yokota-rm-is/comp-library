@@ -56,6 +56,10 @@ struct BFS {
         }
     }
 
+    void operator() (vector<long long> starts) {
+        solve(starts);
+    }
+
     void operator() (long long start) {
         solve(start);
     }
@@ -69,27 +73,31 @@ struct BFS {
     }
 
     void solve(long long start) {
-        assert(0 <= start and start < V);
+        solve(vector<long long>{start});
+    }
+
+    void solve(vector<long long> starts) {
+        fore(start, starts) {
+            assert(0 <= start and start < V);
+        }
 
         queue<long long> que;
 
-        // 初期条件 (頂点 start を初期ノードとする)
-        seen[start] = true;
-        depth[start] = 0;
-        que.push(start); // noq を橙色頂点にする
+        fore(start, starts) {
+            seen[start] = true;
+            depth[start] = 0;
+            que.push(start);
+        }
 
-        // BFS 開始 (キューが空になるまで探索を行う)
         while (!que.empty()) {
-            long long now = que.front(); // キューから先頭頂点を取り出す
+            long long now = que.front();
             que.pop();
 
-            // v から辿れる頂点をすべて調べる
             fore(edge, G[now]) {
                 long long next = edge.to;
-                if (seen[next]) continue; // すでに発見済みの頂点は探索しない
+                if (seen[next]) continue;
                 seen[next] = true;
 
-                // 新たな白色頂点 nv について距離情報を更新してキューに追加する
                 depth[next] = depth[now] + 1;
                 prev[next] = now;
                 que.push(next);
