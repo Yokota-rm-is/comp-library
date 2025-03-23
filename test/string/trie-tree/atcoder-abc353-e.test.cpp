@@ -11,7 +11,7 @@ int main() {
     vector<string> S(N);
     rep(i, N) cin >> S[i];
 
-    Trie<26, 'a'> trie;
+    Trie trie;
     rep(i, N) {
         trie.insert(S[i]);
     }
