@@ -227,6 +227,12 @@ struct WaveletMatrix {
         build(A);
     }
 
+    WaveletMatrix (const string &S) {
+        vector<T> A(S.size());
+        rep(i, S.size()) A[i] = S[i];
+        build(A);
+    }
+
     void build(const vector<T> &A) {
         assert(A.size() > 0);
         fore(a, A) assert(a >= 0);
@@ -295,7 +301,6 @@ struct WaveletMatrix {
     ull select(T val, ull k) {
         assert(k > 0);
         if (!begin_indices.contains(val)) return N;
-        if (k == 1) return begin_indices[val];
 
         ull index = begin_indices[val] + k;
         rep(h, bit_size){
@@ -304,7 +309,21 @@ struct WaveletMatrix {
             
             index = bit_vectors[h].select(bit, index) + 1;
         }
-        return index;
+        return index - 1;
+    }
+
+    // v[l, r)の範囲でk番目(1-indexed)のvalの位置(0-indexed)を返す
+    // 存在しない場合はNを返す
+    // 計算量: O(log(bit_size))
+    ull select(T val, ull k, ull l, ull r) {
+        assert(l <= r and r <= N);
+        if (l == r) return N;
+        
+        ull cr = count(l, r, val);
+        if (cr < k) return N;
+
+        ull cl = count(0, l, val);
+        return select(val, cl + k);
     }
 
     // v[l, r)でk番目に大きい数値とindexを返す(kは1-indexed)
