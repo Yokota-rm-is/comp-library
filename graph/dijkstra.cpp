@@ -57,24 +57,36 @@ struct Dijkstra {
         }
     }
 
+    void operator() (vector<long long> starts) {
+        solve(starts);
+    }
+
     void operator() (long long start) {
         solve(start);
     }
 
     void solve(long long start) {
-        assert(0 <= start and start < V);
+        solve(vector<long long>{start});
+    }
+
+    void solve(vector<long long> starts) {
+        fore(start, starts) {
+            assert(0 <= start and start < V);
+        }
 
         priority_queue<pair<long long, long long>, vector<pair<long long, long long>>, greater<>> que;
 
-        cost[start] = 0;
+        fore(start, starts) {
+            cost[start] = 0;
+            que.emplace(cost[start], start);
+        }
         
-        que.emplace(cost[start], start);
         while (!que.empty()) {
             long long now = que.top().second;
             que.pop();
 
-            if (done[now]) continue;  // nowが確定済だったら飛ばす
-            done[now] = true;   // nowを初めてキューから取り出したら最小として確定
+            if (done[now]) continue;
+            done[now] = true;
 
             fore(edge, G[now]) {
                 long long next = edge.to;
