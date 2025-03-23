@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc180/tasks/abc180_e"
 
-#include "../../../graph/tsp.cpp"
+#include "../../../graph/tsp-cycle.cpp"
 
 int main() {
     ll N;
@@ -18,7 +18,7 @@ int main() {
     }
 
     tsp(0);
-    ll ans = tsp.get_cycle_dist();
+    ll ans = tsp.get_dist(0);
 
     if (ans == inf64) cout << -1 << endl;
     else cout << ans << endl; 
