@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: structure/bit-on-wavelet-matrix.cpp
     title: structure/bit-on-wavelet-matrix.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/point_add_rectangle_sum
@@ -31,7 +31,7 @@ data:
     \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
     10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
     \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    \u6570\u306Einf\nconst long long inf64 = INF64 / 4;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -59,14 +59,14 @@ data:
     \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
     \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
     using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
-    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
-    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
-    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
-    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
-    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
-    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
-    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    using pll = pair<ll, ll>;\nusing vpll = vector<pll>;\ntemplate<typename T> using\
+    \ vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\nusing\
+    \ vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
+    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
+    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -151,35 +151,19 @@ data:
     \ \" \" : \"\\n\"); tmp.pop();}; return os;}\ntemplate<typename T> ostream& operator\
     \ << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty())\
     \ {os << tmp.top() << ((tmp.size() > 0)? \" \" : \"\\n\"); tmp.pop();}; return\
-    \ os;}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename T> void dump(T\
-    \ a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<vector<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<stack<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<queue<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<deque<T>>& a) { cerr << '\\n' << a;}\n\n// input\ntemplate<typename\
-    \ T> inline void input(T& a) {cin >> a;}\ntemplate<typename T, typename... Args>\
-    \ inline void input(T& a, Args&&... args) { cin >> a; input(args...);}\ntemplate<typename\
-    \ T> inline void input(vector<T>& A) { rep(i, A.size()) cin >> A[i];}\ntemplate<typename\
-    \ T> inline void input(vector<T>& A, vector<T>& B) { assert(A.size() == B.size());rep(i,\
-    \ A.size()) cin >> A[i] >> B[i];}\ntemplate<typename T> inline void input(vector<T>&\
-    \ A, vector<T>& B, vector<T>& C) { assert(A.size() == B.size() and A.size() ==\
-    \ C.size()); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename\
-    \ T> inline void input(const long long N, vector<T>& A) { A.resize(N); rep(i,\
-    \ N) cin >> A[i];}\ntemplate<typename T> inline void input(const long long N,\
-    \ vector<T>& A, vector<T>& B) { A.resize(N); B.resize(N); rep(i, N) cin >> A[i]\
-    \ >> B[i];}\ntemplate<typename T> inline void input(const long long N, vector<T>&\
-    \ A, vector<T>& B, vector<T>& C) { A.resize(N); B.resize(N); C.resize(N); rep(i,\
-    \ A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename T> inline void input(const\
-    \ long long N, set<T>& A) {rep(i, N) { T a; cin >> a; A.insert(a);}}\ntemplate<typename\
-    \ T> inline void input(const long long N, set<T>& A, set<T>& B) { rep(i, N) {T\
-    \ a, b; cin >> a >> b; A.insert(a); B.insert(b);}}\ntemplate<typename T> inline\
-    \ void input(const long long N, set<T>& A, set<T>& B, set<T>& C) { rep(i, N) {T\
-    \ a, b, c; cin >> a >> b >> c; A.insert(a); B.insert(b); C.insert(c);}}\ntemplate<typename\
-    \ T> inline void input(vector<vector<T>>& A) { rep(i, A.size()) input(A[i]);}\n\
-    \ninline string YESNO(bool flag) { return flag ? \"YES\" : \"NO\";}\ninline string\
-    \ yesno(bool flag) { return flag ? \"yes\" : \"no\";}\ninline string YesNo(bool\
-    \ flag) { return flag ? \"Yes\" : \"No\";}\ninline string POSSIBLE(bool flag)\
-    \ { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\";}\ninline string Possible(bool\
+    \ os;}\nostream& operator<< (ostream& os, __int128_t x) { \n    if (x == 0) return\
+    \ os << '0';\n    if (x < 0) {os << '-'; x = -x;}\n\n    string s; \n    for (__int128_t\
+    \ y = x; y > 0; y /= 10) s += (char)('0' + y % 10); \n    reverse(s.begin(), s.end());\
+    \ \n    return os << s;\n}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename\
+    \ T> void dump(T a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\\
+    n' << a;}\ntemplate<typename T> void dump(vector<vector<T>>& a) { cerr << '\\\
+    n' << a;}\ntemplate<typename T> void dump(vector<stack<T>>& a) { cerr << '\\n'\
+    \ << a;}\ntemplate<typename T> void dump(vector<queue<T>>& a) { cerr << '\\n'\
+    \ << a;}\ntemplate<typename T> void dump(vector<deque<T>>& a) { cerr << '\\n'\
+    \ << a;}\n\ninline string YESNO(bool flag) { return flag ? \"YES\" : \"NO\";}\n\
+    inline string yesno(bool flag) { return flag ? \"yes\" : \"no\";}\ninline string\
+    \ YesNo(bool flag) { return flag ? \"Yes\" : \"No\";}\ninline string POSSIBLE(bool\
+    \ flag) { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\";}\ninline string Possible(bool\
     \ flag) { return flag ? \"Possible\" : \"Impossible\";}\ninline string TakahashiAoki(bool\
     \ flag) { return flag ? \"Takahashi\" : \"Aoki\";}\n\n// \u7B2C\u4E00\u5F15\u6570\
     \u3068\u7B2C\u4E8C\u5F15\u6570\u3092\u6BD4\u8F03\u3057\u3001\u7B2C\u4E00\u5F15\
@@ -262,37 +246,49 @@ data:
     \ y) { return x / y + (x % y > 0);}\ninline long long floor(long long x, long\
     \ long y) { return x / y - (x % y < 0);}\npair<long long, long long> divmod(long\
     \ long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1)\
-    \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
-    \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
-    \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
-    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
-    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
-    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
-    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
-    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
-    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
-    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
-    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
-    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
-    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
-    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
-    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
-    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
-    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
-    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
-    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
-    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
-    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
-    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
-    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
+    \ / y, (x % y + y) % y));}\ntemplate <typename T = unsigned long long> inline\
+    \ T binpow(T x, T n) { T ret = 1; while (n) {if (n & 1) ret *= x; x *= x; n >>=\
+    \ 1;} return ret; }\ntemplate <typename T = unsigned long long> inline T binpow(T\
+    \ x, T n, T m) { T ret = 1; while (n) {if (n & 1) ret = (ret * x) % m; x = (x\
+    \ * x) % m; n >>= 1;} return ret; }\n// mod. m \u3067\u306E a \u306E\u9006\u5143\
+    \ a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T\
+    \ m) {\n    T b = m, u = 1, v = 0;\n    while (b) { T t = a / b; a -= t * b; swap(a,\
+    \ b); u -= t * v; swap(u, v); }\n    u %= m;\n    if (u < 0) u += m;\n    return\
+    \ u;\n}\n// combination\u3092\u6C42\u3081\u308B\nlong long nCr(long long n, long\
+    \ long k, long long m = 0) {\n    if (n < k) return 0;\n    if (n - k < k) k =\
+    \ n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *= (n - i);\n \
+    \       if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n        if (m > 0)\
+    \ {\n            ret *= modinv(i, m);\n            ret %= m;\n        } \n   \
+    \     else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\u516C\u7D04\
+    \u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long> &A) {\n\
+    \    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n    return\
+    \ ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ lcm(const vector<long long> &A, const long long m = 0) { \n    long long ret\
+    \ = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %= m;}\n \
+    \   return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\u306E\u4E92\
+    \u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long a, long\
+    \ long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// \u5206\u6570\u6BD4\u8F03\
+    \ninline bool is_greater(long long p, long long q, long long r, long long s) {\
+    \ return __int128_t(p) * s > __int128_t(q) * r;}\ninline bool is_greater_or_equal(long\
+    \ long p, long long q, long long r, long long s) { return __int128_t(p) * s >=\
+    \ __int128_t(q) * r;}\ninline bool is_less(long long p, long long q, long long\
+    \ r, long long s) { return __int128_t(p) * s < __int128_t(q) * r;}\ninline bool\
+    \ is_less_or_equal(long long p, long long q, long long r, long long s) { return\
+    \ __int128_t(p) * s <= __int128_t(q) * r;}\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    inline bool is_greater(__int128_t p, __int128_t q, __int128_t r, __int128_t s)\
+    \ { return int256_t(p) * s > int256_t(q) * r;}\ninline bool is_greater_or_equal(__int128_t\
+    \ p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s >= int256_t(q)\
+    \ * r;}\ninline bool is_less(__int128_t p, __int128_t q, __int128_t r, __int128_t\
+    \ s) { return int256_t(p) * s < int256_t(q) * r;}\ninline bool is_less_or_equal(__int128_t\
+    \ p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s <= int256_t(q)\
+    \ * r;}\n#endif\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return\
+    \ to_string(x);}\ninline int ctoi(char x) { return int(x - '0');}\ninline char\
+    \ itoc(int x) { return (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    inline string to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string\
+    \ to_lower(string& S) { return boost::to_lower_copy(S);}\n#endif\ninline bool\
+    \ is_lower(char c) { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char\
+    \ c) { return (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
     \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
     \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
     \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
@@ -328,182 +324,186 @@ data:
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
     \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
-    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
-    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
-    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
-    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
-    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
-    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
-    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
-    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
-    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
-    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
-    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
-    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ v.end(), key); }\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(typename vector<T>::iterator begin, typename vector<T>::iterator\
+    \ end, T key) { return lower_bound(begin, end, key); }\ntemplate <typename T>\
+    \ inline typename set<T>::iterator find_greater_than_or_equal(set<T>& st, T key)\
+    \ { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than(vector<T>& v, T key) { return upper_bound(v.begin(), v.end(),\
+    \ key); }\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(typename\
+    \ vector<T>::iterator begin, typename vector<T>::iterator end, T key) { return\
+    \ upper_bound(begin, end, key); }\ntemplate <typename T> inline typename set<T>::iterator\
+    \ find_greater_than(set<T>& st, T key) { return st.upper_bound(key); }\n// \u30AD\
+    \u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\
+    \u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\
+    \u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline typename\
+    \ vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) { auto it =\
+    \ upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it;}\n\
+    template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(typename\
+    \ vector<T>::iterator begin, typename vector<T>::iterator end, T key) { auto it\
+    \ = upper_bound(begin, end, key); return it == begin ? end : --it;}\ntemplate\
+    \ <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
     \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
     \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
     \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
     \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
     \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
     \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
-    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
-    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
-    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
-    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
-    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
-    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
-    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ : --it; }\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(typename\
+    \ vector<T>::iterator begin, typename vector<T>::iterator end, T key) { auto it\
+    \ = lower_bound(begin, end, key); return it == begin ? end : --it; }\ntemplate\
+    \ <typename T> inline typename set<T>::iterator find_less_than(set<T>& st, T key)\
+    \ { auto it = st.lower_bound(key); return it == st.begin() ? st.end() : --it;}\n\
+    \ntemplate <typename T> auto operator+(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\ntemplate <typename\
+    \ T> auto operator-(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename T> auto\
+    \ operator*(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto operator/(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
-    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
-    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
-    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
-    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
-    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
-    \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
-    \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
-    \ T, typename U> auto operator-(const pair<T, U>& p, const T x) { return pair<T,\
-    \ U>(p.first - x, p.second - x); }\ntemplate <typename T, typename U> auto operator*(const\
-    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first * x, p.second * x); }\n\
-    template <typename T, typename U> auto operator/(const pair<T, U>& p, const T\
-    \ x) { return pair<T, U>(p.first / x, p.second / x); }\ntemplate <typename T,\
-    \ typename U> auto operator%(const pair<T, U>& p, const T x) { return pair<T,\
-    \ U>(p.first % x, p.second % x); }\ntemplate <typename T, typename U> auto binpow(const\
-    \ pair<T, U>& p, const T x) { return pair<T, U>(binpow(p.first, x), binpow(p.second,\
-    \ x)); }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
-    \ p, const pair<T, U>& q) { return pair<T, U>(p.first + q.first, p.second + q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator-(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first - q.first, p.second - q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator*(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first * q.first, p.second * q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator/(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first / q.first, p.second / q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator%(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first % q.first, p.second % q.second);\
-    \ }\n\ntemplate <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first;\
-    \ ++p.second; return p; }\ntemplate <typename T, typename U> auto operator++(pair<T,\
-    \ U>& p, int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate\
-    \ <typename T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second;\
-    \ return p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p,\
-    \ int) { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
+    \ = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] % x;\
+    \ return ret; }\ntemplate <typename T> auto binpow(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i], x); return\
+    \ ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto& x : a) ++x;\
+    \ return a; }\ntemplate <typename R> auto operator++(R& a, int) { auto temp =\
+    \ a; for (auto& x : a) x++; return temp; }\ntemplate <typename R> auto& operator--(R&\
+    \ a) { for (auto& x : a) --x; return a; }\ntemplate <typename R> auto operator--(R&\
+    \ a, int) { auto temp = a; for (auto& x : a) x--; return temp; }\n\ntemplate <typename\
+    \ T, typename U> auto operator+(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first + x, p.second + x); }\ntemplate <typename T, typename U> auto operator-(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first - x, p.second - x); }\n\
+    template <typename T, typename U> auto operator*(const pair<T, U>& p, const T\
+    \ x) { return pair<T, U>(p.first * x, p.second * x); }\ntemplate <typename T,\
+    \ typename U> auto operator/(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first / x, p.second / x); }\ntemplate <typename T, typename U> auto operator%(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first % x, p.second % x); }\n\
+    template <typename T, typename U> auto binpow(const pair<T, U>& p, const T x)\
+    \ { return pair<T, U>(binpow(p.first, x), binpow(p.second, x)); }\n\ntemplate\
+    \ <typename T, typename U> auto operator+(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first + q.first, p.second + q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator-(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first - q.first, p.second - q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator*(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first * q.first, p.second * q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator/(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first / q.first, p.second / q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator%(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first % q.first, p.second % q.second); }\n\ntemplate\
+    \ <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first; ++p.second;\
+    \ return p; }\ntemplate <typename T, typename U> auto operator++(pair<T, U>& p,\
+    \ int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate <typename\
+    \ T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second; return\
+    \ p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p, int)\
+    \ { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
-    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
-    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
-    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
-    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
-    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
-    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/bit-on-wavelet-matrix.cpp\"\
-    \n\nstruct BitVector {\n    using ull = unsigned long long;\n    using uint =\
-    \ uint16_t;\n\n    ull N;    // \u30D3\u30C3\u30C8\u30D9\u30AF\u30C8\u30EB\u306E\
-    \u30B5\u30A4\u30BA\n    ull blockBitNum = 16;\n    ull LEVEL_L = 512;\n    ull\
-    \ LEVEL_S = 16;\n\n    vector<ull> L;   // \u5927\u30D6\u30ED\u30C3\u30AF\n  \
-    \  vector<uint> S;   // \u5C0F\u30D6\u30ED\u30C3\u30AF\n    vector<uint> B;  \
-    \ // \u30D3\u30C3\u30C8\u30D9\u30AF\u30C8\u30EB\n\n    ull ones, zeros = 0; //\
-    \ 1bit\u306E\u6570, 0bit\u306E\u6570\n\n    BitVector(ull n) : N(n) {\n      \
-    \  const ull s = (n + blockBitNum - 1) / blockBitNum + 1;   // ceil(n, blockSize)\n\
-    \        B.assign(s, 0);\n        L.assign(n / LEVEL_L + 1, 0);\n        S.assign(n\
-    \ / LEVEL_S + 1, 0);\n    }\n\n    // B[pos] = bit\n    void set(const ull bit,\
-    \ const ull pos){\n        assert(bit == 0 or bit == 1);\n        assert(pos <\
-    \ N);\n\n        const ull blockPos = pos / blockBitNum;\n        const ull offset\
-    \ = pos % blockBitNum;\n        if (bit == 1) B[blockPos] |= (1ull << offset);\n\
-    \        else B[blockPos] &= (~(1ull << offset));\n    }\n\n    // B[pos]\n  \
-    \  ull access(const ull pos) {\n        assert(pos < N);\n        const ull blockPos\
-    \ = pos / blockBitNum;\n        const ull offset   = pos % blockBitNum;\n    \
-    \    return ((B[blockPos] >> offset) & 1);\n    }\n\n    void build() {\n    \
-    \    ull num = 0;\n        for (ull i = 0; i <= N; i++){\n            if (i %\
-    \ LEVEL_L == 0) L[i / LEVEL_L] = num;\n            if (i % LEVEL_S == 0) S[i /\
-    \ LEVEL_S] = num - L[i / LEVEL_L];\n            if (i != N and i % blockBitNum\
-    \ == 0) {\n                num += bit_count(B[i / blockBitNum]);\n           \
-    \ }\n        }\n        ones = num;\n        zeros = N - ones;\n    }\n\n    //\
-    \ B[0, pos)\u306Ebit\u306E\u6570\n    ull rank(const ull bit, const ull pos) {\n\
-    \        assert(bit == 0 or bit == 1);\n        assert(pos <= N);\n\n        if\
-    \ (bit == 1) {\n            return L[pos / LEVEL_L] + S[pos / LEVEL_S] + bit_count(B[pos\
-    \ / blockBitNum] & ((1ull << (pos % blockBitNum)) - 1));\n        }\n        else\
-    \ return pos - rank(1, pos);\n    }\n\n    // k\u756A\u76EE(1-indexed)\u306Ebit\u306E\
-    \u4F4D\u7F6E(0-indexed)\u3092\u8FD4\u3059\n    // \u5B58\u5728\u3057\u306A\u3044\
-    \u5834\u5408\u306FN\u3092\u8FD4\u3059\n    ull select(const ull bit, const ull\
-    \ k) {\n        assert(bit == 0 or bit == 1);\n        assert(k > 0);\n\n    \
-    \    if (bit == 0 and k > zeros) return N;\n        if (bit == 1 and k > ones)\
-    \ return N;\n\n        // \u5927\u30D6\u30ED\u30C3\u30AFL\u5185\u3092\u691C\u7D22\
-    \n        ull large_idx = 0;\n        {\n            ull left = 0;\n         \
-    \   ull right = L.size();\n            while (right - left > 1) {\n          \
-    \      ull mid = (left + right) / 2;\n                ull rank;\n            \
-    \    if (bit == 1) rank = L[mid];\n                else rank = mid * LEVEL_L -\
-    \ L[mid];\n\n                if (rank < k) {\n                    left = mid;\n\
-    \                    large_idx = mid;\n                } \n                else\
-    \ right = mid;\n            }\n        }\n\n        // \u5C0F\u30D6\u30ED\u30C3\
-    \u30AFS\u5185\u3092\u691C\u7D22\n        ull small_idx = (large_idx * LEVEL_L)\
-    \ / LEVEL_S;\n        {\n            ull left = (large_idx * LEVEL_L) / LEVEL_S;\n\
-    \            ull right = min(((large_idx + 1) * LEVEL_L) / LEVEL_S, (ull)S.size());\n\
-    \            while (right - left > 1) {\n                ull mid = (left + right)\
-    \ / 2;\n                ull rank;\n                if (bit == 1) rank = L[large_idx]\
-    \ + S[mid];\n                else rank = mid * LEVEL_S - (L[large_idx] + S[mid]);\n\
-    \n                if (rank < k) {\n                    left = mid;\n         \
-    \           small_idx = mid;\n                } \n                else right =\
-    \ mid;\n            }\n        }\n\n        // B\u3092\u30D6\u30ED\u30C3\u30AF\
-    \u5358\u4F4D\u3067\u9806\u756A\u306B\u63A2\u7D22\n        ull rank_pos = 0;\n\
-    \        {\n            const ull begin_block_idx = (small_idx * LEVEL_S) / blockBitNum;\n\
-    \            ull total_bit;\n            if (bit == 1) total_bit = L[large_idx]\
-    \ + S[small_idx];\n            else total_bit = small_idx * LEVEL_S - (L[large_idx]\
-    \ + S[small_idx]);\n\n            for (ull i = 0;; ++i) {\n                ull\
-    \ b;\n                if (bit == 1) b = bit_count(B[begin_block_idx + i]);\n \
-    \               else b = blockBitNum - bit_count(B[begin_block_idx + i]);\n\n\
-    \                if (total_bit + b >= k) {\n                    ull block;\n \
-    \                   if (bit == 1) block = B[begin_block_idx + i];\n          \
-    \          else block = ~B[begin_block_idx + i];\n\n                    rank_pos\
-    \ = (begin_block_idx + i) * blockBitNum + selectInBlock(block, k - total_bit);\n\
-    \                    break;\n                }\n\n                total_bit +=\
-    \ b;\n            }\n        }\n\n        return rank_pos;\n    }\n\n    ull size()\
-    \ {\n        return N;\n    }\n\n    ull selectInBlock(ull x, ull k) {\n     \
-    \   ull x1 = x - ((x & 0xAAAAAAAAAAAAAAAALLU) >> 1);\n        ull x2 = (x1 & 0x3333333333333333LLU)\
-    \ + ((x1 >> 2) & 0x3333333333333333LLU);\n        ull x3 = (x2 + (x2 >> 4)) &\
-    \ 0x0F0F0F0F0F0F0F0FLLU;\n\n        ull pos = 0;\n        for (;; pos += 8){\n\
-    \            ull k_next = (x3 >> pos) & 0xFFLLU;\n            if (k <= k_next)\
-    \ break;\n            k -= k_next;\n        }\n\n        ull v2 = (x2 >> pos)\
-    \ & 0xFLLU;\n        if (k > v2) {\n            k -= v2;\n            pos += 4;\n\
-    \        }\n\n        ull v1 = (x1 >> pos) & 0x3LLU;\n        if (k > v1){\n \
-    \           k -= v1;\n            pos += 2;\n        }\n\n        ull v0  = (x\
-    \ >> pos) & 0x1LLU;\n        if (v0 < k){\n            k -= v0;\n            pos\
-    \ += 1;\n        }\n\n        return pos;\n    }\n\n    friend ostream& operator<<\
-    \ (ostream& os, BitVector& bv) {\n        os << \"L: \";\n        rep(i, bv.L.size())\
-    \ {\n            os << bv.L[i] << \", \";\n        }\n        os << endl;\n  \
-    \      os << \"S: \";\n        rep(i, bv.S.size()) {\n            os << bv.S[i]\
-    \ << \", \";\n        }\n        os << endl;\n\n        return os;\n    }\n};\n\
-    \ntemplate <typename T>\nstruct BIT {\n    long long N, _N, height;\n    vector<T>\
-    \ bit;\n\n    BIT() {}\n    BIT(long long n) { \n        init(n); \n    }\n\n\
-    \    void init(int n) {\n        _N = n;\n        N = 1;\n        height = 1;\n\
-    \        while (N < (_N + 1)) {\n            N *= 2;\n            ++height;\n\
-    \        }\n        bit.assign(N + 1, 0);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306B\
-    x\u3092\u52A0\u3048\u308B\n    void add(long long p, T x) {\n        assert(0\
-    \ <= p and p < _N);\n\n        ++p; // 1-indexed\n\n        for (int idx = p;\
-    \ idx < N; idx += (idx & -idx)) {\n            bit[idx] += x;\n        }\n   \
-    \ }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\u5024\u3092x\u306B\u3059\u308B\n\
-    \    void set(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n    \
-    \    T val = get(p);\n        add(p, x - val);\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long\
-    \ long r) {\n        assert(0 <= r and r <= _N);\n\n        if (r == 0) return\
-    \ 0;\n        \n        T ret = 0;\n        for (int idx = r; idx > 0; idx -=\
-    \ (idx & -idx)) {\n            ret += bit[idx];\n        }\n        return ret;\n\
-    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\
-    \u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n        assert(0 <=\
-    \ l and l <= r and r <= _N);\n\n        if (l == r) return 0;\n        else return\
-    \ sum(r) - sum(l);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\u5024\u3092\
-    \u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <= p and p < _N);\n\
-    \n        return sum(p + 1) - sum(p);\n    }\n};\n\ntemplate <typename T>\nstruct\
-    \ BITonWaveletMatrix {\n    using uint = unsigned int;\n    using ull = unsigned\
-    \ long long;\n    using Point = pair<long long, long long>;\n\n    ull N, logN;\n\
-    \    vector<BitVector> bit_vectors;\n    vector<BIT<T>> bit;\n    vector<Point>\
-    \ ps;\n    vector<long long> ys;\n\n    unordered_map<long long, T> original;\n\
-    \n    BITonWaveletMatrix() {}\n    BITonWaveletMatrix(const vector<pair<long long,\
-    \ long long>>& A) {\n        rep(i, A.size()) {\n            add_point(A[i].first,\
+    \    return result;\n}\n#line 3 \"structure/bit-on-wavelet-matrix.cpp\"\n\nstruct\
+    \ BitVector {\n    using ull = unsigned long long;\n    using uint = uint16_t;\n\
+    \n    ull N;    // \u30D3\u30C3\u30C8\u30D9\u30AF\u30C8\u30EB\u306E\u30B5\u30A4\
+    \u30BA\n    ull blockBitNum = 16;\n    ull LEVEL_L = 512;\n    ull LEVEL_S = 16;\n\
+    \n    vector<ull> L;   // \u5927\u30D6\u30ED\u30C3\u30AF\n    vector<uint> S;\
+    \   // \u5C0F\u30D6\u30ED\u30C3\u30AF\n    vector<uint> B;   // \u30D3\u30C3\u30C8\
+    \u30D9\u30AF\u30C8\u30EB\n\n    ull ones, zeros = 0; // 1bit\u306E\u6570, 0bit\u306E\
+    \u6570\n\n    BitVector(ull n) : N(n) {\n        const ull s = (n + blockBitNum\
+    \ - 1) / blockBitNum + 1;   // ceil(n, blockSize)\n        B.assign(s, 0);\n \
+    \       L.assign(n / LEVEL_L + 1, 0);\n        S.assign(n / LEVEL_S + 1, 0);\n\
+    \    }\n\n    // B[pos] = bit\n    void set(const ull bit, const ull pos){\n \
+    \       assert(bit == 0 or bit == 1);\n        assert(pos < N);\n\n        const\
+    \ ull blockPos = pos / blockBitNum;\n        const ull offset = pos % blockBitNum;\n\
+    \        if (bit == 1) B[blockPos] |= (1ull << offset);\n        else B[blockPos]\
+    \ &= (~(1ull << offset));\n    }\n\n    // B[pos]\n    ull access(const ull pos)\
+    \ {\n        assert(pos < N);\n        const ull blockPos = pos / blockBitNum;\n\
+    \        const ull offset   = pos % blockBitNum;\n        return ((B[blockPos]\
+    \ >> offset) & 1);\n    }\n\n    void build() {\n        ull num = 0;\n      \
+    \  for (ull i = 0; i <= N; i++){\n            if (i % LEVEL_L == 0) L[i / LEVEL_L]\
+    \ = num;\n            if (i % LEVEL_S == 0) S[i / LEVEL_S] = num - L[i / LEVEL_L];\n\
+    \            if (i != N and i % blockBitNum == 0) {\n                num += bit_count(B[i\
+    \ / blockBitNum]);\n            }\n        }\n        ones = num;\n        zeros\
+    \ = N - ones;\n    }\n\n    // B[0, pos)\u306Ebit\u306E\u6570\n    ull rank(const\
+    \ ull bit, const ull pos) {\n        assert(bit == 0 or bit == 1);\n        assert(pos\
+    \ <= N);\n\n        if (bit == 1) {\n            return L[pos / LEVEL_L] + S[pos\
+    \ / LEVEL_S] + bit_count(B[pos / blockBitNum] & ((1ull << (pos % blockBitNum))\
+    \ - 1));\n        }\n        else return pos - rank(1, pos);\n    }\n\n    //\
+    \ k\u756A\u76EE(1-indexed)\u306Ebit\u306E\u4F4D\u7F6E(0-indexed)\u3092\u8FD4\u3059\
+    \n    // \u5B58\u5728\u3057\u306A\u3044\u5834\u5408\u306FN\u3092\u8FD4\u3059\n\
+    \    ull select(const ull bit, const ull k) {\n        assert(bit == 0 or bit\
+    \ == 1);\n        assert(k > 0);\n\n        if (bit == 0 and k > zeros) return\
+    \ N;\n        if (bit == 1 and k > ones) return N;\n\n        // \u5927\u30D6\u30ED\
+    \u30C3\u30AFL\u5185\u3092\u691C\u7D22\n        ull large_idx = 0;\n        {\n\
+    \            ull left = 0;\n            ull right = L.size();\n            while\
+    \ (right - left > 1) {\n                ull mid = (left + right) / 2;\n      \
+    \          ull rank;\n                if (bit == 1) rank = L[mid];\n         \
+    \       else rank = mid * LEVEL_L - L[mid];\n\n                if (rank < k) {\n\
+    \                    left = mid;\n                    large_idx = mid;\n     \
+    \           } \n                else right = mid;\n            }\n        }\n\n\
+    \        // \u5C0F\u30D6\u30ED\u30C3\u30AFS\u5185\u3092\u691C\u7D22\n        ull\
+    \ small_idx = (large_idx * LEVEL_L) / LEVEL_S;\n        {\n            ull left\
+    \ = (large_idx * LEVEL_L) / LEVEL_S;\n            ull right = min(((large_idx\
+    \ + 1) * LEVEL_L) / LEVEL_S, (ull)S.size());\n            while (right - left\
+    \ > 1) {\n                ull mid = (left + right) / 2;\n                ull rank;\n\
+    \                if (bit == 1) rank = L[large_idx] + S[mid];\n               \
+    \ else rank = mid * LEVEL_S - (L[large_idx] + S[mid]);\n\n                if (rank\
+    \ < k) {\n                    left = mid;\n                    small_idx = mid;\n\
+    \                } \n                else right = mid;\n            }\n      \
+    \  }\n\n        // B\u3092\u30D6\u30ED\u30C3\u30AF\u5358\u4F4D\u3067\u9806\u756A\
+    \u306B\u63A2\u7D22\n        ull rank_pos = 0;\n        {\n            const ull\
+    \ begin_block_idx = (small_idx * LEVEL_S) / blockBitNum;\n            ull total_bit;\n\
+    \            if (bit == 1) total_bit = L[large_idx] + S[small_idx];\n        \
+    \    else total_bit = small_idx * LEVEL_S - (L[large_idx] + S[small_idx]);\n\n\
+    \            for (ull i = 0;; ++i) {\n                ull b;\n               \
+    \ if (bit == 1) b = bit_count(B[begin_block_idx + i]);\n                else b\
+    \ = blockBitNum - bit_count(B[begin_block_idx + i]);\n\n                if (total_bit\
+    \ + b >= k) {\n                    ull block;\n                    if (bit ==\
+    \ 1) block = B[begin_block_idx + i];\n                    else block = ~B[begin_block_idx\
+    \ + i];\n\n                    rank_pos = (begin_block_idx + i) * blockBitNum\
+    \ + selectInBlock(block, k - total_bit);\n                    break;\n       \
+    \         }\n\n                total_bit += b;\n            }\n        }\n\n \
+    \       return rank_pos;\n    }\n\n    ull size() {\n        return N;\n    }\n\
+    \n    ull selectInBlock(ull x, ull k) {\n        ull x1 = x - ((x & 0xAAAAAAAAAAAAAAAALLU)\
+    \ >> 1);\n        ull x2 = (x1 & 0x3333333333333333LLU) + ((x1 >> 2) & 0x3333333333333333LLU);\n\
+    \        ull x3 = (x2 + (x2 >> 4)) & 0x0F0F0F0F0F0F0F0FLLU;\n\n        ull pos\
+    \ = 0;\n        for (;; pos += 8){\n            ull k_next = (x3 >> pos) & 0xFFLLU;\n\
+    \            if (k <= k_next) break;\n            k -= k_next;\n        }\n\n\
+    \        ull v2 = (x2 >> pos) & 0xFLLU;\n        if (k > v2) {\n            k\
+    \ -= v2;\n            pos += 4;\n        }\n\n        ull v1 = (x1 >> pos) & 0x3LLU;\n\
+    \        if (k > v1){\n            k -= v1;\n            pos += 2;\n        }\n\
+    \n        ull v0  = (x >> pos) & 0x1LLU;\n        if (v0 < k){\n            k\
+    \ -= v0;\n            pos += 1;\n        }\n\n        return pos;\n    }\n\n \
+    \   friend ostream& operator<< (ostream& os, BitVector& bv) {\n        os << \"\
+    L: \";\n        rep(i, bv.L.size()) {\n            os << bv.L[i] << \", \";\n\
+    \        }\n        os << endl;\n        os << \"S: \";\n        rep(i, bv.S.size())\
+    \ {\n            os << bv.S[i] << \", \";\n        }\n        os << endl;\n\n\
+    \        return os;\n    }\n};\n\ntemplate <typename T>\nstruct BIT {\n    long\
+    \ long N, _N, height;\n    vector<T> bit;\n\n    BIT() {}\n    BIT(long long n)\
+    \ { \n        init(n); \n    }\n\n    void init(int n) {\n        _N = n;\n  \
+    \      N = 1;\n        height = 1;\n        while (N < (_N + 1)) {\n         \
+    \   N *= 2;\n            ++height;\n        }\n        bit.assign(N + 1, 0);\n\
+    \    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306Bx\u3092\u52A0\u3048\u308B\n  \
+    \  void add(long long p, T x) {\n        assert(0 <= p and p < _N);\n\n      \
+    \  ++p; // 1-indexed\n\n        for (int idx = p; idx < N; idx += (idx & -idx))\
+    \ {\n            bit[idx] += x;\n        }\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\
+    \u5024\u3092x\u306B\u3059\u308B\n    void set(long long p, T x) {\n        assert(0\
+    \ <= p and p < _N);\n\n        T val = get(p);\n        add(p, x - val);\n   \
+    \ }\n\n    // \u534A\u958B\u533A\u9593[0, r) (0-indexed)\u306E\u7DCF\u548C\u3092\
+    \u6C42\u3081\u308B\n    T sum(long long r) {\n        assert(0 <= r and r <= _N);\n\
+    \n        if (r == 0) return 0;\n        \n        T ret = 0;\n        for (int\
+    \ idx = r; idx > 0; idx -= (idx & -idx)) {\n            ret += bit[idx];\n   \
+    \     }\n        return ret;\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed)\u306E\
+    \u7DCF\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n\
+    \        assert(0 <= l and l <= r and r <= _N);\n\n        if (l == r) return\
+    \ 0;\n        else return sum(r) - sum(l);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\
+    \u5024\u3092\u6C42\u3081\u308B\n    T get(long long p) {\n        assert(0 <=\
+    \ p and p < _N);\n\n        return sum(p + 1) - sum(p);\n    }\n};\n\ntemplate\
+    \ <typename T>\nstruct BITonWaveletMatrix {\n    using uint = unsigned int;\n\
+    \    using ull = unsigned long long;\n    using Point = pair<long long, long long>;\n\
+    \n    ull N, logN;\n    vector<BitVector> bit_vectors;\n    vector<BIT<T>> bit;\n\
+    \    vector<Point> ps;\n    vector<long long> ys;\n\n    unordered_map<long long,\
+    \ T> original;\n\n    BITonWaveletMatrix() {}\n    BITonWaveletMatrix(const vector<pair<long\
+    \ long, long long>>& A) {\n        rep(i, A.size()) {\n            add_point(A[i].first,\
     \ A[i].second);\n        }\n        build();\n    }\n\n    void add_point(ll y,\
     \ ll x) {\n        ps.emplace_back(x, y);\n        ys.emplace_back(y);\n    }\n\
     \n    void build() {\n        sort(ps.begin(), ps.end());\n        ps.erase(unique(ps.begin(),\
@@ -587,8 +587,8 @@ data:
   isVerificationFile: true
   path: test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
   requiredBy: []
-  timestamp: '2024-09-28 16:27:37+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-03-23 18:03:13+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
 layout: document

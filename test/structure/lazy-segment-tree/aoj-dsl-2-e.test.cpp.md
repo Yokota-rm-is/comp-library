@@ -1,17 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: base.cpp
     title: base.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: structure/lazy-segment-tree.cpp
     title: structure/lazy-segment-tree.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_E&
@@ -31,7 +31,7 @@ data:
     \ std;\n\n// constant values\nconst int INF32 = numeric_limits<int>::max(); //2.147483647\xD7\
     10^{9}:32bit\u6574\u6570\u306Einf\nconst int inf32 = INF32 / 2;\nconst long long\
     \ INF64 = numeric_limits<long long>::max(); //9.223372036854775807\xD710^{18}:64bit\u6574\
-    \u6570\u306Einf\nconst long long inf64 = INF64 / 2;\nconst double EPS = numeric_limits<double>::epsilon();\
+    \u6570\u306Einf\nconst long long inf64 = INF64 / 4;\nconst double EPS = numeric_limits<double>::epsilon();\
     \ //\u554F\u984C\u306B\u3088\u308B\n// const int MOD = 998244353; //\u554F\u984C\
     \u306B\u3088\u308B\n\n#ifdef LOCAL\nbool DEBUG = true;\n#else\nbool DEBUG = false;\n\
     #endif\n\n// REP macro\n#define OVERLOAD_REP(_1, _2, _3, name, ...) name\n#define\
@@ -59,14 +59,14 @@ data:
     \ = unsigned short;\nusing uint = unsigned int;\nusing ll = long long;\nusing\
     \ ull = unsigned long long;\nusing lll = __int128_t;\nusing ulll = __uint128_t;\n\
     using vll = vector<ll>;\nusing setll = set<ll>;\nusing mapll = map<ll, ll>;\n\
-    using pll = pair<ll, ll>;\ntemplate<typename T> using vec = vector<T>;\ntemplate<typename\
-    \ T> using vv = vector<vector<T>>;\nusing vvll = vector<vector<long long>>;\n\
-    template<typename T> using vvv = vector<vector<vector<T>>>;\nusing str = string;\n\
-    using vstr = vector<str>;\nusing sstr = set<str>;\nusing vchar = vector<char>;\n\
-    using schar = set<char>;\nusing vd = vector<double>;\nusing vvd = vector<vector<double>>;\n\
-    using vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\ntemplate<typename\
-    \ T> using priority_queue_greater = priority_queue<T, vector<T>, greater<T>>;\n\
-    \n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
+    using pll = pair<ll, ll>;\nusing vpll = vector<pll>;\ntemplate<typename T> using\
+    \ vec = vector<T>;\ntemplate<typename T> using vv = vector<vector<T>>;\nusing\
+    \ vvll = vector<vector<long long>>;\ntemplate<typename T> using vvv = vector<vector<vector<T>>>;\n\
+    using str = string;\nusing vstr = vector<str>;\nusing sstr = set<str>;\nusing\
+    \ vchar = vector<char>;\nusing schar = set<char>;\nusing vd = vector<double>;\n\
+    using vvd = vector<vector<double>>;\nusing vb = vector<bool>;\nusing vvb = vector<vector<bool>>;\n\
+    template<typename T> using priority_queue_greater = priority_queue<T, vector<T>,\
+    \ greater<T>>;\n\n// boost\u95A2\u9023\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     using boost::algorithm::all_of_equal;\nusing boost::algorithm::any_of_equal;\n\
     using boost::algorithm::none_of_equal;\nusing boost::algorithm::one_of_equal;\n\
     #endif\n#if __has_include(<boost/lambda/lambda.hpp>)\nusing boost::lambda::_1;\n\
@@ -151,35 +151,19 @@ data:
     \ \" \" : \"\\n\"); tmp.pop();}; return os;}\ntemplate<typename T> ostream& operator\
     \ << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty())\
     \ {os << tmp.top() << ((tmp.size() > 0)? \" \" : \"\\n\"); tmp.pop();}; return\
-    \ os;}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename T> void dump(T\
-    \ a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<vector<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<stack<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<queue<T>>& a) { cerr << '\\n' << a;}\ntemplate<typename\
-    \ T> void dump(vector<deque<T>>& a) { cerr << '\\n' << a;}\n\n// input\ntemplate<typename\
-    \ T> inline void input(T& a) {cin >> a;}\ntemplate<typename T, typename... Args>\
-    \ inline void input(T& a, Args&&... args) { cin >> a; input(args...);}\ntemplate<typename\
-    \ T> inline void input(vector<T>& A) { rep(i, A.size()) cin >> A[i];}\ntemplate<typename\
-    \ T> inline void input(vector<T>& A, vector<T>& B) { assert(A.size() == B.size());rep(i,\
-    \ A.size()) cin >> A[i] >> B[i];}\ntemplate<typename T> inline void input(vector<T>&\
-    \ A, vector<T>& B, vector<T>& C) { assert(A.size() == B.size() and A.size() ==\
-    \ C.size()); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename\
-    \ T> inline void input(const long long N, vector<T>& A) { A.resize(N); rep(i,\
-    \ N) cin >> A[i];}\ntemplate<typename T> inline void input(const long long N,\
-    \ vector<T>& A, vector<T>& B) { A.resize(N); B.resize(N); rep(i, N) cin >> A[i]\
-    \ >> B[i];}\ntemplate<typename T> inline void input(const long long N, vector<T>&\
-    \ A, vector<T>& B, vector<T>& C) { A.resize(N); B.resize(N); C.resize(N); rep(i,\
-    \ A.size()) cin >> A[i] >> B[i] >> C[i];}\ntemplate<typename T> inline void input(const\
-    \ long long N, set<T>& A) {rep(i, N) { T a; cin >> a; A.insert(a);}}\ntemplate<typename\
-    \ T> inline void input(const long long N, set<T>& A, set<T>& B) { rep(i, N) {T\
-    \ a, b; cin >> a >> b; A.insert(a); B.insert(b);}}\ntemplate<typename T> inline\
-    \ void input(const long long N, set<T>& A, set<T>& B, set<T>& C) { rep(i, N) {T\
-    \ a, b, c; cin >> a >> b >> c; A.insert(a); B.insert(b); C.insert(c);}}\ntemplate<typename\
-    \ T> inline void input(vector<vector<T>>& A) { rep(i, A.size()) input(A[i]);}\n\
-    \ninline string YESNO(bool flag) { return flag ? \"YES\" : \"NO\";}\ninline string\
-    \ yesno(bool flag) { return flag ? \"yes\" : \"no\";}\ninline string YesNo(bool\
-    \ flag) { return flag ? \"Yes\" : \"No\";}\ninline string POSSIBLE(bool flag)\
-    \ { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\";}\ninline string Possible(bool\
+    \ os;}\nostream& operator<< (ostream& os, __int128_t x) { \n    if (x == 0) return\
+    \ os << '0';\n    if (x < 0) {os << '-'; x = -x;}\n\n    string s; \n    for (__int128_t\
+    \ y = x; y > 0; y /= 10) s += (char)('0' + y % 10); \n    reverse(s.begin(), s.end());\
+    \ \n    return os << s;\n}\n\n// \u30C7\u30D0\u30C3\u30B0\u7528\ntemplate<typename\
+    \ T> void dump(T a) { cerr << a;}\nvoid dump(vector<string>& a) { cerr << '\\\
+    n' << a;}\ntemplate<typename T> void dump(vector<vector<T>>& a) { cerr << '\\\
+    n' << a;}\ntemplate<typename T> void dump(vector<stack<T>>& a) { cerr << '\\n'\
+    \ << a;}\ntemplate<typename T> void dump(vector<queue<T>>& a) { cerr << '\\n'\
+    \ << a;}\ntemplate<typename T> void dump(vector<deque<T>>& a) { cerr << '\\n'\
+    \ << a;}\n\ninline string YESNO(bool flag) { return flag ? \"YES\" : \"NO\";}\n\
+    inline string yesno(bool flag) { return flag ? \"yes\" : \"no\";}\ninline string\
+    \ YesNo(bool flag) { return flag ? \"Yes\" : \"No\";}\ninline string POSSIBLE(bool\
+    \ flag) { return flag ? \"POSSIBLE\" : \"IMPOSSIBLE\";}\ninline string Possible(bool\
     \ flag) { return flag ? \"Possible\" : \"Impossible\";}\ninline string TakahashiAoki(bool\
     \ flag) { return flag ? \"Takahashi\" : \"Aoki\";}\n\n// \u7B2C\u4E00\u5F15\u6570\
     \u3068\u7B2C\u4E8C\u5F15\u6570\u3092\u6BD4\u8F03\u3057\u3001\u7B2C\u4E00\u5F15\
@@ -262,37 +246,49 @@ data:
     \ y) { return x / y + (x % y > 0);}\ninline long long floor(long long x, long\
     \ long y) { return x / y - (x % y < 0);}\npair<long long, long long> divmod(long\
     \ long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1)\
-    \ / y, (x % y + y) % y));}\ninline long long binpow(long long x, long long n,\
-    \ long long m = 0) {\n    long long ret = 1;\n    while (n > 0) {\n        if\
-    \ (n & 1) ret *= x;  // n \u306E\u6700\u4E0B\u4F4Dbit\u304C 1 \u306A\u3089\u3070\
-    \ x^(2^i) \u3092\u304B\u3051\u308B\n        if (m > 0) ret %= m;\n        n >>=\
-    \ 1;  // n \u30921bit \u5DE6\u306B\u305A\u3089\u3059\n\n        if (n > 0) x *=\
-    \ x;\n        if (m > 0) x %= m;\n    }\n    return ret;\n}\n// mod. m \u3067\u306E\
-    \ a \u306E\u9006\u5143 a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename\
-    \ T> T modinv(T a, T m) {\n    T b = m, u = 1, v = 0;\n    while (b) {\n     \
-    \   T t = a / b;\n        a -= t * b; swap(a, b);\n        u -= t * v; swap(u,\
-    \ v);\n    }\n    u %= m;\n    if (u < 0) u += m;\n    return u;\n}\n// combination\u3092\
-    \u6C42\u3081\u308B\nlong long nCr(long long n, long long k, long long m = 0) {\n\
-    \    if (n < k) return 0;\n    if (n - k < k) k = n - k;\n    long long ret =\
-    \ 1;\n    rep(i, k) {\n        ret *= (n - i);\n        if (m > 0) ret %= m;\n\
-    \    }\n    rep(i, 1, k + 1) {\n        if (m > 0) {\n            ret *= modinv(i,\
-    \ m);\n            ret %= m;\n        } \n        else ret /= i;\n    }\n    return\
-    \ ret;\n}\n\n// \u6700\u5927\u516C\u7D04\u6570\u3092\u6C42\u3081\u308B\nlong long\
-    \ gcd(const vector<long long> &A) {\n    long long ret = 0;\n    rep(i, A.size())\
-    \ ret = gcd(ret, A[i]);\n    return ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\
-    \u3092\u6C42\u3081\u308B\nlong long lcm(const vector<long long> &A, const long\
-    \ long m = 0) { \n    long long ret = 1;\n    rep(i, A.size()) { ret = lcm(ret,\
-    \ A[i]); if (m > 0) ret %= m;}\n    return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\
-    \u30AF\u30EA\u30C3\u30C9\u306E\u4E92\u9664\u6CD5\ntuple<long long, long long,\
-    \ long long> extGCD(long long a, long long b) {\n    if (b == 0) return {a, 1,\
-    \ 0};\n    auto [g, x, y] = extGCD(b, a % b);\n    return {g, y, x - (a / b) *\
-    \ y};\n}\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return to_string(x);}\n\
-    inline int ctoi(char x) { return int(x - '0');}\ninline char itoc(int x) { return\
-    \ (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\ninline string\
-    \ to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string to_lower(string&\
-    \ S) { return boost::to_lower_copy(S);}\n#endif\ninline bool is_lower(char c)\
-    \ { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char c) { return\
-    \ (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
+    \ / y, (x % y + y) % y));}\ntemplate <typename T = unsigned long long> inline\
+    \ T binpow(T x, T n) { T ret = 1; while (n) {if (n & 1) ret *= x; x *= x; n >>=\
+    \ 1;} return ret; }\ntemplate <typename T = unsigned long long> inline T binpow(T\
+    \ x, T n, T m) { T ret = 1; while (n) {if (n & 1) ret = (ret * x) % m; x = (x\
+    \ * x) % m; n >>= 1;} return ret; }\n// mod. m \u3067\u306E a \u306E\u9006\u5143\
+    \ a^{-1} \u3092\u8A08\u7B97\u3059\u308B\ntemplate<typename T> T modinv(T a, T\
+    \ m) {\n    T b = m, u = 1, v = 0;\n    while (b) { T t = a / b; a -= t * b; swap(a,\
+    \ b); u -= t * v; swap(u, v); }\n    u %= m;\n    if (u < 0) u += m;\n    return\
+    \ u;\n}\n// combination\u3092\u6C42\u3081\u308B\nlong long nCr(long long n, long\
+    \ long k, long long m = 0) {\n    if (n < k) return 0;\n    if (n - k < k) k =\
+    \ n - k;\n    long long ret = 1;\n    rep(i, k) {\n        ret *= (n - i);\n \
+    \       if (m > 0) ret %= m;\n    }\n    rep(i, 1, k + 1) {\n        if (m > 0)\
+    \ {\n            ret *= modinv(i, m);\n            ret %= m;\n        } \n   \
+    \     else ret /= i;\n    }\n    return ret;\n}\n\n// \u6700\u5927\u516C\u7D04\
+    \u6570\u3092\u6C42\u3081\u308B\nlong long gcd(const vector<long long> &A) {\n\
+    \    long long ret = 0;\n    rep(i, A.size()) ret = gcd(ret, A[i]);\n    return\
+    \ ret;\n}\n// \u6700\u5C0F\u516C\u500D\u6570\u3092\u6C42\u3081\u308B\nlong long\
+    \ lcm(const vector<long long> &A, const long long m = 0) { \n    long long ret\
+    \ = 1;\n    rep(i, A.size()) { ret = lcm(ret, A[i]); if (m > 0) ret %= m;}\n \
+    \   return ret;\n}\n// \u62E1\u5F35\u30E6\u30FC\u30AF\u30EA\u30C3\u30C9\u306E\u4E92\
+    \u9664\u6CD5\ntuple<long long, long long, long long> extGCD(long long a, long\
+    \ long b) {\n    if (b == 0) return {a, 1, 0};\n    auto [g, x, y] = extGCD(b,\
+    \ a % b);\n    return {g, y, x - (a / b) * y};\n}\n\n// \u5206\u6570\u6BD4\u8F03\
+    \ninline bool is_greater(long long p, long long q, long long r, long long s) {\
+    \ return __int128_t(p) * s > __int128_t(q) * r;}\ninline bool is_greater_or_equal(long\
+    \ long p, long long q, long long r, long long s) { return __int128_t(p) * s >=\
+    \ __int128_t(q) * r;}\ninline bool is_less(long long p, long long q, long long\
+    \ r, long long s) { return __int128_t(p) * s < __int128_t(q) * r;}\ninline bool\
+    \ is_less_or_equal(long long p, long long q, long long r, long long s) { return\
+    \ __int128_t(p) * s <= __int128_t(q) * r;}\n#if __has_include(<boost/multiprecision/cpp_int.hpp>)\n\
+    inline bool is_greater(__int128_t p, __int128_t q, __int128_t r, __int128_t s)\
+    \ { return int256_t(p) * s > int256_t(q) * r;}\ninline bool is_greater_or_equal(__int128_t\
+    \ p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s >= int256_t(q)\
+    \ * r;}\ninline bool is_less(__int128_t p, __int128_t q, __int128_t r, __int128_t\
+    \ s) { return int256_t(p) * s < int256_t(q) * r;}\ninline bool is_less_or_equal(__int128_t\
+    \ p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s <= int256_t(q)\
+    \ * r;}\n#endif\n\n// string\u95A2\u4FC2\ninline string lltos(long long x) { return\
+    \ to_string(x);}\ninline int ctoi(char x) { return int(x - '0');}\ninline char\
+    \ itoc(int x) { return (char)(x + '0');}\n#if __has_include(<boost/algorithm/string.hpp>)\n\
+    inline string to_upper(string& S) { return boost::to_upper_copy(S);}\ninline string\
+    \ to_lower(string& S) { return boost::to_lower_copy(S);}\n#endif\ninline bool\
+    \ is_lower(char c) { return (c >= 'a') and (c <= 'z');}\ninline bool is_upper(char\
+    \ c) { return (c >= 'A') and (c <= 'Z');}\ninline char to_upper(char c) { if (is_upper(c))\
     \ return c; else return c + 'A' - 'a';}\ninline char to_lower(char c) { if (is_lower(c))\
     \ return c; else return c + 'a' - 'A';}\ninline string zero_padding(string N,\
     \ long long width) {\n    stringstream ss;\n    ss << setw(width) << setfill('0')\
@@ -328,134 +324,151 @@ data:
     \u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\
     \u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
     \ find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(),\
-    \ v.end(), key); }\ntemplate <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>&\
-    \ st, T key) { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\
-    \u308B\u6700\u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\
-    \u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline\
-    \ typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return\
-    \ upper_bound(v.begin(), v.end(), key); }\ntemplate <typename T> inline typename\
-    \ set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key);\
-    \ }\n// \u30AD\u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\
-    \u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570\
-    , \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline\
-    \ typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) {\
-    \ auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
-    \ : --it;}\ntemplate <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
+    \ v.end(), key); }\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than_or_equal(typename vector<T>::iterator begin, typename vector<T>::iterator\
+    \ end, T key) { return lower_bound(begin, end, key); }\ntemplate <typename T>\
+    \ inline typename set<T>::iterator find_greater_than_or_equal(set<T>& st, T key)\
+    \ { return st.lower_bound(key); }\n// \u30AD\u30FC\u3092\u8D85\u3048\u308B\u6700\
+    \u5C0F\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\
+    \u30BF\u3092\u8FD4\u3059\u95A2\u6570\ntemplate <typename T> inline typename vector<T>::iterator\
+    \ find_greater_than(vector<T>& v, T key) { return upper_bound(v.begin(), v.end(),\
+    \ key); }\ntemplate <typename T> inline typename vector<T>::iterator find_greater_than(typename\
+    \ vector<T>::iterator begin, typename vector<T>::iterator end, T key) { return\
+    \ upper_bound(begin, end, key); }\ntemplate <typename T> inline typename set<T>::iterator\
+    \ find_greater_than(set<T>& st, T key) { return st.upper_bound(key); }\n// \u30AD\
+    \u30FC\u4EE5\u4E0B\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\u898B\u3064\u3051\
+    \u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\u6570, \u306A\u3044\
+    \u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename T> inline typename\
+    \ vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) { auto it =\
+    \ upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it;}\n\
+    template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(typename\
+    \ vector<T>::iterator begin, typename vector<T>::iterator end, T key) { auto it\
+    \ = upper_bound(begin, end, key); return it == begin ? end : --it;}\ntemplate\
+    \ <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>&\
     \ st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end()\
     \ : --it;}\n// \u30AD\u30FC\u672A\u6E80\u306E\u6700\u5927\u306E\u8981\u7D20\u3092\
     \u898B\u3064\u3051\u308B\u30A4\u30C6\u30EC\u30FC\u30BF\u3092\u8FD4\u3059\u95A2\
     \u6570, \u306A\u3044\u5834\u5408\u306Fend\u3092\u8FD4\u3059\ntemplate <typename\
     \ T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) {\
     \ auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end()\
-    \ : --it; }\ntemplate <typename T> inline typename set<T>::iterator find_less_than(set<T>&\
-    \ st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end()\
-    \ : --it;}\n\ntemplate <typename T> auto operator+(const vector<T>& A, const T\
-    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret;\
-    \ }\ntemplate <typename T> auto operator-(const vector<T>& A, const T x) { vector<T>\
-    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename\
-    \ T> auto operator*(const vector<T>& A, const T x) { vector<T> ret(A.size());\
-    \ rep(i, A.size()) ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto\
-    \ operator/(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
-    \ ret[i] = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const\
+    \ : --it; }\ntemplate <typename T> inline typename vector<T>::iterator find_less_than(typename\
+    \ vector<T>::iterator begin, typename vector<T>::iterator end, T key) { auto it\
+    \ = lower_bound(begin, end, key); return it == begin ? end : --it; }\ntemplate\
+    \ <typename T> inline typename set<T>::iterator find_less_than(set<T>& st, T key)\
+    \ { auto it = st.lower_bound(key); return it == st.begin() ? st.end() : --it;}\n\
+    \ntemplate <typename T> auto operator+(const vector<T>& A, const T x) { vector<T>\
+    \ ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }\ntemplate <typename\
+    \ T> auto operator-(const vector<T>& A, const T x) { vector<T> ret(A.size());\
+    \ rep(i, A.size()) ret[i] = A[i] - x; return ret; }\ntemplate <typename T> auto\
+    \ operator*(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size())\
+    \ ret[i] = A[i] * x; return ret; }\ntemplate <typename T> auto operator/(const\
     \ vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i]\
-    \ = A[i] % x; return ret; }\ntemplate <typename T> auto binpow(const vector<T>&\
-    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i],\
-    \ x); return ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto&\
-    \ x : a) ++x; return a; }\ntemplate <typename R> auto operator++(R& a, int) {\
-    \ auto temp = a; for (auto& x : a) x++; return temp; }\ntemplate <typename R>\
-    \ auto& operator--(R& a) { for (auto& x : a) --x; return a; }\ntemplate <typename\
-    \ R> auto operator--(R& a, int) { auto temp = a; for (auto& x : a) x--; return\
-    \ temp; }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
-    \ p, const T x) { return pair<T, U>(p.first + x, p.second + x); }\ntemplate <typename\
-    \ T, typename U> auto operator-(const pair<T, U>& p, const T x) { return pair<T,\
-    \ U>(p.first - x, p.second - x); }\ntemplate <typename T, typename U> auto operator*(const\
-    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first * x, p.second * x); }\n\
-    template <typename T, typename U> auto operator/(const pair<T, U>& p, const T\
-    \ x) { return pair<T, U>(p.first / x, p.second / x); }\ntemplate <typename T,\
-    \ typename U> auto operator%(const pair<T, U>& p, const T x) { return pair<T,\
-    \ U>(p.first % x, p.second % x); }\ntemplate <typename T, typename U> auto binpow(const\
-    \ pair<T, U>& p, const T x) { return pair<T, U>(binpow(p.first, x), binpow(p.second,\
-    \ x)); }\n\ntemplate <typename T, typename U> auto operator+(const pair<T, U>&\
-    \ p, const pair<T, U>& q) { return pair<T, U>(p.first + q.first, p.second + q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator-(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first - q.first, p.second - q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator*(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first * q.first, p.second * q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator/(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first / q.first, p.second / q.second);\
-    \ }\ntemplate <typename T, typename U> auto operator%(const pair<T, U>& p, const\
-    \ pair<T, U>& q) { return pair<T, U>(p.first % q.first, p.second % q.second);\
-    \ }\n\ntemplate <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first;\
-    \ ++p.second; return p; }\ntemplate <typename T, typename U> auto operator++(pair<T,\
-    \ U>& p, int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate\
-    \ <typename T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second;\
-    \ return p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p,\
-    \ int) { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
+    \ = A[i] / x; return ret; }\ntemplate <typename T> auto operator%(const vector<T>&\
+    \ A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] % x;\
+    \ return ret; }\ntemplate <typename T> auto binpow(const vector<T>& A, const T\
+    \ x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = binpow(A[i], x); return\
+    \ ret; }\n\ntemplate <typename R> auto& operator++(R& a) { for (auto& x : a) ++x;\
+    \ return a; }\ntemplate <typename R> auto operator++(R& a, int) { auto temp =\
+    \ a; for (auto& x : a) x++; return temp; }\ntemplate <typename R> auto& operator--(R&\
+    \ a) { for (auto& x : a) --x; return a; }\ntemplate <typename R> auto operator--(R&\
+    \ a, int) { auto temp = a; for (auto& x : a) x--; return temp; }\n\ntemplate <typename\
+    \ T, typename U> auto operator+(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first + x, p.second + x); }\ntemplate <typename T, typename U> auto operator-(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first - x, p.second - x); }\n\
+    template <typename T, typename U> auto operator*(const pair<T, U>& p, const T\
+    \ x) { return pair<T, U>(p.first * x, p.second * x); }\ntemplate <typename T,\
+    \ typename U> auto operator/(const pair<T, U>& p, const T x) { return pair<T,\
+    \ U>(p.first / x, p.second / x); }\ntemplate <typename T, typename U> auto operator%(const\
+    \ pair<T, U>& p, const T x) { return pair<T, U>(p.first % x, p.second % x); }\n\
+    template <typename T, typename U> auto binpow(const pair<T, U>& p, const T x)\
+    \ { return pair<T, U>(binpow(p.first, x), binpow(p.second, x)); }\n\ntemplate\
+    \ <typename T, typename U> auto operator+(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first + q.first, p.second + q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator-(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first - q.first, p.second - q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator*(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first * q.first, p.second * q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator/(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first / q.first, p.second / q.second); }\ntemplate\
+    \ <typename T, typename U> auto operator%(const pair<T, U>& p, const pair<T, U>&\
+    \ q) { return pair<T, U>(p.first % q.first, p.second % q.second); }\n\ntemplate\
+    \ <typename T, typename U> auto& operator++(pair<T, U>& p) { ++p.first; ++p.second;\
+    \ return p; }\ntemplate <typename T, typename U> auto operator++(pair<T, U>& p,\
+    \ int) { auto temp = p; ++p.first; ++p.second; return temp; }\ntemplate <typename\
+    \ T, typename U> auto& operator--(pair<T, U>& p) { --p.first; --p.second; return\
+    \ p; }\ntemplate <typename T, typename U> auto operator--(pair<T, U>& p, int)\
+    \ { auto temp = p; --p.first; --p.second; return temp; }\n\ntemplate<typename\
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n\nlong long log_floor(long long x, long long base) { long\
-    \ long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}\nlong\
-    \ long log_ceil(long long x, long long base) { long long ret = log(x) / log(base);\
-    \ if ((1ll << ret) < x) ++ret; return ret;}\nlong long root_floor(long long x,\
-    \ long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret;\
-    \ return ret;}\nlong long root_ceil(long long x, long long n) { long long ret\
-    \ = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}\n#line 3 \"structure/lazy-segment-tree.cpp\"\
-    \n\ntemplate<typename T>\nstruct Node {\n    T value;\n    long long index;\n\
-    \    long long size;\n    long long coeff;\n\n    Node(T v, long long i = -1,\
-    \ long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};\n\
-    \n    bool operator< (const Node &other) const {\n        return value < other.value;\n\
-    \    }\n\n    bool operator== (const T other) const {\n        return value ==\
-    \ other;\n    }\n\n    bool operator!= (const T other) const {\n        return\
-    \ value != other;\n    }\n\n    operator T() const {\n        return value;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, const Node<T>& node) {\n\
-    \        return os << node.value;\n    }\n};\n\ntemplate<typename T>\nstruct Operation\
-    \ {\n    using S = Node<T>;\n\n    Operation() {};\n\n    virtual T e() = 0;\n\
-    \n    virtual S operator() (const S& x, const S& y) = 0;\n};\n\ntemplate<typename\
-    \ T = long long>\nstruct NoOperation : Operation<T> {\n    using S = Node<T>;\n\
-    \n    NoOperation(): _e(T()) {};\n\n    T e() override {\n        return _e;\n\
-    \    }\n\n    S operator() (const S& x, const S& y) override {\n        if (x\
-    \ == e()) return y;\n        else if (y == e()) return x;\n\n        T value =\
-    \ x.value;\n        long long index = -1;\n        long long size = x.size + y.size;\n\
-    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
-    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
+    \    return result;\n}\n#line 3 \"structure/lazy-segment-tree.cpp\"\n\ntemplate<typename\
+    \ T>\nstruct Node {\n    T value;\n    long long left, right, index, size, coeff;\n\
+    \n    Node(T v, long long l = -1, long long r = -1, long long i = -1, long long\
+    \ s = 0, long long c = 1) : value(v), left(l), right(r), index(i), size(s), coeff(c)\
+    \ {};\n\n    bool operator< (const Node &other) const {\n        return value\
+    \ < other.value;\n    }\n\n    bool operator== (const T other) const {\n     \
+    \   return value == other;\n    }\n\n    bool operator!= (const T other) const\
+    \ {\n        return value != other;\n    }\n\n    operator T() const {\n     \
+    \   return value;\n    }\n\n    friend ostream& operator << (ostream &os, const\
+    \ Node<T>& node) {\n        return os << node.value;\n    }\n};\n\ntemplate<typename\
+    \ T>\nstruct Operation {\n    using S = Node<T>;\n\n    Operation() {};\n\n  \
+    \  virtual T e() = 0;\n\n    virtual S operator() (const S& x, const S& y) = 0;\n\
+    };\n\ntemplate<typename T = long long>\nstruct NoOperation : Operation<T> {\n\
+    \    using S = Node<T>;\n\n    NoOperation(): _e(T()) {};\n\n    T e() override\
+    \ {\n        return _e;\n    }\n\n    S operator() (const S& x, const S& y) override\
+    \ {\n        if (x == e()) return y;\n        else if (y == e()) return x;\n\n\
+    \        T value = x.value;\n        long long left = (x.left != -1 ? x.left :\
+    \ y.left);\n        long long right = (y.right != -1 ? y.right : x.right);\n \
+    \       long long index = -1;\n        long long size = x.size + y.size;\n   \
+    \     long long coeff = 1;\n\n        S ret(value, left, right, index, size, coeff);\n\
+    \n        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
     struct Max : Operation<T> {\n    using S = Node<T>;\n\n    Max(): _e(numeric_limits<T>::min())\
     \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
     \ S& x, const S& y) override {\n        T value = max(x.value, y.value);\n   \
-    \     long long index = (y.value > x.value ? y.index : x.index);\n        long\
-    \ long size = x.size + y.size;\n        long long coeff = 1;\n\n        S ret(value,\
-    \ index, size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n\
-    };\n\ntemplate<typename T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\
-    \n    Min(): _e(numeric_limits<T>::max()) {};\n\n    T e() override {\n      \
-    \  return _e;\n    }\n\n    S operator() (const S& x, const S& y) override {\n\
-    \        T value = min(x.value, y.value);\n        long long index = (y.value\
-    \ < x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n\
-    \        long long coeff = 1;\n\n        S ret(value, index, size, coeff);\n\n\
-    \        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\n\
-    struct Sum: Operation<T> {\n    using S = Node<T>;\n\n    Sum(): _e(T()) {};\n\
-    \n    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
-    \ x, const S& y) override {\n        T value = x.value + y.value;\n        long\
-    \ long index = -1;\n        long long size = x.size + y.size;\n        long long\
-    \ coeff = size;\n\n        S ret(value, index, size, coeff);\n\n        return\
-    \ ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul:\
-    \ Operation<T> {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e()\
-    \ override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
-    \ S& y) override {\n        T value = x.value * y.value;\n        long long index\
-    \ = -1;\n        long long size = x.size + y.size;\n        long long coeff =\
-    \ 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n   \
-    \ }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct GCD\
-    \ : Operation<T> {\n    using S = Node<T>;\n\n    GCD(): _e(T(0)) {};\n\n    T\
-    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
-    \ S& y) override {\n        T value = gcd(x.value, y.value);\n        long long\
-    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
-    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
-    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct LCM\
-    \ : Operation<T> {\n    using S = Node<T>;\n\n    LCM(): _e(T(1)) {};\n\n    T\
-    \ e() override {\n        return _e;\n    }\n\n    S operator() (const S& x, const\
-    \ S& y) override {\n        T value = lcm(x.value, y.value);\n        long long\
-    \ index = -1;\n        long long size = x.size + y.size;\n        long long coeff\
-    \ = 1;\n\n        S ret(value, index, size, coeff);\n\n        return ret;\n \
-    \   }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Mapping\
+    \     long long left = (x.left != -1 ? x.left : y.left);\n        long long right\
+    \ = (y.right != -1 ? y.right : x.right);\n        long long index = (y.value >\
+    \ x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n \
+    \       long long coeff = 1;\n\n        S ret(value, left, right, index, size,\
+    \ coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T>\nstruct Min: Operation<T> {\n    using S = Node<T>;\n\n    Min(): _e(numeric_limits<T>::max())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = min(x.value, y.value);\n   \
+    \     long long left = (x.left != -1 ? x.left : y.left);\n        long long right\
+    \ = (y.right != -1 ? y.right : x.right);\n        long long index = (y.value <\
+    \ x.value ? y.index : x.index);\n        long long size = x.size + y.size;\n \
+    \       long long coeff = 1;\n\n        S ret(value, left, right, index, size,\
+    \ coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T>\nstruct Sum: Operation<T> {\n    using S = Node<T>;\n\n    Sum(): _e(T())\
+    \ {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator() (const\
+    \ S& x, const S& y) override {\n        T value = x.value + y.value;\n       \
+    \ long long left = (x.left != -1 ? x.left : y.left);\n        long long right\
+    \ = (y.right != -1 ? y.right : x.right);\n        long long index = -1;\n    \
+    \    long long size = x.size + y.size;\n        long long coeff = size;\n\n  \
+    \      S ret(value, left, right, index, size, coeff);\n\n        return ret;\n\
+    \    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T>\nstruct Mul: Operation<T>\
+    \ {\n    using S = Node<T>;\n\n    Mul(): _e(T(1)) {};\n\n    T e() override {\n\
+    \        return _e;\n    }\n\n    S operator() (const S& x, const S& y) override\
+    \ {\n        T value = x.value * y.value;\n        long long left = (x.left !=\
+    \ -1 ? x.left : y.left);\n        long long right = (y.right != -1 ? y.right :\
+    \ x.right);\n        long long index = -1;\n        long long size = x.size +\
+    \ y.size;\n        long long coeff = 1;\n\n        S ret(value, left, right, index,\
+    \ size, coeff);\n\n        return ret;\n    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename\
+    \ T = long long>\nstruct GCD : Operation<T> {\n    using S = Node<T>;\n\n    GCD():\
+    \ _e(T(0)) {};\n\n    T e() override {\n        return _e;\n    }\n\n    S operator()\
+    \ (const S& x, const S& y) override {\n        T value = gcd(x.value, y.value);\n\
+    \        long long left = (x.left != -1 ? x.left : y.left);\n        long long\
+    \ right = (y.right != -1 ? y.right : x.right);\n        long long index = -1;\n\
+    \        long long size = x.size + y.size;\n        long long coeff = 1;\n\n \
+    \       S ret(value, left, right, index, size, coeff);\n\n        return ret;\n\
+    \    }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T = long long>\nstruct\
+    \ LCM : Operation<T> {\n    using S = Node<T>;\n\n    LCM(): _e(T(1)) {};\n\n\
+    \    T e() override {\n        return _e;\n    }\n\n    S operator() (const S&\
+    \ x, const S& y) override {\n        T value = lcm(x.value, y.value);\n      \
+    \  long long left = (x.left != -1 ? x.left : y.left);\n        long long right\
+    \ = (y.right != -1 ? y.right : x.right);\n        long long index = -1;\n    \
+    \    long long size = x.size + y.size;\n        long long coeff = 1;\n\n     \
+    \   S ret(value, left, right, index, size, coeff);\n\n        return ret;\n  \
+    \  }\n\nprivate:\n    T _e;\n};\n\ntemplate<typename T, typename F>\nstruct Mapping\
     \ {\n    using S = Node<T>;\n\n    Mapping() {};\n\n    virtual F id() = 0;\n\n\
     \    void operator() (S &x, const F f) {\n        if (f == id()) return;\n\n \
     \       map(x, f);\n    }\n\n    void composition(F &f, const F s) {\n       \
@@ -502,90 +515,90 @@ data:
     \ &v) {\n        _N = v.size();\n        height = 1;\n        N = 1;\n\n     \
     \   while (N < _N) {\n            N *= 2;\n            height++;\n        }\n\
     \        \n        node.resize(2 * N, S(op.e()));\n        lazy.resize(N, mapping.id());\n\
-    \n        rep(i, N) {\n            if (i < _N) node[i + N] = S(v[i], i, 1, 1);\n\
-    \            else node[i + N] = S(op.e());\n        }\n        repd(i, 1, N) update(i);\n\
-    \    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\
-    \u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void apply(long long\
-    \ p, F f) {\n        assert(0 <= p and p < _N);\n\n        long long k = p + N;\n\
-    \        repd(i, 1, height) push(k >> i);\n        mapping(node[k], f);\n    \
-    \    rep(i, 1, height) update(k >> i);\n    }\n\n    // \u534A\u958B\u533A\u9593\
-    [l, r)\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n\
-    \    // l, r\u3068\u3082\u306B0-indexed\n    void apply(long long l, long long\
-    \ r, F f) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l += N;\n\
-    \        r += N;\n\n        repd(i, 1, height) {\n            if (((l >> i) <<\
-    \ i) != l) push(l >> i);\n            if (((r >> i) << i) != r) push((r - 1) >>\
-    \ i);\n        }\n\n        long long l2 = l, r2 = r;\n        while (l2 < r2)\
-    \ {\n            if (l2 & 1) all_apply(l2++, f);\n            if (r2 & 1) all_apply(--r2,\
-    \ f);\n            l2 >>= 1;\n            r2 >>= 1;\n        }\n\n        rep(i,\
-    \ 1, height) {\n            if (((l >> i) << i) != l) update(l >> i);\n      \
-    \      if (((r >> i) << i) != r) update((r - 1) >> i);\n        }\n    }\n\n \
-    \   S get(long long p) {\n        assert(0 <= p and p < _N);\n\n        long long\
-    \ k = p + N;\n        repd(i, 1, height) push(k >> i);\n        return node[k];\n\
-    \    }\n\n    // \u534A\u958B\u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u3092\
-    \u8FD4\u3059\n    // l, r\u3068\u3082\u306B0-indexed\n    S prod(long long l,\
-    \ long long r) {\n        assert(0 <= l && l <= r && r <= _N);\n\n        l +=\
-    \ N;\n        r += N;\n\n        repd(i, 1, height) {\n            if (((l >>\
-    \ i) << i) != l) push(l >> i);\n            if (((r >> i) << i) != r) push((r\
-    \ - 1) >> i);\n        }\n\n        S sml(op.e()), smr(op.e());\n        while\
-    \ (l < r) {\n            if (l & 1) sml = op(sml, node[l++]);\n            if\
-    \ (r & 1) smr = op(node[--r], smr);\n            l >>= 1;\n            r >>= 1;\n\
-    \        }\n\n        return op(sml, smr);\n    }\n\n    S prod_all() {\n    \
-    \    return node[1];\n    }\n\n    // \u5DE6\u7AEF\u3092l\u306B\u56FA\u5B9A\u3057\
-    \u305F\u5834\u5408\u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r - 1])))\
-    \ = true\u3068\u306A\u308B\u6700\u5927\u306Er\u3092\u8FD4\u3059\n    // g(node[l])\
-    \ = false\u306E\u5834\u5408\uFF0Cl\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593\
-    [l, l)\u3068\u306A\u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // l = N\u306E\u5834\
-    \u5408\uFF0CN\u3092\u8FD4\u3059\n    template <class G>\n    long long max_right(long\
-    \ long l, G g) {\n        assert(0 <= l && l <= _N);\n        assert(g(S(op.e())));\n\
-    \n        if (l == _N) return _N;\n        l += N;\n        repd(i, 1, height)\
-    \ push(l >> i);\n        \n        S sm(op.e());\n        do {\n            while\
-    \ (l % 2 == 0) l >>= 1;\n\n            if (!g(op(sm, node[l]))) {\n          \
-    \      while (l < N) {\n                    push(l);\n\n                    l\
-    \ *= 2;\n                    if (g(op(sm, node[l]))) {\n                     \
-    \   sm = op(sm, node[l]);\n                        l++;\n                    }\n\
-    \                }\n                return l - N;\n            }\n\n         \
-    \   sm = op(sm, node[l]);\n            l++;\n\n        } while ((l & -l) != l);\n\
-    \n        return _N;\n    }\n\n    // \u53F3\u7AEF\u3092r - 1\u306B\u56FA\u5B9A\
-    \u3057\u305F\u5834\u5408\u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r\
-    \ - 1]))) = true\u3068\u306A\u308B\u6700\u5C0F\u306El\u3092\u8FD4\u3059\n    //\
-    \ g(node[r - 1]) = false\u306E\u5834\u5408\uFF0Cr\u3092\u8FD4\u3059 (\u534A\u958B\
-    \u533A\u9593[r, r)\u3068\u306A\u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // r\
-    \ = 0\u306E\u5834\u5408\uFF0C0\u3092\u8FD4\u3059\n    template <class G>\n   \
-    \ long long min_left(long long r, G g) {\n        assert(0 <= r && r <= _N);\n\
-    \        assert(g(S(op.e())));\n\n        if (r == 0) return 0;\n\n        r +=\
-    \ N;\n        \n        repd(i, 1, height) push((r - 1) >> i);\n\n        S sm(op.e());\n\
-    \n        do {\n            r--;\n            while (r > 1 && (r % 2)) r >>= 1;\n\
-    \            \n            if (!g(op(node[r], sm))) {\n                while (r\
-    \ < N) {\n                    push(r);\n                    r = (2 * r + 1);\n\
-    \n                    if (g(op(node[r], sm))) {\n                        sm =\
-    \ op(node[r], sm);\n                        r--;\n                    }\n    \
-    \            }\n                return r + 1 - N;\n            }\n\n         \
-    \   sm = op(node[r], sm);\n\n        } while ((r & -r) != r);\n\n        return\
-    \ 0;\n    }\n\n    friend ostream& operator << (ostream& os, LazySegmentTree&\
-    \ seg) {\n        os << \"node\" << endl;\n        long long h = 1;\n        rep(i,\
-    \ 1, seg.node.size()) {\n            if (seg.node[i].value == seg.op.e()) os <<\
-    \ \"e \";\n            else os << seg.node[i] << \" \";\n\n            if (i ==\
-    \ (1 << h) - 1) {\n                os << endl;\n                h++;\n       \
-    \     }\n        }\n        os << endl;\n\n        os << \"lazy\" << endl;\n \
-    \       h = 1;\n        rep(i, 1, seg.N) {\n            if (seg.lazy[i] == seg.mapping.id())\
-    \ os << \"id \";\n            else os << seg.lazy[i] << \" \";\n            if\
-    \ (i == (1 << h) - 1) {\n                os << endl;\n                h++;\n \
-    \           }\n        }\n\n        os << \"value\" << endl;\n        rep(i, seg._N)\
-    \ {\n            os << seg.get(i) << \" \";\n        }\n        os << endl;\n\n\
-    \        return os;\n    }\n\nprivate:\n    // k\u756A\u76EE\u306E\u30CE\u30FC\
-    \u30C9\u306E\u5024\u3092\u5B50\u306E\u5024\u3067\u66F4\u65B0\n    void update(long\
-    \ long k) {\n        assert(1 <= k and k <= N - 1);\n\n        node[k] = op(node[k\
-    \ * 2], node[k * 2 + 1]);\n    }\n\n    void all_apply(long long k, F f) {\n \
-    \       mapping(node[k], f);\n        if (k < N) mapping.composition(lazy[k],\
-    \ f);\n    }\n\n    // k\u756A\u76EE\u306E\u30CE\u30FC\u30C9\u3092\u5B50\u306B\
-    \u4F1D\u642C\n    void push(long long k) {\n        assert(1 <= k and k <= N *\
-    \ 2 - 1);\n\n        all_apply(2 * k, lazy[k]);\n        all_apply(2 * k + 1,\
-    \ lazy[k]);\n\n        lazy[k] = mapping.id();\n    }\n};\n\ntemplate<typename\
-    \ T = long long, typename F = long long> using RangeAddRangeSum = LazySegmentTree<T,\
-    \ F, Add, Sum>;\ntemplate<typename T = long long, typename F = long long> using\
-    \ RangeAddRangeMin = LazySegmentTree<T, F, Add, Min>;\ntemplate<typename T = long\
-    \ long, typename F = long long> using RangeAddRangeMax = LazySegmentTree<T, F,\
-    \ Add, Max>;\n\ntemplate<typename T = long long, typename F = long long> using\
+    \n        rep(i, N) {\n            if (i < _N) node[i + N] = S(v[i], i, i + 1,\
+    \ i, 1, 1);\n            else node[i + N] = S(op.e());\n        }\n        repd(i,\
+    \ 1, N) update(i);\n    }\n\n    // p\u756A\u76EE\u306E\u914D\u5217\u306E\u5024\
+    \u306B\u5BFE\u3057\u3066\uFF0Cf\u3067mapping\n    // p\u306F0-indexed\n    void\
+    \ apply(long long p, F f) {\n        assert(0 <= p and p < _N);\n\n        long\
+    \ long k = p + N;\n        repd(i, 1, height) push(k >> i);\n        mapping(node[k],\
+    \ f);\n        rep(i, 1, height) update(k >> i);\n    }\n\n    // \u534A\u958B\
+    \u533A\u9593[l, r)\u306E\u914D\u5217\u306E\u5024\u306B\u5BFE\u3057\u3066\uFF0C\
+    f\u3067mapping\n    // l, r\u3068\u3082\u306B0-indexed\n    void apply(long long\
+    \ l, long long r, F f) {\n        assert(0 <= l && l <= r && r <= _N);\n\n   \
+    \     l += N;\n        r += N;\n\n        repd(i, 1, height) {\n            if\
+    \ (((l >> i) << i) != l) push(l >> i);\n            if (((r >> i) << i) != r)\
+    \ push((r - 1) >> i);\n        }\n\n        long long l2 = l, r2 = r;\n      \
+    \  while (l2 < r2) {\n            if (l2 & 1) all_apply(l2++, f);\n          \
+    \  if (r2 & 1) all_apply(--r2, f);\n            l2 >>= 1;\n            r2 >>=\
+    \ 1;\n        }\n\n        rep(i, 1, height) {\n            if (((l >> i) << i)\
+    \ != l) update(l >> i);\n            if (((r >> i) << i) != r) update((r - 1)\
+    \ >> i);\n        }\n    }\n\n    S get(long long p) {\n        assert(0 <= p\
+    \ and p < _N);\n\n        long long k = p + N;\n        repd(i, 1, height) push(k\
+    \ >> i);\n        return node[k];\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
+    \ r)\u306E\u914D\u5217\u306E\u5024\u3092\u8FD4\u3059\n    // l, r\u3068\u3082\u306B\
+    0-indexed\n    S prod(long long l, long long r) {\n        assert(0 <= l && l\
+    \ <= r && r <= _N);\n\n        l += N;\n        r += N;\n\n        repd(i, 1,\
+    \ height) {\n            if (((l >> i) << i) != l) push(l >> i);\n           \
+    \ if (((r >> i) << i) != r) push((r - 1) >> i);\n        }\n\n        S sml(op.e()),\
+    \ smr(op.e());\n        while (l < r) {\n            if (l & 1) sml = op(sml,\
+    \ node[l++]);\n            if (r & 1) smr = op(node[--r], smr);\n            l\
+    \ >>= 1;\n            r >>= 1;\n        }\n\n        return op(sml, smr);\n  \
+    \  }\n\n    S prod_all() {\n        return node[1];\n    }\n\n    // \u5DE6\u7AEF\
+    \u3092l\u306B\u56FA\u5B9A\u3057\u305F\u5834\u5408\u306E\uFF0Cg(prod(op(node[l],\
+    \ node[l + 1], ..., node[r - 1]))) = true\u3068\u306A\u308B\u6700\u5927\u306E\
+    r\u3092\u8FD4\u3059\n    // g(node[l]) = false\u306E\u5834\u5408\uFF0Cl\u3092\u8FD4\
+    \u3059 (\u534A\u958B\u533A\u9593[l, l)\u3068\u306A\u308A\uFF0C\u89E3\u306F\u306A\
+    \u3044)\n    // l = N\u306E\u5834\u5408\uFF0CN\u3092\u8FD4\u3059\n    template\
+    \ <class G>\n    long long max_right(long long l, G g) {\n        assert(0 <=\
+    \ l && l <= _N);\n        assert(g(S(op.e())));\n\n        if (l == _N) return\
+    \ _N;\n        l += N;\n        repd(i, 1, height) push(l >> i);\n        \n \
+    \       S sm(op.e());\n        do {\n            while (l % 2 == 0) l >>= 1;\n\
+    \n            if (!g(op(sm, node[l]))) {\n                while (l < N) {\n  \
+    \                  push(l);\n\n                    l *= 2;\n                 \
+    \   if (g(op(sm, node[l]))) {\n                        sm = op(sm, node[l]);\n\
+    \                        l++;\n                    }\n                }\n    \
+    \            return l - N;\n            }\n\n            sm = op(sm, node[l]);\n\
+    \            l++;\n\n        } while ((l & -l) != l);\n\n        return _N;\n\
+    \    }\n\n    // \u53F3\u7AEF\u3092r - 1\u306B\u56FA\u5B9A\u3057\u305F\u5834\u5408\
+    \u306E\uFF0Cg(prod(op(node[l], node[l + 1], ..., node[r - 1]))) = true\u3068\u306A\
+    \u308B\u6700\u5C0F\u306El\u3092\u8FD4\u3059\n    // g(node[r - 1]) = false\u306E\
+    \u5834\u5408\uFF0Cr\u3092\u8FD4\u3059 (\u534A\u958B\u533A\u9593[r, r)\u3068\u306A\
+    \u308A\uFF0C\u89E3\u306F\u306A\u3044)\n    // r = 0\u306E\u5834\u5408\uFF0C0\u3092\
+    \u8FD4\u3059\n    template <class G>\n    long long min_left(long long r, G g)\
+    \ {\n        assert(0 <= r && r <= _N);\n        assert(g(S(op.e())));\n\n   \
+    \     if (r == 0) return 0;\n\n        r += N;\n        \n        repd(i, 1, height)\
+    \ push((r - 1) >> i);\n\n        S sm(op.e());\n\n        do {\n            r--;\n\
+    \            while (r > 1 && (r % 2)) r >>= 1;\n            \n            if (!g(op(node[r],\
+    \ sm))) {\n                while (r < N) {\n                    push(r);\n   \
+    \                 r = (2 * r + 1);\n\n                    if (g(op(node[r], sm)))\
+    \ {\n                        sm = op(node[r], sm);\n                        r--;\n\
+    \                    }\n                }\n                return r + 1 - N;\n\
+    \            }\n\n            sm = op(node[r], sm);\n\n        } while ((r & -r)\
+    \ != r);\n\n        return 0;\n    }\n\n    friend ostream& operator << (ostream&\
+    \ os, LazySegmentTree& seg) {\n        os << \"node\" << endl;\n        long long\
+    \ h = 1;\n        rep(i, 1, seg.node.size()) {\n            if (seg.node[i].value\
+    \ == seg.op.e()) os << \"e \";\n            else os << seg.node[i] << \" \";\n\
+    \n            if (i == (1 << h) - 1) {\n                os << endl;\n        \
+    \        h++;\n            }\n        }\n        os << endl;\n\n        os <<\
+    \ \"lazy\" << endl;\n        h = 1;\n        rep(i, 1, seg.N) {\n            if\
+    \ (seg.lazy[i] == seg.mapping.id()) os << \"id \";\n            else os << seg.lazy[i]\
+    \ << \" \";\n            if (i == (1 << h) - 1) {\n                os << endl;\n\
+    \                h++;\n            }\n        }\n\n        os << \"value\" <<\
+    \ endl;\n        rep(i, seg._N) {\n            os << seg.get(i) << \" \";\n  \
+    \      }\n        os << endl;\n\n        return os;\n    }\n\nprivate:\n    //\
+    \ k\u756A\u76EE\u306E\u30CE\u30FC\u30C9\u306E\u5024\u3092\u5B50\u306E\u5024\u3067\
+    \u66F4\u65B0\n    void update(long long k) {\n        assert(1 <= k and k <= N\
+    \ - 1);\n\n        node[k] = op(node[k * 2], node[k * 2 + 1]);\n    }\n\n    void\
+    \ all_apply(long long k, F f) {\n        mapping(node[k], f);\n        if (k <\
+    \ N) mapping.composition(lazy[k], f);\n    }\n\n    // k\u756A\u76EE\u306E\u30CE\
+    \u30FC\u30C9\u3092\u5B50\u306B\u4F1D\u642C\n    void push(long long k) {\n   \
+    \     assert(1 <= k and k <= N * 2 - 1);\n\n        all_apply(2 * k, lazy[k]);\n\
+    \        all_apply(2 * k + 1, lazy[k]);\n\n        lazy[k] = mapping.id();\n \
+    \   }\n};\n\ntemplate<typename T = long long, typename F = long long> using RangeAddRangeSum\
+    \ = LazySegmentTree<T, F, Add, Sum>;\ntemplate<typename T = long long, typename\
+    \ F = long long> using RangeAddRangeMin = LazySegmentTree<T, F, Add, Min>;\ntemplate<typename\
+    \ T = long long, typename F = long long> using RangeAddRangeMax = LazySegmentTree<T,\
+    \ F, Add, Max>;\n\ntemplate<typename T = long long, typename F = long long> using\
     \ RangeSetRangeSum = LazySegmentTree<T, F, Set, Sum>;\ntemplate<typename T = long\
     \ long, typename F = long long> using RangeSetRangeMin = LazySegmentTree<T, F,\
     \ Set, Min>;\ntemplate<typename T = long long, typename F = long long> using RangeSetRangeMax\
@@ -610,8 +623,8 @@ data:
   isVerificationFile: true
   path: test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
   requiredBy: []
-  timestamp: '2024-09-28 16:22:31+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2025-03-23 19:04:50+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/lazy-segment-tree/aoj-dsl-2-e.test.cpp
 layout: document
