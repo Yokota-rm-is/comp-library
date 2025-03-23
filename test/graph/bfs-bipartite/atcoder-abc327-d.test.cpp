@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc327/tasks/abc327_d"
 
-#include "../../../graph/dfs.cpp"
+#include "../../../graph/bfs-bipartite.cpp"
 
 int main() {
     ll N, M;
@@ -20,12 +20,14 @@ int main() {
         B[i] = b;
     }
 
-    DFS graph(N, false);
+    BFS bfs(N, false);
     rep(i, M) {
-        graph.connect(A[i], B[i]);
+        bfs.connect(A[i], B[i]);
     }
 
-    cout << YesNo(graph.is_bipartite()) << endl;
+    bool ans = bfs();
+
+    cout << YesNo(ans) << endl;
 
     return 0;
 }
