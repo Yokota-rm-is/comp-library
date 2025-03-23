@@ -19,7 +19,7 @@ int main() {
 
     Compressor<long long> comp(X);
 
-    UnionFind<true> tree(comp.size());
+    UnionFind<true, false, true> tree(comp.size());
     rep(i, N) {
         tree.unite(comp(A[i]), comp(B[i]));
     }

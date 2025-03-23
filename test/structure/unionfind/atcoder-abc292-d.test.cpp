@@ -6,7 +6,7 @@ int main() {
     long long N, M;
     cin >> N >> M;
 
-    UnionFind tree(N);
+    UnionFind<true> tree(N);
     rep(i, M) {
         long long u, v;
         cin >> u >> v;
