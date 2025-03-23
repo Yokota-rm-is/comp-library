@@ -4,7 +4,7 @@
 struct Bitset {
     long long bit;
 
-    Bitset(long long bit = 0) : bit(bit) {}
+    Bitset(long long b = 0) : bit(b) {}
 
     void set(long long pos, bool val = true) { val? bit |= (1ll << pos): bit &= ~(1ll << pos); }
     void set(vector<long long> pos, bool val = true) { for (auto x : pos) set(x, val);}
@@ -16,9 +16,25 @@ struct Bitset {
     long long count() { return bit_count(bit); }
     long long to_ll() { return bit; }
     operator long long() { return bit; }
-    bool any(Bitset x) { return bit & x.bit; }
-    bool all(Bitset x) { return (bit & x.bit) == x.bit; }
-    bool none(Bitset x) { return !(bit & x.bit); }
+
+    // bitの次の部分集合を求める(降順)
+    // 部分集合を列挙しながらbit全探索する場合の計算量はO(3^N)
+    // 使い方
+    // Bitset bit;
+    // for (Bitset sub = bit;; sub = bit.prev_subset(sub)) {
+    // 
+    //     if (sub == 0ll) break;
+    // }
+    Bitset prev_subset(Bitset subset) {
+        return Bitset((subset.bit - 1) & bit);
+    }
+
+    void foreach_subset(function<void(Bitset)> f) {
+        for (Bitset sub = *this;; sub = this->prev_subset(sub)) {
+            f(sub);
+            if (sub == 0ll) break;
+        }
+    }
 
     // 自身がxの部分集合かどうか判定
     bool is_subset_of(Bitset x) { return (bit & x.bit) == bit; }
@@ -68,3 +84,22 @@ struct Bitset {
         return os; 
     }
 };
+
+// bitDP
+// 計算量: O(2^N)
+void bitDP(long long N, function<void(Bitset)> f) {
+    for (Bitset bit = 0; bit < (1ll << N); ++bit) {
+        f(bit);
+    }
+}
+
+// 部分集合を列挙するbitDP
+// 計算量: O(3^N)
+void bitDP_subset(long long N, function<void(Bitset, Bitset, Bitset)> f) {
+    for (Bitset bit = 0; bit < (1ll << N); ++bit) {
+        for (Bitset sub = bit;; sub = bit.prev_subset(sub)) {
+            f(bit, sub, bit ^ sub);
+            if (sub == 0ll) break;
+        }
+    }
+}
