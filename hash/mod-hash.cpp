@@ -1,43 +1,48 @@
 #include "../base.cpp"
 
-bool is_prime(long long N) {
-    if (N < 2) return false;
-    if (N == 2) return true;
-    for (long long i = 3; i * i <= N; i += 2) {
-        if (N % i == 0) return false;
+namespace _mod_hash {
+    const size_t SIZE = 20;
+
+    bool is_prime(long long N) {
+        if (N < 2) return false;
+        if (N == 2) return true;
+        for (long long i = 3; i * i <= N; i += 2) {
+            if (N % i == 0) return false;
+        }
+        return true;
     }
-    return true;
+    
+    vector<long long> set_mod(size_t size = 20) {
+        random_device rd;
+        mt19937_64 gen(rd());
+        uniform_int_distribution<int> dist(inf32, INF32);
+        set<long long> primes;
+    
+        while (true) {
+            int m = dist(gen);
+            if (!is_prime(m)) continue;
+            if (primes.contains(m)) continue;
+    
+            primes.insert(m);
+            if (primes.size() == size) break;
+        };
+    
+        return vector<long long>(primes.begin(), primes.end());
+    }
+    
+    static vector<long long> mods = set_mod(SIZE);
 }
-
-vector<long long> set_mod(size_t size = 20) {
-    random_device rd;
-    mt19937_64 gen(rd());
-    uniform_int_distribution<int> dist(inf32, INF32);
-    set<long long> primes;
-
-    while (true) {
-        int m = dist(gen);
-        if (!is_prime(m)) continue;
-        if (primes.contains(m)) continue;
-
-        primes.insert(m);
-        if (primes.size() == size) break;
-    };
-
-    return vector<long long>(primes.begin(), primes.end());
-}
-static vector<long long> mods = set_mod();
 
 struct ModHash {
     vector<long long> hash;
     size_t size;
 
-    ModHash() : hash(mods.size()), size(mods.size()) {}
-    ModHash(long long N) : hash(mods.size()), size(mods.size()) {construct(N);}
-    ModHash(string S) : hash(mods.size()), size(mods.size()) { construct(S);}
+    ModHash() : hash(_mod_hash::SIZE), size(_mod_hash::SIZE) {}
+    ModHash(long long N) : hash(_mod_hash::SIZE), size(_mod_hash::SIZE) {construct(N);}
+    ModHash(string S) : hash(_mod_hash::SIZE), size(_mod_hash::SIZE) { construct(S);}
 
     void construct(long long N) {
-        rep(i, size) hash[i] = N % mods[i];
+        rep(i, size) hash[i] = N % _mod_hash::mods[i];
     }
 
     void construct(string S) {
@@ -45,7 +50,7 @@ struct ModHash {
             fore(c, S) {
                 hash[i] *= 10;
                 hash[i] += c - '0';
-                hash[i] %= mods[i];
+                hash[i] %= _mod_hash::mods[i];
             }
         }
     }
@@ -57,27 +62,27 @@ struct ModHash {
     ModHash& operator += (const ModHash& r) noexcept {
         rep(i, size) {
             hash[i] += r.hash[i];
-            if (hash[i] >= mods[i]) hash[i] -= mods[i];
+            if (hash[i] >= _mod_hash::mods[i]) hash[i] -= _mod_hash::mods[i];
         }
         return *this;
     }
     constexpr ModHash& operator -= (const ModHash& r) noexcept {
         rep(i, size) {
             hash[i] -= r.hash[i];
-            if (hash[i] < 0) hash[i] += mods[i];
+            if (hash[i] < 0) hash[i] += _mod_hash::mods[i];
         }
         return *this;
     }
     constexpr ModHash& operator *= (const ModHash& r) noexcept {
         rep(i, size) {
-            hash[i] = hash[i] * r.hash[i] % mods[i];
+            hash[i] = hash[i] * r.hash[i] % _mod_hash::mods[i];
         }
         return *this;
     }
     constexpr ModHash& operator /= (const ModHash& r) noexcept {
         rep(i, size) {
-            hash[i] = hash[i] * r.hash[i] % mods[i];
-            long long a = r.hash[i], b = mods[i], u = 1, v = 0;
+            hash[i] = hash[i] * r.hash[i] % _mod_hash::mods[i];
+            long long a = r.hash[i], b = _mod_hash::mods[i], u = 1, v = 0;
 
             while (b) {
                 long long t = a / b;
@@ -85,8 +90,8 @@ struct ModHash {
                 u -= t * v; swap(u, v);
             }
 
-            hash[i] = hash[i] * u % mods[i];
-            if (hash[i] < 0) hash[i] += mods[i];
+            hash[i] = hash[i] * u % _mod_hash::mods[i];
+            if (hash[i] < 0) hash[i] += _mod_hash::mods[i];
         }
 
         return *this;
