@@ -6,7 +6,7 @@ int main() {
     long long N, M;
     cin >> N >> M;
 
-    WeightedUnionFind tree(N);
+    WeightedUnionFind<ll> tree(N);
     rep(i, M) {
         long long u, v;
         cin >> u >> v;

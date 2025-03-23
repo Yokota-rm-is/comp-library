@@ -8,7 +8,7 @@ int main() {
 
     vll A;
 
-    WeightedUnionFind tree(N);
+    WeightedUnionFind<ll> tree(N);
     rep(i, N - 1) {
         long long u, v;
         cin >> u >> v;

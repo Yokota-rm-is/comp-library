@@ -6,7 +6,7 @@ int main() {
     ll n, q;
     cin >> n >> q;
 
-    WeightedUnionFind tree(n);
+    WeightedUnionFind<ll> tree(n);
     while (q--) {
         ll t;
         cin >> t;
