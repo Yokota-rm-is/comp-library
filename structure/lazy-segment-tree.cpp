@@ -4,11 +4,9 @@
 template<typename T>
 struct Node {
     T value;
-    long long index;
-    long long size;
-    long long coeff;
+    long long left, right, index, size, coeff;
 
-    Node(T v, long long i = -1, long long s = 0, long long c = 1) : value(v), index(i), size(s), coeff(c) {};
+    Node(T v, long long l = -1, long long r = -1, long long i = -1, long long s = 0, long long c = 1) : value(v), left(l), right(r), index(i), size(s), coeff(c) {};
 
     bool operator< (const Node &other) const {
         return value < other.value;
@@ -57,11 +55,13 @@ struct NoOperation : Operation<T> {
         else if (y == e()) return x;
 
         T value = x.value;
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -82,11 +82,13 @@ struct Max : Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = max(x.value, y.value);
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = (y.value > x.value ? y.index : x.index);
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -107,11 +109,13 @@ struct Min: Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = min(x.value, y.value);
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = (y.value < x.value ? y.index : x.index);
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -132,11 +136,13 @@ struct Sum: Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = x.value + y.value;
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = -1;
         long long size = x.size + y.size;
         long long coeff = size;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -157,11 +163,13 @@ struct Mul: Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = x.value * y.value;
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -182,11 +190,13 @@ struct GCD : Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = gcd(x.value, y.value);
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -207,11 +217,13 @@ struct LCM : Operation<T> {
 
     S operator() (const S& x, const S& y) override {
         T value = lcm(x.value, y.value);
+        long long left = (x.left != -1 ? x.left : y.left);
+        long long right = (y.right != -1 ? y.right : x.right);
         long long index = -1;
         long long size = x.size + y.size;
         long long coeff = 1;
 
-        S ret(value, index, size, coeff);
+        S ret(value, left, right, index, size, coeff);
 
         return ret;
     }
@@ -428,7 +440,7 @@ struct LazySegmentTree {
         lazy.resize(N, mapping.id());
 
         rep(i, N) {
-            if (i < _N) node[i + N] = S(v[i], i, 1, 1);
+            if (i < _N) node[i + N] = S(v[i], i, i + 1, i, 1, 1);
             else node[i + N] = S(op.e());
         }
         repd(i, 1, N) update(i);
