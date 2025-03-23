@@ -104,6 +104,7 @@ struct BinaryIndexedTree {
         return sum(p + 1) - sum(p);
     }
 
+    // 半開区間[0, r) (0-indexed)の総和がx以上となる最小のrを求める
     long long lower_bound(T x) {
         assert(x >= 0);
 
@@ -118,11 +119,69 @@ struct BinaryIndexedTree {
             }
         }
 
-        return right;
+        return right + 1;
     }  
 
+    // 半開区間[0, r) (0-indexed)の総和がxを超える最小のrを求める
     long long upper_bound(T x) {
-        return lower_bound(x + numeric_limits<T>::epsilon());
+        assert(x >= 0);
+
+        ll right = 0;
+        ll sum0 = 0, sum1 = 0;
+
+        for (long long len = N; len > 0; len >>= 1) {
+            if (right + len < _N && sum0 + bit0[right + len] + (sum1 + bit1[right + len]) * (right + len) <= x) {
+                right += len;
+                sum0 += bit0[right];
+                sum1 += bit1[right];
+            }
+        }
+
+        return right + 1;
+    }
+
+    // 半開区間[l, r) (0-indexed)の総和がx以上となる最小のrを求める
+    long long find_lower_right(T x, long long l) {
+        assert(x >= 0);
+        assert(0 <= l and l <= _N);
+
+        T suml = sum(l);
+        ll right = lower_bound(x + suml);
+
+        return right;
+    }
+
+    // 半開区間[l, r) (0-indexed)の総和がxを超える最小のrを求める
+    long long find_upper_right(T x, long long l) {
+        assert(x >= 0);
+        assert(0 <= l and l <= _N);
+
+        T suml = sum(l);
+        ll right = upper_bound(x + suml);
+
+        return right;
+    }
+
+    // 半開区間[l, r) (0-indexed)の総和がx以上となる最大のlを求める
+    // ない場合は-1を返す
+    long long find_lower_left(T x, long long r) {
+        assert(x >= 0);
+        assert(0 <= r and r <= _N);
+
+        T sumr = sum(r);
+        ll left = upper_bound(sumr - x);
+        return left - 1;
+    }
+
+    // 半開区間[l, r) (0-indexed)の総和がxを超える最大のlを求める
+    // ない場合は-1を返す
+    long long find_upper_left(T x, long long r) {
+        assert(x >= 0);
+        assert(0 <= r and r <= _N);
+
+        T sumr = sum(r);
+        ll left = lower_bound(sumr - x);
+        return left - 1;
     }
 
     friend ostream& operator << (ostream& os, BinaryIndexedTree& bit) {
