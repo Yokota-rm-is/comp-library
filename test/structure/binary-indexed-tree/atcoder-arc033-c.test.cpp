@@ -1,21 +1,18 @@
 #define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/arc033/tasks/arc033_3"
+// https://atcoder.jp/contests/arc033/submissions/60114708
 
 #include "../../../structure/binary-indexed-tree.cpp"
 
 int main() {
     long long Q;
     cin >> Q;
-    vector<long long> T(Q);
-    vector<long long> X(Q);
-    for(int i = 0 ; i < Q ; ++i){
-        cin >> T[i];
-        cin >> X[i];
-    }
 
-    BinaryIndexedTree tree(max(X) + 1);
-    rep(i, Q) {
-        long long t = T[i], x = X[i];
+    BinaryIndexedTree tree(2e5 + 1);
+    
+    while (Q--) {
+        ll t, x;
+        cin >> t >> x;
         
         if (t == 1) {
             tree.add(x, 1);
@@ -23,8 +20,8 @@ int main() {
     
         if (t == 2) {
             ll index = tree.lower_bound(x);
-            cout << index << endl;
-            tree.add(index, -1);
+            cout << index - 1 << endl;
+            tree.add(index - 1, -1);
         }
     } 
 
