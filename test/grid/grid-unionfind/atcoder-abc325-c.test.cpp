@@ -4,7 +4,7 @@
 
 int main() {
     ll H, W;
-    input(H, W);
+    cin >> H >> W;
 
     GridUnionFind uf(H, W);
     uf.field.obj = uf.field.dot;

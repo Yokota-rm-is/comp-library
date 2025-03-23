@@ -15,7 +15,7 @@ int main() {
         if (grid.field.is_obj(y, x)) continue;
 
         grid.init();
-        grid.bfs({y, x});
+        grid.bfs(Coordinate{y, x});
 
         rep(i, H) rep(j, W) {
             if (!grid.seen(i, j)) continue;
