@@ -31,7 +31,7 @@ using namespace std;
 const int INF32 = numeric_limits<int>::max(); //2.147483647×10^{9}:32bit整数のinf
 const int inf32 = INF32 / 2;
 const long long INF64 = numeric_limits<long long>::max(); //9.223372036854775807×10^{18}:64bit整数のinf
-const long long inf64 = INF64 / 2;
+const long long inf64 = INF64 / 4;
 const double EPS = numeric_limits<double>::epsilon(); //問題による
 // const int MOD = 998244353; //問題による
 
@@ -82,6 +82,7 @@ using vll = vector<ll>;
 using setll = set<ll>;
 using mapll = map<ll, ll>;
 using pll = pair<ll, ll>;
+using vpll = vector<pll>;
 template<typename T> using vec = vector<T>;
 template<typename T> using vv = vector<vector<T>>;
 using vvll = vector<vector<long long>>;
@@ -167,6 +168,15 @@ template<typename T> ostream& operator << (ostream& os, queue<T>& que) { queue<T
 template<typename T> ostream& operator << (ostream& os, const queue<T>& que) { queue<T> tmp(que); while(!tmp.empty()) {os << tmp.front() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
 template<typename T> ostream& operator << (ostream& os, stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
 template<typename T> ostream& operator << (ostream& os, const stack<T>& st) { stack<T> tmp(st); while(!tmp.empty()) {os << tmp.top() << ((tmp.size() > 0)? " " : "\n"); tmp.pop();}; return os;}
+ostream& operator<< (ostream& os, __int128_t x) { 
+    if (x == 0) return os << '0';
+    if (x < 0) {os << '-'; x = -x;}
+
+    string s; 
+    for (__int128_t y = x; y > 0; y /= 10) s += (char)('0' + y % 10); 
+    reverse(s.begin(), s.end()); 
+    return os << s;
+}
 
 // デバッグ用
 template<typename T> void dump(T a) { cerr << a;}
@@ -175,20 +185,6 @@ template<typename T> void dump(vector<vector<T>>& a) { cerr << '\n' << a;}
 template<typename T> void dump(vector<stack<T>>& a) { cerr << '\n' << a;}
 template<typename T> void dump(vector<queue<T>>& a) { cerr << '\n' << a;}
 template<typename T> void dump(vector<deque<T>>& a) { cerr << '\n' << a;}
-
-// input
-template<typename T> inline void input(T& a) {cin >> a;}
-template<typename T, typename... Args> inline void input(T& a, Args&&... args) { cin >> a; input(args...);}
-template<typename T> inline void input(vector<T>& A) { rep(i, A.size()) cin >> A[i];}
-template<typename T> inline void input(vector<T>& A, vector<T>& B) { assert(A.size() == B.size());rep(i, A.size()) cin >> A[i] >> B[i];}
-template<typename T> inline void input(vector<T>& A, vector<T>& B, vector<T>& C) { assert(A.size() == B.size() and A.size() == C.size()); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}
-template<typename T> inline void input(const long long N, vector<T>& A) { A.resize(N); rep(i, N) cin >> A[i];}
-template<typename T> inline void input(const long long N, vector<T>& A, vector<T>& B) { A.resize(N); B.resize(N); rep(i, N) cin >> A[i] >> B[i];}
-template<typename T> inline void input(const long long N, vector<T>& A, vector<T>& B, vector<T>& C) { A.resize(N); B.resize(N); C.resize(N); rep(i, A.size()) cin >> A[i] >> B[i] >> C[i];}
-template<typename T> inline void input(const long long N, set<T>& A) {rep(i, N) { T a; cin >> a; A.insert(a);}}
-template<typename T> inline void input(const long long N, set<T>& A, set<T>& B) { rep(i, N) {T a, b; cin >> a >> b; A.insert(a); B.insert(b);}}
-template<typename T> inline void input(const long long N, set<T>& A, set<T>& B, set<T>& C) { rep(i, N) {T a, b, c; cin >> a >> b >> c; A.insert(a); B.insert(b); C.insert(c);}}
-template<typename T> inline void input(vector<vector<T>>& A) { rep(i, A.size()) input(A[i]);}
 
 inline string YESNO(bool flag) { return flag ? "YES" : "NO";}
 inline string yesno(bool flag) { return flag ? "yes" : "no";}
@@ -252,26 +248,12 @@ inline long long max(int x, long long y) {return max((long long)x, y);}
 inline long long ceil(long long x, long long y) { return x / y + (x % y > 0);}
 inline long long floor(long long x, long long y) { return x / y - (x % y < 0);}
 pair<long long, long long> divmod(long long x, long long y) {return ((x >= 0) ? pll(x / y, x % y) : pll((x - y + 1) / y, (x % y + y) % y));}
-inline long long binpow(long long x, long long n, long long m = 0) {
-    long long ret = 1;
-    while (n > 0) {
-        if (n & 1) ret *= x;  // n の最下位bitが 1 ならば x^(2^i) をかける
-        if (m > 0) ret %= m;
-        n >>= 1;  // n を1bit 左にずらす
-
-        if (n > 0) x *= x;
-        if (m > 0) x %= m;
-    }
-    return ret;
-}
+template <typename T = unsigned long long> inline T binpow(T x, T n) { T ret = 1; while (n) {if (n & 1) ret *= x; x *= x; n >>= 1;} return ret; }
+template <typename T = unsigned long long> inline T binpow(T x, T n, T m) { T ret = 1; while (n) {if (n & 1) ret = (ret * x) % m; x = (x * x) % m; n >>= 1;} return ret; }
 // mod. m での a の逆元 a^{-1} を計算する
 template<typename T> T modinv(T a, T m) {
     T b = m, u = 1, v = 0;
-    while (b) {
-        T t = a / b;
-        a -= t * b; swap(a, b);
-        u -= t * v; swap(u, v);
-    }
+    while (b) { T t = a / b; a -= t * b; swap(a, b); u -= t * v; swap(u, v); }
     u %= m;
     if (u < 0) u += m;
     return u;
@@ -313,6 +295,18 @@ tuple<long long, long long, long long> extGCD(long long a, long long b) {
     auto [g, x, y] = extGCD(b, a % b);
     return {g, y, x - (a / b) * y};
 }
+
+// 分数比較
+inline bool is_greater(long long p, long long q, long long r, long long s) { return __int128_t(p) * s > __int128_t(q) * r;}
+inline bool is_greater_or_equal(long long p, long long q, long long r, long long s) { return __int128_t(p) * s >= __int128_t(q) * r;}
+inline bool is_less(long long p, long long q, long long r, long long s) { return __int128_t(p) * s < __int128_t(q) * r;}
+inline bool is_less_or_equal(long long p, long long q, long long r, long long s) { return __int128_t(p) * s <= __int128_t(q) * r;}
+#if __has_include(<boost/multiprecision/cpp_int.hpp>)
+inline bool is_greater(__int128_t p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s > int256_t(q) * r;}
+inline bool is_greater_or_equal(__int128_t p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s >= int256_t(q) * r;}
+inline bool is_less(__int128_t p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s < int256_t(q) * r;}
+inline bool is_less_or_equal(__int128_t p, __int128_t q, __int128_t r, __int128_t s) { return int256_t(p) * s <= int256_t(q) * r;}
+#endif
 
 // string関係
 inline string lltos(long long x) { return to_string(x);}
@@ -392,15 +386,19 @@ long long bit_count(long long x) { return __builtin_popcountll(x); }
 // 配列関係
 // キー以上の最小の要素を見つけるイテレータを返す関数
 template <typename T> inline typename vector<T>::iterator find_greater_than_or_equal(vector<T>& v, T key) { return lower_bound(v.begin(), v.end(), key); }
+template <typename T> inline typename vector<T>::iterator find_greater_than_or_equal(typename vector<T>::iterator begin, typename vector<T>::iterator end, T key) { return lower_bound(begin, end, key); }
 template <typename T> inline typename set<T>::iterator find_greater_than_or_equal(set<T>& st, T key) { return st.lower_bound(key); }
 // キーを超える最小の要素を見つけるイテレータを返す関数
 template <typename T> inline typename vector<T>::iterator find_greater_than(vector<T>& v, T key) { return upper_bound(v.begin(), v.end(), key); }
+template <typename T> inline typename vector<T>::iterator find_greater_than(typename vector<T>::iterator begin, typename vector<T>::iterator end, T key) { return upper_bound(begin, end, key); }
 template <typename T> inline typename set<T>::iterator find_greater_than(set<T>& st, T key) { return st.upper_bound(key); }
 // キー以下の最大の要素を見つけるイテレータを返す関数, ない場合はendを返す
 template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(vector<T>& v, T key) { auto it = upper_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it;}
+template <typename T> inline typename vector<T>::iterator find_less_than_or_equal(typename vector<T>::iterator begin, typename vector<T>::iterator end, T key) { auto it = upper_bound(begin, end, key); return it == begin ? end : --it;}
 template <typename T> inline typename set<T>::iterator find_less_than_or_equal(set<T>& st, T key) { auto it = st.upper_bound(key); return it == st.begin() ? st.end() : --it;}
 // キー未満の最大の要素を見つけるイテレータを返す関数, ない場合はendを返す
 template <typename T> inline typename vector<T>::iterator find_less_than(vector<T>& v, T key) { auto it = lower_bound(v.begin(), v.end(), key); return it == v.begin() ? v.end() : --it; }
+template <typename T> inline typename vector<T>::iterator find_less_than(typename vector<T>::iterator begin, typename vector<T>::iterator end, T key) { auto it = lower_bound(begin, end, key); return it == begin ? end : --it; }
 template <typename T> inline typename set<T>::iterator find_less_than(set<T>& st, T key) { auto it = st.lower_bound(key); return it == st.begin() ? st.end() : --it;}
 
 template <typename T> auto operator+(const vector<T>& A, const T x) { vector<T> ret(A.size()); rep(i, A.size()) ret[i] = A[i] + x; return ret; }
@@ -439,8 +437,3 @@ template<typename T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec
     for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);
     return result;
 }
-
-long long log_floor(long long x, long long base) { long long ret = log(x) / log(base); if ((1ll << ret) > x) --ret; return ret;}
-long long log_ceil(long long x, long long base) { long long ret = log(x) / log(base); if ((1ll << ret) < x) ++ret; return ret;}
-long long root_floor(long long x, long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) > x) --ret; return ret;}
-long long root_ceil(long long x, long long n) { long long ret = pow(x, 1.0 / n); if (binpow(ret, n) < x) ++ret; return ret;}
