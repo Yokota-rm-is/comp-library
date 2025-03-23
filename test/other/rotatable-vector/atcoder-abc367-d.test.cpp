@@ -19,15 +19,12 @@ int main() {
     }
 
     ll ans = 0;
-    ll offset = 0;
     rep(i, N) {
         ans += rv[0];
 
-        rv.at(B[i] % M)--;
-        rv.at(B[i + N - 1] % M)++;
-        // rv[(B[i] + M - offset) % M]--;
-        // rv[(B[i + N - 1] + M - offset) % M]++;
-        offset = rv.rotate_left(A[i]);
+        rv.original[B[i] % M]--;
+        rv.original[B[i + N - 1] % M]++;
+        rv.rotate_left(A[i]);
     }
 
     cout << ans << endl;

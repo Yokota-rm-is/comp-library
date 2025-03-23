@@ -6,7 +6,7 @@ struct RotatableVector {
     vector<T> original;
     long long N, offset;
 
-    RotatableVector(long long n) : original(n), N(n), offset(0) {}
+    RotatableVector(long long n, T a = T()) : original(n, a), N(n), offset(0) {}
     RotatableVector(vector<T> v) : original(v), N(v.size()), offset(0) {}
 
     // 参照する際のindexの値をx減らす

@@ -7,7 +7,7 @@ struct RotatableVector2D {
     long long H, W;
     pair<long long, long long> offset;
 
-    RotatableVector2D(long long h, long long w) : original(h, vector<T>(w)), H(h), W(w), offset(0, 0) {}
+    RotatableVector2D(long long h, long long w, T a = T()) : original(h, vector<T>(w, a)), H(h), W(w), offset(0, 0) {}
     RotatableVector2D(vector<vector<T>> v) : original(v), H(v.size()), W(v[0].size()), offset(0, 0) {}
 
     // 参照する際のindexの値をx減らす
