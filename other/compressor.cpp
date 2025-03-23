@@ -1,9 +1,9 @@
 #pragma once
 #include "../base.cpp"
 
-// Unique: trueのとき，重複する要素を別の要素として扱う
+// EraseDuplicate: falseのとき，重複する要素を別の要素として扱う
 // Accending: 重複する要素をどちらの方向に割り当てるか
-template <typename T, bool Unique = false, bool Accending = true>
+template <typename T, bool EraseDuplicate = true, bool Accending = true>
 struct Compressor {
     vector<T> original, values;
     vector<long long> compressed;
@@ -19,13 +19,13 @@ struct Compressor {
         values = v;
 
         sort(values.begin(), values.end());
-        if (!Unique) {
+        if (EraseDuplicate) {
             values.erase(unique(values.begin(), values.end()), values.end());
             compressed.resize(original.size());
         }
 
         rep(i, original.size()) {
-            if (!Unique) compressed[i] = std::lower_bound(values.begin(), values.end(), original[i]) - values.begin();
+            if (EraseDuplicate) compressed[i] = std::lower_bound(values.begin(), values.end(), original[i]) - values.begin();
             else {
                 if (Accending) compressed[i] = std::lower_bound(values.begin(), values.end(), original[i]) - values.begin() + count[original[i]];
                 else compressed[i] = std::upper_bound(values.begin(), values.end(), original[i]) - values.begin() - count[original[i]] - 1;
