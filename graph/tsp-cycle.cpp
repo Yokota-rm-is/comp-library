@@ -2,6 +2,7 @@
 #include "../base.cpp"
 
 // bitDP (巡回セールスマン問題)
+// 始点に戻る最短経路を求める
 // 計算量: O(N^2 2^N) (N<=19)
 template<typename T = long long>
 struct TSP {
@@ -49,19 +50,14 @@ struct TSP {
         if (!directed) G[to][from] = Edge(to, from, weight);
     }
 
-    void operator() (long long start = -1) {
+    void operator() (long long start) {
         solve(start);
     }
 
-    void solve(long long start = -1) {
+    void solve(long long start) {
         _start = start;
 
-        if (start != -1) dp[(1 << start)][start] = 0;
-        else {
-            rep(i, V) {
-                dp[(1 << i)][i] = 0;   
-            }
-        }
+        dp[0][start] = 0;
 
         rep(bit, (1 << V)) {
             rep(now, V) {
@@ -91,7 +87,7 @@ struct TSP {
     // bitで表される頂点集合を訪れ，goalに到達する最短経路の長さ
     T get_dist(long long goal, long long bit = -1) {
         if (bit < 0) bit = (1 << V) - 1;
-        assert(bit & (1 << goal));
+        if (_start != goal) bit &= ~(1 << _start);
 
         return dp[bit][goal];
     }
@@ -99,7 +95,8 @@ struct TSP {
     // bitで表される頂点集合を訪れる最短経路の長さ
     T get_min_dist(long long bit = -1) {
         if (bit < 0) bit = (1 << V) - 1;
-        
+        bit &= ~(1 << _start);
+
         return min(dp[bit]);
     }
 
