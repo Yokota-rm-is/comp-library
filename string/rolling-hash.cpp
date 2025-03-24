@@ -139,6 +139,22 @@ struct Hash61 {
         return *this;
     }
 
+    friend Hash61 operator+ (const Hash61 &lhs, char c) {
+        return Hash61(lhs) += Hash61(c);
+    }
+
+    Hash61& operator+= (char c) noexcept {
+        return *this += Hash61(c);
+    }
+
+    friend Hash61 operator+ (const Hash61 &lhs, string &S) {
+        return Hash61(lhs) += Hash61(S);
+    }
+
+    Hash61& operator+= (string &S) noexcept {
+        return *this += Hash61(S);
+    }
+
     bool operator< (const Hash61 &other) const {
         return (N < other.N) && (hash < other.hash);
     }
@@ -156,31 +172,44 @@ struct RollingHash {
     long long N;
     vector<Hash61> hashed;
 
-    RollingHash(const string &S) : N(S.size()) {
+    RollingHash() : N(0) {
+        hashed.push_back(Hash61());
+    }
+
+    RollingHash(const string &S) : N(0) {
+        hashed.push_back(Hash61());
         construct(S);
     }
 
     void construct(const string &S) {
-        Hash61 hash;
-
-        hashed.push_back(hash);
-
-        rep(i, N) {
-            hash += S[i];
-            hashed.push_back(hash);
+        rep(i, S.size()) {
+            push_back(S[i]);
         }
     }
 
+    void push_back(char c) {
+        hashed.push_back(hashed.back() + c);
+        N++;
+    }
+
+    void pop_back() {
+        if (N == 0) return;
+        hashed.pop_back();
+        N--;
+    }
+
     Hash61 get() {
-        return hashed[N];
+        return hashed.back();
     }
 
     Hash61 get(long long r) {
+        assert(0 <= r and r <= N);
         return hashed[r];
     }
 
     // [l, r)のハッシュ値を取得
     Hash61 get(long long l, long long r) {
+        assert(0 <= l and l <= r and r <= N);
         if (l == 0) return hashed[r];
 
         Hash61 ret;
@@ -192,12 +221,14 @@ struct RollingHash {
         return ret;
     }
 
+    // [0, pos)と[pos, N)の間にcを挿入したハッシュ値を取得
     Hash61 insert(long long pos, char c) {
-        return get(pos) + Hash61(c) + get(pos + 1, N);
+        assert(0 <= pos and pos <= N);
+        return get(pos) + Hash61(c) + get(pos, N);
     }
 
     Hash61 insert(long long pos, string &S) {
-        return get(pos) + Hash61(S) + get(pos + S.size(), N);
+        return get(pos) + Hash61(S) + get(pos, N);
     }
 
     Hash61 erase(long long pos) {
