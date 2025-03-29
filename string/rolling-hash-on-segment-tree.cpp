@@ -68,12 +68,10 @@ struct Hash61 {
     }
 
     Hash61(string& S) {
-        init();
         if (S.size() > 0) set(S);
     }
 
     Hash61(char c) {
-        init();
         string S(1, c);
         set(S);
     }
@@ -92,6 +90,8 @@ struct Hash61 {
     }
 
     void set(string& S) {
+        init();
+
         N = S.size();
         
         rep(i, S.size()) {
@@ -156,7 +156,6 @@ struct RollingHashonSegmentTree {
     long long N, _N, height;
     vector<Hash61> node;
 
-    RollingHashonSegmentTree() {}
     RollingHashonSegmentTree(string& S) { 
         init(S);
     }
@@ -180,7 +179,7 @@ struct RollingHashonSegmentTree {
 
     // 位置p (0-indexed)の値をcにする
     void set(long long p, char c) {
-        assert(0 <= p and p <= _N);
+        assert(0 <= p and p < _N);
 
         long long k = p + N;
         node[k].set(c);

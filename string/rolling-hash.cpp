@@ -68,12 +68,10 @@ struct Hash61 {
     }
 
     Hash61(string& S) {
-        init();
         if (S.size() > 0) set(S);
     }
 
     Hash61(char c) {
-        init();
         string S(1, c);
         set(S);
     }
@@ -92,6 +90,7 @@ struct Hash61 {
     }
 
     void set(string& S) {
+        init();
         N = S.size();
         
         rep(i, S.size()) {
