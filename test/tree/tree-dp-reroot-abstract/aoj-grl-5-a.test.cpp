@@ -1,6 +1,6 @@
-#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_B&"
+#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_A&"
 
-#include "../../../tree/tree-dp-abstract.cpp"
+#include "../../../tree/tree-dp-reroot-abstract.cpp"
 
 int main() {
     ll n;
@@ -31,11 +31,14 @@ int main() {
     }
 
     tree.build(0);
-    auto ans = tree.reroot();
+    auto dp = tree.reroot();
 
+    ll ans = 0;
     rep(i, n) {
-        cout << ans[i] << endl;
+        chmax(ans, dp[i]);
     }
+
+    cout << ans << endl;
 
     return 0;
 }

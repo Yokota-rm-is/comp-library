@@ -1,7 +1,7 @@
 #define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/abc394/tasks/abc394_f"
 
-#include "../../../tree/tree-dp-abstract.cpp"
+#include "../../../tree/tree-dp-reroot-abstract.cpp"
 
 int main() {
     ll N;

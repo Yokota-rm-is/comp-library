@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc348/tasks/abc348_e"
 
-#include "../../../tree/tree-dp-abstract.cpp"
+#include "../../../tree/tree-dp-reroot-abstract.cpp"
 
 int main() {
     ll N;

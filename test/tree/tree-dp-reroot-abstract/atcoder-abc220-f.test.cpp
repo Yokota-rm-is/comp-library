@@ -1,6 +1,6 @@
 #define PROBLEM "https://atcoder.jp/contests/abc220/tasks/abc220_f"
 
-#include "../../../tree/tree-dp-abstract.cpp"
+#include "../../../tree/tree-dp-reroot-abstract.cpp"
 
 
 int main() {
