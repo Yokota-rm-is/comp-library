@@ -156,6 +156,7 @@ struct RollingHashonSegmentTree {
     long long N, _N, height;
     vector<Hash61> node;
 
+    RollingHashonSegmentTree() {}
     RollingHashonSegmentTree(string& S) { 
         init(S);
     }
