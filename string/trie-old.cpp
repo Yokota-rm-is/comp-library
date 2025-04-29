@@ -1,17 +1,17 @@
 #pragma once
 #include "../base.cpp"
 
+struct Node {
+    long long id;
+    int c;               // base からの間隔をint型で表現したもの
+    long long common;          // いくつの単語がこの頂点を共有しているか
+    long long depth;           // この頂点の深さ
+    long long min_l, max_l;      // この頂点を根とする部分木に含まれる単語の最小長と最大長
+
+    Node(long long i, long long c_, long long d): id(i), c(c_), common(0), depth(d), min_l(inf64), max_l(-1) {}
+};
+
 struct Trie {
-    struct Node {            // 頂点を表す構造体
-        long long id;
-        int c;               // base からの間隔をint型で表現したもの
-        long long common;          // いくつの単語がこの頂点を共有しているか
-        long long depth;           // この頂点の深さ
-        long long min_l, max_l;      // この頂点を根とする部分木に含まれる単語の最小長と最大長
-
-        Node(long long i, long long c_, long long d): id(i), c(c_), common(0), depth(d), min_l(inf64), max_l(-1) {}
-    };
-
     vector<Node> nodes;  // trie 木本体
     vector<unordered_map<int, long long>> children;     // 子の頂点番号を格納。存在しなければ-1
     vector<vector<long long>> accept;   // 末端がこの頂点になる単語の word_id を保存
@@ -51,7 +51,8 @@ struct Trie {
         accept[node_id].push_back(word_id++);
     }
 
-    void erase(const string &word) {
+    // erase_with_prefix:= 部分一致する単語も全て消す
+    void erase(const string &word, bool erase_all, bool with_prefix) {
         vector<long long> node_ids;
         long long node_id = 0;
         node_ids.push_back(node_id);
@@ -64,14 +65,24 @@ struct Trie {
             node_ids.push_back(node_id);
         }
 
-        accept[node_id].pop_back();
+        if (!with_prefix and accept[node_id].size() == 0) return;
+
+        ll cnt = 1;
+        if (erase_all) cnt = accept[node_id].size();
+        if (with_prefix) cnt = nodes[node_id].common;
+
+        if (erase_all or with_prefix) accept[node_id].clear();
+        else accept[node_id].pop_back();
 
         repd(i, node_ids.size()) {
             node_id = node_ids[i];
-            --nodes[node_id].common;
+            nodes[node_id].common -= cnt;
 
             if (nodes[node_id].common == 0) {
-                if (i > 0) children[node_ids[i - 1]].erase(nodes[node_id].c);
+                if (i > 0) {
+                    if (i == node_ids.size() - 1) children[node_id].clear();
+                    children[node_ids[i - 1]].erase(nodes[node_id].c);
+                }
                 else {
                     nodes[node_id].max_l = -1;
                     nodes[node_id].min_l = inf64;
@@ -92,6 +103,18 @@ struct Trie {
                 chmin(nodes[node_id].min_l, nodes[c.second].min_l);
             }
         }
+    }
+
+    void erase(const string& word) {
+        erase(word, false, false);
+    }
+
+    void erase_all(const string& word) {
+        erase(word, true, false);
+    }
+
+    void erase_with_prefix(const string& word) {
+        erase(word, true, true);
     }
 
     // 単語 word の検索
