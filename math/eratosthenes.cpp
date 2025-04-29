@@ -1,6 +1,7 @@
 #pragma once
 #include "../base.cpp"
 
+
 // エラトステネスの篩
 // 計算量: O(N loglogN) (N <= 10^6)
 struct Eratosthenes {
@@ -66,7 +67,7 @@ struct Eratosthenes {
     }
 
     // 高速約数列挙 O(sigma(n))
-    vector<long long> divisors(long long n) {
+    vector<long long> divisors(long long n, bool sorted = true) {
         vector<long long> res = {1};
 
         // n を素因数分解 (メンバ関数使用)
@@ -83,6 +84,8 @@ struct Eratosthenes {
                 }
             }
         }
+
+        if (sorted) sort(res.begin(), res.end());
         return res;
     }
 
