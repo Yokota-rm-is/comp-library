@@ -196,8 +196,9 @@ struct Grid {
     } 
 
     friend ostream& operator << (ostream &os, Grid<T>& grid) {
+        os << "\n";
         rep(i, grid.H) {
-            os << grid[i] << endl;
+            os << grid[i] << "\n";
         }
         return os;
     }
@@ -241,10 +242,12 @@ struct Grid<bool> {
     } 
 
     friend ostream& operator << (ostream &os, Grid<bool>& grid) {
+        os << "\n";
         rep(y, grid.H) {
             rep(x, grid.W) {
                 os << (grid[y][x] ? "true" : "false") << " ";
             }
+            os << "\n";
         }
         return os;
     }
@@ -272,51 +275,51 @@ struct Field {
         return vs[p.y][p.x];
     }
 
-    bool is_dot(size_t y, size_t x) {
+    bool is_dot(size_t y, size_t x) const {
         assert(!is_out(y, x));
         return vs[y][x] == dot;
     }
 
-    bool is_dot(const Coordinate& p) {
+    bool is_dot(const Coordinate& p) const {
         assert(!is_out(p));
         return vs[p.y][p.x] == dot;
     }
 
-    bool is_hash(size_t y, size_t x) {
+    bool is_hash(size_t y, size_t x) const {
         assert(!is_out(y, x));
         return vs[y][x] == hash;
     }
 
-    bool is_hash(const Coordinate& p) {
+    bool is_hash(const Coordinate& p) const {
         assert(!is_out(p));
-        return vs[p.y][p.x] == dot;
+        return vs[p.y][p.x] == hash;
     }
 
-    bool is_obj(size_t y, size_t x) {
+    bool is_obj(size_t y, size_t x) const {
         assert(!is_out(y, x));
         return vs[y][x] == obj;
     }
 
-    bool is_obj(const Coordinate& p) {
+    bool is_obj(const Coordinate& p) const {
         assert(!is_out(p));
         return vs[p.y][p.x] == obj;
     }
 
-    bool is_excl(size_t y, size_t x) {
+    bool is_excl(size_t y, size_t x) const {
         assert(!is_out(y, x));
         return vs[y][x] == excl;
     }
 
-    bool is_excl(const Coordinate& p) {
+    bool is_excl(const Coordinate& p) const {
         assert(!is_out(p));
         return vs[p.y][p.x] == excl;
     }
 
-    bool is_out(long long y, long long x) {
+    bool is_out(long long y, long long x) const {
         return y < 0 or y >= H or x < 0 or x >= W;
     }
 
-    bool is_out(const Coordinate& p) {
+    bool is_out(const Coordinate& p) const {
         return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;
     }
 
@@ -326,7 +329,7 @@ struct Field {
 
     friend ostream& operator << (ostream &os, Field& field) {
         rep(i, field.H) {
-            os << field[i] << endl;
+            os << field[i] << "\n";
         }
         return os;
     }
@@ -472,11 +475,13 @@ struct GridBFS {
         }
     }
 
-    void bfs01(Coordinate start, function<bool(Coordinate, Coordinate)> calc_cost) {
-        bfs01(vector<Coordinate>{start}, calc_cost);
+    // calc_cost(const Field& field, Coordinate now, Coordinate next)
+    void bfs01(Coordinate start, function<vector<pair<Coordinate, long long>>(const Field&, Coordinate)> gen_trans) {
+        bfs01(vector<Coordinate>{start}, gen_trans);
     }
 
-    void bfs01(vector<Coordinate> starts, function<bool(Coordinate, Coordinate)> calc_cost) {
+    // calc_cost(const Field& field, Coordinate now, Coordinate next)
+    void bfs01(vector<Coordinate> starts, function<vector<pair<Coordinate, long long>>(const Field&, Coordinate)> gen_trans) {
         fore(start, starts) {
             assert(!seen(start));
             assert(!field.is_out(start));
@@ -497,12 +502,12 @@ struct GridBFS {
             if (seen(now)) continue;
             seen(now) = true;
 
-            rep(i, dirs.size()) {
-                Coordinate next = now + dirs[i];
+            vector<pair<Coordinate, long long>> trans = gen_trans(field, now);
+
+            fore(tr, trans) {
+                auto [next, c] = tr;
                 if (field.is_out(next)) continue;
                 if (seen(next)) continue;
-
-                ll c = calc_cost(now, next);
 
                 if (chmin(cost(next), cost(now) + c)) {
                     prev(next) = now;

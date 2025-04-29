@@ -11,7 +11,21 @@ int main() {
     GridBFS grid(H, W);
     grid.input();
 
-    grid.bfs01(grid.start);
+    auto gen_trans = [&](const Field& field, Coordinate now) {
+        vector<Coordinate> dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        vector<pair<Coordinate, ll>> trans;
+        rep(i, 4) {
+            Coordinate next = now + dirs[i];
+            if (field.is_out(next)) continue;
+            ll c = field.is_hash(next) ? 1 : 0;
+
+            trans.push_back({next, c});
+        }
+
+        return trans;
+    };
+
+    grid.bfs01(grid.start, gen_trans);
     ll ans = (grid.get_dist(grid.goal) <= 2);
 
     cout << YESNO(ans) << endl;
