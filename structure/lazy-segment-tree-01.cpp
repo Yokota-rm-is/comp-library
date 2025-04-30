@@ -317,6 +317,68 @@ struct LazySegmentTree01 {
         }
     }
 
+    void apply_nand(long long l, long long r, bool f) {
+        assert(0 <= l && l <= r && r <= _N);
+
+        l += N;
+        r += N;
+
+        repd(i, 1, height) {
+            if (((l >> i) << i) != l) push(l >> i);
+            if (((r >> i) << i) != r) push((r - 1) >> i);
+        }
+
+        long long l2 = l, r2 = r;
+        while (l2 < r2) {
+            if (l2 & 1) {
+                if (f) all_apply_flip(l2++);
+                else all_apply_set(l2++, 1);
+            }
+            if (r2 & 1) {
+                if (f) all_apply_flip(--r2);
+                else all_apply_set(--r2, 1);
+            }
+            l2 >>= 1;
+            r2 >>= 1;
+        }
+
+        rep(i, 1, height) {
+            if (((l >> i) << i) != l) update(l >> i);
+            if (((r >> i) << i) != r) update((r - 1) >> i);
+        }
+    }
+
+    void apply_nor(long long l, long long r, bool f) {
+        assert(0 <= l && l <= r && r <= _N);
+
+        l += N;
+        r += N;
+
+        repd(i, 1, height) {
+            if (((l >> i) << i) != l) push(l >> i);
+            if (((r >> i) << i) != r) push((r - 1) >> i);
+        }
+
+        long long l2 = l, r2 = r;
+        while (l2 < r2) {
+            if (l2 & 1) {
+                if (!f) all_apply_flip(l2++);
+                else all_apply_set(l2++, 0);
+            }
+            if (r2 & 1) {
+                if (!f) all_apply_flip(--r2);
+                else all_apply_set(--r2, 0);
+            }
+            l2 >>= 1;
+            r2 >>= 1;
+        }
+
+        rep(i, 1, height) {
+            if (((l >> i) << i) != l) update(l >> i);
+            if (((r >> i) << i) != r) update((r - 1) >> i);
+        }
+    }
+
     bool get(long long p) {
         assert(0 <= p and p < _N);
 
