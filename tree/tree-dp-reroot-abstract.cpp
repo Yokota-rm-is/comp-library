@@ -19,6 +19,7 @@
                                                                         --> (prod <- put_edge(edgeN)) --> (prod <- put_vertex(childN)) --> ...
 
 */
+#if __cplusplus >= 201703L
 template <class S,
     auto merge,
     auto e,
@@ -28,22 +29,26 @@ template <class S,
     class w_vertex,
     auto put_vertex,
     auto id_vertex>
-// template <class S,
-//     S (*merge)(S, S),
-//     S (*e)(),
-//     class w_edge,
-//     S (*put_edge)(S, w_edge),
-//     w_edge (*id_edge)(),
-//     class w_vertex,
-//     S (*put_vertex)(S, w_vertex),
-//     w_vertex (*id_vertex)()>
+#else
+template <class S,
+    S (*merge)(S, S),
+    S (*e)(),
+    class w_edge,
+    S (*put_edge)(S, w_edge),
+    w_edge (*id_edge)(),
+    class w_vertex,
+    S (*put_vertex)(S, w_vertex),
+    w_vertex (*id_vertex)()>
+#endif
 struct TreeDP {
+#if __cplusplus >= 201703L
     static_assert(is_convertible_v<decltype(merge), function<S(S, S)>>, "merge must be function<S(S, S)>");
     static_assert(is_convertible_v<decltype(e), function<S()>>, "e must be function<S()>");
     static_assert(is_convertible_v<decltype(put_edge), function<S(S, w_edge)>>, "put_edge must be function<S(S, w_edge)>");
     static_assert(is_convertible_v<decltype(id_edge), function<w_edge()>>, "id_edge must be function<w_edge()>");
     static_assert(is_convertible_v<decltype(put_vertex), function<S(S, w_vertex)>>, "put_vertex must be function<S(S, w_vertex)>");
     static_assert(is_convertible_v<decltype(id_vertex), function<w_vertex()>>, "id_vertex must be function<w_vertex()>");
+#endif
 
     struct Edge {
         long long from;
