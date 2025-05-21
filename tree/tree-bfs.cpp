@@ -176,6 +176,31 @@ struct TreeBFS {
     }
 
     // lca_init後に実行
+    vector<long long> get_path(long long u, long long v) {
+        assert(lca_init_done);
+        assert(0 <= u and u < V);
+        assert(0 <= v and v < V);
+
+        vector<long long> ret;
+        long long a = lca(u, v);
+
+        while (u != a) {
+            ret.push_back(u);
+            u = prev[u];
+        }
+        ret.push_back(a);
+        vector<long long> tmp;
+        while (v != a) {
+            tmp.push_back(v);
+            v = prev[v];
+        }
+        reverse(tmp.begin(), tmp.end());
+        ret.insert(ret.end(), tmp.begin(), tmp.end());
+
+        return ret;
+    }
+
+    // lca_init後に実行
     // uとvを結ぶパス上にaがあるか返す
     bool is_on_path(long long u, long long v, long long a) {
         assert(0 <= u and u < V);
