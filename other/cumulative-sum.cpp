@@ -8,13 +8,13 @@ struct CumulativeSum : vector<T> {
     CumulativeSum() : vector<T>() {};
 
     CumulativeSum(vector<T>& A) {
-        v::assign(A.size(), 0);
         init(A);
     };
 
     void init(vector<T>& A) {
         assert(A.size() > 0);
 
+        v::assign(A.size(), 0);
         v::at(0) = A[0];
         rep(i, 1, A.size()) {
             v::at(i) = A[i] + v::at(i - 1);
