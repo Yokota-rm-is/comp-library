@@ -309,6 +309,10 @@ struct RedBlackTree {
         return ret;
     }
 
+    T sum_less_than_or_equal(T x) const {
+        return sum_less_than(x) + x * count(x);
+    }
+
     T sum_greater_than(T x) const {
         T ret = T();
 
@@ -325,6 +329,10 @@ struct RedBlackTree {
         }
 
         return ret;
+    }
+
+    T sum_greater_than_or_equal(T x) const {
+        return sum_greater_than(x) + x * count(x);
     }
 
     // 1-indexed
