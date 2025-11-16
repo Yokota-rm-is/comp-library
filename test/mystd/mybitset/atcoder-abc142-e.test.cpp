@@ -32,7 +32,7 @@ int main() {
         if (dp[bit] == inf64) return;
 
         rep(i, M) {
-            ll next_bit = bit.to_ll() | d[i];
+            ll next_bit = bit.to_ull() | d[i];
             long long cost = a[i];
 
             chmin(dp[next_bit], dp[bit] + cost);
