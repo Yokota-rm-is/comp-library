@@ -17,8 +17,9 @@ int main() {
         while (q--) {
             ll r1, c1, r2, c2;
             cin >> r1 >> c1 >> r2 >> c2;
+            ++r2, ++c2;
 
-            cout << tree.prod(r1, r2 + 1, c1, c2 + 1) << endl;
+            cout << tree.prod(r1, r2, c1, c2) << endl;
         }
     }
 
