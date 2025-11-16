@@ -21,4 +21,10 @@ struct Combination {
         if (n < 0 || k < 0) return 0;
         return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
     }
+    
+    long long com_inv(long long n, long long k) {
+        if (n < k) return 0;
+        if (n < 0 || k < 0) return 0;
+        return finv[n] * (fac[k] * fac[n - k] % MOD) % MOD; 
+    }
 };
