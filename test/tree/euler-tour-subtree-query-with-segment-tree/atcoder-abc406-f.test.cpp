@@ -17,9 +17,8 @@ int main() {
     auto e = []() { return 0; };
     using F = ll;
     auto mapping = [](S a, F b) { return a + b; };
-    auto id = []() { return 0; };
 
-    EulerTourSubtree<S, op, e, F, mapping, id> tree(N);
+    EulerTourSubtree<S, op, e, F, mapping> tree(N);
     rep(i, N - 1) {
         tree.connect(U[i], V[i]);
     }
