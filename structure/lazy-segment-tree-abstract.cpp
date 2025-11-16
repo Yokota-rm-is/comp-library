@@ -15,7 +15,7 @@ template<class S,
     S (*e)(),
     class F,
     S (*mapping)(S, F),
-    F (*composition)(F, F),
+    void (*composition)(F&, F),
     F (*id)()>
 #endif
 struct LazySegmentTree {
@@ -23,12 +23,11 @@ struct LazySegmentTree {
     static_assert(is_convertible_v<decltype(op), function<S(S, S)>>, "op must be function<S(S, S)>");
     static_assert(is_convertible_v<decltype(e), function<S()>>, "e must be function<S()>");
     static_assert(is_convertible_v<decltype(mapping), function<S(S, F)>>, "mapping must be function<S(S, F)>");
-    static_assert(is_convertible_v<decltype(composition), function<F(F, F)>>, "composition must be function<F(F, F)>");
+    static_assert(is_convertible_v<decltype(composition), function<void(F&, F)>>, "composition must be function<F(F, F)>");
     static_assert(is_convertible_v<decltype(id), function<F()>>, "id must be function<F()>");
 
     static_assert(op(S(), e()) == S(), "op(S(), e()) must be S()");
     static_assert(mapping(S(), id()) == S(), "mapping(S(), id()) must be S()");
-    static_assert(composition(F(), id()) == F(), "composition(F(), id()) must be F()");
 #endif
 
     long long N, _N, height;
@@ -238,7 +237,7 @@ private:
 
     void all_apply(long long k, F f) {
         node[k] = mapping(node[k], f);
-        if (k < N) lazy[k] = composition(lazy[k], f);
+        if (k < N) composition(lazy[k], f);
     }
 
     // k番目のノードを子に伝搬

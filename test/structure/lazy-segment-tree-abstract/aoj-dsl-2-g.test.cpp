@@ -11,7 +11,7 @@ int main() {
     auto e = []() { return S(0, 0); };
     using F = ll;
     auto mapping = [](S a, F b) { return S(a.first + b * a.second, a.second); };
-    auto composition = [](F a, F b) { return a + b; };
+    auto composition = [](F& a, F b) { a += b; };
     auto id = []() { return 0; };
     LazySegmentTree<S, op, e, F, mapping, composition, id> tree(n, S(0, 1));
 
