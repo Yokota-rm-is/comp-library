@@ -23,15 +23,12 @@ int main() {
         return S(1, 0);
     };
     using F = S;
-    auto id = []() {
-        return S(0, 0);
-    };
     auto mapping = [](S x, F f) {
         if (f.first == 0) return x;
         return f;
     };
-    SegmentTree<S, op1, e, F, mapping, id> tree1(2 * N - 1);
-    SegmentTree<S, op2, e, F, mapping, id> tree2(2 * N - 1);
+    SegmentTree<S, op1, e, F, mapping> tree1(2 * N - 1);
+    SegmentTree<S, op2, e, F, mapping> tree2(2 * N - 1);
 
     vll a(N), b(N); 
     rep(i, N) {
