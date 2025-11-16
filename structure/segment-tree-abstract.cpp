@@ -6,25 +6,21 @@ template<class S,
     auto op,
     auto e,
     class F,
-    auto mapping,
-    auto id>
+    auto mapping>
 #else
 template<class S,
     S (*op)(S, S),
     S (*e)(),
     class F,
-    S (*mapping)(S, F),
-    F (*id)()>
+    S (*mapping)(S, F)>
 #endif
 struct SegmentTree {
 #if __cplusplus >= 201703L
     static_assert(is_convertible_v<decltype(op), function<S(S, S)>>, "op must be function<S(S, S)>");
     static_assert(is_convertible_v<decltype(e), function<S()>>, "e must be function<S()>");
     static_assert(is_convertible_v<decltype(mapping), function<S(S, F)>>, "mapping must be function<S(S, F)>");
-    static_assert(is_convertible_v<decltype(id), function<F()>>, "id must be function<F()>");
 
     static_assert(op(S(), e()) == S(), "op(S(), e()) must be S()");
-    static_assert(mapping(S(), id()) == S(), "mapping(S(), id()) must be S()");
 #endif
 
     long long N, _N, height;

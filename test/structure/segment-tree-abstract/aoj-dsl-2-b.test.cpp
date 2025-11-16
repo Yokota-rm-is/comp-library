@@ -11,9 +11,8 @@ int main() {
     auto e = []() { return 0; };
     using F = ll;
     auto mapping = [](S a, F b) { return a + b; };
-    auto id = []() { return 0; };
 
-    SegmentTree<S, op, e, F, mapping, id> tree(n, 0);
+    SegmentTree<S, op, e, F, mapping> tree(n, 0);
     while (q--) {
         ll t;
         cin >> t;
