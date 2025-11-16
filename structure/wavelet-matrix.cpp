@@ -490,6 +490,14 @@ struct WaveletMatrix {
         return count_more_than(0, pos, val);
     }
 
+    ull count_less_than_or_equal(ull l, ull r, T val) {
+        return r - l - count_more_than(l, r, val);
+    }
+
+    ull count_more_than_or_equal(ull l, ull r, T val) {
+        return r - l - count_less_than(l, r, val);
+    }
+
     // v[l, r)で[lower, upper)に入る値の個数を返す
     ull count_in_range(ull l, ull r, T lower, T upper) {
         assert(l <= r and r <= N and lower <= upper);
