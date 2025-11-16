@@ -11,7 +11,7 @@ int main() {
         ll u, v, c, d;
         cin >> u >> v >> c >> d;
 
-        graph.connect(u, v, d, c);
+        graph.connect(u, v, c, d);
     }
 
     auto [flow, cost] = graph.min_cost_flow(0, V - 1, F);
