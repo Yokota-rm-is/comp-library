@@ -5,7 +5,7 @@
  * @brief Flow(最大・最小流)
 */
 
-template<typename Cost, typename Cap, bool minimize = true>
+template<typename Cost, typename Cap>
 struct MinCostFlow {
     struct Edge {
         long long from;
@@ -31,7 +31,6 @@ struct MinCostFlow {
 
     long long V;
     vector<vector<Edge>> G;
-    long long coeff = 1;
 
     long long edge_index = 0;
     vector<Edge> edges;
@@ -44,15 +43,13 @@ struct MinCostFlow {
     vector<long long> prevv, preve;
     Cap cur_flow;
     Cap cur_cost, pre_cost;
-    vector<pair<Cap, Cost>> min_cost_slope;
+    vector<pair<pair<Cap, Cap>, pair<Cost, Cost>>> min_cost_slope;
 
     MinCostFlow(long long N) : V(N), G(V) {
         init();
     };
     
     void init() {
-        if (!minimize) coeff = -1;
-
         cur_flow = 0;
         cur_cost = 0;
         pre_cost = -1;
@@ -64,31 +61,24 @@ struct MinCostFlow {
     }
 
     void connect(long long from, long long to, Cap cap) {
-        assert(0 <= from and from < V);
-        assert(0 <= to and to < V);
-
-        long long from_id = G[from].size();
-        long long to_id = G[to].size();
-
-        edges.emplace_back(from, to, 0, cap, edge_index);
-
-        G[from].emplace_back(from, to, 0, cap, edge_index, to_id);
-        G[to].emplace_back(to, from, 0, 0, edge_index, from_id);
-
-        ++edge_index;
+        connect(from, to, 0, cap, 0);
     }
-    
-    void connect(long long from, long long to, Cost cost, Cap upper_limit, Cap lower_limit = 0) {
+
+    void connect(long long from, long long to, Cap upper_limit, Cost cost) {
+        connect(from, to, 0, upper_limit, cost);
+    }
+
+    void connect(long long from, long long to, Cap lower_limit, Cap upper_limit, Cost cost) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
 
         long long from_id = G[from].size();
         long long to_id = G[to].size();
 
-        edges.emplace_back(from, to, cost * coeff, upper_limit, edge_index);
+        edges.emplace_back(from, to, cost, upper_limit, edge_index);
 
-        G[from].emplace_back(from, to, cost * coeff, upper_limit, edge_index, to_id);
-        G[to].emplace_back(to, from, -cost * coeff, -lower_limit, edge_index, from_id);
+        G[from].emplace_back(from, to, cost, upper_limit, edge_index, to_id);
+        G[to].emplace_back(to, from, -cost, -lower_limit, edge_index, from_id);
 
         ++edge_index;
     }
@@ -189,6 +179,7 @@ struct MinCostFlow {
     }
 
     // max_flow(s, t)後に使用することでs,t間の最小カットを返す
+    // ret[i] = trueならば頂点iはsから到達可能
     vector<bool> min_cut(long long s) {
         vector<bool> visited(V);
 
@@ -215,19 +206,20 @@ struct MinCostFlow {
     }
     
     pair<Cap, Cost> min_cost_flow(long long s, long long t, Cap flow_limit) {
-        return slope(s, t, flow_limit).back();
+        Cap f = slope(s, t, flow_limit).back().first.second;
+        auto [a, b] = slope(s, t, flow_limit).back().second;
+        Cost c = a * f + b;
+        return {f, c};
     }
 
-    vector<pair<Cap, Cost>> slope(long long s, long long t) {
+    vector<pair<pair<Cap, Cap>, pair<Cost, Cost>>> slope(long long s, long long t) {
         return slope(s, t, numeric_limits<Cap>::max());
     }
 
-    vector<pair<Cap, Cost>> slope(long long s, long long t, Cap flow_limit) {
+    vector<pair<pair<Cap, Cap>, pair<Cost, Cost>>> slope(long long s, long long t, Cap flow_limit) {
         assert(0 <= s && s < V);
         assert(0 <= t && t < V);
         assert(s != t);
-
-        min_cost_slope.emplace_back(cur_flow, cur_cost);
         
         // primal-dual
         while (cur_flow < flow_limit) {
@@ -287,14 +279,15 @@ struct MinCostFlow {
             re.cap += flow, re.flow -= flow;
         }
 
+        if (pre_cost == cost) {
+            min_cost_slope.back().first.second += flow;
+        }
+        else {
+            min_cost_slope.emplace_back(pair<Cap, Cap>(cur_flow, cur_flow + flow), pair<Cost, Cost>(cost, cur_cost - cur_flow * cost));
+        }
+
         cur_flow += flow;
         cur_cost += flow * cost;
-
-        if (pre_cost == cost) min_cost_slope.pop_back();
-        min_cost_slope.emplace_back(cur_flow, cur_cost);
-        pre_cost = cur_cost;
+        pre_cost = cost;
     }
 };
-
-template<typename Cost, typename Cap>
-using MaxGainFlow = MinCostFlow<Cost, Cap, false>;
