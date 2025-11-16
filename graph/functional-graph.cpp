@@ -8,21 +8,18 @@ struct NamoriGraph {
     unordered_map<long long, long long> to, depth;
     unordered_map<long long, vector<long long>> prev;
     vector<long long> topo;
+    bool built = false;
 
     void connect(long long u, long long v) {
+        assert(!built);
         to[u] = v;
         prev[v].push_back(u);
     }
 
-    bool is_cycle(long long x) {
-        return cycle_ids.contains(x);
-    }
-
-    bool is_leaf(long long x) {
-        return prev[x].size() == 0;
-    }
-
     void build() {
+        assert(!built);
+        built = true;
+
         fore(p, to) {
             ids.push_back(p.first);
             if (prev[p.first].size() == 0) leaves.insert(p.first);
@@ -71,19 +68,33 @@ struct NamoriGraph {
         }
     }
 
+    bool is_cycle(long long x) {
+        assert(built);
+        return cycle_ids.contains(x);
+    }
+
+    bool is_leaf(long long x) {
+        assert(built);
+        return prev[x].size() == 0;
+    }
+
     long long get_depth(long long x) {
+        assert(built);
         return depth[x];
     }
 
     long long get_next(long long x) {
+        assert(built);
         return to[x];
     }
 
     vector<long long> get_prev(long long x) {
+        assert(built);
         return prev[x];
     }
 
     vector<long long> get_prev_cycle() {
+        assert(built);
         vector<long long> ret;
         fore(x, cycle_ids) {
             fore(y, prev[x]) {
@@ -95,19 +106,28 @@ struct NamoriGraph {
         return ret;
     }
 
+    long long get_cycle_length() {
+        assert(built);
+        return cycle_ids.size();
+    }
+
     unordered_set<long long> get_cycle_ids() {
+        assert(built);
         return cycle_ids;
     }
 
     unordered_set<long long> get_leaves() {
+        assert(built);
         return leaves;
     }
 
     vector<long long> get_topo_from_leaves() {
+        assert(built);
         return topo;
     }
 
     vector<long long> get_topo_from_cycle() {
+        assert(built);
         vector<long long> ret = topo;
         reverse(ret);
         return ret;
