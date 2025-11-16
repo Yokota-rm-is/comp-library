@@ -11,56 +11,90 @@ struct RotatableVector2D {
     RotatableVector2D(vector<vector<T>> v) : original(v), H(v.size()), W(v[0].size()), offset(0, 0) {}
 
     // 参照する際のindexの値をx減らす
-    // 例: rotate_left(1) で vec[0][0]がoriginal[0][1]を指す
-    // (original[0][1]をvec[0][0]に移動(左回転))
+    // original
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   3, 1, 4, 1, 5, 9
+    // 1   2, 7, 1, 8, 2, 8 <- rotate left 
+    // 2   1, 4, 1, 4, 2, 1
+    // 
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   1, 4, 1, 5, 9
+    // 1   7, 1, 8, 2, 8
+    // 2   4, 1, 4, 2, 1 
     pair<long long, long long> rotate_left(long long x = 1) {
-        assert(x >= 0);
-        offset.second += x;
-        offset.second %= W;
-        return offset;
-    }
-
-    // 参照する際のindexの値をx増やす
-    // 例: rotate_right(1) で vec[0][1]がoriginal[0][0]を指す
-    // (original[0][0]をvec[0][1]に移動(右回転))
-    pair<long long, long long> rotate_right(long long x = 1) {
         assert(x >= 0);
         offset.second += W - (x % W);
         offset.second %= W;
         return offset;
     }
 
-    // 参照する際のindexの値をy減らす
-    // 例: rotate_up(1) で vec[0][0]がoriginal[1][0]を指す
-    // (original[1][0]をvec[0][0]に移動(上回転))
-    pair<long long, long long> rotate_up(long long y = 1) {
-        assert(y >= 0);
-        offset.first += y;
-        offset.first %= H;
+    // 参照する際のindexの値をx増やす
+    // original
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   3, 1, 4, 1, 5, 9
+    // 1   2, 7, 1, 8, 2, 8 -> rotate right
+    // 2   1, 4, 1, 4, 2, 1
+    //
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0    , 3, 1, 4, 1, 5
+    // 1    , 2, 7, 1, 8, 2
+    // 2    , 1, 4, 1, 4, 2
+    pair<long long, long long> rotate_right(long long x = 1) {
+        assert(x >= 0);
+        offset.second += x;
+        offset.second %= W;
         return offset;
     }
 
-    // 参照する際のindexの値をy増やす
-    // 例: rotate_down(1) で vec[1][0]がoriginal[0][0]を指す
-    // (original[0][0]をvec[1][0]に移動(下回転))
-    pair<long long, long long> rotate_down(long long y = 1) {
+    // 参照する際のindexの値をy減らす
+    // original
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   3, 1, 4, 1, 5, 9
+    // 1   2, 7, 1, 8, 2, 8
+    // 2   1, 4, 1, 4, 2, 1,
+    //        ^ rotate up
+    // 
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   2, 7, 1, 8, 2, 8
+    // 1   1, 4, 1, 4, 2, 1
+    // 2   
+    pair<long long, long long> rotate_up(long long y = 1) {
         assert(y >= 0);
         offset.first += H - (y % H);
         offset.first %= H;
         return offset;
     }
 
+    // 参照する際のindexの値をy増やす
+    // original
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   3, 1, 4, 1, 5, 9
+    // 1   2, 7, 1, 8, 2, 8
+    // 2   1, 4, 1, 4, 2, 1
+    //        v rotate down
+    //
+    // i\j 0, 1, 2, 3, 4, 5
+    // 0   
+    // 1   3, 1, 4, 1, 5, 9
+    // 2   2, 7, 1, 8, 2, 8
+    pair<long long, long long> rotate_down(long long y = 1) {
+        assert(y >= 0);
+        offset.first += y;
+        offset.first %= H;
+        return offset;
+    }
+
     T& operator()(long long y, long long x) {
-        y += offset.first;
-        x += offset.second;
+        y += H - offset.first;
+        x += W - offset.second;
         y %= H;
         x %= W;
         return original[y][x];
     }
 
     const T& operator()(long long y, long long x) const {
-        y += offset.first;
-        x += offset.second;
+        y += H - offset.first;
+        x += W - offset.second;
         y %= H;
         x %= W;
         return original[y][x];

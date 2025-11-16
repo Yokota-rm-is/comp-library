@@ -10,33 +10,35 @@ struct RotatableVector {
     RotatableVector(vector<T> v) : original(v), N(v.size()), offset(0) {}
 
     // 参照する際のindexの値をx減らす
-    // 例: rotate_left(1) で vec[0]がoriginal[1]を指す
-    // (original[1]をvec[0]に移動(左回転))
+    // i  : 0, 1, 2, 3, 4, 5, ...
+    // Ai : 3, 1, 4, 1, 5, 9, ... <- rotate left
+    // A'i: 1, 4, 1, 5, 9, 2, ...
     long long rotate_left(long long x = 1) {
-        assert(x >= 0);
-        offset += x;
-        offset %= N;
-        return offset;
-    }
-
-    // 参照する際のindexの値をx増やす
-    // 例: rotate_right(1) で vec[1]がoriginal[0]を指す
-    // (original[0]をvec[1]に移動(右回転))
-    long long rotate_right(long long x = 1) {
         assert(x >= 0);
         offset += N - (x % N);
         offset %= N;
         return offset;
     }
 
+    // 参照する際のindexの値をx増やす
+    // i  : 0, 1, 2, 3, 4, 5, ...
+    // Ai : 3, 1, 4, 1, 5, 9, ... -> rotate right
+    // A'i:  , 3, 1, 4, 1, 5, ...
+    long long rotate_right(long long x = 1) {
+        assert(x >= 0);
+        offset += x;
+        offset %= N;
+        return offset;
+    }
+
     T& operator[](long long x) {
-        x += offset;
+        x += N - offset;
         x %= N;
         return original[x];
     }
 
     const T& operator[](long long x) const {
-        x += offset;
+        x += N - offset;
         x %= N;
         return original[x];
     }
