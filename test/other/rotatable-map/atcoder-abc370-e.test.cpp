@@ -18,7 +18,7 @@ int main() {
     mint ans = 0, sum = 1;
 
     rep(i, N) {
-        rm.rotate_right(A[i]);
+        rm.add_key(A[i]);
         
         mint ans_i = sum;
         if (rm.contains(K)) ans_i -= rm[K];
