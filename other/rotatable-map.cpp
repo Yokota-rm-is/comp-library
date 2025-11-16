@@ -1,37 +1,130 @@
 #pragma once
 #include "../base.cpp"
 
-template <typename Key, typename Value>
+template <typename Key, typename Value, typename Map = map<Key, Value>>
 struct RotatableMap {
-    map<Key, Value> original;
-    long long N;
-    long long offset, offset_key;
+    Map original;
+    long long M;
+    long long offset_key;
 
-    RotatableMap() : N(0), offset(0), offset_key(0) {}
-    RotatableMap(map<Key, Value> mp, long long m = 0) : original(mp), N(m), offset(0), offset_key(0) {}
+    struct iterator {
+        typename Map::iterator it;
+        const RotatableMap* rmap;
 
-    // 参照する際のkeyの値をx減らす
-    // 例: rotate_left(1) で mp[0]がoriginal[1]を指す
-    // (original[1]をmp[0]に移動(左回転))
-    Key rotate_left(Key x) {
-        offset += x;
-        if (N > 0) offset %= N;
-        return offset;
+        iterator(typename Map::iterator it, RotatableMap* rmap) : it(it), rmap(rmap) {}
+
+        iterator& operator++() {
+            ++it;
+            return *this;
+        }
+
+        iterator operator++(int) {
+            iterator temp = *this;
+            ++(*this);
+            return temp;
+        }
+
+        iterator& operator--() {
+            --it;
+            return *this;
+        }
+
+        iterator operator--(int) {
+            iterator temp = *this;
+            --(*this);
+            return temp;
+        }
+
+        const Key key() const {
+            Key key = it->first + rmap->offset_key;
+            if (rmap->M > 0) key %= rmap->M;
+            return key;
+        }
+
+        Value& value() {
+            return it->second;
+        }
+
+        const Value& value() const {
+            return it->second;
+        }
+
+        bool operator==(const iterator& other) const {
+            return it == other.it;
+        }
+
+        bool operator!=(const iterator& other) const {
+            return it != other.it;
+        }
+    };
+
+    struct const_iterator {
+        typename Map::const_iterator it;
+        const RotatableMap* rmap;
+
+        const_iterator(typename Map::const_iterator it, const RotatableMap* rmap) : it(it), rmap(rmap) {}
+
+        const_iterator& operator++() {
+            ++it;
+            return *this;
+        }
+
+        const_iterator operator++(int) {
+            const_iterator temp = *this;
+            ++(*this);
+            return temp;
+        }
+
+        const Key key() const {
+            Key key = it->first + rmap->offset_key;
+            if (rmap->M > 0) key %= rmap->M;
+            return key;
+        }
+
+        const Value& value() const {
+            return it->second;
+        }
+
+        bool operator==(const const_iterator& other) const {
+            return it == other.it;
+        }
+
+        bool operator!=(const const_iterator& other) const {
+            return it != other.it;
+        }
+    };
+
+    RotatableMap() : M(0), offset_key(0) {}
+    RotatableMap(Map mp, long long m = 0) : original(mp), M(m), offset_key(0) {}
+
+    // keyの値をx増やす
+    // key    : 1, 2, 4, 8, 16, 32 <- add_key
+    // value  : 3, 1, 4, 1,  5,  9
+    //
+    // key + 1: 2, 3, 5, 9, 17, 33
+    // value  : 3, 1, 4, 1,  5,  9 
+    Key add_key(Key x) {
+        offset_key += x;
+        if (M > 0) offset_key %= M;
+        return offset_key;
     }
 
-    // 参照する際のkeyの値をx増やす
-    // 例: rotate_right(1) で mp[1]がoriginal[0]を指す
-    // (original[0]をmp[1]に移動(右回転))
-    Key rotate_right(Key x) {
-        if (N > 0) x %= N;
-        offset += N - x;
-        if (N > 0) offset %= N;
-        return offset;
+    // keyの値をx減らす
+    // key    : 1, 2, 4, 8, 16, 32 <- subtract_key
+    // value  : 3, 1, 4, 1,  5,  9
+    //
+    // key - 1: 0, 1, 3, 7, 15, 31
+    // value  : 3, 1, 4, 1,  5,  9
+    Key subtract_key(Key x) {
+        if (M > 0) x %= M;
+        offset_key += M - x;
+        if (M > 0) offset_key %= M;
+        return offset_key;
     }
 
     Value& operator[](Key key) {
-        key += offset;
-        if (N > 0) key %= N;
+        key += M - offset_key;
+        if (M > 0) key %= M;
         
         return original[key];
     }
@@ -41,44 +134,79 @@ struct RotatableMap {
     }
 
     bool contains(Key key) const {
-        key += offset;
-        if (N > 0) key %= N;
+        key += M - offset_key;
+        if (M > 0) key %= M;
         return original.contains(key);
     }
 
+    iterator find(Key key) {
+        key += M - offset_key;
+        if (M > 0) key %= M;
+        return iterator(original.find(key), this);
+    }
+
+    iterator lower_bound(Key key) {
+        key += M - offset_key;
+        if (M > 0) key %= M;
+        return iterator(original.lower_bound(key), this);
+    }
+
+    iterator upper_bound(Key key) {
+        key += M - offset_key;
+        if (M > 0) key %= M;
+        return iterator(original.upper_bound(key), this);
+    }
+
+    iterator begin() {
+        return iterator(original.begin(), this);
+    }
+
+    iterator end() {
+        return iterator(original.end(), this);
+    }
+
+    const_iterator begin() const {
+        return const_iterator(original.begin(), this);
+    }
+
+    const_iterator end() const {
+        return const_iterator(original.end(), this);
+    }
+
+    iterator insert(iterator hint, Key key, Value value) {
+        key += M - offset_key;
+        if (M > 0) key %= M;
+
+        auto it = original.insert(hint.it, {key, value});
+        return iterator(it, this);
+    }
+
+    iterator erase(iterator it) {
+        if (it == end()) return end();
+        it.it = original.erase(it.it);
+        return it;
+    }
+
     void dump() {
-        cerr << "offset: " << offset << endl;
+        cerr << "offset_key: " << offset_key << endl;
         cerr << "original: ";
         fore(p, original) cerr << p.first << ": " << p.second << endl;
 
         cerr << "rotated: ";
-        
-        Key first_key = N - (offset_key % N);
-        if (N > 0) first_key %= N;
-        auto first = original.lower_bound(first_key);
-        for (auto it = first; it != original.end(); ++it) {
-            Key key = it->first + N - offset_key;
-            cerr << key << ": " << it->second << endl;
-        }
-        for (auto it = original.begin(); it != first; ++it) {
-            Key key = it->first + N - offset_key;
-            cerr << key << ": " << it->second << endl;
+        auto it = begin();
+        while (it != end()) {
+            Key key = it.key();
+            cerr << key << ": " << it.value() << endl;
+            ++it;
         }
         cerr << endl;
     }
 
     friend ostream& operator<<(ostream& os, const RotatableMap<Key, Value>& mp) {
-        Key first_key = mp.N - (mp.offset_key % mp.N);
-        if (mp.N > 0) first_key %= mp.N;
-
-        auto first = mp.original.lower_bound(first_key);
-        for (auto it = first; it != mp.original.end(); ++it) {
-            Key key = it->first + mp.N - mp.offset_key;
-            os << key << ": " << it->second << endl;
-        }
-        for (auto it = mp.original.begin(); it != first; ++it) {
-            Key key = it->first + mp.N - mp.offset_key;
-            os << key << ": " << it->second << endl;
+        auto it = mp.begin();
+        while (it != mp.end()) {
+            os << it.key() << ": " << it.value() << ", ";
+            ++it;
         }
         return os;
     }
