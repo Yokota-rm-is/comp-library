@@ -27,13 +27,13 @@ struct CumulativeSum2D {
         rep(i, H) rep(j, W) sums[i + 1][j + 1] = sums[i + 1][j] + sums[i][j + 1] - sums[i][j] + values[i][j];
     }
 
-    // [y1, y2) x [x1, x2)の範囲の区間和を求める
-    T sum(long long y1, long long x1, long long y2, long long x2) {
-        assert(0 <= y1 and y1 <= y2 and y2 <= H);
-        assert(0 <= x1 and x1 <= x2 and x2 <= W);
+    // [h1, h2) x [w1, w2)の範囲の区間和を求める
+    T sum(long long h1, long long h2, long long w1, long long w2) {
+        assert(0 <= h1 and h1 <= h2 and h2 <= H);
+        assert(0 <= w1 and w1 <= w2 and w2 <= W);
         assert(built);
 
-        return sums[y2][x2] - sums[y1][x2] - sums[y2][x1] + sums[y1][x1];
+        return sums[h2][w2] - sums[h1][w2] - sums[h2][w1] + sums[h1][w1];
     }
 
     friend ostream& operator<<(ostream& os, CumulativeSum2D& cs) {

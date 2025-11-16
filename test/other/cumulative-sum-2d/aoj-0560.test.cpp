@@ -25,7 +25,7 @@ int main() {
         cin >> a >> b >> c >> d;
         --a, --b;
 
-        cout << cs_j.sum(a, b, c, d) << " " << cs_o.sum(a, b, c, d) << " " << cs_i.sum(a, b, c, d) << endl;
+        cout << cs_j.sum(a, c, b, d) << " " << cs_o.sum(a, c, b, d) << " " << cs_i.sum(a, c, b, d) << endl;
     }
 
     return 0;
