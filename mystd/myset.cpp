@@ -47,6 +47,10 @@ struct RedBlackTree {
         bool operator!=(const iterator &it) const {
             return node != it.node;
         }
+
+        long long operator-(const iterator &it) const {
+            return rbt->rank(*this) - rbt->rank(it);
+        }
     };
 
     struct reverse_iterator {
@@ -425,6 +429,10 @@ struct RedBlackTree {
         return iterator(upper_bound(root, val), this);
     }
 
+    long long rank(iterator it) {
+        return rank(it.node);
+    }
+
     void dump() const {
         rep(i, size()) {
             cerr << at(i) << " \n"[i == size() - 1];
@@ -445,7 +453,7 @@ private:
         Node *nx = pnx.get();
         nx->color = RED;
         nx->val = val;
-        nx->sum = val;
+        nx->sum = val * num;
         nx->size = nx->count = num;
         nx->unique_size = 1;
         nx->p = nx->ch[0] = nx->ch[1] = NIL;
