@@ -82,6 +82,8 @@ struct BitVector {
     long long bit_count(long long l, long long r) {
         assert(0 <= l and l <= r and r <= N);
 
+        if (l == r) return 0;
+
         long long ret = 0;
 
         auto [pl, ql] = divmod(l);
