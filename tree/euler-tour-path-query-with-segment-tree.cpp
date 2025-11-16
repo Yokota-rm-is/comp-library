@@ -1,8 +1,114 @@
 #pragma once
 #include "../base.cpp"
 
-template<typename T>
+#if __cplusplus >= 201703L
+template<class S, 
+        auto op,
+        auto e,
+        class F,
+        auto mapping>
+#else
+    template<class S,
+        S (*op)(S, S),
+        S (*e)(),
+        class F,
+        S (*mapping)(S, F)>
+#endif
+struct SegmentTree {
+#if __cplusplus >= 201703L
+    static_assert(is_convertible_v<decltype(op), function<S(S, S)>>, "op must be function<S(S, S)>");
+    static_assert(is_convertible_v<decltype(e), function<S()>>, "e must be function<S()>");
+    static_assert(is_convertible_v<decltype(mapping), function<S(S, F)>>, "mapping must be function<S(S, F)>");
+#endif
+    long long N, _N, height;
+    vector<S> node;
+
+    SegmentTree(ll _N) : _N(_N) {
+        height = 1;
+        N = 1;
+
+        while (N < _N) {
+            N *= 2;
+            height++;
+        }
+
+        node.resize(2 * N, e());
+        repd(i, 1, N) update(i);
+    }
+
+    void build() {
+        repd(i, 1, N) update(i);
+    }
+
+    void apply(long long p, S f, bool no_update=false) {
+        assert(0 <= p and p < _N);
+
+        long long k = p + N;
+        node[k] = mapping(node[k], f);
+        if (!no_update) rep(i, 1, height) update(k >> i);
+    }
+
+    S get(long long p) {
+        assert(0 <= p and p < _N);
+
+        long long k = p + N;
+        return node[k];
+    }
+
+    S prod(long long l, long long r) {
+        assert(0 <= l && l <= r && r <= _N);
+
+        l += N;
+        r += N;
+
+        S sml = e(), smr = e();
+        while (l < r) {
+            if (l & 1) sml = op(sml, node[l++]);
+            if (r & 1) smr = op(node[--r], smr);
+            l >>= 1;
+            r >>= 1;
+        }
+
+        return op(sml, smr);
+    }
+
+    S prod_all() {
+        return node[1];
+    }
+
+private:
+    void update(long long k) {
+        assert(1 <= k and k <= N - 1);
+
+        node[k] = op(node[k * 2], node[k * 2 + 1]);
+    }
+};
+
+// オイラーツアー
+// 2頂点間のパスに対して，逆元を持つ演算(sum, xorなど)が可能
+#if __cplusplus >= 201703L
+template<class S, 
+        auto op,
+        auto inv,
+        auto e,
+        class F,
+        auto mapping>
+#else
+    template<class S,
+        S (*op)(S, S),
+        S (*inv)(S),
+        S (*e)(),
+        class F,
+        S (*mapping)(S, F)>
+#endif
 struct EulerTourPath {
+#if __cplusplus >= 201703L
+    static_assert(is_convertible_v<decltype(op), function<S(S, S)>>, "op must be function<S(S, S)>");
+    static_assert(is_convertible_v<decltype(inv), function<S(S)>>, "inv must be function<S(S)>");
+    static_assert(is_convertible_v<decltype(e), function<S()>>, "e must be function<S()>");
+    static_assert(is_convertible_v<decltype(mapping), function<S(S, F)>>, "mapping must be function<S(S, F)>");
+#endif
+
     struct Edge {
         long long from;
         long long to;
@@ -20,95 +126,13 @@ struct EulerTourPath {
         }
     };
 
-#if __cplusplus >= 201703L
-    template<class S, 
-        auto op,
-        auto e>
-#else
-    template<class S,
-        S (*op)(S, S),
-        S (*e)()>
-#endif
-    struct SegmentTree {
-        long long N, _N, height;
-        vector<S> node;
-    
-        SegmentTree(ll _N) : _N(_N) {
-            height = 1;
-            N = 1;
-    
-            while (N < _N) {
-                N *= 2;
-                height++;
-            }
-    
-            node.resize(2 * N, e());
-            repd(i, 1, N) update(i);
-        }
-
-        void build() {
-            repd(i, 1, N) update(i);
-        }
-    
-        void add(long long p, S f, bool no_update=false) {
-            assert(0 <= p and p < _N);
-    
-            long long k = p + N;
-            node[k] += f;
-            if (!no_update) rep(i, 1, height) update(k >> i);
-        }
-
-        void set(long long p, S f, bool no_update=false) {
-            assert(0 <= p and p < _N);
-    
-            long long k = p + N;
-            node[k] = f;
-            if (!no_update) rep(i, 1, height) update(k >> i);
-        }
-    
-        S get(long long p) {
-            assert(0 <= p and p < _N);
-    
-            long long k = p + N;
-            return node[k];
-        }
-    
-        S prod(long long l, long long r) {
-            assert(0 <= l && l <= r && r <= _N);
-    
-            l += N;
-            r += N;
-    
-            S sml = e(), smr = e();
-            while (l < r) {
-                if (l & 1) sml = op(sml, node[l++]);
-                if (r & 1) smr = op(node[--r], smr);
-                l >>= 1;
-                r >>= 1;
-            }
-    
-            return op(sml, smr);
-        }
-    
-        S prod_all() {
-            return node[1];
-        }
-    
-    private:
-        void update(long long k) {
-            assert(1 <= k and k <= N - 1);
-    
-            node[k] = op(node[k * 2], node[k * 2 + 1]);
-        }
-    };
-
     using pll = pair<long long, long long>;
 
     long long V;
     vector<vector<Edge>> G;
     vector<bool> seen;
 
-    vector<T> weights;
+    vector<S> weights;
 
     long long time;
     vector<long long> pre_order, post_order;
@@ -118,14 +142,10 @@ struct EulerTourPath {
     long long edge_index;
     bool built = false;
 
-    SegmentTree<T, [](T x, T y){return x + y;}, [](){return 0;}> seg_sum;
-    SegmentTree<T, [](T x, T y){return max(x, y);}, [](){return -inf64;}> seg_max;
-    SegmentTree<T, [](T x, T y){return min(x, y);}, [](){return inf64;}> seg_min;
-    SegmentTree<pll, [](pll x, pll y){return (x.first < y.first ? x : y);}, [](){return pll(inf64, -1);}> seg_depth;
+    SegmentTree<S, op, e, F, mapping> seg;
+    SegmentTree<pll, [](pll x, pll y){return (x.first < y.first ? x : y);}, [](){return pll(inf64, -1);}, pll, [](pll x, pll f){return f;}> seg_depth;
 
-    long long e = inf64;
-
-    EulerTourPath(long long N) : V(N), G(V), seg_sum(4 * V - 2), seg_max(4 * V - 2), seg_min(4 * V - 2), seg_depth(4 * V - 2) {
+    EulerTourPath(long long N) : V(N), G(V), seg(4 * N - 2), seg_depth(4 * N - 2) {
         init();
     };
 
@@ -133,7 +153,7 @@ struct EulerTourPath {
         time = 0;
         seen.assign(V, false);
 
-        weights.resize(2 * V - 1, e);
+        weights.resize(2 * V - 1, e());
         pre_order.assign(2 * V - 1, -1);
         post_order.assign(2 * V - 1, -1);
 
@@ -141,10 +161,10 @@ struct EulerTourPath {
     }
 
     void connect(long long from, long long to) {
-        connect(from, to, e);
+        connect(from, to, e());
     }
 
-    void connect(long long from, long long to, T weight) {
+    void connect(long long from, long long to, S weight) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
         assert(!built);
@@ -157,7 +177,7 @@ struct EulerTourPath {
         edge_index++;
     }
 
-    void set_vertex_weight(long long v, T w) {
+    void set_vertex_weight(long long v, S w) {
         assert(0 <= v and v < V);
         assert(!built);
 
@@ -172,94 +192,46 @@ struct EulerTourPath {
         rep(i, visited_order.size()) {
             if (visited_order[i] >= 0) {
                 long long v = visited_order[i];
-                if (weights[v] != e) {
-                    seg_sum.set(i, weights[v], true);
-                    seg_max.set(i, weights[v], true);
-                    seg_min.set(i, weights[v], true);
-                }
-                seg_depth.set(i, visited_depth[i], true);
+                seg.node[seg.N + i] = weights[v];
+                seg_depth.node[seg_depth.N + i] = visited_depth[i];
             }
             else {
                 long long v = ~visited_order[i];
-                if (weights[~visited_order[i]] != e) {
-                    seg_sum.set(i, -weights[v], true);
-                    seg_max.set(i, weights[v], true);
-                    seg_min.set(i, weights[v], true);
-                }
-                seg_depth.set(i, visited_depth[i], true);
+                seg.node[seg.N + i] = inv(weights[v]);
+                seg_depth.node[seg_depth.N + i] = visited_depth[i];
             }
         }
 
-        seg_sum.build();
-        seg_max.build();
-        seg_min.build();
+        seg.build();
         seg_depth.build();
 
         built = true;
     }
 
-    void add_vertex(long long v, T f) {
+    void apply_vertex(long long v, S f) {
         assert(0 <= v and v < V);
         assert(built);
 
-        weights[v] += f;
+        weights[v] = mapping(weights[v], f);
 
         long long pre = pre_order[v];
-        seg_sum.add(pre, f);
-        seg_max.add(pre, f);
-        seg_min.add(pre, f);
+        seg.apply(pre, f);
 
         long long post = post_order[v];
-        seg_sum.add(post, -f);
-        seg_max.add(post, f);
-        seg_min.add(post, f);
+        seg.apply(post, inv(f));
     }
 
-    void set_vertex(long long v, T f) {
-        assert(0 <= v and v < V);
-        assert(built);
-
-        weights[v] = f;
-
-        long long pre = pre_order[v];
-        seg_sum.set(pre, f);
-        seg_max.set(pre, f);
-        seg_min.set(pre, f);
-
-        long long post = post_order[v];
-        seg_sum.set(post, -f);
-        seg_max.set(post, f);
-        seg_min.set(post, f);
-    }
-
-    void add_edge(long long i, T f) {
+    void apply_edge(long long i, S f) {
         assert(0 <= i and i < edge_index);
         assert(built);
 
-        long long pre = pre_order[V + i];
-        seg_sum.add(pre, f);
-        seg_max.add(pre, f);
-        seg_min.add(pre, f);
-
-        long long post = post_order[V + i];
-        seg_sum.add(post, -f);
-        seg_max.add(post, f);
-        seg_min.add(post, f);
-    }
-
-    void set_edge(long long i, T f) {
-        assert(0 <= i and i < edge_index);
-        assert(built);
+        weights[V + i] = mapping(weights[V + i], f);
 
         long long pre = pre_order[V + i];
-        seg_sum.set(pre, f);
-        seg_max.set(pre, f);
-        seg_min.set(pre, f);
+        seg.apply(pre, f);
 
         long long post = post_order[V + i];
-        seg_sum.set(post, -f);
-        seg_max.set(post, f);
-        seg_min.set(post, f);
+        seg.apply(post, inv(f));
     }
 
     long long lca(long long u, long long v) {
@@ -272,31 +244,15 @@ struct EulerTourPath {
         return seg_depth.prod(l, r + 1).second;
     }
 
-    T prod_sum(long long v) {
+    S prod(long long v) {
         assert(0 <= v and v < V);
         assert(built);
 
         ll r = post_order[v];
-        return seg_sum.prod(0, r);
+        return seg.prod(0, r);
     }
 
-    T prod_max(long long v) {
-        assert(0 <= v and v < V);
-        assert(built);
-
-        ll r = post_order[v];
-        return seg_max.prod(0, r);
-    }
-
-    T prod_min(long long v) {
-        assert(0 <= v and v < V);
-        assert(built);
-
-        ll r = post_order[v];
-        return seg_min.prod(0, r);
-    }
-
-    T prod_sum(long long u, long long v) {
+    S prod(long long u, long long v) {
         assert(0 <= min(u, v) and max(u, v) < V);
         assert(built);
 
@@ -304,17 +260,17 @@ struct EulerTourPath {
         ll pv = post_order[v];
         ll a = lca(u, v);
         ll pa = post_order[a];
-        return seg_sum.prod(0, pu) + seg_sum.prod(0, pv) - 2 * seg_sum.prod(0, pa) + seg_sum.get(pre_order[a]);
+        return seg.prod(0, pu) + seg.prod(0, pv) - 2 * seg.prod(0, pa) + seg.get(pre_order[a]);
     }
 
-    T get_vertex(long long v) {
+    S get_vertex(long long v) {
         assert(0 <= v and v < V);
         assert(built);
 
         return weights[v];
     }
 
-    T get_edge(long long i) {
+    S get_edge(long long i) {
         assert(0 <= i and i < edge_index);
         assert(built);
 

@@ -6,7 +6,13 @@ int main() {
     ll N, Q;
     cin >> N >> Q;
 
-    EulerTourPath<ll> tree(N);  
+    using S = ll;
+    auto op = [](S a, S b) { return a + b; };
+    auto inv = [](S a) { return -a; };
+    auto e = []() { return 0LL; };
+    using F = ll;
+    auto mapping = [](S a, F f) { return a + f; };
+    EulerTourPath<S, op, inv, e, F, mapping> tree(N);
 
     vll a(N);
     rep(i, N) {
@@ -32,13 +38,13 @@ int main() {
         if (t == 0) {
             ll p, x;
             cin >> p >> x;
-            tree.add_vertex(p, x);
+            tree.apply_vertex(p, x);
         }
         else {
             ll u, v;
             cin >> u >> v;
 
-            ll ans = tree.prod_sum(u, v);
+            ll ans = tree.prod(u, v);
 
             cout << ans << endl;
         }

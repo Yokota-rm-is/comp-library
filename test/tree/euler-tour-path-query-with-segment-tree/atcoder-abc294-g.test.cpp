@@ -14,7 +14,13 @@ int main() {
     }
     --U, --V;
 
-    EulerTourPath<ll> tree(N);
+    using S = ll;
+    auto op = [](S a, S b) { return a + b; };
+    auto inv = [](S a) { return -a; };
+    auto e = []() { return 0LL; };
+    using F = ll;
+    auto mapping = [](S a, F f) { return f; };
+    EulerTourPath<S, op, inv, e, F, mapping> tree(N);
     rep(i, N - 1) {
         tree.connect(U[i], V[i], W[i]);
     }
@@ -33,14 +39,14 @@ int main() {
             cin >> i >> w;
 
             --i;
-            tree.set_edge(i, w);
+            tree.apply_edge(i, w);
         }
         else {
             ll u, v;
             cin >> u >> v;
             --u, --v;
 
-            ll ans = tree.prod_sum(u, v);
+            ll ans = tree.prod(u, v);
 
             cout << ans << endl;
         }

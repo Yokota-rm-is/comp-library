@@ -6,7 +6,13 @@ int main() {
     ll N, Q;
     cin >> N >> Q;
 
-    EulerTourPath<ll> tree(N);
+    using S = ll;
+    auto op = [](S a, S b) { return a + b; };
+    auto inv = [](S a) { return -a; };
+    auto e = []() { return 0LL; };
+    using F = ll;
+    auto mapping = [](S a, F f) { return f; };
+    EulerTourPath<S, op, inv, e, F, mapping> tree(N);
 
     rep(i, 1, N) {
         ll p;
