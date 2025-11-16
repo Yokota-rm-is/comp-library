@@ -1,6 +1,6 @@
 #define IGNORE
 #define PROBLEM "https://atcoder.jp/contests/arc033/tasks/arc033_3"
-// https://atcoder.jp/contests/arc033/submissions/60114708
+// https://atcoder.jp/contests/arc033/submissions/66193552
 
 #include "../../../structure/binary-indexed-tree.cpp"
 
