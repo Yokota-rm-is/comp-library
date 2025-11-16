@@ -6,7 +6,9 @@ int main() {
     ll N, C, M;
     cin >> N >> C >> M;
 
-    LinearAddRangeMax<lll, lll, lll> tree(N, -INF64);
+    using T = lll;
+    auto e = []() { return -INF64; };
+    LinearAddRangeMax<T, e> tree(N, -INF64);
     tree.set(0, 0);
 
     rep(i, M) {

@@ -7,17 +7,15 @@ constexpr long long bit_ceil_log(unsigned long long n) {
     return x;
 }
 
-// T : 2 * 値が収まる型
-// TN : 2 * (Tの最大値) * (要素数) が収まる型
-// TN2 : 2 * (Tの最大値) * (要素数)^2 が収まる型
-template <typename T = long long, typename TN = long long, typename TN2 = __int128_t>
+// T : 2 * (最大値) * (要素数)^2 が収まる型
+template <typename T, auto e, int coeff = 1>
 struct LinearAddRangeMin {
     struct Point {
         long long x;
         T y;
 
-        static TN cross(const Point &a, const Point &b, const Point &c) {
-            return (TN)(b.y - a.y) * (c.x - a.x) - (TN)(c.y - a.y) * (b.x - a.x);
+        static T cross(const Point &a, const Point &b, const Point &c) {
+            return (b.y - a.y) * (c.x - a.x) - (c.y - a.y) * (b.x - a.x);
         }
     };
 
@@ -29,8 +27,6 @@ struct LinearAddRangeMin {
         // 葉以外
         Node(): lza(0), lzb(0){}
     };
-
-    static constexpr T inf = numeric_limits<T>::max();
 
     LinearAddRangeMin(long long n) : _N(n) {
         init(vector<T>(_N));
@@ -48,7 +44,7 @@ struct LinearAddRangeMin {
         N = bit_ceil((unsigned long long)(_N));
         log = bit_ceil_log((unsigned long long)N) + 1;
         node = vector<Node>(2 * N);
-        rep(i, N) node[N + i] = Node(i, (i < _N ? v[i] : 0));
+        rep(i, N) node[N + i] = Node(i, (i < _N ? coeff * v[i] : coeff * e()));
         repd(i, 1, N) pull(i);
     }
 
@@ -56,6 +52,7 @@ struct LinearAddRangeMin {
         assert(0 <= p && p < _N);
         long long P = p;
         p += N;
+        x *= coeff;
 
         repd(i, 1, log) push(p >> i);
         if(node[p].lbr.y == x) return;
@@ -71,19 +68,23 @@ struct LinearAddRangeMin {
         }
     }
 
-    T get(long long p) {
+    T get(long long p) const {
         assert(0 <= p && p < _N);
         p += N;
 
         T a = 0, b = 0;
         repd(i, 1, log) a += node[p >> i].lza, b += node[p >> i].lzb;
-        return node[p].lbr.y + (p - N) * a + b;
+        return coeff * (node[p].lbr.y + (p - N) * a + b);
+    }
+
+    T prod() {
+        return coeff * min_subtree(1);
     }
 
     // [l, r)のmin
     T prod(long long l, long long r) {
         assert(0 <= l && l <= r && r <= _N);
-        if (l == r) return inf;
+        if (l == r) return e();
 
         l += N;
         r += N;
@@ -93,7 +94,7 @@ struct LinearAddRangeMin {
             if (((r >> i) << i) != r) push((r - 1) >> i);
         }
 
-        T res = inf;
+        T res = coeff * e();
         while (l < r) {
             if (l & 1) res = min(res, min_subtree(l++));
             if (r & 1) res = min(res, min_subtree(--r));
@@ -101,23 +102,28 @@ struct LinearAddRangeMin {
             r >>= 1;
         }
 
-        return res;
+        return coeff * res;
+    }
+
+    T prod_assume_apply(T a, T b) {
+        return prod_assume_apply(0, N, a, b);
     }
 
     // [l, r)にax+bを足したと仮定してのmin
     T prod_assume_apply(long long l, long long r, T a, T b) {
-        assert(0 <= l && l <= r && r <= _N);
-        if (l == r) return inf;
+        if (l == r) return coeff * e();
 
         l += N;
         r += N;
+        a *= coeff;
+        b *= coeff;
 
         repd(i, 1, log) {
             if (((l >> i) << i) != l) push(l >> i);
             if (((r >> i) << i) != r) push((r - 1) >> i);
         }
 
-        T res = inf;
+        T res = coeff * e();
         while (l < r) {
             if (l & 1) res = min(res, min_subtree(l++, a, b));
             if (r & 1) res = min(res, min_subtree(--r, a, b));
@@ -125,27 +131,34 @@ struct LinearAddRangeMin {
             r >>= 1;
         }
 
-        return res;
+        return coeff * res;
+    }
+
+    // 全体にai+b (i=0, 1, ..., N-1)を加える
+    void apply(T a, T b) {
+        apply(0, N, a, b);
     }
 
     // [l, r)にai+b (i=l, l+1, ..., r-1)を加える
     void apply(long long l, long long r, T a, T b) {
-        assert(0 <= l && l <= r && r <= _N);
+        // assert(0 <= l && l <= r && r <= _N);
         if (l == r) return;
 
         l += N;
         r += N;
-        {
-            long long l2 = l, r2 = r;
-            while (l < r) {
-                if (l & 1) all_apply(l++, a, b);
-                if (r & 1) all_apply(--r, a, b);
-                l >>= 1;
-                r >>= 1;
-            }
-            l = l2;
-            r = r2;
+        a *= coeff;
+        b *= coeff;
+        
+        long long l2 = l, r2 = r;
+        while (l < r) {
+            if (l & 1) all_apply(l++, a, b);
+            if (r & 1) all_apply(--r, a, b);
+            l >>= 1;
+            r >>= 1;
         }
+        l = l2;
+        r = r2;
+        
         bool upper_lca = false;
         rep(i, 1, log) {
             upper_lca |= (l >> i) == ((r - 1) >> i);
@@ -235,7 +248,7 @@ private:
             d.y += lzA * d.x + lzB;\
         }
         while ((l < N) || (r < N)) {
-            TN s1 = Point::cross(a, b, c);
+            T s1 = Point::cross(a, b, c);
             if (l < N && s1 > 0) {
                 movel(0);
             } 
@@ -249,8 +262,8 @@ private:
                 movel(1);
             } 
             else {
-                TN2 s2 = Point::cross(b, a, d);
-                if (s1 + s2 == 0 || (TN2)s1 * (d.x - splitx) < s2 * (splitx - c.x)) {
+                T s2 = Point::cross(b, a, d);
+                if (s1 + s2 == 0 || s1 * (d.x - splitx) < s2 * (splitx - c.x)) {
                     movel(1);
                 } else {
                     mover(0);
@@ -274,63 +287,5 @@ private:
     }
 };
 
-template <typename T = long long, typename TN = long long, typename TN2 = __int128_t>
-struct LinearAddRangeMax : LinearAddRangeMin<T, TN, TN2> {
-    using LinearAddRangeMin<T, TN, TN2>::LinearAddRangeMin;
-    long long _N;
-
-    LinearAddRangeMax(long long n) : LinearAddRangeMin<T, TN, TN2>(n), _N(n) {}
-    LinearAddRangeMax(long long n, T a) : LinearAddRangeMin<T, TN, TN2>(n, -a), _N(n) {}
-    LinearAddRangeMax(vector<T> v) : LinearAddRangeMin<T, TN, TN2>(-v), _N(v.size()) {}
-
-    void set(long long p, T x) {
-        LinearAddRangeMin<T, TN, TN2>::set(p, -x);
-    }
-
-    T get(long long p) {
-        return -LinearAddRangeMin<T, TN, TN2>::get(p);
-    }
-
-    T prod(long long l, long long r) {
-        return -LinearAddRangeMin<T, TN, TN2>::prod(l, r);
-    }
-
-    T prod_assume_add(long long l, long long r, T a, T b) {
-        return -LinearAddRangeMin<T, TN, TN2>::prod_assume_add(l, r, -a, -b);
-    }
-
-    // [l, r)にai+b (i=l, l+1, ..., r-1)を加える
-    void apply(long long l, long long r, T a, T b) {
-        LinearAddRangeMin<T, TN, TN2>::apply(l, r, -a, -b);
-    }
-
-    // [l, r)に初項al, 公差dの等差数列を足す
-    void apply_al(long long l, long long r, T al, T d) {
-        LinearAddRangeMin<T, TN, TN2>::apply_al(l, r, -al, -d);
-    }
-
-    // [l, r)に末項ar, 公差dの等差数列を足す
-    void apply_ar(long long l, long long r, T ar, T d) {
-        LinearAddRangeMin<T, TN, TN2>::apply_ar(l, r, -ar, -d);
-    }
-
-    // [l, r)に初項al, 公差dの等差数列を足すと仮定してのmax
-    T prod_assume_apply_al(long long l, long long r, T al, T d) {
-        return -LinearAddRangeMin<T, TN, TN2>::prod_assume_apply_al(l, r, -al, -d);
-    }
-
-    // [l, r)に末項ar, 公差dの等差数列を足すと仮定してのmax
-    T prod_assume_apply_ar(long long l, long long r, T ar, T d) {
-        return -LinearAddRangeMin<T, TN, TN2>::prod_assume_apply_ar(l, r, -ar, -d);
-    }
-
-    friend ostream& operator<<(ostream& os, LinearAddRangeMax& seg) {
-        os << seg._N << endl;
-        os << "[";
-        rep(i, seg._N) {
-            if (i) os << ", ";
-            os << seg.get(i);
-        }
-        return os << "]";
-    }
-};
+template <typename T, auto e>
+using LinearAddRangeMax = LinearAddRangeMin<T, e, -1>;

@@ -9,7 +9,9 @@ int main() {
     vll a(N);
     rep(i, N) cin >> a[i];
 
-    LinearAddRangeMin<ll, ll> seg(a);
+    using T = ll;
+    auto e = []() { return inf64; };
+    LinearAddRangeMin<T, e> seg(a);
 
     while (Q--) {
         ll t;
