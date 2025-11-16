@@ -7,5 +7,18 @@ CXXFLAGS = [
     "-Wextra",
     "-fconcepts-diagnostics-depth=5",
     "-Wno-char-subscripts",
-    "-O2"
+    "-O2",
+    "-I", 
+    "/opt/ac-library",
+    "-I",
+    "/opt/boost/gcc/include",
+    "-L",
+    "/opt/boost/gcc/lib",
+    "-lgmpxx",
+    "-lgmp",
+    "-I",
+    "/usr/include/eigen"
 ]
+
+
+
