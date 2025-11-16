@@ -35,7 +35,7 @@ struct BinaryTrie {
         NIL->data = a;
 
         A[0].emplace_back(move(pNIL));
-        root = NIL;
+        root = new_node(0, 0);
     }
 
     Node* new_node(bool v, long long d) {
@@ -117,9 +117,9 @@ struct BinaryTrie {
         Node* node = search(word);
 
         if (node->depth != word_size) return;
-        n = node->common;
+        chmin(n, node->common);
 
-        rep(i, word_size + 1) {
+        repd(i, word_size + 1) {
             pop_back(node, n);
             f(node, word);
 
@@ -136,8 +136,7 @@ struct BinaryTrie {
         node->common -= n;
 
         if (node->common == 0 and node != root) {
-            Node* prev_node = node->p;
-            prev_node->ch[node->v] = NIL;
+            node->data = a;
         }
     }
 
@@ -179,42 +178,6 @@ struct BinaryTrie {
         root->lazy ^= x;
     }
 
-    T min_element() {
-        T ret = 0;
-        Node* node = root;
-
-        rep(i, word_size) {
-            push(node);
-            if (node->ch[0] != NIL) {
-                node = node->ch[0];
-            } 
-            else {
-                ret |= (1ull << (word_size - 1 - i));
-                node = node->ch[1];
-            }
-        }
-
-        return ret;
-    }
-
-    T max_element() {
-        T ret = 0;
-        Node* node = root;
-
-        rep(i, word_size) {
-            push(node);
-            if (node->ch[1] != NIL) {
-                ret |= (1ull << (word_size - 1 - i));
-                node = node->ch[1];
-            } 
-            else {
-                node = node->ch[0];
-            }
-        }
-
-        return ret;
-    }
-
     // k番目に小さい要素を求める (1-indexed)
     T kth_min(long long k) {
         assert(0 < k and k <= root->common);
@@ -240,6 +203,16 @@ struct BinaryTrie {
     // k番目に大きい要素を求める (1-indexed)
     T kth_max(long long k) {
         return kth_min_element(root->common - k + 1);
+    }
+
+    T min_element() {
+        assert(root->common > 0);
+        return kth_min(1);
+    }
+
+    T max_element() {
+        assert(root->common > 0);
+        return kth_max(root->common);
     }
 
     long long count_less_than(T word) {
