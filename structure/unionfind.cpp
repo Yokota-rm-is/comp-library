@@ -25,6 +25,15 @@ struct UnionFind {
         cc_edge.assign(V, {});
     }
 
+    void add_vertex() {
+        par.push_back(-1);
+        cc_size++;
+        cc.emplace_back();
+        cc.back().push_back(V);
+        cc_edge.emplace_back();
+        ++V;
+    }
+
     // xの根を返す
     long long find(long long x) { // データxが属する木の根を再帰で得る：root(x) = {xの木の根}
         if (par[x] < 0) return x;
