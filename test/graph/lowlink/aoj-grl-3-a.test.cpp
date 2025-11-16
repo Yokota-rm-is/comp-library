@@ -6,14 +6,14 @@ int main() {
     ll V, E;
     cin >> V >> E;
 
-    LowLink graph(V, false);
+    LowLink graph(V);
     rep(i, E) {
         ll s, t;
         cin >> s >> t;
         graph.connect(s, t);
     }
 
-    graph();
+    graph.build();
     rep(i, V) {
         if (graph.is_articulation(i)) cout << i << endl;
     }

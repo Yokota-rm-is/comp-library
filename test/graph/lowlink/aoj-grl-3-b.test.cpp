@@ -8,7 +8,7 @@ int main() {
 
     vector<pll> edge(E);
 
-    LowLink graph(V, false);
+    LowLink graph(V);
     rep(i, E) {
         ll s, t;
         cin >> s >> t;
@@ -20,7 +20,7 @@ int main() {
 
     sort(edge);
 
-    graph();
+    graph.build();
     rep(i, E) {
         auto [s, t] = edge[i];
         if (graph.is_bridge(s, t)) cout << s << " " << t << endl;

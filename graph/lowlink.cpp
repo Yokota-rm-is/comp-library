@@ -20,110 +20,90 @@ struct LowLink {
     };
 
     long long V;
-    bool directed_;
+    bool built;
     vector<vector<Edge>> G;
-    vector<long long> ord, low;
-    vector<vector<Edge>> back_edges, son;
-    vector<long long> topo;
+    vector<bool> used;
+    vector<long long> ord, low, dependency;
 
     long long edge_id;
     vector<Edge> edges;
 
-    long long time;
-    bool has_cycle;
-    vector<long long> descendants;
+    long long time, cc_size;
 
-    vector<vector<long long>> bcc, bcc_edges;
-
-    LowLink(long long N, bool directed) : V(N), directed_(directed), G(V) {
+    LowLink(long long N) : V(N), built(false), G(V) {
         init();
     };
     
     void init() {
         time = 0;
-        has_cycle = false;
+        cc_size = 0;
         edge_id = 0;
 
+        used.assign(V, false);
         ord.assign(V, -1);
         low.assign(V, -1);
-        back_edges.assign(V, vector<Edge>());
-        son.assign(V, vector<Edge>());
-        descendants.assign(V, 0);
-
-        bcc.assign(V, vector<long long>());
-        rep(i, V) bcc[i].emplace_back(i);
+        dependency.assign(V, 0);
     }
     
     void connect(long long from, long long to) {
         assert(0 <= from and from < V);
         assert(0 <= to and to < V);
+        assert(!built);
 
         edges.emplace_back(from, to, edge_id);
 
-        if (directed_) {
-            G[from].emplace_back(from, to, edge_id);
-        }
-        else {
-            G[from].emplace_back(from, to, edge_id);
-            G[to].emplace_back(to, from, edge_id);
-        }
+        G[from].emplace_back(from, to, edge_id);
+        G[to].emplace_back(to, from, edge_id);
 
         edge_id++;
     }
 
     void operator() () {
-        dfs(0);
+        build();
     }
 
-    void dfs(long long start) {
-        assert(0 <= start and start < V);
+    void build() {
+        assert(!built);
 
-        stack<pair<long long, Edge>> st;
-        st.emplace(start, Edge());
+        rep(i, V) {
+            if (used[i]) continue; 
 
-        while (!st.empty()) {
-            auto [now, edge] = st.top(); 
-            st.pop();
-            long long par = edge.from;
+            dfs(i, 0, Edge());
+            cc_size++;
+        }
+        built = true;
+    }
 
-            if (ord[now] != -1) {
-                if (ord[par] < ord[now]) continue;
-                chmin(low[par], ord[now]);
+    int dfs(int now, int k, Edge edge) {
+        used[now] = true;
+        ord[now] = low[now] = k++;
+        bool beet = false;
+        long long par = edge.from;
 
-                back_edges[par].emplace_back(edge);
-                continue;
-            }
+        fore(e, G[now]) {
+            ll to = e.to;
+            if (to == par and !exchange(beet, true)) continue;
 
-            if (par != -1) {
-                son[par].emplace_back(edge);
-            }
-            topo.push_back(now);
-
-            ord[now] = low[now] = time++;
-
-            fore(next_edge, G[now]) {
-                long long next = next_edge.to;
-
-                if (next == par) continue;
-
-                st.emplace(next, next_edge);
+            if (!used[to]) {
+                k = dfs(to, k, e);
+                chmin(low[now], low[to]);
+                dependency[now] += (ord[now] <= low[to]);
+            } 
+            else {
+                chmin(low[now], ord[to]);
             }
         }
 
-        repd(i, 1, topo.size()) {
-            long long now = topo[i];
-
-            for (auto next_edge : son[now]) {
-                long long next = next_edge.to;
-                chmin(low[now], low[next]);
-            }
-        }
+        return k;
     }
 
     // u -> vが橋かどうか
-    // 橋: 取り除いたときにグラフが非連結になる辺
-    // dfs後に使用
+    // 橋: 取り除いたときにグラフが非連結になる(連結成分が1増える)辺
     bool is_bridge(long long u, long long v) {
+        assert(0 <= u and u < V);
+        assert(0 <= v and v < V);
+        assert(built);
+
         if (ord[u] > ord[v]) swap(u, v);
 
         return ord[u] < low[v];
@@ -132,83 +112,139 @@ struct LowLink {
     // uが関節点かどうか
     // 関節点: 取り除いた後のグラフが非連結になる頂点
     // dfs後に使用
-    bool is_articulation(long long u) {
-        if (ord[u] == 0) {
-            return son[u].size() >= 2;
-        }
-        else {
-            fore(edge, son[u]) {
-                long long v = edge.to;
-                if (ord[u] <= low[v]) return true;
-            }
+    bool is_articulation(long long v) {
+        assert(0 <= v and v < V);
+        assert(built);
 
-            return false;
+        return dependency[v] - (ord[v] == 0) > 0;
+    }
+
+    // 辺(u, v)を取り除いた後のグラフの連結成分数を返す
+    long long count_cc_if_removed_edge(long long u, long long v) {
+        assert(0 <= u and u < V);
+        assert(0 <= v and v < V);
+        assert(built);
+
+        if (ord[u] > ord[v]) swap(u, v);
+
+        return cc_size + (ord[u] < low[v]);
+    }
+
+    // 頂点uを取り除いた後のグラフの連結成分数を返す
+    long long count_cc_if_removed_vertex(long long v) {
+        assert(0 <= v and v < V);
+        assert(built);
+
+        return cc_size + dependency[v] - (ord[v] == 0);
+    }
+};
+
+// 二重頂点連結成分分解
+// 二重頂点連結成分分解: 頂点を1本取り除いても連結成分数が変わらないような連結成分に分解すること
+struct BiConnectedComponents {
+    LowLink lowlink;
+    vector<bool> used;
+    stack<LowLink::Edge> st;
+    vector<vector<long long>> bcc;
+
+    BiConnectedComponents(long long N) : lowlink(N) {
+        used.assign(N, false);
+    }
+
+    void connect(long long u, long long v) {
+        lowlink.connect(u, v);
+    }
+
+    void build() {
+        lowlink.build();
+
+        rep(i, lowlink.V) {
+            if (used[i]) continue; 
+
+            dfs(i, -1);
         }
     }
 
-    long long solve_bcc() {
-        stack<pair<long long, Edge>> sub_roots;
-        sub_roots.emplace(0, Edge());
+    void dfs(long long now, long long par) {
+        used[now] = true;
+        bool beet = false;
 
-        while (!sub_roots.empty()) {
-            stack<pair<long long, Edge>> st;
-            st.emplace(sub_roots.top());
-            sub_roots.pop();
-
-            bcc.push_back({});
-            bcc_edges.push_back({});
-
-            if (st.top().second.from != -1) {
-                bcc.back().emplace_back(st.top().second.from);
+        fore(e, lowlink.G[now]) {
+            long long to = e.to;
+            if (to == par and !exchange(beet, true)) continue;
+            
+            if (!used[to] or lowlink.ord[to] < lowlink.ord[now]) {
+                st.emplace(e);
             }
 
-            while (!st.empty()) {
-                auto [now, edge] = st.top();
-                st.pop();
+            if (!used[to]) {
+                dfs(to, now);
 
-                long long par = edge.from;
-                if (par != -1) {
-                    bcc_edges.back().emplace_back(edge.id);
-                }
-                bcc.back().emplace_back(now);
-
-                if (now == 0) {
-                    if (is_articulation(now)) {
-                        fore(next_edge, son[now]) {
-                            long long next = next_edge.to;
-                            sub_roots.emplace(next, next_edge);
-                        }
-                        bcc.pop_back();
-                        bcc_edges.pop_back();
-                    }
-                    else {
-                        fore(next_edge, son[now]) {
-                            long long next = next_edge.to;
-                            st.emplace(next, next_edge);
-                        }
-                    }
-                }
-                else {
-                    fore(next_edge, son[now]) {
-                        long long next = next_edge.to;
-                        if (is_articulation(next)) {
-                            sub_roots.emplace(next, next_edge);
-                        }
-                        else {
-                            st.emplace(next, next_edge);
-                        }
-                    }
-                }
-
-                if (now == 0 and son[now].size() <= 1) {
-                    fore(next_edge, back_edges[now]) {
-                        long long next = next_edge.from;
-                        bcc.back().emplace_back(next);
+                if (lowlink.low[to] >= lowlink.ord[now]) {
+                    bcc.emplace_back();
+                    while (true) {
+                        auto edge = st.top();
+                        st.pop();
+                        bcc.back().emplace_back(edge.from);
+                        if (edge.to == to) break;
                     }
                 }
             }
         }
+    }
+};
 
-        return bcc.size();
+// 二重辺連結成分分解
+// 二重辺連結成分分解: 辺を1本取り除いても連結成分数が変わらないような連結成分に分解すること
+// 二重辺連結成分分解により縮約された頂点と辺(橋)からなるグラフは森となる
+struct TwoEdgeConnectedComponents {
+    LowLink lowlink;
+    vector<long long> comp;
+    vector<vector<long long>> tree, group;
+
+    TwoEdgeConnectedComponents(long long N) : lowlink(N) {
+        comp.assign(N, -1);
+    }
+
+    void connect(long long u, long long v) {
+        lowlink.connect(u, v);
+    }
+
+    void build() {
+        lowlink.build();
+
+        long long k = 0;
+        rep(i, lowlink.V) {
+            if (comp[i] != -1) continue;
+
+            k = dfs(i, -1, k);
+        }
+
+        group.resize(k);
+        rep(i, lowlink.V) {
+            group[comp[i]].emplace_back(i);
+        }
+
+        tree.resize(k);
+        rep(now, lowlink.V) {
+            for (auto e : lowlink.G[now]) {
+                long long to = e.to;
+                if (comp[now] == comp[to]) continue;
+                tree[comp[now]].emplace_back(comp[to]);
+            }
+        }
+    }
+
+    long long dfs(long long now, long long par, long long k) {
+        if (par >= 0 and lowlink.ord[par] >= lowlink.low[now]) comp[now] = comp[par];
+        else comp[now] = k++;
+
+        fore(e, lowlink.G[now]) {
+            long long to = e.to;
+            if (comp[to] != -1) continue;
+            
+            k = dfs(to, now, k);
+        }
+        return k;
     }
 };
