@@ -510,9 +510,9 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/graph/tsp/atcoder-abc190-e.test.cpp
-  - test/graph/bfs/atcoder-abc270-c.test.cpp
   - test/graph/bfs/aoj-alds1-11-c.test.cpp
   - test/graph/bfs/atcoder-abc284-c.test.cpp
+  - test/graph/bfs/atcoder-abc270-c.test.cpp
 documentation_of: graph/bfs.cpp
 layout: document
 redirect_from:

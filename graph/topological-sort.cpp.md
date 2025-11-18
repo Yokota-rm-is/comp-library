@@ -493,9 +493,9 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
-  - test/graph/topological-sort/atcoder-dp-g.test.cpp
   - test/graph/topological-sort/aoj-grl-4-b.test.cpp
+  - test/graph/topological-sort/atcoder-dp-g.test.cpp
+  - test/graph/topological-sort/atcoder-nikkei2019-d.test.cpp
   - test/graph/topological-sort/atcoder-abc223-d.test.cpp
 documentation_of: graph/topological-sort.cpp
 layout: document

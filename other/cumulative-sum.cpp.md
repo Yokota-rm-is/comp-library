@@ -419,28 +419,28 @@ data:
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"other/cumulative-sum.cpp\"\n\ntemplate<typename\
     \ T>\nstruct CumulativeSum : vector<T> {\n    using v = vector<T>;\n\n    CumulativeSum()\
-    \ : vector<T>() {};\n\n    CumulativeSum(vector<T>& A) {\n        v::assign(A.size(),\
-    \ 0);\n        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
-    \ > 0);\n\n        v::at(0) = A[0];\n        rep(i, 1, A.size()) {\n         \
-    \   v::at(i) = A[i] + v::at(i - 1);\n        }\n    }\n\n    void push_back(T\
-    \ x) {\n        if (v::size() == 0) v::push_back(x);\n        else v::push_back(v::back()\
-    \ + x);\n    }\n\n    void pop_back() {\n        v::pop_back();\n    }\n\n   \
-    \ // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n\
-    \    T sum(long long l, long long r) {\n        assert(0 <= l and l <= r and r\
-    \ <= v::size());\n        if (l == r) return T(0);\n        if (l > r) swap(l,\
-    \ r);\n\n        if (l == 0) return v::at(r - 1);\n        else return v::at(r\
-    \ - 1) - v::at(l - 1);\n    }\n\n    T get(long long i) {\n        assert(i <\
-    \ v::size());\n        if (i == 0) return v::at(0);\n        else return v::at(i)\
+    \ : vector<T>() {};\n\n    CumulativeSum(vector<T>& A) {\n        init(A);\n \
+    \   };\n\n    void init(vector<T>& A) {\n        assert(A.size() > 0);\n\n   \
+    \     v::assign(A.size(), 0);\n        v::at(0) = A[0];\n        rep(i, 1, A.size())\
+    \ {\n            v::at(i) = A[i] + v::at(i - 1);\n        }\n    }\n\n    void\
+    \ push_back(T x) {\n        if (v::size() == 0) v::push_back(x);\n        else\
+    \ v::push_back(v::back() + x);\n    }\n\n    void pop_back() {\n        v::pop_back();\n\
+    \    }\n\n    // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\
+    \u308B\n    T sum(long long l, long long r) {\n        assert(0 <= l and l <=\
+    \ r and r <= v::size());\n        if (l == r) return T(0);\n        if (l > r)\
+    \ swap(l, r);\n\n        if (l == 0) return v::at(r - 1);\n        else return\
+    \ v::at(r - 1) - v::at(l - 1);\n    }\n\n    T get(long long i) {\n        assert(i\
+    \ < v::size());\n        if (i == 0) return v::at(0);\n        else return v::at(i)\
     \ - v::at(i - 1);\n    }\n\n    friend ostream& operator<<(ostream& os, const\
     \ CumulativeSum<T>& A) {\n        rep(i, A.size()) os << A[i] << (i < A.size()\
     \ - 1 ? \" \" : \"\");\n        return os;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<typename T>\nstruct CumulativeSum\
     \ : vector<T> {\n    using v = vector<T>;\n\n    CumulativeSum() : vector<T>()\
-    \ {};\n\n    CumulativeSum(vector<T>& A) {\n        v::assign(A.size(), 0);\n\
-    \        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
-    \ > 0);\n\n        v::at(0) = A[0];\n        rep(i, 1, A.size()) {\n         \
-    \   v::at(i) = A[i] + v::at(i - 1);\n        }\n    }\n\n    void push_back(T\
-    \ x) {\n        if (v::size() == 0) v::push_back(x);\n        else v::push_back(v::back()\
+    \ {};\n\n    CumulativeSum(vector<T>& A) {\n        init(A);\n    };\n\n    void\
+    \ init(vector<T>& A) {\n        assert(A.size() > 0);\n\n        v::assign(A.size(),\
+    \ 0);\n        v::at(0) = A[0];\n        rep(i, 1, A.size()) {\n            v::at(i)\
+    \ = A[i] + v::at(i - 1);\n        }\n    }\n\n    void push_back(T x) {\n    \
+    \    if (v::size() == 0) v::push_back(x);\n        else v::push_back(v::back()\
     \ + x);\n    }\n\n    void pop_back() {\n        v::pop_back();\n    }\n\n   \
     \ // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n\
     \    T sum(long long l, long long r) {\n        assert(0 <= l and l <= r and r\
@@ -457,16 +457,16 @@ data:
   path: other/cumulative-sum.cpp
   requiredBy:
   - test/structure/binary-indexed-tree/atcoder-abc381-e.text.cpp
-  timestamp: '2025-03-23 19:00:04+09:00'
+  timestamp: '2025-05-21 13:36:19+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/rotatable-vector/atcoder-abc367-d.test.cpp
-  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
-  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
-  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
-  - test/graph/functional-graph/atcoder-abc387-f.test.cpp
-  - test/structure/rotatable-binary-indexed-tree/atcoder-abc367-d.test.cpp
   - test/structure/rotatable-lazy-segment-tree/atcoder-abc367-d.test.cpp
+  - test/structure/rotatable-binary-indexed-tree/atcoder-abc367-d.test.cpp
+  - test/other/cumulative-sum/atocoder-abc084-d.test.cpp
+  - test/other/cumulative-sum/atcoder-agc023-a.test.cpp
+  - test/other/cumulative-sum/atocoder-abc122-c.test.cpp
+  - test/other/rotatable-vector/atcoder-abc367-d.test.cpp
+  - test/graph/functional-graph/atcoder-abc387-f.test.cpp
 documentation_of: other/cumulative-sum.cpp
 layout: document
 redirect_from:

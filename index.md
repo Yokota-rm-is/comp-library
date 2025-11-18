@@ -101,11 +101,17 @@ data:
       path: math/bell.cpp
       title: math/bell.cpp
     - icon: ':x:'
+      path: math/binary-trie.cpp
+      title: math/binary-trie.cpp
+    - icon: ':x:'
       path: math/combination.cpp
       title: math/combination.cpp
     - icon: ':x:'
       path: math/eratosthenes.cpp
       title: math/eratosthenes.cpp
+    - icon: ':warning:'
+      path: math/factorial.cpp
+      title: math/factorial.cpp
     - icon: ':x:'
       path: math/is-prime.cpp
       title: math/is-prime.cpp
@@ -115,6 +121,9 @@ data:
     - icon: ':x:'
       path: math/log-floor.cpp
       title: math/log-floor.cpp
+    - icon: ':x:'
+      path: math/miller-rabin.cpp
+      title: math/miller-rabin.cpp
     - icon: ':x:'
       path: math/modint.cpp
       title: math/modint.cpp
@@ -131,8 +140,14 @@ data:
       path: math/root-floor.cpp
       title: math/root-floor.cpp
     - icon: ':x:'
+      path: math/segment-sieve.cpp
+      title: math/segment-sieve.cpp
+    - icon: ':x:'
       path: math/stirling-second.cpp
       title: math/stirling-second.cpp
+    - icon: ':x:'
+      path: math/ushige-.cpp
+      title: math/ushige-.cpp
   - name: mystd
     pages:
     - icon: ':x:'
@@ -162,6 +177,9 @@ data:
       path: other/baseset.cpp
       title: other/baseset.cpp
     - icon: ':x:'
+      path: other/bit-vector.cpp
+      title: other/bit-vector.cpp
+    - icon: ':x:'
       path: other/compressor.cpp
       title: other/compressor.cpp
     - icon: ':x:'
@@ -177,6 +195,9 @@ data:
       path: other/doubling.cpp
       title: other/doubling.cpp
     - icon: ':x:'
+      path: other/imos.cpp
+      title: other/imos.cpp
+    - icon: ':x:'
       path: other/lds-vector.cpp
       title: other/lds-vector.cpp
     - icon: ':x:'
@@ -186,18 +207,21 @@ data:
       path: other/pattern-cumulative-sum.cpp
       title: other/pattern-cumulative-sum.cpp
     - icon: ':x:'
+      path: other/range-map.cpp
+      title: other/range-map.cpp
+    - icon: ':x:'
       path: other/range-set.cpp
       title: other/range-set.cpp
     - icon: ':warning:'
       path: other/remapper.cpp
       title: other/remapper.cpp
-    - icon: ':warning:'
+    - icon: ':x:'
       path: other/rotatable-map-2d.cpp
       title: other/rotatable-map-2d.cpp
     - icon: ':x:'
       path: other/rotatable-map.cpp
       title: other/rotatable-map.cpp
-    - icon: ':warning:'
+    - icon: ':x:'
       path: other/rotatable-set-2d.cpp
       title: other/rotatable-set-2d.cpp
     - icon: ':warning:'
@@ -261,7 +285,16 @@ data:
       title: search/trit-zentansaku.cpp
   - name: string
     pages:
-    - icon: ':warning:'
+    - icon: ':x:'
+      path: string/aho-corasick.cpp
+      title: string/aho-corasick.cpp
+    - icon: ':x:'
+      path: string/manacher.cpp
+      title: string/manacher.cpp
+    - icon: ':x:'
+      path: string/rolling-hash-on-binary-indexed-tree.cpp
+      title: string/rolling-hash-on-binary-indexed-tree.cpp
+    - icon: ':x:'
       path: string/rolling-hash-on-segment-tree.cpp
       title: string/rolling-hash-on-segment-tree.cpp
     - icon: ':x:'
@@ -273,9 +306,15 @@ data:
     - icon: ':x:'
       path: string/suffix-array.cpp
       title: string/suffix-array.cpp
+    - icon: ':warning:'
+      path: string/trie-old.cpp
+      title: string/trie-old.cpp
     - icon: ':x:'
-      path: string/trie-tree.cpp
-      title: string/trie-tree.cpp
+      path: string/trie.cpp
+      title: string/trie.cpp
+    - icon: ':x:'
+      path: string/z-algorithm.cpp
+      title: string/z-algorithm.cpp
   - name: structure
     pages:
     - icon: ':warning:'
@@ -287,6 +326,12 @@ data:
     - icon: ':x:'
       path: structure/bit-on-wavelet-matrix.cpp
       title: structure/bit-on-wavelet-matrix.cpp
+    - icon: ':x:'
+      path: structure/convex-hull-trick.cpp
+      title: structure/convex-hull-trick.cpp
+    - icon: ':x:'
+      path: structure/dual-segment-tree-abstract.cpp
+      title: structure/dual-segment-tree-abstract.cpp
     - icon: ':x:'
       path: structure/dual-segment-tree.cpp
       title: structure/dual-segment-tree.cpp
@@ -306,8 +351,17 @@ data:
       path: structure/empty-sqrt-decomposition.cpp
       title: structure/empty-sqrt-decomposition.cpp
     - icon: ':x:'
+      path: structure/implicit-treap.cpp
+      title: structure/implicit-treap.cpp
+    - icon: ':x:'
       path: structure/kruskal.cpp
       title: structure/kruskal.cpp
+    - icon: ':x:'
+      path: structure/lazy-segment-tree-01.cpp
+      title: structure/lazy-segment-tree-01.cpp
+    - icon: ':x:'
+      path: structure/lazy-segment-tree-abstract.cpp
+      title: structure/lazy-segment-tree-abstract.cpp
     - icon: ':x:'
       path: structure/lazy-segment-tree-plain.cpp
       title: structure/lazy-segment-tree-plain.cpp
@@ -321,6 +375,9 @@ data:
       path: structure/linear-set-lazy-segment-tree.cpp
       title: structure/linear-set-lazy-segment-tree.cpp
     - icon: ':x:'
+      path: structure/offline-dynamic-connectivity.cpp
+      title: structure/offline-dynamic-connectivity.cpp
+    - icon: ':x:'
       path: structure/priority-deque.cpp
       title: structure/priority-deque.cpp
     - icon: ':x:'
@@ -330,8 +387,14 @@ data:
       path: structure/rotatable-lazy-segment-tree.cpp
       title: structure/rotatable-lazy-segment-tree.cpp
     - icon: ':x:'
+      path: structure/segment-tree-2d-abstract.cpp
+      title: structure/segment-tree-2d-abstract.cpp
+    - icon: ':x:'
       path: structure/segment-tree-2d.cpp
       title: structure/segment-tree-2d.cpp
+    - icon: ':x:'
+      path: structure/segment-tree-abstract.cpp
+      title: structure/segment-tree-abstract.cpp
     - icon: ':x:'
       path: structure/segment-tree-beats.cpp
       title: structure/segment-tree-beats.cpp
@@ -342,8 +405,17 @@ data:
       path: structure/segment-tree.cpp
       title: structure/segment-tree.cpp
     - icon: ':x:'
+      path: structure/semi-dynamic-segment-tree-2d.cpp
+      title: structure/semi-dynamic-segment-tree-2d.cpp
+    - icon: ':x:'
       path: structure/semi-dynamic-wavelet-matrix.cpp
       title: structure/semi-dynamic-wavelet-matrix.cpp
+    - icon: ':x:'
+      path: structure/sortable-segment-tree.cpp
+      title: structure/sortable-segment-tree.cpp
+    - icon: ':x:'
+      path: structure/sparse-table-2d.cpp
+      title: structure/sparse-table-2d.cpp
     - icon: ':x:'
       path: structure/sparse-table.cpp
       title: structure/sparse-table.cpp
@@ -351,8 +423,14 @@ data:
       path: structure/splay-tree.cpp
       title: structure/splay-tree.cpp
     - icon: ':x:'
+      path: structure/sqrt-decomposition-plain.cpp
+      title: structure/sqrt-decomposition-plain.cpp
+    - icon: ':x:'
       path: structure/sqrt-decomposition.cpp
       title: structure/sqrt-decomposition.cpp
+    - icon: ':x:'
+      path: structure/static-range-inversions-query.cpp
+      title: structure/static-range-inversions-query.cpp
     - icon: ':x:'
       path: structure/static-range-mode-query.cpp
       title: structure/static-range-mode-query.cpp
@@ -376,10 +454,34 @@ data:
   - name: tree
     pages:
     - icon: ':x:'
+      path: tree/centroid-decomposition.cpp
+      title: tree/centroid-decomposition.cpp
+    - icon: ':x:'
+      path: tree/euler-tour-path-query-with-segment-tree.cpp
+      title: tree/euler-tour-path-query-with-segment-tree.cpp
+    - icon: ':x:'
+      path: tree/euler-tour-subtree-query-with-segment-tree.cpp
+      title: tree/euler-tour-subtree-query-with-segment-tree.cpp
+    - icon: ':x:'
+      path: tree/euler-tour-tree.cpp
+      title: tree/euler-tour-tree.cpp
+    - icon: ':x:'
+      path: tree/heavy-light-decomposition.cpp
+      title: tree/heavy-light-decomposition.cpp
+    - icon: ':x:'
+      path: tree/link-cut-tree.cpp
+      title: tree/link-cut-tree.cpp
+    - icon: ':x:'
       path: tree/tree-bfs.cpp
       title: tree-bfs
     - icon: ':x:'
+      path: tree/tree-dfs.cpp
+      title: tree/tree-dfs.cpp
+    - icon: ':x:'
       path: tree/tree-dp-abstract.cpp
+      title: tree-dp
+    - icon: ':x:'
+      path: tree/tree-dp-reroot-abstract.cpp
       title: tree-dp
     - icon: ':x:'
       path: tree/tree-dp.cpp
@@ -467,6 +569,15 @@ data:
       path: test/graph/flow/aoj-grl-6-b.test.cpp
       title: test/graph/flow/aoj-grl-6-b.test.cpp
     - icon: ':x:'
+      path: test/graph/flow/atcoder-abc239-g.test.cpp
+      title: test/graph/flow/atcoder-abc239-g.test.cpp
+    - icon: ':x:'
+      path: test/graph/flow/atcoder-abc247-g.test.cpp
+      title: test/graph/flow/atcoder-abc247-g.test.cpp
+    - icon: ':x:'
+      path: test/graph/flow/atcoder-pastbook2022-e.test.cpp
+      title: test/graph/flow/atcoder-pastbook2022-e.test.cpp
+    - icon: ':x:'
       path: test/graph/flow/yukicoder-177.test.cpp
       title: test/graph/flow/yukicoder-177.test.cpp
   - name: test/graph/functional-graph
@@ -485,6 +596,12 @@ data:
     - icon: ':x:'
       path: test/graph/lowlink/aoj-grl-3-b.test.cpp
       title: test/graph/lowlink/aoj-grl-3-b.test.cpp
+    - icon: ':x:'
+      path: test/graph/lowlink/atcoder-abc334-g.test.cpp
+      title: test/graph/lowlink/atcoder-abc334-g.test.cpp
+    - icon: ':x:'
+      path: test/graph/lowlink/yosupo-two-edge-connected-components.test.cpp
+      title: test/graph/lowlink/yosupo-two-edge-connected-components.test.cpp
   - name: test/graph/psp
     pages:
     - icon: ':x:'
@@ -542,6 +659,11 @@ data:
     - icon: ':x:'
       path: test/graph/warshall-floyd/atcoder-abc375-f.test.cpp
       title: test/graph/warshall-floyd/atcoder-abc375-f.test.cpp
+  - name: test/grid/grid
+    pages:
+    - icon: ':x:'
+      path: test/grid/grid/atcoder-abc218-c.test.cpp
+      title: test/grid/grid/atcoder-abc218-c.test.cpp
   - name: test/grid/grid-bfs
     pages:
     - icon: ':x:'
@@ -622,6 +744,23 @@ data:
     - icon: ':x:'
       path: test/math/bell/aoj-dpl-5-g.test.cpp
       title: test/math/bell/aoj-dpl-5-g.test.cpp
+  - name: test/math/binary-trie
+    pages:
+    - icon: ':x:'
+      path: test/math/binary-trie/aoj-itp2-7-a.test.cpp
+      title: test/math/binary-trie/aoj-itp2-7-a.test.cpp
+    - icon: ':x:'
+      path: test/math/binary-trie/aoj-itp2-7-b.test.cpp
+      title: test/math/binary-trie/aoj-itp2-7-b.test.cpp
+    - icon: ':x:'
+      path: test/math/binary-trie/atcoder-abc281-f.test.cpp
+      title: test/math/binary-trie/atcoder-abc281-f.test.cpp
+    - icon: ':x:'
+      path: test/math/binary-trie/yosupo-ordered-set.test.cpp
+      title: test/math/binary-trie/yosupo-ordered-set.test.cpp
+    - icon: ':x:'
+      path: test/math/binary-trie/yosupo-set-xor-min.test.cpp
+      title: test/math/binary-trie/yosupo-set-xor-min.test.cpp
   - name: test/math/combination
     pages:
     - icon: ':x:'
@@ -653,6 +792,14 @@ data:
     - icon: ':x:'
       path: test/math/log-floor/original-log-floor.test.cpp
       title: test/math/log-floor/original-log-floor.test.cpp
+  - name: test/math/miller-rabin
+    pages:
+    - icon: ':x:'
+      path: test/math/miller-rabin/atcoder-abc149-c.test.cpp
+      title: test/math/miller-rabin/atcoder-abc149-c.test.cpp
+    - icon: ':x:'
+      path: test/math/miller-rabin/yosupo-primality-test.test.cpp
+      title: test/math/miller-rabin/yosupo-primality-test.test.cpp
   - name: test/math/permutation
     pages:
     - icon: ':x:'
@@ -679,6 +826,14 @@ data:
     - icon: ':x:'
       path: test/math/root-floor/original-root-floor.test.cpp
       title: test/math/root-floor/original-root-floor.test.cpp
+    - icon: ':x:'
+      path: test/math/root-floor/yosupo-kth-root-integer.test.cpp
+      title: test/math/root-floor/yosupo-kth-root-integer.test.cpp
+  - name: test/math/segment-sieve
+    pages:
+    - icon: ':x:'
+      path: test/math/segment-sieve/atcoder-abc227-g.test.cpp
+      title: test/math/segment-sieve/atcoder-abc227-g.test.cpp
   - name: test/math/stirling-second
     pages:
     - icon: ':x:'
@@ -687,6 +842,11 @@ data:
     - icon: ':x:'
       path: test/math/stirling-second/yosupo-stirling-number-of-the-second-kind.test.cpp
       title: test/math/stirling-second/yosupo-stirling-number-of-the-second-kind.test.cpp
+  - name: test/math/ushige-
+    pages:
+    - icon: ':x:'
+      path: test/math/ushige-/aoj-0304.test.cpp
+      title: test/math/ushige-/aoj-0304.test.cpp
   - name: test/mystd/mybitset
     pages:
     - icon: ':x:'
@@ -729,11 +889,20 @@ data:
       path: test/mystd/myset/atcoder-abc281-e.test.cpp
       title: test/mystd/myset/atcoder-abc281-e.test.cpp
     - icon: ':x:'
+      path: test/mystd/myset/atcoder-abc287-g.test.cpp
+      title: test/mystd/myset/atcoder-abc287-g.test.cpp
+    - icon: ':x:'
+      path: test/mystd/myset/atcoder-abc306-e.test.cpp
+      title: test/mystd/myset/atcoder-abc306-e.test.cpp
+    - icon: ':x:'
       path: test/mystd/myset/atcoder-abc379-f.test.cpp
       title: test/mystd/myset/atcoder-abc379-f.test.cpp
     - icon: ':x:'
       path: test/mystd/myset/atocoder-abc084-d.test.cpp
       title: test/mystd/myset/atocoder-abc084-d.test.cpp
+    - icon: ':x:'
+      path: test/mystd/myset/yosupo-ordered-set.test.cpp
+      title: test/mystd/myset/yosupo-ordered-set.test.cpp
     - icon: ':x:'
       path: test/mystd/myset/yosupo-predecessor-problem.test.cpp
       title: test/mystd/myset/yosupo-predecessor-problem.test.cpp
@@ -753,6 +922,14 @@ data:
     - icon: ':x:'
       path: test/other/baseset/atcoder-abc322-e.test.cpp
       title: test/other/baseset/atcoder-abc322-e.test.cpp
+  - name: test/other/bit-vector
+    pages:
+    - icon: ':x:'
+      path: test/other/bit-vector/atcoder-abc304-f.test.cpp
+      title: test/other/bit-vector/atcoder-abc304-f.test.cpp
+    - icon: ':x:'
+      path: test/other/bit-vector/atcoder-abc348-f.test.cpp
+      title: test/other/bit-vector/atcoder-abc348-f.test.cpp
   - name: test/other/compress
     pages:
     - icon: ':x:'
@@ -798,6 +975,11 @@ data:
     - icon: ':x:'
       path: test/other/doubling/atcoder-abc367-e.test.cpp
       title: test/other/doubling/atcoder-abc367-e.test.cpp
+  - name: test/other/imos
+    pages:
+    - icon: ':x:'
+      path: test/other/imos/aoj-2013.test.cpp
+      title: test/other/imos/aoj-2013.test.cpp
   - name: test/other/lds-vector
     pages:
     - icon: ':x:'
@@ -834,6 +1016,11 @@ data:
     - icon: ':x:'
       path: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
       title: test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
+  - name: test/other/range-map
+    pages:
+    - icon: ':x:'
+      path: test/other/range-map/atocoder-abc296-g.test.cpp
+      title: test/other/range-map/atocoder-abc296-g.test.cpp
   - name: test/other/range-set
     pages:
     - icon: ':x:'
@@ -842,8 +1029,21 @@ data:
   - name: test/other/rotatable-map
     pages:
     - icon: ':x:'
+      path: test/other/rotatable-map/atcoder-abc255-e.test.cpp
+      title: test/other/rotatable-map/atcoder-abc255-e.test.cpp
+    - icon: ':x:'
       path: test/other/rotatable-map/atcoder-abc370-e.test.cpp
       title: test/other/rotatable-map/atcoder-abc370-e.test.cpp
+  - name: test/other/rotatable-map-2d
+    pages:
+    - icon: ':x:'
+      path: test/other/rotatable-map-2d/atcoder-abc398-d.test.cpp
+      title: test/other/rotatable-map-2d/atcoder-abc398-d.test.cpp
+  - name: test/other/rotatable-set-2d
+    pages:
+    - icon: ':x:'
+      path: test/other/rotatable-set-2d/atcoder-abc398-d.test.cpp
+      title: test/other/rotatable-set-2d/atcoder-abc398-d.test.cpp
   - name: test/other/rotatable-vector
     pages:
     - icon: ':x:'
@@ -854,6 +1054,9 @@ data:
       title: test/other/rotatable-vector/atcoder-typical90-044.test.cpp
   - name: test/other/run-length-encoding
     pages:
+    - icon: ':x:'
+      path: test/other/run-length-encoding/aoj-3238.test.cpp
+      title: test/other/run-length-encoding/aoj-3238.test.cpp
     - icon: ':x:'
       path: test/other/run-length-encoding/atcoder-abc259-c.test.cpp
       title: test/other/run-length-encoding/atcoder-abc259-c.test.cpp
@@ -945,14 +1148,39 @@ data:
     - icon: ':x:'
       path: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
       title: test/search/trit-zentansaku/atcoder-abc345-d.test.cpp
+  - name: test/string/aho-corasick
+    pages:
+    - icon: ':x:'
+      path: test/string/aho-corasick/yukicoder-430.test.cpp
+      title: test/string/aho-corasick/yukicoder-430.test.cpp
+  - name: test/string/manacher
+    pages:
+    - icon: ':x:'
+      path: test/string/manacher/aoj-0063.test.cpp
+      title: test/string/manacher/aoj-0063.test.cpp
+    - icon: ':x:'
+      path: test/string/manacher/atcoder-abc320-b.test.cpp
+      title: test/string/manacher/atcoder-abc320-b.test.cpp
+    - icon: ':x:'
+      path: test/string/manacher/yosupo-enumerate-palindromes.test.cpp
+      title: test/string/manacher/yosupo-enumerate-palindromes.test.cpp
+    - icon: ':x:'
+      path: test/string/manacher/yukicoder-2234.test.cpp
+      title: test/string/manacher/yukicoder-2234.test.cpp
   - name: test/string/rolling-hash
     pages:
+    - icon: ':x:'
+      path: test/string/rolling-hash/aoj-0063.test.cpp
+      title: test/string/rolling-hash/aoj-0063.test.cpp
     - icon: ':x:'
       path: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
       title: test/string/rolling-hash/aoj-alds1-14-b.test.cpp
     - icon: ':x:'
       path: test/string/rolling-hash/atcoder-abc141-e.test.cpp
       title: test/string/rolling-hash/atcoder-abc141-e.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash/atcoder-abc284-f.test.cpp
+      title: test/string/rolling-hash/atcoder-abc284-f.test.cpp
     - icon: ':x:'
       path: test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
       title: test/string/rolling-hash/atcoder-abc324-c-2.test.cpp
@@ -962,6 +1190,37 @@ data:
     - icon: ':x:'
       path: test/string/rolling-hash/atcoder-abc353-e.test.cpp
       title: test/string/rolling-hash/atcoder-abc353-e.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash/yukicoder-2234.test.cpp
+      title: test/string/rolling-hash/yukicoder-2234.test.cpp
+  - name: test/string/rolling-hash-on-binary-indexed-tree
+    pages:
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-binary-indexed-tree/aoj-0063.test.cpp
+      title: test/string/rolling-hash-on-binary-indexed-tree/aoj-0063.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-binary-indexed-tree/aoj-alds1-14-b.test.cpp
+      title: test/string/rolling-hash-on-binary-indexed-tree/aoj-alds1-14-b.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-binary-indexed-tree/atcoder-abc331-f.test.cpp
+      title: test/string/rolling-hash-on-binary-indexed-tree/atcoder-abc331-f.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-binary-indexed-tree/yukicoder-2234.test.cpp
+      title: test/string/rolling-hash-on-binary-indexed-tree/yukicoder-2234.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-binary-indexed-tree/yukicoder-2761-2.test.cpp
+      title: test/string/rolling-hash-on-binary-indexed-tree/yukicoder-2761-2.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-binary-indexed-tree/yukicoder-2761.test.cpp
+      title: test/string/rolling-hash-on-binary-indexed-tree/yukicoder-2761.test.cpp
+  - name: test/string/rolling-hash-on-segment-tree
+    pages:
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-segment-tree/atcoder-abc331-f.test.cpp
+      title: test/string/rolling-hash-on-segment-tree/atcoder-abc331-f.test.cpp
+    - icon: ':x:'
+      path: test/string/rolling-hash-on-segment-tree/yukicoder-2761.test.cpp
+      title: test/string/rolling-hash-on-segment-tree/yukicoder-2761.test.cpp
   - name: test/string/string-table
     pages:
     - icon: ':x:'
@@ -981,16 +1240,30 @@ data:
     - icon: ':x:'
       path: test/string/suffix-array/yosupo-suffix-array.test.cpp
       title: test/string/suffix-array/yosupo-suffix-array.test.cpp
-  - name: test/string/trie-tree
+  - name: test/string/trie
     pages:
     - icon: ':x:'
-      path: test/string/trie-tree/atcoder-abc353-e.test.cpp
-      title: test/string/trie-tree/atcoder-abc353-e.test.cpp
+      path: test/string/trie/atcoder-abc353-e.test.cpp
+      title: test/string/trie/atcoder-abc353-e.test.cpp
     - icon: ':x:'
-      path: test/string/trie-tree/atcoder-abc377-g.test.cpp
-      title: test/string/trie-tree/atcoder-abc377-g.test.cpp
+      path: test/string/trie/atcoder-abc377-g.test.cpp
+      title: test/string/trie/atcoder-abc377-g.test.cpp
+    - icon: ':x:'
+      path: test/string/trie/atcoder-tenka1-2026-final-c.test.cpp
+      title: test/string/trie/atcoder-tenka1-2026-final-c.test.cpp
+    - icon: ':x:'
+      path: test/string/trie/atcoder-utpc2014-e.test.cpp
+      title: test/string/trie/atcoder-utpc2014-e.test.cpp
+  - name: test/string/z-algorithm
+    pages:
+    - icon: ':x:'
+      path: test/string/z-algorithm/yosupo-z-algorithm.test.cpp
+      title: test/string/z-algorithm/yosupo-z-algorithm.test.cpp
   - name: test/structure/binary-indexed-tree
     pages:
+    - icon: ':x:'
+      path: test/structure/binary-indexed-tree/aoj-3165.test.cpp
+      title: test/structure/binary-indexed-tree/aoj-3165.test.cpp
     - icon: ':x:'
       path: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
       title: test/structure/binary-indexed-tree/aoj-alds1-5-d.test.cpp
@@ -1010,8 +1283,14 @@ data:
       path: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
       title: test/structure/binary-indexed-tree/atcoder-abc340-e.test.cpp
     - icon: ':x:'
+      path: test/structure/binary-indexed-tree/atcoder-abc407-f.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-abc407-f.test.cpp
+    - icon: ':x:'
       path: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
       title: test/structure/binary-indexed-tree/atcoder-arc033-c.test.cpp
+    - icon: ':x:'
+      path: test/structure/binary-indexed-tree/atcoder-arc077-e.test.cpp
+      title: test/structure/binary-indexed-tree/atcoder-arc077-e.test.cpp
     - icon: ':x:'
       path: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
       title: test/structure/binary-indexed-tree/atcoder-chokudai-s001-j.test.cpp
@@ -1029,6 +1308,11 @@ data:
     - icon: ':x:'
       path: test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
       title: test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - name: test/structure/convex-hull-trick
+    pages:
+    - icon: ':x:'
+      path: test/structure/convex-hull-trick/atcoder-abc341-g.test.cpp
+      title: test/structure/convex-hull-trick/atcoder-abc341-g.test.cpp
   - name: test/structure/dual-segment-tree
     pages:
     - icon: ':x:'
@@ -1037,6 +1321,14 @@ data:
     - icon: ':x:'
       path: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
       title: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - name: test/structure/dual-segment-tree-abstract
+    pages:
+    - icon: ':x:'
+      path: test/structure/dual-segment-tree-abstract/aoj-dsl-2-d.test.cpp
+      title: test/structure/dual-segment-tree-abstract/aoj-dsl-2-d.test.cpp
+    - icon: ':x:'
+      path: test/structure/dual-segment-tree-abstract/aoj-dsl-2-e.test.cpp
+      title: test/structure/dual-segment-tree-abstract/aoj-dsl-2-e.test.cpp
   - name: test/structure/dynamic-binary-indexed-tree
     pages:
     - icon: ':x:'
@@ -1072,6 +1364,50 @@ data:
     - icon: ':x:'
       path: test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
       title: test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - name: test/structure/implicit-treap
+    pages:
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-1508.test.cpp
+      title: test/structure/implicit-treap/aoj-1508.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-a.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-a.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-b.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-b.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-d.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-d.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-e.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-e.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-f.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-f.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-g.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-g.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-h.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-h.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/aoj-dsl-2-i.test.cpp
+      title: test/structure/implicit-treap/aoj-dsl-2-i.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/atcoder-abc253-g.test.cpp
+      title: test/structure/implicit-treap/atcoder-abc253-g.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/atcoder-abc350-f.test.cpp
+      title: test/structure/implicit-treap/atcoder-abc350-f.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/atcoder-abc403-g.test.cpp
+      title: test/structure/implicit-treap/atcoder-abc403-g.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+      title: test/structure/implicit-treap/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+    - icon: ':x:'
+      path: test/structure/implicit-treap/yosupo-range-reverse-range-sum.test.cpp
+      title: test/structure/implicit-treap/yosupo-range-reverse-range-sum.test.cpp
   - name: test/structure/kruskal
     pages:
     - icon: ':x:'
@@ -1103,6 +1439,40 @@ data:
     - icon: ':x:'
       path: test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
       title: test/structure/lazy-segment-tree/aoj-dsl-2-i.test.cpp
+  - name: test/structure/lazy-segment-tree-01
+    pages:
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-01/atcoder-abc310-e.test.cpp
+      title: test/structure/lazy-segment-tree-01/atcoder-abc310-e.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-01/atcoder-abc322-f.test.cpp
+      title: test/structure/lazy-segment-tree-01/atcoder-abc322-f.test.cpp
+  - name: test/structure/lazy-segment-tree-abstract
+    pages:
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-a.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-a.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-b.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-b.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-d.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-d.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-e.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-e.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-f.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-f.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-g.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-g.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-h.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-h.test.cpp
+    - icon: ':x:'
+      path: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-i.test.cpp
+      title: test/structure/lazy-segment-tree-abstract/aoj-dsl-2-i.test.cpp
   - name: test/structure/lazy-segment-tree-plain
     pages:
     - icon: ':x:'
@@ -1142,6 +1512,14 @@ data:
     - icon: ':x:'
       path: test/structure/linear-set-lazy-segment-tree/atcoder-abc177-f.test.cpp
       title: test/structure/linear-set-lazy-segment-tree/atcoder-abc177-f.test.cpp
+  - name: test/structure/offline-dynamic-connectivity
+    pages:
+    - icon: ':x:'
+      path: test/structure/offline-dynamic-connectivity/atcoder-abc334-g.test.cpp
+      title: test/structure/offline-dynamic-connectivity/atcoder-abc334-g.test.cpp
+    - icon: ':x:'
+      path: test/structure/offline-dynamic-connectivity/yosupo-dynamic-graph-vertex-add-component-sum.test.cpp
+      title: test/structure/offline-dynamic-connectivity/yosupo-dynamic-graph-vertex-add-component-sum.test.cpp
   - name: test/structure/priority-deque
     pages:
     - icon: ':x:'
@@ -1209,6 +1587,22 @@ data:
     - icon: ':x:'
       path: test/structure/segment-tree-2d/aoj-1068.test.cpp
       title: test/structure/segment-tree-2d/aoj-1068.test.cpp
+  - name: test/structure/segment-tree-2d-abstract
+    pages:
+    - icon: ':x:'
+      path: test/structure/segment-tree-2d-abstract/aoj-1068.test.cpp
+      title: test/structure/segment-tree-2d-abstract/aoj-1068.test.cpp
+    - icon: ':x:'
+      path: test/structure/segment-tree-2d-abstract/atcoder-abc228-f.test.cpp
+      title: test/structure/segment-tree-2d-abstract/atcoder-abc228-f.test.cpp
+  - name: test/structure/segment-tree-abstract
+    pages:
+    - icon: ':x:'
+      path: test/structure/segment-tree-abstract/aoj-dsl-2-a.test.cpp
+      title: test/structure/segment-tree-abstract/aoj-dsl-2-a.test.cpp
+    - icon: ':x:'
+      path: test/structure/segment-tree-abstract/aoj-dsl-2-b.test.cpp
+      title: test/structure/segment-tree-abstract/aoj-dsl-2-b.test.cpp
   - name: test/structure/segment-tree-beats
     pages:
     - icon: ':x:'
@@ -1255,6 +1649,11 @@ data:
     - icon: ':x:'
       path: test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
       title: test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - name: test/structure/semi-dynamic-segment-tree-2d
+    pages:
+    - icon: ':x:'
+      path: test/structure/semi-dynamic-segment-tree-2d/aoj-1068.test.cpp
+      title: test/structure/semi-dynamic-segment-tree-2d/aoj-1068.test.cpp
   - name: test/structure/semi-dynamic-wavelet-matrix
     pages:
     - icon: ':x:'
@@ -1290,11 +1689,30 @@ data:
     - icon: ':x:'
       path: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
       title: test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+  - name: test/structure/sortable-segment-tree
+    pages:
+    - icon: ':x:'
+      path: test/structure/sortable-segment-tree/aoj-dsl-2-a.test.cpp
+      title: test/structure/sortable-segment-tree/aoj-dsl-2-a.test.cpp
+    - icon: ':x:'
+      path: test/structure/sortable-segment-tree/aoj-dsl-2-b.test.cpp
+      title: test/structure/sortable-segment-tree/aoj-dsl-2-b.test.cpp
+    - icon: ':x:'
+      path: test/structure/sortable-segment-tree/yosupo-point-set-range-sort-range-composite.test.cpp
+      title: test/structure/sortable-segment-tree/yosupo-point-set-range-sort-range-composite.test.cpp
+    - icon: ':x:'
+      path: test/structure/sortable-segment-tree/yosupo-range-reverse-range-sum.test.cpp
+      title: test/structure/sortable-segment-tree/yosupo-range-reverse-range-sum.test.cpp
   - name: test/structure/sparse-table
     pages:
     - icon: ':x:'
       path: test/structure/sparse-table/yosupo-static-rmq.test.cpp
       title: test/structure/sparse-table/yosupo-static-rmq.test.cpp
+  - name: test/structure/sparse-table-2d
+    pages:
+    - icon: ':x:'
+      path: test/structure/sparse-table-2d/atcoder-abc228-f.test.cpp
+      title: test/structure/sparse-table-2d/atcoder-abc228-f.test.cpp
   - name: test/structure/splay-tree
     pages:
     - icon: ':x:'
@@ -1356,6 +1774,37 @@ data:
     - icon: ':x:'
       path: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
       title: test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
+  - name: test/structure/sqrt-decomposition-plain
+    pages:
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-a.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-a.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-b.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-b.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-d.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-d.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-e.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-e.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-f.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-f.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-g.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-g.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-h.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-h.test.cpp
+    - icon: ':x:'
+      path: test/structure/sqrt-decomposition-plain/aoj-dsl-2-i.test.cpp
+      title: test/structure/sqrt-decomposition-plain/aoj-dsl-2-i.test.cpp
+  - name: test/structure/static-range-inversions-query
+    pages:
+    - icon: ':x:'
+      path: test/structure/static-range-inversions-query/yosupo-static-range-inversions-query.test.cpp
+      title: test/structure/static-range-inversions-query/yosupo-static-range-inversions-query.test.cpp
   - name: test/structure/static-range-mode-query
     pages:
     - icon: ':x:'
@@ -1489,6 +1938,90 @@ data:
     - icon: ':x:'
       path: test/structure/weighted-unionfind/yosupo-unionfind.test.cpp
       title: test/structure/weighted-unionfind/yosupo-unionfind.test.cpp
+  - name: test/tree/centroid-decomposition
+    pages:
+    - icon: ':x:'
+      path: test/tree/centroid-decomposition/atcoder-yahoo-procon2018-final-open-c.test.cpp
+      title: test/tree/centroid-decomposition/atcoder-yahoo-procon2018-final-open-c.test.cpp
+    - icon: ':x:'
+      path: test/tree/centroid-decomposition/yosupo-frequency_table_of_tree_distance.test.cpp
+      title: test/tree/centroid-decomposition/yosupo-frequency_table_of_tree_distance.test.cpp
+  - name: test/tree/euler-tour-path-query-with-segment-tree
+    pages:
+    - icon: ':x:'
+      path: test/tree/euler-tour-path-query-with-segment-tree/atcoder-abc294-g.test.cpp
+      title: test/tree/euler-tour-path-query-with-segment-tree/atcoder-abc294-g.test.cpp
+    - icon: ':x:'
+      path: test/tree/euler-tour-path-query-with-segment-tree/yosupo-lowest-common-ancestor.test.cpp
+      title: test/tree/euler-tour-path-query-with-segment-tree/yosupo-lowest-common-ancestor.test.cpp
+    - icon: ':x:'
+      path: test/tree/euler-tour-path-query-with-segment-tree/yosupo-vertex-add-path-sum.test.cpp
+      title: test/tree/euler-tour-path-query-with-segment-tree/yosupo-vertex-add-path-sum.test.cpp
+  - name: test/tree/euler-tour-subtree-query-with-segment-tree
+    pages:
+    - icon: ':x:'
+      path: test/tree/euler-tour-subtree-query-with-segment-tree/atcoder-abc406-f.test.cpp
+      title: test/tree/euler-tour-subtree-query-with-segment-tree/atcoder-abc406-f.test.cpp
+    - icon: ':x:'
+      path: test/tree/euler-tour-subtree-query-with-segment-tree/yosupo-vertex-add-subtree-sum.test.cpp
+      title: test/tree/euler-tour-subtree-query-with-segment-tree/yosupo-vertex-add-subtree-sum.test.cpp
+  - name: test/tree/euler-tour-tree
+    pages:
+    - icon: ':x:'
+      path: test/tree/euler-tour-tree/atcoder-abc356-f.test.cpp
+      title: test/tree/euler-tour-tree/atcoder-abc356-f.test.cpp
+    - icon: ':x:'
+      path: test/tree/euler-tour-tree/yosupo-dynamic-vertex-add-subtree-sum.test.cpp
+      title: test/tree/euler-tour-tree/yosupo-dynamic-vertex-add-subtree-sum.test.cpp
+    - icon: ':x:'
+      path: test/tree/euler-tour-tree/yosupo-vertex-add-subtree-sum.test.cpp
+      title: test/tree/euler-tour-tree/yosupo-vertex-add-subtree-sum.test.cpp
+  - name: test/tree/heavy-light-decomposition
+    pages:
+    - icon: ':x:'
+      path: test/tree/heavy-light-decomposition/atcoder-abc294-g.test.cpp
+      title: test/tree/heavy-light-decomposition/atcoder-abc294-g.test.cpp
+    - icon: ':x:'
+      path: test/tree/heavy-light-decomposition/atcoder-abc406-f.test.cpp
+      title: test/tree/heavy-light-decomposition/atcoder-abc406-f.test.cpp
+    - icon: ':x:'
+      path: test/tree/heavy-light-decomposition/yosupo-lowest-common-ancestor.test.cpp
+      title: test/tree/heavy-light-decomposition/yosupo-lowest-common-ancestor.test.cpp
+    - icon: ':x:'
+      path: test/tree/heavy-light-decomposition/yosupo-vertex-add-path-sum.test.cpp
+      title: test/tree/heavy-light-decomposition/yosupo-vertex-add-path-sum.test.cpp
+    - icon: ':x:'
+      path: test/tree/heavy-light-decomposition/yosupo-vertex-add-subtree-sum.test.cpp
+      title: test/tree/heavy-light-decomposition/yosupo-vertex-add-subtree-sum.test.cpp
+    - icon: ':x:'
+      path: test/tree/heavy-light-decomposition/yosupo-vertex-set-path-composite.test.cpp
+      title: test/tree/heavy-light-decomposition/yosupo-vertex-set-path-composite.test.cpp
+  - name: test/tree/link-cut-tree
+    pages:
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/aoj-grl-5-c.test.cpp
+      title: test/tree/link-cut-tree/aoj-grl-5-c.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-dynamic-vertex-add-path-sum.test.cpp
+      title: test/tree/link-cut-tree/yosupo-dynamic-vertex-add-path-sum.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-dynamic-vertex-set-path-composite.test.cpp
+      title: test/tree/link-cut-tree/yosupo-dynamic-vertex-set-path-composite.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-jump-on-tree.test.cpp
+      title: test/tree/link-cut-tree/yosupo-jump-on-tree.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-lowest-common-ancestor.test.cpp
+      title: test/tree/link-cut-tree/yosupo-lowest-common-ancestor.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-range-affine-range-sum.test.cpp
+      title: test/tree/link-cut-tree/yosupo-range-affine-range-sum.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-vertex-add-path-sum.test.cpp
+      title: test/tree/link-cut-tree/yosupo-vertex-add-path-sum.test.cpp
+    - icon: ':x:'
+      path: test/tree/link-cut-tree/yosupo-vertex-set-path-composite.test.cpp
+      title: test/tree/link-cut-tree/yosupo-vertex-set-path-composite.test.cpp
   - name: test/tree/tree-bfs
     pages:
     - icon: ':x:'
@@ -1500,6 +2033,20 @@ data:
     - icon: ':x:'
       path: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
       title: test/tree/tree-bfs/atcoder-abc209-d.test.cpp
+  - name: test/tree/tree-dfs
+    pages:
+    - icon: ':x:'
+      path: test/tree/tree-dfs/aoj-grl-5-c.test.cpp
+      title: test/tree/tree-dfs/aoj-grl-5-c.test.cpp
+    - icon: ':x:'
+      path: test/tree/tree-dfs/atcoder-abc202-e.test.cpp
+      title: test/tree/tree-dfs/atcoder-abc202-e.test.cpp
+    - icon: ':x:'
+      path: test/tree/tree-dfs/atcoder-abc359-g.test.cpp
+      title: test/tree/tree-dfs/atcoder-abc359-g.test.cpp
+    - icon: ':x:'
+      path: test/tree/tree-dfs/yosupo-lowest-common-ancestor.test.cpp
+      title: test/tree/tree-dfs/yosupo-lowest-common-ancestor.test.cpp
   - name: test/tree/tree-dp
     pages:
     - icon: ':x:'
@@ -1520,22 +2067,27 @@ data:
   - name: test/tree/tree-dp-abstract
     pages:
     - icon: ':x:'
-      path: test/tree/tree-dp-abstract/aoj-1595.test.cpp
-      title: test/tree/tree-dp-abstract/aoj-1595.test.cpp
+      path: test/tree/tree-dp-abstract/atcoder-abc409-e.test.cpp
+      title: test/tree/tree-dp-abstract/atcoder-abc409-e.test.cpp
+  - name: test/tree/tree-dp-reroot-abstract
+    pages:
     - icon: ':x:'
-      path: test/tree/tree-dp-abstract/aoj-grl-5-a.test.cpp
-      title: test/tree/tree-dp-abstract/aoj-grl-5-a.test.cpp
+      path: test/tree/tree-dp-reroot-abstract/aoj-1595.test.cpp
+      title: test/tree/tree-dp-reroot-abstract/aoj-1595.test.cpp
     - icon: ':x:'
-      path: test/tree/tree-dp-abstract/aoj-grl-5-b.test.cpp
-      title: test/tree/tree-dp-abstract/aoj-grl-5-b.test.cpp
+      path: test/tree/tree-dp-reroot-abstract/aoj-grl-5-a.test.cpp
+      title: test/tree/tree-dp-reroot-abstract/aoj-grl-5-a.test.cpp
     - icon: ':x:'
-      path: test/tree/tree-dp-abstract/atcoder-abc220-f.test.cpp
-      title: test/tree/tree-dp-abstract/atcoder-abc220-f.test.cpp
+      path: test/tree/tree-dp-reroot-abstract/aoj-grl-5-b.test.cpp
+      title: test/tree/tree-dp-reroot-abstract/aoj-grl-5-b.test.cpp
     - icon: ':x:'
-      path: test/tree/tree-dp-abstract/atcoder-abc348-e.test.cpp
-      title: test/tree/tree-dp-abstract/atcoder-abc348-e.test.cpp
+      path: test/tree/tree-dp-reroot-abstract/atcoder-abc220-f.test.cpp
+      title: test/tree/tree-dp-reroot-abstract/atcoder-abc220-f.test.cpp
     - icon: ':x:'
-      path: test/tree/tree-dp-abstract/atcoder-abc394-f.test.cpp
-      title: test/tree/tree-dp-abstract/atcoder-abc394-f.test.cpp
+      path: test/tree/tree-dp-reroot-abstract/atcoder-abc348-e.test.cpp
+      title: test/tree/tree-dp-reroot-abstract/atcoder-abc348-e.test.cpp
+    - icon: ':x:'
+      path: test/tree/tree-dp-reroot-abstract/atcoder-abc394-f.test.cpp
+      title: test/tree/tree-dp-reroot-abstract/atcoder-abc394-f.test.cpp
 layout: toppage
 ---

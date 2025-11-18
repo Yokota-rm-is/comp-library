@@ -394,85 +394,145 @@ data:
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"other/rotatable-set.cpp\"\n\ntemplate <typename\
-    \ T>\nstruct RotatableSet {\n    set<T> original;\n    long long N;\n    T offset,\
-    \ offset_key;\n\n    RotatableSet() : N(0), offset(0), offset_key(0) {}\n    RotatableSet(long\
-    \ long n) : N(n), offset(0), offset_key(0) {}\n    RotatableSet(set<T> st, long\
-    \ long n = 0) : original(st), N(n), offset(0), offset_key(0) {}\n\n    // \u53C2\
-    \u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    //\
-    \ \u4F8B: rotate_left(1) \u3067 mp[0]\u304Coriginal[1]\u3092\u6307\u3059\n   \
-    \ // (original[1]\u3092mp[0]\u306B\u79FB\u52D5(\u5DE6\u56DE\u8EE2))\n    T rotate_left(T\
-    \ x) {\n        offset += x;\n        if (N > 0) offset %= N;\n        return\
-    \ offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\
-    \u3092x\u5897\u3084\u3059\n    // \u4F8B: rotate_right(1) \u3067 mp[1]\u304Coriginal[0]\u3092\
-    \u6307\u3059\n    // (original[0]\u3092mp[1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2\
-    ))\n    T rotate_right(T x) {\n        if (N > 0) x %= N;\n        offset += N\
-    \ - x;\n        if (N > 0) offset %= N;\n        return offset;\n    }\n\n   \
-    \ void insert(T key) {\n        key += offset;\n        if (N > 0) key %= N;\n\
-    \        original.insert(key);\n    }\n\n    void erase(T key) {\n        key\
-    \ += offset;\n        if (N > 0) key %= N;\n        original.erase(key);\n   \
-    \ }\n\n    bool contains(T key) const {\n        key += offset;\n        if (N\
-    \ > 0) key %= N;\n        return original.contains(key);\n    }\n\n    void dump()\
-    \ {\n        cerr << \"offset: \" << offset << endl;\n        cerr << \"original:\
-    \ \";\n        fore(p, original) cerr << p << \" \";\n        cerr << endl;\n\n\
-    \        cerr << \"rotated: \";\n        \n        T first_key = N - (offset_key\
-    \ % N);\n        if (N > 0) first_key %= N;\n        auto first = original.lower_bound(first_key);\n\
-    \        for (auto it = first; it != original.end(); ++it) {\n            T key\
-    \ = it + N - offset_key;\n            cerr << key << (it != --original.end() ?\
-    \ \" \" : \"\");   \n        }\n        for (auto it = original.begin(); it !=\
-    \ first; ++it) {\n            T key = it + N - offset_key;\n            cerr <<\
-    \ key << (it != --original.end() ? \" \" : \"\");   \n        }\n        cerr\
+    \ T>\nstruct RotatableSet {\n    set<T> original;\n    long long N;\n    T offset_key;\n\
+    \n    struct iterator {\n        typename set<T>::iterator it;\n        const\
+    \ RotatableSet* rset;\n\n        iterator(typename set<T>::iterator it, RotatableSet*\
+    \ rset) : it(it), rset(rset) {}\n\n        iterator& operator++() {\n        \
+    \    ++it;\n            return *this;\n        }\n\n        iterator operator++(int)\
+    \ {\n            iterator temp = *this;\n            ++(*this);\n            return\
+    \ temp;\n        }\n\n        iterator& operator--() {\n            --it;\n  \
+    \          return *this;\n        }\n\n        iterator operator--(int) {\n  \
+    \          iterator temp = *this;\n            --(*this);\n            return\
+    \ temp;\n        }\n\n        T key() const {\n            T key = *it + rset->offset_key;\n\
+    \            if (rset->N > 0) key %= rset->N;\n            return key;\n     \
+    \   }\n\n        operator T() const {\n            return key();\n        }\n\n\
+    \        bool operator==(const iterator& other) const {\n            return it\
+    \ == other.it;\n        }\n\n        bool operator!=(const iterator& other) const\
+    \ {\n            return it != other.it;\n        }\n    };\n\n    struct const_iterator\
+    \ {\n        typename set<T>::const_iterator it;\n        const RotatableSet*\
+    \ rset;\n\n        const_iterator(typename set<T>::const_iterator it, const RotatableSet*\
+    \ rset) : it(it), rset(rset) {}\n\n        const_iterator& operator++() {\n  \
+    \          ++it;\n            return *this;\n        }\n\n        const_iterator\
+    \ operator++(int) {\n            const_iterator temp = *this;\n            ++(*this);\n\
+    \            return temp;\n        }\n\n        const_iterator& operator--() {\n\
+    \            --it;\n            return *this;\n        }\n\n        const_iterator\
+    \ operator--(int) {\n            const_iterator temp = *this;\n            --(*this);\n\
+    \            return temp;\n        }\n\n        T key() const {\n            T\
+    \ key = *it + rset->offset_key;\n            if (rset->N > 0) key %= rset->N;\n\
+    \            return key;\n        }\n\n        operator T() const {\n        \
+    \    return key();\n        }\n\n        bool operator==(const const_iterator&\
+    \ other) const {\n            return it == other.it;\n        }\n\n        bool\
+    \ operator!=(const const_iterator& other) const {\n            return it != other.it;\n\
+    \        }\n    };\n\n    RotatableSet() : N(0), offset_key(0) {}\n    RotatableSet(long\
+    \ long n) : N(n), offset_key(0) {}\n    RotatableSet(set<T> st, long long n =\
+    \ 0) : original(st), N(n), offset_key(0) {}\n\n    // key\u306E\u5024\u3092x\u5897\
+    \u3084\u3059\n    // key    : 3, 1, 4, 1, 5, 9\n    // key + 1: 4, 2, 5, 2, 6,\
+    \ 10\n    T add_key(T x) {\n        offset_key += x;\n        if (N > 0) offset_key\
+    \ %= N;\n        return offset_key;\n    }\n\n    // key\u306E\u5024\u3092x\u6E1B\
+    \u3089\u3059\n    // key    : 3, 1, 4, 1, 5, 9\n    // key - 1: 2, 0, 3, 0, 4,\
+    \ 8\n    T subtract_key(T x) {\n        if (N > 0) x %= N;\n        offset_key\
+    \ += N - x;\n        if (N > 0) offset_key %= N;\n        return offset_key;\n\
+    \    }\n\n    pair<iterator, bool> insert(T key) {\n        key += N - offset_key;\n\
+    \        if (N > 0) key %= N;\n        // original.insert(key);\n        auto\
+    \ result = original.insert(key);\n        return {iterator(result.first, this),\
+    \ result.second};\n    }\n\n    iterator insert(iterator hint, T key) {\n    \
+    \    key += N - offset_key;\n        if (N > 0) key %= N;\n        auto it = original.insert(hint.it,\
+    \ key);\n        return iterator(it, this);\n    }\n\n    iterator find(T key)\
+    \ {\n        key += N - offset_key;\n        if (N > 0) key %= N;\n        return\
+    \ iterator(original.find(key), this);\n    }\n\n    void erase(T key) {\n    \
+    \    key += N - offset_key;\n        if (N > 0) key %= N;\n        original.erase(key);\n\
+    \    }\n\n    iterator erase(iterator it) {\n        if (it == end()) return end();\n\
+    \        it.it = original.erase(it.it);\n        return it;\n    }\n\n    iterator\
+    \ lower_bound(T key) {\n        key += N - offset_key;\n        if (N > 0) key\
+    \ %= N;\n        return iterator(original.lower_bound(key), this);\n    }\n\n\
+    \    iterator upper_bound(T key) {\n        key += N - offset_key;\n        if\
+    \ (N > 0) key %= N;\n        return iterator(original.upper_bound(key), this);\n\
+    \    }\n\n    iterator begin() {\n        auto first = original.begin();\n   \
+    \     return iterator(first, this);\n    }\n\n    iterator end() {\n        return\
+    \ iterator(original.end(), this);\n    }\n\n    bool contains(T key) const {\n\
+    \        key += N - offset_key;\n        if (N > 0) key %= N;\n        return\
+    \ original.contains(key);\n    }\n\n    void dump() {\n        cerr << \"offset_key:\
+    \ \" << offset_key << endl;\n        cerr << \"original: \";\n        fore(p,\
+    \ original) cerr << p << \" \";\n        cerr << endl;\n\n        cerr << \"rotated:\
+    \ \";\n        auto it = original.begin();\n        while (it != original.end())\
+    \ {\n            cerr << it << \" \";\n            ++it;\n        }\n        cerr\
     \ << endl;\n    }\n\n    friend ostream& operator<<(ostream& os, const RotatableSet<T>&\
-    \ st) {\n        T first_key = st.N - (st.offset_key % st.N);\n        if (st.N\
-    \ > 0) first_key %= st.N;\n        auto first = st.original.lower_bound(first_key);\n\
-    \        for (auto it = first; it != st.original.end(); ++it) {\n            T\
-    \ key = it + st.N - st.offset_key;\n            os << key << (it != --st.original.end()\
-    \ ? \" \" : \"\");\n        }\n        for (auto it = st.original.begin(); it\
-    \ != first; ++it) {\n            T key = it + st.N - st.offset_key;\n        \
-    \    os << key << (it != --st.original.end() ? \" \" : \"\");\n        }\n   \
-    \     return os;\n    }\n};\n"
+    \ st) {\n        auto it = st.begin();\n        while (it != st.end()) {\n   \
+    \         os << it << \" \";\n            ++it;\n        }\n        return os;\n\
+    \    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct RotatableSet\
-    \ {\n    set<T> original;\n    long long N;\n    T offset, offset_key;\n\n   \
-    \ RotatableSet() : N(0), offset(0), offset_key(0) {}\n    RotatableSet(long long\
-    \ n) : N(n), offset(0), offset_key(0) {}\n    RotatableSet(set<T> st, long long\
-    \ n = 0) : original(st), N(n), offset(0), offset_key(0) {}\n\n    // \u53C2\u7167\
-    \u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // \u4F8B\
-    : rotate_left(1) \u3067 mp[0]\u304Coriginal[1]\u3092\u6307\u3059\n    // (original[1]\u3092\
-    mp[0]\u306B\u79FB\u52D5(\u5DE6\u56DE\u8EE2))\n    T rotate_left(T x) {\n     \
-    \   offset += x;\n        if (N > 0) offset %= N;\n        return offset;\n  \
-    \  }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u5897\
-    \u3084\u3059\n    // \u4F8B: rotate_right(1) \u3067 mp[1]\u304Coriginal[0]\u3092\
-    \u6307\u3059\n    // (original[0]\u3092mp[1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2\
-    ))\n    T rotate_right(T x) {\n        if (N > 0) x %= N;\n        offset += N\
-    \ - x;\n        if (N > 0) offset %= N;\n        return offset;\n    }\n\n   \
-    \ void insert(T key) {\n        key += offset;\n        if (N > 0) key %= N;\n\
-    \        original.insert(key);\n    }\n\n    void erase(T key) {\n        key\
-    \ += offset;\n        if (N > 0) key %= N;\n        original.erase(key);\n   \
-    \ }\n\n    bool contains(T key) const {\n        key += offset;\n        if (N\
-    \ > 0) key %= N;\n        return original.contains(key);\n    }\n\n    void dump()\
-    \ {\n        cerr << \"offset: \" << offset << endl;\n        cerr << \"original:\
-    \ \";\n        fore(p, original) cerr << p << \" \";\n        cerr << endl;\n\n\
-    \        cerr << \"rotated: \";\n        \n        T first_key = N - (offset_key\
-    \ % N);\n        if (N > 0) first_key %= N;\n        auto first = original.lower_bound(first_key);\n\
-    \        for (auto it = first; it != original.end(); ++it) {\n            T key\
-    \ = it + N - offset_key;\n            cerr << key << (it != --original.end() ?\
-    \ \" \" : \"\");   \n        }\n        for (auto it = original.begin(); it !=\
-    \ first; ++it) {\n            T key = it + N - offset_key;\n            cerr <<\
-    \ key << (it != --original.end() ? \" \" : \"\");   \n        }\n        cerr\
+    \ {\n    set<T> original;\n    long long N;\n    T offset_key;\n\n    struct iterator\
+    \ {\n        typename set<T>::iterator it;\n        const RotatableSet* rset;\n\
+    \n        iterator(typename set<T>::iterator it, RotatableSet* rset) : it(it),\
+    \ rset(rset) {}\n\n        iterator& operator++() {\n            ++it;\n     \
+    \       return *this;\n        }\n\n        iterator operator++(int) {\n     \
+    \       iterator temp = *this;\n            ++(*this);\n            return temp;\n\
+    \        }\n\n        iterator& operator--() {\n            --it;\n          \
+    \  return *this;\n        }\n\n        iterator operator--(int) {\n          \
+    \  iterator temp = *this;\n            --(*this);\n            return temp;\n\
+    \        }\n\n        T key() const {\n            T key = *it + rset->offset_key;\n\
+    \            if (rset->N > 0) key %= rset->N;\n            return key;\n     \
+    \   }\n\n        operator T() const {\n            return key();\n        }\n\n\
+    \        bool operator==(const iterator& other) const {\n            return it\
+    \ == other.it;\n        }\n\n        bool operator!=(const iterator& other) const\
+    \ {\n            return it != other.it;\n        }\n    };\n\n    struct const_iterator\
+    \ {\n        typename set<T>::const_iterator it;\n        const RotatableSet*\
+    \ rset;\n\n        const_iterator(typename set<T>::const_iterator it, const RotatableSet*\
+    \ rset) : it(it), rset(rset) {}\n\n        const_iterator& operator++() {\n  \
+    \          ++it;\n            return *this;\n        }\n\n        const_iterator\
+    \ operator++(int) {\n            const_iterator temp = *this;\n            ++(*this);\n\
+    \            return temp;\n        }\n\n        const_iterator& operator--() {\n\
+    \            --it;\n            return *this;\n        }\n\n        const_iterator\
+    \ operator--(int) {\n            const_iterator temp = *this;\n            --(*this);\n\
+    \            return temp;\n        }\n\n        T key() const {\n            T\
+    \ key = *it + rset->offset_key;\n            if (rset->N > 0) key %= rset->N;\n\
+    \            return key;\n        }\n\n        operator T() const {\n        \
+    \    return key();\n        }\n\n        bool operator==(const const_iterator&\
+    \ other) const {\n            return it == other.it;\n        }\n\n        bool\
+    \ operator!=(const const_iterator& other) const {\n            return it != other.it;\n\
+    \        }\n    };\n\n    RotatableSet() : N(0), offset_key(0) {}\n    RotatableSet(long\
+    \ long n) : N(n), offset_key(0) {}\n    RotatableSet(set<T> st, long long n =\
+    \ 0) : original(st), N(n), offset_key(0) {}\n\n    // key\u306E\u5024\u3092x\u5897\
+    \u3084\u3059\n    // key    : 3, 1, 4, 1, 5, 9\n    // key + 1: 4, 2, 5, 2, 6,\
+    \ 10\n    T add_key(T x) {\n        offset_key += x;\n        if (N > 0) offset_key\
+    \ %= N;\n        return offset_key;\n    }\n\n    // key\u306E\u5024\u3092x\u6E1B\
+    \u3089\u3059\n    // key    : 3, 1, 4, 1, 5, 9\n    // key - 1: 2, 0, 3, 0, 4,\
+    \ 8\n    T subtract_key(T x) {\n        if (N > 0) x %= N;\n        offset_key\
+    \ += N - x;\n        if (N > 0) offset_key %= N;\n        return offset_key;\n\
+    \    }\n\n    pair<iterator, bool> insert(T key) {\n        key += N - offset_key;\n\
+    \        if (N > 0) key %= N;\n        // original.insert(key);\n        auto\
+    \ result = original.insert(key);\n        return {iterator(result.first, this),\
+    \ result.second};\n    }\n\n    iterator insert(iterator hint, T key) {\n    \
+    \    key += N - offset_key;\n        if (N > 0) key %= N;\n        auto it = original.insert(hint.it,\
+    \ key);\n        return iterator(it, this);\n    }\n\n    iterator find(T key)\
+    \ {\n        key += N - offset_key;\n        if (N > 0) key %= N;\n        return\
+    \ iterator(original.find(key), this);\n    }\n\n    void erase(T key) {\n    \
+    \    key += N - offset_key;\n        if (N > 0) key %= N;\n        original.erase(key);\n\
+    \    }\n\n    iterator erase(iterator it) {\n        if (it == end()) return end();\n\
+    \        it.it = original.erase(it.it);\n        return it;\n    }\n\n    iterator\
+    \ lower_bound(T key) {\n        key += N - offset_key;\n        if (N > 0) key\
+    \ %= N;\n        return iterator(original.lower_bound(key), this);\n    }\n\n\
+    \    iterator upper_bound(T key) {\n        key += N - offset_key;\n        if\
+    \ (N > 0) key %= N;\n        return iterator(original.upper_bound(key), this);\n\
+    \    }\n\n    iterator begin() {\n        auto first = original.begin();\n   \
+    \     return iterator(first, this);\n    }\n\n    iterator end() {\n        return\
+    \ iterator(original.end(), this);\n    }\n\n    bool contains(T key) const {\n\
+    \        key += N - offset_key;\n        if (N > 0) key %= N;\n        return\
+    \ original.contains(key);\n    }\n\n    void dump() {\n        cerr << \"offset_key:\
+    \ \" << offset_key << endl;\n        cerr << \"original: \";\n        fore(p,\
+    \ original) cerr << p << \" \";\n        cerr << endl;\n\n        cerr << \"rotated:\
+    \ \";\n        auto it = original.begin();\n        while (it != original.end())\
+    \ {\n            cerr << it << \" \";\n            ++it;\n        }\n        cerr\
     \ << endl;\n    }\n\n    friend ostream& operator<<(ostream& os, const RotatableSet<T>&\
-    \ st) {\n        T first_key = st.N - (st.offset_key % st.N);\n        if (st.N\
-    \ > 0) first_key %= st.N;\n        auto first = st.original.lower_bound(first_key);\n\
-    \        for (auto it = first; it != st.original.end(); ++it) {\n            T\
-    \ key = it + st.N - st.offset_key;\n            os << key << (it != --st.original.end()\
-    \ ? \" \" : \"\");\n        }\n        for (auto it = st.original.begin(); it\
-    \ != first; ++it) {\n            T key = it + st.N - st.offset_key;\n        \
-    \    os << key << (it != --st.original.end() ? \" \" : \"\");\n        }\n   \
-    \     return os;\n    }\n};"
+    \ st) {\n        auto it = st.begin();\n        while (it != st.end()) {\n   \
+    \         os << it << \" \";\n            ++it;\n        }\n        return os;\n\
+    \    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: other/rotatable-set.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:16:35+09:00'
+  timestamp: '2025-11-16 17:48:05+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: other/rotatable-set.cpp

@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':x:'
+    path: test/other/run-length-encoding/aoj-3238.test.cpp
+    title: test/other/run-length-encoding/aoj-3238.test.cpp
+  - icon: ':x:'
     path: test/other/run-length-encoding/atcoder-abc259-c.test.cpp
     title: test/other/run-length-encoding/atcoder-abc259-c.test.cpp
   - icon: ':x:'
@@ -435,6 +438,7 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
+  - test/other/run-length-encoding/aoj-3238.test.cpp
   - test/other/run-length-encoding/atcoder-abc259-c.test.cpp
   - test/other/run-length-encoding/atcoder-past17-e.test.cpp
 documentation_of: other/run-length-encoding.cpp

@@ -12,6 +12,12 @@ data:
   - icon: ':x:'
     path: test/graph/lowlink/aoj-grl-3-b.test.cpp
     title: test/graph/lowlink/aoj-grl-3-b.test.cpp
+  - icon: ':x:'
+    path: test/graph/lowlink/atcoder-abc334-g.test.cpp
+    title: test/graph/lowlink/atcoder-abc334-g.test.cpp
+  - icon: ':x:'
+    path: test/graph/lowlink/yosupo-two-edge-connected-components.test.cpp
+    title: test/graph/lowlink/yosupo-two-edge-connected-components.test.cpp
   _isVerificationFailed: true
   _pathExtension: cpp
   _verificationStatusIcon: ':x:'
@@ -406,77 +412,93 @@ data:
     \ other.from) {\n                return to < other.to;\n            }\n      \
     \      else return from < other.from;\n        }\n\n        friend ostream& operator\
     \ << (ostream& os, const Edge& edge) {\n            return os << edge.to;\n  \
-    \      }\n    };\n\n    long long V;\n    bool directed_;\n    vector<vector<Edge>>\
-    \ G;\n    vector<long long> ord, low;\n    vector<vector<Edge>> back_edges, son;\n\
-    \    vector<long long> topo;\n\n    long long edge_id;\n    vector<Edge> edges;\n\
-    \n    long long time;\n    bool has_cycle;\n    vector<long long> descendants;\n\
-    \n    vector<vector<long long>> bcc, bcc_edges;\n\n    LowLink(long long N, bool\
-    \ directed) : V(N), directed_(directed), G(V) {\n        init();\n    };\n   \
-    \ \n    void init() {\n        time = 0;\n        has_cycle = false;\n       \
-    \ edge_id = 0;\n\n        ord.assign(V, -1);\n        low.assign(V, -1);\n   \
-    \     back_edges.assign(V, vector<Edge>());\n        son.assign(V, vector<Edge>());\n\
-    \        descendants.assign(V, 0);\n\n        bcc.assign(V, vector<long long>());\n\
-    \        rep(i, V) bcc[i].emplace_back(i);\n    }\n    \n    void connect(long\
-    \ long from, long long to) {\n        assert(0 <= from and from < V);\n      \
-    \  assert(0 <= to and to < V);\n\n        edges.emplace_back(from, to, edge_id);\n\
-    \n        if (directed_) {\n            G[from].emplace_back(from, to, edge_id);\n\
-    \        }\n        else {\n            G[from].emplace_back(from, to, edge_id);\n\
-    \            G[to].emplace_back(to, from, edge_id);\n        }\n\n        edge_id++;\n\
-    \    }\n\n    void operator() () {\n        dfs(0);\n    }\n\n    void dfs(long\
-    \ long start) {\n        assert(0 <= start and start < V);\n\n        stack<pair<long\
-    \ long, Edge>> st;\n        st.emplace(start, Edge());\n\n        while (!st.empty())\
-    \ {\n            auto [now, edge] = st.top(); \n            st.pop();\n      \
-    \      long long par = edge.from;\n\n            if (ord[now] != -1) {\n     \
-    \           if (ord[par] < ord[now]) continue;\n                chmin(low[par],\
-    \ ord[now]);\n\n                back_edges[par].emplace_back(edge);\n        \
-    \        continue;\n            }\n\n            if (par != -1) {\n          \
-    \      son[par].emplace_back(edge);\n            }\n            topo.push_back(now);\n\
-    \n            ord[now] = low[now] = time++;\n\n            fore(next_edge, G[now])\
-    \ {\n                long long next = next_edge.to;\n\n                if (next\
-    \ == par) continue;\n\n                st.emplace(next, next_edge);\n        \
-    \    }\n        }\n\n        repd(i, 1, topo.size()) {\n            long long\
-    \ now = topo[i];\n\n            for (auto next_edge : son[now]) {\n          \
-    \      long long next = next_edge.to;\n                chmin(low[now], low[next]);\n\
-    \            }\n        }\n    }\n\n    // u -> v\u304C\u6A4B\u304B\u3069\u3046\
-    \u304B\n    // \u6A4B: \u53D6\u308A\u9664\u3044\u305F\u3068\u304D\u306B\u30B0\u30E9\
-    \u30D5\u304C\u975E\u9023\u7D50\u306B\u306A\u308B\u8FBA\n    // dfs\u5F8C\u306B\
-    \u4F7F\u7528\n    bool is_bridge(long long u, long long v) {\n        if (ord[u]\
-    \ > ord[v]) swap(u, v);\n\n        return ord[u] < low[v];\n    }\n\n    // u\u304C\
-    \u95A2\u7BC0\u70B9\u304B\u3069\u3046\u304B\n    // \u95A2\u7BC0\u70B9: \u53D6\u308A\
-    \u9664\u3044\u305F\u5F8C\u306E\u30B0\u30E9\u30D5\u304C\u975E\u9023\u7D50\u306B\
-    \u306A\u308B\u9802\u70B9\n    // dfs\u5F8C\u306B\u4F7F\u7528\n    bool is_articulation(long\
-    \ long u) {\n        if (ord[u] == 0) {\n            return son[u].size() >= 2;\n\
-    \        }\n        else {\n            fore(edge, son[u]) {\n               \
-    \ long long v = edge.to;\n                if (ord[u] <= low[v]) return true;\n\
-    \            }\n\n            return false;\n        }\n    }\n\n    long long\
-    \ solve_bcc() {\n        stack<pair<long long, Edge>> sub_roots;\n        sub_roots.emplace(0,\
-    \ Edge());\n\n        while (!sub_roots.empty()) {\n            stack<pair<long\
-    \ long, Edge>> st;\n            st.emplace(sub_roots.top());\n            sub_roots.pop();\n\
-    \n            bcc.push_back({});\n            bcc_edges.push_back({});\n\n   \
-    \         if (st.top().second.from != -1) {\n                bcc.back().emplace_back(st.top().second.from);\n\
-    \            }\n\n            while (!st.empty()) {\n                auto [now,\
-    \ edge] = st.top();\n                st.pop();\n\n                long long par\
-    \ = edge.from;\n                if (par != -1) {\n                    bcc_edges.back().emplace_back(edge.id);\n\
-    \                }\n                bcc.back().emplace_back(now);\n\n        \
-    \        if (now == 0) {\n                    if (is_articulation(now)) {\n  \
-    \                      fore(next_edge, son[now]) {\n                         \
-    \   long long next = next_edge.to;\n                            sub_roots.emplace(next,\
-    \ next_edge);\n                        }\n                        bcc.pop_back();\n\
-    \                        bcc_edges.pop_back();\n                    }\n      \
-    \              else {\n                        fore(next_edge, son[now]) {\n \
-    \                           long long next = next_edge.to;\n                 \
-    \           st.emplace(next, next_edge);\n                        }\n        \
-    \            }\n                }\n                else {\n                  \
-    \  fore(next_edge, son[now]) {\n                        long long next = next_edge.to;\n\
-    \                        if (is_articulation(next)) {\n                      \
-    \      sub_roots.emplace(next, next_edge);\n                        }\n      \
-    \                  else {\n                            st.emplace(next, next_edge);\n\
-    \                        }\n                    }\n                }\n\n     \
-    \           if (now == 0 and son[now].size() <= 1) {\n                    fore(next_edge,\
-    \ back_edges[now]) {\n                        long long next = next_edge.from;\n\
-    \                        bcc.back().emplace_back(next);\n                    }\n\
-    \                }\n            }\n        }\n\n        return bcc.size();\n \
-    \   }\n};\n"
+    \      }\n    };\n\n    long long V;\n    bool built;\n    vector<vector<Edge>>\
+    \ G;\n    vector<bool> used;\n    vector<long long> ord, low, dependency;\n\n\
+    \    long long edge_id;\n    vector<Edge> edges;\n\n    long long time, cc_size;\n\
+    \n    LowLink(long long N) : V(N), built(false), G(V) {\n        init();\n   \
+    \ };\n    \n    void init() {\n        time = 0;\n        cc_size = 0;\n     \
+    \   edge_id = 0;\n\n        used.assign(V, false);\n        ord.assign(V, -1);\n\
+    \        low.assign(V, -1);\n        dependency.assign(V, 0);\n    }\n    \n \
+    \   void connect(long long from, long long to) {\n        assert(0 <= from and\
+    \ from < V);\n        assert(0 <= to and to < V);\n        assert(!built);\n\n\
+    \        edges.emplace_back(from, to, edge_id);\n\n        G[from].emplace_back(from,\
+    \ to, edge_id);\n        G[to].emplace_back(to, from, edge_id);\n\n        edge_id++;\n\
+    \    }\n\n    void operator() () {\n        build();\n    }\n\n    void build()\
+    \ {\n        assert(!built);\n\n        rep(i, V) {\n            if (used[i])\
+    \ continue; \n\n            dfs(i, 0, Edge());\n            cc_size++;\n     \
+    \   }\n        built = true;\n    }\n\n    int dfs(int now, int k, Edge edge)\
+    \ {\n        used[now] = true;\n        ord[now] = low[now] = k++;\n        bool\
+    \ beet = false;\n        long long par = edge.from;\n\n        fore(e, G[now])\
+    \ {\n            ll to = e.to;\n            if (to == par and !exchange(beet,\
+    \ true)) continue;\n\n            if (!used[to]) {\n                k = dfs(to,\
+    \ k, e);\n                chmin(low[now], low[to]);\n                dependency[now]\
+    \ += (ord[now] <= low[to]);\n            } \n            else {\n            \
+    \    chmin(low[now], ord[to]);\n            }\n        }\n\n        return k;\n\
+    \    }\n\n    // u -> v\u304C\u6A4B\u304B\u3069\u3046\u304B\n    // \u6A4B: \u53D6\
+    \u308A\u9664\u3044\u305F\u3068\u304D\u306B\u30B0\u30E9\u30D5\u304C\u975E\u9023\
+    \u7D50\u306B\u306A\u308B(\u9023\u7D50\u6210\u5206\u304C1\u5897\u3048\u308B)\u8FBA\
+    \n    bool is_bridge(long long u, long long v) {\n        assert(0 <= u and u\
+    \ < V);\n        assert(0 <= v and v < V);\n        assert(built);\n\n       \
+    \ if (ord[u] > ord[v]) swap(u, v);\n\n        return ord[u] < low[v];\n    }\n\
+    \n    // u\u304C\u95A2\u7BC0\u70B9\u304B\u3069\u3046\u304B\n    // \u95A2\u7BC0\
+    \u70B9: \u53D6\u308A\u9664\u3044\u305F\u5F8C\u306E\u30B0\u30E9\u30D5\u304C\u975E\
+    \u9023\u7D50\u306B\u306A\u308B\u9802\u70B9\n    // dfs\u5F8C\u306B\u4F7F\u7528\
+    \n    bool is_articulation(long long v) {\n        assert(0 <= v and v < V);\n\
+    \        assert(built);\n\n        return dependency[v] - (ord[v] == 0) > 0;\n\
+    \    }\n\n    // \u8FBA(u, v)\u3092\u53D6\u308A\u9664\u3044\u305F\u5F8C\u306E\u30B0\
+    \u30E9\u30D5\u306E\u9023\u7D50\u6210\u5206\u6570\u3092\u8FD4\u3059\n    long long\
+    \ count_cc_if_removed_edge(long long u, long long v) {\n        assert(0 <= u\
+    \ and u < V);\n        assert(0 <= v and v < V);\n        assert(built);\n\n \
+    \       if (ord[u] > ord[v]) swap(u, v);\n\n        return cc_size + (ord[u] <\
+    \ low[v]);\n    }\n\n    // \u9802\u70B9u\u3092\u53D6\u308A\u9664\u3044\u305F\u5F8C\
+    \u306E\u30B0\u30E9\u30D5\u306E\u9023\u7D50\u6210\u5206\u6570\u3092\u8FD4\u3059\
+    \n    long long count_cc_if_removed_vertex(long long v) {\n        assert(0 <=\
+    \ v and v < V);\n        assert(built);\n\n        return cc_size + dependency[v]\
+    \ - (ord[v] == 0);\n    }\n};\n\n// \u4E8C\u91CD\u9802\u70B9\u9023\u7D50\u6210\
+    \u5206\u5206\u89E3\n// \u4E8C\u91CD\u9802\u70B9\u9023\u7D50\u6210\u5206\u5206\u89E3\
+    : \u9802\u70B9\u30921\u672C\u53D6\u308A\u9664\u3044\u3066\u3082\u9023\u7D50\u6210\
+    \u5206\u6570\u304C\u5909\u308F\u3089\u306A\u3044\u3088\u3046\u306A\u9023\u7D50\
+    \u6210\u5206\u306B\u5206\u89E3\u3059\u308B\u3053\u3068\nstruct BiConnectedComponents\
+    \ {\n    LowLink lowlink;\n    vector<bool> used;\n    stack<LowLink::Edge> st;\n\
+    \    vector<vector<long long>> bcc;\n\n    BiConnectedComponents(long long N)\
+    \ : lowlink(N) {\n        used.assign(N, false);\n    }\n\n    void connect(long\
+    \ long u, long long v) {\n        lowlink.connect(u, v);\n    }\n\n    void build()\
+    \ {\n        lowlink.build();\n\n        rep(i, lowlink.V) {\n            if (used[i])\
+    \ continue; \n\n            dfs(i, -1);\n        }\n    }\n\n    void dfs(long\
+    \ long now, long long par) {\n        used[now] = true;\n        bool beet = false;\n\
+    \n        fore(e, lowlink.G[now]) {\n            long long to = e.to;\n      \
+    \      if (to == par and !exchange(beet, true)) continue;\n            \n    \
+    \        if (!used[to] or lowlink.ord[to] < lowlink.ord[now]) {\n            \
+    \    st.emplace(e);\n            }\n\n            if (!used[to]) {\n         \
+    \       dfs(to, now);\n\n                if (lowlink.low[to] >= lowlink.ord[now])\
+    \ {\n                    bcc.emplace_back();\n                    while (true)\
+    \ {\n                        auto edge = st.top();\n                        st.pop();\n\
+    \                        bcc.back().emplace_back(edge.from);\n               \
+    \         if (edge.to == to) break;\n                    }\n                }\n\
+    \            }\n        }\n    }\n};\n\n// \u4E8C\u91CD\u8FBA\u9023\u7D50\u6210\
+    \u5206\u5206\u89E3\n// \u4E8C\u91CD\u8FBA\u9023\u7D50\u6210\u5206\u5206\u89E3\
+    : \u8FBA\u30921\u672C\u53D6\u308A\u9664\u3044\u3066\u3082\u9023\u7D50\u6210\u5206\
+    \u6570\u304C\u5909\u308F\u3089\u306A\u3044\u3088\u3046\u306A\u9023\u7D50\u6210\
+    \u5206\u306B\u5206\u89E3\u3059\u308B\u3053\u3068\n// \u4E8C\u91CD\u8FBA\u9023\u7D50\
+    \u6210\u5206\u5206\u89E3\u306B\u3088\u308A\u7E2E\u7D04\u3055\u308C\u305F\u9802\
+    \u70B9\u3068\u8FBA(\u6A4B)\u304B\u3089\u306A\u308B\u30B0\u30E9\u30D5\u306F\u68EE\
+    \u3068\u306A\u308B\nstruct TwoEdgeConnectedComponents {\n    LowLink lowlink;\n\
+    \    vector<long long> comp;\n    vector<vector<long long>> tree, group;\n\n \
+    \   TwoEdgeConnectedComponents(long long N) : lowlink(N) {\n        comp.assign(N,\
+    \ -1);\n    }\n\n    void connect(long long u, long long v) {\n        lowlink.connect(u,\
+    \ v);\n    }\n\n    void build() {\n        lowlink.build();\n\n        long long\
+    \ k = 0;\n        rep(i, lowlink.V) {\n            if (comp[i] != -1) continue;\n\
+    \n            k = dfs(i, -1, k);\n        }\n\n        group.resize(k);\n    \
+    \    rep(i, lowlink.V) {\n            group[comp[i]].emplace_back(i);\n      \
+    \  }\n\n        tree.resize(k);\n        rep(now, lowlink.V) {\n            for\
+    \ (auto e : lowlink.G[now]) {\n                long long to = e.to;\n        \
+    \        if (comp[now] == comp[to]) continue;\n                tree[comp[now]].emplace_back(comp[to]);\n\
+    \            }\n        }\n    }\n\n    long long dfs(long long now, long long\
+    \ par, long long k) {\n        if (par >= 0 and lowlink.ord[par] >= lowlink.low[now])\
+    \ comp[now] = comp[par];\n        else comp[now] = k++;\n\n        fore(e, lowlink.G[now])\
+    \ {\n            long long to = e.to;\n            if (comp[to] != -1) continue;\n\
+    \            \n            k = dfs(to, now, k);\n        }\n        return k;\n\
+    \    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\nstruct LowLink {\n    struct Edge\
     \ {\n        long long from, to, id;\n\n        explicit Edge(long long u = -1,\
     \ long long v = -1, long long i = -1) : from(u), to(v), id(i) {};\n\n        bool\
@@ -484,86 +506,104 @@ data:
     \ {\n                return to < other.to;\n            }\n            else return\
     \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
     \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
-    \n    long long V;\n    bool directed_;\n    vector<vector<Edge>> G;\n    vector<long\
-    \ long> ord, low;\n    vector<vector<Edge>> back_edges, son;\n    vector<long\
-    \ long> topo;\n\n    long long edge_id;\n    vector<Edge> edges;\n\n    long long\
-    \ time;\n    bool has_cycle;\n    vector<long long> descendants;\n\n    vector<vector<long\
-    \ long>> bcc, bcc_edges;\n\n    LowLink(long long N, bool directed) : V(N), directed_(directed),\
-    \ G(V) {\n        init();\n    };\n    \n    void init() {\n        time = 0;\n\
-    \        has_cycle = false;\n        edge_id = 0;\n\n        ord.assign(V, -1);\n\
-    \        low.assign(V, -1);\n        back_edges.assign(V, vector<Edge>());\n \
-    \       son.assign(V, vector<Edge>());\n        descendants.assign(V, 0);\n\n\
-    \        bcc.assign(V, vector<long long>());\n        rep(i, V) bcc[i].emplace_back(i);\n\
-    \    }\n    \n    void connect(long long from, long long to) {\n        assert(0\
-    \ <= from and from < V);\n        assert(0 <= to and to < V);\n\n        edges.emplace_back(from,\
-    \ to, edge_id);\n\n        if (directed_) {\n            G[from].emplace_back(from,\
-    \ to, edge_id);\n        }\n        else {\n            G[from].emplace_back(from,\
-    \ to, edge_id);\n            G[to].emplace_back(to, from, edge_id);\n        }\n\
-    \n        edge_id++;\n    }\n\n    void operator() () {\n        dfs(0);\n   \
-    \ }\n\n    void dfs(long long start) {\n        assert(0 <= start and start <\
-    \ V);\n\n        stack<pair<long long, Edge>> st;\n        st.emplace(start, Edge());\n\
-    \n        while (!st.empty()) {\n            auto [now, edge] = st.top(); \n \
-    \           st.pop();\n            long long par = edge.from;\n\n            if\
-    \ (ord[now] != -1) {\n                if (ord[par] < ord[now]) continue;\n   \
-    \             chmin(low[par], ord[now]);\n\n                back_edges[par].emplace_back(edge);\n\
-    \                continue;\n            }\n\n            if (par != -1) {\n  \
-    \              son[par].emplace_back(edge);\n            }\n            topo.push_back(now);\n\
-    \n            ord[now] = low[now] = time++;\n\n            fore(next_edge, G[now])\
-    \ {\n                long long next = next_edge.to;\n\n                if (next\
-    \ == par) continue;\n\n                st.emplace(next, next_edge);\n        \
-    \    }\n        }\n\n        repd(i, 1, topo.size()) {\n            long long\
-    \ now = topo[i];\n\n            for (auto next_edge : son[now]) {\n          \
-    \      long long next = next_edge.to;\n                chmin(low[now], low[next]);\n\
-    \            }\n        }\n    }\n\n    // u -> v\u304C\u6A4B\u304B\u3069\u3046\
-    \u304B\n    // \u6A4B: \u53D6\u308A\u9664\u3044\u305F\u3068\u304D\u306B\u30B0\u30E9\
-    \u30D5\u304C\u975E\u9023\u7D50\u306B\u306A\u308B\u8FBA\n    // dfs\u5F8C\u306B\
-    \u4F7F\u7528\n    bool is_bridge(long long u, long long v) {\n        if (ord[u]\
-    \ > ord[v]) swap(u, v);\n\n        return ord[u] < low[v];\n    }\n\n    // u\u304C\
-    \u95A2\u7BC0\u70B9\u304B\u3069\u3046\u304B\n    // \u95A2\u7BC0\u70B9: \u53D6\u308A\
-    \u9664\u3044\u305F\u5F8C\u306E\u30B0\u30E9\u30D5\u304C\u975E\u9023\u7D50\u306B\
-    \u306A\u308B\u9802\u70B9\n    // dfs\u5F8C\u306B\u4F7F\u7528\n    bool is_articulation(long\
-    \ long u) {\n        if (ord[u] == 0) {\n            return son[u].size() >= 2;\n\
-    \        }\n        else {\n            fore(edge, son[u]) {\n               \
-    \ long long v = edge.to;\n                if (ord[u] <= low[v]) return true;\n\
-    \            }\n\n            return false;\n        }\n    }\n\n    long long\
-    \ solve_bcc() {\n        stack<pair<long long, Edge>> sub_roots;\n        sub_roots.emplace(0,\
-    \ Edge());\n\n        while (!sub_roots.empty()) {\n            stack<pair<long\
-    \ long, Edge>> st;\n            st.emplace(sub_roots.top());\n            sub_roots.pop();\n\
-    \n            bcc.push_back({});\n            bcc_edges.push_back({});\n\n   \
-    \         if (st.top().second.from != -1) {\n                bcc.back().emplace_back(st.top().second.from);\n\
-    \            }\n\n            while (!st.empty()) {\n                auto [now,\
-    \ edge] = st.top();\n                st.pop();\n\n                long long par\
-    \ = edge.from;\n                if (par != -1) {\n                    bcc_edges.back().emplace_back(edge.id);\n\
-    \                }\n                bcc.back().emplace_back(now);\n\n        \
-    \        if (now == 0) {\n                    if (is_articulation(now)) {\n  \
-    \                      fore(next_edge, son[now]) {\n                         \
-    \   long long next = next_edge.to;\n                            sub_roots.emplace(next,\
-    \ next_edge);\n                        }\n                        bcc.pop_back();\n\
-    \                        bcc_edges.pop_back();\n                    }\n      \
-    \              else {\n                        fore(next_edge, son[now]) {\n \
-    \                           long long next = next_edge.to;\n                 \
-    \           st.emplace(next, next_edge);\n                        }\n        \
-    \            }\n                }\n                else {\n                  \
-    \  fore(next_edge, son[now]) {\n                        long long next = next_edge.to;\n\
-    \                        if (is_articulation(next)) {\n                      \
-    \      sub_roots.emplace(next, next_edge);\n                        }\n      \
-    \                  else {\n                            st.emplace(next, next_edge);\n\
-    \                        }\n                    }\n                }\n\n     \
-    \           if (now == 0 and son[now].size() <= 1) {\n                    fore(next_edge,\
-    \ back_edges[now]) {\n                        long long next = next_edge.from;\n\
-    \                        bcc.back().emplace_back(next);\n                    }\n\
-    \                }\n            }\n        }\n\n        return bcc.size();\n \
-    \   }\n};"
+    \n    long long V;\n    bool built;\n    vector<vector<Edge>> G;\n    vector<bool>\
+    \ used;\n    vector<long long> ord, low, dependency;\n\n    long long edge_id;\n\
+    \    vector<Edge> edges;\n\n    long long time, cc_size;\n\n    LowLink(long long\
+    \ N) : V(N), built(false), G(V) {\n        init();\n    };\n    \n    void init()\
+    \ {\n        time = 0;\n        cc_size = 0;\n        edge_id = 0;\n\n       \
+    \ used.assign(V, false);\n        ord.assign(V, -1);\n        low.assign(V, -1);\n\
+    \        dependency.assign(V, 0);\n    }\n    \n    void connect(long long from,\
+    \ long long to) {\n        assert(0 <= from and from < V);\n        assert(0 <=\
+    \ to and to < V);\n        assert(!built);\n\n        edges.emplace_back(from,\
+    \ to, edge_id);\n\n        G[from].emplace_back(from, to, edge_id);\n        G[to].emplace_back(to,\
+    \ from, edge_id);\n\n        edge_id++;\n    }\n\n    void operator() () {\n \
+    \       build();\n    }\n\n    void build() {\n        assert(!built);\n\n   \
+    \     rep(i, V) {\n            if (used[i]) continue; \n\n            dfs(i, 0,\
+    \ Edge());\n            cc_size++;\n        }\n        built = true;\n    }\n\n\
+    \    int dfs(int now, int k, Edge edge) {\n        used[now] = true;\n       \
+    \ ord[now] = low[now] = k++;\n        bool beet = false;\n        long long par\
+    \ = edge.from;\n\n        fore(e, G[now]) {\n            ll to = e.to;\n     \
+    \       if (to == par and !exchange(beet, true)) continue;\n\n            if (!used[to])\
+    \ {\n                k = dfs(to, k, e);\n                chmin(low[now], low[to]);\n\
+    \                dependency[now] += (ord[now] <= low[to]);\n            } \n \
+    \           else {\n                chmin(low[now], ord[to]);\n            }\n\
+    \        }\n\n        return k;\n    }\n\n    // u -> v\u304C\u6A4B\u304B\u3069\
+    \u3046\u304B\n    // \u6A4B: \u53D6\u308A\u9664\u3044\u305F\u3068\u304D\u306B\u30B0\
+    \u30E9\u30D5\u304C\u975E\u9023\u7D50\u306B\u306A\u308B(\u9023\u7D50\u6210\u5206\
+    \u304C1\u5897\u3048\u308B)\u8FBA\n    bool is_bridge(long long u, long long v)\
+    \ {\n        assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n  \
+    \      assert(built);\n\n        if (ord[u] > ord[v]) swap(u, v);\n\n        return\
+    \ ord[u] < low[v];\n    }\n\n    // u\u304C\u95A2\u7BC0\u70B9\u304B\u3069\u3046\
+    \u304B\n    // \u95A2\u7BC0\u70B9: \u53D6\u308A\u9664\u3044\u305F\u5F8C\u306E\u30B0\
+    \u30E9\u30D5\u304C\u975E\u9023\u7D50\u306B\u306A\u308B\u9802\u70B9\n    // dfs\u5F8C\
+    \u306B\u4F7F\u7528\n    bool is_articulation(long long v) {\n        assert(0\
+    \ <= v and v < V);\n        assert(built);\n\n        return dependency[v] - (ord[v]\
+    \ == 0) > 0;\n    }\n\n    // \u8FBA(u, v)\u3092\u53D6\u308A\u9664\u3044\u305F\
+    \u5F8C\u306E\u30B0\u30E9\u30D5\u306E\u9023\u7D50\u6210\u5206\u6570\u3092\u8FD4\
+    \u3059\n    long long count_cc_if_removed_edge(long long u, long long v) {\n \
+    \       assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n       \
+    \ assert(built);\n\n        if (ord[u] > ord[v]) swap(u, v);\n\n        return\
+    \ cc_size + (ord[u] < low[v]);\n    }\n\n    // \u9802\u70B9u\u3092\u53D6\u308A\
+    \u9664\u3044\u305F\u5F8C\u306E\u30B0\u30E9\u30D5\u306E\u9023\u7D50\u6210\u5206\
+    \u6570\u3092\u8FD4\u3059\n    long long count_cc_if_removed_vertex(long long v)\
+    \ {\n        assert(0 <= v and v < V);\n        assert(built);\n\n        return\
+    \ cc_size + dependency[v] - (ord[v] == 0);\n    }\n};\n\n// \u4E8C\u91CD\u9802\
+    \u70B9\u9023\u7D50\u6210\u5206\u5206\u89E3\n// \u4E8C\u91CD\u9802\u70B9\u9023\u7D50\
+    \u6210\u5206\u5206\u89E3: \u9802\u70B9\u30921\u672C\u53D6\u308A\u9664\u3044\u3066\
+    \u3082\u9023\u7D50\u6210\u5206\u6570\u304C\u5909\u308F\u3089\u306A\u3044\u3088\
+    \u3046\u306A\u9023\u7D50\u6210\u5206\u306B\u5206\u89E3\u3059\u308B\u3053\u3068\
+    \nstruct BiConnectedComponents {\n    LowLink lowlink;\n    vector<bool> used;\n\
+    \    stack<LowLink::Edge> st;\n    vector<vector<long long>> bcc;\n\n    BiConnectedComponents(long\
+    \ long N) : lowlink(N) {\n        used.assign(N, false);\n    }\n\n    void connect(long\
+    \ long u, long long v) {\n        lowlink.connect(u, v);\n    }\n\n    void build()\
+    \ {\n        lowlink.build();\n\n        rep(i, lowlink.V) {\n            if (used[i])\
+    \ continue; \n\n            dfs(i, -1);\n        }\n    }\n\n    void dfs(long\
+    \ long now, long long par) {\n        used[now] = true;\n        bool beet = false;\n\
+    \n        fore(e, lowlink.G[now]) {\n            long long to = e.to;\n      \
+    \      if (to == par and !exchange(beet, true)) continue;\n            \n    \
+    \        if (!used[to] or lowlink.ord[to] < lowlink.ord[now]) {\n            \
+    \    st.emplace(e);\n            }\n\n            if (!used[to]) {\n         \
+    \       dfs(to, now);\n\n                if (lowlink.low[to] >= lowlink.ord[now])\
+    \ {\n                    bcc.emplace_back();\n                    while (true)\
+    \ {\n                        auto edge = st.top();\n                        st.pop();\n\
+    \                        bcc.back().emplace_back(edge.from);\n               \
+    \         if (edge.to == to) break;\n                    }\n                }\n\
+    \            }\n        }\n    }\n};\n\n// \u4E8C\u91CD\u8FBA\u9023\u7D50\u6210\
+    \u5206\u5206\u89E3\n// \u4E8C\u91CD\u8FBA\u9023\u7D50\u6210\u5206\u5206\u89E3\
+    : \u8FBA\u30921\u672C\u53D6\u308A\u9664\u3044\u3066\u3082\u9023\u7D50\u6210\u5206\
+    \u6570\u304C\u5909\u308F\u3089\u306A\u3044\u3088\u3046\u306A\u9023\u7D50\u6210\
+    \u5206\u306B\u5206\u89E3\u3059\u308B\u3053\u3068\n// \u4E8C\u91CD\u8FBA\u9023\u7D50\
+    \u6210\u5206\u5206\u89E3\u306B\u3088\u308A\u7E2E\u7D04\u3055\u308C\u305F\u9802\
+    \u70B9\u3068\u8FBA(\u6A4B)\u304B\u3089\u306A\u308B\u30B0\u30E9\u30D5\u306F\u68EE\
+    \u3068\u306A\u308B\nstruct TwoEdgeConnectedComponents {\n    LowLink lowlink;\n\
+    \    vector<long long> comp;\n    vector<vector<long long>> tree, group;\n\n \
+    \   TwoEdgeConnectedComponents(long long N) : lowlink(N) {\n        comp.assign(N,\
+    \ -1);\n    }\n\n    void connect(long long u, long long v) {\n        lowlink.connect(u,\
+    \ v);\n    }\n\n    void build() {\n        lowlink.build();\n\n        long long\
+    \ k = 0;\n        rep(i, lowlink.V) {\n            if (comp[i] != -1) continue;\n\
+    \n            k = dfs(i, -1, k);\n        }\n\n        group.resize(k);\n    \
+    \    rep(i, lowlink.V) {\n            group[comp[i]].emplace_back(i);\n      \
+    \  }\n\n        tree.resize(k);\n        rep(now, lowlink.V) {\n            for\
+    \ (auto e : lowlink.G[now]) {\n                long long to = e.to;\n        \
+    \        if (comp[now] == comp[to]) continue;\n                tree[comp[now]].emplace_back(comp[to]);\n\
+    \            }\n        }\n    }\n\n    long long dfs(long long now, long long\
+    \ par, long long k) {\n        if (par >= 0 and lowlink.ord[par] >= lowlink.low[now])\
+    \ comp[now] = comp[par];\n        else comp[now] = k++;\n\n        fore(e, lowlink.G[now])\
+    \ {\n            long long to = e.to;\n            if (comp[to] != -1) continue;\n\
+    \            \n            k = dfs(to, now, k);\n        }\n        return k;\n\
+    \    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: graph/lowlink.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:26:38+09:00'
+  timestamp: '2025-11-16 17:41:49+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/lowlink/aoj-grl-3-a.test.cpp
+  - test/graph/lowlink/yosupo-two-edge-connected-components.test.cpp
   - test/graph/lowlink/aoj-grl-3-b.test.cpp
+  - test/graph/lowlink/atcoder-abc334-g.test.cpp
+  - test/graph/lowlink/aoj-grl-3-a.test.cpp
 documentation_of: graph/lowlink.cpp
 layout: document
 redirect_from:

@@ -505,18 +505,18 @@ data:
   timestamp: '2025-03-23 18:59:26+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/compressor/atcoder-abc113-c.test.cpp
+  - test/structure/unionfind/atcoder-abc277-c.test.cpp
+  - test/structure/unionfind/atcoder-abc277-c-2.test.cpp
+  - test/structure/unionfind/atcoder-abc277-c-3.test.cpp
+  - test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+  - test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
+  - test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
   - test/structure/weighted-unionfind/atcoder-abc277-c.test.cpp
   - test/structure/dynamic-binary-indexed-tree-2d/yosupo-point-add-rectangle-sum.test.cpp
   - test/structure/dynamic-binary-indexed-tree-2d/atcoder-abc339-g.test.cpp
-  - test/structure/unionfind/atcoder-abc277-c.test.cpp
-  - test/structure/unionfind/atcoder-abc277-c-3.test.cpp
-  - test/structure/unionfind/atcoder-abc277-c-2.test.cpp
-  - test/structure/dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
-  - test/structure/dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
-  - test/structure/dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
-  - test/structure/dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
-  - test/structure/wavelet-matrix/yosupo-static-range-mode-query.test.cpp
+  - test/other/compressor/atcoder-abc113-c.test.cpp
 documentation_of: other/compressor.cpp
 layout: document
 redirect_from:

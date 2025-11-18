@@ -467,15 +467,23 @@ data:
     \ long u, long long v) {\n        assert(lca_init_done);\n        assert(0 <=\
     \ u and u < V);\n        assert(0 <= v and v < V);\n\n        return depth[u]\
     \ + depth[v] - 2 * depth[lca(u, v)];\n    }\n\n    // lca_init\u5F8C\u306B\u5B9F\
-    \u884C\n    // u\u3068v\u3092\u7D50\u3076\u30D1\u30B9\u4E0A\u306Ba\u304C\u3042\
-    \u308B\u304B\u8FD4\u3059\n    bool is_on_path(long long u, long long v, long long\
-    \ a) {\n        assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n\
-    \        assert(0 <= a and a < V);\n        assert(lca_init_done);\n\n       \
-    \ return get_dist(u, a) + get_dist(a, v) == get_dist(u, v);\n    }\n\n\n};\n#line\
-    \ 4 \"test/tree/tree-bfs/aoj-grl-5-c.test.cpp\"\n\nint main() {\n    ll n;\n \
-    \   cin >> n;\n\n    TreeBFS tree(n);\n    rep(i, n) {\n        ll k;\n      \
-    \  cin >> k;\n        rep(j, k) {\n            ll c;\n            cin >> c;\n\
-    \            tree.connect(i, c, 1);\n        }\n    }\n\n    tree.lca_init(0);\n\
+    \u884C\n    vector<long long> get_path(long long u, long long v) {\n        assert(lca_init_done);\n\
+    \        assert(0 <= u and u < V);\n        assert(0 <= v and v < V);\n\n    \
+    \    vector<long long> ret;\n        long long a = lca(u, v);\n\n        while\
+    \ (u != a) {\n            ret.push_back(u);\n            u = prev[u];\n      \
+    \  }\n        ret.push_back(a);\n        vector<long long> tmp;\n        while\
+    \ (v != a) {\n            tmp.push_back(v);\n            v = prev[v];\n      \
+    \  }\n        reverse(tmp.begin(), tmp.end());\n        ret.insert(ret.end(),\
+    \ tmp.begin(), tmp.end());\n\n        return ret;\n    }\n\n    // lca_init\u5F8C\
+    \u306B\u5B9F\u884C\n    // u\u3068v\u3092\u7D50\u3076\u30D1\u30B9\u4E0A\u306B\
+    a\u304C\u3042\u308B\u304B\u8FD4\u3059\n    bool is_on_path(long long u, long long\
+    \ v, long long a) {\n        assert(0 <= u and u < V);\n        assert(0 <= v\
+    \ and v < V);\n        assert(0 <= a and a < V);\n        assert(lca_init_done);\n\
+    \n        return get_dist(u, a) + get_dist(a, v) == get_dist(u, v);\n    }\n\n\
+    \n};\n#line 4 \"test/tree/tree-bfs/aoj-grl-5-c.test.cpp\"\n\nint main() {\n  \
+    \  ll n;\n    cin >> n;\n\n    TreeBFS tree(n);\n    rep(i, n) {\n        ll k;\n\
+    \        cin >> k;\n        rep(j, k) {\n            ll c;\n            cin >>\
+    \ c;\n            tree.connect(i, c, 1);\n        }\n    }\n\n    tree.lca_init(0);\n\
     \n    ll q;\n    cin >> q;\n    while (q--) {\n        ll u, v;\n        cin >>\
     \ u >> v;\n        cout << tree.lca(u, v) << endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_5_C&\"\
@@ -491,7 +499,7 @@ data:
   isVerificationFile: true
   path: test/tree/tree-bfs/aoj-grl-5-c.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:03:13+09:00'
+  timestamp: '2025-05-21 13:44:22+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/tree/tree-bfs/aoj-grl-5-c.test.cpp

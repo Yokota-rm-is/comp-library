@@ -1489,17 +1489,17 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
   - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-sum.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-rmq.test.cpp
+  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
   - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-b.test.cpp
   - test/structure/semi-dynamic-wavelet-matrix/aoj-dsl-2-a.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc339-g.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc306-e.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yukicoder-738.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-static-range-frequency.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/aoj-1549.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/yosupo-range-kth-smallest.test.cpp
-  - test/structure/semi-dynamic-wavelet-matrix/atcoder-abc281-e.test.cpp
 documentation_of: structure/semi-dynamic-wavelet-matrix.cpp
 layout: document
 redirect_from:

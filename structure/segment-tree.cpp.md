@@ -10,6 +10,9 @@ data:
     path: test/mystd/myset/atcoder-abc379-f.test.cpp
     title: test/mystd/myset/atcoder-abc379-f.test.cpp
   - icon: ':x:'
+    path: test/structure/binary-indexed-tree/atcoder-abc407-f.test.cpp
+    title: test/structure/binary-indexed-tree/atcoder-abc407-f.test.cpp
+  - icon: ':x:'
     path: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
     title: test/structure/segment-tree/aoj-dsl-2-a.test.cpp
   - icon: ':x:'
@@ -764,9 +767,10 @@ data:
   timestamp: '2025-03-23 19:04:50+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/mystd/myset/atcoder-abc379-f.test.cpp
+  - test/structure/binary-indexed-tree/atcoder-abc407-f.test.cpp
   - test/structure/segment-tree/aoj-dsl-2-b.test.cpp
   - test/structure/segment-tree/aoj-dsl-2-a.test.cpp
+  - test/mystd/myset/atcoder-abc379-f.test.cpp
 documentation_of: structure/segment-tree.cpp
 layout: document
 redirect_from:

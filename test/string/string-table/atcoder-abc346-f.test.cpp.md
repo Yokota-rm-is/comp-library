@@ -456,16 +456,18 @@ data:
     \ long long k, long long l, long long r) {\n        assert(0 < k and k <= count(c,\
     \ l, r));\n        return indices[c - base][count(c, 0, l) + k - 1];\n    }\n\
     };\n#line 3 \"search/binary-search.cpp\"\n\n// main\u306Bis_ok\u3092\u304A\u304F\
-    \n// auto is_ok = [&](auto x){return A[x] < K;};\n\n// \u6C4E\u7528\u7684\u306A\
-    \u4E8C\u5206\u63A2\u7D22\u306E\u30C6\u30F3\u30D7\u30EC\ntemplate<typename T>\n\
-    T binary_search(function<bool(T)> is_ok, T ok, T ng) {\n    if (!is_ok(ok)) return\
-    \ -1;\n    if (is_ok(ng)) return ng;\n\n    long long ok_ll = bit_cast<long long>(ok),\
-    \ ng_ll = bit_cast<long long>(ng);\n\n    /* ok \u3068 ng \u306E\u3069\u3061\u3089\
-    \u304C\u5927\u304D\u3044\u304B\u308F\u304B\u3089\u306A\u3044\u3053\u3068\u3092\
-    \u8003\u616E */\n    while (abs(ok_ll - ng_ll) > 1ll) {\n        T mid = midpoint(ok,\
-    \ ng);\n        long long mid_ll = midpoint(ok_ll, ng_ll);\n\n        if (is_ok(mid))\
-    \ ok = mid, ok_ll = mid_ll;\n        else ng = mid, ng_ll = mid_ll;\n    }\n \
-    \   return ok;\n}\n#line 5 \"test/string/string-table/atcoder-abc346-f.test.cpp\"\
+    \n// auto is_ok = [&](auto x){return A[x] < K;};\n\ntemplate<typename T>\nT binary_search(function<bool(T)>\
+    \ is_ok, T ok, T ng) {\n    if (!is_ok(ok)) return -1;\n    if (is_ok(ng)) return\
+    \ ng;\n\n    /* ok \u3068 ng \u306E\u3069\u3061\u3089\u304C\u5927\u304D\u3044\u304B\
+    \u308F\u304B\u3089\u306A\u3044\u3053\u3068\u3092\u8003\u616E */\n    while (abs(ok\
+    \ - ng) > 1ll) {\n        T mid = midpoint(ok, ng);\n\n        if (is_ok(mid))\
+    \ ok = mid;\n        else ng = mid;\n    }\n    return ok;\n}\n\ntemplate<>\n\
+    double binary_search(function<bool(double)> is_ok, double ok, double ng) {\n \
+    \   if (!is_ok(ok)) return -1;\n    if (is_ok(ng)) return ng;\n\n    /* ok \u3068\
+    \ ng \u306E\u3069\u3061\u3089\u304C\u5927\u304D\u3044\u304B\u308F\u304B\u3089\u306A\
+    \u3044\u3053\u3068\u3092\u8003\u616E */\n    rep(i, 64) {\n        double mid\
+    \ = (ok + ng) / 2;\n\n        if (is_ok(mid)) ok = mid;\n        else ng = mid;\n\
+    \    }\n    return ok;\n}\n#line 5 \"test/string/string-table/atcoder-abc346-f.test.cpp\"\
     \n\nint main() {\n    ll N;\n    cin >> N;\n\n    string S;\n    cin >> S;\n\n\
     \    string T;\n    cin >> T;\n\n    StringTable st(S);\n\n    auto is_ok = [&](ll\
     \ x) {\n        ll idx = 0;\n        ll M = 0;\n\n        if (x == 0) return true;\n\
@@ -509,7 +511,7 @@ data:
   isVerificationFile: true
   path: test/string/string-table/atcoder-abc346-f.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:23:47+09:00'
+  timestamp: '2025-04-27 19:35:53+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/string/string-table/atcoder-abc346-f.test.cpp

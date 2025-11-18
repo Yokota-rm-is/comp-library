@@ -9,6 +9,12 @@ data:
   - icon: ':x:'
     path: test/other/cumulative-sum-2d/aoj-0560.test.cpp
     title: test/other/cumulative-sum-2d/aoj-0560.test.cpp
+  - icon: ':x:'
+    path: test/structure/segment-tree-2d-abstract/atcoder-abc228-f.test.cpp
+    title: test/structure/segment-tree-2d-abstract/atcoder-abc228-f.test.cpp
+  - icon: ':x:'
+    path: test/structure/sparse-table-2d/atcoder-abc228-f.test.cpp
+    title: test/structure/sparse-table-2d/atcoder-abc228-f.test.cpp
   _isVerificationFailed: true
   _pathExtension: cpp
   _verificationStatusIcon: ':x:'
@@ -408,12 +414,12 @@ data:
     \ <= x and x < W);\n        assert(not built);\n        values[y][x] += a;\n \
     \   }\n\n    void build() {\n        assert(not built);\n        built = true;\n\
     \        rep(i, H) rep(j, W) sums[i + 1][j + 1] = sums[i + 1][j] + sums[i][j +\
-    \ 1] - sums[i][j] + values[i][j];\n    }\n\n    // [y1, y2) x [x1, x2)\u306E\u7BC4\
-    \u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long y1,\
-    \ long long x1, long long y2, long long x2) {\n        assert(0 <= y1 and y1 <=\
-    \ y2 and y2 <= H);\n        assert(0 <= x1 and x1 <= x2 and x2 <= W);\n      \
-    \  assert(built);\n\n        return sums[y2][x2] - sums[y1][x2] - sums[y2][x1]\
-    \ + sums[y1][x1];\n    }\n\n    friend ostream& operator<<(ostream& os, CumulativeSum2D&\
+    \ 1] - sums[i][j] + values[i][j];\n    }\n\n    // [h1, h2) x [w1, w2)\u306E\u7BC4\
+    \u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n    T sum(long long h1,\
+    \ long long h2, long long w1, long long w2) {\n        assert(0 <= h1 and h1 <=\
+    \ h2 and h2 <= H);\n        assert(0 <= w1 and w1 <= w2 and w2 <= W);\n      \
+    \  assert(built);\n\n        return sums[h2][w2] - sums[h1][w2] - sums[h2][w1]\
+    \ + sums[h1][w1];\n    }\n\n    friend ostream& operator<<(ostream& os, CumulativeSum2D&\
     \ cs) {\n        os << \"values\" << endl;\n        rep(i, cs.H) {\n         \
     \   rep(j, cs.W) os << cs.values[i][j] << \" \";\n            os << endl;\n  \
     \      }\n\n        os << \"sums\" << endl;\n        rep(i, cs.H + 1) {\n    \
@@ -431,11 +437,11 @@ data:
     \        assert(not built);\n        values[y][x] += a;\n    }\n\n    void build()\
     \ {\n        assert(not built);\n        built = true;\n        rep(i, H) rep(j,\
     \ W) sums[i + 1][j + 1] = sums[i + 1][j] + sums[i][j + 1] - sums[i][j] + values[i][j];\n\
-    \    }\n\n    // [y1, y2) x [x1, x2)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\
-    \u3092\u6C42\u3081\u308B\n    T sum(long long y1, long long x1, long long y2,\
-    \ long long x2) {\n        assert(0 <= y1 and y1 <= y2 and y2 <= H);\n       \
-    \ assert(0 <= x1 and x1 <= x2 and x2 <= W);\n        assert(built);\n\n      \
-    \  return sums[y2][x2] - sums[y1][x2] - sums[y2][x1] + sums[y1][x1];\n    }\n\n\
+    \    }\n\n    // [h1, h2) x [w1, w2)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\
+    \u3092\u6C42\u3081\u308B\n    T sum(long long h1, long long h2, long long w1,\
+    \ long long w2) {\n        assert(0 <= h1 and h1 <= h2 and h2 <= H);\n       \
+    \ assert(0 <= w1 and w1 <= w2 and w2 <= W);\n        assert(built);\n\n      \
+    \  return sums[h2][w2] - sums[h1][w2] - sums[h2][w1] + sums[h1][w1];\n    }\n\n\
     \    friend ostream& operator<<(ostream& os, CumulativeSum2D& cs) {\n        os\
     \ << \"values\" << endl;\n        rep(i, cs.H) {\n            rep(j, cs.W) os\
     \ << cs.values[i][j] << \" \";\n            os << endl;\n        }\n\n       \
@@ -447,9 +453,11 @@ data:
   isVerificationFile: false
   path: other/cumulative-sum-2d.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:11:56+09:00'
+  timestamp: '2025-11-16 21:52:31+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
+  - test/structure/segment-tree-2d-abstract/atcoder-abc228-f.test.cpp
+  - test/structure/sparse-table-2d/atcoder-abc228-f.test.cpp
   - test/other/cumulative-sum-2d/aoj-0560.test.cpp
 documentation_of: other/cumulative-sum-2d.cpp
 layout: document

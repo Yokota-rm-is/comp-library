@@ -408,18 +408,17 @@ data:
     : https://perogram.hateblo.jp/entry/namori\nstruct NamoriGraph {\n    vector<long\
     \ long> ids;\n    unordered_set<long long> cycle_ids, leaves;\n    unordered_map<long\
     \ long, long long> to, depth;\n    unordered_map<long long, vector<long long>>\
-    \ prev;\n    vector<long long> topo;\n\n    void connect(long long u, long long\
-    \ v) {\n        to[u] = v;\n        prev[v].push_back(u);\n    }\n\n    bool is_cycle(long\
-    \ long x) {\n        return cycle_ids.contains(x);\n    }\n\n    bool is_leaf(long\
-    \ long x) {\n        return prev[x].size() == 0;\n    }\n\n    void build() {\n\
-    \        fore(p, to) {\n            ids.push_back(p.first);\n            if (prev[p.first].size()\
-    \ == 0) leaves.insert(p.first);\n        }\n\n        vector<vector<long long>>\
-    \ table(ids.size());\n\n        unordered_set<long long> seen;\n        stack<long\
-    \ long> st;\n        long long now = ids.front();\n        seen.insert(now);\n\
-    \        st.push(now);\n\n        while (true) {\n            now = to[now];\n\
-    \            st.push(now);\n\n            if (seen.contains(now)) break;\n   \
-    \         seen.insert(now);\n        }\n\n        while (!st.empty()) {\n    \
-    \        now = st.top();\n            st.pop();\n\n            if (cycle_ids.contains(now))\
+    \ prev;\n    vector<long long> topo;\n    bool built = false;\n\n    void connect(long\
+    \ long u, long long v) {\n        assert(!built);\n        to[u] = v;\n      \
+    \  prev[v].push_back(u);\n    }\n\n    void build() {\n        assert(!built);\n\
+    \        built = true;\n\n        fore(p, to) {\n            ids.push_back(p.first);\n\
+    \            if (prev[p.first].size() == 0) leaves.insert(p.first);\n        }\n\
+    \n        vector<vector<long long>> table(ids.size());\n\n        unordered_set<long\
+    \ long> seen;\n        stack<long long> st;\n        long long now = ids.front();\n\
+    \        seen.insert(now);\n        st.push(now);\n\n        while (true) {\n\
+    \            now = to[now];\n            st.push(now);\n\n            if (seen.contains(now))\
+    \ break;\n            seen.insert(now);\n        }\n\n        while (!st.empty())\
+    \ {\n            now = st.top();\n            st.pop();\n\n            if (cycle_ids.contains(now))\
     \ break;\n            cycle_ids.insert(now);\n            depth[now] = 0;\n  \
     \          table[0].push_back(now);\n        }\n\n        function<long long(long\
     \ long)> dfs = [&](long long x) {\n            if (depth.contains(x)) return depth[x];\n\
@@ -427,36 +426,42 @@ data:
     \            return depth[x];\n        };\n\n        fore(x, ids) {\n        \
     \    if (depth.contains(x)) continue;\n            dfs(x);\n        }\n\n    \
     \    repd(i, table.size()) {\n            fore(x, table[i]) topo.push_back(x);\n\
-    \        }\n    }\n\n    long long get_depth(long long x) {\n        return depth[x];\n\
-    \    }\n\n    long long get_next(long long x) {\n        return to[x];\n    }\n\
-    \n    vector<long long> get_prev(long long x) {\n        return prev[x];\n   \
-    \ }\n\n    vector<long long> get_prev_cycle() {\n        vector<long long> ret;\n\
+    \        }\n    }\n\n    bool is_cycle(long long x) {\n        assert(built);\n\
+    \        return cycle_ids.contains(x);\n    }\n\n    bool is_leaf(long long x)\
+    \ {\n        assert(built);\n        return prev[x].size() == 0;\n    }\n\n  \
+    \  long long get_depth(long long x) {\n        assert(built);\n        return\
+    \ depth[x];\n    }\n\n    long long get_next(long long x) {\n        assert(built);\n\
+    \        return to[x];\n    }\n\n    vector<long long> get_prev(long long x) {\n\
+    \        assert(built);\n        return prev[x];\n    }\n\n    vector<long long>\
+    \ get_prev_cycle() {\n        assert(built);\n        vector<long long> ret;\n\
     \        fore(x, cycle_ids) {\n            fore(y, prev[x]) {\n              \
     \  if (cycle_ids.contains(y)) continue;\n                ret.push_back(y);\n \
-    \           }\n        }\n\n        return ret;\n    }\n\n    unordered_set<long\
-    \ long> get_cycle_ids() {\n        return cycle_ids;\n    }\n\n    unordered_set<long\
-    \ long> get_leaves() {\n        return leaves;\n    }\n\n    vector<long long>\
-    \ get_topo_from_leaves() {\n        return topo;\n    }\n\n    vector<long long>\
-    \ get_topo_from_cycle() {\n        vector<long long> ret = topo;\n        reverse(ret);\n\
-    \        return ret;\n    }\n};\n\nstruct FunctionalGraph {\n    struct UnionFind\
-    \ {\n        long long n;\n        vector<long long> par;\n\n        UnionFind(long\
-    \ long n) : n(n), par(n) {\n            rep(i, n) {\n                par[i] =\
-    \ -1;\n            }\n        }\n\n        long long find(long long x) {\n   \
-    \         if (par[x] < 0) return x;\n            return par[x] = find(par[x]);\n\
-    \        }\n\n        void unite(long long u, long long v) {\n            u =\
-    \ find(u);\n            v = find(v);\n\n            if (u == v) return;\n    \
-    \        if (-par[u] < -par[v]) swap(u, v);\n\n            par[u] += par[v];\n\
-    \            par[v] = u;\n        }\n\n        unordered_map<long long, unordered_set<long\
-    \ long>> cc() {\n            unordered_map<ll, unordered_set<long long>> ret;\n\
-    \            rep(i, n) {\n                ret[find(i)].insert(i);\n          \
-    \  }\n\n            return ret;\n        }\n    };\n\n    long long N;\n    vector<long\
-    \ long> to;\n    vector<NamoriGraph> namoris;\n    UnionFind uf;\n\n    FunctionalGraph(long\
-    \ long N) : N(N), to(N, -1), uf(N) {}\n\n    void connect(long long u, long long\
-    \ v) {\n        to[u] = v;\n        uf.unite(u, v);\n    }\n\n    void build()\
-    \ {\n        fore(p, uf.cc()) {\n            auto [par, cc] = p;\n\n         \
-    \   NamoriGraph namori;\n\n            fore(i, cc) {\n                namori.connect(i,\
-    \ to[i]);\n            }\n\n            namori.build();\n            namoris.push_back(namori);\n\
-    \        }\n    }\n};\n#line 6 \"test/graph/functional-graph/atcoder-abc357-e.test.cpp\"\
+    \           }\n        }\n\n        return ret;\n    }\n\n    long long get_cycle_length()\
+    \ {\n        assert(built);\n        return cycle_ids.size();\n    }\n\n    unordered_set<long\
+    \ long> get_cycle_ids() {\n        assert(built);\n        return cycle_ids;\n\
+    \    }\n\n    unordered_set<long long> get_leaves() {\n        assert(built);\n\
+    \        return leaves;\n    }\n\n    vector<long long> get_topo_from_leaves()\
+    \ {\n        assert(built);\n        return topo;\n    }\n\n    vector<long long>\
+    \ get_topo_from_cycle() {\n        assert(built);\n        vector<long long> ret\
+    \ = topo;\n        reverse(ret);\n        return ret;\n    }\n};\n\nstruct FunctionalGraph\
+    \ {\n    struct UnionFind {\n        long long n;\n        vector<long long> par;\n\
+    \n        UnionFind(long long n) : n(n), par(n) {\n            rep(i, n) {\n \
+    \               par[i] = -1;\n            }\n        }\n\n        long long find(long\
+    \ long x) {\n            if (par[x] < 0) return x;\n            return par[x]\
+    \ = find(par[x]);\n        }\n\n        void unite(long long u, long long v) {\n\
+    \            u = find(u);\n            v = find(v);\n\n            if (u == v)\
+    \ return;\n            if (-par[u] < -par[v]) swap(u, v);\n\n            par[u]\
+    \ += par[v];\n            par[v] = u;\n        }\n\n        unordered_map<long\
+    \ long, unordered_set<long long>> cc() {\n            unordered_map<ll, unordered_set<long\
+    \ long>> ret;\n            rep(i, n) {\n                ret[find(i)].insert(i);\n\
+    \            }\n\n            return ret;\n        }\n    };\n\n    long long\
+    \ N;\n    vector<long long> to;\n    vector<NamoriGraph> namoris;\n    UnionFind\
+    \ uf;\n\n    FunctionalGraph(long long N) : N(N), to(N, -1), uf(N) {}\n\n    void\
+    \ connect(long long u, long long v) {\n        to[u] = v;\n        uf.unite(u,\
+    \ v);\n    }\n\n    void build() {\n        fore(p, uf.cc()) {\n            auto\
+    \ [par, cc] = p;\n\n            NamoriGraph namori;\n\n            fore(i, cc)\
+    \ {\n                namori.connect(i, to[i]);\n            }\n\n            namori.build();\n\
+    \            namoris.push_back(namori);\n        }\n    }\n};\n#line 6 \"test/graph/functional-graph/atcoder-abc357-e.test.cpp\"\
     \n\nint main() {\n    ll N;\n    cin >> N;\n\n    vll a(N);\n    rep(i, N) cin\
     \ >> a[i];\n    a--;\n\n    FunctionalGraph fg(N);\n    rep(i, N) fg.connect(i,\
     \ a[i]);\n\n    fg.build();\n\n    ll ans = 0;\n    fore(namori, fg.namoris) {\n\
@@ -477,7 +482,7 @@ data:
   isVerificationFile: true
   path: test/graph/functional-graph/atcoder-abc357-e.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:56:29+09:00'
+  timestamp: '2025-11-16 17:36:09+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/graph/functional-graph/atcoder-abc357-e.test.cpp

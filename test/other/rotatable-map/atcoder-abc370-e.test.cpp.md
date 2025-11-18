@@ -405,53 +405,86 @@ data:
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"other/rotatable-map.cpp\"\n\ntemplate <typename\
-    \ Key, typename Value>\nstruct RotatableMap {\n    map<Key, Value> original;\n\
-    \    long long N;\n    long long offset, offset_key;\n\n    RotatableMap() : N(0),\
-    \ offset(0), offset_key(0) {}\n    RotatableMap(map<Key, Value> mp, long long\
-    \ m = 0) : original(mp), N(m), offset(0), offset_key(0) {}\n\n    // \u53C2\u7167\
-    \u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // \u4F8B\
-    : rotate_left(1) \u3067 mp[0]\u304Coriginal[1]\u3092\u6307\u3059\n    // (original[1]\u3092\
-    mp[0]\u306B\u79FB\u52D5(\u5DE6\u56DE\u8EE2))\n    Key rotate_left(Key x) {\n \
-    \       offset += x;\n        if (N > 0) offset %= N;\n        return offset;\n\
-    \    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u5897\
-    \u3084\u3059\n    // \u4F8B: rotate_right(1) \u3067 mp[1]\u304Coriginal[0]\u3092\
-    \u6307\u3059\n    // (original[0]\u3092mp[1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2\
-    ))\n    Key rotate_right(Key x) {\n        if (N > 0) x %= N;\n        offset\
-    \ += N - x;\n        if (N > 0) offset %= N;\n        return offset;\n    }\n\n\
-    \    Value& operator[](Key key) {\n        key += offset;\n        if (N > 0)\
-    \ key %= N;\n        \n        return original[key];\n    }\n\n    Value get(Key\
-    \ key) {\n        return this->operator[](key);\n    }\n\n    bool contains(Key\
-    \ key) const {\n        key += offset;\n        if (N > 0) key %= N;\n       \
-    \ return original.contains(key);\n    }\n\n    void dump() {\n        cerr <<\
-    \ \"offset: \" << offset << endl;\n        cerr << \"original: \";\n        fore(p,\
-    \ original) cerr << p.first << \": \" << p.second << endl;\n\n        cerr <<\
-    \ \"rotated: \";\n        \n        Key first_key = N - (offset_key % N);\n  \
-    \      if (N > 0) first_key %= N;\n        auto first = original.lower_bound(first_key);\n\
-    \        for (auto it = first; it != original.end(); ++it) {\n            Key\
-    \ key = it->first + N - offset_key;\n            cerr << key << \": \" << it->second\
-    \ << endl;\n        }\n        for (auto it = original.begin(); it != first; ++it)\
-    \ {\n            Key key = it->first + N - offset_key;\n            cerr << key\
-    \ << \": \" << it->second << endl;\n        }\n        cerr << endl;\n    }\n\n\
-    \    friend ostream& operator<<(ostream& os, const RotatableMap<Key, Value>& mp)\
-    \ {\n        Key first_key = mp.N - (mp.offset_key % mp.N);\n        if (mp.N\
-    \ > 0) first_key %= mp.N;\n\n        auto first = mp.original.lower_bound(first_key);\n\
-    \        for (auto it = first; it != mp.original.end(); ++it) {\n            Key\
-    \ key = it->first + mp.N - mp.offset_key;\n            os << key << \": \" <<\
-    \ it->second << endl;\n        }\n        for (auto it = mp.original.begin();\
-    \ it != first; ++it) {\n            Key key = it->first + mp.N - mp.offset_key;\n\
-    \            os << key << \": \" << it->second << endl;\n        }\n        return\
-    \ os;\n    }\n};\n#line 3 \"math/modint.cpp\"\n\n// modint: mod \u8A08\u7B97\u3092\
-    \ int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\u3048\u308B\u69CB\u9020\u4F53\
-    \ntemplate<int MOD> struct Fp {\n    long long val;\n    constexpr Fp(long long\
-    \ v = 0) noexcept : val(v % MOD) {\n        if (val < 0) val += MOD;\n    }\n\
-    \    constexpr int getmod() { return MOD; }\n    constexpr Fp operator - () const\
-    \ noexcept {\n        return val ? MOD - val : 0;\n    }\n    constexpr Fp operator\
-    \ + (const Fp& r) const noexcept { return Fp(*this) += r; }\n    constexpr Fp\
-    \ operator - (const Fp& r) const noexcept { return Fp(*this) -= r; }\n    constexpr\
-    \ Fp operator * (const Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr\
-    \ Fp operator / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr\
-    \ Fp& operator += (const Fp& r) noexcept {\n        val += r.val;\n        if\
-    \ (val >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
+    \ Key, typename Value, typename Map = map<Key, Value>>\nstruct RotatableMap {\n\
+    \    Map original;\n    long long M;\n    long long offset_key;\n\n    struct\
+    \ iterator {\n        typename Map::iterator it;\n        const RotatableMap*\
+    \ rmap;\n\n        iterator(typename Map::iterator it, RotatableMap* rmap) : it(it),\
+    \ rmap(rmap) {}\n\n        iterator& operator++() {\n            ++it;\n     \
+    \       return *this;\n        }\n\n        iterator operator++(int) {\n     \
+    \       iterator temp = *this;\n            ++(*this);\n            return temp;\n\
+    \        }\n\n        iterator& operator--() {\n            --it;\n          \
+    \  return *this;\n        }\n\n        iterator operator--(int) {\n          \
+    \  iterator temp = *this;\n            --(*this);\n            return temp;\n\
+    \        }\n\n        const Key key() const {\n            Key key = it->first\
+    \ + rmap->offset_key;\n            if (rmap->M > 0) key %= rmap->M;\n        \
+    \    return key;\n        }\n\n        Value& value() {\n            return it->second;\n\
+    \        }\n\n        const Value& value() const {\n            return it->second;\n\
+    \        }\n\n        bool operator==(const iterator& other) const {\n       \
+    \     return it == other.it;\n        }\n\n        bool operator!=(const iterator&\
+    \ other) const {\n            return it != other.it;\n        }\n    };\n\n  \
+    \  struct const_iterator {\n        typename Map::const_iterator it;\n       \
+    \ const RotatableMap* rmap;\n\n        const_iterator(typename Map::const_iterator\
+    \ it, const RotatableMap* rmap) : it(it), rmap(rmap) {}\n\n        const_iterator&\
+    \ operator++() {\n            ++it;\n            return *this;\n        }\n\n\
+    \        const_iterator operator++(int) {\n            const_iterator temp = *this;\n\
+    \            ++(*this);\n            return temp;\n        }\n\n        const\
+    \ Key key() const {\n            Key key = it->first + rmap->offset_key;\n   \
+    \         if (rmap->M > 0) key %= rmap->M;\n            return key;\n        }\n\
+    \n        const Value& value() const {\n            return it->second;\n     \
+    \   }\n\n        bool operator==(const const_iterator& other) const {\n      \
+    \      return it == other.it;\n        }\n\n        bool operator!=(const const_iterator&\
+    \ other) const {\n            return it != other.it;\n        }\n    };\n\n  \
+    \  RotatableMap() : M(0), offset_key(0) {}\n    RotatableMap(Map mp, long long\
+    \ m = 0) : original(mp), M(m), offset_key(0) {}\n\n    // key\u306E\u5024\u3092\
+    x\u5897\u3084\u3059\n    // key    : 1, 2, 4, 8, 16, 32 <- add_key\n    // value\
+    \  : 3, 1, 4, 1,  5,  9\n    //\n    // key + 1: 2, 3, 5, 9, 17, 33\n    // value\
+    \  : 3, 1, 4, 1,  5,  9 \n    Key add_key(Key x) {\n        offset_key += x;\n\
+    \        if (M > 0) offset_key %= M;\n        return offset_key;\n    }\n\n  \
+    \  // key\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // key    : 1, 2, 4, 8, 16,\
+    \ 32 <- subtract_key\n    // value  : 3, 1, 4, 1,  5,  9\n    //\n    // key -\
+    \ 1: 0, 1, 3, 7, 15, 31\n    // value  : 3, 1, 4, 1,  5,  9\n    Key subtract_key(Key\
+    \ x) {\n        if (M > 0) x %= M;\n        offset_key += M - x;\n        if (M\
+    \ > 0) offset_key %= M;\n        return offset_key;\n    }\n\n    Value& operator[](Key\
+    \ key) {\n        key += M - offset_key;\n        if (M > 0) key %= M;\n     \
+    \   \n        return original[key];\n    }\n\n    Value get(Key key) {\n     \
+    \   return this->operator[](key);\n    }\n\n    bool contains(Key key) const {\n\
+    \        key += M - offset_key;\n        if (M > 0) key %= M;\n        return\
+    \ original.contains(key);\n    }\n\n    iterator find(Key key) {\n        key\
+    \ += M - offset_key;\n        if (M > 0) key %= M;\n        return iterator(original.find(key),\
+    \ this);\n    }\n\n    iterator lower_bound(Key key) {\n        key += M - offset_key;\n\
+    \        if (M > 0) key %= M;\n        return iterator(original.lower_bound(key),\
+    \ this);\n    }\n\n    iterator upper_bound(Key key) {\n        key += M - offset_key;\n\
+    \        if (M > 0) key %= M;\n        return iterator(original.upper_bound(key),\
+    \ this);\n    }\n\n    iterator begin() {\n        return iterator(original.begin(),\
+    \ this);\n    }\n\n    iterator end() {\n        return iterator(original.end(),\
+    \ this);\n    }\n\n    const_iterator begin() const {\n        return const_iterator(original.begin(),\
+    \ this);\n    }\n\n    const_iterator end() const {\n        return const_iterator(original.end(),\
+    \ this);\n    }\n\n    iterator insert(iterator hint, Key key, Value value) {\n\
+    \        key += M - offset_key;\n        if (M > 0) key %= M;\n\n        auto\
+    \ it = original.insert(hint.it, {key, value});\n        return iterator(it, this);\n\
+    \    }\n\n    iterator erase(iterator it) {\n        if (it == end()) return end();\n\
+    \        it.it = original.erase(it.it);\n        return it;\n    }\n\n    void\
+    \ dump() {\n        cerr << \"offset_key: \" << offset_key << endl;\n        cerr\
+    \ << \"original: \";\n        fore(p, original) cerr << p.first << \": \" << p.second\
+    \ << endl;\n\n        cerr << \"rotated: \";\n        auto it = begin();\n   \
+    \     while (it != end()) {\n            Key key = it.key();\n            cerr\
+    \ << key << \": \" << it.value() << endl;\n            ++it;\n        }\n    \
+    \    cerr << endl;\n    }\n\n    friend ostream& operator<<(ostream& os, const\
+    \ RotatableMap<Key, Value>& mp) {\n        auto it = mp.begin();\n        while\
+    \ (it != mp.end()) {\n            os << it.key() << \": \" << it.value() << \"\
+    , \";\n            ++it;\n        }\n        return os;\n    }\n};\n#line 3 \"\
+    math/modint.cpp\"\n\n// modint: mod \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\
+    \u3046\u306B\u6271\u3048\u308B\u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp\
+    \ {\n    long long val;\n    constexpr Fp(long long v = 0) noexcept : val(v %\
+    \ MOD) {\n        if (val < 0) val += MOD;\n    }\n    constexpr int getmod()\
+    \ { return MOD; }\n    constexpr Fp operator - () const noexcept {\n        return\
+    \ val ? MOD - val : 0;\n    }\n    constexpr Fp operator + (const Fp& r) const\
+    \ noexcept { return Fp(*this) += r; }\n    constexpr Fp operator - (const Fp&\
+    \ r) const noexcept { return Fp(*this) -= r; }\n    constexpr Fp operator * (const\
+    \ Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr Fp operator\
+    \ / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr Fp&\
+    \ operator += (const Fp& r) noexcept {\n        val += r.val;\n        if (val\
+    \ >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
     \ -= (const Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val\
     \ += MOD;\n        return *this;\n    }\n    constexpr Fp& operator *= (const\
     \ Fp& r) noexcept {\n        val = val * r.val % MOD;\n        return *this;\n\
@@ -479,7 +512,7 @@ data:
     #line 5 \"test/other/rotatable-map/atcoder-abc370-e.test.cpp\"\n\nusing mint =\
     \ mint998;\n\nint main() {\n    ll N, K;\n    cin >> N >> K;\n\n    vector<ll>\
     \ A(N);\n    rep(i, N) cin >> A[i];\n\n    RotatableMap<ll, mint> rm;\n    rm[0]\
-    \ = 1;\n\n    mint ans = 0, sum = 1;\n\n    rep(i, N) {\n        rm.rotate_right(A[i]);\n\
+    \ = 1;\n\n    mint ans = 0, sum = 1;\n\n    rep(i, N) {\n        rm.add_key(A[i]);\n\
     \        \n        mint ans_i = sum;\n        if (rm.contains(K)) ans_i -= rm[K];\n\
     \        ans = ans_i;\n\n        sum += ans_i;\n        rm[0] += ans_i;\n    }\n\
     \n    cout << ans << endl;\n\n    return 0;\n} \n"
@@ -488,7 +521,7 @@ data:
     \n\nusing mint = mint998;\n\nint main() {\n    ll N, K;\n    cin >> N >> K;\n\n\
     \    vector<ll> A(N);\n    rep(i, N) cin >> A[i];\n\n    RotatableMap<ll, mint>\
     \ rm;\n    rm[0] = 1;\n\n    mint ans = 0, sum = 1;\n\n    rep(i, N) {\n     \
-    \   rm.rotate_right(A[i]);\n        \n        mint ans_i = sum;\n        if (rm.contains(K))\
+    \   rm.add_key(A[i]);\n        \n        mint ans_i = sum;\n        if (rm.contains(K))\
     \ ans_i -= rm[K];\n        ans = ans_i;\n\n        sum += ans_i;\n        rm[0]\
     \ += ans_i;\n    }\n\n    cout << ans << endl;\n\n    return 0;\n} "
   dependsOn:
@@ -498,7 +531,7 @@ data:
   isVerificationFile: true
   path: test/other/rotatable-map/atcoder-abc370-e.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:17:07+09:00'
+  timestamp: '2025-11-16 17:49:15+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/other/rotatable-map/atcoder-abc370-e.test.cpp

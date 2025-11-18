@@ -479,8 +479,8 @@ data:
   timestamp: '2025-03-23 19:10:39+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/math/stirling-second/yosupo-stirling-number-of-the-second-kind.test.cpp
   - test/math/stirling-second/aoj-dpl-5-l.test.cpp
+  - test/math/stirling-second/yosupo-stirling-number-of-the-second-kind.test.cpp
 documentation_of: math/stirling-second.cpp
 layout: document
 redirect_from:

@@ -401,12 +401,12 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"math/eratosthenes.cpp\"\n\n// \u30A8\u30E9\u30C8\
-    \u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\n// \u8A08\u7B97\u91CF: O(N loglogN) (N <=\
-    \ 10^6)\nstruct Eratosthenes {\n    long long N;\n    // \u30C6\u30FC\u30D6\u30EB\
-    \n    vector<bool> is_prime;\n\n    // \u6574\u6570 i \u3092\u5272\u308A\u5207\
-    \u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long long> min_factor;\n\n  \
-    \  // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n    vector<long long> mobius;\n\
+    \    return result;\n}\n#line 3 \"math/eratosthenes.cpp\"\n\n\n// \u30A8\u30E9\
+    \u30C8\u30B9\u30C6\u30CD\u30B9\u306E\u7BE9\n// \u8A08\u7B97\u91CF: O(N loglogN)\
+    \ (N <= 10^6)\nstruct Eratosthenes {\n    long long N;\n    // \u30C6\u30FC\u30D6\
+    \u30EB\n    vector<bool> is_prime;\n\n    // \u6574\u6570 i \u3092\u5272\u308A\
+    \u5207\u308B\u6700\u5C0F\u306E\u7D20\u6570\n    vector<long long> min_factor;\n\
+    \n    // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n    vector<long long> mobius;\n\
     \n    // \u30B3\u30F3\u30B9\u30C8\u30E9\u30AF\u30BF\u3067\u7BE9\u3092\u56DE\u3059\
     \n    explicit Eratosthenes(long long N) : N(N), is_prime(N + 1, true), min_factor(N\
     \ + 1, -1), mobius(N + 1, 1) {\n        // 1 \u306F\u4E88\u3081\u3075\u308B\u3044\
@@ -432,36 +432,37 @@ data:
     \u308B\u9650\u308A\u5272\u308B\n            while (min_factor[n] == p) {\n   \
     \             n /= p;\n                ++exp;\n            }\n            res.emplace_back(p,\
     \ exp);\n        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u7D04\u6570\
-    \u5217\u6319 O(sigma(n))\n    vector<long long> divisors(long long n) {\n    \
-    \    vector<long long> res = {1};\n\n        // n \u3092\u7D20\u56E0\u6570\u5206\
-    \u89E3 (\u30E1\u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n        auto pf = factorize(n);\n\
-    \n        // \u7D04\u6570\u5217\u6319\n        fore(p, pf) {\n            ll s\
-    \ = res.size();\n            rep(i, s) {\n                long long v = 1;\n \
-    \               rep(j, p.second) {\n                    v *= p.first;\n      \
-    \              res.push_back(res[i] * v);\n                }\n            }\n\
-    \        }\n        return res;\n    }\n\n    // \u9AD8\u901F\u30BC\u30FC\u30BF\
-    \u5909\u63DB\n    // \u5165\u529B f \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\
-    \u3066\u3001F \u306B\u306A\u308B\n    vector<long long> fast_zeta(vector<long\
-    \ long> f) {\n        vector<long long> F(N);\n        rep(i, N) F[i] = f[i];\n\
-    \n        // \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5927\
-    \u304D\u3044\u5EA7\u6A19 (k * p) \u304B\u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k)\
-    \ \u3078\u3068\u8DB3\u3057\u8FBC\u3080\n        rep(p, 2, N) {\n            if\
-    \ (!is_prime[p]) continue;\n\n            // \u5EA7\u6A19\u304C\u5927\u304D\u3044\
-    \u65B9\u3092\u8D77\u70B9\u3068\u3057\u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\
-    \n            for (long long k = (N - 1) / p; k >= 1; --k) {\n               \
-    \ F[k] += F[k * p];\n            }\n        }\n\n        return F;\n    }\n\n\
-    \    // \u9AD8\u901F\u30E1\u30D3\u30A6\u30B9\u5909\u63DB\n    // \u5165\u529B\
-    \ F \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001f \u306B\u306A\u308B\
-    \n    vector<long long> fast_mobius(vector<long long> F) {\n        vector<long\
-    \ long> f(N);\n        rep(i, N) f[i] = F[i];\n\n        // \u5404\u7D20\u6570\
-    \ p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5C0F\u3055\u3044\u5EA7\u6A19\
-    \ (k) \u304B\u3089\u5927\u304D\u3044\u5EA7\u6A19 (k * p) \u3092\u5F15\u3044\u3066\
-    \u3044\u304F\n        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\
-    \n            // \u5EA7\u6A19\u304C\u5C0F\u3055\u3044\u65B9\u3092\u8D77\u70B9\u3068\
-    \u3057\u3066\u5DEE\u5206\u3092\u3068\u308B\n            for (long long k = 1;\
-    \ k * p < N; ++k) {\n                f[k] -= f[k * p];\n            }\n      \
-    \  }\n\n        return f;\n    }\n\n    // \u6DFB\u5B57 GCD \u7573\u307F\u8FBC\
-    \u307F\n    vector<long long> gcd_conv(const vector<long long>& f, const vector<long\
+    \u5217\u6319 O(sigma(n))\n    vector<long long> divisors(long long n, bool sorted\
+    \ = true) {\n        vector<long long> res = {1};\n\n        // n \u3092\u7D20\
+    \u56E0\u6570\u5206\u89E3 (\u30E1\u30F3\u30D0\u95A2\u6570\u4F7F\u7528)\n      \
+    \  auto pf = factorize(n);\n\n        // \u7D04\u6570\u5217\u6319\n        fore(p,\
+    \ pf) {\n            ll s = res.size();\n            rep(i, s) {\n           \
+    \     long long v = 1;\n                rep(j, p.second) {\n                 \
+    \   v *= p.first;\n                    res.push_back(res[i] * v);\n          \
+    \      }\n            }\n        }\n\n        if (sorted) sort(res.begin(), res.end());\n\
+    \        return res;\n    }\n\n    // \u9AD8\u901F\u30BC\u30FC\u30BF\u5909\u63DB\
+    \n    // \u5165\u529B f \u304C in-place \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001\
+    F \u306B\u306A\u308B\n    vector<long long> fast_zeta(vector<long long> f) {\n\
+    \        vector<long long> F(N);\n        rep(i, N) F[i] = f[i];\n\n        //\
+    \ \u5404\u7D20\u6570 p \u8EF8\u306B\u5BFE\u3057\u3066\n        // \u5927\u304D\
+    \u3044\u5EA7\u6A19 (k * p) \u304B\u3089\u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u3078\
+    \u3068\u8DB3\u3057\u8FBC\u3080\n        rep(p, 2, N) {\n            if (!is_prime[p])\
+    \ continue;\n\n            // \u5EA7\u6A19\u304C\u5927\u304D\u3044\u65B9\u3092\
+    \u8D77\u70B9\u3068\u3057\u3066\u7D2F\u7A4D\u548C\u3092\u3068\u308B\n         \
+    \   for (long long k = (N - 1) / p; k >= 1; --k) {\n                F[k] += F[k\
+    \ * p];\n            }\n        }\n\n        return F;\n    }\n\n    // \u9AD8\
+    \u901F\u30E1\u30D3\u30A6\u30B9\u5909\u63DB\n    // \u5165\u529B F \u304C in-place\
+    \ \u306B\u66F4\u65B0\u3055\u308C\u3066\u3001f \u306B\u306A\u308B\n    vector<long\
+    \ long> fast_mobius(vector<long long> F) {\n        vector<long long> f(N);\n\
+    \        rep(i, N) f[i] = F[i];\n\n        // \u5404\u7D20\u6570 p \u8EF8\u306B\
+    \u5BFE\u3057\u3066\n        // \u5C0F\u3055\u3044\u5EA7\u6A19 (k) \u304B\u3089\
+    \u5927\u304D\u3044\u5EA7\u6A19 (k * p) \u3092\u5F15\u3044\u3066\u3044\u304F\n\
+    \        rep(p, 2, N) {\n            if (!is_prime[p]) continue;\n\n         \
+    \   // \u5EA7\u6A19\u304C\u5C0F\u3055\u3044\u65B9\u3092\u8D77\u70B9\u3068\u3057\
+    \u3066\u5DEE\u5206\u3092\u3068\u308B\n            for (long long k = 1; k * p\
+    \ < N; ++k) {\n                f[k] -= f[k * p];\n            }\n        }\n\n\
+    \        return f;\n    }\n\n    // \u6DFB\u5B57 GCD \u7573\u307F\u8FBC\u307F\n\
+    \    vector<long long> gcd_conv(const vector<long long>& f, const vector<long\
     \ long>& g) {\n        vector<long long> F(N), G(N), H(N);\n\n        // \u9AD8\
     \u901F\u30BC\u30FC\u30BF\u5909\u63DB\n        F = fast_zeta(f);\n        G = fast_zeta(g);\n\
     \n        // H \u3092\u6C42\u3081\u308B\n        rep(i, 1, N) H[i] = F[i] * G[i];\n\
@@ -490,7 +491,7 @@ data:
   isVerificationFile: true
   path: test/math/eratosthenes/yukicoder-843.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:03:13+09:00'
+  timestamp: '2025-04-29 23:10:06+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/math/eratosthenes/yukicoder-843.test.cpp

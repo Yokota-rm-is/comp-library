@@ -5,10 +5,16 @@ data:
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/string/rolling-hash-on-segment-tree/atcoder-abc331-f.test.cpp
+    title: test/string/rolling-hash-on-segment-tree/atcoder-abc331-f.test.cpp
+  - icon: ':x:'
+    path: test/string/rolling-hash-on-segment-tree/yukicoder-2761.test.cpp
+    title: test/string/rolling-hash-on-segment-tree/yukicoder-2761.test.cpp
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -421,12 +427,12 @@ data:
     \ long base = set_base();\n    const unsigned long long base_inv = modinv(base);\n\
     }\n\nstruct Hash61 {\n    unsigned long long hash, hash_rev;\n    unsigned long\
     \ long pow, pow_inv;\n    long long N;\n\n    Hash61() {\n        init();\n  \
-    \  }\n\n    Hash61(string& S) {\n        init();\n        if (S.size() > 0) set(S);\n\
-    \    }\n\n    Hash61(char c) {\n        init();\n        string S(1, c);\n   \
-    \     set(S);\n    }\n\n    void init() {\n        N = 0;\n        hash = 0;\n\
-    \        hash_rev = 0;\n        pow = 1;\n        pow_inv = 1;\n    }\n\n    void\
-    \ set(char c) {\n        string S = string(1, c);\n        set(S);\n    }\n\n\
-    \    void set(string& S) {\n        N = S.size();\n        \n        rep(i, S.size())\
+    \  }\n\n    Hash61(string& S) {\n        if (S.size() > 0) set(S);\n    }\n\n\
+    \    Hash61(char c) {\n        string S(1, c);\n        set(S);\n    }\n\n   \
+    \ void init() {\n        N = 0;\n        hash = 0;\n        hash_rev = 0;\n  \
+    \      pow = 1;\n        pow_inv = 1;\n    }\n\n    void set(char c) {\n     \
+    \   string S = string(1, c);\n        set(S);\n    }\n\n    void set(string& S)\
+    \ {\n        init();\n\n        N = S.size();\n        \n        rep(i, S.size())\
     \ {\n            unsigned long long c = S[i];\n            hash = _hash61::calc_mod(_hash61::calc_mul(hash,\
     \ _hash61::base) + c);\n            pow = _hash61::calc_mod(_hash61::calc_mul(pow,\
     \ _hash61::base));\n            pow_inv = _hash61::calc_mod(_hash61::calc_mul(pow_inv,\
@@ -456,7 +462,7 @@ data:
     \ * N, Hash61());\n\n        rep(i, _N) {\n            node[i + N].set(S[i]);\n\
     \        }\n        repd(i, 1, N) update(i);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\
     \u5024\u3092c\u306B\u3059\u308B\n    void set(long long p, char c) {\n       \
-    \ assert(0 <= p and p <= _N);\n\n        long long k = p + N;\n        node[k].set(c);\n\
+    \ assert(0 <= p and p < _N);\n\n        long long k = p + N;\n        node[k].set(c);\n\
     \        rep(i, 1, height) update(k >> i);\n    }\n\n    // \u534A\u958B\u533A\
     \u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    Hash61\
     \ prod(long long l, long long r) {\n        assert(0 <= l && l <= r && r <= _N);\n\
@@ -494,13 +500,13 @@ data:
     \ = set_base();\n    const unsigned long long base_inv = modinv(base);\n}\n\n\
     struct Hash61 {\n    unsigned long long hash, hash_rev;\n    unsigned long long\
     \ pow, pow_inv;\n    long long N;\n\n    Hash61() {\n        init();\n    }\n\n\
-    \    Hash61(string& S) {\n        init();\n        if (S.size() > 0) set(S);\n\
-    \    }\n\n    Hash61(char c) {\n        init();\n        string S(1, c);\n   \
-    \     set(S);\n    }\n\n    void init() {\n        N = 0;\n        hash = 0;\n\
-    \        hash_rev = 0;\n        pow = 1;\n        pow_inv = 1;\n    }\n\n    void\
-    \ set(char c) {\n        string S = string(1, c);\n        set(S);\n    }\n\n\
-    \    void set(string& S) {\n        N = S.size();\n        \n        rep(i, S.size())\
-    \ {\n            unsigned long long c = S[i];\n            hash = _hash61::calc_mod(_hash61::calc_mul(hash,\
+    \    Hash61(string& S) {\n        if (S.size() > 0) set(S);\n    }\n\n    Hash61(char\
+    \ c) {\n        string S(1, c);\n        set(S);\n    }\n\n    void init() {\n\
+    \        N = 0;\n        hash = 0;\n        hash_rev = 0;\n        pow = 1;\n\
+    \        pow_inv = 1;\n    }\n\n    void set(char c) {\n        string S = string(1,\
+    \ c);\n        set(S);\n    }\n\n    void set(string& S) {\n        init();\n\n\
+    \        N = S.size();\n        \n        rep(i, S.size()) {\n            unsigned\
+    \ long long c = S[i];\n            hash = _hash61::calc_mod(_hash61::calc_mul(hash,\
     \ _hash61::base) + c);\n            pow = _hash61::calc_mod(_hash61::calc_mul(pow,\
     \ _hash61::base));\n            pow_inv = _hash61::calc_mod(_hash61::calc_mul(pow_inv,\
     \ _hash61::base_inv));\n        }\n        repd(i, S.size()) {\n            unsigned\
@@ -529,7 +535,7 @@ data:
     \ * N, Hash61());\n\n        rep(i, _N) {\n            node[i + N].set(S[i]);\n\
     \        }\n        repd(i, 1, N) update(i);\n    }\n\n    // \u4F4D\u7F6Ep (0-indexed)\u306E\
     \u5024\u3092c\u306B\u3059\u308B\n    void set(long long p, char c) {\n       \
-    \ assert(0 <= p and p <= _N);\n\n        long long k = p + N;\n        node[k].set(c);\n\
+    \ assert(0 <= p and p < _N);\n\n        long long k = p + N;\n        node[k].set(c);\n\
     \        rep(i, 1, height) update(k >> i);\n    }\n\n    // \u534A\u958B\u533A\
     \u9593[l, r) (0-indexed)\u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B\n    Hash61\
     \ prod(long long l, long long r) {\n        assert(0 <= l && l <= r && r <= _N);\n\
@@ -544,9 +550,11 @@ data:
   isVerificationFile: false
   path: string/rolling-hash-on-segment-tree.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:24:33+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-04-29 23:10:41+09:00'
+  verificationStatus: LIBRARY_ALL_WA
+  verifiedWith:
+  - test/string/rolling-hash-on-segment-tree/yukicoder-2761.test.cpp
+  - test/string/rolling-hash-on-segment-tree/atcoder-abc331-f.test.cpp
 documentation_of: string/rolling-hash-on-segment-tree.cpp
 layout: document
 redirect_from:

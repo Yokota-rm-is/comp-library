@@ -590,10 +590,10 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/structure/rotatable-binary-indexed-tree/yukicoder-151.test.cpp
-  - test/structure/rotatable-binary-indexed-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/rotatable-binary-indexed-tree/atcoder-abc367-d.test.cpp
-  - test/structure/rotatable-binary-indexed-tree/aoj-dsl-2-g.test.cpp
   - test/structure/rotatable-binary-indexed-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/rotatable-binary-indexed-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/rotatable-binary-indexed-tree/atcoder-abc367-d.test.cpp
+  - test/structure/rotatable-binary-indexed-tree/aoj-dsl-2-b.test.cpp
 documentation_of: structure/rotatable-binary-indexed-tree.cpp
 layout: document
 redirect_from:

@@ -716,16 +716,16 @@ data:
   timestamp: '2025-03-23 19:52:45+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/structure/rotatable-lazy-segment-tree/yukicoder-151.test.cpp
-  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/rotatable-lazy-segment-tree/atcoder-abc367-d.test.cpp
-  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-g.test.cpp
-  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-f.test.cpp
   - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-h.test.cpp
   - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-i.test.cpp
   - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-d.test.cpp
+  - test/structure/rotatable-lazy-segment-tree/yukicoder-151.test.cpp
   - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/rotatable-lazy-segment-tree/atcoder-abc367-d.test.cpp
+  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/rotatable-lazy-segment-tree/aoj-dsl-2-a.test.cpp
 documentation_of: structure/rotatable-lazy-segment-tree.cpp
 layout: document
 redirect_from:

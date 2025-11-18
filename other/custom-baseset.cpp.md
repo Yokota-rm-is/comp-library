@@ -475,8 +475,8 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/custom-baseset/atcoder-abc367-c.test.cpp
   - test/other/custom-baseset/atcoder-abc322-e.test.cpp
+  - test/other/custom-baseset/atcoder-abc367-c.test.cpp
 documentation_of: other/custom-baseset.cpp
 layout: document
 redirect_from:

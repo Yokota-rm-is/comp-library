@@ -487,11 +487,11 @@ data:
   timestamp: '2025-03-23 19:14:58+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/lis-vector/atcoder-abc360-g.test.cpp
   - test/other/lis-vector/atcoder-abc354-f.test.cpp
+  - test/other/lis-vector/atcoder-abc360-g.test.cpp
+  - test/other/lds-vector/atcoder-abc354-f.test.cpp
   - test/other/lds-vector/atcoder-abc360-g.test.cpp
   - test/other/lds-vector/aoj-DPL-1-d.test.cpp
-  - test/other/lds-vector/atcoder-abc354-f.test.cpp
   - test/other/lds-vector/yosupo-longest-increasing-subsequence.test.cpp
 documentation_of: other/lds-vector.cpp
 layout: document

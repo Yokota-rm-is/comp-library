@@ -545,8 +545,8 @@ data:
   verifiedWith:
   - test/other/shakutori/aoj-dsl-3-c.test.cpp
   - test/other/shakutori/atcoder-abc-032-c.test.cpp
-  - test/other/shakutori/atcoder-abc-038-c.test.cpp
   - test/other/shakutori/atcoder-arc022-b.test.cpp
+  - test/other/shakutori/atcoder-abc-038-c.test.cpp
 documentation_of: other/shakutori.cpp
 layout: document
 redirect_from:

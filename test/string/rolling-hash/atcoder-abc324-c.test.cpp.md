@@ -429,12 +429,12 @@ data:
     \ long base = set_base();\n    const unsigned long long base_inv = modinv(base);\n\
     }\n\nstruct Hash61 {\n    unsigned long long hash, hash_rev;\n    unsigned long\
     \ long pow, pow_inv;\n    long long N;\n\n    Hash61() {\n        init();\n  \
-    \  }\n\n    Hash61(string& S) {\n        init();\n        if (S.size() > 0) set(S);\n\
-    \    }\n\n    Hash61(char c) {\n        init();\n        string S(1, c);\n   \
-    \     set(S);\n    }\n\n    void init() {\n        N = 0;\n        hash = 0;\n\
-    \        hash_rev = 0;\n        pow = 1;\n        pow_inv = 1;\n    }\n\n    void\
-    \ set(char c) {\n        string S = string(1, c);\n        set(S);\n    }\n\n\
-    \    void set(string& S) {\n        N = S.size();\n        \n        rep(i, S.size())\
+    \  }\n\n    Hash61(string& S) {\n        if (S.size() > 0) set(S);\n    }\n\n\
+    \    Hash61(char c) {\n        string S(1, c);\n        set(S);\n    }\n\n   \
+    \ void init() {\n        N = 0;\n        hash = 0;\n        hash_rev = 0;\n  \
+    \      pow = 1;\n        pow_inv = 1;\n    }\n\n    void set(char c) {\n     \
+    \   string S = string(1, c);\n        set(S);\n    }\n\n    void set(string& S)\
+    \ {\n        init();\n        N = S.size();\n        \n        rep(i, S.size())\
     \ {\n            unsigned long long c = S[i];\n            hash = _hash61::calc_mod(_hash61::calc_mul(hash,\
     \ _hash61::base) + c);\n            pow = _hash61::calc_mod(_hash61::calc_mul(pow,\
     \ _hash61::base));\n            pow_inv = _hash61::calc_mod(_hash61::calc_mul(pow_inv,\
@@ -451,30 +451,41 @@ data:
     \ other.pow) + other.hash);\n        hash_rev = _hash61::calc_mod(_hash61::calc_mul(other.hash_rev,\
     \ pow) + hash_rev);\n        pow = _hash61::calc_mod(_hash61::calc_mul(pow, other.pow));\n\
     \        pow_inv = _hash61::calc_mod(_hash61::calc_mul(pow_inv, other.pow_inv));\n\
-    \n        N += other.N;\n\n        return *this;\n    }\n\n    bool operator<\
+    \n        N += other.N;\n\n        return *this;\n    }\n\n    friend Hash61 operator+\
+    \ (const Hash61 &lhs, char c) {\n        return Hash61(lhs) += Hash61(c);\n  \
+    \  }\n\n    Hash61& operator+= (char c) noexcept {\n        return *this += Hash61(c);\n\
+    \    }\n\n    friend Hash61 operator+ (const Hash61 &lhs, string &S) {\n     \
+    \   return Hash61(lhs) += Hash61(S);\n    }\n\n    Hash61& operator+= (string\
+    \ &S) noexcept {\n        return *this += Hash61(S);\n    }\n\n    bool operator<\
     \ (const Hash61 &other) const {\n        return (N < other.N) && (hash < other.hash);\n\
     \    }\n\n    bool operator== (const Hash61 &other) const noexcept {\n       \
     \ return (N == other.N) && (hash == other.hash);\n    }\n\n    friend ostream&\
     \ operator<<(ostream &os, const Hash61& h) {\n        return os << h.hash;\n \
     \   }\n};\n\nstruct RollingHash {\n    long long N;\n    vector<Hash61> hashed;\n\
-    \n    RollingHash(const string &S) : N(S.size()) {\n        construct(S);\n  \
-    \  }\n\n    void construct(const string &S) {\n        Hash61 hash;\n\n      \
-    \  hashed.push_back(hash);\n\n        rep(i, N) {\n            hash += S[i];\n\
-    \            hashed.push_back(hash);\n        }\n    }\n\n    Hash61 get() {\n\
-    \        return hashed[N];\n    }\n\n    Hash61 get(long long r) {\n        return\
-    \ hashed[r];\n    }\n\n    // [l, r)\u306E\u30CF\u30C3\u30B7\u30E5\u5024\u3092\
-    \u53D6\u5F97\n    Hash61 get(long long l, long long r) {\n        if (l == 0)\
-    \ return hashed[r];\n\n        Hash61 ret;\n        ret.hash = _hash61::calc_mod(hashed[r].hash\
+    \n    RollingHash() : N(0) {\n        hashed.push_back(Hash61());\n    }\n\n \
+    \   RollingHash(const string &S) : N(0) {\n        hashed.push_back(Hash61());\n\
+    \        construct(S);\n    }\n\n    void construct(const string &S) {\n     \
+    \   rep(i, S.size()) {\n            push_back(S[i]);\n        }\n    }\n\n   \
+    \ void push_back(char c) {\n        hashed.push_back(hashed.back() + c);\n   \
+    \     N++;\n    }\n\n    void pop_back() {\n        if (N == 0) return;\n    \
+    \    hashed.pop_back();\n        N--;\n    }\n\n    Hash61 get() {\n        return\
+    \ hashed.back();\n    }\n\n    Hash61 get(long long r) {\n        assert(0 <=\
+    \ r and r <= N);\n        return hashed[r];\n    }\n\n    // [l, r)\u306E\u30CF\
+    \u30C3\u30B7\u30E5\u5024\u3092\u53D6\u5F97\n    Hash61 get(long long l, long long\
+    \ r) {\n        assert(0 <= l and l <= r and r <= N);\n        if (l == 0) return\
+    \ hashed[r];\n\n        Hash61 ret;\n        ret.hash = _hash61::calc_mod(hashed[r].hash\
     \ + _hash61::MOD - _hash61::calc_mod(_hash61::calc_mul(hashed[l].hash, hashed[r\
     \ - l].pow)));\n        ret.hash_rev = _hash61::calc_mod(_hash61::calc_mul(_hash61::calc_mod(hashed[r].hash_rev\
     \ + _hash61::MOD - hashed[l].hash_rev), hashed[l].pow_inv));\n        ret.N =\
     \ r - l;\n        ret.pow = hashed[r - l].pow;\n        ret.pow_inv = hashed[r\
-    \ - l].pow_inv;\n        return ret;\n    }\n\n    Hash61 insert(long long pos,\
-    \ char c) {\n        return get(pos) + Hash61(c) + get(pos + 1, N);\n    }\n\n\
-    \    Hash61 insert(long long pos, string &S) {\n        return get(pos) + Hash61(S)\
-    \ + get(pos + S.size(), N);\n    }\n\n    Hash61 erase(long long pos) {\n    \
-    \    return get(pos) + get(pos + 1, N);\n    }\n\n    Hash61 erase(long long l,\
-    \ long long r) {\n        return get(l) + get(r, N);\n    }\n\n    Hash61 replace(long\
+    \ - l].pow_inv;\n        return ret;\n    }\n\n    // [0, pos)\u3068[pos, N)\u306E\
+    \u9593\u306Bc\u3092\u633F\u5165\u3057\u305F\u30CF\u30C3\u30B7\u30E5\u5024\u3092\
+    \u53D6\u5F97\n    Hash61 insert(long long pos, char c) {\n        assert(0 <=\
+    \ pos and pos <= N);\n        return get(pos) + Hash61(c) + get(pos, N);\n   \
+    \ }\n\n    Hash61 insert(long long pos, string &S) {\n        return get(pos)\
+    \ + Hash61(S) + get(pos, N);\n    }\n\n    Hash61 erase(long long pos) {\n   \
+    \     return get(pos) + get(pos + 1, N);\n    }\n\n    Hash61 erase(long long\
+    \ l, long long r) {\n        return get(l) + get(r, N);\n    }\n\n    Hash61 replace(long\
     \ long pos, char c) {\n        return get(pos) + Hash61(c) + get(pos + 1, N);\n\
     \    }\n\n    Hash61 replace(long long l, long long r, string &S) {\n        return\
     \ get(l) + Hash61(S) + get(r, N);\n    }\n\n    Hash61 reverse() {\n        return\
@@ -564,7 +575,7 @@ data:
   isVerificationFile: true
   path: test/string/rolling-hash/atcoder-abc324-c.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:57:11+09:00'
+  timestamp: '2025-03-30 02:18:23+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/string/rolling-hash/atcoder-abc324-c.test.cpp

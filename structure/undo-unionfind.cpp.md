@@ -477,8 +477,8 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/structure/undo-unionfind/aoj-dsl-1-a.test.cpp
   - test/structure/undo-unionfind/yosupo-persistent-unionfind.test.cpp
+  - test/structure/undo-unionfind/aoj-dsl-1-a.test.cpp
 documentation_of: structure/undo-unionfind.cpp
 layout: document
 redirect_from:

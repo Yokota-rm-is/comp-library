@@ -505,8 +505,8 @@ data:
   timestamp: '2025-03-23 18:23:57+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/tsp/atcoder-abc190-e.test.cpp
   - test/graph/tsp/atcoder-abc338-f.test.cpp
+  - test/graph/tsp/atcoder-abc190-e.test.cpp
 documentation_of: graph/tsp.cpp
 layout: document
 redirect_from:

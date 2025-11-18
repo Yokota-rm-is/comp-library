@@ -469,8 +469,8 @@ data:
   timestamp: '2025-03-23 18:06:07+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/dfs-bipartite/atcoder-abc396-e.test.cpp
   - test/graph/dfs-bipartite/atcoder-abc327-d.test.cpp
+  - test/graph/dfs-bipartite/atcoder-abc396-e.test.cpp
 documentation_of: graph/dfs-bipartite.cpp
 layout: document
 redirect_from:

@@ -402,46 +402,42 @@ data:
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"graph/flow.cpp\"\n\n/**\n * @brief Flow(\u6700\
-    \u5927\u30FB\u6700\u5C0F\u6D41)\n*/\n\ntemplate<typename Cost, typename Cap, bool\
-    \ minimize = true>\nstruct MinCostFlow {\n    struct Edge {\n        long long\
-    \ from;\n        long long to;\n        Cost cost;\n        Cap cap, flow;\n \
-    \       long long idx;\n        long long rev;\n        \n        explicit Edge(long\
-    \ long u = -1, long long v = -1, Cost cost = 0, Cap cap = 0, long long i = 0,\
-    \ long long rev = 0) : from(u), to(v), cost(cost), cap(cap), flow(0), idx(i),\
-    \ rev(rev) {};\n\n        bool operator < (const Edge& other) const {\n      \
-    \      if (from == other.from) {\n                return to < other.to;\n    \
-    \        }\n            else return from < other.from;\n        }\n\n        friend\
-    \ ostream& operator << (ostream& os, const Edge& edge) {\n            return os\
-    \ << edge.to;\n        }\n    };\n\n    long long V;\n    vector<vector<Edge>>\
-    \ G;\n    long long coeff = 1;\n\n    long long edge_index = 0;\n    vector<Edge>\
-    \ edges;\n\n    // maxflow\u7528\n    vector<long long> level;\n\n    // mincostflow\u7528\
-    \n    vector<Cost> dual;\n    vector<long long> prevv, preve;\n    Cap cur_flow;\n\
-    \    Cap cur_cost, pre_cost;\n    vector<pair<Cap, Cost>> min_cost_slope;\n\n\
-    \    MinCostFlow(long long N) : V(N), G(V) {\n        init();\n    };\n    \n\
-    \    void init() {\n        if (!minimize) coeff = -1;\n\n        cur_flow = 0;\n\
-    \        cur_cost = 0;\n        pre_cost = -1;\n\n        level.assign(V, -1);\n\
-    \        dual.assign(V, 0);\n        prevv.assign(V, -1);\n        preve.assign(V,\
+    \u5927\u30FB\u6700\u5C0F\u6D41)\n*/\n\ntemplate<typename Cost, typename Cap>\n\
+    struct MinCostFlow {\n    struct Edge {\n        long long from;\n        long\
+    \ long to;\n        Cost cost;\n        Cap cap, flow;\n        long long idx;\n\
+    \        long long rev;\n        \n        explicit Edge(long long u = -1, long\
+    \ long v = -1, Cost cost = 0, Cap cap = 0, long long i = 0, long long rev = 0)\
+    \ : from(u), to(v), cost(cost), cap(cap), flow(0), idx(i), rev(rev) {};\n\n  \
+    \      bool operator < (const Edge& other) const {\n            if (from == other.from)\
+    \ {\n                return to < other.to;\n            }\n            else return\
+    \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
+    \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
+    \n    long long V;\n    vector<vector<Edge>> G;\n\n    long long edge_index =\
+    \ 0;\n    vector<Edge> edges;\n\n    // maxflow\u7528\n    vector<long long> level;\n\
+    \n    // mincostflow\u7528\n    vector<Cost> dual;\n    vector<long long> prevv,\
+    \ preve;\n    Cap cur_flow;\n    Cap cur_cost, pre_cost;\n    vector<pair<pair<Cap,\
+    \ Cap>, pair<Cost, Cost>>> min_cost_slope;\n\n    MinCostFlow(long long N) : V(N),\
+    \ G(V) {\n        init();\n    };\n    \n    void init() {\n        cur_flow =\
+    \ 0;\n        cur_cost = 0;\n        pre_cost = -1;\n\n        level.assign(V,\
+    \ -1);\n        dual.assign(V, 0);\n        prevv.assign(V, -1);\n        preve.assign(V,\
     \ -1);\n    }\n\n    void connect(long long from, long long to, Cap cap) {\n \
-    \       assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\
-    \n        long long from_id = G[from].size();\n        long long to_id = G[to].size();\n\
-    \n        edges.emplace_back(from, to, 0, cap, edge_index);\n\n        G[from].emplace_back(from,\
-    \ to, 0, cap, edge_index, to_id);\n        G[to].emplace_back(to, from, 0, 0,\
-    \ edge_index, from_id);\n\n        ++edge_index;\n    }\n    \n    void connect(long\
-    \ long from, long long to, Cost cost, Cap upper_limit, Cap lower_limit = 0) {\n\
-    \        assert(0 <= from and from < V);\n        assert(0 <= to and to < V);\n\
-    \n        long long from_id = G[from].size();\n        long long to_id = G[to].size();\n\
-    \n        edges.emplace_back(from, to, cost * coeff, upper_limit, edge_index);\n\
-    \n        G[from].emplace_back(from, to, cost * coeff, upper_limit, edge_index,\
-    \ to_id);\n        G[to].emplace_back(to, from, -cost * coeff, -lower_limit, edge_index,\
-    \ from_id);\n\n        ++edge_index;\n    }\n\n    Cap dfs(long long v, long long\
-    \ s, long long t, Cap flow) {\n        if (v == s) return flow;\n\n        Cap\
-    \ res = 0;\n        long long level_v = level[v];\n        vector<long long> iter(V,\
-    \ 0);\n\n        for (long long& i = iter[v]; i < (long long)(G[v].size()); ++i)\
-    \ {\n            Edge& e = G[v][i];\n            long long next = e.to;\n\n  \
-    \          if (level_v <= level[next] || G[next][e.rev].cap == 0) continue;\n\n\
-    \            Cap d = dfs(next, s, t, min(flow - res, G[next][e.rev].cap));\n\n\
-    \            if (d <= 0) continue;\n\n            G[v][i].cap += d;\n        \
-    \    G[next][e.rev].cap -= d;\n            res += d;\n\n            if (res ==\
+    \       connect(from, to, 0, cap, 0);\n    }\n\n    void connect(long long from,\
+    \ long long to, Cap upper_limit, Cost cost) {\n        connect(from, to, 0, upper_limit,\
+    \ cost);\n    }\n\n    void connect(long long from, long long to, Cap lower_limit,\
+    \ Cap upper_limit, Cost cost) {\n        assert(0 <= from and from < V);\n   \
+    \     assert(0 <= to and to < V);\n\n        long long from_id = G[from].size();\n\
+    \        long long to_id = G[to].size();\n\n        edges.emplace_back(from, to,\
+    \ cost, upper_limit, edge_index);\n\n        G[from].emplace_back(from, to, cost,\
+    \ upper_limit, edge_index, to_id);\n        G[to].emplace_back(to, from, -cost,\
+    \ -lower_limit, edge_index, from_id);\n\n        ++edge_index;\n    }\n\n    Cap\
+    \ dfs(long long v, long long s, long long t, Cap flow) {\n        if (v == s)\
+    \ return flow;\n\n        Cap res = 0;\n        long long level_v = level[v];\n\
+    \        vector<long long> iter(V, 0);\n\n        for (long long& i = iter[v];\
+    \ i < (long long)(G[v].size()); ++i) {\n            Edge& e = G[v][i];\n     \
+    \       long long next = e.to;\n\n            if (level_v <= level[next] || G[next][e.rev].cap\
+    \ == 0) continue;\n\n            Cap d = dfs(next, s, t, min(flow - res, G[next][e.rev].cap));\n\
+    \n            if (d <= 0) continue;\n\n            G[v][i].cap += d;\n       \
+    \     G[next][e.rev].cap -= d;\n            res += d;\n\n            if (res ==\
     \ flow) return res;\n        }\n\n        level[v] = V;\n        return res;\n\
     \    }\n\n    void bfs(long long s, long long t) {\n        assert(0 <= s and\
     \ s < V);\n        assert(0 <= t and t < V);\n\n        queue<long long> que;\n\
@@ -475,22 +471,25 @@ data:
     \     auto& _re = G[_e.to][_e.rev];\n        _e.cap = new_cap - new_flow;\n  \
     \      _re.cap = new_flow;\n    }\n\n    // max_flow(s, t)\u5F8C\u306B\u4F7F\u7528\
     \u3059\u308B\u3053\u3068\u3067s,t\u9593\u306E\u6700\u5C0F\u30AB\u30C3\u30C8\u3092\
-    \u8FD4\u3059\n    vector<bool> min_cut(long long s) {\n        vector<bool> visited(V);\n\
-    \n        queue<long long> que;\n        que.push(s);\n        \n        while\
-    \ (!que.empty()) {\n            long long p = que.front();\n            que.pop();\n\
-    \            visited[p] = true;\n\n            fore(e, G[p]) {\n             \
-    \   if (e.cap && !visited[e.to]) {\n                    visited[e.to] = true;\n\
-    \                    que.push(e.to);\n                }\n            }\n     \
-    \   }\n        return visited;\n    }\n\n    pair<Cap, Cost> min_cost_flow(long\
-    \ long s, long long t) {\n        return min_cost_flow(s, t, numeric_limits<Cap>::max());\n\
-    \    }\n    \n    pair<Cap, Cost> min_cost_flow(long long s, long long t, Cap\
-    \ flow_limit) {\n        return slope(s, t, flow_limit).back();\n    }\n\n   \
-    \ vector<pair<Cap, Cost>> slope(long long s, long long t) {\n        return slope(s,\
-    \ t, numeric_limits<Cap>::max());\n    }\n\n    vector<pair<Cap, Cost>> slope(long\
-    \ long s, long long t, Cap flow_limit) {\n        assert(0 <= s && s < V);\n \
-    \       assert(0 <= t && t < V);\n        assert(s != t);\n\n        min_cost_slope.emplace_back(cur_flow,\
-    \ cur_cost);\n        \n        // primal-dual\n        while (cur_flow < flow_limit)\
-    \ {\n            if (!dual_step(s, t)) break;\n            primal_step(s, t, flow_limit);\n\
+    \u8FD4\u3059\n    // ret[i] = true\u306A\u3089\u3070\u9802\u70B9i\u306Fs\u304B\
+    \u3089\u5230\u9054\u53EF\u80FD\n    vector<bool> min_cut(long long s) {\n    \
+    \    vector<bool> visited(V);\n\n        queue<long long> que;\n        que.push(s);\n\
+    \        \n        while (!que.empty()) {\n            long long p = que.front();\n\
+    \            que.pop();\n            visited[p] = true;\n\n            fore(e,\
+    \ G[p]) {\n                if (e.cap && !visited[e.to]) {\n                  \
+    \  visited[e.to] = true;\n                    que.push(e.to);\n              \
+    \  }\n            }\n        }\n        return visited;\n    }\n\n    pair<Cap,\
+    \ Cost> min_cost_flow(long long s, long long t) {\n        return min_cost_flow(s,\
+    \ t, numeric_limits<Cap>::max());\n    }\n    \n    pair<Cap, Cost> min_cost_flow(long\
+    \ long s, long long t, Cap flow_limit) {\n        Cap f = slope(s, t, flow_limit).back().first.second;\n\
+    \        auto [a, b] = slope(s, t, flow_limit).back().second;\n        Cost c\
+    \ = a * f + b;\n        return {f, c};\n    }\n\n    vector<pair<pair<Cap, Cap>,\
+    \ pair<Cost, Cost>>> slope(long long s, long long t) {\n        return slope(s,\
+    \ t, numeric_limits<Cap>::max());\n    }\n\n    vector<pair<pair<Cap, Cap>, pair<Cost,\
+    \ Cost>>> slope(long long s, long long t, Cap flow_limit) {\n        assert(0\
+    \ <= s && s < V);\n        assert(0 <= t && t < V);\n        assert(s != t);\n\
+    \        \n        // primal-dual\n        while (cur_flow < flow_limit) {\n \
+    \           if (!dual_step(s, t)) break;\n            primal_step(s, t, flow_limit);\n\
     \        }\n        return min_cost_slope;\n    }\n\n    bool dual_step(long long\
     \ s, long long t) {\n        priority_queue<pair<Cost, long long>, vector<pair<Cost,\
     \ long long>>, greater<>> que;\n        que.emplace(0, s);\n\n        vector<Cost>\
@@ -511,11 +510,12 @@ data:
     \ {\n            flow = min(flow, G[prevv[v]][preve[v]].cap);\n        }\n\n \
     \       for (long long v = t; v != s; v = prevv[v]) {\n            auto &e = G[prevv[v]][preve[v]];\n\
     \            auto &re = G[e.to][e.rev];\n            e.cap -= flow, e.flow +=\
-    \ flow;\n            re.cap += flow, re.flow -= flow;\n        }\n\n        cur_flow\
-    \ += flow;\n        cur_cost += flow * cost;\n\n        if (pre_cost == cost)\
-    \ min_cost_slope.pop_back();\n        min_cost_slope.emplace_back(cur_flow, cur_cost);\n\
-    \        pre_cost = cur_cost;\n    }\n};\n\ntemplate<typename Cost, typename Cap>\n\
-    using MaxGainFlow = MinCostFlow<Cost, Cap, false>;\n#line 4 \"test/graph/flow/aoj-grl-6-a.test.cpp\"\
+    \ flow;\n            re.cap += flow, re.flow -= flow;\n        }\n\n        if\
+    \ (pre_cost == cost) {\n            min_cost_slope.back().first.second += flow;\n\
+    \        }\n        else {\n            min_cost_slope.emplace_back(pair<Cap,\
+    \ Cap>(cur_flow, cur_flow + flow), pair<Cost, Cost>(cost, cur_cost - cur_flow\
+    \ * cost));\n        }\n\n        cur_flow += flow;\n        cur_cost += flow\
+    \ * cost;\n        pre_cost = cost;\n    }\n};\n#line 4 \"test/graph/flow/aoj-grl-6-a.test.cpp\"\
     \n\nint main() {\n    ll V, E;\n    cin >> V >> E;\n\n    MinCostFlow<ll, ll>\
     \ graph(V);\n    rep(i, E) {\n        ll u, v, c;\n        cin >> u >> v >> c;\n\
     \n        graph.connect(u, v, c);\n    }\n\n    long long ans = graph.max_flow(0,\
@@ -532,7 +532,7 @@ data:
   isVerificationFile: true
   path: test/graph/flow/aoj-grl-6-a.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:03:13+09:00'
+  timestamp: '2025-11-16 21:51:05+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/graph/flow/aoj-grl-6-a.test.cpp

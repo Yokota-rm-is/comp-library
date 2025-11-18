@@ -405,12 +405,13 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"math/root-floor.cpp\"\n\nlong long root_floor(long\
-    \ long x, long long n) {\n    if (n == 0) return 1;\n    if (n == 1) return x;\n\
-    \n    long long left = 1, right = llround(pow((double)INF64, 1. / n));\n    __int128_t\
-    \ x_ = x;\n    __int128_t y_ = binpow<__int128_t>(right, n);\n    if (y_ <= x_)\
-    \ return right;\n  \n    while (right - left > 1) {\n        long long mid = (left\
-    \ + right) / 2;\n        long long y = binpow(mid, n);\n        if (y <= x) left\
+    \    return result;\n}\n#line 3 \"math/root-floor.cpp\"\n\nunsigned long long\
+    \ root_floor(unsigned long long x, unsigned long long n) {\n    if (n == 0) return\
+    \ 1;\n    if (n == 1) return x;\n\n    unsigned long long left = 0, right = floor(pow((double)numeric_limits<unsigned\
+    \ long long>::max(), 1. / n));\n    __uint128_t x_ = x;\n    __uint128_t y_ =\
+    \ binpow<__uint128_t>(right, n);\n    if (y_ <= x_) return right;\n  \n    while\
+    \ (right - left > 1) {\n        unsigned long long mid = midpoint(left, right);\n\
+    \        __uint128_t y = binpow<__uint128_t>(mid, n);\n        if (y <= x_) left\
     \ = mid;\n        else right = mid;\n    }\n    \n    return left;\n}\n#line 3\
     \ \"math/is-prime.cpp\"\n\nbool is_prime(long long N) {\n    if (N < 2) return\
     \ false;\n    if (N == 2) return true;\n    if (N % 2 == 0) return false;\n  \
@@ -447,7 +448,7 @@ data:
   isVerificationFile: true
   path: test/math/root-floor/atcoder-abc361-f.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:08:07+09:00'
+  timestamp: '2025-05-21 13:35:39+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/math/root-floor/atcoder-abc361-f.test.cpp

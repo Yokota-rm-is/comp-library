@@ -13,6 +13,9 @@ data:
     path: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
     title: test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
   - icon: ':x:'
+    path: test/structure/implicit-treap/atcoder-abc350-f.test.cpp
+    title: test/structure/implicit-treap/atcoder-abc350-f.test.cpp
+  - icon: ':x:'
     path: test/structure/splay-tree/atcoder-abc350-f.test.cpp
     title: test/structure/splay-tree/atcoder-abc350-f.test.cpp
   _isVerificationFailed: true
@@ -588,6 +591,7 @@ data:
   verifiedWith:
   - test/structure/dual-segment-tree/aoj-dsl-2-d.test.cpp
   - test/structure/dual-segment-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/implicit-treap/atcoder-abc350-f.test.cpp
   - test/structure/splay-tree/atcoder-abc350-f.test.cpp
 documentation_of: structure/dual-segment-tree.cpp
 layout: document

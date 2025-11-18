@@ -5,10 +5,13 @@ data:
     path: base.cpp
     title: base.cpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _extendedVerifiedWith:
+  - icon: ':x:'
+    path: test/other/rotatable-set-2d/atcoder-abc398-d.test.cpp
+    title: test/other/rotatable-set-2d/atcoder-abc398-d.test.cpp
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n\
@@ -395,88 +398,85 @@ data:
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"other/rotatable-set-2d.cpp\"\n\ntemplate <typename\
     \ T>\nstruct RotatableSet2D {\n    set<pair<T, T>> original;\n    long long H,\
-    \ W;\n    pair<T, T> offset, offset_key;\n\n    RotatableSet2D() : H(0), W(0),\
-    \ offset(0, 0), offset_key(0, 0) {}\n    RotatableSet2D(long long h, long long\
-    \ w) : H(h), W(w), offset(0, 0), offset_key(0, 0) {}\n    RotatableSet2D(set<pair<T,\
-    \ T>> st, long long h = 0, long long w = 0) : original(st), H(h), W(w), offset(0,\
-    \ 0), offset_key(0, 0) {}\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\
-    \u5024\u3092x\u6E1B\u3089\u3059\n    // \u4F8B: rotate_left(1) \u3067 mp[0][0]\u304C\
-    original[0][1]\u3092\u6307\u3059\n    // (original[0][1]\u3092mp[0][0]\u306B\u79FB\
-    \u52D5(\u5DE6\u56DE\u8EE2))\n    pair<T, T> rotate_left(T x) {\n        offset.second\
-    \ += x;\n        if (W > 0) offset.second %= W;\n        return offset;\n    }\n\
-    \n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u5897\u3084\
-    \u3059\n    // \u4F8B: rotate_right(1) \u3067 mp[0][1]\u304Coriginal[0][0]\u3092\
-    \u6307\u3059\n    // (original[0][0]\u3092mp[0][1]\u306B\u79FB\u52D5(\u53F3\u56DE\
-    \u8EE2))\n    pair<T, T> rotate_right(T x) {\n        if (W > 0) x %= W;\n   \
-    \     offset.second += W - x;\n        if (W > 0) offset.second %= W;\n      \
-    \  return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\
-    \u5024\u3092y\u6E1B\u3089\u3059\n    // \u4F8B: rotate_up(1) \u3067 mp[0][0]\u304C\
-    original[1][0]\u3092\u6307\u3059\n    // (original[1][0]\u3092mp[0][0]\u306B\u79FB\
-    \u52D5(\u4E0A\u56DE\u8EE2))\n    pair<T, T> rotate_up(T y) {\n        offset.first\
-    \ += y;\n        if (H > 0) offset.first %= H;\n        return offset;\n    }\n\
-    \n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092y\u5897\u3084\
-    \u3059\n    // \u4F8B: rotate_down(1) \u3067 mp[1][0]\u304Coriginal[0][0]\u3092\
-    \u6307\u3059\n    // (original[0][0]\u3092mp[1][0]\u306B\u79FB\u52D5(\u4E0B\u56DE\
-    \u8EE2))\n    pair<T, T> rotate_down(T y) {\n        if (H > 0) y %= H;\n    \
-    \    offset.first += H - y;\n        if (H > 0) offset.first %= H;\n        return\
-    \ offset;\n    }\n\n    void insert(pair<T, T> key) {\n        key.first += offset.first;\n\
-    \        key.second += offset.second;\n        if (H > 0) key.first %= H;\n  \
-    \      if (W > 0) key.second %= W;\n        original.insert(key);\n    }\n\n \
-    \   void insert(T y, T x) {\n        insert({y, x});\n    }\n\n    void erase(pair<T,\
-    \ T> key) {\n        key.first += offset.first;\n        key.second += offset.second;\n\
-    \        if (H > 0) key.first %= H;\n        if (W > 0) key.second %= W;\n   \
-    \     original.erase(key);\n    }\n\n    void erase(T y, T x) {\n        erase({y,\
-    \ x});\n    }\n\n    bool contains(pair<T, T> key) const {\n        key.first\
-    \ += offset.first;\n        key.second += offset.second;\n        if (H > 0) key.first\
-    \ %= H;\n        if (W > 0) key.second %= W;\n        return original.contains(key);\n\
-    \    }\n\n    bool contains(T y, T x) const {\n        return contains({y, x});\n\
-    \    }\n};\n"
+    \ W;\n    pair<T, T> offset_key;\n\n    RotatableSet2D() : H(0), W(0), offset_key(0,\
+    \ 0) {}\n    RotatableSet2D(long long h, long long w) : H(h), W(w), offset_key(0,\
+    \ 0) {}\n    RotatableSet2D(set<pair<T, T>> st, long long h = 0, long long w =\
+    \ 0) : original(st), H(h), W(w), offset_key(0, 0) {}\n\n    // key\u306E\u5024\
+    \u3092x\u5897\u3084\u3059\n    // (key_y, key_x)    : (3, 2), (1, 7), (4, 1),\
+    \ (1, 8), (5, 2), (9, 8)\n    // (key_y, key_x + 1): (3, 3), (1, 8), (4, 2), (1,\
+    \ 9), (5, 3), (9, 9)\n    pair<T, T> add_key_x(T x) {\n        offset_key.second\
+    \ += x;\n        if (W > 0) offset_key.second %= W;\n        return offset_key;\n\
+    \    }\n\n    // key\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // (key_y, key_x)\
+    \    : (3, 2), (1, 7), (4, 1), (1, 8), (5, 2), (9, 8)\n    // (key_y, key_x -\
+    \ 1): (3, 1), (1, 6), (4, 0), (1, 7), (5, 1), (9, 7)\n    pair<T, T> subtract_key_x(T\
+    \ x) {\n        if (W > 0) x %= W;\n        offset_key.second += W - x;\n    \
+    \    if (W > 0) offset_key.second %= W;\n        return offset_key;\n    }\n\n\
+    \    // key\u306E\u5024\u3092y\u5897\u3084\u3059\n    // (key_y, key_x)    : (3,\
+    \ 2), (1, 7), (4, 1), (1, 8), (5, 2), (9, 8)\n    // (key_y + 1, key_x): (4, 2),\
+    \ (2, 7), (5, 1), (2, 8), (6, 2), (10, 8)\n    pair<T, T> add_key_y(T y) {\n \
+    \       offset_key.first += y;\n        if (H > 0) offset_key.first %= H;\n  \
+    \      return offset_key;\n    }\n\n    // key\u306E\u5024\u3092y\u6E1B\u3089\u3059\
+    \n    // (key_y, key_x)    : (3, 2), (1, 7), (4, 1), (1, 8), (5, 2), (9, 8)\n\
+    \    // (key_y - 1, key_x): (2, 2), (0, 7), (3, 1), (0, 8), (4, 2), (8, 8)\n \
+    \   pair<T, T> subtract_key_y(T y) {\n        if (H > 0) y %= H;\n        offset_key.first\
+    \ += H - y;\n        if (H > 0) offset_key.first %= H;\n        return offset_key;\n\
+    \    }\n\n    void insert(pair<T, T> key) {\n        key.first += H - offset_key.first;\n\
+    \        key.second += W - offset_key.second;\n        if (H > 0) key.first %=\
+    \ H;\n        if (W > 0) key.second %= W;\n        original.insert(key);\n   \
+    \ }\n\n    void insert(T y, T x) {\n        insert({y, x});\n    }\n\n    void\
+    \ erase(pair<T, T> key) {\n        key.first += H - offset_key.first;\n      \
+    \  key.second += W - offset_key.second;\n        if (H > 0) key.first %= H;\n\
+    \        if (W > 0) key.second %= W;\n        original.erase(key);\n    }\n\n\
+    \    void erase(T y, T x) {\n        erase({y, x});\n    }\n\n    bool contains(pair<T,\
+    \ T> key) const {\n        key.first += H - offset_key.first;\n        key.second\
+    \ += W - offset_key.second;\n        if (H > 0) key.first %= H;\n        if (W\
+    \ > 0) key.second %= W;\n        return original.contains(key);\n    }\n\n   \
+    \ bool contains(T y, T x) const {\n        return contains({y, x});\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct RotatableSet2D\
-    \ {\n    set<pair<T, T>> original;\n    long long H, W;\n    pair<T, T> offset,\
-    \ offset_key;\n\n    RotatableSet2D() : H(0), W(0), offset(0, 0), offset_key(0,\
-    \ 0) {}\n    RotatableSet2D(long long h, long long w) : H(h), W(w), offset(0,\
-    \ 0), offset_key(0, 0) {}\n    RotatableSet2D(set<pair<T, T>> st, long long h\
-    \ = 0, long long w = 0) : original(st), H(h), W(w), offset(0, 0), offset_key(0,\
-    \ 0) {}\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u6E1B\
-    \u3089\u3059\n    // \u4F8B: rotate_left(1) \u3067 mp[0][0]\u304Coriginal[0][1]\u3092\
-    \u6307\u3059\n    // (original[0][1]\u3092mp[0][0]\u306B\u79FB\u52D5(\u5DE6\u56DE\
-    \u8EE2))\n    pair<T, T> rotate_left(T x) {\n        offset.second += x;\n   \
-    \     if (W > 0) offset.second %= W;\n        return offset;\n    }\n\n    //\
-    \ \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092x\u5897\u3084\u3059\
-    \n    // \u4F8B: rotate_right(1) \u3067 mp[0][1]\u304Coriginal[0][0]\u3092\u6307\
-    \u3059\n    // (original[0][0]\u3092mp[0][1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2\
-    ))\n    pair<T, T> rotate_right(T x) {\n        if (W > 0) x %= W;\n        offset.second\
-    \ += W - x;\n        if (W > 0) offset.second %= W;\n        return offset;\n\
-    \    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092y\u6E1B\
-    \u3089\u3059\n    // \u4F8B: rotate_up(1) \u3067 mp[0][0]\u304Coriginal[1][0]\u3092\
-    \u6307\u3059\n    // (original[1][0]\u3092mp[0][0]\u306B\u79FB\u52D5(\u4E0A\u56DE\
-    \u8EE2))\n    pair<T, T> rotate_up(T y) {\n        offset.first += y;\n      \
-    \  if (H > 0) offset.first %= H;\n        return offset;\n    }\n\n    // \u53C2\
-    \u7167\u3059\u308B\u969B\u306Ekey\u306E\u5024\u3092y\u5897\u3084\u3059\n    //\
-    \ \u4F8B: rotate_down(1) \u3067 mp[1][0]\u304Coriginal[0][0]\u3092\u6307\u3059\
-    \n    // (original[0][0]\u3092mp[1][0]\u306B\u79FB\u52D5(\u4E0B\u56DE\u8EE2))\n\
-    \    pair<T, T> rotate_down(T y) {\n        if (H > 0) y %= H;\n        offset.first\
-    \ += H - y;\n        if (H > 0) offset.first %= H;\n        return offset;\n \
-    \   }\n\n    void insert(pair<T, T> key) {\n        key.first += offset.first;\n\
-    \        key.second += offset.second;\n        if (H > 0) key.first %= H;\n  \
-    \      if (W > 0) key.second %= W;\n        original.insert(key);\n    }\n\n \
-    \   void insert(T y, T x) {\n        insert({y, x});\n    }\n\n    void erase(pair<T,\
-    \ T> key) {\n        key.first += offset.first;\n        key.second += offset.second;\n\
+    \ {\n    set<pair<T, T>> original;\n    long long H, W;\n    pair<T, T> offset_key;\n\
+    \n    RotatableSet2D() : H(0), W(0), offset_key(0, 0) {}\n    RotatableSet2D(long\
+    \ long h, long long w) : H(h), W(w), offset_key(0, 0) {}\n    RotatableSet2D(set<pair<T,\
+    \ T>> st, long long h = 0, long long w = 0) : original(st), H(h), W(w), offset_key(0,\
+    \ 0) {}\n\n    // key\u306E\u5024\u3092x\u5897\u3084\u3059\n    // (key_y, key_x)\
+    \    : (3, 2), (1, 7), (4, 1), (1, 8), (5, 2), (9, 8)\n    // (key_y, key_x +\
+    \ 1): (3, 3), (1, 8), (4, 2), (1, 9), (5, 3), (9, 9)\n    pair<T, T> add_key_x(T\
+    \ x) {\n        offset_key.second += x;\n        if (W > 0) offset_key.second\
+    \ %= W;\n        return offset_key;\n    }\n\n    // key\u306E\u5024\u3092x\u6E1B\
+    \u3089\u3059\n    // (key_y, key_x)    : (3, 2), (1, 7), (4, 1), (1, 8), (5, 2),\
+    \ (9, 8)\n    // (key_y, key_x - 1): (3, 1), (1, 6), (4, 0), (1, 7), (5, 1), (9,\
+    \ 7)\n    pair<T, T> subtract_key_x(T x) {\n        if (W > 0) x %= W;\n     \
+    \   offset_key.second += W - x;\n        if (W > 0) offset_key.second %= W;\n\
+    \        return offset_key;\n    }\n\n    // key\u306E\u5024\u3092y\u5897\u3084\
+    \u3059\n    // (key_y, key_x)    : (3, 2), (1, 7), (4, 1), (1, 8), (5, 2), (9,\
+    \ 8)\n    // (key_y + 1, key_x): (4, 2), (2, 7), (5, 1), (2, 8), (6, 2), (10,\
+    \ 8)\n    pair<T, T> add_key_y(T y) {\n        offset_key.first += y;\n      \
+    \  if (H > 0) offset_key.first %= H;\n        return offset_key;\n    }\n\n  \
+    \  // key\u306E\u5024\u3092y\u6E1B\u3089\u3059\n    // (key_y, key_x)    : (3,\
+    \ 2), (1, 7), (4, 1), (1, 8), (5, 2), (9, 8)\n    // (key_y - 1, key_x): (2, 2),\
+    \ (0, 7), (3, 1), (0, 8), (4, 2), (8, 8)\n    pair<T, T> subtract_key_y(T y) {\n\
+    \        if (H > 0) y %= H;\n        offset_key.first += H - y;\n        if (H\
+    \ > 0) offset_key.first %= H;\n        return offset_key;\n    }\n\n    void insert(pair<T,\
+    \ T> key) {\n        key.first += H - offset_key.first;\n        key.second +=\
+    \ W - offset_key.second;\n        if (H > 0) key.first %= H;\n        if (W >\
+    \ 0) key.second %= W;\n        original.insert(key);\n    }\n\n    void insert(T\
+    \ y, T x) {\n        insert({y, x});\n    }\n\n    void erase(pair<T, T> key)\
+    \ {\n        key.first += H - offset_key.first;\n        key.second += W - offset_key.second;\n\
     \        if (H > 0) key.first %= H;\n        if (W > 0) key.second %= W;\n   \
     \     original.erase(key);\n    }\n\n    void erase(T y, T x) {\n        erase({y,\
     \ x});\n    }\n\n    bool contains(pair<T, T> key) const {\n        key.first\
-    \ += offset.first;\n        key.second += offset.second;\n        if (H > 0) key.first\
-    \ %= H;\n        if (W > 0) key.second %= W;\n        return original.contains(key);\n\
-    \    }\n\n    bool contains(T y, T x) const {\n        return contains({y, x});\n\
-    \    }\n};"
+    \ += H - offset_key.first;\n        key.second += W - offset_key.second;\n   \
+    \     if (H > 0) key.first %= H;\n        if (W > 0) key.second %= W;\n      \
+    \  return original.contains(key);\n    }\n\n    bool contains(T y, T x) const\
+    \ {\n        return contains({y, x});\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: other/rotatable-set-2d.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:16:35+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-11-16 17:48:47+09:00'
+  verificationStatus: LIBRARY_ALL_WA
+  verifiedWith:
+  - test/other/rotatable-set-2d/atcoder-abc398-d.test.cpp
 documentation_of: other/rotatable-set-2d.cpp
 layout: document
 redirect_from:

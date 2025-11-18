@@ -403,43 +403,45 @@ data:
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"mystd/myset.cpp\"\n\n// \u53C2\u8003:https://github.com/kazuma8128/procon-lib/blob/master/Structure/binary_search_tree/red_black_tree/normal/set.cpp\n\
     template <typename T, bool multi = false>\nstruct RedBlackTree {\n    using Color\
-    \ = bool;\n\tstatic const Color RED = false, BLACK = true;\n\n    struct Node\
-    \ {\n\t\tColor color = BLACK;\n\t\tlong long size = 0;\n        long long unique_size\
-    \ = 0;\n        long long count = 0;\n\t\tT val = T(), sum = T();\n\t\tNode *p\
-    \ = 0, *ch[2] = {0, 0};\n\n        operator T() const {\n            return val;\n\
-    \        }\n\t};\n\n    struct iterator {\n        Node *node;\n        RedBlackTree\
-    \ *rbt;\n\n        iterator(Node *n, RedBlackTree *tree) : node(n), rbt(tree)\
-    \ {}\n\n        iterator& operator++() {\n            node = rbt->next(node);\n\
-    \            return *this;\n        }\n\n        iterator& operator--() {\n  \
-    \          node = rbt->prev(node);\n            return *this;\n        }\n\n \
-    \       T operator*() const {\n            return node->val;\n        }\n\n  \
-    \      bool operator==(const iterator &it) const {\n            return node ==\
-    \ it.node;\n        }\n\n        bool operator!=(const iterator &it) const {\n\
-    \            return node != it.node;\n        }\n    };\n\n    struct reverse_iterator\
-    \ {\n        Node *node;\n        RedBlackTree *rbt;\n\n        reverse_iterator(Node\
-    \ *n, RedBlackTree *tree) : node(n), rbt(tree) {}\n\n        reverse_iterator&\
-    \ operator++() {\n            node = rbt->prev(node);\n            return *this;\n\
-    \        }\n\n        reverse_iterator& operator--() {\n            node = rbt->next(node);\n\
+    \ = bool;\n    static const Color RED = false, BLACK = true;\n\n    struct Node\
+    \ {\n        Color color = BLACK;\n        long long size = 0;\n        long long\
+    \ unique_size = 0;\n        long long count = 0;\n        T val = T(), sum = T();\n\
+    \        Node *p = 0, *ch[2] = {0, 0};\n\n        operator T() const {\n     \
+    \       return val;\n        }\n    };\n\n    struct iterator {\n        Node\
+    \ *node;\n        RedBlackTree *rbt;\n\n        iterator(Node *n, RedBlackTree\
+    \ *tree) : node(n), rbt(tree) {}\n\n        iterator& operator++() {\n       \
+    \     node = rbt->next(node);\n            return *this;\n        }\n\n      \
+    \  iterator& operator--() {\n            node = rbt->prev(node);\n           \
+    \ return *this;\n        }\n\n        T operator*() const {\n            return\
+    \ node->val;\n        }\n\n        bool operator==(const iterator &it) const {\n\
+    \            return node == it.node;\n        }\n\n        bool operator!=(const\
+    \ iterator &it) const {\n            return node != it.node;\n        }\n\n  \
+    \      long long operator-(const iterator &it) const {\n            return rbt->rank(*this)\
+    \ - rbt->rank(it);\n        }\n    };\n\n    struct reverse_iterator {\n     \
+    \   Node *node;\n        RedBlackTree *rbt;\n\n        reverse_iterator(Node *n,\
+    \ RedBlackTree *tree) : node(n), rbt(tree) {}\n\n        reverse_iterator& operator++()\
+    \ {\n            node = rbt->prev(node);\n            return *this;\n        }\n\
+    \n        reverse_iterator& operator--() {\n            node = rbt->next(node);\n\
     \            return *this;\n        }\n\n        T operator*() const {\n     \
     \       return node->val;\n        }\n\n        bool operator==(const reverse_iterator\
     \ &it) const {\n            return node == it.node;\n        }\n\n        bool\
     \ operator!=(const reverse_iterator &it) const {\n            return node != it.node;\n\
-    \        }\n    };\n\n\tRedBlackTree() {\n        pNIL = make_unique<Node>();\n\
+    \        }\n    };\n\n    RedBlackTree() {\n        pNIL = make_unique<Node>();\n\
     \        NIL = pNIL.get();\n        NIL->p = NIL->ch[0] = NIL->ch[1] = NIL;\n\
     \        NIL->size = 0;\n        NIL->unique_size = 0;\n        NIL->count = 0;\n\
     \        NIL->color = BLACK;\n        NIL->val = T();\n        NIL->sum = T();\n\
-    \        root = NIL;\n\n        front_node = back_node = NIL;\n    }\n\n\tlong\
-    \ long size() const {\n\t\treturn root->size;\n\t}\n\n    long long unique_size()\
-    \ const {\n        return root->unique_size;\n    }\n\n\tT front() const {\n\t\
-    \treturn front_node->val;\n\t}\n\n\tT back() const {\n\t\treturn back_node->val;\n\
-    \t}\n\n\tlong long count(T val) const {\n\t\treturn find(root, val)->count;\n\t\
-    }\n\n    long long count(T l, T r) const {\n        return count_less_than(r)\
-    \ - count_less_than(l);\n    }\n\n    bool contains(T val) const {\n        return\
-    \ find(root, val) != NIL;\n    }\n\n    long long count_less_than(T val, bool\
-    \ unique = false) const {\n        Node *x = lower_bound(root, val);\n       \
-    \ if (!unique) return rank(x);\n        else return unique_rank(x);\n    }\n\n\
-    \    long long count_less_than_or_equal(T val, bool unique = false) const {\n\
-    \        Node *x = upper_bound(root, val);\n        if (!unique) return rank(x);\n\
+    \        root = NIL;\n\n        front_node = back_node = NIL;\n    }\n\n    long\
+    \ long size() const {\n        return root->size;\n    }\n\n    long long unique_size()\
+    \ const {\n        return root->unique_size;\n    }\n\n    T front() const {\n\
+    \        return front_node->val;\n    }\n\n    T back() const {\n        return\
+    \ back_node->val;\n    }\n\n    long long count(T val) const {\n        return\
+    \ find(root, val)->count;\n    }\n\n    long long count(T l, T r) const {\n  \
+    \      return count_less_than(r) - count_less_than(l);\n    }\n\n    bool contains(T\
+    \ val) const {\n        return find(root, val) != NIL;\n    }\n\n    long long\
+    \ count_less_than(T val, bool unique = false) const {\n        Node *x = lower_bound(root,\
+    \ val);\n        if (!unique) return rank(x);\n        else return unique_rank(x);\n\
+    \    }\n\n    long long count_less_than_or_equal(T val, bool unique = false) const\
+    \ {\n        Node *x = upper_bound(root, val);\n        if (!unique) return rank(x);\n\
     \        else return unique_rank(x);\n    }\n\n    long long count_greater_than(T\
     \ val, bool unique = false) const {\n        if (!unique) return size() - count_less_than_or_equal(val,\
     \ false);\n        else return unique_size() - count_less_than_or_equal(val, true);\n\
@@ -452,145 +454,161 @@ data:
     \ val);\n        if (x == front_node) return end();\n        return iterator(prev(x),\
     \ this);\n    }\n\n    iterator find_less_than_or_equal(T val) {\n        Node\
     \ *x = upper_bound(root, val);\n        if (x == front_node) return end();\n \
-    \       return iterator(prev(x), this);\n    }\n\n\tT at(long long k) const {\n\
-    \        assert(0 <= k && k < size());\n\n\t\tNode *x = root;\n\t\twhile (x !=\
-    \ NIL) {\n            if (k < x->ch[0]->size) {\n                x = x->ch[0];\n\
-    \            }\n            else if (k < x->ch[0]->size + x->count) {\n      \
-    \          return x->val;\n            }\n            else {\n               \
-    \ k -= x->ch[0]->size + x->count;\n                x = x->ch[1];\n           \
-    \ }\n        }\n\t\treturn x->val;\n\t}\n\n\tpair<iterator, bool> insert(T val,\
-    \ long long num = 1) {\n\t\tNode *x = root, *y = NIL;\n\t\twhile (x != NIL) {\n\
-    \t\t\tif (val == x->val) {\n                if (!multi) return {iterator(x, this),\
-    \ false};\n\n                x->count += num;\n                while (x != NIL)\
-    \ update(x), x = x->p;\n                return {iterator(x, this), false};\n \
-    \           }\n\t\t\ty = x;\n\t\t\tx = x->ch[val > x->val];\n\t\t}\n\t\tNode *v\
-    \ = new_node(val, num);\n\t\tv->p = y;\n\t\tif (y == NIL) {\n\t\t\troot = v;\n\
-    \t\t}\n\t\telse {\n\t\t\ty->ch[val > y->val] = v;\n\t\t}\n\t\twhile (y != NIL)\
-    \ update(y), y = y->p;\n\t\tinsert_fix(v);\n\n        if (front_node == NIL ||\
-    \ val < front_node->val) front_node = v;\n        if (back_node == NIL || back_node->val\
-    \ < val) back_node = v;\n\n        return {iterator(v, this), true};\n\t}\n\n\
-    \    long long erase_all(T val) {\n        return erase(val, size());\n    }\n\
-    \n\tlong long erase(T val, long long num = 1) {\n\t\tNode *x = find(root, val);\n\
-    \t\tif (x == NIL) return 0;\n\n        num = min(num, x->count);\n        x->count\
-    \ -= num;\n        if (x->count > 0) {\n            while (x != NIL) update(x),\
-    \ x = x->p;\n            return num;\n        }\n\n\t\tNode *y = x, *z;\n\t\t\
-    Color c = y->color;\n\t\tif (x->ch[0] == NIL) {\n\t\t\tz = x->ch[1];\n\t\t\ttransplant(x,\
-    \ x->ch[1]);\n\t\t}\n\t\telse if (x->ch[1] == NIL) {\n\t\t\tz = x->ch[0];\n\t\t\
-    \ttransplant(x, x->ch[0]);\n\t\t}\n\t\telse {\n\t\t\ty = minimum(x->ch[1]);\n\t\
-    \t\tc = y->color;\n\t\t\tz = y->ch[1];\n\t\t\tif (y->p == x) {\n\t\t\t\tz->p =\
-    \ y;\n\t\t\t}\n\t\t\telse {\n\t\t\t\ttransplant(y, y->ch[1]);\n\t\t\t\ty->ch[1]\
-    \ = x->ch[1];\n\t\t\t\ty->ch[1]->p = y;\n\t\t\t}\n\t\t\ttransplant(x, y);\n\t\t\
-    \ty->ch[0] = x->ch[0];\n\t\t\ty->ch[0]->p = y;\n\t\t\ty->color = x->color;\n\t\
-    \t\tupdate(y);\n\t\t}\n\t\tNode *t = z->p;\n\t\twhile (t != NIL) update(t), t\
-    \ = t->p;\n\t\tif (c == BLACK) {\n\t\t\terase_fix(z);\n\t\t}\n\n        if (front_node\
-    \ == x) front_node = next(x);\n        if (back_node == x) back_node = prev(x);\n\
-    \n        return num;\n\t}\n\n    void erase(iterator first, iterator last) {\n\
-    \        while (first != last) {\n            first = erase(first);\n        }\n\
-    \    }\n\n    iterator erase(iterator pos) {\n        if (pos.node == NIL) return\
-    \ end();\n\n        T val = *pos;\n        iterator next_it = pos;\n        ++next_it;\n\
-    \        erase(val);\n        return next_it;\n    }\n\n    T sum() const {\n\
-    \        return root->sum;\n    }\n\n    T sum(T l, T r) const {\n        return\
-    \ sum_less_than(r) - sum_less_than(l);\n    }\n\n    T sum_less_than(T x) const\
-    \ {\n        T ret = T();\n\n        Node *v = root;\n        while (v != NIL)\
-    \ {\n            if (x <= v->val) {\n                v = v->ch[0];\n         \
-    \   }\n            else {\n                ret += v->val * v->count;\n       \
-    \         ret += v->ch[0]->sum;\n                v = v->ch[1];\n            }\n\
-    \        }\n\n        return ret;\n    }\n\n    T sum_greater_than(T x) const\
-    \ {\n        T ret = T();\n\n        Node *v = root;\n        while (v != NIL)\
-    \ {\n            if (x < v->val) {\n                ret += v->val * v->count;\n\
-    \                ret += v->ch[1]->sum;\n                v = v->ch[0];\n      \
-    \      }\n            else {\n                v = v->ch[1];\n            }\n \
-    \       }\n\n        return ret;\n    }\n\n    // 1-indexed\n    T kth_min(long\
-    \ long k) const {\n        assert(1 <= k && k <= size());\n\n        return at(k\
-    \ - 1);\n    }\n\n    // 1-indexed\n    T kth_max(long long k) const {\n     \
-    \   assert(1 <= k && k <= size());\n\n        return at(size() - k);\n    }\n\n\
-    \    // 1-indexed \n    T sum_min_k(long long k) const {\n        assert(1 <=\
-    \ k && k <= size());\n\n        T kth_val = kth_min(k);\n        long long kth_val_count\
-    \ = k - count_less_than(kth_val);\n        return sum_less_than(kth_val) + kth_val\
-    \ * kth_val_count;\n    }\n\n    // 1-indexed\n    T sum_max_k(long long k) const\
-    \ {\n        assert(1 <= k && k <= size());\n\n        T kth_val = kth_max(k);\n\
-    \        long long kth_val_count = k - count_greater_than(kth_val);\n        return\
-    \ sum_greater_than(kth_val) + kth_val * kth_val_count;\n    }\n\n    Node* next(Node\
-    \ *x) const {\n        assert(x != NIL);\n        if (x == back_node) return NIL;\n\
-    \n        if (x->ch[1] != NIL) {\n            return minimum(x->ch[1]);\n    \
-    \    }\n        while (x->p != NIL && x == x->p->ch[1]) {\n            x = x->p;\n\
-    \        }\n        return x->p;\n    }\n\n    Node* prev(Node *x) const {\n \
-    \       assert(x != front_node);\n        if (x == NIL) return back_node;\n\n\
-    \        if (x->ch[0] != NIL) {\n            return maximum(x->ch[0]);\n     \
-    \   }\n        while (x->p != NIL && x == x->p->ch[0]) {\n            x = x->p;\n\
-    \        }\n        return x->p;\n    }\n\n    iterator begin() {\n        return\
-    \ iterator(front_node, this);\n    }\n\n    iterator end() {\n        return iterator(NIL,\
-    \ this);\n    }\n\n    reverse_iterator rbegin() {\n        return reverse_iterator(back_node,\
-    \ this);\n    }\n\n    reverse_iterator rend() {\n        return reverse_iterator(NIL,\
+    \       return iterator(prev(x), this);\n    }\n\n    T at(long long k) const\
+    \ {\n        assert(0 <= k && k < size());\n\n        Node *x = root;\n      \
+    \  while (x != NIL) {\n            if (k < x->ch[0]->size) {\n               \
+    \ x = x->ch[0];\n            }\n            else if (k < x->ch[0]->size + x->count)\
+    \ {\n                return x->val;\n            }\n            else {\n     \
+    \           k -= x->ch[0]->size + x->count;\n                x = x->ch[1];\n \
+    \           }\n        }\n        return x->val;\n    }\n\n    pair<iterator,\
+    \ bool> insert(T val, long long num = 1) {\n        Node *x = root, *y = NIL;\n\
+    \        while (x != NIL) {\n            if (val == x->val) {\n              \
+    \  if (!multi) return {iterator(x, this), false};\n\n                x->count\
+    \ += num;\n                while (x != NIL) update(x), x = x->p;\n           \
+    \     return {iterator(x, this), false};\n            }\n            y = x;\n\
+    \            x = x->ch[val > x->val];\n        }\n        Node *v = new_node(val,\
+    \ num);\n        v->p = y;\n        if (y == NIL) {\n            root = v;\n \
+    \       }\n        else {\n            y->ch[val > y->val] = v;\n        }\n \
+    \       while (y != NIL) update(y), y = y->p;\n        insert_fix(v);\n\n    \
+    \    if (front_node == NIL || val < front_node->val) front_node = v;\n       \
+    \ if (back_node == NIL || back_node->val < val) back_node = v;\n\n        return\
+    \ {iterator(v, this), true};\n    }\n\n    long long erase_all(T val) {\n    \
+    \    return erase(val, size());\n    }\n\n    long long erase(T val, long long\
+    \ num = 1) {\n        Node *x = find(root, val);\n        if (x == NIL) return\
+    \ 0;\n\n        num = min(num, x->count);\n        x->count -= num;\n        if\
+    \ (x->count > 0) {\n            while (x != NIL) update(x), x = x->p;\n      \
+    \      return num;\n        }\n\n        Node *y = x, *z;\n        Color c = y->color;\n\
+    \        if (x->ch[0] == NIL) {\n            z = x->ch[1];\n            transplant(x,\
+    \ x->ch[1]);\n        }\n        else if (x->ch[1] == NIL) {\n            z =\
+    \ x->ch[0];\n            transplant(x, x->ch[0]);\n        }\n        else {\n\
+    \            y = minimum(x->ch[1]);\n            c = y->color;\n            z\
+    \ = y->ch[1];\n            if (y->p == x) {\n                z->p = y;\n     \
+    \       }\n            else {\n                transplant(y, y->ch[1]);\n    \
+    \            y->ch[1] = x->ch[1];\n                y->ch[1]->p = y;\n        \
+    \    }\n            transplant(x, y);\n            y->ch[0] = x->ch[0];\n    \
+    \        y->ch[0]->p = y;\n            y->color = x->color;\n            update(y);\n\
+    \        }\n        Node *t = z->p;\n        while (t != NIL) update(t), t = t->p;\n\
+    \        if (c == BLACK) {\n            erase_fix(z);\n        }\n\n        if\
+    \ (front_node == x) front_node = next(x);\n        if (back_node == x) back_node\
+    \ = prev(x);\n\n        return num;\n    }\n\n    void erase(iterator first, iterator\
+    \ last) {\n        while (first != last) {\n            first = erase(first);\n\
+    \        }\n    }\n\n    iterator erase(iterator pos) {\n        if (pos.node\
+    \ == NIL) return end();\n\n        T val = *pos;\n        iterator next_it = pos;\n\
+    \        ++next_it;\n        erase(val);\n        return next_it;\n    }\n\n \
+    \   T sum() const {\n        return root->sum;\n    }\n\n    T sum(T l, T r) const\
+    \ {\n        return sum_less_than(r) - sum_less_than(l);\n    }\n\n    T sum_less_than(T\
+    \ x) const {\n        T ret = T();\n\n        Node *v = root;\n        while (v\
+    \ != NIL) {\n            if (x <= v->val) {\n                v = v->ch[0];\n \
+    \           }\n            else {\n                ret += v->val * v->count;\n\
+    \                ret += v->ch[0]->sum;\n                v = v->ch[1];\n      \
+    \      }\n        }\n\n        return ret;\n    }\n\n    T sum_less_than_or_equal(T\
+    \ x) const {\n        return sum_less_than(x) + x * count(x);\n    }\n\n    T\
+    \ sum_greater_than(T x) const {\n        T ret = T();\n\n        Node *v = root;\n\
+    \        while (v != NIL) {\n            if (x < v->val) {\n                ret\
+    \ += v->val * v->count;\n                ret += v->ch[1]->sum;\n             \
+    \   v = v->ch[0];\n            }\n            else {\n                v = v->ch[1];\n\
+    \            }\n        }\n\n        return ret;\n    }\n\n    T sum_greater_than_or_equal(T\
+    \ x) const {\n        return sum_greater_than(x) + x * count(x);\n    }\n\n  \
+    \  // 1-indexed\n    T kth_min(long long k) const {\n        assert(1 <= k &&\
+    \ k <= size());\n\n        return at(k - 1);\n    }\n\n    // 1-indexed\n    T\
+    \ kth_max(long long k) const {\n        assert(1 <= k && k <= size());\n\n   \
+    \     return at(size() - k);\n    }\n\n    // 1-indexed \n    T sum_min_k(long\
+    \ long k) const {\n        assert(0 <= k);\n        if (k == 0) return 0;\n  \
+    \      k = min(k, size());\n\n        T kth_val = kth_min(k);\n        long long\
+    \ kth_val_count = k - count_less_than(kth_val);\n        return sum_less_than(kth_val)\
+    \ + kth_val * kth_val_count;\n    }\n\n    // 1-indexed\n    T sum_max_k(long\
+    \ long k) const {\n        assert(0 <= k);\n        if (k == 0) return 0;\n  \
+    \      k = min(k, size());\n\n        T kth_val = kth_max(k);\n        long long\
+    \ kth_val_count = k - count_greater_than(kth_val);\n        return sum_greater_than(kth_val)\
+    \ + kth_val * kth_val_count;\n    }\n\n    Node* next(Node *x) const {\n     \
+    \   assert(x != NIL);\n        if (x == back_node) return NIL;\n\n        if (x->ch[1]\
+    \ != NIL) {\n            return minimum(x->ch[1]);\n        }\n        while (x->p\
+    \ != NIL && x == x->p->ch[1]) {\n            x = x->p;\n        }\n        return\
+    \ x->p;\n    }\n\n    Node* prev(Node *x) const {\n        assert(x != front_node);\n\
+    \        if (x == NIL) return back_node;\n\n        if (x->ch[0] != NIL) {\n \
+    \           return maximum(x->ch[0]);\n        }\n        while (x->p != NIL &&\
+    \ x == x->p->ch[0]) {\n            x = x->p;\n        }\n        return x->p;\n\
+    \    }\n\n    iterator begin() {\n        return iterator(front_node, this);\n\
+    \    }\n\n    iterator end() {\n        return iterator(NIL, this);\n    }\n\n\
+    \    reverse_iterator rbegin() {\n        return reverse_iterator(back_node, this);\n\
+    \    }\n\n    reverse_iterator rend() {\n        return reverse_iterator(NIL,\
     \ this);\n    }\n\n    iterator find(T val) {\n        return iterator(find(root,\
     \ val), this);\n    }\n\n    iterator lower_bound(T val) {\n        return iterator(lower_bound(root,\
     \ val), this);\n    }\n\n    iterator upper_bound(T val) {\n        return iterator(upper_bound(root,\
-    \ val), this);\n    }\n\n    void dump() const {\n        rep(i, size()) {\n \
-    \           cerr << at(i) << \" \\n\"[i == size() - 1];\n        }\n    }\n\n\
-    private:\n    using pN = unique_ptr<Node>;\n\n    pN pNIL;\n    Node *NIL = nullptr;\n\
-    \    vector<pN> A;\n    Node *root;\n    Node *front_node, *back_node;\n\n\tNode*\
-    \ new_node(T val, long long num = 1) {\n        pN pnx = make_unique<Node>();\n\
-    \        Node *nx = pnx.get();\n        nx->color = RED;\n        nx->val = val;\n\
-    \        nx->sum = val;\n        nx->size = nx->count = num;\n        nx->unique_size\
+    \ val), this);\n    }\n\n    long long rank(iterator it) {\n        return rank(it.node);\n\
+    \    }\n\n    void dump() const {\n        rep(i, size()) {\n            cerr\
+    \ << at(i) << \" \\n\"[i == size() - 1];\n        }\n    }\n\nprivate:\n    using\
+    \ pN = unique_ptr<Node>;\n\n    pN pNIL;\n    Node *NIL = nullptr;\n    vector<pN>\
+    \ A;\n    Node *root;\n    Node *front_node, *back_node;\n\n    Node* new_node(T\
+    \ val, long long num = 1) {\n        pN pnx = make_unique<Node>();\n        Node\
+    \ *nx = pnx.get();\n        nx->color = RED;\n        nx->val = val;\n       \
+    \ nx->sum = val * num;\n        nx->size = nx->count = num;\n        nx->unique_size\
     \ = 1;\n        nx->p = nx->ch[0] = nx->ch[1] = NIL;\n\n        A.emplace_back(move(pnx));\n\
-    \        return nx;\n\t}\n\n\tvoid update(Node *x) {\n\t\tx->size = x->ch[0]->size\
+    \        return nx;\n    }\n\n    void update(Node *x) {\n        x->size = x->ch[0]->size\
     \ + x->ch[1]->size + x->count;\n        x->unique_size = x->ch[0]->unique_size\
     \ + x->ch[1]->unique_size + 1;\n        x->sum = x->ch[0]->sum + x->ch[1]->sum\
-    \ + x->val * x->count;\n\t}\n\n\tvoid rotate(Node *x, int b) {\n\t\tNode *y =\
-    \ x->ch[1 - b];\n\t\tx->ch[1 - b] = y->ch[b];\n\t\tif (y->ch[b] != NIL) {\n\t\t\
-    \ty->ch[b]->p = x;\n\t\t}\n\t\ty->p = x->p;\n\t\tif (x->p == NIL) {\n\t\t\troot\
-    \ = y;\n\t\t}\n\t\telse {\n\t\t\tx->p->ch[x != x->p->ch[0]] = y;\n\t\t}\n\t\t\
-    y->ch[b] = x;\n\t\tx->p = y;\n\t\tupdate(x);\n\t\tupdate(y);\n\t}\n\n\tvoid insert_fix(Node\
-    \ *x) {\n\t\twhile (x->p->color == RED) {\n\t\t\tint b = (x->p != x->p->p->ch[0]);\n\
-    \t\t\tNode *y = x->p->p->ch[1 - b];\n\t\t\tif (y->color == RED) {\n\t\t\t\tx->p->color\
-    \ = BLACK;\n\t\t\t\ty->color = BLACK;\n\t\t\t\tx->p->p->color = RED;\n\t\t\t\t\
-    x = x->p->p;\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tif (x == x->p->ch[1 - b]) {\n\t\
-    \t\t\tx = x->p;\n\t\t\t\trotate(x, b);\n\t\t\t}\n\t\t\tx->p->color = BLACK;\n\t\
-    \t\tx->p->p->color = RED;\n\t\t\trotate(x->p->p, 1 - b);\n\t\t}\n\t\troot->color\
-    \ = BLACK;\n\t}\n\n\tvoid transplant(Node *u, Node *v) {\n\t\tif (u->p == NIL)\
-    \ {\n\t\t\troot = v;\n\t\t}\n\t\telse {\n\t\t\tu->p->ch[u != u->p->ch[0]] = v;\n\
-    \t\t}\n\t\tv->p = u->p;\n\t}\n\n\tvoid erase_fix(Node *x) {\n\t\twhile (x != root\
-    \ && x->color == BLACK) {\n\t\t\tint b = (x != x->p->ch[0]);\n\t\t\tNode *w =\
-    \ x->p->ch[1 - b];\n\t\t\tif (w->color == RED) {\n\t\t\t\tw->color = BLACK;\n\t\
-    \t\t\tx->p->color = RED;\n\t\t\t\trotate(x->p, b);\n\t\t\t\tw = x->p->ch[1 - b];\n\
-    \t\t\t}\n\t\t\tif (w->ch[b]->color == BLACK && w->ch[1 - b]->color == BLACK) {\n\
-    \t\t\t\tw->color = RED;\n\t\t\t\tx = x->p;\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\t\
-    if (w->ch[1 - b]->color == BLACK) {\n\t\t\t\tw->ch[b]->color = BLACK;\n\t\t\t\t\
-    w->color = RED;\n\t\t\t\trotate(w, 1 - b);\n\t\t\t\tw = x->p->ch[1 - b];\n\t\t\
-    \t}\n\t\t\tw->color = x->p->color;\n\t\t\tx->p->color = BLACK;\n\t\t\tw->ch[1\
-    \ - b]->color = BLACK;\n\t\t\trotate(x->p, b);\n\t\t\tx = root;\n\t\t}\n\t\tx->color\
-    \ = BLACK;\n\t}\n\n\tNode* find(Node *x, T val) const {\n\t\twhile (x != NIL)\
-    \ {\n\t\t\tif (val == x->val) return x;\n\t\t\tx = x->ch[val > x->val];\n\t\t\
-    }\n\t\treturn NIL;\n\t}\n\n    Node* lower_bound(Node *x, T val) const {\n   \
-    \     Node *ret = NIL;\n        while (x != NIL) {\n            if (val <= x->val)\
-    \ {\n                ret = x;\n                x = x->ch[0];\n            } \n\
-    \            else {\n                x = x->ch[1];\n            }\n        }\n\
-    \        return ret;\n    }\n\n    Node* upper_bound(Node *x, T val) const {\n\
-    \        Node *ret = NIL;\n        while (x != NIL) {\n            if (val < x->val)\
-    \ {\n                ret = x;\n                x = x->ch[0];\n            } \n\
-    \            else {\n                x = x->ch[1];\n            }\n        }\n\
-    \        return ret;\n    }\n\n    // [l, r)\u306E\u8981\u7D20\u6570 (\u91CD\u8907\
-    \u3092\u542B\u3080)\n    long long rank(Node* l, Node* r) const {\n        return\
-    \ rank(r) - rank(l);\n    }\n\n    // [0, pos)\u306E\u8981\u7D20\u6570 (\u91CD\
-    \u8907\u3092\u542B\u3080)\n    long long rank(Node* p) const {\n        if (p\
-    \ == NIL) return size();\n\n        long long ret = 0;\n        T val = p->val;\n\
-    \        Node *x = root;\n\n        while (x != NIL) {\n            if (val <=\
-    \ x->val) {\n                x = x->ch[0];\n            } \n            else {\n\
-    \                ret += x->ch[0]->size + x->count;\n                x = x->ch[1];\n\
-    \            }\n        }\n        return ret;\n    }\n\n    // [l, r)\u306E\u8981\
-    \u7D20\u6570 (\u91CD\u8907\u3092\u542B\u307E\u306A\u3044)\n    long long unique_rank(Node*\
-    \ l, Node* r) const {\n        return unique_rank(r) - unique_rank(l);\n    }\n\
-    \n    // [0, pos)\u306E\u8981\u7D20\u6570 (\u91CD\u8907\u3092\u542B\u307E\u306A\
-    \u3044)\n    long long unique_rank(Node* p) const {\n        if (p == NIL) return\
-    \ unique_size();\n\n        long long ret = 0;\n        T val = p->val;\n    \
-    \    Node *x = root;\n\n        while (x != NIL) {\n            if (val <= x->val)\
-    \ {\n                x = x->ch[0];\n            } \n            else {\n     \
-    \           ret += x->ch[0]->unique_size + 1;\n                x = x->ch[1];\n\
-    \            }\n        }\n        return ret;\n    }\n\n\tNode* minimum(Node\
-    \ *x) const {\n\t\tif (x == NIL) return NIL;\n\t\twhile (x->ch[0] != NIL) {\n\t\
-    \t\tx = x->ch[0];\n\t\t}\n\t\treturn x;\n\t}\n\n\tNode* maximum(Node *x) const\
-    \ {\n\t\tif (x == NIL) return NIL;\n\t\twhile (x->ch[1] != NIL) {\n\t\t\tx = x->ch[1];\n\
-    \t\t}\n\t\treturn x;\n\t}\n};\n\ntemplate<typename T> using Set = RedBlackTree<T,\
+    \ + x->val * x->count;\n    }\n\n    void rotate(Node *x, int b) {\n        Node\
+    \ *y = x->ch[1 - b];\n        x->ch[1 - b] = y->ch[b];\n        if (y->ch[b] !=\
+    \ NIL) {\n            y->ch[b]->p = x;\n        }\n        y->p = x->p;\n    \
+    \    if (x->p == NIL) {\n            root = y;\n        }\n        else {\n  \
+    \          x->p->ch[x != x->p->ch[0]] = y;\n        }\n        y->ch[b] = x;\n\
+    \        x->p = y;\n        update(x);\n        update(y);\n    }\n\n    void\
+    \ insert_fix(Node *x) {\n        while (x->p->color == RED) {\n            int\
+    \ b = (x->p != x->p->p->ch[0]);\n            Node *y = x->p->p->ch[1 - b];\n \
+    \           if (y->color == RED) {\n                x->p->color = BLACK;\n   \
+    \             y->color = BLACK;\n                x->p->p->color = RED;\n     \
+    \           x = x->p->p;\n                continue;\n            }\n         \
+    \   if (x == x->p->ch[1 - b]) {\n                x = x->p;\n                rotate(x,\
+    \ b);\n            }\n            x->p->color = BLACK;\n            x->p->p->color\
+    \ = RED;\n            rotate(x->p->p, 1 - b);\n        }\n        root->color\
+    \ = BLACK;\n    }\n\n    void transplant(Node *u, Node *v) {\n        if (u->p\
+    \ == NIL) {\n            root = v;\n        }\n        else {\n            u->p->ch[u\
+    \ != u->p->ch[0]] = v;\n        }\n        v->p = u->p;\n    }\n\n    void erase_fix(Node\
+    \ *x) {\n        while (x != root && x->color == BLACK) {\n            int b =\
+    \ (x != x->p->ch[0]);\n            Node *w = x->p->ch[1 - b];\n            if\
+    \ (w->color == RED) {\n                w->color = BLACK;\n                x->p->color\
+    \ = RED;\n                rotate(x->p, b);\n                w = x->p->ch[1 - b];\n\
+    \            }\n            if (w->ch[b]->color == BLACK && w->ch[1 - b]->color\
+    \ == BLACK) {\n                w->color = RED;\n                x = x->p;\n  \
+    \              continue;\n            }\n            if (w->ch[1 - b]->color ==\
+    \ BLACK) {\n                w->ch[b]->color = BLACK;\n                w->color\
+    \ = RED;\n                rotate(w, 1 - b);\n                w = x->p->ch[1 -\
+    \ b];\n            }\n            w->color = x->p->color;\n            x->p->color\
+    \ = BLACK;\n            w->ch[1 - b]->color = BLACK;\n            rotate(x->p,\
+    \ b);\n            x = root;\n        }\n        x->color = BLACK;\n    }\n\n\
+    \    Node* find(Node *x, T val) const {\n        while (x != NIL) {\n        \
+    \    if (val == x->val) return x;\n            x = x->ch[val > x->val];\n    \
+    \    }\n        return NIL;\n    }\n\n    Node* lower_bound(Node *x, T val) const\
+    \ {\n        Node *ret = NIL;\n        while (x != NIL) {\n            if (val\
+    \ <= x->val) {\n                ret = x;\n                x = x->ch[0];\n    \
+    \        } \n            else {\n                x = x->ch[1];\n            }\n\
+    \        }\n        return ret;\n    }\n\n    Node* upper_bound(Node *x, T val)\
+    \ const {\n        Node *ret = NIL;\n        while (x != NIL) {\n            if\
+    \ (val < x->val) {\n                ret = x;\n                x = x->ch[0];\n\
+    \            } \n            else {\n                x = x->ch[1];\n         \
+    \   }\n        }\n        return ret;\n    }\n\n    // [l, r)\u306E\u8981\u7D20\
+    \u6570 (\u91CD\u8907\u3092\u542B\u3080)\n    long long rank(Node* l, Node* r)\
+    \ const {\n        return rank(r) - rank(l);\n    }\n\n    // [0, pos)\u306E\u8981\
+    \u7D20\u6570 (\u91CD\u8907\u3092\u542B\u3080)\n    long long rank(Node* p) const\
+    \ {\n        if (p == NIL) return size();\n\n        long long ret = 0;\n    \
+    \    T val = p->val;\n        Node *x = root;\n\n        while (x != NIL) {\n\
+    \            if (val <= x->val) {\n                x = x->ch[0];\n           \
+    \ } \n            else {\n                ret += x->ch[0]->size + x->count;\n\
+    \                x = x->ch[1];\n            }\n        }\n        return ret;\n\
+    \    }\n\n    // [l, r)\u306E\u8981\u7D20\u6570 (\u91CD\u8907\u3092\u542B\u307E\
+    \u306A\u3044)\n    long long unique_rank(Node* l, Node* r) const {\n        return\
+    \ unique_rank(r) - unique_rank(l);\n    }\n\n    // [0, pos)\u306E\u8981\u7D20\
+    \u6570 (\u91CD\u8907\u3092\u542B\u307E\u306A\u3044)\n    long long unique_rank(Node*\
+    \ p) const {\n        if (p == NIL) return unique_size();\n\n        long long\
+    \ ret = 0;\n        T val = p->val;\n        Node *x = root;\n\n        while\
+    \ (x != NIL) {\n            if (val <= x->val) {\n                x = x->ch[0];\n\
+    \            } \n            else {\n                ret += x->ch[0]->unique_size\
+    \ + 1;\n                x = x->ch[1];\n            }\n        }\n        return\
+    \ ret;\n    }\n\n    Node* minimum(Node *x) const {\n        if (x == NIL) return\
+    \ NIL;\n        while (x->ch[0] != NIL) {\n            x = x->ch[0];\n       \
+    \ }\n        return x;\n    }\n\n    Node* maximum(Node *x) const {\n        if\
+    \ (x == NIL) return NIL;\n        while (x->ch[1] != NIL) {\n            x = x->ch[1];\n\
+    \        }\n        return x;\n    }\n};\n\ntemplate<typename T> using Set = RedBlackTree<T,\
     \ false>;\ntemplate<typename T> using MultiSet = RedBlackTree<T, true>;\n#line\
     \ 4 \"test/mystd/myset/aoj-itp2-7-c.test.cpp\"\n\nint main() {\n    Set<ll> st;\n\
     \n    ll q;\n    cin >> q;\n\n    while (q--) {\n        ll t;\n        cin >>\
@@ -621,7 +639,7 @@ data:
   isVerificationFile: true
   path: test/mystd/myset/aoj-itp2-7-c.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:13:50+09:00'
+  timestamp: '2025-11-16 22:01:14+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/mystd/myset/aoj-itp2-7-c.test.cpp

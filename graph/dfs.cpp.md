@@ -480,8 +480,8 @@ data:
   timestamp: '2025-03-23 18:06:07+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/dfs/aoj-grl-4-a.test.cpp
   - test/graph/dfs/aoj-alds1-11-b.test.cpp
+  - test/graph/dfs/aoj-grl-4-a.test.cpp
 documentation_of: graph/dfs.cpp
 layout: document
 redirect_from:

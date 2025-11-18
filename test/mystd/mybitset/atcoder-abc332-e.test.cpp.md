@@ -405,76 +405,82 @@ data:
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"mystd/mybitset.cpp\"\n\nstruct Bitset {\n  \
-    \  long long bit;\n\n    Bitset(long long b = 0) : bit(b) {}\n\n    void set(long\
-    \ long pos, bool val = true) { val? bit |= (1ll << pos): bit &= ~(1ll << pos);\
-    \ }\n    void set(vector<long long> pos, bool val = true) { for (auto x : pos)\
-    \ set(x, val);}\n\n    void flip(long long pos) { bit ^= (1ll << pos); }\n   \
-    \ void reset(long long pos) { bit &= ~(1ll << pos); }\n    void reset(vector<long\
-    \ long> pos) { for (auto x : pos) reset(x);}\n    bool test(long long pos) { return\
-    \ (bit >> pos) & 1ll; }\n    long long count() { return bit_count(bit); }\n  \
-    \  long long to_ll() { return bit; }\n    operator long long() { return bit; }\n\
-    \n    // bit\u306E\u6B21\u306E\u90E8\u5206\u96C6\u5408\u3092\u6C42\u3081\u308B\
-    (\u964D\u9806)\n    // \u90E8\u5206\u96C6\u5408\u3092\u5217\u6319\u3057\u306A\u304C\
-    \u3089bit\u5168\u63A2\u7D22\u3059\u308B\u5834\u5408\u306E\u8A08\u7B97\u91CF\u306F\
-    O(3^N)\n    // \u4F7F\u3044\u65B9\n    // Bitset bit;\n    // for (Bitset sub\
-    \ = bit;; sub = bit.prev_subset(sub)) {\n    // \n    //     if (sub == 0ll) break;\n\
-    \    // }\n    Bitset prev_subset(Bitset subset) {\n        return Bitset((subset.bit\
-    \ - 1) & bit);\n    }\n\n    void foreach_subset(function<void(Bitset)> f) {\n\
-    \        for (Bitset sub = *this;; sub = this->prev_subset(sub)) {\n         \
-    \   f(sub);\n            if (sub == 0ll) break;\n        }\n    }\n\n    // \u81EA\
-    \u8EAB\u304Cx\u306E\u90E8\u5206\u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\
-    \n    bool is_subset_of(Bitset x) { return (bit & x.bit) == bit; }\n    // \u81EA\
-    \u8EAB\u304Cx\u306E\u4E0A\u4F4D\u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\
-    \n    bool is_superset_of(Bitset x) { return (bit & x.bit) == x.bit; }\n    //\
-    \ \u81EA\u8EAB\u304Cx\u306E\u771F\u90E8\u5206\u96C6\u5408\u304B\u3069\u3046\u304B\
-    \u5224\u5B9A\n    bool is_proper_subset_of(Bitset x) { return bit != x.bit &&\
-    \ (bit & x.bit) == bit; }\n    // \u81EA\u8EAB\u304Cx\u306E\u771F\u4E0A\u4F4D\u96C6\
-    \u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\n    bool is_proper_superset_of(Bitset\
-    \ x) { return bit != x.bit && (bit & x.bit) == x.bit; }\n    // \u81EA\u8EAB\u304C\
-    x\u3068\u4EA4\u5DEE\u3057\u3066\u3044\u308B\u304B\u3069\u3046\u304B\u5224\u5B9A\
-    \n    bool intersects(Bitset x) { return bit & x.bit; }\n    \n    Bitset& operator++()\
-    \ { bit = bit + 1; return *this; }\n    Bitset operator&(Bitset x) { return bit\
-    \ & x.bit; }\n    Bitset operator|(Bitset x) { return bit | x.bit; }\n    Bitset\
-    \ operator^(Bitset x) { return bit ^ x.bit; }\n    Bitset operator~() { return\
-    \ ~bit; }\n    Bitset operator<<(long long x) { return bit << x; }\n    Bitset\
-    \ operator>>(long long x) { return bit >> x; }\n    Bitset& operator&=(Bitset\
-    \ x) { bit &= x.bit; return *this; }\n    Bitset& operator|=(Bitset x) { bit |=\
-    \ x.bit; return *this; }\n    Bitset& operator^=(Bitset x) { bit ^= x.bit; return\
-    \ *this; }\n    Bitset& operator<<=(long long x) { bit <<= x; return *this; }\n\
-    \    Bitset& operator>>=(long long x) { bit >>= x; return *this; }\n    bool operator==(Bitset\
-    \ x) { return bit == x.bit; }\n    bool operator!=(Bitset x) { return bit != x.bit;\
-    \ }\n    bool operator<(Bitset x) { return bit < x.bit; }\n    bool operator>(Bitset\
-    \ x) { return bit > x.bit; }\n    bool operator<=(Bitset x) { return bit <= x.bit;\
-    \ }\n    bool operator>=(Bitset x) { return bit >= x.bit; }\n    bool operator==(long\
-    \ long x) { return bit == x; }\n    bool operator!=(long long x) { return bit\
-    \ != x; }\n    bool operator<(long long x) { return bit < x; }\n    bool operator>(long\
-    \ long x) { return bit > x; }\n    bool operator<=(long long x) { return bit <=\
-    \ x; }\n    bool operator>=(long long x) { return bit >= x; }\n\n    friend istream&\
-    \ operator>>(istream& is, Bitset& x) { return is >> x.bit; }\n    friend ostream&\
-    \ operator<<(ostream& os, Bitset& x) { \n        os << (x.bit & 1) << \" \";\n\
-    \        x.bit >>= 1;\n\n        while (x.bit) {\n            os << (x.bit & 1)\
-    \ << \" \";\n            x.bit >>= 1;\n        }\n        return os; \n    }\n\
-    };\n\n// bitDP\n// \u8A08\u7B97\u91CF: O(2^N)\nvoid bitDP(long long N, function<void(Bitset)>\
-    \ f) {\n    for (Bitset bit = 0; bit < (1ll << N); ++bit) {\n        f(bit);\n\
-    \    }\n}\n\n// \u90E8\u5206\u96C6\u5408\u3092\u5217\u6319\u3059\u308BbitDP\n\
-    // \u8A08\u7B97\u91CF: O(3^N)\nvoid bitDP_subset(long long N, function<void(Bitset,\
-    \ Bitset, Bitset)> f) {\n    for (Bitset bit = 0; bit < (1ll << N); ++bit) {\n\
-    \        for (Bitset sub = bit;; sub = bit.prev_subset(sub)) {\n            f(bit,\
-    \ sub, bit ^ sub);\n            if (sub == 0ll) break;\n        }\n    }\n}\n\
-    #line 6 \"test/mystd/mybitset/atcoder-abc332-e.test.cpp\"\n\nint main() {\n  \
-    \  ll N, D;\n    cin >> N >> D;\n\n    vll W(N);\n    rep(i, N) cin >> W[i];\n\
-    \n    vector dp(1 << N, vll(D + 1, inf64));\n    rep(i, D + 1) dp[0][i] = 0;\n\
-    \n    rep(bit, 1 << N) {\n        ll sum = 0;\n\n        rep(i, N) {\n       \
-    \     if (bit & (1 << i)) {\n                sum += W[i];\n            }\n   \
-    \     }\n\n        dp[bit][1] = sum * sum;\n    }\n\n    rep(d, 2, D + 1) {\n\
-    \        auto f = [&](Bitset bit, Bitset sub, Bitset exclude) {\n            chmin(dp[bit][d],\
-    \ dp[sub][1] + dp[exclude][d - 1]);\n        };\n    \n        bitDP_subset(N,\
-    \ f);\n    }\n\n    ll sum = accumulate(W);\n    \n    double ans = (double)(dp[(1\
-    \ << N) - 1][D] * D - sum * sum) / (D * D);\n\n    cout << fixed << setprecision(10);\
-    \  // \u5C0F\u6570\u70B9\u4EE5\u4E0B\u309210\u6841\u8868\u793A\uFF0C\u8A31\u5BB9\
-    \u8AA4\u5DEE\u304C1e-N\u4EE5\u4E0B\u306E\u6642\u306FN+1\u306B\u5909\u66F4\u3059\
-    \u308B\u3053\u3068(16\u6841\u4EE5\u4E0A\u306Flong double)\n    cout << ans <<\
-    \ endl;\n\n    return 0;\n} \n"
+    \  unsigned long long bit;\n\n    Bitset(unsigned long long b = 0) : bit(b) {}\n\
+    \n    void set(long long pos, bool val = true) { val? bit |= (1ull << pos): bit\
+    \ &= ~(1ull << pos); }\n    void set(vector<long long> pos, bool val = true) {\
+    \ for (auto x : pos) set(x, val);}\n\n    void flip(long long pos) { bit ^= (1ull\
+    \ << pos); }\n    void reset(long long pos) { bit &= ~(1ull << pos); }\n    void\
+    \ reset(vector<long long> pos) { for (auto x : pos) reset(x);}\n    bool test(long\
+    \ long pos) { return (bit >> pos) & 1ull; }\n    unsigned long long count() {\
+    \ return bit_count(bit); }\n    unsigned long long to_ull() { return bit; }\n\
+    \    operator unsigned long long() { return bit; }\n\n    // bit\u306E\u6B21\u306E\
+    \u90E8\u5206\u96C6\u5408\u3092\u6C42\u3081\u308B(\u964D\u9806)\n    // \u90E8\u5206\
+    \u96C6\u5408\u3092\u5217\u6319\u3057\u306A\u304C\u3089bit\u5168\u63A2\u7D22\u3059\
+    \u308B\u5834\u5408\u306E\u8A08\u7B97\u91CF\u306FO(3^N)\n    // \u4F7F\u3044\u65B9\
+    \n    // Bitset bit;\n    // for (Bitset sub = bit;; sub = bit.prev_subset(sub))\
+    \ {\n    // \n    //     if (sub == 0ll) break;\n    // }\n    Bitset prev_subset(Bitset\
+    \ subset) {\n        return Bitset((subset.bit - 1) & bit);\n    }\n\n    void\
+    \ foreach_subset(function<void(Bitset)> f) {\n        for (Bitset sub = *this;;\
+    \ sub = this->prev_subset(sub)) {\n            f(sub);\n            if (sub ==\
+    \ 0ull) break;\n        }\n    }\n\n    // \u81EA\u8EAB\u304Cx\u306E\u90E8\u5206\
+    \u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\n    bool is_subset_of(Bitset\
+    \ x) { return (bit & x.bit) == bit; }\n    bool is_subset_of(unsigned long long\
+    \ x) { return (bit & x) == bit; }\n    // \u81EA\u8EAB\u304Cx\u306E\u4E0A\u4F4D\
+    \u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\n    bool is_superset_of(Bitset\
+    \ x) { return (bit & x.bit) == x.bit; }\n    bool is_superset_of(unsigned long\
+    \ long x) { return (bit & x) == x; }\n    // \u81EA\u8EAB\u304Cx\u306E\u771F\u90E8\
+    \u5206\u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\n    bool is_proper_subset_of(Bitset\
+    \ x) { return bit != x.bit && is_subset_of(x); }\n    bool is_proper_subset_of(unsigned\
+    \ long long x) { return bit != x && is_subset_of(x); }\n    // \u81EA\u8EAB\u304C\
+    x\u306E\u771F\u4E0A\u4F4D\u96C6\u5408\u304B\u3069\u3046\u304B\u5224\u5B9A\n  \
+    \  bool is_proper_superset_of(Bitset x) { return bit != x.bit && is_superset_of(x);\
+    \ }\n    bool is_proper_superset_of(unsigned long long x) { return bit != x &&\
+    \ is_superset_of(x); }\n    // \u81EA\u8EAB\u304Cx\u3068\u4EA4\u5DEE\u3057\u3066\
+    \u3044\u308B\u304B\u3069\u3046\u304B\u5224\u5B9A\n    bool intersects(Bitset x)\
+    \ { return bit & x.bit; }\n    bool intersects(unsigned long long x) { return\
+    \ bit & x; }\n    \n    Bitset& operator++() { bit = bit + 1; return *this; }\n\
+    \    Bitset operator&(Bitset x) { return bit & x.bit; }\n    Bitset operator|(Bitset\
+    \ x) { return bit | x.bit; }\n    Bitset operator^(Bitset x) { return bit ^ x.bit;\
+    \ }\n    Bitset operator~() { return ~bit; }\n    Bitset operator<<(long long\
+    \ x) { return bit << x; }\n    Bitset operator>>(long long x) { return bit >>\
+    \ x; }\n    Bitset& operator&=(Bitset x) { bit &= x.bit; return *this; }\n   \
+    \ Bitset& operator|=(Bitset x) { bit |= x.bit; return *this; }\n    Bitset& operator^=(Bitset\
+    \ x) { bit ^= x.bit; return *this; }\n    Bitset& operator<<=(long long x) { bit\
+    \ <<= x; return *this; }\n    Bitset& operator>>=(long long x) { bit >>= x; return\
+    \ *this; }\n    bool operator==(Bitset x) { return bit == x.bit; }\n    bool operator!=(Bitset\
+    \ x) { return bit != x.bit; }\n    bool operator<(Bitset x) { return bit < x.bit;\
+    \ }\n    bool operator>(Bitset x) { return bit > x.bit; }\n    bool operator<=(Bitset\
+    \ x) { return bit <= x.bit; }\n    bool operator>=(Bitset x) { return bit >= x.bit;\
+    \ }\n    bool operator==(unsigned long long x) { return bit == x; }\n    bool\
+    \ operator!=(unsigned long long x) { return bit != x; }\n    bool operator<(unsigned\
+    \ long long x) { return bit < x; }\n    bool operator>(unsigned long long x) {\
+    \ return bit > x; }\n    bool operator<=(unsigned long long x) { return bit <=\
+    \ x; }\n    bool operator>=(unsigned long long x) { return bit >= x; }\n\n   \
+    \ friend istream& operator>>(istream& is, Bitset& x) { return is >> x.bit; }\n\
+    \    friend ostream& operator<<(ostream& os, Bitset& x) { \n        ull bit =\
+    \ x.bit;\n        os << (bit & 1) << \" \";\n        bit >>= 1;\n\n        while\
+    \ (bit) {\n            os << (bit & 1) << \" \";\n            bit >>= 1;\n   \
+    \     }\n        return os; \n    }\n};\n\n// bitDP\n// \u8A08\u7B97\u91CF: O(2^N)\n\
+    void bitDP(long long N, function<void(Bitset)> f) {\n    for (Bitset bit = 0;\
+    \ bit < (1ull << N); ++bit) {\n        f(bit);\n    }\n}\n\n// \u90E8\u5206\u96C6\
+    \u5408\u3092\u5217\u6319\u3059\u308BbitDP\n// \u8A08\u7B97\u91CF: O(3^N)\nvoid\
+    \ bitDP_subset(long long N, function<void(Bitset, Bitset, Bitset)> f) {\n    for\
+    \ (Bitset bit = 0; bit < (1ull << N); ++bit) {\n        for (Bitset sub = bit;;\
+    \ sub = bit.prev_subset(sub)) {\n            f(bit, sub, bit ^ sub);\n       \
+    \     if (sub == 0ull) break;\n        }\n    }\n}\n#line 6 \"test/mystd/mybitset/atcoder-abc332-e.test.cpp\"\
+    \n\nint main() {\n    ll N, D;\n    cin >> N >> D;\n\n    vll W(N);\n    rep(i,\
+    \ N) cin >> W[i];\n\n    vector dp(1 << N, vll(D + 1, inf64));\n    rep(i, D +\
+    \ 1) dp[0][i] = 0;\n\n    rep(bit, 1 << N) {\n        ll sum = 0;\n\n        rep(i,\
+    \ N) {\n            if (bit & (1 << i)) {\n                sum += W[i];\n    \
+    \        }\n        }\n\n        dp[bit][1] = sum * sum;\n    }\n\n    rep(d,\
+    \ 2, D + 1) {\n        auto f = [&](Bitset bit, Bitset sub, Bitset exclude) {\n\
+    \            chmin(dp[bit][d], dp[sub][1] + dp[exclude][d - 1]);\n        };\n\
+    \    \n        bitDP_subset(N, f);\n    }\n\n    ll sum = accumulate(W);\n   \
+    \ \n    double ans = (double)(dp[(1 << N) - 1][D] * D - sum * sum) / (D * D);\n\
+    \n    cout << fixed << setprecision(10);  // \u5C0F\u6570\u70B9\u4EE5\u4E0B\u3092\
+    10\u6841\u8868\u793A\uFF0C\u8A31\u5BB9\u8AA4\u5DEE\u304C1e-N\u4EE5\u4E0B\u306E\
+    \u6642\u306FN+1\u306B\u5909\u66F4\u3059\u308B\u3053\u3068(16\u6841\u4EE5\u4E0A\
+    \u306Flong double)\n    cout << ans << endl;\n\n    return 0;\n} \n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/abc332/tasks/abc332_e\"\
     \n// https://atcoder.jp/contests/abc332/submissions/60883645\n\n#include \"../../../mystd/mybitset.cpp\"\
     \n\nint main() {\n    ll N, D;\n    cin >> N >> D;\n\n    vll W(N);\n    rep(i,\
@@ -496,7 +502,7 @@ data:
   isVerificationFile: true
   path: test/mystd/mybitset/atcoder-abc332-e.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:54:18+09:00'
+  timestamp: '2025-11-16 21:51:37+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/mystd/mybitset/atcoder-abc332-e.test.cpp

@@ -406,29 +406,28 @@ data:
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"other/rotatable-vector.cpp\"\n\ntemplate <typename\
     \ T>\nstruct RotatableVector {\n    vector<T> original;\n    long long N, offset;\n\
-    \n    RotatableVector(long long n) : original(n), N(n), offset(0) {}\n    RotatableVector(vector<T>\
-    \ v) : original(v), N(v.size()), offset(0) {}\n\n    // \u53C2\u7167\u3059\u308B\
-    \u969B\u306Eindex\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // \u4F8B: rotate_left(1)\
-    \ \u3067 vec[0]\u304Coriginal[1]\u3092\u6307\u3059\n    // (original[1]\u3092\
-    vec[0]\u306B\u79FB\u52D5(\u5DE6\u56DE\u8EE2))\n    long long rotate_left(long\
-    \ long x = 1) {\n        assert(x >= 0);\n        offset += x;\n        offset\
-    \ %= N;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\
-    \u306Eindex\u306E\u5024\u3092x\u5897\u3084\u3059\n    // \u4F8B: rotate_right(1)\
-    \ \u3067 vec[1]\u304Coriginal[0]\u3092\u6307\u3059\n    // (original[0]\u3092\
-    vec[1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2))\n    long long rotate_right(long\
+    \n    RotatableVector(long long n, T a = T()) : original(n, a), N(n), offset(0)\
+    \ {}\n    RotatableVector(vector<T> v) : original(v), N(v.size()), offset(0) {}\n\
+    \n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092x\u6E1B\u3089\
+    \u3059\n    // i  : 0, 1, 2, 3, 4, 5, ...\n    // Ai : 3, 1, 4, 1, 5, 9, ... <-\
+    \ rotate left\n    // A'i: 1, 4, 1, 5, 9, 2, ...\n    long long rotate_left(long\
     \ long x = 1) {\n        assert(x >= 0);\n        offset += N - (x % N);\n   \
-    \     offset %= N;\n        return offset;\n    }\n\n    T& operator[](long long\
-    \ x) {\n        x += offset;\n        x %= N;\n        return original[x];\n \
-    \   }\n\n    const T& operator[](long long x) const {\n        x += offset;\n\
-    \        x %= N;\n        return original[x];\n    }\n\n    T get(long long x)\
-    \ const {\n        return this->operator[](x);\n    }\n\n    long long size()\
-    \ const {\n        return N;\n    }\n\n    void dump() {\n        cerr << \"offset:\
-    \ \" << offset << endl;\n        cerr << \"original: \";\n        rep(i, N) cerr\
-    \ << original[i] << \" \";\n        cerr << endl;\n        cerr << \"rotated:\
-    \ \";\n        rep(i, N) cerr << get(i) << \" \";\n        cerr << endl;\n   \
-    \ }\n\n    friend ostream& operator<<(ostream& os, const RotatableVector<T>& v)\
-    \ {\n        rep(i, v.size()) os << v.get(i) << (i == v.size() - 1 ? \"\" : \"\
-    \ \");\n        return os;\n    }\n};\n#line 6 \"test/other/rotatable-vector/atcoder-typical90-044.test.cpp\"\
+    \     offset %= N;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\
+    \u308B\u969B\u306Eindex\u306E\u5024\u3092x\u5897\u3084\u3059\n    // i  : 0, 1,\
+    \ 2, 3, 4, 5, ...\n    // Ai : 3, 1, 4, 1, 5, 9, ... -> rotate right\n    // A'i:\
+    \  , 3, 1, 4, 1, 5, ...\n    long long rotate_right(long long x = 1) {\n     \
+    \   assert(x >= 0);\n        offset += x;\n        offset %= N;\n        return\
+    \ offset;\n    }\n\n    T& operator[](long long x) {\n        x += N - offset;\n\
+    \        x %= N;\n        return original[x];\n    }\n\n    const T& operator[](long\
+    \ long x) const {\n        x += N - offset;\n        x %= N;\n        return original[x];\n\
+    \    }\n\n    T get(long long x) const {\n        return this->operator[](x);\n\
+    \    }\n\n    long long size() const {\n        return N;\n    }\n\n    void dump()\
+    \ {\n        cerr << \"offset: \" << offset << endl;\n        cerr << \"original:\
+    \ \";\n        rep(i, N) cerr << original[i] << \" \";\n        cerr << endl;\n\
+    \        cerr << \"rotated: \";\n        rep(i, N) cerr << get(i) << \" \";\n\
+    \        cerr << endl;\n    }\n\n    friend ostream& operator<<(ostream& os, const\
+    \ RotatableVector<T>& v) {\n        rep(i, v.size()) os << v.get(i) << (i == v.size()\
+    \ - 1 ? \"\" : \" \");\n        return os;\n    }\n};\n#line 6 \"test/other/rotatable-vector/atcoder-typical90-044.test.cpp\"\
     \n\nint main() {\n    ll N, Q;\n    cin >> N >> Q;\n\n    vll A(N);\n    rep(i,\
     \ N) cin >> A[i];\n\n    RotatableVector<ll> rv(A);\n\n    while (Q--) {\n   \
     \     ll t, x, y;\n        cin >> t >> x >> y;\n\n        if (t == 1) {\n    \
@@ -450,7 +449,7 @@ data:
   isVerificationFile: true
   path: test/other/rotatable-vector/atcoder-typical90-044.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:16:15+09:00'
+  timestamp: '2025-11-16 17:47:12+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/other/rotatable-vector/atcoder-typical90-044.test.cpp

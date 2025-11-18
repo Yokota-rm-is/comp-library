@@ -28,8 +28,20 @@ data:
     path: test/math/permutation/atcoder-abc172-e.test.cpp
     title: test/math/permutation/atcoder-abc172-e.test.cpp
   - icon: ':x:'
+    path: test/math/segment-sieve/atcoder-abc227-g.test.cpp
+    title: test/math/segment-sieve/atcoder-abc227-g.test.cpp
+  - icon: ':x:'
+    path: test/other/bit-vector/atcoder-abc304-f.test.cpp
+    title: test/other/bit-vector/atcoder-abc304-f.test.cpp
+  - icon: ':x:'
     path: test/other/rotatable-map/atcoder-abc370-e.test.cpp
     title: test/other/rotatable-map/atcoder-abc370-e.test.cpp
+  - icon: ':x:'
+    path: test/structure/implicit-treap/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+    title: test/structure/implicit-treap/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - icon: ':x:'
+    path: test/structure/sortable-segment-tree/yosupo-point-set-range-sort-range-composite.test.cpp
+    title: test/structure/sortable-segment-tree/yosupo-point-set-range-sort-range-composite.test.cpp
   - icon: ':x:'
     path: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
     title: test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
@@ -42,6 +54,18 @@ data:
   - icon: ':x:'
     path: test/structure/weighted-unionfind/yosupo-unionfind-with-potential.test.cpp
     title: test/structure/weighted-unionfind/yosupo-unionfind-with-potential.test.cpp
+  - icon: ':x:'
+    path: test/tree/heavy-light-decomposition/yosupo-vertex-set-path-composite.test.cpp
+    title: test/tree/heavy-light-decomposition/yosupo-vertex-set-path-composite.test.cpp
+  - icon: ':x:'
+    path: test/tree/link-cut-tree/yosupo-dynamic-vertex-set-path-composite.test.cpp
+    title: test/tree/link-cut-tree/yosupo-dynamic-vertex-set-path-composite.test.cpp
+  - icon: ':x:'
+    path: test/tree/link-cut-tree/yosupo-range-affine-range-sum.test.cpp
+    title: test/tree/link-cut-tree/yosupo-range-affine-range-sum.test.cpp
+  - icon: ':x:'
+    path: test/tree/link-cut-tree/yosupo-vertex-set-path-composite.test.cpp
+    title: test/tree/link-cut-tree/yosupo-vertex-set-path-composite.test.cpp
   _isVerificationFailed: true
   _pathExtension: cpp
   _verificationStatusIcon: ':x:'
@@ -509,18 +533,26 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/rotatable-map/atcoder-abc370-e.test.cpp
-  - test/math/eratosthenes/atcoder-abc304-f.test.cpp
-  - test/math/combination/atcoder-abc172-e.test.cpp
-  - test/math/combination/atcoder-abc358-e.test.cpp
-  - test/math/permutation/atcoder-abc172-e.test.cpp
-  - test/graph/functional-graph/atcoder-abc387-f.test.cpp
-  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-3.test.cpp
-  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-2.test.cpp
-  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential.test.cpp
-  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
   - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
   - test/grid/grid-bfs/atcoder-abc334-e.test.cpp
+  - test/structure/sortable-segment-tree/yosupo-point-set-range-sort-range-composite.test.cpp
+  - test/structure/implicit-treap/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential.test.cpp
+  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-3.test.cpp
+  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-2.test.cpp
+  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/math/combination/atcoder-abc358-e.test.cpp
+  - test/math/combination/atcoder-abc172-e.test.cpp
+  - test/math/permutation/atcoder-abc172-e.test.cpp
+  - test/math/segment-sieve/atcoder-abc227-g.test.cpp
+  - test/math/eratosthenes/atcoder-abc304-f.test.cpp
+  - test/tree/link-cut-tree/yosupo-range-affine-range-sum.test.cpp
+  - test/tree/link-cut-tree/yosupo-vertex-set-path-composite.test.cpp
+  - test/tree/link-cut-tree/yosupo-dynamic-vertex-set-path-composite.test.cpp
+  - test/tree/heavy-light-decomposition/yosupo-vertex-set-path-composite.test.cpp
+  - test/other/rotatable-map/atcoder-abc370-e.test.cpp
+  - test/other/bit-vector/atcoder-abc304-f.test.cpp
+  - test/graph/functional-graph/atcoder-abc387-f.test.cpp
 documentation_of: math/modint.cpp
 layout: document
 redirect_from:

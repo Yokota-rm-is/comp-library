@@ -396,50 +396,50 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"structure/sparse-table.cpp\"\n\ntemplate<class\
-    \ T = long long>\nstruct SparseTable {\n    vector<vector<T>> min_table, max_table;\n\
-    \    vector<long long> log_table;\n    long long N;\n\n    SparseTable(const vector<T>\
-    \ &A) {\n        N = A.size();\n        log_table.assign(N + 1, 0);\n        rep(i,\
-    \ 2, N + 1) log_table[i] = log_table[i >> 1] + 1;\n\n        min_table.assign(log_table[N]\
-    \ + 1, vector<T>(N));\n        min_table[0] = A;\n        max_table.assign(log_table[N]\
-    \ + 1, vector<T>(N));\n        max_table[0] = A;\n\n        rep(k, 1, log_table[N]\
-    \ + 1) {\n            rep(i, N - (1 << k) + 1) {\n                min_table[k][i]\
-    \ = min(min_table[k - 1][i], min_table[k - 1][i + (1ll << (k - 1))]);\n      \
-    \          max_table[k][i] = max(max_table[k - 1][i], max_table[k - 1][i + (1ll\
-    \ << (k - 1))]);\n            }\n        }\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed) \u306E\u6700\u5C0F\u5024\u3092\u6C42\u3081\u308B\n  \
-    \  T query_min(long long l, long long r) {\n        assert(0 <= l and l < r and\
-    \ r <= N);\n\n        long long k = log_table[r - l];\n        return min(min_table[k][l],\
-    \ min_table[k][r - (1ll << k)]);\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
-    \ r) (0-indexed) \u306E\u6700\u5927\u5024\u3092\u6C42\u3081\u308B\n    T query_max(long\
-    \ long l, long long r) {\n        assert(0 <= l and l < r and r <= N);\n\n   \
-    \     long long k = log_table[r - l];\n        return max(max_table[k][l], max_table[k][r\
-    \ - (1ll << k)]);\n    }\n};\n"
-  code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<class T = long long>\n\
-    struct SparseTable {\n    vector<vector<T>> min_table, max_table;\n    vector<long\
-    \ long> log_table;\n    long long N;\n\n    SparseTable(const vector<T> &A) {\n\
+    \    return result;\n}\n#line 3 \"structure/sparse-table.cpp\"\n\n// Sparse Table\n\
+    // \u7D50\u5408\u6027\u3068\u51AA\u7B49\u6027\u3092\u6E80\u305F\u3059\u5FC5\u8981\
+    \u304C\u3042\u308B\n// \u7D50\u5408\u5247 (A \u2295\u3000B) \u2295 C = A \u2295\
+    \ (B \u2295 C)\n// \u51AA\u7B49\u6027 (A \u2295 A = A)\n// \u4F8B: min, max, gcd,\
+    \ lcm, and, or \u306A\u3069\n// \u69CB\u7BC9: O(N log N)\n// \u30AF\u30A8\u30EA\
+    : O(1)\n#if __cplusplus >= 201703L\ntemplate<class S, auto op>\n#else\ntemplate<class\
+    \ S, S (*op)(S, S)>\n#endif\nstruct SparseTable {\n#if __cplusplus >= 201703L\n\
+    \    static_assert(is_convertible_v<decltype(op), function<S(S, S)>>, \"op must\
+    \ be function<S(S, S)>\");\n#endif\n    \n    vector<vector<S>> table;\n    vector<long\
+    \ long> log_table;\n    long long N;\n\n    SparseTable(const vector<S> &A) {\n\
     \        N = A.size();\n        log_table.assign(N + 1, 0);\n        rep(i, 2,\
-    \ N + 1) log_table[i] = log_table[i >> 1] + 1;\n\n        min_table.assign(log_table[N]\
-    \ + 1, vector<T>(N));\n        min_table[0] = A;\n        max_table.assign(log_table[N]\
-    \ + 1, vector<T>(N));\n        max_table[0] = A;\n\n        rep(k, 1, log_table[N]\
-    \ + 1) {\n            rep(i, N - (1 << k) + 1) {\n                min_table[k][i]\
-    \ = min(min_table[k - 1][i], min_table[k - 1][i + (1ll << (k - 1))]);\n      \
-    \          max_table[k][i] = max(max_table[k - 1][i], max_table[k - 1][i + (1ll\
-    \ << (k - 1))]);\n            }\n        }\n    }\n\n    // \u534A\u958B\u533A\
-    \u9593[l, r) (0-indexed) \u306E\u6700\u5C0F\u5024\u3092\u6C42\u3081\u308B\n  \
-    \  T query_min(long long l, long long r) {\n        assert(0 <= l and l < r and\
-    \ r <= N);\n\n        long long k = log_table[r - l];\n        return min(min_table[k][l],\
-    \ min_table[k][r - (1ll << k)]);\n    }\n\n    // \u534A\u958B\u533A\u9593[l,\
-    \ r) (0-indexed) \u306E\u6700\u5927\u5024\u3092\u6C42\u3081\u308B\n    T query_max(long\
-    \ long l, long long r) {\n        assert(0 <= l and l < r and r <= N);\n\n   \
-    \     long long k = log_table[r - l];\n        return max(max_table[k][l], max_table[k][r\
-    \ - (1ll << k)]);\n    }\n};"
+    \ N + 1) log_table[i] = log_table[i >> 1] + 1;\n\n        table.assign(log_table[N]\
+    \ + 1, vector<S>(N));\n        table[0] = A;\n\n        rep(k, 1, log_table[N]\
+    \ + 1) {\n            rep(i, N - (1 << k) + 1) {\n                table[k][i]\
+    \ = op(table[k - 1][i], table[k - 1][i + (1ll << (k - 1))]);\n            }\n\
+    \        }\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed) \u306E\u5024\
+    \u3092\u6C42\u3081\u308B\n    S prod(long long l, long long r) {\n        assert(0\
+    \ <= l and l < r and r <= N);\n\n        long long k = log_table[r - l];\n   \
+    \     return op(table[k][l], table[k][r - (1ll << k)]);\n    }\n};\n"
+  code: "#pragma once\n#include \"../base.cpp\"\n\n// Sparse Table\n// \u7D50\u5408\
+    \u6027\u3068\u51AA\u7B49\u6027\u3092\u6E80\u305F\u3059\u5FC5\u8981\u304C\u3042\
+    \u308B\n// \u7D50\u5408\u5247 (A \u2295\u3000B) \u2295 C = A \u2295 (B \u2295\
+    \ C)\n// \u51AA\u7B49\u6027 (A \u2295 A = A)\n// \u4F8B: min, max, gcd, lcm, and,\
+    \ or \u306A\u3069\n// \u69CB\u7BC9: O(N log N)\n// \u30AF\u30A8\u30EA: O(1)\n\
+    #if __cplusplus >= 201703L\ntemplate<class S, auto op>\n#else\ntemplate<class\
+    \ S, S (*op)(S, S)>\n#endif\nstruct SparseTable {\n#if __cplusplus >= 201703L\n\
+    \    static_assert(is_convertible_v<decltype(op), function<S(S, S)>>, \"op must\
+    \ be function<S(S, S)>\");\n#endif\n    \n    vector<vector<S>> table;\n    vector<long\
+    \ long> log_table;\n    long long N;\n\n    SparseTable(const vector<S> &A) {\n\
+    \        N = A.size();\n        log_table.assign(N + 1, 0);\n        rep(i, 2,\
+    \ N + 1) log_table[i] = log_table[i >> 1] + 1;\n\n        table.assign(log_table[N]\
+    \ + 1, vector<S>(N));\n        table[0] = A;\n\n        rep(k, 1, log_table[N]\
+    \ + 1) {\n            rep(i, N - (1 << k) + 1) {\n                table[k][i]\
+    \ = op(table[k - 1][i], table[k - 1][i + (1ll << (k - 1))]);\n            }\n\
+    \        }\n    }\n\n    // \u534A\u958B\u533A\u9593[l, r) (0-indexed) \u306E\u5024\
+    \u3092\u6C42\u3081\u308B\n    S prod(long long l, long long r) {\n        assert(0\
+    \ <= l and l < r and r <= N);\n\n        long long k = log_table[r - l];\n   \
+    \     return op(table[k][l], table[k][r - (1ll << k)]);\n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: structure/sparse-table.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:03:13+09:00'
+  timestamp: '2025-11-16 20:46:45+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/structure/sparse-table/yosupo-static-rmq.test.cpp

@@ -7,23 +7,8 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':x:'
-    path: test/tree/tree-dp-abstract/aoj-1595.test.cpp
-    title: test/tree/tree-dp-abstract/aoj-1595.test.cpp
-  - icon: ':x:'
-    path: test/tree/tree-dp-abstract/aoj-grl-5-a.test.cpp
-    title: test/tree/tree-dp-abstract/aoj-grl-5-a.test.cpp
-  - icon: ':x:'
-    path: test/tree/tree-dp-abstract/aoj-grl-5-b.test.cpp
-    title: test/tree/tree-dp-abstract/aoj-grl-5-b.test.cpp
-  - icon: ':x:'
-    path: test/tree/tree-dp-abstract/atcoder-abc220-f.test.cpp
-    title: test/tree/tree-dp-abstract/atcoder-abc220-f.test.cpp
-  - icon: ':x:'
-    path: test/tree/tree-dp-abstract/atcoder-abc348-e.test.cpp
-    title: test/tree/tree-dp-abstract/atcoder-abc348-e.test.cpp
-  - icon: ':x:'
-    path: test/tree/tree-dp-abstract/atcoder-abc394-f.test.cpp
-    title: test/tree/tree-dp-abstract/atcoder-abc394-f.test.cpp
+    path: test/tree/tree-dp-abstract/atcoder-abc409-e.test.cpp
+    title: test/tree/tree-dp-abstract/atcoder-abc409-e.test.cpp
   _isVerificationFailed: true
   _pathExtension: cpp
   _verificationStatusIcon: ':x:'
@@ -425,66 +410,51 @@ data:
     \ --> (prod <- put_vertex(child2)) --> ...\n                                 \
     \                                       --> ...\n                            \
     \                                            --> (prod <- put_edge(edgeN)) -->\
-    \ (prod <- put_vertex(childN)) --> ...\n\n*/\ntemplate <class S,\n    auto merge,\n\
-    \    auto e,\n    class w_edge,\n    auto put_edge,\n    auto id_edge,\n    class\
-    \ w_vertex,\n    auto put_vertex,\n    auto id_vertex>\n// template <class S,\n\
-    //     S (*merge)(S, S),\n//     S (*e)(),\n//     class w_edge,\n//     S (*put_edge)(S,\
-    \ w_edge),\n//     w_edge (*id_edge)(),\n//     class w_vertex,\n//     S (*put_vertex)(S,\
-    \ w_vertex),\n//     w_vertex (*id_vertex)()>\nstruct TreeDP {\n    static_assert(is_convertible_v<decltype(merge),\
-    \ function<S(S, S)>>, \"merge must be function<S(S, S)>\");\n    static_assert(is_convertible_v<decltype(e),\
+    \ (prod <- put_vertex(childN)) --> ...\n\n*/\n#if __cplusplus >= 201703L\ntemplate\
+    \ <class S,\n    auto merge,\n    auto e,\n    class w_edge,\n    auto put_edge,\n\
+    \    auto id_edge,\n    class w_vertex,\n    auto put_vertex,\n    auto id_vertex>\n\
+    #else\ntemplate <class S,\n    S (*merge)(vector<S>),\n    S (*e)(),\n    class\
+    \ w_edge,\n    S (*put_edge)(S, w_edge),\n    w_edge (*id_edge)(),\n    class\
+    \ w_vertex,\n    S (*put_vertex)(S, w_vertex),\n    w_vertex (*id_vertex)()>\n\
+    #endif\nstruct TreeDP {\n#if __cplusplus >= 201703L\n    static_assert(is_convertible_v<decltype(merge),\
+    \ function<S(vector<S>)>>, \"merge must be function<S(vector<S>)>\");\n    static_assert(is_convertible_v<decltype(e),\
     \ function<S()>>, \"e must be function<S()>\");\n    static_assert(is_convertible_v<decltype(put_edge),\
     \ function<S(S, w_edge)>>, \"put_edge must be function<S(S, w_edge)>\");\n   \
     \ static_assert(is_convertible_v<decltype(id_edge), function<w_edge()>>, \"id_edge\
     \ must be function<w_edge()>\");\n    static_assert(is_convertible_v<decltype(put_vertex),\
     \ function<S(S, w_vertex)>>, \"put_vertex must be function<S(S, w_vertex)>\");\n\
     \    static_assert(is_convertible_v<decltype(id_vertex), function<w_vertex()>>,\
-    \ \"id_vertex must be function<w_vertex()>\");\n\n    struct Edge {\n        long\
-    \ long from;\n        long long to;\n        w_edge weight;\n        long long\
-    \ rev;\n        \n        explicit Edge(long long u = -1, long long v = -1, w_edge\
-    \ w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n       \
-    \ bool operator < (const Edge& other) const {\n            if (from == other.from)\
-    \ {\n                if (to == other.to) return weight < other.weight;\n     \
-    \           else return to < other.to;\n            }\n            else return\
+    \ \"id_vertex must be function<w_vertex()>\");\n#endif\n    struct Edge {\n  \
+    \      long long from;\n        long long to;\n        w_edge weight;\n      \
+    \  long long rev;\n        \n        explicit Edge(long long u = -1, long long\
+    \ v = -1, w_edge w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r)\
+    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
+    \ == other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \                else return to < other.to;\n            }\n            else return\
     \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
     \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
     \n    long long V;\n    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n  \
-    \  vector<w_vertex> v_weights;\n\n    // \u5168\u65B9\u4F4D\u6728dp\u7528\n  \
-    \  vector<vector<S>> dp;\n    vector<S> prod_all;\n    long long root;\n    bool\
-    \ built = false;\n\n    TreeDP(long long N) : V(N), G(V) {\n        init();\n\
-    \    };\n    \n    void init() {\n        seen.assign(V, false);\n\n        v_weights.resize(V,\
-    \ id_vertex());\n        dp.resize(V);\n        prod_all.assign(V, e());\n   \
-    \ }\n    \n    void connect(long long from, long long to, w_edge weight = id_edge())\
+    \  vector<w_vertex> v_weights;\n    vector<S> dp;\n\n    TreeDP(long long N) :\
+    \ V(N), G(V) {\n        init();\n    };\n    \n    void init() {\n        seen.assign(V,\
+    \ false);\n\n        v_weights.resize(V, id_vertex());\n        dp.resize(V);\n\
+    \    }\n    \n    void connect(long long from, long long to, w_edge weight = id_edge())\
     \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
     \ V);\n\n        long long from_id = G[from].size();\n        long long to_id\
     \ = G[to].size();\n\n        G[from].emplace_back(from, to, weight, to_id);\n\
-    \        G[to].emplace_back(to, from, weight, from_id);\n\n        dp[from].push_back(e());\n\
-    \        dp[to].push_back(e());\n    }\n\n    void set_vertex_weight(long long\
-    \ v, w_vertex weight) {\n        assert(0 <= v and v < V);\n\n        v_weights[v]\
-    \ = weight;\n    }\n\n    S build(long long r) {\n        built = true;\n    \
-    \    root = r;\n        return dfs(root);\n    }\n\n    vector<S> reroot() {\n\
-    \        assert(built);\n        prod(root, e());\n\n        return prod_all;\n\
-    \    }\n\n    S dfs(long long now) {\n        assert(0 <= now and now < V);\n\n\
-    \        S ret = e();\n\n        seen[now] = true;\n\n        rep(i, G[now].size())\
-    \ {\n            Edge edge = G[now][i];\n            long long next = edge.to;\n\
-    \n            if (seen[next]) continue;\n\n            dp[now][i] = dfs(next);\n\
-    \            ret = merge(ret, put_edge(dp[now][i], edge.weight));\n        }\n\
-    \n        return put_vertex(ret, v_weights[now]);\n    }\n\n    void prod(long\
-    \ long now, const S& dp_p, Edge e_p = Edge()) {\n        long long deg = G[now].size();\n\
-    \n        if (e_p.rev != -1) dp[now][e_p.rev] = dp_p;\n\n        vector<S> prod_l(deg\
-    \ + 1, e()), prod_r(deg + 1, e());\n\n        rep(i, deg) {\n            Edge\
-    \ edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i], put_edge(dp[now][i],\
-    \ edge.weight));\n        }\n\n        repd(i, deg) {\n            Edge edge =\
-    \ G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
-    \ edge.weight));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
-    \ v_weights[now]);\n\n        rep(i, deg) {\n            if (i == e_p.rev) continue;\n\
-    \n            Edge edge = G[now][i];\n            long long child = edge.to;\n\
-    \            prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), v_weights[now]),\
-    \ edge);\n        }\n    }\n};\n\ntemplate <class S, auto merge, auto e, class\
-    \ F, auto put_edge, auto id>\nusing TreeDPEdge = TreeDP<S, merge, e, F, put_edge,\
-    \ id, ll, [](S x, ll y) -> S { return x; }, []() -> ll { return 0; }>;\ntemplate\
-    \ <class S, auto merge, auto e, class F, auto put_vertex, auto id>\nusing TreeDPVertex\
-    \ = TreeDP<S, merge, e, ll, [](S x, ll y) -> S { return x; }, []() -> ll { return\
-    \ 0; }, F, put_vertex, id>;\n"
+    \        G[to].emplace_back(to, from, weight, from_id);\n    }\n\n    void set_vertex_weight(long\
+    \ long v, w_vertex weight) {\n        assert(0 <= v and v < V);\n\n        v_weights[v]\
+    \ = weight;\n    }\n\n    S build(long long r) {\n        return dfs(r);\n   \
+    \ }\n\n    S dfs(long long now) {\n        assert(0 <= now and now < V);\n\n \
+    \       seen[now] = true;\n\n        vector<S> prods(1, e());\n\n        rep(i,\
+    \ G[now].size()) {\n            Edge edge = G[now][i];\n            long long\
+    \ next = edge.to;\n\n            if (seen[next]) continue;\n\n            prods.push_back(put_edge(dfs(next),\
+    \ edge.weight));\n        }\n\n        S ret = put_vertex(merge(prods), v_weights[now]);\n\
+    \        dp[now] = ret;\n\n        return ret;\n    }\n};\n\ntemplate <class S,\
+    \ auto merge, auto e, class F, auto put_edge, auto id>\nusing TreeDPEdge = TreeDP<S,\
+    \ merge, e, F, put_edge, id, ll, [](S x, ll y) -> S { return x; }, []() -> ll\
+    \ { return 0; }>;\ntemplate <class S, auto merge, auto e, class F, auto put_vertex,\
+    \ auto id>\nusing TreeDPVertex = TreeDP<S, merge, e, ll, [](S x, ll y) -> S {\
+    \ return x; }, []() -> ll { return 0; }, F, put_vertex, id>;\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\n/**\n * @brief tree-dp\n * @docs\
     \ docs/tree/tree-dp.md\n*/\n\n/**\n    ... --> par --> edge1 --> child1 --> ...\n\
     \                --> edge2 --> child2 --> ...\n                --> ...\n     \
@@ -497,80 +467,60 @@ data:
     \ --> ...\n                                                                  \
     \      --> ...\n                                                             \
     \           --> (prod <- put_edge(edgeN)) --> (prod <- put_vertex(childN)) -->\
-    \ ...\n\n*/\ntemplate <class S,\n    auto merge,\n    auto e,\n    class w_edge,\n\
-    \    auto put_edge,\n    auto id_edge,\n    class w_vertex,\n    auto put_vertex,\n\
-    \    auto id_vertex>\n// template <class S,\n//     S (*merge)(S, S),\n//    \
-    \ S (*e)(),\n//     class w_edge,\n//     S (*put_edge)(S, w_edge),\n//     w_edge\
-    \ (*id_edge)(),\n//     class w_vertex,\n//     S (*put_vertex)(S, w_vertex),\n\
-    //     w_vertex (*id_vertex)()>\nstruct TreeDP {\n    static_assert(is_convertible_v<decltype(merge),\
-    \ function<S(S, S)>>, \"merge must be function<S(S, S)>\");\n    static_assert(is_convertible_v<decltype(e),\
+    \ ...\n\n*/\n#if __cplusplus >= 201703L\ntemplate <class S,\n    auto merge,\n\
+    \    auto e,\n    class w_edge,\n    auto put_edge,\n    auto id_edge,\n    class\
+    \ w_vertex,\n    auto put_vertex,\n    auto id_vertex>\n#else\ntemplate <class\
+    \ S,\n    S (*merge)(vector<S>),\n    S (*e)(),\n    class w_edge,\n    S (*put_edge)(S,\
+    \ w_edge),\n    w_edge (*id_edge)(),\n    class w_vertex,\n    S (*put_vertex)(S,\
+    \ w_vertex),\n    w_vertex (*id_vertex)()>\n#endif\nstruct TreeDP {\n#if __cplusplus\
+    \ >= 201703L\n    static_assert(is_convertible_v<decltype(merge), function<S(vector<S>)>>,\
+    \ \"merge must be function<S(vector<S>)>\");\n    static_assert(is_convertible_v<decltype(e),\
     \ function<S()>>, \"e must be function<S()>\");\n    static_assert(is_convertible_v<decltype(put_edge),\
     \ function<S(S, w_edge)>>, \"put_edge must be function<S(S, w_edge)>\");\n   \
     \ static_assert(is_convertible_v<decltype(id_edge), function<w_edge()>>, \"id_edge\
     \ must be function<w_edge()>\");\n    static_assert(is_convertible_v<decltype(put_vertex),\
     \ function<S(S, w_vertex)>>, \"put_vertex must be function<S(S, w_vertex)>\");\n\
     \    static_assert(is_convertible_v<decltype(id_vertex), function<w_vertex()>>,\
-    \ \"id_vertex must be function<w_vertex()>\");\n\n    struct Edge {\n        long\
-    \ long from;\n        long long to;\n        w_edge weight;\n        long long\
-    \ rev;\n        \n        explicit Edge(long long u = -1, long long v = -1, w_edge\
-    \ w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r) {};\n\n       \
-    \ bool operator < (const Edge& other) const {\n            if (from == other.from)\
-    \ {\n                if (to == other.to) return weight < other.weight;\n     \
-    \           else return to < other.to;\n            }\n            else return\
+    \ \"id_vertex must be function<w_vertex()>\");\n#endif\n    struct Edge {\n  \
+    \      long long from;\n        long long to;\n        w_edge weight;\n      \
+    \  long long rev;\n        \n        explicit Edge(long long u = -1, long long\
+    \ v = -1, w_edge w = 1, long long r = -1) : from(u), to(v), weight(w), rev(r)\
+    \ {};\n\n        bool operator < (const Edge& other) const {\n            if (from\
+    \ == other.from) {\n                if (to == other.to) return weight < other.weight;\n\
+    \                else return to < other.to;\n            }\n            else return\
     \ from < other.from;\n        }\n\n        friend ostream& operator << (ostream&\
     \ os, const Edge& edge) {\n            return os << edge.to;\n        }\n    };\n\
     \n    long long V;\n    vector<vector<Edge>> G;\n    vector<bool> seen;\n\n  \
-    \  vector<w_vertex> v_weights;\n\n    // \u5168\u65B9\u4F4D\u6728dp\u7528\n  \
-    \  vector<vector<S>> dp;\n    vector<S> prod_all;\n    long long root;\n    bool\
-    \ built = false;\n\n    TreeDP(long long N) : V(N), G(V) {\n        init();\n\
-    \    };\n    \n    void init() {\n        seen.assign(V, false);\n\n        v_weights.resize(V,\
-    \ id_vertex());\n        dp.resize(V);\n        prod_all.assign(V, e());\n   \
-    \ }\n    \n    void connect(long long from, long long to, w_edge weight = id_edge())\
+    \  vector<w_vertex> v_weights;\n    vector<S> dp;\n\n    TreeDP(long long N) :\
+    \ V(N), G(V) {\n        init();\n    };\n    \n    void init() {\n        seen.assign(V,\
+    \ false);\n\n        v_weights.resize(V, id_vertex());\n        dp.resize(V);\n\
+    \    }\n    \n    void connect(long long from, long long to, w_edge weight = id_edge())\
     \ {\n        assert(0 <= from and from < V);\n        assert(0 <= to and to <\
     \ V);\n\n        long long from_id = G[from].size();\n        long long to_id\
     \ = G[to].size();\n\n        G[from].emplace_back(from, to, weight, to_id);\n\
-    \        G[to].emplace_back(to, from, weight, from_id);\n\n        dp[from].push_back(e());\n\
-    \        dp[to].push_back(e());\n    }\n\n    void set_vertex_weight(long long\
-    \ v, w_vertex weight) {\n        assert(0 <= v and v < V);\n\n        v_weights[v]\
-    \ = weight;\n    }\n\n    S build(long long r) {\n        built = true;\n    \
-    \    root = r;\n        return dfs(root);\n    }\n\n    vector<S> reroot() {\n\
-    \        assert(built);\n        prod(root, e());\n\n        return prod_all;\n\
-    \    }\n\n    S dfs(long long now) {\n        assert(0 <= now and now < V);\n\n\
-    \        S ret = e();\n\n        seen[now] = true;\n\n        rep(i, G[now].size())\
-    \ {\n            Edge edge = G[now][i];\n            long long next = edge.to;\n\
-    \n            if (seen[next]) continue;\n\n            dp[now][i] = dfs(next);\n\
-    \            ret = merge(ret, put_edge(dp[now][i], edge.weight));\n        }\n\
-    \n        return put_vertex(ret, v_weights[now]);\n    }\n\n    void prod(long\
-    \ long now, const S& dp_p, Edge e_p = Edge()) {\n        long long deg = G[now].size();\n\
-    \n        if (e_p.rev != -1) dp[now][e_p.rev] = dp_p;\n\n        vector<S> prod_l(deg\
-    \ + 1, e()), prod_r(deg + 1, e());\n\n        rep(i, deg) {\n            Edge\
-    \ edge = G[now][i];\n            prod_l[i + 1] = merge(prod_l[i], put_edge(dp[now][i],\
-    \ edge.weight));\n        }\n\n        repd(i, deg) {\n            Edge edge =\
-    \ G[now][i];\n            prod_r[i] = merge(prod_r[i + 1], put_edge(dp[now][i],\
-    \ edge.weight));\n        }\n\n        prod_all[now] = put_vertex(prod_l.back(),\
-    \ v_weights[now]);\n\n        rep(i, deg) {\n            if (i == e_p.rev) continue;\n\
-    \n            Edge edge = G[now][i];\n            long long child = edge.to;\n\
-    \            prod(child, put_vertex(merge(prod_l[i], prod_r[i + 1]), v_weights[now]),\
-    \ edge);\n        }\n    }\n};\n\ntemplate <class S, auto merge, auto e, class\
-    \ F, auto put_edge, auto id>\nusing TreeDPEdge = TreeDP<S, merge, e, F, put_edge,\
-    \ id, ll, [](S x, ll y) -> S { return x; }, []() -> ll { return 0; }>;\ntemplate\
-    \ <class S, auto merge, auto e, class F, auto put_vertex, auto id>\nusing TreeDPVertex\
-    \ = TreeDP<S, merge, e, ll, [](S x, ll y) -> S { return x; }, []() -> ll { return\
-    \ 0; }, F, put_vertex, id>;"
+    \        G[to].emplace_back(to, from, weight, from_id);\n    }\n\n    void set_vertex_weight(long\
+    \ long v, w_vertex weight) {\n        assert(0 <= v and v < V);\n\n        v_weights[v]\
+    \ = weight;\n    }\n\n    S build(long long r) {\n        return dfs(r);\n   \
+    \ }\n\n    S dfs(long long now) {\n        assert(0 <= now and now < V);\n\n \
+    \       seen[now] = true;\n\n        vector<S> prods(1, e());\n\n        rep(i,\
+    \ G[now].size()) {\n            Edge edge = G[now][i];\n            long long\
+    \ next = edge.to;\n\n            if (seen[next]) continue;\n\n            prods.push_back(put_edge(dfs(next),\
+    \ edge.weight));\n        }\n\n        S ret = put_vertex(merge(prods), v_weights[now]);\n\
+    \        dp[now] = ret;\n\n        return ret;\n    }\n};\n\ntemplate <class S,\
+    \ auto merge, auto e, class F, auto put_edge, auto id>\nusing TreeDPEdge = TreeDP<S,\
+    \ merge, e, F, put_edge, id, ll, [](S x, ll y) -> S { return x; }, []() -> ll\
+    \ { return 0; }>;\ntemplate <class S, auto merge, auto e, class F, auto put_vertex,\
+    \ auto id>\nusing TreeDPVertex = TreeDP<S, merge, e, ll, [](S x, ll y) -> S {\
+    \ return x; }, []() -> ll { return 0; }, F, put_vertex, id>;"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: tree/tree-dp-abstract.cpp
   requiredBy: []
-  timestamp: '2025-03-23 20:12:50+09:00'
+  timestamp: '2025-11-16 20:46:07+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/tree/tree-dp-abstract/atcoder-abc394-f.test.cpp
-  - test/tree/tree-dp-abstract/aoj-grl-5-b.test.cpp
-  - test/tree/tree-dp-abstract/atcoder-abc220-f.test.cpp
-  - test/tree/tree-dp-abstract/atcoder-abc348-e.test.cpp
-  - test/tree/tree-dp-abstract/aoj-grl-5-a.test.cpp
-  - test/tree/tree-dp-abstract/aoj-1595.test.cpp
+  - test/tree/tree-dp-abstract/atcoder-abc409-e.test.cpp
 documentation_of: tree/tree-dp-abstract.cpp
 layout: document
 redirect_from:

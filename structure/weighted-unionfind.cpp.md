@@ -600,18 +600,18 @@ data:
   timestamp: '2025-03-23 19:05:52+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/structure/weighted-unionfind/atcoder-abc333-d.test.cpp
   - test/structure/weighted-unionfind/yosupo-unionfind.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
-  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-3.test.cpp
-  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-2.test.cpp
-  - test/structure/weighted-unionfind/atcoder-abc292-d.test.cpp
-  - test/structure/weighted-unionfind/atcoder-abc277-c.test.cpp
   - test/structure/weighted-unionfind/yosupo-unionfind-with-potential.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-b-3.test.cpp
-  - test/structure/weighted-unionfind/aoj-dsl-1-b-2.test.cpp
   - test/structure/weighted-unionfind/atcoder-abc284-c.test.cpp
+  - test/structure/weighted-unionfind/atcoder-abc277-c.test.cpp
+  - test/structure/weighted-unionfind/atcoder-abc292-d.test.cpp
+  - test/structure/weighted-unionfind/atcoder-abc333-d.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-a.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b-2.test.cpp
+  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-3.test.cpp
   - test/structure/weighted-unionfind/aoj-dsl-1-b.test.cpp
+  - test/structure/weighted-unionfind/yosupo-unionfind-with-potential-2.test.cpp
+  - test/structure/weighted-unionfind/aoj-dsl-1-b-3.test.cpp
 documentation_of: structure/weighted-unionfind.cpp
 layout: document
 redirect_from:

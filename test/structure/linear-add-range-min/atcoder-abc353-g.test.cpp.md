@@ -404,71 +404,73 @@ data:
     \    return result;\n}\n#line 3 \"structure/linear-add-range-min.cpp\"\n\nconstexpr\
     \ long long bit_ceil_log(unsigned long long n) {\n    long long x = 0;\n    while\
     \ ((1ull << x) < (unsigned long long)(n)) x++;\n    return x;\n}\n\n// T : 2 *\
-    \ \u5024\u304C\u53CE\u307E\u308B\u578B\n// TN : 2 * (T\u306E\u6700\u5927\u5024\
-    ) * (\u8981\u7D20\u6570) \u304C\u53CE\u307E\u308B\u578B\n// TN2 : 2 * (T\u306E\
-    \u6700\u5927\u5024) * (\u8981\u7D20\u6570)^2 \u304C\u53CE\u307E\u308B\u578B\n\
-    template <typename T = long long, typename TN = long long, typename TN2 = __int128_t>\n\
-    struct LinearAddRangeMin {\n    struct Point {\n        long long x;\n       \
-    \ T y;\n\n        static TN cross(const Point &a, const Point &b, const Point\
-    \ &c) {\n            return (TN)(b.y - a.y) * (c.x - a.x) - (TN)(c.y - a.y) *\
-    \ (b.x - a.x);\n        }\n    };\n\n    struct Node {\n        Point lbr, rbr;\n\
-    \        T lza, lzb;\n        // \u8449\n        Node(long long x, T y): lbr{x,\
-    \ y}, rbr{x, y}, lza(0), lzb(0){}\n        // \u8449\u4EE5\u5916\n        Node():\
-    \ lza(0), lzb(0){}\n    };\n\n    static constexpr T inf = numeric_limits<T>::max();\n\
-    \n    LinearAddRangeMin(long long n) : _N(n) {\n        init(vector<T>(_N));\n\
-    \    }\n\n    LinearAddRangeMin(long long n, T a) : _N(n) {\n        init(vector<T>(_N,\
-    \ a));\n    }\n\n    LinearAddRangeMin(vector<T> v) : _N(v.size()) {\n       \
-    \ init(v);\n    }\n\n    void init(vector<T> v) {\n        N = bit_ceil((unsigned\
-    \ long long)(_N));\n        log = bit_ceil_log((unsigned long long)N) + 1;\n \
-    \       node = vector<Node>(2 * N);\n        rep(i, N) node[N + i] = Node(i, (i\
-    \ < _N ? v[i] : 0));\n        repd(i, 1, N) pull(i);\n    }\n\n    void set(long\
-    \ long p, T x) {\n        assert(0 <= p && p < _N);\n        long long P = p;\n\
-    \        p += N;\n\n        repd(i, 1, log) push(p >> i);\n        if(node[p].lbr.y\
-    \ == x) return;\n\n        bool is_decrease = node[p].lbr.y > x;\n        node[p]\
-    \ = Node(P, x);\n        // node[p]\u306E\u5024\u304C\u5897\u52A0\u3057\u305F\u5834\
-    \u5408\u3001\u5143\u3005\u306E\u6A4B\u304Cp\u3060\u3063\u305F\u5834\u5408\u306E\
-    \u307Fpull\n        //           \u6E1B\u5C11\u3057\u305F\u5834\u5408\u3001\u5E38\
-    \u306Bpull\n        rep(i, 1, log) {\n            if (is_decrease or node[p >>\
-    \ i].lbr.x == P or node[p >> i].rbr.x == P) {\n                pull(p >> i);\n\
-    \            }\n        }\n    }\n\n    T get(long long p) {\n        assert(0\
-    \ <= p && p < _N);\n        p += N;\n\n        T a = 0, b = 0;\n        repd(i,\
-    \ 1, log) a += node[p >> i].lza, b += node[p >> i].lzb;\n        return node[p].lbr.y\
-    \ + (p - N) * a + b;\n    }\n\n    // [l, r)\u306Emin\n    T prod(long long l,\
-    \ long long r) {\n        assert(0 <= l && l <= r && r <= _N);\n        if (l\
-    \ == r) return inf;\n\n        l += N;\n        r += N;\n\n        repd(i, 1,\
-    \ log) {\n            if (((l >> i) << i) != l) push(l >> i);\n            if\
-    \ (((r >> i) << i) != r) push((r - 1) >> i);\n        }\n\n        T res = inf;\n\
-    \        while (l < r) {\n            if (l & 1) res = min(res, min_subtree(l++));\n\
-    \            if (r & 1) res = min(res, min_subtree(--r));\n            l >>= 1;\n\
-    \            r >>= 1;\n        }\n\n        return res;\n    }\n\n    // [l, r)\u306B\
-    ax+b\u3092\u8DB3\u3057\u305F\u3068\u4EEE\u5B9A\u3057\u3066\u306Emin\n    T prod_assume_apply(long\
-    \ long l, long long r, T a, T b) {\n        assert(0 <= l && l <= r && r <= _N);\n\
-    \        if (l == r) return inf;\n\n        l += N;\n        r += N;\n\n     \
-    \   repd(i, 1, log) {\n            if (((l >> i) << i) != l) push(l >> i);\n \
-    \           if (((r >> i) << i) != r) push((r - 1) >> i);\n        }\n\n     \
-    \   T res = inf;\n        while (l < r) {\n            if (l & 1) res = min(res,\
-    \ min_subtree(l++, a, b));\n            if (r & 1) res = min(res, min_subtree(--r,\
-    \ a, b));\n            l >>= 1;\n            r >>= 1;\n        }\n\n        return\
-    \ res;\n    }\n\n    // [l, r)\u306Bai+b (i=l, l+1, ..., r-1)\u3092\u52A0\u3048\
-    \u308B\n    void apply(long long l, long long r, T a, T b) {\n        assert(0\
-    \ <= l && l <= r && r <= _N);\n        if (l == r) return;\n\n        l += N;\n\
-    \        r += N;\n        {\n            long long l2 = l, r2 = r;\n         \
-    \   while (l < r) {\n                if (l & 1) all_apply(l++, a, b);\n      \
-    \          if (r & 1) all_apply(--r, a, b);\n                l >>= 1;\n      \
-    \          r >>= 1;\n            }\n            l = l2;\n            r = r2;\n\
-    \        }\n        bool upper_lca = false;\n        rep(i, 1, log) {\n      \
-    \      upper_lca |= (l >> i) == ((r - 1) >> i);\n            if (((l >> i) <<\
-    \ i) != l) pull(l >> i);\n            if (!upper_lca && ((r >> i) << i) != r)\
-    \ pull((r - 1) >> i);\n        }\n    }\n\n    // [l, r)\u306B\u521D\u9805al,\
-    \ \u516C\u5DEEd\u306E\u7B49\u5DEE\u6570\u5217\u3092\u8DB3\u3059\n    void apply_al(long\
-    \ long l, long long r, T al, T d) {\n        T a = d;\n        T b = al - d *\
-    \ l;\n        apply(l, r, a, b);\n    }\n\n    // [l, r)\u306B\u672B\u9805ar,\
-    \ \u516C\u5DEEd\u306E\u7B49\u5DEE\u6570\u5217\u3092\u8DB3\u3059\n    void apply_ar(long\
-    \ long l, long long r, T ar, T d) {\n        T a = d;\n        T b = ar - d *\
-    \ (r - 1);\n        apply(l, r, a, b);\n    }\n\n    // [l, r)\u306B\u521D\u9805\
-    al, \u516C\u5DEEd\u306E\u7B49\u5DEE\u6570\u5217\u3092\u8DB3\u3059\u3068\u4EEE\u5B9A\
-    \u3057\u3066\u306Emin\n    T prod_assume_apply_al(long long l, long long r, T\
-    \ al, T d) {\n        T a = d;\n        T b = al - d * l;\n        return prod_assume_apply(l,\
+    \ (\u6700\u5927\u5024) * (\u8981\u7D20\u6570)^2 \u304C\u53CE\u307E\u308B\u578B\
+    \ntemplate <typename T, auto e, int coeff = 1>\nstruct LinearAddRangeMin {\n \
+    \   struct Point {\n        long long x;\n        T y;\n\n        static T cross(const\
+    \ Point &a, const Point &b, const Point &c) {\n            return (b.y - a.y)\
+    \ * (c.x - a.x) - (c.y - a.y) * (b.x - a.x);\n        }\n    };\n\n    struct\
+    \ Node {\n        Point lbr, rbr;\n        T lza, lzb;\n        // \u8449\n  \
+    \      Node(long long x, T y): lbr{x, y}, rbr{x, y}, lza(0), lzb(0){}\n      \
+    \  // \u8449\u4EE5\u5916\n        Node(): lza(0), lzb(0){}\n    };\n\n    LinearAddRangeMin(long\
+    \ long n) : _N(n) {\n        init(vector<T>(_N));\n    }\n\n    LinearAddRangeMin(long\
+    \ long n, T a) : _N(n) {\n        init(vector<T>(_N, a));\n    }\n\n    LinearAddRangeMin(vector<T>\
+    \ v) : _N(v.size()) {\n        init(v);\n    }\n\n    void init(vector<T> v) {\n\
+    \        N = bit_ceil((unsigned long long)(_N));\n        log = bit_ceil_log((unsigned\
+    \ long long)N) + 1;\n        node = vector<Node>(2 * N);\n        rep(i, N) node[N\
+    \ + i] = Node(i, (i < _N ? coeff * v[i] : coeff * e()));\n        repd(i, 1, N)\
+    \ pull(i);\n    }\n\n    void set(long long p, T x) {\n        assert(0 <= p &&\
+    \ p < _N);\n        long long P = p;\n        p += N;\n        x *= coeff;\n\n\
+    \        repd(i, 1, log) push(p >> i);\n        if(node[p].lbr.y == x) return;\n\
+    \n        bool is_decrease = node[p].lbr.y > x;\n        node[p] = Node(P, x);\n\
+    \        // node[p]\u306E\u5024\u304C\u5897\u52A0\u3057\u305F\u5834\u5408\u3001\
+    \u5143\u3005\u306E\u6A4B\u304Cp\u3060\u3063\u305F\u5834\u5408\u306E\u307Fpull\n\
+    \        //           \u6E1B\u5C11\u3057\u305F\u5834\u5408\u3001\u5E38\u306Bpull\n\
+    \        rep(i, 1, log) {\n            if (is_decrease or node[p >> i].lbr.x ==\
+    \ P or node[p >> i].rbr.x == P) {\n                pull(p >> i);\n           \
+    \ }\n        }\n    }\n\n    T get(long long p) const {\n        assert(0 <= p\
+    \ && p < _N);\n        p += N;\n\n        T a = 0, b = 0;\n        repd(i, 1,\
+    \ log) a += node[p >> i].lza, b += node[p >> i].lzb;\n        return coeff * (node[p].lbr.y\
+    \ + (p - N) * a + b);\n    }\n\n    T prod() {\n        return coeff * min_subtree(1);\n\
+    \    }\n\n    // [l, r)\u306Emin\n    T prod(long long l, long long r) {\n   \
+    \     assert(0 <= l && l <= r && r <= _N);\n        if (l == r) return e();\n\n\
+    \        l += N;\n        r += N;\n\n        repd(i, 1, log) {\n            if\
+    \ (((l >> i) << i) != l) push(l >> i);\n            if (((r >> i) << i) != r)\
+    \ push((r - 1) >> i);\n        }\n\n        T res = coeff * e();\n        while\
+    \ (l < r) {\n            if (l & 1) res = min(res, min_subtree(l++));\n      \
+    \      if (r & 1) res = min(res, min_subtree(--r));\n            l >>= 1;\n  \
+    \          r >>= 1;\n        }\n\n        return coeff * res;\n    }\n\n    T\
+    \ prod_assume_apply(T a, T b) {\n        return prod_assume_apply(0, N, a, b);\n\
+    \    }\n\n    // [l, r)\u306Bax+b\u3092\u8DB3\u3057\u305F\u3068\u4EEE\u5B9A\u3057\
+    \u3066\u306Emin\n    T prod_assume_apply(long long l, long long r, T a, T b) {\n\
+    \        if (l == r) return coeff * e();\n\n        l += N;\n        r += N;\n\
+    \        a *= coeff;\n        b *= coeff;\n\n        repd(i, 1, log) {\n     \
+    \       if (((l >> i) << i) != l) push(l >> i);\n            if (((r >> i) <<\
+    \ i) != r) push((r - 1) >> i);\n        }\n\n        T res = coeff * e();\n  \
+    \      while (l < r) {\n            if (l & 1) res = min(res, min_subtree(l++,\
+    \ a, b));\n            if (r & 1) res = min(res, min_subtree(--r, a, b));\n  \
+    \          l >>= 1;\n            r >>= 1;\n        }\n\n        return coeff *\
+    \ res;\n    }\n\n    // \u5168\u4F53\u306Bai+b (i=0, 1, ..., N-1)\u3092\u52A0\u3048\
+    \u308B\n    void apply(T a, T b) {\n        apply(0, N, a, b);\n    }\n\n    //\
+    \ [l, r)\u306Bai+b (i=l, l+1, ..., r-1)\u3092\u52A0\u3048\u308B\n    void apply(long\
+    \ long l, long long r, T a, T b) {\n        // assert(0 <= l && l <= r && r <=\
+    \ _N);\n        if (l == r) return;\n\n        l += N;\n        r += N;\n    \
+    \    a *= coeff;\n        b *= coeff;\n        \n        long long l2 = l, r2\
+    \ = r;\n        while (l < r) {\n            if (l & 1) all_apply(l++, a, b);\n\
+    \            if (r & 1) all_apply(--r, a, b);\n            l >>= 1;\n        \
+    \    r >>= 1;\n        }\n        l = l2;\n        r = r2;\n        \n       \
+    \ bool upper_lca = false;\n        rep(i, 1, log) {\n            upper_lca |=\
+    \ (l >> i) == ((r - 1) >> i);\n            if (((l >> i) << i) != l) pull(l >>\
+    \ i);\n            if (!upper_lca && ((r >> i) << i) != r) pull((r - 1) >> i);\n\
+    \        }\n    }\n\n    // [l, r)\u306B\u521D\u9805al, \u516C\u5DEEd\u306E\u7B49\
+    \u5DEE\u6570\u5217\u3092\u8DB3\u3059\n    void apply_al(long long l, long long\
+    \ r, T al, T d) {\n        T a = d;\n        T b = al - d * l;\n        apply(l,\
+    \ r, a, b);\n    }\n\n    // [l, r)\u306B\u672B\u9805ar, \u516C\u5DEEd\u306E\u7B49\
+    \u5DEE\u6570\u5217\u3092\u8DB3\u3059\n    void apply_ar(long long l, long long\
+    \ r, T ar, T d) {\n        T a = d;\n        T b = ar - d * (r - 1);\n       \
+    \ apply(l, r, a, b);\n    }\n\n    // [l, r)\u306B\u521D\u9805al, \u516C\u5DEE\
+    d\u306E\u7B49\u5DEE\u6570\u5217\u3092\u8DB3\u3059\u3068\u4EEE\u5B9A\u3057\u3066\
+    \u306Emin\n    T prod_assume_apply_al(long long l, long long r, T al, T d) {\n\
+    \        T a = d;\n        T b = al - d * l;\n        return prod_assume_apply(l,\
     \ r, a, b);\n    }\n\n    // [l, r)\u306B\u672B\u9805ar, \u516C\u5DEEd\u306E\u7B49\
     \u5DEE\u6570\u5217\u3092\u8DB3\u3059\u3068\u4EEE\u5B9A\u3057\u3066\u306Emin\n\
     \    T prod_assume_apply_ar(long long l, long long r, T ar, T d) {\n        T\
@@ -494,73 +496,45 @@ data:
     \ += node[r].lza, lzB += node[r].lzb;\\\n            r = r * 2 + f;\\\n      \
     \      c = node[r].lbr, d = node[r].rbr;\\\n            c.y += lzA * c.x + lzB;\\\
     \n            d.y += lzA * d.x + lzB;\\\n        }\n        while ((l < N) ||\
-    \ (r < N)) {\n            TN s1 = Point::cross(a, b, c);\n            if (l <\
-    \ N && s1 > 0) {\n                movel(0);\n            } \n            else\
-    \ if (r < N && Point::cross(b, c, d) > 0) {\n                mover(1);\n     \
-    \       } \n            else if (l >= N) {\n                mover(0);\n      \
-    \      } \n            else if (r >= N) {\n                movel(1);\n       \
-    \     } \n            else {\n                TN2 s2 = Point::cross(b, a, d);\n\
-    \                if (s1 + s2 == 0 || (TN2)s1 * (d.x - splitx) < s2 * (splitx -\
-    \ c.x)) {\n                    movel(1);\n                } else {\n         \
-    \           mover(0);\n                }\n            }\n        }\n        node[k].lbr\
+    \ (r < N)) {\n            T s1 = Point::cross(a, b, c);\n            if (l < N\
+    \ && s1 > 0) {\n                movel(0);\n            } \n            else if\
+    \ (r < N && Point::cross(b, c, d) > 0) {\n                mover(1);\n        \
+    \    } \n            else if (l >= N) {\n                mover(0);\n         \
+    \   } \n            else if (r >= N) {\n                movel(1);\n          \
+    \  } \n            else {\n                T s2 = Point::cross(b, a, d);\n   \
+    \             if (s1 + s2 == 0 || s1 * (d.x - splitx) < s2 * (splitx - c.x)) {\n\
+    \                    movel(1);\n                } else {\n                   \
+    \ mover(0);\n                }\n            }\n        }\n        node[k].lbr\
     \ = a;\n        node[k].rbr = c;\n        #undef movel\n        #undef mover\n\
     \    }\n\n    T min_subtree(long long k, T a = 0, T b = 0) {\n        while (k\
     \ < N) {\n            bool f = (node[k].lbr.y - node[k].rbr.y) > a * (node[k].rbr.x\
     \ - node[k].lbr.x);\n            a += node[k].lza;\n            b += node[k].lzb;\n\
     \            k = k * 2 + f;\n        }\n        return node[k].lbr.y + a * node[k].lbr.x\
-    \ + b;\n    }\n};\n\ntemplate <typename T = long long, typename TN = long long,\
-    \ typename TN2 = __int128_t>\nstruct LinearAddRangeMax : LinearAddRangeMin<T,\
-    \ TN, TN2> {\n    using LinearAddRangeMin<T, TN, TN2>::LinearAddRangeMin;\n  \
-    \  long long _N;\n\n    LinearAddRangeMax(long long n) : LinearAddRangeMin<T,\
-    \ TN, TN2>(n), _N(n) {}\n    LinearAddRangeMax(long long n, T a) : LinearAddRangeMin<T,\
-    \ TN, TN2>(n, -a), _N(n) {}\n    LinearAddRangeMax(vector<T> v) : LinearAddRangeMin<T,\
-    \ TN, TN2>(-v), _N(v.size()) {}\n\n    void set(long long p, T x) {\n        LinearAddRangeMin<T,\
-    \ TN, TN2>::set(p, -x);\n    }\n\n    T get(long long p) {\n        return -LinearAddRangeMin<T,\
-    \ TN, TN2>::get(p);\n    }\n\n    T prod(long long l, long long r) {\n       \
-    \ return -LinearAddRangeMin<T, TN, TN2>::prod(l, r);\n    }\n\n    T prod_assume_add(long\
-    \ long l, long long r, T a, T b) {\n        return -LinearAddRangeMin<T, TN, TN2>::prod_assume_add(l,\
-    \ r, -a, -b);\n    }\n\n    // [l, r)\u306Bai+b (i=l, l+1, ..., r-1)\u3092\u52A0\
-    \u3048\u308B\n    void apply(long long l, long long r, T a, T b) {\n        LinearAddRangeMin<T,\
-    \ TN, TN2>::apply(l, r, -a, -b);\n    }\n\n    // [l, r)\u306B\u521D\u9805al,\
-    \ \u516C\u5DEEd\u306E\u7B49\u5DEE\u6570\u5217\u3092\u8DB3\u3059\n    void apply_al(long\
-    \ long l, long long r, T al, T d) {\n        LinearAddRangeMin<T, TN, TN2>::apply_al(l,\
-    \ r, -al, -d);\n    }\n\n    // [l, r)\u306B\u672B\u9805ar, \u516C\u5DEEd\u306E\
-    \u7B49\u5DEE\u6570\u5217\u3092\u8DB3\u3059\n    void apply_ar(long long l, long\
-    \ long r, T ar, T d) {\n        LinearAddRangeMin<T, TN, TN2>::apply_ar(l, r,\
-    \ -ar, -d);\n    }\n\n    // [l, r)\u306B\u521D\u9805al, \u516C\u5DEEd\u306E\u7B49\
-    \u5DEE\u6570\u5217\u3092\u8DB3\u3059\u3068\u4EEE\u5B9A\u3057\u3066\u306Emax\n\
-    \    T prod_assume_apply_al(long long l, long long r, T al, T d) {\n        return\
-    \ -LinearAddRangeMin<T, TN, TN2>::prod_assume_apply_al(l, r, -al, -d);\n    }\n\
-    \n    // [l, r)\u306B\u672B\u9805ar, \u516C\u5DEEd\u306E\u7B49\u5DEE\u6570\u5217\
-    \u3092\u8DB3\u3059\u3068\u4EEE\u5B9A\u3057\u3066\u306Emax\n    T prod_assume_apply_ar(long\
-    \ long l, long long r, T ar, T d) {\n        return -LinearAddRangeMin<T, TN,\
-    \ TN2>::prod_assume_apply_ar(l, r, -ar, -d);\n    }\n\n    friend ostream& operator<<(ostream&\
-    \ os, LinearAddRangeMax& seg) {\n        os << seg._N << endl;\n        os <<\
-    \ \"[\";\n        rep(i, seg._N) {\n            if (i) os << \", \";\n       \
-    \     os << seg.get(i);\n        }\n        return os << \"]\";\n    }\n};\n#line\
-    \ 4 \"test/structure/linear-add-range-min/atcoder-abc353-g.test.cpp\"\n\nint main()\
-    \ {\n    ll N, C, M;\n    cin >> N >> C >> M;\n\n    LinearAddRangeMax<lll, lll,\
-    \ lll> tree(N, -INF64);\n    tree.set(0, 0);\n\n    rep(i, M) {\n        ll t,\
-    \ p;\n        cin >> t >> p;\n        --t;\n\n        lll m = tree.get(t);\n \
-    \       chmax(m, tree.prod_assume_apply_ar(0, t + 1, 0, C));\n        chmax(m,\
-    \ tree.prod_assume_apply_al(t, N, 0, -C));\n\n        tree.set(t, m + p);\n  \
-    \  }\n\n    lll ans = tree.prod(0, N);\n\n    cout << ans << endl;\n\n    return\
-    \ 0;\n} \n"
+    \ + b;\n    }\n};\n\ntemplate <typename T, auto e>\nusing LinearAddRangeMax =\
+    \ LinearAddRangeMin<T, e, -1>;\n#line 4 \"test/structure/linear-add-range-min/atcoder-abc353-g.test.cpp\"\
+    \n\nint main() {\n    ll N, C, M;\n    cin >> N >> C >> M;\n\n    using T = lll;\n\
+    \    auto e = []() { return -INF64; };\n    LinearAddRangeMax<T, e> tree(N, -INF64);\n\
+    \    tree.set(0, 0);\n\n    rep(i, M) {\n        ll t, p;\n        cin >> t >>\
+    \ p;\n        --t;\n\n        lll m = tree.get(t);\n        chmax(m, tree.prod_assume_apply_ar(0,\
+    \ t + 1, 0, C));\n        chmax(m, tree.prod_assume_apply_al(t, N, 0, -C));\n\n\
+    \        tree.set(t, m + p);\n    }\n\n    lll ans = tree.prod(0, N);\n\n    cout\
+    \ << ans << endl;\n\n    return 0;\n} \n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc353/tasks/abc353_g\"\n\n\
     #include \"../../../structure/linear-add-range-min.cpp\"\n\nint main() {\n   \
-    \ ll N, C, M;\n    cin >> N >> C >> M;\n\n    LinearAddRangeMax<lll, lll, lll>\
-    \ tree(N, -INF64);\n    tree.set(0, 0);\n\n    rep(i, M) {\n        ll t, p;\n\
-    \        cin >> t >> p;\n        --t;\n\n        lll m = tree.get(t);\n      \
-    \  chmax(m, tree.prod_assume_apply_ar(0, t + 1, 0, C));\n        chmax(m, tree.prod_assume_apply_al(t,\
-    \ N, 0, -C));\n\n        tree.set(t, m + p);\n    }\n\n    lll ans = tree.prod(0,\
-    \ N);\n\n    cout << ans << endl;\n\n    return 0;\n} \n"
+    \ ll N, C, M;\n    cin >> N >> C >> M;\n\n    using T = lll;\n    auto e = []()\
+    \ { return -INF64; };\n    LinearAddRangeMax<T, e> tree(N, -INF64);\n    tree.set(0,\
+    \ 0);\n\n    rep(i, M) {\n        ll t, p;\n        cin >> t >> p;\n        --t;\n\
+    \n        lll m = tree.get(t);\n        chmax(m, tree.prod_assume_apply_ar(0,\
+    \ t + 1, 0, C));\n        chmax(m, tree.prod_assume_apply_al(t, N, 0, -C));\n\n\
+    \        tree.set(t, m + p);\n    }\n\n    lll ans = tree.prod(0, N);\n\n    cout\
+    \ << ans << endl;\n\n    return 0;\n} \n"
   dependsOn:
   - structure/linear-add-range-min.cpp
   - base.cpp
   isVerificationFile: true
   path: test/structure/linear-add-range-min/atcoder-abc353-g.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:38:43+09:00'
+  timestamp: '2025-11-16 20:38:15+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/linear-add-range-min/atcoder-abc353-g.test.cpp

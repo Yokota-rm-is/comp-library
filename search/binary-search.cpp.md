@@ -400,33 +400,37 @@ data:
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"search/binary-search.cpp\"\n\n// main\u306B\
-    is_ok\u3092\u304A\u304F\n// auto is_ok = [&](auto x){return A[x] < K;};\n\n//\
-    \ \u6C4E\u7528\u7684\u306A\u4E8C\u5206\u63A2\u7D22\u306E\u30C6\u30F3\u30D7\u30EC\
-    \ntemplate<typename T>\nT binary_search(function<bool(T)> is_ok, T ok, T ng) {\n\
-    \    if (!is_ok(ok)) return -1;\n    if (is_ok(ng)) return ng;\n\n    long long\
-    \ ok_ll = bit_cast<long long>(ok), ng_ll = bit_cast<long long>(ng);\n\n    /*\
-    \ ok \u3068 ng \u306E\u3069\u3061\u3089\u304C\u5927\u304D\u3044\u304B\u308F\u304B\
-    \u3089\u306A\u3044\u3053\u3068\u3092\u8003\u616E */\n    while (abs(ok_ll - ng_ll)\
-    \ > 1ll) {\n        T mid = midpoint(ok, ng);\n        long long mid_ll = midpoint(ok_ll,\
-    \ ng_ll);\n\n        if (is_ok(mid)) ok = mid, ok_ll = mid_ll;\n        else ng\
-    \ = mid, ng_ll = mid_ll;\n    }\n    return ok;\n}\n"
+    is_ok\u3092\u304A\u304F\n// auto is_ok = [&](auto x){return A[x] < K;};\n\ntemplate<typename\
+    \ T>\nT binary_search(function<bool(T)> is_ok, T ok, T ng) {\n    if (!is_ok(ok))\
+    \ return -1;\n    if (is_ok(ng)) return ng;\n\n    /* ok \u3068 ng \u306E\u3069\
+    \u3061\u3089\u304C\u5927\u304D\u3044\u304B\u308F\u304B\u3089\u306A\u3044\u3053\
+    \u3068\u3092\u8003\u616E */\n    while (abs(ok - ng) > 1ll) {\n        T mid =\
+    \ midpoint(ok, ng);\n\n        if (is_ok(mid)) ok = mid;\n        else ng = mid;\n\
+    \    }\n    return ok;\n}\n\ntemplate<>\ndouble binary_search(function<bool(double)>\
+    \ is_ok, double ok, double ng) {\n    if (!is_ok(ok)) return -1;\n    if (is_ok(ng))\
+    \ return ng;\n\n    /* ok \u3068 ng \u306E\u3069\u3061\u3089\u304C\u5927\u304D\
+    \u3044\u304B\u308F\u304B\u3089\u306A\u3044\u3053\u3068\u3092\u8003\u616E */\n\
+    \    rep(i, 64) {\n        double mid = (ok + ng) / 2;\n\n        if (is_ok(mid))\
+    \ ok = mid;\n        else ng = mid;\n    }\n    return ok;\n}\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\n// main\u306Bis_ok\u3092\u304A\u304F\
-    \n// auto is_ok = [&](auto x){return A[x] < K;};\n\n// \u6C4E\u7528\u7684\u306A\
-    \u4E8C\u5206\u63A2\u7D22\u306E\u30C6\u30F3\u30D7\u30EC\ntemplate<typename T>\n\
-    T binary_search(function<bool(T)> is_ok, T ok, T ng) {\n    if (!is_ok(ok)) return\
-    \ -1;\n    if (is_ok(ng)) return ng;\n\n    long long ok_ll = bit_cast<long long>(ok),\
-    \ ng_ll = bit_cast<long long>(ng);\n\n    /* ok \u3068 ng \u306E\u3069\u3061\u3089\
-    \u304C\u5927\u304D\u3044\u304B\u308F\u304B\u3089\u306A\u3044\u3053\u3068\u3092\
-    \u8003\u616E */\n    while (abs(ok_ll - ng_ll) > 1ll) {\n        T mid = midpoint(ok,\
-    \ ng);\n        long long mid_ll = midpoint(ok_ll, ng_ll);\n\n        if (is_ok(mid))\
-    \ ok = mid, ok_ll = mid_ll;\n        else ng = mid, ng_ll = mid_ll;\n    }\n \
-    \   return ok;\n}"
+    \n// auto is_ok = [&](auto x){return A[x] < K;};\n\ntemplate<typename T>\nT binary_search(function<bool(T)>\
+    \ is_ok, T ok, T ng) {\n    if (!is_ok(ok)) return -1;\n    if (is_ok(ng)) return\
+    \ ng;\n\n    /* ok \u3068 ng \u306E\u3069\u3061\u3089\u304C\u5927\u304D\u3044\u304B\
+    \u308F\u304B\u3089\u306A\u3044\u3053\u3068\u3092\u8003\u616E */\n    while (abs(ok\
+    \ - ng) > 1ll) {\n        T mid = midpoint(ok, ng);\n\n        if (is_ok(mid))\
+    \ ok = mid;\n        else ng = mid;\n    }\n    return ok;\n}\n\ntemplate<>\n\
+    double binary_search(function<bool(double)> is_ok, double ok, double ng) {\n \
+    \   if (!is_ok(ok)) return -1;\n    if (is_ok(ng)) return ng;\n\n    /* ok \u3068\
+    \ ng \u306E\u3069\u3061\u3089\u304C\u5927\u304D\u3044\u304B\u308F\u304B\u3089\u306A\
+    \u3044\u3053\u3068\u3092\u8003\u616E */\n    rep(i, 64) {\n        double mid\
+    \ = (ok + ng) / 2;\n\n        if (is_ok(mid)) ok = mid;\n        else ng = mid;\n\
+    \    }\n    return ok;\n}"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: search/binary-search.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:18:53+09:00'
+  timestamp: '2025-04-27 19:35:53+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/string/string-table/atcoder-abc346-f.test.cpp

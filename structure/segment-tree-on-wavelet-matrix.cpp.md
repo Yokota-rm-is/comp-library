@@ -946,10 +946,10 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/structure/segment-tree-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
-  - test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
   - test/structure/segment-tree-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
-  - test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
   - test/structure/segment-tree-on-wavelet-matrix/atcoder-abc369-f.test.cpp
+  - test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
+  - test/structure/segment-tree-on-wavelet-matrix/aoj-dsl-2-a.test.cpp
 documentation_of: structure/segment-tree-on-wavelet-matrix.cpp
 layout: document
 redirect_from:

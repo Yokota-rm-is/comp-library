@@ -475,8 +475,8 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/baseset/aoj-ALDS1-13-b.test.cpp
   - test/other/baseset/atcoder-abc322-e.test.cpp
+  - test/other/baseset/aoj-ALDS1-13-b.test.cpp
 documentation_of: other/baseset.cpp
 layout: document
 redirect_from:

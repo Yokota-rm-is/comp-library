@@ -414,18 +414,17 @@ data:
     : https://perogram.hateblo.jp/entry/namori\nstruct NamoriGraph {\n    vector<long\
     \ long> ids;\n    unordered_set<long long> cycle_ids, leaves;\n    unordered_map<long\
     \ long, long long> to, depth;\n    unordered_map<long long, vector<long long>>\
-    \ prev;\n    vector<long long> topo;\n\n    void connect(long long u, long long\
-    \ v) {\n        to[u] = v;\n        prev[v].push_back(u);\n    }\n\n    bool is_cycle(long\
-    \ long x) {\n        return cycle_ids.contains(x);\n    }\n\n    bool is_leaf(long\
-    \ long x) {\n        return prev[x].size() == 0;\n    }\n\n    void build() {\n\
-    \        fore(p, to) {\n            ids.push_back(p.first);\n            if (prev[p.first].size()\
-    \ == 0) leaves.insert(p.first);\n        }\n\n        vector<vector<long long>>\
-    \ table(ids.size());\n\n        unordered_set<long long> seen;\n        stack<long\
-    \ long> st;\n        long long now = ids.front();\n        seen.insert(now);\n\
-    \        st.push(now);\n\n        while (true) {\n            now = to[now];\n\
-    \            st.push(now);\n\n            if (seen.contains(now)) break;\n   \
-    \         seen.insert(now);\n        }\n\n        while (!st.empty()) {\n    \
-    \        now = st.top();\n            st.pop();\n\n            if (cycle_ids.contains(now))\
+    \ prev;\n    vector<long long> topo;\n    bool built = false;\n\n    void connect(long\
+    \ long u, long long v) {\n        assert(!built);\n        to[u] = v;\n      \
+    \  prev[v].push_back(u);\n    }\n\n    void build() {\n        assert(!built);\n\
+    \        built = true;\n\n        fore(p, to) {\n            ids.push_back(p.first);\n\
+    \            if (prev[p.first].size() == 0) leaves.insert(p.first);\n        }\n\
+    \n        vector<vector<long long>> table(ids.size());\n\n        unordered_set<long\
+    \ long> seen;\n        stack<long long> st;\n        long long now = ids.front();\n\
+    \        seen.insert(now);\n        st.push(now);\n\n        while (true) {\n\
+    \            now = to[now];\n            st.push(now);\n\n            if (seen.contains(now))\
+    \ break;\n            seen.insert(now);\n        }\n\n        while (!st.empty())\
+    \ {\n            now = st.top();\n            st.pop();\n\n            if (cycle_ids.contains(now))\
     \ break;\n            cycle_ids.insert(now);\n            depth[now] = 0;\n  \
     \          table[0].push_back(now);\n        }\n\n        function<long long(long\
     \ long)> dfs = [&](long long x) {\n            if (depth.contains(x)) return depth[x];\n\
@@ -433,52 +432,58 @@ data:
     \            return depth[x];\n        };\n\n        fore(x, ids) {\n        \
     \    if (depth.contains(x)) continue;\n            dfs(x);\n        }\n\n    \
     \    repd(i, table.size()) {\n            fore(x, table[i]) topo.push_back(x);\n\
-    \        }\n    }\n\n    long long get_depth(long long x) {\n        return depth[x];\n\
-    \    }\n\n    long long get_next(long long x) {\n        return to[x];\n    }\n\
-    \n    vector<long long> get_prev(long long x) {\n        return prev[x];\n   \
-    \ }\n\n    vector<long long> get_prev_cycle() {\n        vector<long long> ret;\n\
+    \        }\n    }\n\n    bool is_cycle(long long x) {\n        assert(built);\n\
+    \        return cycle_ids.contains(x);\n    }\n\n    bool is_leaf(long long x)\
+    \ {\n        assert(built);\n        return prev[x].size() == 0;\n    }\n\n  \
+    \  long long get_depth(long long x) {\n        assert(built);\n        return\
+    \ depth[x];\n    }\n\n    long long get_next(long long x) {\n        assert(built);\n\
+    \        return to[x];\n    }\n\n    vector<long long> get_prev(long long x) {\n\
+    \        assert(built);\n        return prev[x];\n    }\n\n    vector<long long>\
+    \ get_prev_cycle() {\n        assert(built);\n        vector<long long> ret;\n\
     \        fore(x, cycle_ids) {\n            fore(y, prev[x]) {\n              \
     \  if (cycle_ids.contains(y)) continue;\n                ret.push_back(y);\n \
-    \           }\n        }\n\n        return ret;\n    }\n\n    unordered_set<long\
-    \ long> get_cycle_ids() {\n        return cycle_ids;\n    }\n\n    unordered_set<long\
-    \ long> get_leaves() {\n        return leaves;\n    }\n\n    vector<long long>\
-    \ get_topo_from_leaves() {\n        return topo;\n    }\n\n    vector<long long>\
-    \ get_topo_from_cycle() {\n        vector<long long> ret = topo;\n        reverse(ret);\n\
-    \        return ret;\n    }\n};\n\nstruct FunctionalGraph {\n    struct UnionFind\
-    \ {\n        long long n;\n        vector<long long> par;\n\n        UnionFind(long\
-    \ long n) : n(n), par(n) {\n            rep(i, n) {\n                par[i] =\
-    \ -1;\n            }\n        }\n\n        long long find(long long x) {\n   \
-    \         if (par[x] < 0) return x;\n            return par[x] = find(par[x]);\n\
-    \        }\n\n        void unite(long long u, long long v) {\n            u =\
-    \ find(u);\n            v = find(v);\n\n            if (u == v) return;\n    \
-    \        if (-par[u] < -par[v]) swap(u, v);\n\n            par[u] += par[v];\n\
-    \            par[v] = u;\n        }\n\n        unordered_map<long long, unordered_set<long\
-    \ long>> cc() {\n            unordered_map<ll, unordered_set<long long>> ret;\n\
-    \            rep(i, n) {\n                ret[find(i)].insert(i);\n          \
-    \  }\n\n            return ret;\n        }\n    };\n\n    long long N;\n    vector<long\
-    \ long> to;\n    vector<NamoriGraph> namoris;\n    UnionFind uf;\n\n    FunctionalGraph(long\
-    \ long N) : N(N), to(N, -1), uf(N) {}\n\n    void connect(long long u, long long\
-    \ v) {\n        to[u] = v;\n        uf.unite(u, v);\n    }\n\n    void build()\
-    \ {\n        fore(p, uf.cc()) {\n            auto [par, cc] = p;\n\n         \
-    \   NamoriGraph namori;\n\n            fore(i, cc) {\n                namori.connect(i,\
-    \ to[i]);\n            }\n\n            namori.build();\n            namoris.push_back(namori);\n\
-    \        }\n    }\n};\n#line 3 \"other/cumulative-sum.cpp\"\n\ntemplate<typename\
-    \ T>\nstruct CumulativeSum : vector<T> {\n    using v = vector<T>;\n\n    CumulativeSum()\
-    \ : vector<T>() {};\n\n    CumulativeSum(vector<T>& A) {\n        v::assign(A.size(),\
-    \ 0);\n        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
-    \ > 0);\n\n        v::at(0) = A[0];\n        rep(i, 1, A.size()) {\n         \
-    \   v::at(i) = A[i] + v::at(i - 1);\n        }\n    }\n\n    void push_back(T\
-    \ x) {\n        if (v::size() == 0) v::push_back(x);\n        else v::push_back(v::back()\
-    \ + x);\n    }\n\n    void pop_back() {\n        v::pop_back();\n    }\n\n   \
-    \ // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n\
-    \    T sum(long long l, long long r) {\n        assert(0 <= l and l <= r and r\
-    \ <= v::size());\n        if (l == r) return T(0);\n        if (l > r) swap(l,\
-    \ r);\n\n        if (l == 0) return v::at(r - 1);\n        else return v::at(r\
-    \ - 1) - v::at(l - 1);\n    }\n\n    T get(long long i) {\n        assert(i <\
-    \ v::size());\n        if (i == 0) return v::at(0);\n        else return v::at(i)\
-    \ - v::at(i - 1);\n    }\n\n    friend ostream& operator<<(ostream& os, const\
-    \ CumulativeSum<T>& A) {\n        rep(i, A.size()) os << A[i] << (i < A.size()\
-    \ - 1 ? \" \" : \"\");\n        return os;\n    }\n};\n#line 3 \"math/modint.cpp\"\
+    \           }\n        }\n\n        return ret;\n    }\n\n    long long get_cycle_length()\
+    \ {\n        assert(built);\n        return cycle_ids.size();\n    }\n\n    unordered_set<long\
+    \ long> get_cycle_ids() {\n        assert(built);\n        return cycle_ids;\n\
+    \    }\n\n    unordered_set<long long> get_leaves() {\n        assert(built);\n\
+    \        return leaves;\n    }\n\n    vector<long long> get_topo_from_leaves()\
+    \ {\n        assert(built);\n        return topo;\n    }\n\n    vector<long long>\
+    \ get_topo_from_cycle() {\n        assert(built);\n        vector<long long> ret\
+    \ = topo;\n        reverse(ret);\n        return ret;\n    }\n};\n\nstruct FunctionalGraph\
+    \ {\n    struct UnionFind {\n        long long n;\n        vector<long long> par;\n\
+    \n        UnionFind(long long n) : n(n), par(n) {\n            rep(i, n) {\n \
+    \               par[i] = -1;\n            }\n        }\n\n        long long find(long\
+    \ long x) {\n            if (par[x] < 0) return x;\n            return par[x]\
+    \ = find(par[x]);\n        }\n\n        void unite(long long u, long long v) {\n\
+    \            u = find(u);\n            v = find(v);\n\n            if (u == v)\
+    \ return;\n            if (-par[u] < -par[v]) swap(u, v);\n\n            par[u]\
+    \ += par[v];\n            par[v] = u;\n        }\n\n        unordered_map<long\
+    \ long, unordered_set<long long>> cc() {\n            unordered_map<ll, unordered_set<long\
+    \ long>> ret;\n            rep(i, n) {\n                ret[find(i)].insert(i);\n\
+    \            }\n\n            return ret;\n        }\n    };\n\n    long long\
+    \ N;\n    vector<long long> to;\n    vector<NamoriGraph> namoris;\n    UnionFind\
+    \ uf;\n\n    FunctionalGraph(long long N) : N(N), to(N, -1), uf(N) {}\n\n    void\
+    \ connect(long long u, long long v) {\n        to[u] = v;\n        uf.unite(u,\
+    \ v);\n    }\n\n    void build() {\n        fore(p, uf.cc()) {\n            auto\
+    \ [par, cc] = p;\n\n            NamoriGraph namori;\n\n            fore(i, cc)\
+    \ {\n                namori.connect(i, to[i]);\n            }\n\n            namori.build();\n\
+    \            namoris.push_back(namori);\n        }\n    }\n};\n#line 3 \"other/cumulative-sum.cpp\"\
+    \n\ntemplate<typename T>\nstruct CumulativeSum : vector<T> {\n    using v = vector<T>;\n\
+    \n    CumulativeSum() : vector<T>() {};\n\n    CumulativeSum(vector<T>& A) {\n\
+    \        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
+    \ > 0);\n\n        v::assign(A.size(), 0);\n        v::at(0) = A[0];\n       \
+    \ rep(i, 1, A.size()) {\n            v::at(i) = A[i] + v::at(i - 1);\n       \
+    \ }\n    }\n\n    void push_back(T x) {\n        if (v::size() == 0) v::push_back(x);\n\
+    \        else v::push_back(v::back() + x);\n    }\n\n    void pop_back() {\n \
+    \       v::pop_back();\n    }\n\n    // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\
+    \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
+    \  assert(0 <= l and l <= r and r <= v::size());\n        if (l == r) return T(0);\n\
+    \        if (l > r) swap(l, r);\n\n        if (l == 0) return v::at(r - 1);\n\
+    \        else return v::at(r - 1) - v::at(l - 1);\n    }\n\n    T get(long long\
+    \ i) {\n        assert(i < v::size());\n        if (i == 0) return v::at(0);\n\
+    \        else return v::at(i) - v::at(i - 1);\n    }\n\n    friend ostream& operator<<(ostream&\
+    \ os, const CumulativeSum<T>& A) {\n        rep(i, A.size()) os << A[i] << (i\
+    \ < A.size() - 1 ? \" \" : \"\");\n        return os;\n    }\n};\n#line 3 \"math/modint.cpp\"\
     \n\n// modint: mod \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\u3046\u306B\
     \u6271\u3048\u308B\u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp {\n    long\
     \ long val;\n    constexpr Fp(long long v = 0) noexcept : val(v % MOD) {\n   \
@@ -560,7 +565,7 @@ data:
   isVerificationFile: true
   path: test/graph/functional-graph/atcoder-abc387-f.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:56:29+09:00'
+  timestamp: '2025-11-16 17:36:09+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/graph/functional-graph/atcoder-abc387-f.test.cpp

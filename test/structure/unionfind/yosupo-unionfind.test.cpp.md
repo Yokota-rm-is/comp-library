@@ -409,47 +409,49 @@ data:
     \ long, long long>> edges;\n    vector<vector<long long>> cc_edge;\n\n    UnionFind(long\
     \ long V) : V(V) {\n        init();\n    }\n\n    void init() {\n        par.assign(V,\
     \ -1);\n        cc_size = V;\n        cc.assign(V, {});\n        rep(i, V) cc[i].push_back(i);\n\
-    \        cc_edge.assign(V, {});\n    }\n\n    // x\u306E\u6839\u3092\u8FD4\u3059\
-    \n    long long find(long long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\u3059\u308B\
-    \u6728\u306E\u6839\u3092\u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x) = {x\u306E\
-    \u6728\u306E\u6839}\n        if (par[x] < 0) return x;\n\n        long long rx\
-    \ = find(par[x]);\n        if constexpr (PathCompression) par[x] = rx;\n     \
-    \   return rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool unite(long\
-    \ long x, long long y) {\n        return unite(x, y, [](long long, long long){});\n\
-    \    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    // f(rx, ry): \u7D50\u5408\u6642\
-    \u306E\u51E6\u7406\n    // f\u306B\u4E0E\u3048\u3089\u308C\u308B\u5F15\u6570(rx,\
-    \ ry)\u306F(x\u3068y\u306E\u65B0\u305F\u306A\u89AA\uFF0C\u6D88\u53BB\u3055\u308C\
-    \u308B\u89AA)\u3067\u3042\u308B\n    // rx==ry\u306E\u6642\u3082f(rx, ry)\u306F\
-    \u547C\u3070\u308C\u308B\u3053\u3068\u306B\u6CE8\u610F\n    bool unite(long long\
-    \ x, long long y, auto f) {\n        long long edge_index = edges.size();\n  \
-    \      edges.emplace_back(x, y);\n\n        long long rx = find(x); //x\u306E\u6839\
-    \u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n        //\
-    \ -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\u304C\
-    \u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\u308C\
-    \u66FF\u3048\u308B\n        if constexpr (UnionBySize) {\n            if (-par[rx]\
-    \ < -par[ry]) {\n                swap(rx, ry);\n            }\n        }\n\n \
-    \       cc_edge[rx].push_back(edge_index);\n\n        // \u7D50\u5408\u6642\u306E\
-    \u51E6\u7406\n        f(rx, ry);\n\n        if (rx == ry) return false; //x\u3068\
-    y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\u4F55\u3082\u3057\u306A\u3044\n\n\
-    \        if constexpr (MergeCC) {\n            if constexpr (UnionBySize) merge(rx,\
-    \ ry);\n            else if (-par[rx] >= -par[ry]) merge(rx, ry);\n          \
-    \  else {\n                merge(ry, rx);\n                swap(cc[rx], cc[ry]);\n\
-    \                swap(cc_edge[rx], cc_edge[ry]);\n            }\n        }\n\n\
-    \        --cc_size;\n        par[rx] += par[ry]; // rx\u306E\u30B5\u30A4\u30BA\
-    \u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\u540C\u3058\
-    \u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1Ay\u306E\u6839\
-    ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n\n        return true;\n    }\n\
-    \n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\u308B\u6728\u304C\
-    \u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long long x,\
-    \ long long y) { \n        return find(x) == find(y);\n    }\n\n    bool is_root(long\
-    \ long x) {\n        return find(x) == x;\n    }\n\n    // x\u304C\u6240\u5C5E\
-    \u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\u3092\u8FD4\
-    \u3059\n    long long size(long long x) {\n        long long rx = find(x);\n \
-    \       return -par[rx];\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\
-    \u7D50\u6210\u5206\u306B\u542B\u307E\u308C\u308B\u8FBA\u306E\u6570\u3092\u8FD4\
-    \u3059\n    long long edge_size(long long x) {\n        assert(MergeCC);\n   \
-    \     long long rx = find(x);\n        return cc_edge[rx].size();\n    }\n\n \
-    \   bool is_connected() {\n        long long rx = find(0);\n        return -par[rx]\
+    \        cc_edge.assign(V, {});\n    }\n\n    void add_vertex() {\n        par.push_back(-1);\n\
+    \        cc_size++;\n        cc.emplace_back();\n        cc.back().push_back(V);\n\
+    \        cc_edge.emplace_back();\n        ++V;\n    }\n\n    // x\u306E\u6839\u3092\
+    \u8FD4\u3059\n    long long find(long long x) { // \u30C7\u30FC\u30BFx\u304C\u5C5E\
+    \u3059\u308B\u6728\u306E\u6839\u3092\u518D\u5E30\u3067\u5F97\u308B\uFF1Aroot(x)\
+    \ = {x\u306E\u6728\u306E\u6839}\n        if (par[x] < 0) return x;\n\n       \
+    \ long long rx = find(par[x]);\n        if constexpr (PathCompression) par[x]\
+    \ = rx;\n        return rx;\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    bool\
+    \ unite(long long x, long long y) {\n        return unite(x, y, [](long long,\
+    \ long long){});\n    }\n\n    // x\u3068y\u3092\u9023\u7D50\n    // f(rx, ry):\
+    \ \u7D50\u5408\u6642\u306E\u51E6\u7406\n    // f\u306B\u4E0E\u3048\u3089\u308C\
+    \u308B\u5F15\u6570(rx, ry)\u306F(x\u3068y\u306E\u65B0\u305F\u306A\u89AA\uFF0C\u6D88\
+    \u53BB\u3055\u308C\u308B\u89AA)\u3067\u3042\u308B\n    // rx==ry\u306E\u6642\u3082\
+    f(rx, ry)\u306F\u547C\u3070\u308C\u308B\u3053\u3068\u306B\u6CE8\u610F\n    bool\
+    \ unite(long long x, long long y, auto f) {\n        long long edge_index = edges.size();\n\
+    \        edges.emplace_back(x, y);\n\n        long long rx = find(x); //x\u306E\
+    \u6839\u3092rx\n        long long ry = find(y); //y\u306E\u6839\u3092ry\n\n  \
+    \      // -par\u306F\u30B5\u30A4\u30BA\u3092\u8FD4\u3059\n        // ry\u306E\u65B9\
+    \u304C\u30B5\u30A4\u30BA\u304C\u5927\u304D\u3051\u308C\u3070rx\u3068rx\u3092\u5165\
+    \u308C\u66FF\u3048\u308B\n        if constexpr (UnionBySize) {\n            if\
+    \ (-par[rx] < -par[ry]) {\n                swap(rx, ry);\n            }\n    \
+    \    }\n\n        cc_edge[rx].push_back(edge_index);\n\n        // \u7D50\u5408\
+    \u6642\u306E\u51E6\u7406\n        f(rx, ry);\n\n        if (rx == ry) return false;\
+    \ //x\u3068y\u306E\u6839\u304C\u540C\u3058\u6642\u306F\u4F55\u3082\u3057\u306A\
+    \u3044\n\n        if constexpr (MergeCC) {\n            if constexpr (UnionBySize)\
+    \ merge(rx, ry);\n            else if (-par[rx] >= -par[ry]) merge(rx, ry);\n\
+    \            else {\n                merge(ry, rx);\n                swap(cc[rx],\
+    \ cc[ry]);\n                swap(cc_edge[rx], cc_edge[ry]);\n            }\n \
+    \       }\n\n        --cc_size;\n        par[rx] += par[ry]; // rx\u306E\u30B5\
+    \u30A4\u30BA\u3092\u5909\u66F4\n        par[ry] = rx; //x\u3068y\u306E\u6839\u304C\
+    \u540C\u3058\u3067\u306A\u3044(=\u540C\u3058\u6728\u306B\u306A\u3044)\u6642\uFF1A\
+    y\u306E\u6839ry\u3092x\u306E\u6839rx\u306B\u3064\u3051\u308B\n\n        return\
+    \ true;\n    }\n\n    // 2\u3064\u306E\u30C7\u30FC\u30BFx, y\u304C\u5C5E\u3059\
+    \u308B\u6728\u304C\u540C\u3058\u306A\u3089true\u3092\u8FD4\u3059\n    bool is_same(long\
+    \ long x, long long y) { \n        return find(x) == find(y);\n    }\n\n    bool\
+    \ is_root(long long x) {\n        return find(x) == x;\n    }\n\n    // x\u304C\
+    \u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\u306E\u8981\u7D20\u306E\u6570\
+    \u3092\u8FD4\u3059\n    long long size(long long x) {\n        long long rx =\
+    \ find(x);\n        return -par[rx];\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\
+    \u308B\u9023\u7D50\u6210\u5206\u306B\u542B\u307E\u308C\u308B\u8FBA\u306E\u6570\
+    \u3092\u8FD4\u3059\n    long long edge_size(long long x) {\n        assert(MergeCC);\n\
+    \        long long rx = find(x);\n        return cc_edge[rx].size();\n    }\n\n\
+    \    bool is_connected() {\n        long long rx = find(0);\n        return -par[rx]\
     \ == V;\n    }\n\n    // x\u304C\u6240\u5C5E\u3059\u308B\u9023\u7D50\u6210\u5206\
     \u306E\u8981\u7D20\u3092\u8FD4\u3059\n    // MergeCC=true\u306E\u6642\u306FO(\u03B1\
     (V))\u3067\u53D6\u5F97\u3067\u304D\u308B\n    // MergeCC=false\u306E\u6642\u306F\
@@ -496,7 +498,7 @@ data:
   isVerificationFile: true
   path: test/structure/unionfind/yosupo-unionfind.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 20:10:27+09:00'
+  timestamp: '2025-11-16 21:46:01+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/unionfind/yosupo-unionfind.test.cpp

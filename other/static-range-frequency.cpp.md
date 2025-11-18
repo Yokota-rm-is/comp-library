@@ -425,8 +425,8 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
   - test/other/static-range-frequency/yosupo-static-range-frequency.test.cpp
+  - test/other/static-range-frequency/atcoder-abc248-d.test.cpp
 documentation_of: other/static-range-frequency.cpp
 layout: document
 redirect_from:

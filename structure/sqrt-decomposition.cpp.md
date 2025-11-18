@@ -681,14 +681,14 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
-  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-h.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-i.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-d.test.cpp
   - test/structure/sqrt-decomposition/aoj-dsl-2-e.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-f.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-g.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-b.test.cpp
+  - test/structure/sqrt-decomposition/aoj-dsl-2-a.test.cpp
 documentation_of: structure/sqrt-decomposition.cpp
 layout: document
 redirect_from:

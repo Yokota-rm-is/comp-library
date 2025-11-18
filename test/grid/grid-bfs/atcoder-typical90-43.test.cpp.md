@@ -17,11 +17,11 @@ data:
     IGNORE: ''
     IGNORE_IF_GCC: ''
     links:
-    - https://atcoder.jp/contests/typical90/submissions/52922278
+    - https://atcoder.jp/contests/typical90/submissions/65236918
     - https://atcoder.jp/contests/typical90/tasks/typical90_aq
   bundledCode: "#line 1 \"test/grid/grid-bfs/atcoder-typical90-43.test.cpp\"\n#define\
     \ IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
-    \n// https://atcoder.jp/contests/typical90/submissions/52922278\n\n#line 2 \"\
+    \n// https://atcoder.jp/contests/typical90/submissions/65236918\n\n#line 2 \"\
     base.cpp\"\n\n#include <bits/stdc++.h>\n// #include <atcoder/all>\n#if __has_include(<boost/algorithm/string.hpp>)\n\
     #include <boost/algorithm/string.hpp>\n#endif\n#if __has_include(<boost/algorithm/cxx11/all_of.hpp>)\n\
     #include <boost/algorithm/cxx11/all_of.hpp>\n#include <boost/algorithm/cxx11/any_of.hpp>\n\
@@ -464,191 +464,163 @@ data:
     \ w, T a) {\n        H = h;\n        W = w;\n        vv.assign(h, vector<T>(w,\
     \ a));\n    }\n\n    vector<T>& operator[] (size_t i) {\n        return vv[i];\n\
     \    } \n\n    friend ostream& operator << (ostream &os, Grid<T>& grid) {\n  \
-    \      rep(i, grid.H) {\n            os << grid[i] << endl;\n        }\n     \
-    \   return os;\n    }\n};\n\ntemplate<>\nstruct Grid<bool> {\n    long long H;\n\
-    \    long long W;\n    vector<vector<bool>> vv;\n\n    Grid(long long h = 0, long\
-    \ long w = 0, bool a = false) : H(h), W(w), vv(h, vector<bool>(w, a)) {}\n   \
-    \ Grid(vector<vector<bool>> A) : H(A.size()), W(A[0].size()), vv(A) {}\n\n   \
-    \ bool is_out(long long y, long long x) {\n        return y < 0 or y >= H or x\
-    \ < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n        return\
-    \ p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    vector<bool>::reference\
+    \      os << \"\\n\";\n        rep(i, grid.H) {\n            os << grid[i] <<\
+    \ \"\\n\";\n        }\n        return os;\n    }\n};\n\ntemplate<>\nstruct Grid<bool>\
+    \ {\n    long long H;\n    long long W;\n    vector<vector<bool>> vv;\n\n    Grid(long\
+    \ long h = 0, long long w = 0, bool a = false) : H(h), W(w), vv(h, vector<bool>(w,\
+    \ a)) {}\n    Grid(vector<vector<bool>> A) : H(A.size()), W(A[0].size()), vv(A)\
+    \ {}\n\n    bool is_out(long long y, long long x) {\n        return y < 0 or y\
+    \ >= H or x < 0 or x >= W;\n    }\n\n    bool is_out(const Coordinate& p) {\n\
+    \        return p.y < 0 or p.y >= H or p.x < 0 or p.x >= W;\n    }\n\n    vector<bool>::reference\
     \ operator() (size_t i, size_t j) {\n        assert(!is_out(i, j));\n        return\
     \ vv[i][j];\n    }\n\n    vector<bool>::reference operator() (const Coordinate&\
     \ p) {\n        assert(!is_out(p));\n        return vv[p.y][p.x];\n    }\n\n \
     \   void assign(long long h, long long w, bool a) {\n        H = h;\n        W\
     \ = w;\n        vv.assign(h, vector<bool>(w, a));\n    }\n\n    vector<bool>&\
     \ operator[] (size_t i) {\n        return vv[i];\n    } \n\n    friend ostream&\
-    \ operator << (ostream &os, Grid<bool>& grid) {\n        rep(y, grid.H) {\n  \
-    \          rep(x, grid.W) {\n                os << (grid[y][x] ? \"true\" : \"\
-    false\") << \" \";\n            }\n        }\n        return os;\n    }\n};\n\n\
-    struct Field {\n    long long H;\n    long long W;\n    vector<string> vs;\n \
-    \   char dot = '.';\n    char hash = '#';\n    char obj = hash;\n    char excl\
-    \ = '!';\n\n    Field(long long h, long long w) :H(h), W(w), vs(h, string(w, '.'))\
-    \ {}\n    Field(vector<string>& A) : H(A.size()), W(A.front().size()), vs(A) {}\n\
-    \n    char& operator() (size_t y, size_t x) {\n        assert(!is_out(y, x));\n\
-    \        return vs[y][x];\n    }\n\n    char& operator() (const Coordinate& p)\
-    \ {\n        assert(!is_out(p));\n        return vs[p.y][p.x];\n    }\n\n    bool\
-    \ is_dot(size_t y, size_t x) {\n        assert(!is_out(y, x));\n        return\
-    \ vs[y][x] == dot;\n    }\n\n    bool is_dot(const Coordinate& p) {\n        assert(!is_out(p));\n\
-    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_hash(size_t y, size_t\
-    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == hash;\n   \
-    \ }\n\n    bool is_hash(const Coordinate& p) {\n        assert(!is_out(p));\n\
-    \        return vs[p.y][p.x] == dot;\n    }\n\n    bool is_obj(size_t y, size_t\
-    \ x) {\n        assert(!is_out(y, x));\n        return vs[y][x] == obj;\n    }\n\
-    \n    bool is_obj(const Coordinate& p) {\n        assert(!is_out(p));\n      \
-    \  return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t y, size_t x)\
-    \ {\n        assert(!is_out(y, x));\n        return vs[y][x] == excl;\n    }\n\
-    \n    bool is_excl(const Coordinate& p) {\n        assert(!is_out(p));\n     \
-    \   return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long long y, long long\
-    \ x) {\n        return y < 0 or y >= H or x < 0 or x >= W;\n    }\n\n    bool\
-    \ is_out(const Coordinate& p) {\n        return p.y < 0 or p.y >= H or p.x < 0\
-    \ or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n        return vs[i];\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, Field& field) {\n    \
-    \    rep(i, field.H) {\n            os << field[i] << endl;\n        }\n     \
-    \   return os;\n    }\n};\n\nstruct GridBFS {\n    long long H, W;\n    Field\
-    \ field;\n    Grid<bool> seen;\n    Grid<long long> cost;\n    Grid<long long>\
-    \ cc;\n    Grid<Coordinate> prev;\n    vector<Coordinate> dirs = {\n        Coordinate(0,\
-    \ 1),\n        Coordinate(1, 0),\n        Coordinate(0, -1),\n        Coordinate(-1,\
-    \ 0),\n        // Coordinate(1, 1),\n        // Coordinate(1, -1),\n        //\
-    \ Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\n    char s = 's';\n\
-    \    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n    char hash\
-    \ = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n    Coordinate\
-    \ start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long long group;\n\
-    \n    GridBFS(long long n) : H(n), W(n), field(n, n) {\n        init();\n    };\n\
-    \n    GridBFS(long long h, long long w) : H(h), W(w), field(h, w) {\n        init();\n\
-    \    };\n\n    GridBFS(vector<string> vs) : H(vs.size()), W(vs.front().size()),\
-    \ field(vs) {\n        init();\n        after_input();\n    };\n\n    void init()\
-    \ {\n        group = 0;\n        seen.assign(H, W, false);\n        cost.assign(H,\
-    \ W, inf64);\n        prev.assign(H, W, Coordinate(-1, -1));\n        cc.assign(H,\
-    \ W, -1);\n    }\n\n    void input() {\n        rep(y, H) cin >> field[y];\n \
-    \       after_input();\n    }\n\n    void after_input() {\n        rep(y, H) rep(x,\
-    \ W) {\n                char c = field(y, x);\n                if (c >= 'A' and\
-    \ c <= 'Z') c = c - 'A' + 'a';\n                if (c < 'a' or c > 'z') continue;\n\
-    \n                if (c == s) {\n                    start = Coordinate(y, x);\n\
-    \                }\n                if (c == g or c == t) {\n                \
-    \    goal = Coordinate(y, x);\n                }\n            }\n    }\n\n   \
-    \ long long to_index(Coordinate& p) {\n        return p.y * W + p.x;\n    }\n\n\
-    \    Coordinate to_coordinate(long long index) {\n        return Coordinate(index\
-    \ / W, index % W);\n    }\n\n    long long bfs_all() {\n        rep(y, H) rep(x,\
-    \ W) {\n            Coordinate now(y, x);\n\n            if (seen(now)) continue;\n\
-    \            if (field.is_obj(now)) continue;\n\n            bfs(now);\n     \
-    \       ++group;\n        }\n\n        return group;\n    }\n\n    long long count_cc()\
-    \ {\n        return group;\n    }\n\n    void bfs() {\n        bfs(start);\n \
-    \   }\n\n    void bfs(Coordinate start) {\n        bfs(vector<Coordinate>{start});\n\
-    \    }\n\n    void bfs(vector<Coordinate> starts) {\n        fore(start, starts)\
-    \ {\n            assert(!seen(start));\n            assert(!field.is_out(start));\n\
-    \            assert(!field.is_obj(start));\n        }\n\n        queue<Coordinate>\
-    \ que;\n\n        fore(start, starts) {\n            seen(start) = true;\n   \
-    \         cost(start) = 0;\n            cc(start) = group;\n\n            que.push(start);\n\
-    \        }\n\n        while (!que.empty()) {\n            Coordinate now = que.front();\n\
-    \            que.pop();\n\n            rep(i, dirs.size()) {\n               \
-    \ Coordinate next = now + dirs[i];\n\n                if (field.is_out(next))\
-    \ continue;\n                if (field.is_obj(next)) continue;\n             \
-    \   if (seen(next)) continue;\n\n                seen(next) = true;\n        \
-    \        cost(next) = cost(now) + 1;\n                cc(next) = group;\n    \
-    \            prev(next) = now;\n                que.push(next);\n            }\n\
-    \        }\n    }\n\n    void bfs01(Coordinate start, function<bool(Coordinate,\
-    \ Coordinate)> calc_cost) {\n        bfs01(vector<Coordinate>{start}, calc_cost);\n\
-    \    }\n\n    void bfs01(vector<Coordinate> starts, function<bool(Coordinate,\
-    \ Coordinate)> calc_cost) {\n        fore(start, starts) {\n            assert(!seen(start));\n\
+    \ operator << (ostream &os, Grid<bool>& grid) {\n        os << \"\\n\";\n    \
+    \    rep(y, grid.H) {\n            rep(x, grid.W) {\n                os << (grid[y][x]\
+    \ ? \"true\" : \"false\") << \" \";\n            }\n            os << \"\\n\"\
+    ;\n        }\n        return os;\n    }\n};\n\nstruct Field {\n    long long H;\n\
+    \    long long W;\n    vector<string> vs;\n    char dot = '.';\n    char hash\
+    \ = '#';\n    char obj = hash;\n    char excl = '!';\n\n    Field(long long h,\
+    \ long long w) :H(h), W(w), vs(h, string(w, '.')) {}\n    Field(vector<string>&\
+    \ A) : H(A.size()), W(A.front().size()), vs(A) {}\n\n    char& operator() (size_t\
+    \ y, size_t x) {\n        assert(!is_out(y, x));\n        return vs[y][x];\n \
+    \   }\n\n    char& operator() (const Coordinate& p) {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x];\n    }\n\n    bool is_dot(size_t y, size_t x) const\
+    \ {\n        assert(!is_out(y, x));\n        return vs[y][x] == dot;\n    }\n\n\
+    \    bool is_dot(const Coordinate& p) const {\n        assert(!is_out(p));\n \
+    \       return vs[p.y][p.x] == dot;\n    }\n\n    bool is_hash(size_t y, size_t\
+    \ x) const {\n        assert(!is_out(y, x));\n        return vs[y][x] == hash;\n\
+    \    }\n\n    bool is_hash(const Coordinate& p) const {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == hash;\n    }\n\n    bool is_obj(size_t y, size_t\
+    \ x) const {\n        assert(!is_out(y, x));\n        return vs[y][x] == obj;\n\
+    \    }\n\n    bool is_obj(const Coordinate& p) const {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == obj;\n    }\n\n    bool is_excl(size_t y, size_t\
+    \ x) const {\n        assert(!is_out(y, x));\n        return vs[y][x] == excl;\n\
+    \    }\n\n    bool is_excl(const Coordinate& p) const {\n        assert(!is_out(p));\n\
+    \        return vs[p.y][p.x] == excl;\n    }\n\n    bool is_out(long long y, long\
+    \ long x) const {\n        return y < 0 or y >= H or x < 0 or x >= W;\n    }\n\
+    \n    bool is_out(const Coordinate& p) const {\n        return p.y < 0 or p.y\
+    \ >= H or p.x < 0 or p.x >= W;\n    }\n\n    string& operator[] (size_t i) {\n\
+    \        return vs[i];\n    }\n\n    friend ostream& operator << (ostream &os,\
+    \ Field& field) {\n        rep(i, field.H) {\n            os << field[i] << \"\
+    \\n\";\n        }\n        return os;\n    }\n};\n\nstruct GridBFS {\n    long\
+    \ long H, W;\n    Field field;\n    Grid<bool> seen;\n    Grid<long long> cost;\n\
+    \    Grid<long long> cc;\n    Grid<Coordinate> prev;\n    vector<Coordinate> dirs\
+    \ = {\n        Coordinate(0, 1),\n        Coordinate(1, 0),\n        Coordinate(0,\
+    \ -1),\n        Coordinate(-1, 0),\n        // Coordinate(1, 1),\n        // Coordinate(1,\
+    \ -1),\n        // Coordinate(-1, 1),\n        // Coordinate(-1, -1)\n    };\n\
+    \n    char s = 's';\n    char g = 'g';\n    char t = 't';\n    char dot = field.dot;\n\
+    \    char hash = field.hash;\n    char obj = field.obj;\n    char excl = field.excl;\n\
+    \    Coordinate start = Coordinate(-1, -1), goal = Coordinate(-1, -1);\n    long\
+    \ long group;\n\n    GridBFS(long long n) : H(n), W(n), field(n, n) {\n      \
+    \  init();\n    };\n\n    GridBFS(long long h, long long w) : H(h), W(w), field(h,\
+    \ w) {\n        init();\n    };\n\n    GridBFS(vector<string> vs) : H(vs.size()),\
+    \ W(vs.front().size()), field(vs) {\n        init();\n        after_input();\n\
+    \    };\n\n    void init() {\n        group = 0;\n        seen.assign(H, W, false);\n\
+    \        cost.assign(H, W, inf64);\n        prev.assign(H, W, Coordinate(-1, -1));\n\
+    \        cc.assign(H, W, -1);\n    }\n\n    void input() {\n        rep(y, H)\
+    \ cin >> field[y];\n        after_input();\n    }\n\n    void after_input() {\n\
+    \        rep(y, H) rep(x, W) {\n                char c = field(y, x);\n      \
+    \          if (c >= 'A' and c <= 'Z') c = c - 'A' + 'a';\n                if (c\
+    \ < 'a' or c > 'z') continue;\n\n                if (c == s) {\n             \
+    \       start = Coordinate(y, x);\n                }\n                if (c ==\
+    \ g or c == t) {\n                    goal = Coordinate(y, x);\n             \
+    \   }\n            }\n    }\n\n    long long to_index(Coordinate& p) {\n     \
+    \   return p.y * W + p.x;\n    }\n\n    Coordinate to_coordinate(long long index)\
+    \ {\n        return Coordinate(index / W, index % W);\n    }\n\n    long long\
+    \ bfs_all() {\n        rep(y, H) rep(x, W) {\n            Coordinate now(y, x);\n\
+    \n            if (seen(now)) continue;\n            if (field.is_obj(now)) continue;\n\
+    \n            bfs(now);\n            ++group;\n        }\n\n        return group;\n\
+    \    }\n\n    long long count_cc() {\n        return group;\n    }\n\n    void\
+    \ bfs() {\n        bfs(start);\n    }\n\n    void bfs(Coordinate start) {\n  \
+    \      bfs(vector<Coordinate>{start});\n    }\n\n    void bfs(vector<Coordinate>\
+    \ starts) {\n        fore(start, starts) {\n            assert(!seen(start));\n\
     \            assert(!field.is_out(start));\n            assert(!field.is_obj(start));\n\
-    \        }\n\n        deque<Coordinate> que;\n\n        fore(start, starts) {\n\
-    \            cost(start) = 0;\n            que.push_front(start);\n        }\n\
-    \n        while (!que.empty()) {\n            Coordinate now = que.front();\n\
-    \            que.pop_front();\n\n            if (seen(now)) continue;\n      \
-    \      seen(now) = true;\n\n            rep(i, dirs.size()) {\n              \
-    \  Coordinate next = now + dirs[i];\n                if (field.is_out(next)) continue;\n\
-    \                if (seen(next)) continue;\n\n                ll c = calc_cost(now,\
-    \ next);\n\n                if (chmin(cost(next), cost(now) + c)) {\n        \
-    \            prev(next) = now;\n                    \n                    if (c\
-    \ == 0) que.push_front(next);\n                    else que.push_back(next);\n\
-    \                }\n            }\n        }\n    }\n\n    bool can_reach_goal()\
-    \ {\n        return can_reach(goal);\n    }\n\n    bool can_reach(Coordinate to)\
-    \ {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\n        return\
-    \ seen(to);\n    }\n\n    long long get_dist(Coordinate to) {\n        assert(!field.is_out(to)\
-    \ and !field.is_obj(to));\n        return cost(to);\n    }\n\n    vector<Coordinate>\
-    \ get_path(Coordinate from, Coordinate to) {\n        assert(!field.is_out(from)\
-    \ and !field.is_obj(from));\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \n        bfs(from);\n        return get_path(to);\n    }\n\n    vector<Coordinate>\
-    \ get_path_to_goal() {\n        return get_path(goal);\n    }\n\n    vector<Coordinate>\
-    \ get_path(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
-    \        if (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n   \
-    \     p.push_back(to);\n\n        while (prev(p.back()) != Coordinate(-1, -1))\
-    \ {\n            p.push_back(prev(p.back()));\n        }\n\n        reverse(p.begin(),\
-    \ p.end());\n\n        return p;\n    }\n\n    string get_char_path_to_goal()\
-    \ {\n        return get_char_path(goal);\n    }\n\n    string get_char_path(Coordinate\
+    \        }\n\n        queue<Coordinate> que;\n\n        fore(start, starts) {\n\
+    \            seen(start) = true;\n            cost(start) = 0;\n            cc(start)\
+    \ = group;\n\n            que.push(start);\n        }\n\n        while (!que.empty())\
+    \ {\n            Coordinate now = que.front();\n            que.pop();\n\n   \
+    \         rep(i, dirs.size()) {\n                Coordinate next = now + dirs[i];\n\
+    \n                if (field.is_out(next)) continue;\n                if (field.is_obj(next))\
+    \ continue;\n                if (seen(next)) continue;\n\n                seen(next)\
+    \ = true;\n                cost(next) = cost(now) + 1;\n                cc(next)\
+    \ = group;\n                prev(next) = now;\n                que.push(next);\n\
+    \            }\n        }\n    }\n\n    // calc_cost(const Field& field, Coordinate\
+    \ now, Coordinate next)\n    void bfs01(Coordinate start, function<vector<pair<Coordinate,\
+    \ long long>>(const Field&, Coordinate)> gen_trans) {\n        bfs01(vector<Coordinate>{start},\
+    \ gen_trans);\n    }\n\n    // calc_cost(const Field& field, Coordinate now, Coordinate\
+    \ next)\n    void bfs01(vector<Coordinate> starts, function<vector<pair<Coordinate,\
+    \ long long>>(const Field&, Coordinate)> gen_trans) {\n        fore(start, starts)\
+    \ {\n            assert(!seen(start));\n            assert(!field.is_out(start));\n\
+    \            assert(!field.is_obj(start));\n        }\n\n        deque<Coordinate>\
+    \ que;\n\n        fore(start, starts) {\n            cost(start) = 0;\n      \
+    \      que.push_front(start);\n        }\n\n        while (!que.empty()) {\n \
+    \           Coordinate now = que.front();\n            que.pop_front();\n\n  \
+    \          if (seen(now)) continue;\n            seen(now) = true;\n\n       \
+    \     vector<pair<Coordinate, long long>> trans = gen_trans(field, now);\n\n \
+    \           fore(tr, trans) {\n                auto [next, c] = tr;\n        \
+    \        if (field.is_out(next)) continue;\n                if (seen(next)) continue;\n\
+    \n                if (chmin(cost(next), cost(now) + c)) {\n                  \
+    \  prev(next) = now;\n                    \n                    if (c == 0) que.push_front(next);\n\
+    \                    else que.push_back(next);\n                }\n          \
+    \  }\n        }\n    }\n\n    bool can_reach_goal() {\n        return can_reach(goal);\n\
+    \    }\n\n    bool can_reach(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n\n        return seen(to);\n    }\n\n    long long\
+    \ get_dist(Coordinate to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n\
+    \        return cost(to);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
+    \ from, Coordinate to) {\n        assert(!field.is_out(from) and !field.is_obj(from));\n\
+    \        assert(!field.is_out(to) and !field.is_obj(to));\n\n        bfs(from);\n\
+    \        return get_path(to);\n    }\n\n    vector<Coordinate> get_path_to_goal()\
+    \ {\n        return get_path(goal);\n    }\n\n    vector<Coordinate> get_path(Coordinate\
     \ to) {\n        assert(!field.is_out(to) and !field.is_obj(to));\n        if\
-    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> path = get_path(to);\n\
-    \n        string ret;\n        rep(i, path.size() - 1) {\n            ret += path[i].dir2char(path[i\
-    \ + 1]);\n        }\n\n        return ret;\n    }\n\n    bool operator== (GridBFS\
-    \ &other) {\n        if (H != other.H or W != other.W) return false;\n\n     \
-    \   rep(y, min(H, other.H)) rep(x, min(W, other.W)) {\n            if (field(y,\
-    \ x) != other.field(y, x)) return false;\n        }\n\n        return true;\n\
-    \    }\n\n    friend ostream& operator << (ostream &os, GridBFS& grid) {\n   \
-    \     return os << grid.field << endl;\n    }\n};\n#line 6 \"test/grid/grid-bfs/atcoder-typical90-43.test.cpp\"\
-    \n\nstruct T90_43 : GridBFS {\n    T90_43 (long long h, long long w) : GridBFS(h,\
-    \ w) {}\n\n    void bfs01(Coordinate start) {\n        assert(!seen(start) and\
-    \ !field.is_out(start) and !field.is_obj(start));\n\n        deque<Coordinate>\
-    \ que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\u70B9 start \u3092\u521D\
-    \u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n        cost(start) = 0;\n\n    \
-    \    que.push_front(start); // noq \u3092\u6A59\u8272\u9802\u70B9\u306B\u3059\u308B\
-    \n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\u304C\u7A7A\u306B\u306A\u308B\
-    \u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n        while (!que.empty()) {\n\
-    \            Coordinate now = que.front(); // \u30AD\u30E5\u30FC\u304B\u3089\u5148\
-    \u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\n            que.pop_front();\n\
-    \n            if (seen(now)) continue;\n            seen(now) = true;\n\n    \
-    \        // v \u304B\u3089\u8FBF\u308C\u308B\u9802\u70B9\u3092\u3059\u3079\u3066\
-    \u8ABF\u3079\u308B\n            rep(i, dirs.size()) {\n                Coordinate\
-    \ next = now;\n                ll c = 0; \n                if (now != start) c\
-    \ = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\u304C1\u306B\u306A\u308B\u6761\u4EF6\
-    \u3092\u66F8\u304F\n\n                while (true) {\n                    next\
-    \ += dirs[i];\n                    if (field.is_out(next)) break;\n          \
-    \          if (field.is_obj(next)) break;\n\n                    if (cost(next)\
-    \ >= cost(now) + c) {\n                        cost(next) = cost(now) + c;\n \
-    \                       prev(next) = now;\n                        \n        \
-    \                if (c == 0) que.push_front(next);\n                        else\
-    \ que.push_back(next);\n                    }\n                    else break;\n\
-    \                }\n            }\n        }\n    }\n};\n\nint main() {\n    ll\
-    \ H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin >> rs >> cs;\n\n    ll\
-    \ rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n    grid.input();\n\
-    \n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.get_dist({rt - 1, ct -\
-    \ 1}) << endl;\n\n    return 0;\n}\n"
+    \ (!can_reach(to)) return {};\n\n        vector<Coordinate> p;\n        p.push_back(to);\n\
+    \n        while (prev(p.back()) != Coordinate(-1, -1)) {\n            p.push_back(prev(p.back()));\n\
+    \        }\n\n        reverse(p.begin(), p.end());\n\n        return p;\n    }\n\
+    \n    string get_char_path_to_goal() {\n        return get_char_path(goal);\n\
+    \    }\n\n    string get_char_path(Coordinate to) {\n        assert(!field.is_out(to)\
+    \ and !field.is_obj(to));\n        if (!can_reach(to)) return {};\n\n        vector<Coordinate>\
+    \ path = get_path(to);\n\n        string ret;\n        rep(i, path.size() - 1)\
+    \ {\n            ret += path[i].dir2char(path[i + 1]);\n        }\n\n        return\
+    \ ret;\n    }\n\n    bool operator== (GridBFS &other) {\n        if (H != other.H\
+    \ or W != other.W) return false;\n\n        rep(y, min(H, other.H)) rep(x, min(W,\
+    \ other.W)) {\n            if (field(y, x) != other.field(y, x)) return false;\n\
+    \        }\n\n        return true;\n    }\n\n    friend ostream& operator << (ostream\
+    \ &os, GridBFS& grid) {\n        return os << grid.field << endl;\n    }\n};\n\
+    #line 6 \"test/grid/grid-bfs/atcoder-typical90-43.test.cpp\"\n\nint main() {\n\
+    \    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin >> rs >> cs;\n\n\
+    \    ll rt, ct;\n    cin >> rt >> ct;\n\n    GridBFS grid(H, W);\n    grid.input();\n\
+    \n    auto gen_trans = [&](const Field& field, Coordinate now) {\n        vector<pair<Coordinate,\
+    \ ll>> trans;\n        vector<Coordinate> dirs = {Coordinate(1, 0), Coordinate(0,\
+    \ 1), Coordinate(-1, 0), Coordinate(0, -1)};\n\n        rep(i, 4) {\n        \
+    \    Coordinate next = now + dirs[i];\n\n            while (true) {\n        \
+    \        if (field.is_out(next)) break;\n                if (field.is_hash(next))\
+    \ break;\n\n                trans.push_back({next, 1});\n\n                next\
+    \ += dirs[i];\n            }\n        }\n\n        return trans;\n    };\n\n \
+    \   grid.bfs01(Coordinate(rs - 1, cs - 1), gen_trans);\n\n    cout << grid.get_dist({rt\
+    \ - 1, ct - 1}) - 1 << endl;\n\n    return 0;\n}\n"
   code: "#define IGNORE\n#define PROBLEM \"https://atcoder.jp/contests/typical90/tasks/typical90_aq\"\
-    \n// https://atcoder.jp/contests/typical90/submissions/52922278\n\n#include \"\
-    ../../../grid/grid-bfs.cpp\"\n\nstruct T90_43 : GridBFS {\n    T90_43 (long long\
-    \ h, long long w) : GridBFS(h, w) {}\n\n    void bfs01(Coordinate start) {\n \
-    \       assert(!seen(start) and !field.is_out(start) and !field.is_obj(start));\n\
-    \n        deque<Coordinate> que;\n\n        // \u521D\u671F\u6761\u4EF6 (\u9802\
-    \u70B9 start \u3092\u521D\u671F\u30CE\u30FC\u30C9\u3068\u3059\u308B)\n       \
-    \ cost(start) = 0;\n\n        que.push_front(start); // noq \u3092\u6A59\u8272\
-    \u9802\u70B9\u306B\u3059\u308B\n\n        // BFS \u958B\u59CB (\u30AD\u30E5\u30FC\
-    \u304C\u7A7A\u306B\u306A\u308B\u307E\u3067\u63A2\u7D22\u3092\u884C\u3046)\n  \
-    \      while (!que.empty()) {\n            Coordinate now = que.front(); // \u30AD\
-    \u30E5\u30FC\u304B\u3089\u5148\u982D\u9802\u70B9\u3092\u53D6\u308A\u51FA\u3059\
-    \n            que.pop_front();\n\n            if (seen(now)) continue;\n     \
-    \       seen(now) = true;\n\n            // v \u304B\u3089\u8FBF\u308C\u308B\u9802\
-    \u70B9\u3092\u3059\u3079\u3066\u8ABF\u3079\u308B\n            rep(i, dirs.size())\
-    \ {\n                Coordinate next = now;\n                ll c = 0; \n    \
-    \            if (now != start) c = 1; // \u3053\u3053\u306B\u30B3\u30B9\u30C8\u304C\
-    1\u306B\u306A\u308B\u6761\u4EF6\u3092\u66F8\u304F\n\n                while (true)\
-    \ {\n                    next += dirs[i];\n                    if (field.is_out(next))\
-    \ break;\n                    if (field.is_obj(next)) break;\n\n             \
-    \       if (cost(next) >= cost(now) + c) {\n                        cost(next)\
-    \ = cost(now) + c;\n                        prev(next) = now;\n              \
-    \          \n                        if (c == 0) que.push_front(next);\n     \
-    \                   else que.push_back(next);\n                    }\n       \
-    \             else break;\n                }\n            }\n        }\n    }\n\
-    };\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\n    ll rs, cs;\n    cin\
-    \ >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\n    T90_43 grid(H, W);\n\
-    \    grid.input();\n\n    grid.bfs01({rs - 1, cs - 1});\n\n    cout << grid.get_dist({rt\
-    \ - 1, ct - 1}) << endl;\n\n    return 0;\n}"
+    \n// https://atcoder.jp/contests/typical90/submissions/65236918\n\n#include \"\
+    ../../../grid/grid-bfs.cpp\"\n\nint main() {\n    ll H, W;\n    cin >> H >> W;\n\
+    \n    ll rs, cs;\n    cin >> rs >> cs;\n\n    ll rt, ct;\n    cin >> rt >> ct;\n\
+    \n    GridBFS grid(H, W);\n    grid.input();\n\n    auto gen_trans = [&](const\
+    \ Field& field, Coordinate now) {\n        vector<pair<Coordinate, ll>> trans;\n\
+    \        vector<Coordinate> dirs = {Coordinate(1, 0), Coordinate(0, 1), Coordinate(-1,\
+    \ 0), Coordinate(0, -1)};\n\n        rep(i, 4) {\n            Coordinate next\
+    \ = now + dirs[i];\n\n            while (true) {\n                if (field.is_out(next))\
+    \ break;\n                if (field.is_hash(next)) break;\n\n                trans.push_back({next,\
+    \ 1});\n\n                next += dirs[i];\n            }\n        }\n\n     \
+    \   return trans;\n    };\n\n    grid.bfs01(Coordinate(rs - 1, cs - 1), gen_trans);\n\
+    \n    cout << grid.get_dist({rt - 1, ct - 1}) - 1 << endl;\n\n    return 0;\n}"
   dependsOn:
   - grid/grid-bfs.cpp
   - base.cpp
   isVerificationFile: true
   path: test/grid/grid-bfs/atcoder-typical90-43.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:09:58+09:00'
+  timestamp: '2025-04-29 23:13:12+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/grid/grid-bfs/atcoder-typical90-43.test.cpp

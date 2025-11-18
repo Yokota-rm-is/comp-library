@@ -505,8 +505,8 @@ data:
   timestamp: '2025-03-23 18:23:57+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/graph/tsp-cycle/atcoder-abc180-e.test.cpp
   - test/graph/tsp-cycle/aoj-dpl-2-a.test.cpp
+  - test/graph/tsp-cycle/atcoder-abc180-e.test.cpp
 documentation_of: graph/tsp-cycle.cpp
 layout: document
 redirect_from:

@@ -451,8 +451,8 @@ data:
   timestamp: '2025-03-23 19:21:52+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/search/minimize/yukicoder-306.test.cpp
   - test/search/minimize/yukicoder-198.test.cpp
+  - test/search/minimize/yukicoder-306.test.cpp
 documentation_of: search/minimize.cpp
 layout: document
 redirect_from:

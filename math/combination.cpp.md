@@ -411,7 +411,9 @@ data:
     \         finv[i] = finv[i - 1] * inv[i] % MOD;\n        }\n    };\n\n    long\
     \ long operator() (long long n, long long k) {\n        if (n < k) return 0;\n\
     \        if (n < 0 || k < 0) return 0;\n        return fac[n] * (finv[k] * finv[n\
-    \ - k] % MOD) % MOD;\n    }\n};\n"
+    \ - k] % MOD) % MOD;\n    }\n    \n    long long com_inv(long long n, long long\
+    \ k) {\n        if (n < k) return 0;\n        if (n < 0 || k < 0) return 0;\n\
+    \        return finv[n] * (fac[k] * fac[n - k] % MOD) % MOD; \n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate<long long MOD = 998244353,\
     \ long long MAX = 510000>\nstruct Combination {\n    vector<long long> fac, finv,\
     \ inv;\n\n    Combination() : fac(MAX), finv(MAX), inv(MAX) {\n        fac[0]\
@@ -421,17 +423,19 @@ data:
     \ = finv[i - 1] * inv[i] % MOD;\n        }\n    };\n\n    long long operator()\
     \ (long long n, long long k) {\n        if (n < k) return 0;\n        if (n <\
     \ 0 || k < 0) return 0;\n        return fac[n] * (finv[k] * finv[n - k] % MOD)\
-    \ % MOD;\n    }\n};"
+    \ % MOD;\n    }\n    \n    long long com_inv(long long n, long long k) {\n   \
+    \     if (n < k) return 0;\n        if (n < 0 || k < 0) return 0;\n        return\
+    \ finv[n] * (fac[k] * fac[n - k] % MOD) % MOD; \n    }\n};"
   dependsOn:
   - base.cpp
   isVerificationFile: false
   path: math/combination.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:03:13+09:00'
+  timestamp: '2025-11-16 17:42:30+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/math/combination/atcoder-abc172-e.test.cpp
   - test/math/combination/atcoder-abc358-e.test.cpp
+  - test/math/combination/atcoder-abc172-e.test.cpp
   - test/math/permutation/atcoder-abc172-e.test.cpp
 documentation_of: math/combination.cpp
 layout: document

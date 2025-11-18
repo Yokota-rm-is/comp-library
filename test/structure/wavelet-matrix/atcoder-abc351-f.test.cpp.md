@@ -602,66 +602,69 @@ data:
     \        }\n\n        return ret;\n    }\n\n    // v[0, pos)\u3067val\u3088\u308A\
     \u5927\u304D\u3044\u5024\u306E\u6570\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CF\
     : O(log(bit_size))\n    ull count_more_than(ull pos, T val) {\n        assert(pos\
-    \ <= N);\n        return count_more_than(0, pos, val);\n    }\n\n    // v[l, r)\u3067\
-    [lower, upper)\u306B\u5165\u308B\u5024\u306E\u500B\u6570\u3092\u8FD4\u3059\n \
-    \   ull count_in_range(ull l, ull r, T lower, T upper) {\n        assert(l <=\
-    \ r and r <= N and lower <= upper);\n        if (l == r) return 0;\n        if\
-    \ (lower == upper) return 0;\n\n        return count_less_than(l, r, upper) -\
-    \ count_less_than(l, r, lower);\n    }\n\n    // v[l, r)\u3067\u983B\u5EA6\u304C\
-    \u9AD8\u3044\u9806\u306Bk\u500B\u306E(\u5024\uFF0C\u983B\u5EA6)\u3092\u8FD4\u3059\
-    \n    // \u8A08\u7B97\u91CF: O(min(r - l, k)log(bit_size) * {priority_queue\u306E\
-    log})\n    // priority_queue\u306Elog\u304C\u91CD\u305D\u3046\n    vector<pair<T,\
-    \ ull>> top_k(ull l, ull r, ull k) {\n        // (\u983B\u5EA6\uFF0C\u6DF1\u3055\
-    \uFF0C\u5024)\u306E\u9806\u3067\u30BD\u30FC\u30C8\n        auto comp = [](const\
-    \ tuple<ull, ull, ull, ull, T> &left, const tuple<ull, ull, ull, ull, T> &right)\
-    \ {\n            // width\n            if (get<0>(left) != get<0>(right)) {\n\
-    \                return get<0>(left) < get<0>(right);\n            }\n       \
-    \     // depth\n            if (get<3>(left) != get<3>(right)) {\n           \
-    \     return get<3>(left) > get<3>(right);\n            }\n            // value\n\
-    \            if (get<4>(left) != get<4>(right)) {\n                return get<4>(left)\
-    \ > get<4>(right);\n            }\n            return true;\n        };\n\n  \
-    \      return top_k(l, r, k, comp);\n    }\n\n    // v[l, r)\u3067\u5024\u304C\
-    \u5927\u304D\u3044\u9806\u306Bk\u500B\u306E(\u5024\uFF0C\u983B\u5EA6)\u3092\u8FD4\
-    \u3059\n    // \u8A08\u7B97\u91CF: O(min(r - l, k)log(bit_size) * {priority_queue\u306E\
-    log})\n    // priority_queue\u306Elog\u304C\u91CD\u305D\u3046\n    vector<pair<T,\
-    \ ull>> max_k(ull l, ull r, ull k) {\n        // (\u5024\uFF0C\u983B\u5EA6)\u306E\
-    \u9806\u3067\u30BD\u30FC\u30C8\n        auto comp = [](const tuple<ull, ull, ull,\
-    \ ull, T> &left, const tuple<ull, ull, ull, ull, T> &right) {\n            //\
-    \ value\n            if (get<4>(left) != get<4>(right)) {\n                return\
-    \ get<4>(left) < get<4>(right);\n            }\n            // width\n       \
-    \     if (get<0>(left) != get<0>(right)) {\n                return get<0>(left)\
+    \ <= N);\n        return count_more_than(0, pos, val);\n    }\n\n    ull count_less_than_or_equal(ull\
+    \ l, ull r, T val) {\n        return r - l - count_more_than(l, r, val);\n   \
+    \ }\n\n    ull count_more_than_or_equal(ull l, ull r, T val) {\n        return\
+    \ r - l - count_less_than(l, r, val);\n    }\n\n    // v[l, r)\u3067[lower, upper)\u306B\
+    \u5165\u308B\u5024\u306E\u500B\u6570\u3092\u8FD4\u3059\n    ull count_in_range(ull\
+    \ l, ull r, T lower, T upper) {\n        assert(l <= r and r <= N and lower <=\
+    \ upper);\n        if (l == r) return 0;\n        if (lower == upper) return 0;\n\
+    \n        return count_less_than(l, r, upper) - count_less_than(l, r, lower);\n\
+    \    }\n\n    // v[l, r)\u3067\u983B\u5EA6\u304C\u9AD8\u3044\u9806\u306Bk\u500B\
+    \u306E(\u5024\uFF0C\u983B\u5EA6)\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CF\
+    : O(min(r - l, k)log(bit_size) * {priority_queue\u306Elog})\n    // priority_queue\u306E\
+    log\u304C\u91CD\u305D\u3046\n    vector<pair<T, ull>> top_k(ull l, ull r, ull\
+    \ k) {\n        // (\u983B\u5EA6\uFF0C\u6DF1\u3055\uFF0C\u5024)\u306E\u9806\u3067\
+    \u30BD\u30FC\u30C8\n        auto comp = [](const tuple<ull, ull, ull, ull, T>\
+    \ &left, const tuple<ull, ull, ull, ull, T> &right) {\n            // width\n\
+    \            if (get<0>(left) != get<0>(right)) {\n                return get<0>(left)\
     \ < get<0>(right);\n            }\n            // depth\n            if (get<3>(left)\
     \ != get<3>(right)) {\n                return get<3>(left) > get<3>(right);\n\
-    \            }\n            return true;\n        };\n\n        return top_k(l,\
-    \ r, k, comp);\n    }\n\n    // v[l, r)\u3067\u5024\u304C\u5C0F\u3055\u3044\u9806\
-    \u306Bk\u500B\u306E(\u5024\uFF0C\u983B\u5EA6)\u3092\u8FD4\u3059\n    // \u8A08\
-    \u7B97\u91CF: O(min(r - l, k)log(bit_size) * {priority_queue\u306Elog})\n    //\
-    \ priority_queue\u306Elog\u304C\u91CD\u305D\u3046\n    vector<pair<T, ull>> min_k(ull\
-    \ l, ull r, ull k) {\n        // (\u5024\uFF0C\u983B\u5EA6)\u306E\u9806\u3067\u30BD\
-    \u30FC\u30C8\n        auto comp = [](const tuple<ull, ull, ull, ull, T> &left,\
-    \ const tuple<ull, ull, ull, ull, T> &right) {\n            // value\n       \
-    \     if (get<4>(left) != get<4>(right)) {\n                return get<4>(left)\
-    \ > get<4>(right);\n            }\n            // width\n            if (get<0>(left)\
-    \ != get<0>(right)) {\n                return get<0>(left) < get<0>(right);\n\
-    \            }\n            // depth\n            if (get<3>(left) != get<3>(right))\
-    \ {\n                return get<3>(left) > get<3>(right);\n            }\n   \
+    \            }\n            // value\n            if (get<4>(left) != get<4>(right))\
+    \ {\n                return get<4>(left) > get<4>(right);\n            }\n   \
     \         return true;\n        };\n\n        return top_k(l, r, k, comp);\n \
-    \   }\n\n    // T[l, r)\u3067\u51FA\u73FE\u56DE\u6570\u304C\u591A\u3044\u9806\u306B\
-    k\u500B\u306E(\u5024\uFF0C\u983B\u5EA6)\u3092\u8FD4\u3059\n    // \u983B\u5EA6\
-    \u304C\u540C\u3058\u5834\u5408\u306F\u5024\u304C\u5C0F\u3055\u3044\u3082\u306E\
-    \u304C\u512A\u5148\u3055\u308C\u308B\n    // \u8A08\u7B97\u91CF: O(min(r - l,\
-    \ k)log(bit_size) * {priority_queue\u306Elog})\n    // priority_queue\u306Elog\u304C\
-    \u91CD\u305D\u3046\n    vector<pair<T, ull>> top_k(ull l, ull r, ull k, auto comp)\
-    \ {\n        assert(l <= r and r <= N);\n        vector<pair<T, ull>> result;\n\
-    \n        priority_queue<tuple<ull, ull, ull, ull, T>, vector<tuple<ull, ull,\
-    \ ull, ull, T>>, decltype(comp)> que(comp);  // width, height, value, left, right\n\
-    \        que.emplace(r - l, l, r, 0, 0);\n\n        while (!que.empty()) {\n \
-    \           auto element = que.top(); que.pop();\n            ull width, left,\
-    \ right, depth;\n            T value;\n            tie(width, left, right, depth,\
-    \ value) = element;\n\n            if (depth >= bit_size) {\n                result.emplace_back(value,\
-    \ right - left);\n                if (result.size() >= k) break;\n           \
-    \     \n                continue;\n            }\n\n            ull height = bit_size\
-    \ - depth - 1;\n\n            // 0\n            const ull left0 = bit_vectors[height].rank(0,\
+    \   }\n\n    // v[l, r)\u3067\u5024\u304C\u5927\u304D\u3044\u9806\u306Bk\u500B\
+    \u306E(\u5024\uFF0C\u983B\u5EA6)\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CF\
+    : O(min(r - l, k)log(bit_size) * {priority_queue\u306Elog})\n    // priority_queue\u306E\
+    log\u304C\u91CD\u305D\u3046\n    vector<pair<T, ull>> max_k(ull l, ull r, ull\
+    \ k) {\n        // (\u5024\uFF0C\u983B\u5EA6)\u306E\u9806\u3067\u30BD\u30FC\u30C8\
+    \n        auto comp = [](const tuple<ull, ull, ull, ull, T> &left, const tuple<ull,\
+    \ ull, ull, ull, T> &right) {\n            // value\n            if (get<4>(left)\
+    \ != get<4>(right)) {\n                return get<4>(left) < get<4>(right);\n\
+    \            }\n            // width\n            if (get<0>(left) != get<0>(right))\
+    \ {\n                return get<0>(left) < get<0>(right);\n            }\n   \
+    \         // depth\n            if (get<3>(left) != get<3>(right)) {\n       \
+    \         return get<3>(left) > get<3>(right);\n            }\n            return\
+    \ true;\n        };\n\n        return top_k(l, r, k, comp);\n    }\n\n    // v[l,\
+    \ r)\u3067\u5024\u304C\u5C0F\u3055\u3044\u9806\u306Bk\u500B\u306E(\u5024\uFF0C\
+    \u983B\u5EA6)\u3092\u8FD4\u3059\n    // \u8A08\u7B97\u91CF: O(min(r - l, k)log(bit_size)\
+    \ * {priority_queue\u306Elog})\n    // priority_queue\u306Elog\u304C\u91CD\u305D\
+    \u3046\n    vector<pair<T, ull>> min_k(ull l, ull r, ull k) {\n        // (\u5024\
+    \uFF0C\u983B\u5EA6)\u306E\u9806\u3067\u30BD\u30FC\u30C8\n        auto comp = [](const\
+    \ tuple<ull, ull, ull, ull, T> &left, const tuple<ull, ull, ull, ull, T> &right)\
+    \ {\n            // value\n            if (get<4>(left) != get<4>(right)) {\n\
+    \                return get<4>(left) > get<4>(right);\n            }\n       \
+    \     // width\n            if (get<0>(left) != get<0>(right)) {\n           \
+    \     return get<0>(left) < get<0>(right);\n            }\n            // depth\n\
+    \            if (get<3>(left) != get<3>(right)) {\n                return get<3>(left)\
+    \ > get<3>(right);\n            }\n            return true;\n        };\n\n  \
+    \      return top_k(l, r, k, comp);\n    }\n\n    // T[l, r)\u3067\u51FA\u73FE\
+    \u56DE\u6570\u304C\u591A\u3044\u9806\u306Bk\u500B\u306E(\u5024\uFF0C\u983B\u5EA6\
+    )\u3092\u8FD4\u3059\n    // \u983B\u5EA6\u304C\u540C\u3058\u5834\u5408\u306F\u5024\
+    \u304C\u5C0F\u3055\u3044\u3082\u306E\u304C\u512A\u5148\u3055\u308C\u308B\n   \
+    \ // \u8A08\u7B97\u91CF: O(min(r - l, k)log(bit_size) * {priority_queue\u306E\
+    log})\n    // priority_queue\u306Elog\u304C\u91CD\u305D\u3046\n    vector<pair<T,\
+    \ ull>> top_k(ull l, ull r, ull k, auto comp) {\n        assert(l <= r and r <=\
+    \ N);\n        vector<pair<T, ull>> result;\n\n        priority_queue<tuple<ull,\
+    \ ull, ull, ull, T>, vector<tuple<ull, ull, ull, ull, T>>, decltype(comp)> que(comp);\
+    \  // width, height, value, left, right\n        que.emplace(r - l, l, r, 0, 0);\n\
+    \n        while (!que.empty()) {\n            auto element = que.top(); que.pop();\n\
+    \            ull width, left, right, depth;\n            T value;\n          \
+    \  tie(width, left, right, depth, value) = element;\n\n            if (depth >=\
+    \ bit_size) {\n                result.emplace_back(value, right - left);\n   \
+    \             if (result.size() >= k) break;\n                \n             \
+    \   continue;\n            }\n\n            ull height = bit_size - depth - 1;\n\
+    \n            // 0\n            const ull left0 = bit_vectors[height].rank(0,\
     \ left);\n            const ull right0 = bit_vectors[height].rank(0, right);\n\
     \            if (left0 < right0) {\n                que.emplace(right0 - left0,\
     \ left0, right0, depth + 1, value);\n            }\n\n            // 1\n     \
@@ -826,7 +829,7 @@ data:
   isVerificationFile: true
   path: test/structure/wavelet-matrix/atcoder-abc351-f.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 20:10:47+09:00'
+  timestamp: '2025-11-16 21:49:16+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/wavelet-matrix/atcoder-abc351-f.test.cpp

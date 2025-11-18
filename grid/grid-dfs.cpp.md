@@ -709,8 +709,8 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/grid/grid-dfs/atcoder-abc334-e.test.cpp
-  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
   - test/grid/grid-dfs/atcoder-abc335-d.test.cpp
+  - test/grid/grid-dfs/atcoder-atc001-a.test.cpp
 documentation_of: grid/grid-dfs.cpp
 layout: document
 redirect_from:

@@ -492,11 +492,11 @@ data:
     \     os << tree.get<false>(i) << \" \";\n        }\n        return os;\n    }\n\
     };\n#line 3 \"other/cumulative-sum.cpp\"\n\ntemplate<typename T>\nstruct CumulativeSum\
     \ : vector<T> {\n    using v = vector<T>;\n\n    CumulativeSum() : vector<T>()\
-    \ {};\n\n    CumulativeSum(vector<T>& A) {\n        v::assign(A.size(), 0);\n\
-    \        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
-    \ > 0);\n\n        v::at(0) = A[0];\n        rep(i, 1, A.size()) {\n         \
-    \   v::at(i) = A[i] + v::at(i - 1);\n        }\n    }\n\n    void push_back(T\
-    \ x) {\n        if (v::size() == 0) v::push_back(x);\n        else v::push_back(v::back()\
+    \ {};\n\n    CumulativeSum(vector<T>& A) {\n        init(A);\n    };\n\n    void\
+    \ init(vector<T>& A) {\n        assert(A.size() > 0);\n\n        v::assign(A.size(),\
+    \ 0);\n        v::at(0) = A[0];\n        rep(i, 1, A.size()) {\n            v::at(i)\
+    \ = A[i] + v::at(i - 1);\n        }\n    }\n\n    void push_back(T x) {\n    \
+    \    if (v::size() == 0) v::push_back(x);\n        else v::push_back(v::back()\
     \ + x);\n    }\n\n    void pop_back() {\n        v::pop_back();\n    }\n\n   \
     \ // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\u548C\u3092\u6C42\u3081\u308B\n\
     \    T sum(long long l, long long r) {\n        assert(0 <= l and l <= r and r\
@@ -530,7 +530,7 @@ data:
   isVerificationFile: true
   path: test/structure/rotatable-binary-indexed-tree/atcoder-abc367-d.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:28:01+09:00'
+  timestamp: '2025-05-21 13:36:19+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/structure/rotatable-binary-indexed-tree/atcoder-abc367-d.test.cpp

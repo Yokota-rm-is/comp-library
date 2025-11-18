@@ -707,8 +707,8 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
   - test/grid/grid-unionfind/atcoder-abc300-c.test.cpp
+  - test/grid/grid-unionfind/atcoder-abc325-c.test.cpp
   - test/grid/grid-unionfind/atcoder-atc001-a.test.cpp
 documentation_of: grid/grid-unionfind.cpp
 layout: document

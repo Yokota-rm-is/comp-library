@@ -458,8 +458,8 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
   - test/other/pattern-cumulative-sum/atocoder-abc331-d.test.cpp
+  - test/other/pattern-cumulative-sum/atocoder-abc354-d.test.cpp
 documentation_of: other/pattern-cumulative-sum.cpp
 layout: document
 redirect_from:

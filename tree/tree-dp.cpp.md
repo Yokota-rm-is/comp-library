@@ -680,11 +680,11 @@ data:
   timestamp: '2025-03-23 18:03:13+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
-  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
+  - test/tree/tree-dp/aoj-1595.test.cpp
   - test/tree/tree-dp/atcoder-abc220-f.test.cpp
+  - test/tree/tree-dp/aoj-grl-5-b.test.cpp
   - test/tree/tree-dp/atcoder-abc348-e.test.cpp
   - test/tree/tree-dp/aoj-grl-5-a.test.cpp
-  - test/tree/tree-dp/aoj-1595.test.cpp
 documentation_of: tree/tree-dp.cpp
 layout: document
 redirect_from:

@@ -396,75 +396,87 @@ data:
     \    return result;\n}\n#line 3 \"other/rotatable-vector-2d.cpp\"\n\ntemplate\
     \ <typename T>\nstruct RotatableVector2D {\n    vector<vector<T>> original;\n\
     \    long long H, W;\n    pair<long long, long long> offset;\n\n    RotatableVector2D(long\
-    \ long h, long long w) : original(h, vector<T>(w)), H(h), W(w), offset(0, 0) {}\n\
-    \    RotatableVector2D(vector<vector<T>> v) : original(v), H(v.size()), W(v[0].size()),\
-    \ offset(0, 0) {}\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\
-    \u3092x\u6E1B\u3089\u3059\n    // \u4F8B: rotate_left(1) \u3067 vec[0][0]\u304C\
-    original[0][1]\u3092\u6307\u3059\n    // (original[0][1]\u3092vec[0][0]\u306B\u79FB\
-    \u52D5(\u5DE6\u56DE\u8EE2))\n    pair<long long, long long> rotate_left(long long\
-    \ x = 1) {\n        assert(x >= 0);\n        offset.second += x;\n        offset.second\
-    \ %= W;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\
-    \u306Eindex\u306E\u5024\u3092x\u5897\u3084\u3059\n    // \u4F8B: rotate_right(1)\
-    \ \u3067 vec[0][1]\u304Coriginal[0][0]\u3092\u6307\u3059\n    // (original[0][0]\u3092\
-    vec[0][1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2))\n    pair<long long, long long>\
-    \ rotate_right(long long x = 1) {\n        assert(x >= 0);\n        offset.second\
-    \ += W - (x % W);\n        offset.second %= W;\n        return offset;\n    }\n\
-    \n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092y\u6E1B\u3089\
-    \u3059\n    // \u4F8B: rotate_up(1) \u3067 vec[0][0]\u304Coriginal[1][0]\u3092\
-    \u6307\u3059\n    // (original[1][0]\u3092vec[0][0]\u306B\u79FB\u52D5(\u4E0A\u56DE\
-    \u8EE2))\n    pair<long long, long long> rotate_up(long long y = 1) {\n      \
-    \  assert(y >= 0);\n        offset.first += y;\n        offset.first %= H;\n \
+    \ long h, long long w, T a = T()) : original(h, vector<T>(w, a)), H(h), W(w),\
+    \ offset(0, 0) {}\n    RotatableVector2D(vector<vector<T>> v) : original(v), H(v.size()),\
+    \ W(v[0].size()), offset(0, 0) {}\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306E\
+    index\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // original\n    // i\\j 0, 1,\
+    \ 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1, 8, 2, 8 <- rotate\
+    \ left \n    // 2   1, 4, 1, 4, 2, 1\n    // \n    // i\\j 0, 1, 2, 3, 4, 5\n\
+    \    // 0   1, 4, 1, 5, 9\n    // 1   7, 1, 8, 2, 8\n    // 2   4, 1, 4, 2, 1\
+    \ \n    pair<long long, long long> rotate_left(long long x = 1) {\n        assert(x\
+    \ >= 0);\n        offset.second += W - (x % W);\n        offset.second %= W;\n\
+    \        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306E\
+    index\u306E\u5024\u3092x\u5897\u3084\u3059\n    // original\n    // i\\j 0, 1,\
+    \ 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1, 8, 2, 8 -> rotate\
+    \ right\n    // 2   1, 4, 1, 4, 2, 1\n    //\n    // i\\j 0, 1, 2, 3, 4, 5\n \
+    \   // 0    , 3, 1, 4, 1, 5\n    // 1    , 2, 7, 1, 8, 2\n    // 2    , 1, 4,\
+    \ 1, 4, 2\n    pair<long long, long long> rotate_right(long long x = 1) {\n  \
+    \      assert(x >= 0);\n        offset.second += x;\n        offset.second %=\
+    \ W;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306E\
+    index\u306E\u5024\u3092y\u6E1B\u3089\u3059\n    // original\n    // i\\j 0, 1,\
+    \ 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1, 8, 2, 8\n    //\
+    \ 2   1, 4, 1, 4, 2, 1,\n    //        ^ rotate up\n    // \n    // i\\j 0, 1,\
+    \ 2, 3, 4, 5\n    // 0   2, 7, 1, 8, 2, 8\n    // 1   1, 4, 1, 4, 2, 1\n    //\
+    \ 2   \n    pair<long long, long long> rotate_up(long long y = 1) {\n        assert(y\
+    \ >= 0);\n        offset.first += H - (y % H);\n        offset.first %= H;\n \
     \       return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\
-    \u5024\u3092y\u5897\u3084\u3059\n    // \u4F8B: rotate_down(1) \u3067 vec[1][0]\u304C\
-    original[0][0]\u3092\u6307\u3059\n    // (original[0][0]\u3092vec[1][0]\u306B\u79FB\
-    \u52D5(\u4E0B\u56DE\u8EE2))\n    pair<long long, long long> rotate_down(long long\
-    \ y = 1) {\n        assert(y >= 0);\n        offset.first += H - (y % H);\n  \
-    \      offset.first %= H;\n        return offset;\n    }\n\n    T& operator()(long\
-    \ long y, long long x) {\n        y += offset.first;\n        x += offset.second;\n\
-    \        y %= H;\n        x %= W;\n        return original[y][x];\n    }\n\n \
-    \   const T& operator()(long long y, long long x) const {\n        y += offset.first;\n\
-    \        x += offset.second;\n        y %= H;\n        x %= W;\n        return\
-    \ original[y][x];\n    }\n\n    T get(long long y, long long x) const {\n    \
-    \    return this->operator()(y, x);\n    }\n\n    void dump() {\n        cerr\
-    \ << \"offset: \" << offset << endl;\n        cerr << \"original: \";\n      \
-    \  rep(i, H) {\n            rep(j, W) cerr << original[i][j] << \" \";\n     \
-    \       cerr << endl;\n        }\n        cerr << \"rotated: \";\n        rep(i,\
-    \ H) {\n            rep(j, W) cerr << get(i, j) << \" \";\n            cerr <<\
-    \ endl;\n        }\n    }\n\n    friend ostream& operator<<(ostream& os, const\
-    \ RotatableVector2D<T>& v) {\n        rep(i, v.H) {\n            rep(j, v.W) os\
-    \ << v.get(i, j) << (j == v.W - 1 ? \"\" : \" \");\n            os << endl;\n\
-    \        }\n        return os;\n    }\n};\n"
+    \u5024\u3092y\u5897\u3084\u3059\n    // original\n    // i\\j 0, 1, 2, 3, 4, 5\n\
+    \    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1, 8, 2, 8\n    // 2   1, 4, 1,\
+    \ 4, 2, 1\n    //        v rotate down\n    //\n    // i\\j 0, 1, 2, 3, 4, 5\n\
+    \    // 0   \n    // 1   3, 1, 4, 1, 5, 9\n    // 2   2, 7, 1, 8, 2, 8\n    pair<long\
+    \ long, long long> rotate_down(long long y = 1) {\n        assert(y >= 0);\n \
+    \       offset.first += y;\n        offset.first %= H;\n        return offset;\n\
+    \    }\n\n    T& operator()(long long y, long long x) {\n        y += H - offset.first;\n\
+    \        x += W - offset.second;\n        y %= H;\n        x %= W;\n        return\
+    \ original[y][x];\n    }\n\n    const T& operator()(long long y, long long x)\
+    \ const {\n        y += H - offset.first;\n        x += W - offset.second;\n \
+    \       y %= H;\n        x %= W;\n        return original[y][x];\n    }\n\n  \
+    \  T get(long long y, long long x) const {\n        return this->operator()(y,\
+    \ x);\n    }\n\n    void dump() {\n        cerr << \"offset: \" << offset << endl;\n\
+    \        cerr << \"original: \";\n        rep(i, H) {\n            rep(j, W) cerr\
+    \ << original[i][j] << \" \";\n            cerr << endl;\n        }\n        cerr\
+    \ << \"rotated: \";\n        rep(i, H) {\n            rep(j, W) cerr << get(i,\
+    \ j) << \" \";\n            cerr << endl;\n        }\n    }\n\n    friend ostream&\
+    \ operator<<(ostream& os, const RotatableVector2D<T>& v) {\n        rep(i, v.H)\
+    \ {\n            rep(j, v.W) os << v.get(i, j) << (j == v.W - 1 ? \"\" : \" \"\
+    );\n            os << endl;\n        }\n        return os;\n    }\n};\n"
   code: "#pragma once\n#include \"../base.cpp\"\n\ntemplate <typename T>\nstruct RotatableVector2D\
     \ {\n    vector<vector<T>> original;\n    long long H, W;\n    pair<long long,\
-    \ long long> offset;\n\n    RotatableVector2D(long long h, long long w) : original(h,\
-    \ vector<T>(w)), H(h), W(w), offset(0, 0) {}\n    RotatableVector2D(vector<vector<T>>\
+    \ long long> offset;\n\n    RotatableVector2D(long long h, long long w, T a =\
+    \ T()) : original(h, vector<T>(w, a)), H(h), W(w), offset(0, 0) {}\n    RotatableVector2D(vector<vector<T>>\
     \ v) : original(v), H(v.size()), W(v[0].size()), offset(0, 0) {}\n\n    // \u53C2\
     \u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092x\u6E1B\u3089\u3059\n   \
-    \ // \u4F8B: rotate_left(1) \u3067 vec[0][0]\u304Coriginal[0][1]\u3092\u6307\u3059\
-    \n    // (original[0][1]\u3092vec[0][0]\u306B\u79FB\u52D5(\u5DE6\u56DE\u8EE2))\n\
-    \    pair<long long, long long> rotate_left(long long x = 1) {\n        assert(x\
-    \ >= 0);\n        offset.second += x;\n        offset.second %= W;\n        return\
-    \ offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\
-    \u3092x\u5897\u3084\u3059\n    // \u4F8B: rotate_right(1) \u3067 vec[0][1]\u304C\
-    original[0][0]\u3092\u6307\u3059\n    // (original[0][0]\u3092vec[0][1]\u306B\u79FB\
-    \u52D5(\u53F3\u56DE\u8EE2))\n    pair<long long, long long> rotate_right(long\
+    \ // original\n    // i\\j 0, 1, 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n   \
+    \ // 1   2, 7, 1, 8, 2, 8 <- rotate left \n    // 2   1, 4, 1, 4, 2, 1\n    //\
+    \ \n    // i\\j 0, 1, 2, 3, 4, 5\n    // 0   1, 4, 1, 5, 9\n    // 1   7, 1, 8,\
+    \ 2, 8\n    // 2   4, 1, 4, 2, 1 \n    pair<long long, long long> rotate_left(long\
     \ long x = 1) {\n        assert(x >= 0);\n        offset.second += W - (x % W);\n\
     \        offset.second %= W;\n        return offset;\n    }\n\n    // \u53C2\u7167\
-    \u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092y\u6E1B\u3089\u3059\n    // \u4F8B\
-    : rotate_up(1) \u3067 vec[0][0]\u304Coriginal[1][0]\u3092\u6307\u3059\n    //\
-    \ (original[1][0]\u3092vec[0][0]\u306B\u79FB\u52D5(\u4E0A\u56DE\u8EE2))\n    pair<long\
-    \ long, long long> rotate_up(long long y = 1) {\n        assert(y >= 0);\n   \
-    \     offset.first += y;\n        offset.first %= H;\n        return offset;\n\
-    \    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092y\u5897\
-    \u3084\u3059\n    // \u4F8B: rotate_down(1) \u3067 vec[1][0]\u304Coriginal[0][0]\u3092\
-    \u6307\u3059\n    // (original[0][0]\u3092vec[1][0]\u306B\u79FB\u52D5(\u4E0B\u56DE\
-    \u8EE2))\n    pair<long long, long long> rotate_down(long long y = 1) {\n    \
-    \    assert(y >= 0);\n        offset.first += H - (y % H);\n        offset.first\
-    \ %= H;\n        return offset;\n    }\n\n    T& operator()(long long y, long\
-    \ long x) {\n        y += offset.first;\n        x += offset.second;\n       \
-    \ y %= H;\n        x %= W;\n        return original[y][x];\n    }\n\n    const\
-    \ T& operator()(long long y, long long x) const {\n        y += offset.first;\n\
-    \        x += offset.second;\n        y %= H;\n        x %= W;\n        return\
+    \u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092x\u5897\u3084\u3059\n    // original\n\
+    \    // i\\j 0, 1, 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1,\
+    \ 8, 2, 8 -> rotate right\n    // 2   1, 4, 1, 4, 2, 1\n    //\n    // i\\j 0,\
+    \ 1, 2, 3, 4, 5\n    // 0    , 3, 1, 4, 1, 5\n    // 1    , 2, 7, 1, 8, 2\n  \
+    \  // 2    , 1, 4, 1, 4, 2\n    pair<long long, long long> rotate_right(long long\
+    \ x = 1) {\n        assert(x >= 0);\n        offset.second += x;\n        offset.second\
+    \ %= W;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\
+    \u306Eindex\u306E\u5024\u3092y\u6E1B\u3089\u3059\n    // original\n    // i\\\
+    j 0, 1, 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1, 8, 2, 8\n\
+    \    // 2   1, 4, 1, 4, 2, 1,\n    //        ^ rotate up\n    // \n    // i\\\
+    j 0, 1, 2, 3, 4, 5\n    // 0   2, 7, 1, 8, 2, 8\n    // 1   1, 4, 1, 4, 2, 1\n\
+    \    // 2   \n    pair<long long, long long> rotate_up(long long y = 1) {\n  \
+    \      assert(y >= 0);\n        offset.first += H - (y % H);\n        offset.first\
+    \ %= H;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\
+    \u306Eindex\u306E\u5024\u3092y\u5897\u3084\u3059\n    // original\n    // i\\\
+    j 0, 1, 2, 3, 4, 5\n    // 0   3, 1, 4, 1, 5, 9\n    // 1   2, 7, 1, 8, 2, 8\n\
+    \    // 2   1, 4, 1, 4, 2, 1\n    //        v rotate down\n    //\n    // i\\\
+    j 0, 1, 2, 3, 4, 5\n    // 0   \n    // 1   3, 1, 4, 1, 5, 9\n    // 2   2, 7,\
+    \ 1, 8, 2, 8\n    pair<long long, long long> rotate_down(long long y = 1) {\n\
+    \        assert(y >= 0);\n        offset.first += y;\n        offset.first %=\
+    \ H;\n        return offset;\n    }\n\n    T& operator()(long long y, long long\
+    \ x) {\n        y += H - offset.first;\n        x += W - offset.second;\n    \
+    \    y %= H;\n        x %= W;\n        return original[y][x];\n    }\n\n    const\
+    \ T& operator()(long long y, long long x) const {\n        y += H - offset.first;\n\
+    \        x += W - offset.second;\n        y %= H;\n        x %= W;\n        return\
     \ original[y][x];\n    }\n\n    T get(long long y, long long x) const {\n    \
     \    return this->operator()(y, x);\n    }\n\n    void dump() {\n        cerr\
     \ << \"offset: \" << offset << endl;\n        cerr << \"original: \";\n      \
@@ -480,7 +492,7 @@ data:
   isVerificationFile: false
   path: other/rotatable-vector-2d.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:16:15+09:00'
+  timestamp: '2025-11-16 17:47:12+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: other/rotatable-vector-2d.cpp

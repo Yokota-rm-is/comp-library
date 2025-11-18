@@ -401,12 +401,13 @@ data:
     \ T, typename U> vector<pair<T, U>> to_pair(const vector<T>& vec1, const vector<U>&\
     \ vec2) {\n    size_t n = min(vec1.size(), vec2.size());\n    vector<pair<T, U>>\
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
-    \    return result;\n}\n#line 3 \"math/root-ceil.cpp\"\n\nlong long root_ceil(long\
-    \ long x, long long n) {\n    if (n == 0) return 1;\n    if (n == 1) return x;\n\
-    \n    __int128_t x_ = x;\n\n    long long left = 0, right = llround(pow((double)INF64,\
-    \ 1. / n)) + 1;\n  \n    while (right - left > 1) {\n        long long mid = (left\
-    \ + right) / 2;\n        __int128_t y = binpow<__int128_t>(mid, n);\n        if\
-    \ (y >= x_) right = mid;\n        else left = mid;\n    }\n    \n    return right;\n\
+    \    return result;\n}\n#line 3 \"math/root-ceil.cpp\"\n\nunsigned long long root_ceil(unsigned\
+    \ long long x, unsigned long long n) {\n    if (n == 0) return 1;\n    if (n ==\
+    \ 1) return x;\n\n    __uint128_t x_ = x;\n\n    unsigned long long left = 0,\
+    \ right = ceil(pow((double)numeric_limits<unsigned long long>::max(), 1. / n))\
+    \ + 1;\n  \n    while (right - left > 1) {\n        unsigned long long mid = midpoint(left,\
+    \ right);\n        __uint128_t y = binpow<__uint128_t>(mid, n);\n        if (y\
+    \ >= x_) right = mid;\n        else left = mid;\n    }\n    \n    return right;\n\
     }\n#line 4 \"test/math/root-ceil/original-root-ceil.test.cpp\"\n\nstring to_string(__int128_t\
     \ x) {\n    string ret;\n    while (x > 0) {\n        ret += (char)('0' + x %\
     \ 10);\n        x /= 10;\n    }\n    reverse(ret.begin(), ret.end());\n    return\
@@ -474,7 +475,7 @@ data:
   isVerificationFile: true
   path: test/math/root-ceil/original-root-ceil.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:08:07+09:00'
+  timestamp: '2025-05-21 13:35:39+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/math/root-ceil/original-root-ceil.test.cpp

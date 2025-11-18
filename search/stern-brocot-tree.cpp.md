@@ -564,9 +564,9 @@ data:
   timestamp: '2025-03-23 19:23:15+09:00'
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
+  - test/search/stern-brocot-tree/aoj-1208.test.cpp
   - test/search/stern-brocot-tree/atcoder-abc385-f.test.cpp
   - test/search/stern-brocot-tree/yosupo-stern-brocot-tree.test.cpp
-  - test/search/stern-brocot-tree/aoj-1208.test.cpp
 documentation_of: search/stern-brocot-tree.cpp
 layout: document
 redirect_from:

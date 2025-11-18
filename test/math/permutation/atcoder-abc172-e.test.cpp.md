@@ -416,27 +416,30 @@ data:
     \         finv[i] = finv[i - 1] * inv[i] % MOD;\n        }\n    };\n\n    long\
     \ long operator() (long long n, long long k) {\n        if (n < k) return 0;\n\
     \        if (n < 0 || k < 0) return 0;\n        return fac[n] * (finv[k] * finv[n\
-    \ - k] % MOD) % MOD;\n    }\n};\n#line 3 \"math/permutation.cpp\"\n\ntemplate<long\
-    \ long MOD = 998244353, long long MAX = 510000>\nstruct Permutation {\n    vector<long\
-    \ long> fac, finv, inv;\n\n    Permutation() : fac(MAX), finv(MAX), inv(MAX) {\n\
-    \        fac[0] = fac[1] = 1;\n        finv[0] = finv[1] = 1;\n        inv[1]\
-    \ = 1;\n        for (int i = 2; i < MAX; i++){\n            fac[i] = fac[i - 1]\
-    \ * i % MOD;\n            inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;\n   \
-    \         finv[i] = finv[i - 1] * inv[i] % MOD;\n        }\n    };\n\n    long\
-    \ long operator() (long long n, long long k) {\n        if (n < k) return 0;\n\
-    \        if (n < 0 || k < 0) return 0;\n        return fac[n] * finv[n - k] %\
-    \ MOD;\n    }\n};\n#line 3 \"math/modint.cpp\"\n\n// modint: mod \u8A08\u7B97\u3092\
-    \ int \u3092\u6271\u3046\u3088\u3046\u306B\u6271\u3048\u308B\u69CB\u9020\u4F53\
-    \ntemplate<int MOD> struct Fp {\n    long long val;\n    constexpr Fp(long long\
-    \ v = 0) noexcept : val(v % MOD) {\n        if (val < 0) val += MOD;\n    }\n\
-    \    constexpr int getmod() { return MOD; }\n    constexpr Fp operator - () const\
-    \ noexcept {\n        return val ? MOD - val : 0;\n    }\n    constexpr Fp operator\
-    \ + (const Fp& r) const noexcept { return Fp(*this) += r; }\n    constexpr Fp\
-    \ operator - (const Fp& r) const noexcept { return Fp(*this) -= r; }\n    constexpr\
-    \ Fp operator * (const Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr\
-    \ Fp operator / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr\
-    \ Fp& operator += (const Fp& r) noexcept {\n        val += r.val;\n        if\
-    \ (val >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
+    \ - k] % MOD) % MOD;\n    }\n    \n    long long com_inv(long long n, long long\
+    \ k) {\n        if (n < k) return 0;\n        if (n < 0 || k < 0) return 0;\n\
+    \        return finv[n] * (fac[k] * fac[n - k] % MOD) % MOD; \n    }\n};\n#line\
+    \ 3 \"math/permutation.cpp\"\n\ntemplate<long long MOD = 998244353, long long\
+    \ MAX = 510000>\nstruct Permutation {\n    vector<long long> fac, finv, inv;\n\
+    \n    Permutation() : fac(MAX), finv(MAX), inv(MAX) {\n        fac[0] = fac[1]\
+    \ = 1;\n        finv[0] = finv[1] = 1;\n        inv[1] = 1;\n        for (int\
+    \ i = 2; i < MAX; i++){\n            fac[i] = fac[i - 1] * i % MOD;\n        \
+    \    inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;\n            finv[i] = finv[i\
+    \ - 1] * inv[i] % MOD;\n        }\n    };\n\n    long long operator() (long long\
+    \ n, long long k) {\n        if (n < k) return 0;\n        if (n < 0 || k < 0)\
+    \ return 0;\n        return fac[n] * finv[n - k] % MOD;\n    }\n};\n#line 3 \"\
+    math/modint.cpp\"\n\n// modint: mod \u8A08\u7B97\u3092 int \u3092\u6271\u3046\u3088\
+    \u3046\u306B\u6271\u3048\u308B\u69CB\u9020\u4F53\ntemplate<int MOD> struct Fp\
+    \ {\n    long long val;\n    constexpr Fp(long long v = 0) noexcept : val(v %\
+    \ MOD) {\n        if (val < 0) val += MOD;\n    }\n    constexpr int getmod()\
+    \ { return MOD; }\n    constexpr Fp operator - () const noexcept {\n        return\
+    \ val ? MOD - val : 0;\n    }\n    constexpr Fp operator + (const Fp& r) const\
+    \ noexcept { return Fp(*this) += r; }\n    constexpr Fp operator - (const Fp&\
+    \ r) const noexcept { return Fp(*this) -= r; }\n    constexpr Fp operator * (const\
+    \ Fp& r) const noexcept { return Fp(*this) *= r; }\n    constexpr Fp operator\
+    \ / (const Fp& r) const noexcept { return Fp(*this) /= r; }\n    constexpr Fp&\
+    \ operator += (const Fp& r) noexcept {\n        val += r.val;\n        if (val\
+    \ >= MOD) val -= MOD;\n        return *this;\n    }\n    constexpr Fp& operator\
     \ -= (const Fp& r) noexcept {\n        val -= r.val;\n        if (val < 0) val\
     \ += MOD;\n        return *this;\n    }\n    constexpr Fp& operator *= (const\
     \ Fp& r) noexcept {\n        val = val * r.val % MOD;\n        return *this;\n\
@@ -485,7 +488,7 @@ data:
   isVerificationFile: true
   path: test/math/permutation/atcoder-abc172-e.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 18:03:13+09:00'
+  timestamp: '2025-11-16 17:42:30+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/math/permutation/atcoder-abc172-e.test.cpp

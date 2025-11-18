@@ -713,8 +713,8 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/structure/bit-on-wavelet-matrix/yosupo-point-add-rectangle-sum.test.cpp
-  - test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
   - test/structure/bit-on-wavelet-matrix/yosupo-rectangle-sum.test.cpp
+  - test/structure/bit-on-wavelet-matrix/aoj-dsl-2-b.test.cpp
 documentation_of: structure/bit-on-wavelet-matrix.cpp
 layout: document
 redirect_from:

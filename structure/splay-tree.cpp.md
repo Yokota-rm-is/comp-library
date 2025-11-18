@@ -863,16 +863,16 @@ data:
   verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - test/structure/splay-tree/yosupo-range-reverse-range-sum.test.cpp
-  - test/structure/splay-tree/aoj-dsl-2-b.test.cpp
-  - test/structure/splay-tree/aoj-dsl-2-a.test.cpp
-  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
-  - test/structure/splay-tree/aoj-dsl-2-g.test.cpp
-  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
-  - test/structure/splay-tree/aoj-dsl-2-f.test.cpp
   - test/structure/splay-tree/aoj-dsl-2-h.test.cpp
   - test/structure/splay-tree/aoj-dsl-2-i.test.cpp
   - test/structure/splay-tree/aoj-dsl-2-d.test.cpp
   - test/structure/splay-tree/aoj-dsl-2-e.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-f.test.cpp
+  - test/structure/splay-tree/atcoder-abc350-f.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-g.test.cpp
+  - test/structure/splay-tree/yosupo-dynamic-sequence-range-affine-range-sum.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-b.test.cpp
+  - test/structure/splay-tree/aoj-dsl-2-a.test.cpp
 documentation_of: structure/splay-tree.cpp
 layout: document
 redirect_from:

@@ -406,35 +406,34 @@ data:
     \ result(n);\n    for(size_t i = 0; i < n; ++i) result.emplace_back(vec1[i], vec2[i]);\n\
     \    return result;\n}\n#line 3 \"other/rotatable-vector.cpp\"\n\ntemplate <typename\
     \ T>\nstruct RotatableVector {\n    vector<T> original;\n    long long N, offset;\n\
-    \n    RotatableVector(long long n) : original(n), N(n), offset(0) {}\n    RotatableVector(vector<T>\
-    \ v) : original(v), N(v.size()), offset(0) {}\n\n    // \u53C2\u7167\u3059\u308B\
-    \u969B\u306Eindex\u306E\u5024\u3092x\u6E1B\u3089\u3059\n    // \u4F8B: rotate_left(1)\
-    \ \u3067 vec[0]\u304Coriginal[1]\u3092\u6307\u3059\n    // (original[1]\u3092\
-    vec[0]\u306B\u79FB\u52D5(\u5DE6\u56DE\u8EE2))\n    long long rotate_left(long\
-    \ long x = 1) {\n        assert(x >= 0);\n        offset += x;\n        offset\
-    \ %= N;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\u308B\u969B\
-    \u306Eindex\u306E\u5024\u3092x\u5897\u3084\u3059\n    // \u4F8B: rotate_right(1)\
-    \ \u3067 vec[1]\u304Coriginal[0]\u3092\u6307\u3059\n    // (original[0]\u3092\
-    vec[1]\u306B\u79FB\u52D5(\u53F3\u56DE\u8EE2))\n    long long rotate_right(long\
+    \n    RotatableVector(long long n, T a = T()) : original(n, a), N(n), offset(0)\
+    \ {}\n    RotatableVector(vector<T> v) : original(v), N(v.size()), offset(0) {}\n\
+    \n    // \u53C2\u7167\u3059\u308B\u969B\u306Eindex\u306E\u5024\u3092x\u6E1B\u3089\
+    \u3059\n    // i  : 0, 1, 2, 3, 4, 5, ...\n    // Ai : 3, 1, 4, 1, 5, 9, ... <-\
+    \ rotate left\n    // A'i: 1, 4, 1, 5, 9, 2, ...\n    long long rotate_left(long\
     \ long x = 1) {\n        assert(x >= 0);\n        offset += N - (x % N);\n   \
-    \     offset %= N;\n        return offset;\n    }\n\n    T& operator[](long long\
-    \ x) {\n        x += offset;\n        x %= N;\n        return original[x];\n \
-    \   }\n\n    const T& operator[](long long x) const {\n        x += offset;\n\
-    \        x %= N;\n        return original[x];\n    }\n\n    T get(long long x)\
-    \ const {\n        return this->operator[](x);\n    }\n\n    long long size()\
-    \ const {\n        return N;\n    }\n\n    void dump() {\n        cerr << \"offset:\
-    \ \" << offset << endl;\n        cerr << \"original: \";\n        rep(i, N) cerr\
-    \ << original[i] << \" \";\n        cerr << endl;\n        cerr << \"rotated:\
-    \ \";\n        rep(i, N) cerr << get(i) << \" \";\n        cerr << endl;\n   \
-    \ }\n\n    friend ostream& operator<<(ostream& os, const RotatableVector<T>& v)\
-    \ {\n        rep(i, v.size()) os << v.get(i) << (i == v.size() - 1 ? \"\" : \"\
-    \ \");\n        return os;\n    }\n};\n#line 3 \"other/cumulative-sum.cpp\"\n\n\
-    template<typename T>\nstruct CumulativeSum : vector<T> {\n    using v = vector<T>;\n\
+    \     offset %= N;\n        return offset;\n    }\n\n    // \u53C2\u7167\u3059\
+    \u308B\u969B\u306Eindex\u306E\u5024\u3092x\u5897\u3084\u3059\n    // i  : 0, 1,\
+    \ 2, 3, 4, 5, ...\n    // Ai : 3, 1, 4, 1, 5, 9, ... -> rotate right\n    // A'i:\
+    \  , 3, 1, 4, 1, 5, ...\n    long long rotate_right(long long x = 1) {\n     \
+    \   assert(x >= 0);\n        offset += x;\n        offset %= N;\n        return\
+    \ offset;\n    }\n\n    T& operator[](long long x) {\n        x += N - offset;\n\
+    \        x %= N;\n        return original[x];\n    }\n\n    const T& operator[](long\
+    \ long x) const {\n        x += N - offset;\n        x %= N;\n        return original[x];\n\
+    \    }\n\n    T get(long long x) const {\n        return this->operator[](x);\n\
+    \    }\n\n    long long size() const {\n        return N;\n    }\n\n    void dump()\
+    \ {\n        cerr << \"offset: \" << offset << endl;\n        cerr << \"original:\
+    \ \";\n        rep(i, N) cerr << original[i] << \" \";\n        cerr << endl;\n\
+    \        cerr << \"rotated: \";\n        rep(i, N) cerr << get(i) << \" \";\n\
+    \        cerr << endl;\n    }\n\n    friend ostream& operator<<(ostream& os, const\
+    \ RotatableVector<T>& v) {\n        rep(i, v.size()) os << v.get(i) << (i == v.size()\
+    \ - 1 ? \"\" : \" \");\n        return os;\n    }\n};\n#line 3 \"other/cumulative-sum.cpp\"\
+    \n\ntemplate<typename T>\nstruct CumulativeSum : vector<T> {\n    using v = vector<T>;\n\
     \n    CumulativeSum() : vector<T>() {};\n\n    CumulativeSum(vector<T>& A) {\n\
-    \        v::assign(A.size(), 0);\n        init(A);\n    };\n\n    void init(vector<T>&\
-    \ A) {\n        assert(A.size() > 0);\n\n        v::at(0) = A[0];\n        rep(i,\
-    \ 1, A.size()) {\n            v::at(i) = A[i] + v::at(i - 1);\n        }\n   \
-    \ }\n\n    void push_back(T x) {\n        if (v::size() == 0) v::push_back(x);\n\
+    \        init(A);\n    };\n\n    void init(vector<T>& A) {\n        assert(A.size()\
+    \ > 0);\n\n        v::assign(A.size(), 0);\n        v::at(0) = A[0];\n       \
+    \ rep(i, 1, A.size()) {\n            v::at(i) = A[i] + v::at(i - 1);\n       \
+    \ }\n    }\n\n    void push_back(T x) {\n        if (v::size() == 0) v::push_back(x);\n\
     \        else v::push_back(v::back() + x);\n    }\n\n    void pop_back() {\n \
     \       v::pop_back();\n    }\n\n    // [l, r)\u306E\u7BC4\u56F2\u306E\u533A\u9593\
     \u548C\u3092\u6C42\u3081\u308B\n    T sum(long long l, long long r) {\n      \
@@ -448,21 +447,17 @@ data:
     \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vll A(N);\n    rep(i,\
     \ N) cin >> A[i];\n    rep(i, N) A.push_back(A[i]);\n\n    vll B = CumulativeSum(A);\n\
     \n    RotatableVector<ll> rv(M, 0);\n    rep(i, N - 1) {\n        rv[B[i] % M]++;\n\
-    \    }\n\n    ll ans = 0;\n    ll offset = 0;\n    rep(i, N) {\n        ans +=\
-    \ rv[0];\n\n        rv.at(B[i] % M)--;\n        rv.at(B[i + N - 1] % M)++;\n \
-    \       // rv[(B[i] + M - offset) % M]--;\n        // rv[(B[i + N - 1] + M - offset)\
-    \ % M]++;\n        offset = rv.rotate_left(A[i]);\n    }\n\n    cout << ans <<\
-    \ endl;\n\n    return 0;\n}\n"
+    \    }\n\n    ll ans = 0;\n    rep(i, N) {\n        ans += rv[0];\n\n        rv.original[B[i]\
+    \ % M]--;\n        rv.original[B[i + N - 1] % M]++;\n        rv.rotate_left(A[i]);\n\
+    \    }\n\n    cout << ans << endl;\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://atcoder.jp/contests/abc367/tasks/abc367_d\"\n\n\
     #include \"../../../other/rotatable-vector.cpp\"\n#include \"../../../other/cumulative-sum.cpp\"\
     \n\nint main() {\n    ll N, M;\n    cin >> N >> M;\n\n    vll A(N);\n    rep(i,\
     \ N) cin >> A[i];\n    rep(i, N) A.push_back(A[i]);\n\n    vll B = CumulativeSum(A);\n\
     \n    RotatableVector<ll> rv(M, 0);\n    rep(i, N - 1) {\n        rv[B[i] % M]++;\n\
-    \    }\n\n    ll ans = 0;\n    ll offset = 0;\n    rep(i, N) {\n        ans +=\
-    \ rv[0];\n\n        rv.at(B[i] % M)--;\n        rv.at(B[i + N - 1] % M)++;\n \
-    \       // rv[(B[i] + M - offset) % M]--;\n        // rv[(B[i + N - 1] + M - offset)\
-    \ % M]++;\n        offset = rv.rotate_left(A[i]);\n    }\n\n    cout << ans <<\
-    \ endl;\n\n    return 0;\n}"
+    \    }\n\n    ll ans = 0;\n    rep(i, N) {\n        ans += rv[0];\n\n        rv.original[B[i]\
+    \ % M]--;\n        rv.original[B[i + N - 1] % M]++;\n        rv.rotate_left(A[i]);\n\
+    \    }\n\n    cout << ans << endl;\n\n    return 0;\n}"
   dependsOn:
   - other/rotatable-vector.cpp
   - base.cpp
@@ -470,7 +465,7 @@ data:
   isVerificationFile: true
   path: test/other/rotatable-vector/atcoder-abc367-d.test.cpp
   requiredBy: []
-  timestamp: '2025-03-23 19:16:15+09:00'
+  timestamp: '2025-11-16 17:47:12+09:00'
   verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: test/other/rotatable-vector/atcoder-abc367-d.test.cpp
